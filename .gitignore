@@ -1,0 +1,11 @@
+.env
+venv/
+__pycache__/
+*.pyc
+imagens_aprovadas/
+saida/
+*.mp4
+*.jpg
+*.jpeg
+*.png
+!docs/**
