@@ -84,7 +84,10 @@ def gerar_imagem_pollinations(prompt: str, tentativas: int = 3) -> bytes:
         try:
             url = (
                 f"https://image.pollinations.ai/prompt/{urllib.parse.quote(prompt)}"
-                f"?width=768&height=1344&nologo=true&safe=true"
+                # model=flux explícito: o modelo padrão deles ("sana") ficou
+                # constantemente congestionado/rate-limited em teste real
+                # (2026-09-08), flux respondeu de forma estável.
+                f"?width=768&height=1344&nologo=true&safe=true&model=flux"
             )
             resp = requests.get(url, timeout=60)
             if resp.status_code == 200 and resp.headers.get("content-type", "").startswith("image/"):
