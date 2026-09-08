@@ -73,13 +73,14 @@ def gerar_narracao(texto: str, voz: str, caminho_saida: str):
 # uma vez por vídeo (não por cena — o mesmo personagem não pode mudar de
 # tom no meio do vídeo).
 VARIANTES_PITCH = {
+    # Extremos (0.84 / 1.19) testados em 2026-09-08 e reprovados no ouvido
+    # (feedback real: "não ficou legal") -- mantendo só as variações
+    # moderadas, que soam natural.
     "normal": 1.0,
     "levemente_grave": 0.95,
     "grave": 0.90,
-    "muito_grave": 0.84,
     "levemente_aguda": 1.06,
     "aguda": 1.12,
-    "muito_aguda": 1.19,
 }
 
 
