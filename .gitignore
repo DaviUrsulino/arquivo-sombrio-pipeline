@@ -16,3 +16,4 @@ roteiro*.json
 *.jpeg
 *.png
 !docs/**
+!assets/**
