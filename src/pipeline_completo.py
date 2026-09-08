@@ -106,6 +106,38 @@ def gerar_titulo(roteiro: dict) -> str:
     return titulo[:100]
 
 
+# Hashtags por canal/formato — YouTube e TikTok usam pra indexar/recomendar
+# o vídeo pra quem já assiste esse tipo de conteúdo. Reconhece o prefixo do
+# tema (ex: "novela_mascote::...") pros formatos do canal tendencias.
+HASHTAGS_POR_CONTEXTO = {
+    "terror": ["terror", "creepypasta", "historiadeterror", "assustador", "arquivosombrio", "medo", "shorts"],
+    "true_crime": ["casoreal", "truecrime", "investigacao", "misterio", "casosreais", "shorts"],
+    "novela_mascote": ["novela", "drama", "comedia", "viral", "shorts", "fyp"],
+    "objeto_falante": ["comedia", "humor", "relatable", "engracado", "shorts", "fyp"],
+    "historia_pov": ["historia", "pov", "curiosidadeshistoricas", "vocesabia", "shorts"],
+    "curiosidade": ["curiosidades", "vocesabia", "fatosreais", "shorts", "aprenda"],
+}
+
+
+def gerar_metadados_publicacao(canal_nome: str, tema: str, roteiro: dict, nome_canal_exibicao: str) -> tuple[str, str, list[str]]:
+    """Monta título, descrição e tags — hashtags variam por formato pra
+    ajudar o algoritmo a indexar certo (ex: novela de mascote não deve
+    levar hashtag de terror, e vice-versa)."""
+    contexto = canal_nome
+    for prefixo in ("novela_mascote", "objeto_falante", "historia_pov"):
+        if tema.startswith(f"{prefixo}::"):
+            contexto = prefixo
+            break
+    else:
+        if canal_nome == "tendencias":
+            contexto = "curiosidade"
+
+    hashtags = HASHTAGS_POR_CONTEXTO.get(contexto, ["shorts"])
+    titulo = gerar_titulo(roteiro)
+    descricao = f"{nome_canal_exibicao} — " + " ".join(f"#{h}" for h in hashtags)
+    return titulo, descricao, hashtags
+
+
 # Cada CONTA (não canal) tem suas próprias credenciais de YouTube/TikTok.
 # "arquivo_sombrio" e "tendencias" são nomes de conta; terror/true_crime são
 # sub-tipos de conteúdo dentro da conta arquivo_sombrio.
@@ -188,7 +220,7 @@ def executar(canal_nome: str, tema: str | None, publicar: bool, publicar_tiktok:
         print(f"\nREPROVADO AUTOMATICAMENTE ({motivo}) — não vai publicar. Revisar em {pasta_run}/")
         return {"aprovado": False, "motivo": motivo, "pasta": pasta_run}
 
-    titulo = gerar_titulo(roteiro)
+    titulo, descricao, tags = gerar_metadados_publicacao(canal_nome, tema, roteiro, canal.NOME_CANAL)
     print(f"\nAprovado ({duracao:.1f}s). Título: {titulo}")
 
     if not publicar:
@@ -201,8 +233,7 @@ def executar(canal_nome: str, tema: str | None, publicar: bool, publicar_tiktok:
     try:
         from publicar_youtube import publicar_short
         video_id = publicar_short(
-            caminho_video, titulo, descricao=f"{canal.NOME_CANAL} #shorts",
-            tags=[canal_nome, "shorts"],
+            caminho_video, titulo, descricao=descricao, tags=tags,
             arquivo_client_secret=credenciais["youtube_client_secret"],
             arquivo_token=credenciais["youtube_token"],
         )

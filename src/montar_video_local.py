@@ -67,6 +67,32 @@ def gerar_narracao(texto: str, voz: str, caminho_saida: str):
     sf.write(caminho_saida, audio_completo, 24000)
 
 
+# Kokoro só tem 3 vozes em pt-BR (pm_alex, pm_santa, pf_dora) — pra dar mais
+# variedade percebida sem precisar de um modelo novo, aplica um leve pitch
+# shift (preservando a duração) como "variante" de cada voz base. Sorteado
+# uma vez por vídeo (não por cena — o mesmo personagem não pode mudar de
+# tom no meio do vídeo).
+VARIANTES_PITCH = {
+    "normal": 1.0,
+    "grave": 0.90,
+    "aguda": 1.12,
+}
+
+
+def aplicar_variante_pitch(caminho_audio: str, fator: float, taxa_amostragem: int = 24000):
+    """Pitch shift preservando a duração (asetrate + atempo inverso). Sem
+    efeito se fator == 1.0."""
+    if fator == 1.0:
+        return
+    caminho_tmp = caminho_audio + ".pitch.wav"
+    _rodar([
+        "ffmpeg", "-y", "-i", caminho_audio,
+        "-af", f"asetrate={taxa_amostragem * fator},aresample={taxa_amostragem},atempo={1 / fator}",
+        caminho_tmp,
+    ])
+    os.replace(caminho_tmp, caminho_audio)
+
+
 def _imagens_da_cena(pasta_imagens: str, indice: int) -> list[str]:
     """Procura cenaN_1.jpg, cenaN_2.jpg, ... Se não achar nenhuma, usa cenaN.jpg."""
     imagens = []
@@ -88,6 +114,33 @@ def _imagens_da_cena(pasta_imagens: str, indice: int) -> list[str]:
     raise FileNotFoundError(
         f"Não encontrei imagem pra cena {indice} (tentei cena{indice}_1.jpg e cena{indice}.jpg)"
     )
+
+
+FONTE_PADRAO = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+
+
+def gerar_cta_final(caminho_saida: str, duracao: float = 3.0):
+    """Tela final animada pedindo like/inscrição/sininho — fundo escuro
+    liso, texto com fade-in/fade-out. Áudio silencioso (proposital, não
+    erro) só pra manter o mesmo formato de stream dos outros clipes na
+    hora de concatenar."""
+    fps = 30
+    _rodar([
+        "ffmpeg", "-y",
+        "-f", "lavfi", "-i", f"color=c=0x14141f:s={LARGURA}x{ALTURA}:d={duracao}:r={fps}",
+        "-f", "lavfi", "-i", f"anullsrc=r=24000:cl=mono:d={duracao}",
+        "-vf",
+        (
+            f"drawtext=text='CURTA E SE INSCREVA':fontfile={FONTE_PADRAO}:fontcolor=white:"
+            f"fontsize=78:x=(w-text_w)/2:y=(h/2)-100,"
+            f"drawtext=text='E ATIVE O SININHO':fontfile={FONTE_PADRAO}:fontcolor=0xFFD700:"
+            f"fontsize=64:x=(w-text_w)/2:y=(h/2)+30,"
+            f"fade=t=in:st=0:d=0.4,fade=t=out:st={max(duracao - 0.4, 0)}:d=0.4"
+        ),
+        "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac",
+        "-shortest",
+        caminho_saida,
+    ])
 
 
 def gerar_clipe_imagem_silencioso(
@@ -284,9 +337,13 @@ def montar_video(roteiro: dict, canal, pasta_imagens: str, saida: str, sem_legen
     """Monta o vídeo final a partir do roteiro + imagens aprovadas. Retorna a
     duração total narrada (segundos) — o chamador (CLI ou pipeline
     automatizado) decide o que fazer se ficar abaixo dos 60s exigidos."""
+    import random
+
     genero_narrador = roteiro.get("genero_narrador", "masculino")
     voz = canal.VOZES_LOCAIS.get(genero_narrador, next(iter(canal.VOZES_LOCAIS.values())))
-    print(f"Narrador: {genero_narrador} (voz Kokoro: {voz})\n")
+    nome_variante = random.choice(list(VARIANTES_PITCH.keys()))
+    fator_pitch = VARIANTES_PITCH[nome_variante]
+    print(f"Narrador: {genero_narrador} (voz Kokoro: {voz}, variante: {nome_variante})\n")
 
     with tempfile.TemporaryDirectory() as pasta_tmp:
         caminho_sfx = os.path.join(pasta_tmp, "whoosh.wav")
@@ -300,6 +357,7 @@ def montar_video(roteiro: dict, canal, pasta_imagens: str, saida: str, sem_legen
             print(f"Cena {i}: gerando narração ({len(imagens)} imagem(ns))...")
             caminho_audio = os.path.join(pasta_tmp, f"audio{i}.wav")
             gerar_narracao(cena["narracao"], voz, caminho_audio)
+            aplicar_variante_pitch(caminho_audio, fator_pitch)
             duracao = _duracao_segundos(caminho_audio)
             duracao_total += duracao
 
@@ -313,6 +371,11 @@ def montar_video(roteiro: dict, canal, pasta_imagens: str, saida: str, sem_legen
                 f"\nAVISO: narração total ficou em {duracao_total:.1f}s — abaixo dos 60s exigidos "
                 "pra monetização no TikTok. O roteiro precisa de cenas mais longas.\n"
             )
+
+        print("Montando tela final (curta e se inscreva)...")
+        caminho_cta = os.path.join(pasta_tmp, "cta_final.mp4")
+        gerar_cta_final(caminho_cta)
+        clipes.append(caminho_cta)
 
         print("Concatenando cenas...")
         caminho_bruto = os.path.join(pasta_tmp, "bruto.mp4")
