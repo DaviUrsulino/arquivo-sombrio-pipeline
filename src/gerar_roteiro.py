@@ -92,6 +92,45 @@ def _gerar_roteiro_openrouter(tema: str, canal) -> dict:
     raise RuntimeError(f"Gemini e todos os modelos do OpenRouter falharam. Último erro: {ultimo_erro}")
 
 
+# Modelos do Mistral (La Plateforme) — free tier com cota de tokens/mês bem
+# maior que o OpenRouter (~1 bilhão de tokens/mês vs 50 req/dia), usado como
+# terceira camada pra não sobrecarregar a cota do OpenRouter sozinha.
+MODELOS_MISTRAL_FALLBACK = ["mistral-small-latest", "open-mistral-nemo"]
+
+
+def _gerar_roteiro_mistral(tema: str, canal) -> dict:
+    chave = os.environ.get("MISTRAL_API_KEY")
+    if not chave:
+        raise RuntimeError("Gemini e OpenRouter falharam e MISTRAL_API_KEY não está configurada.")
+
+    ultimo_erro = None
+    for modelo in MODELOS_MISTRAL_FALLBACK:
+        try:
+            resp = requests.post(
+                "https://api.mistral.ai/v1/chat/completions",
+                headers={"Authorization": f"Bearer {chave}", "Content-Type": "application/json"},
+                json={
+                    "model": modelo,
+                    "messages": [
+                        {"role": "system", "content": canal.SYSTEM_PROMPT},
+                        {"role": "user", "content": f"Tema/premissa da história: {tema}"},
+                    ],
+                    "response_format": {"type": "json_object"},
+                },
+                timeout=45,
+            )
+            resp.raise_for_status()
+            texto = resp.json()["choices"][0]["message"]["content"]
+            print(f"(Gemini e OpenRouter indisponíveis — usando fallback Mistral: {modelo})", file=sys.stderr)
+            return texto
+        except Exception as e:
+            ultimo_erro = e
+            print(f"  Mistral {modelo} falhou ({e}), tentando próxima opção...", file=sys.stderr)
+            time.sleep(2)
+
+    raise RuntimeError(f"Gemini, OpenRouter e Mistral falharam. Último erro: {ultimo_erro}")
+
+
 def _chaves_api() -> list[str]:
     """Lê GEMINI_API_KEY (uma) ou GEMINI_API_KEYS (várias, separadas por \
     vírgula) — permite ter uma chave reserva pra quando a principal cair."""
@@ -137,7 +176,11 @@ def gerar_roteiro(tema: str, canal) -> dict:
             "tentando fallback OpenRouter...",
             file=sys.stderr,
         )
-        texto = _gerar_roteiro_openrouter(tema, canal)
+        try:
+            texto = _gerar_roteiro_openrouter(tema, canal)
+        except Exception as e_or:
+            print(f"OpenRouter também falhou ({e_or}) — tentando fallback Mistral...", file=sys.stderr)
+            texto = _gerar_roteiro_mistral(tema, canal)
         try:
             return json.loads(texto)
         except json.JSONDecodeError:
