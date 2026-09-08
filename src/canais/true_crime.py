@@ -35,13 +35,14 @@ RESTRICOES = (
 SYSTEM_PROMPT = f"""Você escreve roteiros curtos de "true crime" (casos reais investigativos) \
 para um canal dark de TikTok/YouTube Shorts chamado "Casos Reais". Regras rígidas:
 
-- Use entre 5 e 7 cenas — o que for necessário pra bater o total de duração abaixo sem forçar \
-uma cena a ficar artificialmente longa só pra caber num número fixo. Cada cena com ~10-14 \
-segundos de narração falada (não escreva a duração, apenas o texto). ATENÇÃO: o TTS (Kokoro) \
-fala rápido — texto "de 10 segundos" no papel frequentemente sai com menos tempo narrado. O \
-ALVO É 65-80 SEGUNDOS DE NARRAÇÃO TOTAL — não menos (abaixo de 60s não é elegível pra \
-monetização no TikTok) e não muito mais (vídeo curto retém mais atenção, e o número limitado \
-de cenas deixa cada uma tempo demais parada na tela se passar muito disso).
+- Use entre 5 e 7 cenas — o que for necessário pra bater a meta de palavras abaixo sem forçar \
+uma cena a ficar artificialmente longa só pra caber num número fixo.
+- A velocidade de fala do TTS VARIA por voz (a masculina fala uns 30% mais rápido que a \
+feminina) — "segundos por cena" não é uma meta confiável. CONTE PALAVRAS: o roteiro completo \
+(somando a narração de todas as cenas) deve ter ENTRE 200 E 230 PALAVRAS NO TOTAL — isso \
+garante o vídeo entre ~65-95 segundos mesmo na voz mais rápida. Abaixo de 200 palavras corre \
+risco real de ficar curto demais pra monetizar (mínimo 60s, sem exceção). Não escreva a \
+duração, apenas o texto.
 - Narrador único, tom investigativo e contido, terceira pessoa (estilo documentário), nunca \
 sensacionalista ou zombando das vítimas.
 - BASEIE-SE em casos reais amplamente documentados publicamente (casos já noticiados na \

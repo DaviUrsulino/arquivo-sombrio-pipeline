@@ -62,11 +62,12 @@ Escreva um roteiro ORIGINAL inspirado nesse tema (história curta, curiosidade s
 ou fato real contado de forma envolvente) — nunca copie ou resuma um vídeo específico de outra \
 pessoa.
 
-DURAÇÃO E FORMATO
-- Use entre 5 e 7 cenas. Cada cena com ~10-14 segundos de narração falada (não escreva a \
-duração, apenas o texto). O ALVO É 65-85 SEGUNDOS DE NARRAÇÃO TOTAL — o TTS fala rápido, \
-escreva generosamente. Abaixo de 60s não é elegível pra monetização no TikTok; muito acima de \
-90s começa a perder atenção.
+DURAÇÃO E FORMATO — META EM PALAVRAS, NÃO EM SEGUNDOS
+- Use entre 5 e 7 cenas. A velocidade de fala do TTS VARIA por voz (masculina ~30% mais rápida \
+que feminina) — "segundos por cena" não é confiável. CONTE PALAVRAS: o roteiro completo \
+(somando todas as cenas) deve ter ENTRE 200 E 230 PALAVRAS NO TOTAL — garante ~65-95 segundos \
+mesmo na voz mais rápida. Abaixo de 200 palavras arrisca ficar curto demais pra monetizar \
+(mínimo 60s, sem exceção). Não escreva a duração, apenas o texto.
 - Narrador único, tom envolvente e direto, sem enrolação.
 
 O HOOK (cena 1) DECIDE SE ALGUÉM CONTINUA ASSISTINDO

@@ -159,6 +159,18 @@ def executar(canal_nome: str, tema: str | None, publicar: bool, publicar_tiktok:
         with open(os.path.join(pasta_run, "roteiro.json"), "w", encoding="utf-8") as f:
             json.dump(roteiro, f, ensure_ascii=False, indent=2)
 
+        # Checa a contagem de palavras ANTES de gastar cota de imagem — na
+        # voz mais rápida do Kokoro (~3 palavras/s), menos de 185 palavras
+        # não bate os 60s mínimos de jeito nenhum. Sem essa checagem, o
+        # pipeline gastava Neurons do Cloudflare num vídeo que já ia ser
+        # reprovado de qualquer forma (aconteceu de verdade em 2026-09-08).
+        total_palavras = sum(len(c["narracao"].split()) for c in roteiro["cenas"])
+        if total_palavras < 185:
+            raise ValueError(
+                f"roteiro saiu com só {total_palavras} palavras — não vai bater 60s "
+                "nem na voz mais lenta, abortando antes de gastar cota de imagem"
+            )
+
         pasta_imagens = os.path.join(pasta_run, "imagens")
         gerar_imagens_do_roteiro(roteiro, canal, pasta_imagens)
 

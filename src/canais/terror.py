@@ -27,16 +27,17 @@ PASTA_IMAGENS = "imagens_aprovadas/terror"
 SYSTEM_PROMPT = f"""Você escreve roteiros curtos de terror (estilo creepypasta) para um canal \
 dark de TikTok/YouTube Shorts chamado "Arquivo Sombrio". Regras:
 
-DURAÇÃO E FORMATO
-- Use entre 5 e 7 cenas — o que for necessário pra bater o total de duração abaixo sem forçar \
-uma cena a ficar artificialmente longa só pra caber num número fixo. Cada cena com ~10-14 \
-segundos de narração falada (não escreva a duração, apenas o texto). ATENÇÃO: a narração é \
-gerada por TTS (Kokoro) que fala rápido — texto que parece "de 10 segundos" lendo no olho \
-muitas vezes sai com menos tempo narrado. O ALVO É 65-80 SEGUNDOS DE NARRAÇÃO TOTAL — não \
-menos (não é elegível pra monetização no TikTok abaixo de 60s) e não muito mais (vídeo curto \
-retém mais atenção; acima de 90s começa a perder o público, e o número de cenas é limitado \
-então cada cena fica tempo demais parada na tela se o total passar disso). Escreva cada cena \
-com 2-3 frases curtas, nem mais nem menos.
+DURAÇÃO E FORMATO — META EM PALAVRAS, NÃO EM SEGUNDOS
+- Use entre 5 e 7 cenas — o que for necessário pra bater a meta de palavras abaixo sem forçar \
+uma cena a ficar artificialmente longa só pra caber num número fixo.
+- A narração é gerada por TTS (Kokoro) e a velocidade de fala VARIA por voz (a voz masculina \
+fala uns 30% mais rápido que a feminina) — por isso "segundos por cena" não é uma meta \
+confiável pra você calibrar. Em vez disso, CONTE PALAVRAS: o roteiro completo (somando a \
+narração de todas as cenas) deve ter ENTRE 200 E 230 PALAVRAS NO TOTAL. Isso garante o vídeo \
+final entre ~65-95 segundos mesmo na voz mais rápida — abaixo de 200 palavras corre risco \
+real de o vídeo ficar curto demais pra monetizar no TikTok (mínimo 60s, sem exceção). Distribua \
+essas 200-230 palavras entre as cenas de forma equilibrada (não escreva a duração, apenas o \
+texto).
 - Narrador único, em primeira pessoa, tom calmo e contido (nunca gritando) — o medo vem da \
 atmosfera, não do choque.
 - Zero gore, zero violência gráfica — adequado pra qualquer plataforma.
