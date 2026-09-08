@@ -130,16 +130,30 @@ FONTE_PADRAO = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 CAMINHO_FUNDO_CTA = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "cta_fundo.jpg")
 
 
+# Várias frases de CTA em vez de sempre a mesma — reduz a "assinatura"
+# repetitiva entre vídeos (pesquisa 2026-09-08: classificador de "AI slop"
+# do YouTube pega padrão idêntico repetido, ver README/commit).
+FRASES_CTA = [
+    ("CURTA E SE INSCREVA", "E ATIVE O SININHO"),
+    ("GOSTOU? DEIXA O LIKE", "SE INSCREVE PRO PRÓXIMO"),
+    ("SE INSCREVE AQUI", "TEM VÍDEO NOVO TODO DIA"),
+    ("CURTIU A HISTÓRIA?", "SE INSCREVE E ATIVA O SININHO"),
+]
+
+
 def gerar_cta_final(caminho_saida: str, duracao: float = 3.0):
     """Tela final animada pedindo like/inscrição/sininho — usa a imagem de
     fundo aprovada (sino+play) se existir, senão cai pra cor lisa. Áudio
     silencioso (proposital, não erro) só pra manter o mesmo formato de
     stream dos outros clipes na hora de concatenar."""
+    import random
+
     fps = 30
+    linha1, linha2 = random.choice(FRASES_CTA)
     texto_filtro = (
-        f"drawtext=text='CURTA E SE INSCREVA':fontfile={FONTE_PADRAO}:fontcolor=white:"
+        f"drawtext=text='{linha1}':fontfile={FONTE_PADRAO}:fontcolor=white:"
         f"fontsize=64:x=(w-text_w)/2:y=h*0.72:borderw=4:bordercolor=black@0.6,"
-        f"drawtext=text='E ATIVE O SININHO':fontfile={FONTE_PADRAO}:fontcolor=0xFFD700:"
+        f"drawtext=text='{linha2}':fontfile={FONTE_PADRAO}:fontcolor=0xFFD700:"
         f"fontsize=54:x=(w-text_w)/2:y=h*0.80:borderw=4:bordercolor=black@0.6,"
         f"fade=t=in:st=0:d=0.4,fade=t=out:st={max(duracao - 0.4, 0)}:d=0.4"
     )

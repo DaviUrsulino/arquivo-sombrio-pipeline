@@ -67,10 +67,14 @@ em relação à cena anterior.
 
 Sua resposta deve ser APENAS um JSON válido, sem texto antes ou depois, no formato:
 {{
+  "genero_narrador": "masculino" ou "feminino",
   "titulo_caso": "nome/identificação curta do caso (ex: cidade + ano + tipo)",
   "cenas": [
-    {{"narracao": "texto que o narrador fala nesta cena", "prompt_imagem": "descrição da cena \
-para gerar imagem — ambiente, objeto, documento ou silhueta, nunca rosto reconhecível"}},
+    {{"narracao": "texto que o narrador fala nesta cena (2-3 frases)", "prompt_imagem": "cena \
+pra ilustrar a PRIMEIRA frase/momento desta narração — ambiente, objeto, documento ou \
+silhueta, nunca rosto reconhecível", "prompt_imagem_2": "cena pra ilustrar a ÚLTIMA frase/\
+momento (o mais revelador) desta mesma narração — DEVE mostrar algo visualmente diferente da \
+primeira imagem, não é só outro ângulo do mesmo objeto/ambiente"}},
     ...
   ]
 }}

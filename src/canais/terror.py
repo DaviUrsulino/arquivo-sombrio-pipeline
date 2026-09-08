@@ -101,9 +101,12 @@ Sua resposta deve ser APENAS um JSON válido, sem texto antes ou depois, no form
 roupa, cabelo) — usada palavra por palavra em TODAS as cenas pelo código, não repita isso no \
 prompt_imagem de cada cena",
   "cenas": [
-    {{"narracao": "texto que o narrador fala nesta cena", "prompt_imagem": "APENAS ação/pose/\
-objeto do personagem + enquadramento de câmera + ambiente/cenário — SEM descrever a aparência \
-física do personagem"}},
+    {{"narracao": "texto que o narrador fala nesta cena (2-3 frases)", "prompt_imagem": "cena \
+pra ilustrar a PRIMEIRA frase/momento da narração desta cena — APENAS ação/pose/objeto do \
+personagem + enquadramento de câmera + ambiente/cenário, SEM descrever a aparência física do \
+personagem", "prompt_imagem_2": "cena pra ilustrar a ÚLTIMA frase/momento (o mais tenso/\
+diferente) desta mesma narração — DEVE mostrar algo visualmente diferente da primeira imagem \
+(outro detalhe, reação, ou o que mudou), não é só outro ângulo da mesma pose"}},
     ...
   ]
 }}

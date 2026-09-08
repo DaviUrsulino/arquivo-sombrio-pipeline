@@ -144,11 +144,17 @@ def gerar_metadados_publicacao(canal_nome: str, tema: str, roteiro: dict, nome_c
     if len(gancho) > 150:
         gancho = gancho[:147].rsplit(" ", 1)[0] + "..."
 
-    descricao = (
-        f"{gancho}\n\n"
-        f"{nome_canal_exibicao} traz um vídeo novo por dia — curte e se inscreve pra não perder o próximo.\n\n"
-        + " ".join(f"#{h}" for h in hashtags)
-    )
+    # Várias frases de CTA na descrição (não sempre a mesma) — mesma lógica
+    # do CTA final: reduz assinatura repetitiva entre vídeos.
+    frases_cta_descricao = [
+        f"{nome_canal_exibicao} traz um vídeo novo por dia — curte e se inscreve pra não perder o próximo.",
+        f"Tem mais história dessas no {nome_canal_exibicao} — se inscreve e ativa o sininho.",
+        f"Se você chegou até aqui, se inscreve no {nome_canal_exibicao} — sai vídeo novo todo dia.",
+        f"{nome_canal_exibicao}: histórias novas toda semana. Deixa o like se quiser mais.",
+    ]
+    cta_descricao = random.choice(frases_cta_descricao)
+
+    descricao = f"{gancho}\n\n{cta_descricao}\n\n" + " ".join(f"#{h}" for h in hashtags)
     return titulo, descricao, hashtags
 
 

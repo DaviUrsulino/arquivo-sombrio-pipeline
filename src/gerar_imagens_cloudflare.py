@@ -201,7 +201,17 @@ def gerar_imagens_do_roteiro(roteiro: dict, canal, pasta_saida: str, imagens_por
     for i, cena in enumerate(roteiro["cenas"], start=1):
         for parte in range(1, imagens_por_cena + 1):
             print(f"Gerando imagem da cena {i} ({parte}/{imagens_por_cena})...")
-            prompt_base = cena["prompt_imagem"] + VARIACOES_SUBCENA[(parte - 1) % len(VARIACOES_SUBCENA)]
+            # prompt_imagem_2 (se o roteiro trouxer) descreve um momento
+            # ESPECÍFICO diferente da narração, em vez de só variar o
+            # ângulo da mesma pose — imagem mais ligada ao que é dito
+            # naquele trecho (pesquisa 2026-09-08: densidade de informação
+            # nova por corte ajuda retenção, não só variedade visual vazia).
+            if parte == 1:
+                prompt_base = cena["prompt_imagem"]
+            else:
+                prompt_base = cena.get("prompt_imagem_2") or (
+                    cena["prompt_imagem"] + VARIACOES_SUBCENA[(parte - 1) % len(VARIACOES_SUBCENA)]
+                )
             prompt = montar_prompt(prompt_base, canal, personagem, imagem_anterior is not None)
             imagem_bytes = None
             if not cloudflare_esgotado:

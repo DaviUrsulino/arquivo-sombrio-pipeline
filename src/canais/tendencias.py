@@ -192,9 +192,12 @@ Sua resposta deve ser APENAS um JSON válido, no formato:
   "personagem": "descrição do protagonista/narrador recorrente nas cenas, ou null se o tema \
 não pedir um personagem fixo",
   "cenas": [
-    {{"narracao": "texto falado nesta cena", "prompt_imagem": "descrição da cena pra gerar \
-imagem — ambiente, ação, enquadramento, SEM redescrever a aparência do personagem se houver \
-um (isso é inserido automaticamente pelo código)"}},
+    {{"narracao": "texto falado nesta cena (2-3 frases)", "prompt_imagem": "cena pra ilustrar \
+a PRIMEIRA frase/momento desta narração — ambiente, ação, enquadramento, SEM redescrever a \
+aparência do personagem se houver um (isso é inserido automaticamente pelo código)", \
+"prompt_imagem_2": "cena pra ilustrar a ÚLTIMA frase/momento (o mais surpreendente) desta \
+mesma narração — DEVE mostrar algo visualmente diferente da primeira imagem, não é só outro \
+ângulo"}},
     ...
   ]
 }}"""
@@ -237,9 +240,12 @@ Sua resposta deve ser APENAS um JSON válido, no formato:
 detalhe fofo marcante) — usada palavra por palavra em TODAS as cenas pelo código, não repita \
 isso no prompt_imagem de cada cena",
   "cenas": [
-    {{"narracao": "texto falado nesta cena, tom teatral de novela", "prompt_imagem": "APENAS \
-ação/expressão/pose do personagem + enquadramento de câmera + ambiente — SEM redescrever a \
-aparência física do personagem"}},
+    {{"narracao": "texto falado nesta cena, tom teatral de novela (2-3 frases)", \
+"prompt_imagem": "cena pra ilustrar a PRIMEIRA frase/momento desta narração — APENAS ação/\
+expressão/pose do personagem + enquadramento de câmera + ambiente, SEM redescrever a \
+aparência física do personagem", "prompt_imagem_2": "cena pra ilustrar a ÚLTIMA frase/momento \
+(o pico dramático) desta mesma narração — DEVE mostrar algo visualmente diferente da primeira \
+imagem (outra expressão/reação), não é só outro ângulo da mesma pose"}},
     ...
   ]
 }}"""
@@ -281,9 +287,11 @@ Sua resposta deve ser APENAS um JSON válido, no formato:
 cor, onde fica o rosto/olhos/boca, ambiente típico) — usada palavra por palavra em TODAS as \
 cenas pelo código, não repita isso no prompt_imagem de cada cena",
   "cenas": [
-    {{"narracao": "texto falado nesta cena, tom cômico de monólogo", "prompt_imagem": "APENAS \
-expressão/pose do objeto + enquadramento de câmera + ambiente — SEM redescrever a aparência \
-física do objeto"}},
+    {{"narracao": "texto falado nesta cena, tom cômico de monólogo (2-3 frases)", \
+"prompt_imagem": "cena pra ilustrar a PRIMEIRA frase/momento — APENAS expressão/pose do \
+objeto + enquadramento de câmera + ambiente, SEM redescrever a aparência física do objeto", \
+"prompt_imagem_2": "cena pra ilustrar a ÚLTIMA frase/momento (a virada cômica) desta mesma \
+narração — DEVE mostrar expressão/pose diferente da primeira imagem"}},
     ...
   ]
 }}"""
@@ -328,9 +336,12 @@ Sua resposta deve ser APENAS um JSON válido, no formato:
 (roupa de época + algum detalhe anacrônico sutil, aparência geral) — usada palavra por palavra \
 em TODAS as cenas pelo código, não repita isso no prompt_imagem de cada cena",
   "cenas": [
-    {{"narracao": "texto falado nesta cena, tom de POV/reação em primeira pessoa", "prompt_imagem": "APENAS \
-ação/expressão/pose do personagem + enquadramento de câmera + ambiente/cenário histórico — SEM \
-redescrever a aparência física do personagem"}},
+    {{"narracao": "texto falado nesta cena, tom de POV/reação em primeira pessoa (2-3 frases)", \
+"prompt_imagem": "cena pra ilustrar a PRIMEIRA frase/momento — APENAS ação/expressão/pose do \
+personagem + enquadramento de câmera + ambiente/cenário histórico, SEM redescrever a \
+aparência física do personagem", "prompt_imagem_2": "cena pra ilustrar a ÚLTIMA frase/momento \
+(o detalhe histórico mais chocante) desta mesma narração — DEVE mostrar algo visualmente \
+diferente da primeira imagem"}},
     ...
   ]
 }}"""
