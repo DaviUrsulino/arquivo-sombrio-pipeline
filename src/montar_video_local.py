@@ -305,39 +305,57 @@ def concatenar_clipes(caminhos_clipes: list[str], caminho_saida: str, pasta_tmp:
 def concatenar_com_transicao(
     caminhos_clipes: list[str], caminho_saida: str, duracao_transicao: float = 0.4,
 ):
-    """Concatena as cenas com crossfade (video) + crossfade de áudio entre
-    elas, em vez do corte seco do concat demuxer — dá sensação de "cenas
-    conectadas" em vez de cortes duros. Precisa reencodar (não dá pra usar
-    -c copy com xfade), então é mais lento que concatenar_clipes, mas só é
-    usado uma vez por vídeo (na junção final das cenas, não nas trocas de
-    imagem dentro da cena, que continuam com corte+whoosh)."""
+    """Concatena as cenas com dissolve suave no VÍDEO (xfade), mas com corte
+    seco no ÁUDIO perto de cada junção (sem crossfade de áudio).
+
+    Importante: crossfade de ÁUDIO com FALA (acrossfade) soa mal — é duas
+    narrações diferentes tocando ao mesmo tempo por uma fração de segundo,
+    o que o ouvido percebe como chiado/interferência, não como transição
+    suave (feedback real de usuário, 2026-09-08). Em vez disso, cada
+    junção recorta uma fatia curta (duracao_transicao) perto do corte —
+    metade do fim de uma cena, metade do começo da próxima — e concatena
+    sem sobrepor. Isso remove o mesmo tanto de tempo que o xfade de vídeo
+    remove (mantém vídeo e áudio com a mesma duração final), só que sem
+    misturar as duas falas."""
     duracoes = [_duracao_segundos(c) for c in caminhos_clipes]
+    metade = duracao_transicao / 2
 
     entradas = []
     for caminho in caminhos_clipes:
         entradas += ["-i", caminho]
 
     filtros = []
-    v_atual = "0:v"
-    a_atual = "0:a"
-    duracao_acumulada = duracoes[0]
 
+    # Vídeo: dissolve encadeado, como antes.
+    v_atual = "0:v"
+    duracao_acumulada = duracoes[0]
     for i in range(1, len(caminhos_clipes)):
         offset = max(duracao_acumulada - duracao_transicao, 0)
         v_saida = f"v{i}" if i < len(caminhos_clipes) - 1 else "vout"
-        a_saida = f"a{i}" if i < len(caminhos_clipes) - 1 else "aout"
         filtros.append(
             f"[{v_atual}][{i}:v]xfade=transition=fade:duration={duracao_transicao}:offset={offset}[{v_saida}]"
         )
-        filtros.append(f"[{a_atual}][{i}:a]acrossfade=d={duracao_transicao}[{a_saida}]")
-        v_atual, a_atual = v_saida, a_saida
+        v_atual = v_saida
         duracao_acumulada = duracao_acumulada + duracoes[i] - duracao_transicao
+
+    # Áudio: apara uma fatia curta perto de cada junção (sem misturar) e
+    # concatena — remove o mesmo total de tempo que o vídeo, mantendo os
+    # dois sincronizados, sem sobrepor duas falas.
+    rotulos_audio = []
+    for i, dur in enumerate(duracoes):
+        inicio = metade if i > 0 else 0
+        fim = dur - metade if i < len(duracoes) - 1 else dur
+        rotulo = f"atrim{i}"
+        filtros.append(f"[{i}:a]atrim=start={inicio}:end={fim},asetpts=PTS-STARTPTS[{rotulo}]")
+        rotulos_audio.append(rotulo)
+    entradas_audio = "".join(f"[{r}]" for r in rotulos_audio)
+    filtros.append(f"{entradas_audio}concat=n={len(rotulos_audio)}:v=0:a=1[aout]")
 
     _rodar([
         "ffmpeg", "-y",
         *entradas,
         "-filter_complex", ";".join(filtros),
-        "-map", f"[{v_atual}]", "-map", f"[{a_atual}]",
+        "-map", f"[{v_atual}]", "-map", "[aout]",
         "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac",
         caminho_saida,
     ])
