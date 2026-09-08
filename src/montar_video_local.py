@@ -140,7 +140,10 @@ def gerar_cta_final(caminho_saida: str, duracao: float = 3.0):
     )
 
     if os.path.exists(CAMINHO_FUNDO_CTA):
-        entrada_video = ["-loop", "1", "-i", CAMINHO_FUNDO_CTA]
+        # -framerate explícito: sem isso, entrada de imagem estática cai no
+        # padrão de 25fps do ffmpeg, diferente dos 30fps das cenas -- isso
+        # quebra o xfade na concatenação (timebase incompatível).
+        entrada_video = ["-loop", "1", "-framerate", str(fps), "-i", CAMINHO_FUNDO_CTA]
         filtro_video = (
             f"scale=w={LARGURA}:h={ALTURA}:force_original_aspect_ratio=increase,"
             f"crop={LARGURA}:{ALTURA},{texto_filtro}"
