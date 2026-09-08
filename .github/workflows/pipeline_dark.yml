@@ -1,20 +1,23 @@
 name: Pipeline Dark - geração e publicação automática
 
 # Roda de graça no GitHub Actions, sem precisar do PC ligado. Cron em UTC
-# (BRT = UTC-3). Duas contas alternando ao longo do dia, ~8 vídeos/dia no
-# total pra caber na cota gratuita do Cloudflare (~10.000 Neurons/dia):
-#   - "Arquivo Sombrio" (terror + true crime alternados): 4x/dia
-#   - "Em Alta" (tendências): 4x/dia, a cada ~4h em horário acordado
+# (BRT = UTC-3). Duas contas alternando ao longo do dia, 10 vídeos/dia no
+# total (5 cada) — acima da cota garantida do Cloudflare (~6-7/dia com boa
+# qualidade), o excedente cai no fallback Pollinations automaticamente.
+#   - "Arquivo Sombrio" (terror + true crime alternados): 5x/dia
+#   - "Em Alta" (tendências): 5x/dia
 on:
   schedule:
+    - cron: '0 12 * * *'  # 09h BRT - arquivo_sombrio
     - cron: '0 15 * * *'  # 12h BRT - arquivo_sombrio
-    - cron: '0 19 * * *'  # 16h BRT - arquivo_sombrio
-    - cron: '0 22 * * *'  # 19h BRT - arquivo_sombrio
-    - cron: '0 1 * * *'   # 22h BRT - arquivo_sombrio
-    - cron: '0 12 * * *'  # 09h BRT - tendencias
+    - cron: '0 18 * * *'  # 15h BRT - arquivo_sombrio
+    - cron: '0 21 * * *'  # 18h BRT - arquivo_sombrio
+    - cron: '0 0 * * *'   # 21h BRT - arquivo_sombrio
+    - cron: '0 13 * * *'  # 10h BRT - tendencias
     - cron: '0 16 * * *'  # 13h BRT - tendencias
-    - cron: '0 20 * * *'  # 17h BRT - tendencias
-    - cron: '0 0 * * *'   # 21h BRT - tendencias
+    - cron: '0 19 * * *'  # 16h BRT - tendencias
+    - cron: '0 22 * * *'  # 19h BRT - tendencias
+    - cron: '0 1 * * *'   # 22h BRT - tendencias
   workflow_dispatch:
     inputs:
       canal:
@@ -50,7 +53,7 @@ jobs:
             CANAL="${{ github.event.inputs.canal }}"
           else
             case "${{ github.event.schedule }}" in
-              '0 12 * * *'|'0 16 * * *'|'0 20 * * *'|'0 0 * * *') CANAL="tendencias" ;;
+              '0 13 * * *'|'0 16 * * *'|'0 19 * * *'|'0 22 * * *'|'0 1 * * *') CANAL="tendencias" ;;
               *) CANAL="arquivo_sombrio" ;;
             esac
           fi

@@ -46,7 +46,22 @@ TEMAS_ROTATIVOS = [
     "um recorde mundial bizarro e verídico",
     "um mistério da natureza que a ciência só explicou recentemente",
     "uma invenção acidental que mudou o mundo",
+    "um erro de cálculo ou engenharia real que causou consequências gigantescas",
+    "um animal com uma habilidade ou comportamento que parece ficção científica",
+    "uma decisão de negócio real que pareceu péssima na época mas deu certo (ou o contrário)",
+    "um fenômeno psicológico real que explica um comportamento humano comum",
+    "uma tecnologia antiga que era surpreendentemente avançada pro seu tempo",
+    "um lugar real na Terra com uma característica física que parece impossível",
+    "uma regra ou lei bizarra e real que ainda está em vigor em algum lugar",
+    "um erro histórico que as pessoas ainda repetem por engano até hoje",
+    "uma experiência científica real que teve um resultado completamente inesperado",
+    "um objeto do cotidiano com uma origem ou motivo de existir surpreendente",
 ]
+
+# Rotina de manutenção sugerida: revisar esta lista a cada poucas semanas —
+# tirar tema que sempre gerar roteiro fraco, acrescentar categoria nova.
+# Não é pesquisa de tendência ao vivo (isso ainda depende de uma API de
+# busca paga, ver comentário no topo do arquivo).
 
 
 def escolher_tema_do_dia() -> str:
