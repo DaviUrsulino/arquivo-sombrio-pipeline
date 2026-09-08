@@ -147,21 +147,32 @@ def executar(canal_nome: str, tema: str | None, publicar: bool, publicar_tiktok:
     tema_completo = f"{tema} (o narrador/personagem principal desta história deve ser do gênero {genero_desejado})"
 
     print(f"[{canal_nome}] tema: {tema} | narrador forçado: {genero_desejado}")
-    roteiro = gerar_roteiro(tema_completo, canal)
-    with open(os.path.join(pasta_run, "roteiro.json"), "w", encoding="utf-8") as f:
-        json.dump(roteiro, f, ensure_ascii=False, indent=2)
 
-    pasta_imagens = os.path.join(pasta_run, "imagens")
-    gerar_imagens_do_roteiro(roteiro, canal, pasta_imagens)
+    # Qualquer falha daqui pra frente (roteiro malformado, Cloudflare
+    # recusando uma imagem por moderação mesmo após retry, ffmpeg quebrando,
+    # etc) vira "reprovado" em vez de derrubar o processo com traceback —
+    # sem isso, uma falha de UMA cena travava a run inteira sem marcar
+    # nada como reprovado (aconteceu de verdade: moderação da Cloudflare
+    # recusou uma cena 3x seguidas e a exceção subiu sem tratamento).
+    try:
+        roteiro = gerar_roteiro(tema_completo, canal)
+        with open(os.path.join(pasta_run, "roteiro.json"), "w", encoding="utf-8") as f:
+            json.dump(roteiro, f, ensure_ascii=False, indent=2)
 
-    caminho_video = os.path.join(pasta_run, "video.mp4")
-    duracao = montar_video(roteiro, canal, pasta_imagens, caminho_video)
+        pasta_imagens = os.path.join(pasta_run, "imagens")
+        gerar_imagens_do_roteiro(roteiro, canal, pasta_imagens)
 
-    video_ok = os.path.exists(caminho_video) and os.path.getsize(caminho_video) > 500_000
-    aprovado = video_ok and duracao >= 60
+        caminho_video = os.path.join(pasta_run, "video.mp4")
+        duracao = montar_video(roteiro, canal, pasta_imagens, caminho_video)
+
+        video_ok = os.path.exists(caminho_video) and os.path.getsize(caminho_video) > 500_000
+        aprovado = video_ok and duracao >= 60
+        motivo = None if aprovado else ("duração abaixo de 60s" if video_ok else "arquivo de vídeo não foi gerado corretamente")
+    except Exception as e:
+        aprovado = False
+        motivo = f"erro durante geração: {e}"
 
     if not aprovado:
-        motivo = "duração abaixo de 60s" if video_ok else "arquivo de vídeo não foi gerado corretamente"
         print(f"\nREPROVADO AUTOMATICAMENTE ({motivo}) — não vai publicar. Revisar em {pasta_run}/")
         return {"aprovado": False, "motivo": motivo, "pasta": pasta_run}
 
