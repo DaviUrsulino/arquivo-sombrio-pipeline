@@ -17,6 +17,7 @@ import argparse
 import base64
 import json
 import os
+import tempfile
 import time
 import urllib.parse
 
@@ -69,6 +70,60 @@ def gerar_imagem(prompt: str, imagem_referencia: bytes | None, tentativas: int =
         time.sleep(3 * tentativa)
 
     raise RuntimeError(f"Falhou após {tentativas} tentativas: {ultimo_erro}")
+
+
+_CLIENTE_HF = None
+
+
+def gerar_imagem_huggingface(prompt: str, imagem_referencia: bytes | None) -> bytes:
+    """Segundo fallback (antes do Pollinations): FLUX.1 Kontext via Hugging
+    Face Space, gratuito com conta (token em HUGGINGFACE_TOKEN) — cota bem
+    curta (~3,5 min de GPU/dia, ~6-7 imagens), mas qualidade e aderência ao
+    prompt bem melhores que o Pollinations, com suporte real a imagem de
+    referência (mantém personagem consistente, validado em 2026-09-08).
+    Como a cota é curta, só cobre uma fração das cenas de um vídeo — o
+    chamador cai pro Pollinations quando essa também esgotar."""
+    global _CLIENTE_HF
+    from gradio_client import Client, handle_file
+
+    if _CLIENTE_HF is None:
+        token = os.environ.get("HUGGINGFACE_TOKEN")
+        _CLIENTE_HF = Client("black-forest-labs/FLUX.1-Kontext-Dev", token=token) if token else Client("black-forest-labs/FLUX.1-Kontext-Dev")
+
+    with tempfile.TemporaryDirectory() as pasta_tmp:
+        if imagem_referencia:
+            caminho_ref = os.path.join(pasta_tmp, "ref.jpg")
+            with open(caminho_ref, "wb") as f:
+                f.write(imagem_referencia)
+        else:
+            # o modelo exige uma imagem de entrada -- sem referência ainda
+            # (primeira cena), usa um fundo neutro em branco como ponto de
+            # partida, deixando o prompt (com a descrição do personagem)
+            # fazer o trabalho sozinho.
+            from PIL import Image
+            caminho_ref = os.path.join(pasta_tmp, "ref.jpg")
+            Image.new("RGB", (768, 1344), (128, 128, 128)).save(caminho_ref)
+
+        resultado = _CLIENTE_HF.predict(
+            input_image=handle_file(caminho_ref),
+            prompt=prompt,
+            seed=0,
+            randomize_seed=True,
+            guidance_scale=2.5,
+            steps=28,
+            api_name="/infer",
+        )
+        caminho_resultado = resultado[0]
+        with open(caminho_resultado, "rb") as f:
+            imagem_bytes = f.read()
+
+        # normaliza pra JPEG (o resultado vem em .webp) pra manter
+        # consistência com o resto do pipeline
+        from PIL import Image
+        caminho_jpg = os.path.join(pasta_tmp, "saida.jpg")
+        Image.open(caminho_resultado).convert("RGB").save(caminho_jpg, "JPEG")
+        with open(caminho_jpg, "rb") as f:
+            return f.read()
 
 
 def gerar_imagem_pollinations(prompt: str, tentativas: int = 5) -> bytes:
@@ -130,6 +185,7 @@ def gerar_imagens_do_roteiro(roteiro: dict, canal, pasta_saida: str, imagens_por
     personagem = roteiro.get("personagem")
     imagem_anterior = None
     usou_fallback = False
+    hf_esgotado = False  # depois do primeiro esgotamento, nem tenta de novo (cota é bem curta)
 
     for i, cena in enumerate(roteiro["cenas"], start=1):
         for parte in range(1, imagens_por_cena + 1):
@@ -139,9 +195,19 @@ def gerar_imagens_do_roteiro(roteiro: dict, canal, pasta_saida: str, imagens_por
             try:
                 imagem_bytes = gerar_imagem(prompt, imagem_anterior)
             except RuntimeError as e:
-                print(f"  Cloudflare falhou ({e}) — caindo pro fallback Pollinations...")
-                imagem_bytes = gerar_imagem_pollinations(prompt)
-                usou_fallback = True
+                print(f"  Cloudflare falhou ({e})")
+                imagem_bytes = None
+                if not hf_esgotado:
+                    try:
+                        print("  tentando fallback Hugging Face (FLUX.1 Kontext)...")
+                        imagem_bytes = gerar_imagem_huggingface(prompt, imagem_anterior)
+                    except Exception as e_hf:
+                        print(f"  Hugging Face falhou/esgotou ({e_hf}) — não tenta mais nessa run")
+                        hf_esgotado = True
+                if imagem_bytes is None:
+                    print("  caindo pro fallback Pollinations...")
+                    imagem_bytes = gerar_imagem_pollinations(prompt)
+                    usou_fallback = True
 
             nome = f"cena{i}.jpg" if imagens_por_cena == 1 else f"cena{i}_{parte}.jpg"
             caminho = os.path.join(pasta_saida, nome)
