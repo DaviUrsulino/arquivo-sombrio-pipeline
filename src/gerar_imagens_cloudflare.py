@@ -111,7 +111,7 @@ VARIACOES_SUBCENA = [
 ]
 
 
-def gerar_imagens_do_roteiro(roteiro: dict, canal, pasta_saida: str, imagens_por_cena: int = 2) -> None:
+def gerar_imagens_do_roteiro(roteiro: dict, canal, pasta_saida: str, imagens_por_cena: int = 2) -> bool:
     """Gera e salva as imagens de cada cena do roteiro, encadeando sempre a
     última imagem gerada como referência da próxima (mantém o personagem
     consistente cena a cena E dentro da mesma cena). Com imagens_por_cena=2
@@ -119,10 +119,17 @@ def gerar_imagens_do_roteiro(roteiro: dict, canal, pasta_saida: str, imagens_por
     sabe cortar entre as duas no meio da fala, o que dá bem mais sensação de
     movimento do que 1 imagem estática segurando a cena inteira (feedback:
     "vídeo muito parado" com poucas fotos e narração longa). Com
-    imagens_por_cena=1, salva cenaN.jpg (formato antigo)."""
+    imagens_por_cena=1, salva cenaN.jpg (formato antigo).
+
+    Retorna True se ALGUMA imagem precisou do fallback Pollinations — o
+    chamador usa isso pra decidir se publica sozinho ou não: o Pollinations
+    já produziu imagem completamente diferente do personagem pedido (ex:
+    "geladeira" virou um monstro ciclope), então vídeo com fallback não
+    deve ir ao ar sem revisão humana."""
     os.makedirs(pasta_saida, exist_ok=True)
     personagem = roteiro.get("personagem")
     imagem_anterior = None
+    usou_fallback = False
 
     for i, cena in enumerate(roteiro["cenas"], start=1):
         for parte in range(1, imagens_por_cena + 1):
@@ -134,6 +141,7 @@ def gerar_imagens_do_roteiro(roteiro: dict, canal, pasta_saida: str, imagens_por
             except RuntimeError as e:
                 print(f"  Cloudflare falhou ({e}) — caindo pro fallback Pollinations...")
                 imagem_bytes = gerar_imagem_pollinations(prompt)
+                usou_fallback = True
 
             nome = f"cena{i}.jpg" if imagens_por_cena == 1 else f"cena{i}_{parte}.jpg"
             caminho = os.path.join(pasta_saida, nome)
@@ -143,6 +151,8 @@ def gerar_imagens_do_roteiro(roteiro: dict, canal, pasta_saida: str, imagens_por
 
             imagem_anterior = imagem_bytes
             time.sleep(2)
+
+    return usou_fallback
 
 
 def main():
