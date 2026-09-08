@@ -1,0 +1,223 @@
+"""Pipeline automatizado de ponta a ponta: roteiro -> imagens -> vídeo -> publicação.
+
+Usado tanto manualmente quanto pelo GitHub Actions agendado (ver
+.github/workflows/pipeline_dark.yml). Trava de segurança embutida: se a
+duração final ficar abaixo de 60s ou algum arquivo não sair como esperado,
+o pipeline NÃO publica sozinho — só salva tudo em runs/ pra revisão manual.
+Sem isso, um roteiro ruim ou uma falha de geração iria direto pro ar sem
+ninguém checar.
+
+Uso manual:
+    python src/pipeline_completo.py --canal terror
+    python src/pipeline_completo.py --canal terror --tema "..." --sem-publicar
+"""
+
+import argparse
+import json
+import os
+import random
+import sys
+from datetime import datetime
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from canais import carregar_canal
+from canais import tendencias as canal_tendencias
+from gerar_imagens_cloudflare import gerar_imagens_do_roteiro
+from gerar_roteiro import gerar_roteiro
+from montar_video_local import montar_video
+
+TEMAS_FALLBACK = {
+    "terror": [
+        "um objeto amaldiçoado herdado de um parente falecido",
+        "uma entidade que começa a imitar a voz de alguém conhecido",
+        "um perseguidor humano silencioso que aparece todas as noites no mesmo trajeto",
+        "um padrão estranho que se repete numa mesma data todo ano",
+        "um ritual antigo encontrado escrito num diário de família",
+        "um lugar que muda de aparência sempre que ninguém está olhando",
+        "um encontro com um estranho que sabe informações que não deveria saber",
+        "fotos antigas da família onde uma figura estranha aparece cada vez mais perto",
+    ],
+    "true_crime": [
+        "um caso de desaparecimento nunca solucionado",
+        "uma investigação sobre uma fraude que enganou uma cidade inteira",
+        "um crime solucionado décadas depois por uma nova evidência",
+        "um caso envolvendo um culto investigado pela polícia",
+        "um assassinato com um padrão que intrigou investigadores por anos",
+    ],
+}
+
+
+ARQUIVO_ESTADO_NARRADOR = os.path.join("runs", "ultimo_narrador.json")
+ARQUIVO_ESTADO_SUBCANAL = os.path.join("runs", "ultimo_subcanal.json")
+
+# A conta "Arquivo Sombrio" posta tanto terror ficcional quanto casos reais
+# (true crime) — alterna entre os dois em vez de manter contas separadas.
+SUBCANAIS_ARQUIVO_SOMBRIO = ["terror", "true_crime"]
+
+
+def proximo_subcanal_arquivo_sombrio() -> str:
+    """Alterna terror/true_crime pra conta 'Arquivo Sombrio' postar os dois
+    tipos de conteúdo sem depender de sorteio."""
+    estado = {}
+    if os.path.exists(ARQUIVO_ESTADO_SUBCANAL):
+        with open(ARQUIVO_ESTADO_SUBCANAL, encoding="utf-8") as f:
+            estado = json.load(f)
+
+    ultimo = estado.get("arquivo_sombrio", SUBCANAIS_ARQUIVO_SOMBRIO[-1])
+    idx_atual = SUBCANAIS_ARQUIVO_SOMBRIO.index(ultimo) if ultimo in SUBCANAIS_ARQUIVO_SOMBRIO else -1
+    proximo = SUBCANAIS_ARQUIVO_SOMBRIO[(idx_atual + 1) % len(SUBCANAIS_ARQUIVO_SOMBRIO)]
+
+    estado["arquivo_sombrio"] = proximo
+    os.makedirs("runs", exist_ok=True)
+    with open(ARQUIVO_ESTADO_SUBCANAL, "w", encoding="utf-8") as f:
+        json.dump(estado, f, ensure_ascii=False, indent=2)
+
+    return proximo
+
+
+def escolher_tema(canal_nome: str) -> str:
+    return random.choice(TEMAS_FALLBACK[canal_nome])
+
+
+def proximo_genero_narrador(canal_nome: str) -> str:
+    """Alterna masculino/feminino entre execuções em vez de deixar 100% ao
+    sorteio da IA — sem isso, por coincidência, várias gerações seguidas
+    saem com o mesmo narrador (feedback: 'sempre a mesma voz')."""
+    estado = {}
+    if os.path.exists(ARQUIVO_ESTADO_NARRADOR):
+        with open(ARQUIVO_ESTADO_NARRADOR, encoding="utf-8") as f:
+            estado = json.load(f)
+
+    ultimo = estado.get(canal_nome, "feminino")
+    proximo = "masculino" if ultimo == "feminino" else "feminino"
+
+    estado[canal_nome] = proximo
+    os.makedirs("runs", exist_ok=True)
+    with open(ARQUIVO_ESTADO_NARRADOR, "w", encoding="utf-8") as f:
+        json.dump(estado, f, ensure_ascii=False, indent=2)
+
+    return proximo
+
+
+def gerar_titulo(roteiro: dict) -> str:
+    primeira_frase = roteiro["cenas"][0]["narracao"].split(".")[0].strip()
+    titulo = f"{primeira_frase}... #shorts"
+    return titulo[:100]
+
+
+# Cada CONTA (não canal) tem suas próprias credenciais de YouTube/TikTok.
+# "arquivo_sombrio" e "tendencias" são nomes de conta; terror/true_crime são
+# sub-tipos de conteúdo dentro da conta arquivo_sombrio.
+CREDENCIAIS_POR_CONTA = {
+    "arquivo_sombrio": {
+        "youtube_client_secret": "client_secret.json",
+        "youtube_token": "token.json",
+        "tiktok_token": "tiktok_token.json",
+    },
+    "tendencias": {
+        "youtube_client_secret": "client_secret.json",  # mesmo app OAuth, conta Google diferente
+        "youtube_token": "token_tendencias.json",
+        "tiktok_token": "tiktok_token_tendencias.json",
+    },
+}
+
+
+def executar(canal_nome: str, tema: str | None, publicar: bool, publicar_tiktok: bool = False) -> dict:
+    conta_nome = canal_nome  # antes de resolver terror/true_crime
+
+    # "arquivo_sombrio" é o nome da CONTA, não de um canal técnico — resolve
+    # pra terror ou true_crime alternadamente, pra postar os dois tipos de
+    # conteúdo na mesma conta.
+    if canal_nome == "arquivo_sombrio":
+        canal_nome = proximo_subcanal_arquivo_sombrio()
+
+    if canal_nome == "tendencias":
+        tema = tema or canal_tendencias.escolher_tema_do_dia()
+        canal = canal_tendencias.montar_canal_dinamico(tema)
+    else:
+        canal = carregar_canal(canal_nome)
+        tema = tema or escolher_tema(canal_nome)
+
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    pasta_run = os.path.join("runs", f"{canal_nome}_{timestamp}")
+    os.makedirs(pasta_run, exist_ok=True)
+
+    genero_desejado = proximo_genero_narrador(canal_nome)
+    tema_completo = f"{tema} (o narrador/personagem principal desta história deve ser do gênero {genero_desejado})"
+
+    print(f"[{canal_nome}] tema: {tema} | narrador forçado: {genero_desejado}")
+    roteiro = gerar_roteiro(tema_completo, canal)
+    with open(os.path.join(pasta_run, "roteiro.json"), "w", encoding="utf-8") as f:
+        json.dump(roteiro, f, ensure_ascii=False, indent=2)
+
+    pasta_imagens = os.path.join(pasta_run, "imagens")
+    gerar_imagens_do_roteiro(roteiro, canal, pasta_imagens)
+
+    caminho_video = os.path.join(pasta_run, "video.mp4")
+    duracao = montar_video(roteiro, canal, pasta_imagens, caminho_video)
+
+    video_ok = os.path.exists(caminho_video) and os.path.getsize(caminho_video) > 500_000
+    aprovado = video_ok and duracao >= 60
+
+    if not aprovado:
+        motivo = "duração abaixo de 60s" if video_ok else "arquivo de vídeo não foi gerado corretamente"
+        print(f"\nREPROVADO AUTOMATICAMENTE ({motivo}) — não vai publicar. Revisar em {pasta_run}/")
+        return {"aprovado": False, "motivo": motivo, "pasta": pasta_run}
+
+    titulo = gerar_titulo(roteiro)
+    print(f"\nAprovado ({duracao:.1f}s). Título: {titulo}")
+
+    if not publicar:
+        print("--sem-publicar ativo — só gerou, não publicou.")
+        return {"aprovado": True, "publicado": False, "pasta": pasta_run}
+
+    resultado = {"aprovado": True, "publicado": True, "pasta": pasta_run}
+    credenciais = CREDENCIAIS_POR_CONTA.get(conta_nome, CREDENCIAIS_POR_CONTA["arquivo_sombrio"])
+
+    try:
+        from publicar_youtube import publicar_short
+        video_id = publicar_short(
+            caminho_video, titulo, descricao=f"{canal.NOME_CANAL} #shorts",
+            tags=[canal_nome, "shorts"],
+            arquivo_client_secret=credenciais["youtube_client_secret"],
+            arquivo_token=credenciais["youtube_token"],
+        )
+        resultado["youtube"] = f"https://youtube.com/shorts/{video_id}"
+        print(f"YouTube: {resultado['youtube']}")
+    except Exception as e:
+        print(f"AVISO: falhou publicar no YouTube: {e}")
+        resultado["youtube_erro"] = str(e)
+
+    if publicar_tiktok:
+        try:
+            from publicar_tiktok import publicar_video
+            publish_id = publicar_video(caminho_video, titulo, arquivo_token=credenciais["tiktok_token"])
+            resultado["tiktok_publish_id"] = publish_id
+            print(f"TikTok publish_id: {publish_id}")
+        except Exception as e:
+            print(f"AVISO: falhou publicar no TikTok: {e}")
+            resultado["tiktok_erro"] = str(e)
+    else:
+        print("TikTok automático desativado por enquanto (postagem lá é manual) — vídeo pronto em " + caminho_video)
+
+    return resultado
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--canal", default="terror")
+    parser.add_argument("--tema", default=None)
+    parser.add_argument("--sem-publicar", action="store_true")
+    parser.add_argument("--publicar-tiktok", action="store_true", help="Por padrão só publica no YouTube; TikTok fica manual")
+    args = parser.parse_args()
+
+    resultado = executar(args.canal, args.tema, publicar=not args.sem_publicar, publicar_tiktok=args.publicar_tiktok)
+    print("\n" + json.dumps(resultado, ensure_ascii=False, indent=2))
+
+    if not resultado["aprovado"]:
+        sys.exit(1)  # marca o job do GitHub Actions como "precisa de atenção"
+
+
+if __name__ == "__main__":
+    main()

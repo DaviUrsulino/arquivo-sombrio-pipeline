@@ -12,57 +12,67 @@ import argparse
 import json
 import os
 import sys
+import time
 
-from anthropic import Anthropic
 from dotenv import load_dotenv
+from google import genai
+from google.genai import types
+from google.genai.errors import ServerError
 
-from estilo import MASTER_STYLE_LOCK, RESTRICOES
+from canais import carregar_canal
 
 load_dotenv()
 
-SYSTEM_PROMPT = f"""Você escreve roteiros curtos de terror (estilo creepypasta) para um canal \
-dark de TikTok/YouTube Shorts chamado "Arquivo Sombrio". Regras:
-
-- Sempre 5 cenas, cada uma com ~8-10 segundos de narração falada (não escreva a duração, \
-apenas o texto).
-- Narrador único, em primeira pessoa, tom calmo e contido (nunca gritando) — o medo vem da \
-atmosfera, não do choque.
-- Zero gore, zero violência gráfica — adequado pra qualquer plataforma.
-- Escalada de tensão: começo calmo, meio com desconforto crescente, final com revelação \
-perturbadora (gancho, sem resolver tudo).
-- Personagem principal: sempre o mesmo ao longo das 5 cenas, descreva ele UMA vez com detalhe \
-suficiente (idade, porte físico, roupa, cabelo) pra reaproveitar a descrição em todas as cenas.
-- Cada cena precisa favorecer um enquadramento ESTÁTICO e de UM personagem só (sentado, \
-olhando, segurando objeto) — evite cenas de ação/movimento ou com dois personagens interagindo, \
-porque isso já causou falha de geração de imagem em teste anterior (ver README do projeto).
-
-Sua resposta deve ser APENAS um JSON válido, sem texto antes ou depois, no formato:
-{{
-  "personagem": "descrição completa e reutilizável do personagem principal",
-  "cenas": [
-    {{"narracao": "texto que o narrador fala nesta cena", "prompt_imagem": "descrição da cena \
-para gerar imagem, incluindo a descrição do personagem repetida"}},
-    ...
-  ]
-}}
-
-O campo "prompt_imagem" de cada cena deve, quando combinado com o master style lock \
-(fornecido separadamente pelo código, não repita aqui), formar um prompt completo pronto pra \
-colar num gerador de imagem. Não inclua o master style lock nem as restrições no seu \
-"prompt_imagem" — isso é adicionado depois pelo código."""
+# Modelos tentados em ordem — se um estiver sobrecarregado (503), cai pro
+# próximo antes de desistir.
+MODELOS_FALLBACK = ["gemini-3.6-flash", "gemini-3.5-flash", "gemini-flash-latest"]
 
 
-def gerar_roteiro(tema: str) -> dict:
-    client = Anthropic()
-    response = client.messages.create(
-        model="claude-opus-5",
-        max_tokens=4096,
-        system=SYSTEM_PROMPT,
-        messages=[
-            {"role": "user", "content": f"Tema/premissa da história: {tema}"},
-        ],
-    )
-    texto = "".join(block.text for block in response.content if block.type == "text")
+def _chaves_api() -> list[str]:
+    """Lê GEMINI_API_KEY (uma) ou GEMINI_API_KEYS (várias, separadas por \
+    vírgula) — permite ter uma chave reserva pra quando a principal cair."""
+    varias = os.environ.get("GEMINI_API_KEYS")
+    if varias:
+        return [k.strip() for k in varias.split(",") if k.strip()]
+    return [os.environ["GEMINI_API_KEY"]]
+
+
+def gerar_roteiro(tema: str, canal) -> dict:
+    chaves = _chaves_api()
+    ultimo_erro = None
+
+    for chave in chaves:
+        # timeout explícito: sem isso, uma chamada que trava na rede fica presa
+        # indefinidamente (já aconteceu) — crítico num pipeline automatizado
+        # que não tem ninguém olhando pra matar o processo manualmente.
+        client = genai.Client(api_key=chave, http_options=types.HttpOptions(timeout=45_000))
+        for modelo in MODELOS_FALLBACK:
+            try:
+                response = client.models.generate_content(
+                    model=modelo,
+                    contents=f"Tema/premissa da história: {tema}",
+                    config=types.GenerateContentConfig(
+                        system_instruction=canal.SYSTEM_PROMPT,
+                        response_mime_type="application/json",
+                    ),
+                )
+                if modelo != MODELOS_FALLBACK[0]:
+                    print(f"(usando modelo de reserva: {modelo})", file=sys.stderr)
+                break
+            except ServerError as e:
+                ultimo_erro = e
+                print(f"  {modelo} indisponível (503), tentando próxima opção...", file=sys.stderr)
+                time.sleep(2)
+                continue
+        else:
+            continue  # essa chave esgotou os modelos, tenta a próxima chave
+        break  # deu certo, não precisa tentar outra chave
+    else:
+        raise RuntimeError(
+            f"Todas as chaves/modelos falharam. Último erro: {ultimo_erro}"
+        )
+
+    texto = response.text
     try:
         return json.loads(texto)
     except json.JSONDecodeError:
@@ -72,11 +82,15 @@ def gerar_roteiro(tema: str) -> dict:
         return json.loads(texto[inicio:fim])
 
 
-def montar_prompts_completos(roteiro: dict) -> list[str]:
+def montar_prompts_completos(roteiro: dict, canal) -> list[str]:
+    personagem = roteiro.get("personagem")
+    descricao_personagem = f"{personagem}. " if personagem else ""
     prompts = []
     for cena in roteiro["cenas"]:
         prompt_completo = (
-            f"{MASTER_STYLE_LOCK}{cena['prompt_imagem']} {RESTRICOES}"
+            f"{canal.MASTER_STYLE_LOCK}{descricao_personagem}{cena['prompt_imagem']} "
+            f"{canal.RESTRICOES} "
+            "Vertical 9:16 portrait aspect ratio, full frame, no letterboxing."
         )
         prompts.append(prompt_completo)
     return prompts
@@ -84,33 +98,38 @@ def montar_prompts_completos(roteiro: dict) -> list[str]:
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--tema", required=True, help="Tema/premissa da história de terror")
     parser.add_argument(
-        "--saida", default="roteiro_gerado.json", help="Arquivo de saída do roteiro"
+        "--canal", default="terror", help="Nome do canal (ver src/canais/): terror, true_crime"
     )
+    parser.add_argument("--tema", required=True, help="Tema/premissa da história")
+    parser.add_argument("--saida", default=None, help="Arquivo de saída do roteiro")
     args = parser.parse_args()
 
-    print(f"Gerando roteiro pro tema: {args.tema}\n")
-    roteiro = gerar_roteiro(args.tema)
+    canal = carregar_canal(args.canal)
+    saida = args.saida or f"roteiro_{args.canal}.json"
 
-    with open(args.saida, "w", encoding="utf-8") as f:
+    print(f"Gerando roteiro pro canal '{canal.NOME_CANAL}', tema: {args.tema}\n")
+    roteiro = gerar_roteiro(args.tema, canal)
+
+    with open(saida, "w", encoding="utf-8") as f:
         json.dump(roteiro, f, ensure_ascii=False, indent=2)
 
-    print(f"Roteiro salvo em {args.saida}\n")
+    print(f"Roteiro salvo em {saida}\n")
     print("=" * 60)
-    print("PERSONAGEM:")
-    print(roteiro["personagem"])
+    for chave in ("personagem", "titulo_caso"):
+        if chave in roteiro:
+            print(f"{chave.upper()}: {roteiro[chave]}")
     print("=" * 60)
 
-    prompts = montar_prompts_completos(roteiro)
+    prompts = montar_prompts_completos(roteiro, canal)
     for i, prompt in enumerate(prompts, start=1):
-        print(f"\n--- Cena {i}: prompt pra colar no Leonardo AI ---")
+        print(f"\n--- Cena {i}: prompt pra colar no gerador de imagem ---")
         print(prompt)
 
     print(
-        "\n\nGere as imagens no Leonardo AI (formato vertical/portrait), aprove visualmente, "
-        "e salve como cena1.jpg, cena2.jpg, ... numa pasta (ex: ./imagens_aprovadas/). "
-        "Depois rode: python src/montar_video.py"
+        f"\n\nGere as imagens, aprove visualmente, e salve como cena1.jpg, cena2.jpg, ... "
+        f"em ./{canal.PASTA_IMAGENS}/. Depois rode: "
+        f"python src/montar_video.py --canal {args.canal} --roteiro {saida}"
     )
 
 

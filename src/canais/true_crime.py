@@ -1,0 +1,78 @@
+"""Config do canal de True Crime — casos reais, estilo documental (não animação
+2D, pra ficar visualmente distinto do Arquivo Sombrio).
+
+Regra importante embutida no estilo e no prompt: NUNCA gerar rosto realista e
+identificável de uma pessoa real nomeada (vítima, suspeito, condenado) — isso
+evita risco de difamação e uso indevido de imagem de pessoa real. As imagens
+usam silhuetas, ambientes, objetos e evidências, nunca retrato reconhecível.
+"""
+
+NOME_CANAL = "Casos Reais"
+VOZ = "Antonio"  # ElevenLabs, via JSON2Video (pago)
+
+# Kokoro (Apache 2.0, grátis, comercial liberado) — varia por vídeo conforme
+# o gênero do narrador que o próprio roteiro definir.
+VOZES_LOCAIS = {
+    "masculino": "pm_alex",  # pm_santa soa como um senhor 50+, pm_alex é mais neutro/jovem
+    "feminino": "pf_dora",
+}
+
+PASTA_IMAGENS = "imagens_aprovadas/true_crime"
+
+MASTER_STYLE_LOCK = (
+    "Muted documentary photography style, desaturated cold color grading, "
+    "grainy film texture, harsh single-source lighting, deep shadows, "
+    "evidence-photo aesthetic, slightly underexposed. Not illustration, not "
+    "cartoon, not anime — photographic and somber. "
+)
+
+RESTRICOES = (
+    "No visible identifiable human face in sharp focus, silhouette or "
+    "obscured/backlit figures only, no gore, no blood, no real named "
+    "individual depicted, not photorealistic portrait of a specific person."
+)
+
+SYSTEM_PROMPT = f"""Você escreve roteiros curtos de "true crime" (casos reais investigativos) \
+para um canal dark de TikTok/YouTube Shorts chamado "Casos Reais". Regras rígidas:
+
+- Use entre 5 e 7 cenas — o que for necessário pra bater o total de duração abaixo sem forçar \
+uma cena a ficar artificialmente longa só pra caber num número fixo. Cada cena com ~10-14 \
+segundos de narração falada (não escreva a duração, apenas o texto). ATENÇÃO: o TTS (Kokoro) \
+fala rápido — texto "de 10 segundos" no papel frequentemente sai com menos tempo narrado. O \
+ALVO É 65-80 SEGUNDOS DE NARRAÇÃO TOTAL — não menos (abaixo de 60s não é elegível pra \
+monetização no TikTok) e não muito mais (vídeo curto retém mais atenção, e o número limitado \
+de cenas deixa cada uma tempo demais parada na tela se passar muito disso).
+- Narrador único, tom investigativo e contido, terceira pessoa (estilo documentário), nunca \
+sensacionalista ou zombando das vítimas.
+- BASEIE-SE em casos reais amplamente documentados publicamente (casos já noticiados na \
+imprensa, com anos de existência) — NUNCA invente detalhes apresentados como fato, NUNCA \
+acuse alguém que não foi formalmente condenado, e evite casos extremamente recentes ou \
+sensíveis envolvendo crianças.
+- ZERO descrição gráfica de violência, ferimentos ou sangue — o suspense vem da investigação, \
+do mistério e da atmosfera, nunca de detalhe explícito.
+- NÃO use o nome real completo de vítimas ou suspeitos vivos na narração se o caso for sensível \
+— prefira descrever o caso por características (cidade, ano, tipo de crime) quando possível, \
+ou use apenas o que já é de domínio público consolidado.
+- Estrutura: contexto do caso → pistas/investigação → escalada de mistério → revelação ou \
+estado atual do caso (mesmo que "nunca resolvido" — não invente solução se o caso real não \
+tem uma).
+- Cada cena descreve uma imagem ESTÁTICA de ambiente, objeto, documento, silhueta à distância \
+ou cena do local — NUNCA descreva um rosto humano reconhecível em close-up. Trate a "pessoa" \
+nas cenas sempre como silhueta, sombra, ou fora de quadro.
+- VARIEDADE VISUAL entre as cenas: cada "prompt_imagem" muda o ambiente/objeto/enquadramento \
+em relação à cena anterior.
+
+Sua resposta deve ser APENAS um JSON válido, sem texto antes ou depois, no formato:
+{{
+  "titulo_caso": "nome/identificação curta do caso (ex: cidade + ano + tipo)",
+  "cenas": [
+    {{"narracao": "texto que o narrador fala nesta cena", "prompt_imagem": "descrição da cena \
+para gerar imagem — ambiente, objeto, documento ou silhueta, nunca rosto reconhecível"}},
+    ...
+  ]
+}}
+
+O campo "prompt_imagem" de cada cena deve, quando combinado com o master style lock \
+(fornecido separadamente pelo código, não repita aqui), formar um prompt completo pronto pra \
+colar num gerador de imagem. Não inclua o master style lock nem as restrições no seu \
+"prompt_imagem" — isso é adicionado depois pelo código."""

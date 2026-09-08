@@ -1,9 +1,16 @@
 .env
+client_secret.json
+token.json
+token_*.json
+tiktok_token.json
+tiktok_token_*.json
 venv/
 __pycache__/
 *.pyc
 imagens_aprovadas/
 saida/
+runs/
+roteiro*.json
 *.mp4
 *.jpg
 *.jpeg
