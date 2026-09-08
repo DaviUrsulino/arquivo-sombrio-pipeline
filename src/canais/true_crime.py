@@ -19,6 +19,8 @@ VOZES_LOCAIS = {
 
 PASTA_IMAGENS = "imagens_aprovadas/true_crime"
 
+AMBIENCIA = "tenso"  # ver PERFIS_AMBIENCIA em montar_video_local.py
+
 MASTER_STYLE_LOCK = (
     "Muted documentary photography style, desaturated cold color grading, "
     "grainy film texture, harsh single-source lighting, deep shadows, "

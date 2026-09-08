@@ -336,19 +336,21 @@ redescrever a aparência física do personagem"}},
 }}"""
 
 
+# Terceiro item de cada tupla é o perfil de ambiência sonora (ver
+# PERFIS_AMBIENCIA em montar_video_local.py).
 _TEMPLATES_POR_FORMATO = {
-    "novela_mascote": (SYSTEM_PROMPT_TEMPLATE_NOVELA, ESTILO_NOVELA),
-    "objeto_falante": (SYSTEM_PROMPT_TEMPLATE_OBJETO_FALANTE, ESTILO_OBJETO_FALANTE),
-    "historia_pov": (SYSTEM_PROMPT_TEMPLATE_HISTORIA_POV, ESTILO_HISTORIA_POV),
+    "novela_mascote": (SYSTEM_PROMPT_TEMPLATE_NOVELA, ESTILO_NOVELA, "dramatico"),
+    "objeto_falante": (SYSTEM_PROMPT_TEMPLATE_OBJETO_FALANTE, ESTILO_OBJETO_FALANTE, "leve"),
+    "historia_pov": (SYSTEM_PROMPT_TEMPLATE_HISTORIA_POV, ESTILO_HISTORIA_POV, "epico"),
 }
 
 
 def montar_canal_dinamico(topico: str, estilo_visual: str | None = None, restricoes: str | None = None):
     """Monta um objeto com a mesma interface de terror.py/true_crime.py, mas
     com o SYSTEM_PROMPT construído em cima do tema escolhido pra essa
-    execução. Temas prefixados com "<formato>::" usam o template e estilo
-    visual daquele formato em vez do template padrão de curiosidade."""
-    for prefixo, (template, estilo_formato) in _TEMPLATES_POR_FORMATO.items():
+    execução. Temas prefixados com "<formato>::" usam o template, estilo
+    visual e ambiência daquele formato em vez do padrão de curiosidade."""
+    for prefixo, (template, estilo_formato, ambiencia) in _TEMPLATES_POR_FORMATO.items():
         if topico.startswith(f"{prefixo}::"):
             topico_real = topico.removeprefix(f"{prefixo}::")
             return types.SimpleNamespace(
@@ -358,6 +360,7 @@ def montar_canal_dinamico(topico: str, estilo_visual: str | None = None, restric
                 MASTER_STYLE_LOCK=estilo_visual or estilo_formato,
                 RESTRICOES=restricoes or RESTRICOES_PADRAO,
                 SYSTEM_PROMPT=template.format(topico=topico_real),
+                AMBIENCIA=ambiencia,
             )
 
     return types.SimpleNamespace(
@@ -367,4 +370,5 @@ def montar_canal_dinamico(topico: str, estilo_visual: str | None = None, restric
         MASTER_STYLE_LOCK=estilo_visual or ESTILO_PADRAO,
         RESTRICOES=restricoes or RESTRICOES_PADRAO,
         SYSTEM_PROMPT=SYSTEM_PROMPT_TEMPLATE.format(topico=topico),
+        AMBIENCIA="leve",
     )

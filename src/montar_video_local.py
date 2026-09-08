@@ -161,6 +161,29 @@ def gerar_cta_final(caminho_saida: str, duracao: float = 3.0):
     ])
 
 
+PERFIS_AMBIENCIA = {
+    "tenso": {"freq": 55, "tremolo_hz": 0.15, "tremolo_depth": 0.6, "volume": 0.05},
+    "dramatico": {"freq": 90, "tremolo_hz": 0.25, "tremolo_depth": 0.5, "volume": 0.06},
+    "leve": {"freq": 220, "tremolo_hz": 4, "tremolo_depth": 0.4, "volume": 0.04},
+    "epico": {"freq": 70, "tremolo_hz": 0.1, "tremolo_depth": 0.55, "volume": 0.06},
+}
+
+
+def gerar_ambiencia(caminho_saida: str, duracao: float, perfil: str = "leve"):
+    """Cama de som ambiente sintetizada (drone + tremolo) — NÃO é trilha
+    musical de verdade (composição autoral estaria sujeita a direito
+    autoral se baixada de terceiro), é atmosfera de fundo bem baixa, só
+    pra dar textura sonora por trás da narração. Perfil varia por
+    formato/canal (ver AMBIENCIA em cada canais/*.py)."""
+    p = PERFIS_AMBIENCIA.get(perfil, PERFIS_AMBIENCIA["leve"])
+    _rodar([
+        "ffmpeg", "-y",
+        "-f", "lavfi", "-i", f"sine=frequency={p['freq']}:duration={duracao}",
+        "-af", f"tremolo=f={p['tremolo_hz']}:d={p['tremolo_depth']},volume={p['volume']}",
+        caminho_saida,
+    ])
+
+
 def gerar_clipe_imagem_silencioso(
     caminho_imagem: str, duracao: float, caminho_saida: str, zoom_out: bool = False
 ):
@@ -273,6 +296,47 @@ def concatenar_clipes(caminhos_clipes: list[str], caminho_saida: str, pasta_tmp:
     _rodar([
         "ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", lista_txt,
         "-c", "copy", caminho_saida,
+    ])
+
+
+def concatenar_com_transicao(
+    caminhos_clipes: list[str], caminho_saida: str, duracao_transicao: float = 0.4,
+):
+    """Concatena as cenas com crossfade (video) + crossfade de áudio entre
+    elas, em vez do corte seco do concat demuxer — dá sensação de "cenas
+    conectadas" em vez de cortes duros. Precisa reencodar (não dá pra usar
+    -c copy com xfade), então é mais lento que concatenar_clipes, mas só é
+    usado uma vez por vídeo (na junção final das cenas, não nas trocas de
+    imagem dentro da cena, que continuam com corte+whoosh)."""
+    duracoes = [_duracao_segundos(c) for c in caminhos_clipes]
+
+    entradas = []
+    for caminho in caminhos_clipes:
+        entradas += ["-i", caminho]
+
+    filtros = []
+    v_atual = "0:v"
+    a_atual = "0:a"
+    duracao_acumulada = duracoes[0]
+
+    for i in range(1, len(caminhos_clipes)):
+        offset = max(duracao_acumulada - duracao_transicao, 0)
+        v_saida = f"v{i}" if i < len(caminhos_clipes) - 1 else "vout"
+        a_saida = f"a{i}" if i < len(caminhos_clipes) - 1 else "aout"
+        filtros.append(
+            f"[{v_atual}][{i}:v]xfade=transition=fade:duration={duracao_transicao}:offset={offset}[{v_saida}]"
+        )
+        filtros.append(f"[{a_atual}][{i}:a]acrossfade=d={duracao_transicao}[{a_saida}]")
+        v_atual, a_atual = v_saida, a_saida
+        duracao_acumulada = duracao_acumulada + duracoes[i] - duracao_transicao
+
+    _rodar([
+        "ffmpeg", "-y",
+        *entradas,
+        "-filter_complex", ";".join(filtros),
+        "-map", f"[{v_atual}]", "-map", f"[{a_atual}]",
+        "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac",
+        caminho_saida,
     ])
 
 
@@ -395,12 +459,13 @@ def montar_video(roteiro: dict, canal, pasta_imagens: str, saida: str, sem_legen
         gerar_cta_final(caminho_cta)
         clipes.append(caminho_cta)
 
-        print("Concatenando cenas...")
+        print("Concatenando cenas (com transição fluida entre elas)...")
         caminho_bruto = os.path.join(pasta_tmp, "bruto.mp4")
-        concatenar_clipes(clipes, caminho_bruto, pasta_tmp)
+        concatenar_com_transicao(clipes, caminho_bruto)
 
+        caminho_com_legenda = os.path.join(pasta_tmp, "com_legenda.mp4")
         if sem_legenda:
-            shutil.copy(caminho_bruto, saida)
+            caminho_com_legenda = caminho_bruto
         else:
             print("Transcrevendo áudio pra gerar legenda (faster-whisper, pode demorar um pouco)...")
             caminho_audio_full = os.path.join(pasta_tmp, "audio_full.wav")
@@ -409,7 +474,21 @@ def montar_video(roteiro: dict, canal, pasta_imagens: str, saida: str, sem_legen
             gerar_legenda_ass(caminho_audio_full, caminho_ass, LARGURA, ALTURA)
 
             print("Queimando legenda no vídeo...")
-            queimar_legenda(caminho_bruto, caminho_ass, saida)
+            queimar_legenda(caminho_bruto, caminho_ass, caminho_com_legenda)
+
+        perfil_ambiencia = getattr(canal, "AMBIENCIA", "leve")
+        print(f"Adicionando ambientação sonora ({perfil_ambiencia})...")
+        duracao_total_video = _duracao_segundos(caminho_com_legenda)
+        caminho_ambiencia = os.path.join(pasta_tmp, "ambiencia.wav")
+        gerar_ambiencia(caminho_ambiencia, duracao_total_video, perfil_ambiencia)
+        _rodar([
+            "ffmpeg", "-y",
+            "-i", caminho_com_legenda, "-i", caminho_ambiencia,
+            "-filter_complex", "[0:a][1:a]amix=inputs=2:duration=first:dropout_transition=0[aout]",
+            "-map", "0:v", "-map", "[aout]",
+            "-c:v", "copy", "-c:a", "aac",
+            saida,
+        ])
 
     print(f"\nVídeo salvo em: {saida} (custo: R$0,00)")
     return duracao_total

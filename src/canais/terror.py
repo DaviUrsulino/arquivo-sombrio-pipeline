@@ -24,6 +24,8 @@ VOZES_LOCAIS = {
 
 PASTA_IMAGENS = "imagens_aprovadas/terror"
 
+AMBIENCIA = "tenso"  # ver PERFIS_AMBIENCIA em montar_video_local.py
+
 SYSTEM_PROMPT = f"""Você escreve roteiros curtos de terror (estilo creepypasta) para um canal \
 dark de TikTok/YouTube Shorts chamado "Arquivo Sombrio". Regras:
 
