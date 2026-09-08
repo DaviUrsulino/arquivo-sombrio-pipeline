@@ -31,6 +31,11 @@ load_dotenv()
 API_BASE = "https://api.cloudflare.com/client/v4/accounts"
 MODELO = "@cf/black-forest-labs/flux-2-klein-4b"
 
+
+class CotaEsgotadaError(RuntimeError):
+    """Cota diária do Cloudflare esgotada — erro permanente pro resto do
+    dia, não adianta tentar de novo com retry/backoff."""
+
 REFORCO_2D = (
     "flat cel-shaded 2D cartoon illustration, thick black outlines, "
     "hand-drawn animation style, NOT photorealistic, NOT a photo, NOT 3D render. "
@@ -65,6 +70,11 @@ def gerar_imagem(prompt: str, imagem_referencia: bytes | None, tentativas: int =
             ultimo_erro = f"Cloudflare retornou erro: {dados}"
         else:
             ultimo_erro = f"HTTP {resp.status_code}: {resp.text[:300]}"
+
+        # Cota diária esgotada (code 4006) não é erro passageiro -- tentar
+        # de novo com backoff é só desperdiçar tempo, desiste na hora.
+        if "daily free allocation" in ultimo_erro or '"code":4006' in ultimo_erro:
+            raise CotaEsgotadaError(f"Cota diária esgotada: {ultimo_erro}")
 
         print(f"  tentativa {tentativa} falhou ({ultimo_erro[:120]}), esperando...")
         time.sleep(3 * tentativa)
@@ -186,17 +196,24 @@ def gerar_imagens_do_roteiro(roteiro: dict, canal, pasta_saida: str, imagens_por
     imagem_anterior = None
     usou_fallback = False
     hf_esgotado = False  # depois do primeiro esgotamento, nem tenta de novo (cota é bem curta)
+    cloudflare_esgotado = False  # idem -- cota diária, não adianta insistir na mesma run
 
     for i, cena in enumerate(roteiro["cenas"], start=1):
         for parte in range(1, imagens_por_cena + 1):
             print(f"Gerando imagem da cena {i} ({parte}/{imagens_por_cena})...")
             prompt_base = cena["prompt_imagem"] + VARIACOES_SUBCENA[(parte - 1) % len(VARIACOES_SUBCENA)]
             prompt = montar_prompt(prompt_base, canal, personagem, imagem_anterior is not None)
-            try:
-                imagem_bytes = gerar_imagem(prompt, imagem_anterior)
-            except RuntimeError as e:
-                print(f"  Cloudflare falhou ({e})")
-                imagem_bytes = None
+            imagem_bytes = None
+            if not cloudflare_esgotado:
+                try:
+                    imagem_bytes = gerar_imagem(prompt, imagem_anterior)
+                except CotaEsgotadaError as e:
+                    print(f"  Cloudflare esgotado ({e}) — não tenta mais nessa run")
+                    cloudflare_esgotado = True
+                except RuntimeError as e:
+                    print(f"  Cloudflare falhou ({e})")
+
+            if imagem_bytes is None:
                 if not hf_esgotado:
                     try:
                         print("  tentando fallback Hugging Face (FLUX.1 Kontext)...")
