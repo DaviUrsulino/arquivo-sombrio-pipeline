@@ -71,7 +71,7 @@ def gerar_imagem(prompt: str, imagem_referencia: bytes | None, tentativas: int =
     raise RuntimeError(f"Falhou após {tentativas} tentativas: {ultimo_erro}")
 
 
-def gerar_imagem_pollinations(prompt: str, tentativas: int = 3) -> bytes:
+def gerar_imagem_pollinations(prompt: str, tentativas: int = 5) -> bytes:
     """Fallback pra quando a cota do Cloudflare estoura (10.000 Neurons/dia
     já esgotados) — Pollinations.ai não precisa de chave/cadastro, mas a
     API deles só aceita imagem de referência via URL pública, não bytes
@@ -97,7 +97,10 @@ def gerar_imagem_pollinations(prompt: str, tentativas: int = 3) -> bytes:
             ultimo_erro = str(e)
 
         print(f"  [Pollinations] tentativa {tentativa} falhou ({ultimo_erro[:120]}), esperando...")
-        time.sleep(3 * tentativa)
+        # o rate limit deles é por minuto (community model compartilhado
+        # entre todos os usuários) -- espera mais generosa que o Cloudflare
+        # dá mais chance de já ter liberado na próxima tentativa.
+        time.sleep(8 * tentativa)
 
     raise RuntimeError(f"Pollinations falhou após {tentativas} tentativas: {ultimo_erro}")
 
