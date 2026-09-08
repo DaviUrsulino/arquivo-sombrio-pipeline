@@ -79,6 +79,7 @@ ESTILO DE ESCRITA
 
 Sua resposta deve ser APENAS um JSON válido, no formato:
 {{
+  "genero_narrador": "masculino" ou "feminino",
   "personagem": "descrição do protagonista/narrador recorrente nas cenas, ou null se o tema \
 não pedir um personagem fixo",
   "cenas": [
