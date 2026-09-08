@@ -134,7 +134,21 @@ def gerar_metadados_publicacao(canal_nome: str, tema: str, roteiro: dict, nome_c
 
     hashtags = HASHTAGS_POR_CONTEXTO.get(contexto, ["shorts"])
     titulo = gerar_titulo(roteiro)
-    descricao = f"{nome_canal_exibicao} — " + " ".join(f"#{h}" for h in hashtags)
+
+    # A descrição começa com o próprio gancho da cena 1 (repete o que
+    # prendeu a pessoa no vídeo, reforça o clique em quem só viu a prévia),
+    # depois um CTA de inscrição, depois as hashtags — só as ~100 primeiras
+    # letras aparecem sem clicar em "mostrar mais", por isso o gancho vem
+    # primeiro, não o nome do canal.
+    gancho = roteiro["cenas"][0]["narracao"].strip()
+    if len(gancho) > 150:
+        gancho = gancho[:147].rsplit(" ", 1)[0] + "..."
+
+    descricao = (
+        f"{gancho}\n\n"
+        f"{nome_canal_exibicao} traz um vídeo novo por dia — curte e se inscreve pra não perder o próximo.\n\n"
+        + " ".join(f"#{h}" for h in hashtags)
+    )
     return titulo, descricao, hashtags
 
 

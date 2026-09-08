@@ -74,8 +74,12 @@ def gerar_narracao(texto: str, voz: str, caminho_saida: str):
 # tom no meio do vídeo).
 VARIANTES_PITCH = {
     "normal": 1.0,
+    "levemente_grave": 0.95,
     "grave": 0.90,
+    "muito_grave": 0.84,
+    "levemente_aguda": 1.06,
     "aguda": 1.12,
+    "muito_aguda": 1.19,
 }
 
 
