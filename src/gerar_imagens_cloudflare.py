@@ -18,6 +18,7 @@ import base64
 import json
 import os
 import time
+import urllib.parse
 
 import requests
 from dotenv import load_dotenv
@@ -70,6 +71,34 @@ def gerar_imagem(prompt: str, imagem_referencia: bytes | None, tentativas: int =
     raise RuntimeError(f"Falhou após {tentativas} tentativas: {ultimo_erro}")
 
 
+def gerar_imagem_pollinations(prompt: str, tentativas: int = 3) -> bytes:
+    """Fallback pra quando a cota do Cloudflare estoura (10.000 Neurons/dia
+    já esgotados) — Pollinations.ai não precisa de chave/cadastro, mas a
+    API deles só aceita imagem de referência via URL pública, não bytes
+    locais. Sem chaining de referência aqui: a consistência do personagem
+    fica só por conta da descrição em texto (ainda incluída no prompt),
+    mais fraca que o encadeamento do Cloudflare — aceitável pra emergência,
+    não pra rota principal (ver README/pesquisa de 2026-09-08)."""
+    ultimo_erro = None
+    for tentativa in range(1, tentativas + 1):
+        try:
+            url = (
+                f"https://image.pollinations.ai/prompt/{urllib.parse.quote(prompt)}"
+                f"?width=768&height=1344&nologo=true&safe=true"
+            )
+            resp = requests.get(url, timeout=60)
+            if resp.status_code == 200 and resp.headers.get("content-type", "").startswith("image/"):
+                return resp.content
+            ultimo_erro = f"HTTP {resp.status_code}: {resp.text[:200]}"
+        except Exception as e:
+            ultimo_erro = str(e)
+
+        print(f"  [Pollinations] tentativa {tentativa} falhou ({ultimo_erro[:120]}), esperando...")
+        time.sleep(3 * tentativa)
+
+    raise RuntimeError(f"Pollinations falhou após {tentativas} tentativas: {ultimo_erro}")
+
+
 VARIACOES_SUBCENA = [
     "",  # primeira imagem: usa o prompt da cena como está
     ", slightly different camera angle, tighter framing, same moment continuing",
@@ -94,7 +123,11 @@ def gerar_imagens_do_roteiro(roteiro: dict, canal, pasta_saida: str, imagens_por
             print(f"Gerando imagem da cena {i} ({parte}/{imagens_por_cena})...")
             prompt_base = cena["prompt_imagem"] + VARIACOES_SUBCENA[(parte - 1) % len(VARIACOES_SUBCENA)]
             prompt = montar_prompt(prompt_base, canal, personagem, imagem_anterior is not None)
-            imagem_bytes = gerar_imagem(prompt, imagem_anterior)
+            try:
+                imagem_bytes = gerar_imagem(prompt, imagem_anterior)
+            except RuntimeError as e:
+                print(f"  Cloudflare falhou ({e}) — caindo pro fallback Pollinations...")
+                imagem_bytes = gerar_imagem_pollinations(prompt)
 
             nome = f"cena{i}.jpg" if imagens_por_cena == 1 else f"cena{i}_{parte}.jpg"
             caminho = os.path.join(pasta_saida, nome)

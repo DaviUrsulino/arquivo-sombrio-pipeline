@@ -14,6 +14,7 @@ import os
 import sys
 import time
 
+import requests
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
@@ -26,6 +27,69 @@ load_dotenv()
 # Modelos tentados em ordem — se um estiver sobrecarregado (503), cai pro
 # próximo antes de desistir.
 MODELOS_FALLBACK = ["gemini-3.6-flash", "gemini-3.5-flash", "gemini-flash-latest"]
+
+# Modelos gratuitos do OpenRouter, usados só se o Gemini falhar (todas as
+# chaves/modelos) — free tier de 50 req/dia sem custo nenhum, validado em
+# 2026-09-08 depois de o Gemini cair 503 nos 3 modelos ao mesmo tempo. A
+# lista de modelos ":free" do OpenRouter muda com frequência (modelo que
+# existia na pesquisa já tinha sumido dias depois) — por isso busca a lista
+# atual em tempo real em vez de confiar num nome fixo que pode não existir
+# mais. Essa lista aqui é só o fallback final se a busca falhar.
+MODELOS_OPENROUTER_FALLBACK_ESTATICO = [
+    "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "google/gemma-4-31b-it:free",
+    "nvidia/nemotron-3-super-120b-a12b:free",
+]
+
+
+def _modelos_openrouter_disponiveis(chave: str) -> list[str]:
+    try:
+        resp = requests.get(
+            "https://openrouter.ai/api/v1/models",
+            headers={"Authorization": f"Bearer {chave}"},
+            timeout=15,
+        )
+        resp.raise_for_status()
+        modelos = [m["id"] for m in resp.json()["data"] if m["id"].endswith(":free")]
+        if modelos:
+            return modelos[:5]
+    except Exception:
+        pass
+    return MODELOS_OPENROUTER_FALLBACK_ESTATICO
+
+
+def _gerar_roteiro_openrouter(tema: str, canal) -> dict:
+    chave = os.environ.get("OPENROUTER_API_KEY")
+    if not chave:
+        raise RuntimeError("Gemini falhou e OPENROUTER_API_KEY não está configurada — sem fallback disponível.")
+
+    ultimo_erro = None
+    for modelo in _modelos_openrouter_disponiveis(chave):
+        try:
+            resp = requests.post(
+                "https://openrouter.ai/api/v1/chat/completions",
+                headers={"Authorization": f"Bearer {chave}", "Content-Type": "application/json"},
+                json={
+                    "model": modelo,
+                    "messages": [
+                        {"role": "system", "content": canal.SYSTEM_PROMPT},
+                        {"role": "user", "content": f"Tema/premissa da história: {tema}"},
+                    ],
+                    "response_format": {"type": "json_object"},
+                },
+                timeout=45,
+            )
+            resp.raise_for_status()
+            dados = resp.json()
+            texto = dados["choices"][0]["message"]["content"]
+            print(f"(Gemini indisponível — usando fallback OpenRouter: {modelo})", file=sys.stderr)
+            return texto
+        except Exception as e:
+            ultimo_erro = e
+            print(f"  OpenRouter {modelo} falhou ({e}), tentando próxima opção...", file=sys.stderr)
+            time.sleep(2)
+
+    raise RuntimeError(f"Gemini e todos os modelos do OpenRouter falharam. Último erro: {ultimo_erro}")
 
 
 def _chaves_api() -> list[str]:
@@ -68,9 +132,18 @@ def gerar_roteiro(tema: str, canal) -> dict:
             continue  # essa chave esgotou os modelos, tenta a próxima chave
         break  # deu certo, não precisa tentar outra chave
     else:
-        raise RuntimeError(
-            f"Todas as chaves/modelos falharam. Último erro: {ultimo_erro}"
+        print(
+            f"Gemini indisponível em todas as chaves/modelos (último erro: {ultimo_erro}) — "
+            "tentando fallback OpenRouter...",
+            file=sys.stderr,
         )
+        texto = _gerar_roteiro_openrouter(tema, canal)
+        try:
+            return json.loads(texto)
+        except json.JSONDecodeError:
+            inicio = texto.find("{")
+            fim = texto.rfind("}") + 1
+            return json.loads(texto[inicio:fim])
 
     texto = response.text
     try:
