@@ -59,6 +59,16 @@ jobs:
           fi
           echo "canal=$CANAL" >> "$GITHUB_OUTPUT"
 
+      - name: Aleatorizar horário real de publicação (dentro da janela)
+        # Feedback 2026-09-09: cron em horário EXATO todo santo dia é um dos
+        # sinais que a política de "conteúdo inautêntico" do YouTube (jul/
+        # 2026) usa pra identificar canal automatizado em escala. Um atraso
+        # aleatório de até 50min desloca o horário real de publicação sem
+        # sair da janela pretendida (os slots são 3h separados) e sem
+        # atrapalhar teste manual (workflow_dispatch não espera).
+        if: github.event_name == 'schedule'
+        run: sleep $((RANDOM % 3000))
+
       - name: Restaurar credenciais das APIs
         env:
           YOUTUBE_CLIENT_SECRET_JSON: ${{ secrets.YOUTUBE_CLIENT_SECRET_JSON }}

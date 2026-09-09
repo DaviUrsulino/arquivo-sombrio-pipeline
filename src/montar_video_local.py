@@ -19,6 +19,7 @@ Uso:
 import argparse
 import json
 import os
+import random
 import shutil
 import subprocess
 import tempfile
@@ -206,21 +207,113 @@ def gerar_ambiencia(caminho_saida: str, duracao: float, perfil: str = "leve"):
     ])
 
 
-def gerar_clipe_imagem_silencioso(
-    caminho_imagem: str, duracao: float, caminho_saida: str, zoom_out: bool = False
-):
-    """Imagem estática + Ken Burns, sem áudio, com a duração pedida.
+TIPOS_MOVIMENTO = ["zoom_in", "zoom_out", "zoom_forte", "pan_esquerda", "pan_direita", "pan_cima"]
+# "personagem_cresce" fica de fora da lista principal (sorteado com peso
+# menor em gerar_clipe_cena) porque depende de rembg (CPU, mais lento) e
+# tem fallback pra zoom_in se a extração falhar -- não deve ser o padrão.
 
-    zoom_out=True inverte a direção (começa mais perto, afasta) — alternar
-    entre zoom-in e zoom-out a cada troca de imagem dá mais sensação de
-    movimento/corte do que repetir sempre o mesmo zoom-in (feedback: vídeo
-    "parado demais" pra viralizar)."""
+
+def _extrair_personagem_rgba(caminho_imagem: str, caminho_saida_png: str):
+    """Remove o fundo da imagem (rembg, CPU, sem GPU/Modal) deixando só o
+    personagem opaco num PNG do mesmo tamanho da imagem original (RGBA,
+    fundo transparente) -- usado pelo movimento "personagem_cresce" pra dar
+    a sensação de personagem "recortado tipo figurinha" crescendo sozinho
+    enquanto o fundo fica parado (feedback 2026-09-09, referência real de
+    editores desse nicho)."""
+    from rembg import remove
+    from PIL import Image
+
+    imagem = Image.open(caminho_imagem).convert("RGB")
+    resultado = remove(imagem)
+    resultado.save(caminho_saida_png)
+
+
+def gerar_clipe_imagem_silencioso(
+    caminho_imagem: str, duracao: float, caminho_saida: str, tipo_movimento: str = "zoom_in"
+):
+    """Imagem estática + movimento de câmera (Ken Burns variado) + "tremida"
+    sutil (câmera na mão), sem áudio, com a duração pedida.
+
+    `tipo_movimento` (ver TIPOS_MOVIMENTO) varia o tipo de movimento em vez
+    de sempre repetir o mesmo zoom centralizado — feedback 2026-09-09:
+    referências reais ("Contos Urbanos") alternam arrastar de lado, subir,
+    zoom mais forte, não só "tremer parado" — dá mais fluidez.
+
+    A tremida é um jitter senoidal (seno/cosseno em frequências diferentes
+    pra não formar um círculo perfeito) somado ao centro do crop a cada
+    frame — imita leve instabilidade de câmera na mão. A amplitude é \
+pequena (poucos pixels) e cabe folgada dentro da margem de 2x que o crop \
+inicial já reserva, então nunca revela borda da imagem."""
     fps = 30
-    zoom_por_frame = 1 + (0.12 / max(duracao * fps, 1))
-    if zoom_out:
-        expressao_zoom = f"if(eq(on,0),1.15,max(zoom-{zoom_por_frame-1},1.0))"
-    else:
+    n_frames = int(duracao * fps)
+    jitter_x = "5*sin(on*0.35)"
+    jitter_y = "4*cos(on*0.27)"
+    t = f"(on/{max(n_frames, 1)})"  # 0.0 -> 1.0 ao longo do clipe
+
+    if tipo_movimento == "personagem_cresce":
+        try:
+            with tempfile.TemporaryDirectory() as pasta_tmp_fg:
+                caminho_png = os.path.join(pasta_tmp_fg, "personagem.png")
+                _extrair_personagem_rgba(caminho_imagem, caminho_png)
+                _rodar([
+                    "ffmpeg", "-y",
+                    "-loop", "1", "-i", caminho_imagem,   # fundo (imagem original, parado)
+                    "-loop", "1", "-i", caminho_png,      # personagem recortado (RGBA)
+                    "-filter_complex",
+                    (
+                        f"[0:v]scale=w={LARGURA}:h={ALTURA}:force_original_aspect_ratio=increase,"
+                        f"crop={LARGURA}:{ALTURA}[bg];"
+                        f"[1:v]format=rgba,"
+                        f"scale=w={LARGURA}:h={ALTURA}:force_original_aspect_ratio=increase:eval=frame,"
+                        f"crop={LARGURA}:{ALTURA},"
+                        # cresce ~22% ao longo do clipe, a partir do centro
+                        f"scale=w='iw*(1+0.22*t/{duracao})':h='ih*(1+0.22*t/{duracao})':eval=frame[fg];"
+                        f"[bg][fg]overlay=(W-w)/2:(H-h)/2:eval=frame[v]"
+                    ),
+                    "-map", "[v]",
+                    "-t", str(duracao),
+                    "-c:v", "libx264", "-pix_fmt", "yuv420p",
+                    caminho_saida,
+                ])
+            return
+        except Exception as e:
+            # rembg falhando não pode derrubar o vídeo inteiro -- cai pro
+            # movimento padrão (mesmo espírito defensivo do resto do
+            # pipeline: fallback, nunca crash).
+            print(f"  [personagem_cresce] extração de personagem falhou ({e}), usando zoom_in")
+            tipo_movimento = "zoom_in"
+
+    if tipo_movimento == "zoom_out":
+        zoom_por_frame = 1 + (0.18 / max(n_frames, 1))
+        expressao_zoom = f"if(eq(on,0),1.20,max(zoom-{zoom_por_frame-1},1.0))"
+        expr_x = f"iw/2-(iw/zoom/2)+{jitter_x}"
+        expr_y = f"ih/2-(ih/zoom/2)+{jitter_y}"
+    elif tipo_movimento == "zoom_forte":
+        zoom_por_frame = 1 + (0.32 / max(n_frames, 1))
+        expressao_zoom = f"min(zoom+{zoom_por_frame-1},1.38)"
+        expr_x = f"iw/2-(iw/zoom/2)+{jitter_x}"
+        expr_y = f"ih/2-(ih/zoom/2)+{jitter_y}"
+    elif tipo_movimento == "pan_esquerda":
+        zoom_por_frame = 1 + (0.06 / max(n_frames, 1))
+        expressao_zoom = f"min(zoom+{zoom_por_frame-1},1.12)"
+        expr_x = f"iw/2-(iw/zoom/2)+(0.12*iw/zoom)*(0.5-{t})+{jitter_x}"
+        expr_y = f"ih/2-(ih/zoom/2)+{jitter_y}"
+    elif tipo_movimento == "pan_direita":
+        zoom_por_frame = 1 + (0.06 / max(n_frames, 1))
+        expressao_zoom = f"min(zoom+{zoom_por_frame-1},1.12)"
+        expr_x = f"iw/2-(iw/zoom/2)+(0.12*iw/zoom)*({t}-0.5)+{jitter_x}"
+        expr_y = f"ih/2-(ih/zoom/2)+{jitter_y}"
+    elif tipo_movimento == "pan_cima":
+        zoom_por_frame = 1 + (0.08 / max(n_frames, 1))
         expressao_zoom = f"min(zoom+{zoom_por_frame-1},1.15)"
+        expr_x = f"iw/2-(iw/zoom/2)+{jitter_x}"
+        expr_y = f"ih/2-(ih/zoom/2)+(0.10*ih/zoom)*(0.5-{t})+{jitter_y}"
+    else:  # zoom_in (padrão)
+        zoom_por_frame = 1 + (0.18 / max(n_frames, 1))
+        expressao_zoom = f"min(zoom+{zoom_por_frame-1},1.20)"
+        expr_x = f"iw/2-(iw/zoom/2)+{jitter_x}"
+        expr_y = f"ih/2-(ih/zoom/2)+{jitter_y}"
+
     _rodar([
         "ffmpeg", "-y",
         "-loop", "1", "-i", caminho_imagem,
@@ -231,8 +324,9 @@ def gerar_clipe_imagem_silencioso(
             # de qualquer proporção virar 9:16 sem distorcer.
             f"[0:v]scale=w={LARGURA*2}:h={ALTURA*2}:force_original_aspect_ratio=increase,"
             f"crop={LARGURA*2}:{ALTURA*2},"
-            f"zoompan=z='{expressao_zoom}':d={int(duracao*fps)}:"
-            f"x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={LARGURA}x{ALTURA}:fps={fps}[v]"
+            f"zoompan=z='{expressao_zoom}':d={n_frames}:"
+            f"x='{expr_x}':y='{expr_y}':"
+            f"s={LARGURA}x{ALTURA}:fps={fps}[v]"
         ),
         "-map", "[v]",
         "-t", str(duracao),
@@ -261,14 +355,22 @@ def gerar_clipe_cena(
     pasta_tmp: str, caminho_sfx: str | None = None,
 ):
     """Monta a cena: divide a duração entre as imagens (corte no meio da
-    fala se houver mais de uma, alternando zoom-in/zoom-out pra reforçar o
-    corte), depois mux a narração por cima do trecho todo, com um whoosh
-    curto em cada troca de imagem."""
+    fala se houver mais de uma, sorteando um tipo de movimento de câmera
+    diferente por imagem pra reforçar o corte com mais fluidez), depois mux
+    a narração por cima do trecho todo."""
     duracao_por_imagem = duracao / len(imagens)
     sub_clipes = []
     for i, caminho_imagem in enumerate(imagens):
         caminho_sub = os.path.join(pasta_tmp, f"{os.path.basename(caminho_saida)}_sub{i}.mp4")
-        gerar_clipe_imagem_silencioso(caminho_imagem, duracao_por_imagem, caminho_sub, zoom_out=(i % 2 == 1))
+        # "personagem_cresce" (rembg) TEMPORARIAMENTE fora do sorteio ativo
+        # -- matou o processo por falta de memória (OOM, código 137) ao
+        # testar local no notebook do Davi (9,6GB RAM, sem GPU, competindo
+        # com o próprio Claude Desktop aberto). O código fica pronto e
+        # funcional, só precisa ser validado rodando no GitHub Actions
+        # (memória de sobra, sem concorrência) antes de reativar aqui.
+        # Pra testar: TIPOS_MOVIMENTO + ["personagem_cresce"].
+        tipo_movimento = random.choice(TIPOS_MOVIMENTO)
+        gerar_clipe_imagem_silencioso(caminho_imagem, duracao_por_imagem, caminho_sub, tipo_movimento=tipo_movimento)
         sub_clipes.append(caminho_sub)
 
     if len(sub_clipes) == 1:
@@ -384,7 +486,6 @@ def extrair_audio(caminho_video: str, caminho_saida: str):
     _rodar(["ffmpeg", "-y", "-i", caminho_video, "-vn", "-acodec", "pcm_s16le", caminho_saida])
 
 
-PALAVRAS_POR_BLOCO = 4  # estilo CapCut: poucas palavras por vez, não frase inteira
 
 
 def _formatar_tempo_ass(segundos: float) -> str:
@@ -413,33 +514,24 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, OutlineColour, BackColour, Bold, Italic, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Legenda,Arial Black,78,&H00FFFFFF,&H00000000,&H00000000,-1,0,1,5,0,2,60,60,340,1
+Style: Legenda,Arial Black,84,&H00FFFFFF,&H00000000,&H00000000,-1,0,1,6,0,2,60,60,800,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 """
 
-    # Destaque palavra-por-palavra (estilo CapCut): pra cada palavra falada,
-    # gera uma linha mostrando o bloco inteiro com só aquela palavra colorida
-    # — legenda estática em bloco tinha retenção pior segundo a pesquisa.
-    COR_DESTAQUE = "&H0000D7FF&"  # amarelo/dourado (BGR)
-    COR_NORMAL = "&H00FFFFFF&"  # branco
-
+    # Uma palavra por vez, centro-baixo da tela (~58% da altura, MarginV
+    # medido de baixo pra cima) -- padrão observado no canal de referência
+    # "Contos Urbanos" (@vulto_137, ver gravação de tela 2026-09-08):
+    # palavra única, grande, branca com contorno preto grosso, sem bloco de
+    # frase nem destaque de cor (isso era o padrão CapCut anterior).
     linhas = []
-    for i in range(0, len(palavras), PALAVRAS_POR_BLOCO):
-        bloco = palavras[i:i + PALAVRAS_POR_BLOCO]
-        for idx_ativo, (inicio, fim, _) in enumerate(bloco):
-            partes = []
-            for idx, (_, _, palavra) in enumerate(bloco):
-                token = palavra.strip().upper()
-                if idx == idx_ativo:
-                    token = f"{{\\c{COR_DESTAQUE}}}{token}{{\\c{COR_NORMAL}}}"
-                partes.append(token)
-            texto = " ".join(partes)
-            linhas.append(
-                f"Dialogue: 0,{_formatar_tempo_ass(inicio)},{_formatar_tempo_ass(fim)},"
-                f"Legenda,,0,0,0,,{texto}"
-            )
+    for inicio, fim, palavra in palavras:
+        texto = palavra.strip().upper()
+        linhas.append(
+            f"Dialogue: 0,{_formatar_tempo_ass(inicio)},{_formatar_tempo_ass(fim)},"
+            f"Legenda,,0,0,0,,{texto}"
+        )
 
     with open(caminho_saida_ass, "w", encoding="utf-8") as f:
         f.write(cabecalho)
@@ -447,10 +539,17 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 
 
 def queimar_legenda(caminho_video: str, caminho_ass: str, caminho_saida: str):
+    """Queima a legenda E aplica aberração cromática sutil e constante no
+    vídeo inteiro -- padrão observado no canal de referência "Contos
+    Urbanos" (@vulto_137): o efeito aparece em TODO frame, não só em
+    momentos de choque, então é filtro de vídeo (ffmpeg puro, sem custo de
+    imagem/GPU), não instrução de prompt pro gerador de imagem.
+    `rgbashift` roda ANTES de queimar a legenda, pra o texto continuar
+    nítido (só a imagem por baixo ganha a franja de cor)."""
     caminho_ass_escapado = caminho_ass.replace(":", "\\:")
     _rodar([
         "ffmpeg", "-y", "-i", caminho_video,
-        "-vf", f"ass={caminho_ass_escapado}",
+        "-vf", f"rgbashift=rh=-3:bh=3,ass={caminho_ass_escapado}",
         "-c:a", "copy", caminho_saida,
     ])
 
@@ -468,8 +567,9 @@ def montar_video(roteiro: dict, canal, pasta_imagens: str, saida: str, sem_legen
     print(f"Narrador: {genero_narrador} (voz Kokoro: {voz}, variante: {nome_variante})\n")
 
     with tempfile.TemporaryDirectory() as pasta_tmp:
-        caminho_sfx = os.path.join(pasta_tmp, "whoosh.wav")
-        gerar_sfx_whoosh(caminho_sfx)
+        # SFX de whoosh removido (feedback 2026-09-08: soava como chiado/
+        # estática nos cortes de imagem dentro da cena, "ficou horrível").
+        caminho_sfx = None
 
         clipes = []
         duracao_total = 0.0
@@ -524,7 +624,12 @@ def montar_video(roteiro: dict, canal, pasta_imagens: str, saida: str, sem_legen
         _rodar([
             "ffmpeg", "-y",
             "-i", caminho_com_legenda, "-i", caminho_ambiencia,
-            "-filter_complex", "[0:a][1:a]amix=inputs=2:duration=first:dropout_transition=0[aout]",
+            # amix normaliza (divide o volume) por padrão -- sem normalize=0
+            # e sem reforçar a narração antes, o narrador saía pela metade
+            # do volume só por causa da mixagem (feedback 2026-09-08:
+            # "narrador muito baixo").
+            "-filter_complex",
+            "[0:a]volume=1.8[a0];[a0][1:a]amix=inputs=2:duration=first:dropout_transition=0:normalize=0[aout]",
             "-map", "0:v", "-map", "[aout]",
             "-c:v", "copy", "-c:a", "aac",
             saida,

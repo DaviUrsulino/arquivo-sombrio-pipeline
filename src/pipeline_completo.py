@@ -24,7 +24,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from canais import carregar_canal
 from canais import tendencias as canal_tendencias
 from gerar_imagens_cloudflare import gerar_imagens_do_roteiro
-from gerar_roteiro import gerar_roteiro
+from gerar_roteiro import _chaves_api, gerar_roteiro
 from montar_video_local import montar_video
 
 TEMAS_FALLBACK = {
@@ -119,6 +119,35 @@ HASHTAGS_POR_CONTEXTO = {
 }
 
 
+def gerar_descricao_unica(roteiro: dict, nome_canal_exibicao: str) -> str | None:
+    """Gera uma descrição de YouTube genuinamente específica desta história
+    (não um template com hook trocado) — feedback 2026-09-09: a política de
+    "conteúdo inautêntico" do YouTube (jul/2026) pune canal onde trocar de
+    vídeo pra vídeo revela a mesma estrutura por trás ("substância só \
+levemente diferente"), o que inclui descrição template. Retorna None se a \
+chamada de IA falhar por qualquer motivo — o chamador cai pro template \
+antigo como rede de segurança, nunca trava a publicação por causa disso."""
+    from google import genai
+    from google.genai import types
+
+    historia = " ".join(c["narracao"] for c in roteiro["cenas"])
+    prompt = (
+        f'Baseado nesta história: "{historia}"\n\n'
+        "Escreva uma descrição de YouTube envolvente e ESPECÍFICA dessa história (2-3 frases, "
+        "máximo 220 caracteres), sem entregar o final, sem frase genérica tipo 'baseado em fatos "
+        "reais' ou 'você não vai acreditar'. Termine com uma chamada natural pra se inscrever no "
+        f'canal "{nome_canal_exibicao}", com uma frase diferente a cada vez (nunca repita uma '
+        "fórmula fixa). Responda só com o texto da descrição, sem aspas, sem markdown."
+    )
+    try:
+        client = genai.Client(api_key=_chaves_api()[0], http_options=types.HttpOptions(timeout=20_000))
+        resposta = client.models.generate_content(model="gemini-3.5-flash", contents=prompt)
+        return resposta.text.strip()
+    except Exception as e:
+        print(f"[gerar_descricao_unica] falhou ({e}), usando descrição-template de fallback")
+        return None
+
+
 def gerar_metadados_publicacao(canal_nome: str, tema: str, roteiro: dict, nome_canal_exibicao: str) -> tuple[str, str, list[str]]:
     """Monta título, descrição e tags — hashtags variam por formato pra
     ajudar o algoritmo a indexar certo (ex: novela de mascote não deve
@@ -135,26 +164,23 @@ def gerar_metadados_publicacao(canal_nome: str, tema: str, roteiro: dict, nome_c
     hashtags = HASHTAGS_POR_CONTEXTO.get(contexto, ["shorts"])
     titulo = gerar_titulo(roteiro)
 
-    # A descrição começa com o próprio gancho da cena 1 (repete o que
-    # prendeu a pessoa no vídeo, reforça o clique em quem só viu a prévia),
-    # depois um CTA de inscrição, depois as hashtags — só as ~100 primeiras
-    # letras aparecem sem clicar em "mostrar mais", por isso o gancho vem
-    # primeiro, não o nome do canal.
-    gancho = roteiro["cenas"][0]["narracao"].strip()
-    if len(gancho) > 150:
-        gancho = gancho[:147].rsplit(" ", 1)[0] + "..."
+    # Descrição gerada pela IA em cima da história específica deste vídeo
+    # (ver gerar_descricao_unica) — só cai pro template antigo (gancho +
+    # CTA fixo) se a chamada de IA falhar por qualquer motivo.
+    corpo_descricao = gerar_descricao_unica(roteiro, nome_canal_exibicao)
+    if corpo_descricao is None:
+        gancho = roteiro["cenas"][0]["narracao"].strip()
+        if len(gancho) > 150:
+            gancho = gancho[:147].rsplit(" ", 1)[0] + "..."
+        frases_cta_descricao = [
+            f"{nome_canal_exibicao} traz um vídeo novo por dia — curte e se inscreve pra não perder o próximo.",
+            f"Tem mais história dessas no {nome_canal_exibicao} — se inscreve e ativa o sininho.",
+            f"Se você chegou até aqui, se inscreve no {nome_canal_exibicao} — sai vídeo novo todo dia.",
+            f"{nome_canal_exibicao}: histórias novas toda semana. Deixa o like se quiser mais.",
+        ]
+        corpo_descricao = f"{gancho}\n\n{random.choice(frases_cta_descricao)}"
 
-    # Várias frases de CTA na descrição (não sempre a mesma) — mesma lógica
-    # do CTA final: reduz assinatura repetitiva entre vídeos.
-    frases_cta_descricao = [
-        f"{nome_canal_exibicao} traz um vídeo novo por dia — curte e se inscreve pra não perder o próximo.",
-        f"Tem mais história dessas no {nome_canal_exibicao} — se inscreve e ativa o sininho.",
-        f"Se você chegou até aqui, se inscreve no {nome_canal_exibicao} — sai vídeo novo todo dia.",
-        f"{nome_canal_exibicao}: histórias novas toda semana. Deixa o like se quiser mais.",
-    ]
-    cta_descricao = random.choice(frases_cta_descricao)
-
-    descricao = f"{gancho}\n\n{cta_descricao}\n\n" + " ".join(f"#{h}" for h in hashtags)
+    descricao = f"{corpo_descricao}\n\n" + " ".join(f"#{h}" for h in hashtags)
     return titulo, descricao, hashtags
 
 
@@ -195,8 +221,34 @@ def executar(canal_nome: str, tema: str | None, publicar: bool, publicar_tiktok:
     pasta_run = os.path.join("runs", f"{canal_nome}_{timestamp}")
     os.makedirs(pasta_run, exist_ok=True)
 
-    genero_desejado = proximo_genero_narrador(canal_nome)
-    tema_completo = f"{tema} (o narrador/personagem principal desta história deve ser do gênero {genero_desejado})"
+    # Feedback 2026-09-09: no canal "terror" o narrador deve ser sempre
+    # masculino -- a maioria das referências desse estilo de conteúdo
+    # (ex: "Contos Urbanos") usa voz masculina. Os outros canais continuam
+    # alternando normalmente.
+    if canal_nome == "terror":
+        genero_desejado = "masculino"
+    else:
+        genero_desejado = proximo_genero_narrador(canal_nome)
+    # Variedade real de duração/ritmo entre vídeos (feedback 2026-09-09,
+    # risco de política "conteúdo inautêntico" do YouTube: canal onde todo
+    # vídeo tem a mesma duração/profundidade lê como template automatizado).
+    # Maioria continua no alvo padrão (bate a meta interna de cada canal,
+    # ~200-230 palavras); minoria sai bem mais longa de propósito.
+    duracao_variante = random.choices(["padrao", "longa"], weights=[70, 30])[0]
+    if duracao_variante == "longa":
+        instrucao_duracao = (
+            " IMPORTANTE: para este vídeo especificamente, IGNORE a meta de 200-230 palavras "
+            "do system prompt -- escreva um roteiro bem mais longo e desenvolvido desta vez, "
+            "entre 320 e 420 palavras no total, com mais cenas e mais detalhe na escalada "
+            "(mesma estrutura, só mais desenvolvida)."
+        )
+    else:
+        instrucao_duracao = ""
+
+    tema_completo = (
+        f"{tema} (o narrador/personagem principal desta história deve ser do gênero "
+        f"{genero_desejado}){instrucao_duracao}"
+    )
 
     print(f"[{canal_nome}] tema: {tema} | narrador forçado: {genero_desejado}")
 
@@ -208,6 +260,9 @@ def executar(canal_nome: str, tema: str | None, publicar: bool, publicar_tiktok:
     # recusou uma cena 3x seguidas e a exceção subiu sem tratamento).
     try:
         roteiro = gerar_roteiro(tema_completo, canal)
+        # Garantia em código (não só no prompt) de que o gênero forçado
+        # realmente é usado -- a IA às vezes ignora a instrução de texto.
+        roteiro["genero_narrador"] = genero_desejado
         with open(os.path.join(pasta_run, "roteiro.json"), "w", encoding="utf-8") as f:
             json.dump(roteiro, f, ensure_ascii=False, indent=2)
 

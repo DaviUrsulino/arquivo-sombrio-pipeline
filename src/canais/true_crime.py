@@ -53,6 +53,9 @@ acuse alguém que não foi formalmente condenado, e evite casos extremamente rec
 sensíveis envolvendo crianças.
 - ZERO descrição gráfica de violência, ferimentos ou sangue — o suspense vem da investigação, \
 do mistério e da atmosfera, nunca de detalhe explícito.
+- ESCRITA AMIGÁVEL PRO TTS (o motor de narração lê a pontuação de forma literal): use reticências \
+("...") pra marcar pausa dramática antes de uma revelação. Escreva números e siglas por extenso \
+("três da manhã", não "3h") — o sintetizador de voz pronuncia mal número/sigla abreviada.
 - NÃO use o nome real completo de vítimas ou suspeitos vivos na narração se o caso for sensível \
 — prefira descrever o caso por características (cidade, ano, tipo de crime) quando possível, \
 ou use apenas o que já é de domínio público consolidado.

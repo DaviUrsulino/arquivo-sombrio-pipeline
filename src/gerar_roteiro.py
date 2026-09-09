@@ -18,7 +18,7 @@ import requests
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
-from google.genai.errors import ServerError
+from google.genai.errors import ClientError, ServerError
 
 from canais import carregar_canal
 
@@ -165,6 +165,16 @@ def gerar_roteiro(tema: str, canal) -> dict:
             except ServerError as e:
                 ultimo_erro = e
                 print(f"  {modelo} indisponível (503), tentando próxima opção...", file=sys.stderr)
+                time.sleep(2)
+                continue
+            except ClientError as e:
+                # Bug real encontrado 2026-09-09: 429 (cota diária esgotada)
+                # não era pego aqui, então nunca caía pro fallback
+                # OpenRouter/Mistral -- quebrava a execução do cron inteira
+                # assim que a cota do Gemini estourasse (mais provável de
+                # acontecer em produção do que um 503 passageiro).
+                ultimo_erro = e
+                print(f"  {modelo} indisponível ({e.code if hasattr(e, 'code') else e}), tentando próxima opção...", file=sys.stderr)
                 time.sleep(2)
                 continue
         else:
