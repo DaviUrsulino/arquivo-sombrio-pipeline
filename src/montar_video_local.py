@@ -423,13 +423,18 @@ def gerar_clipe_cena(
     sub_clipes = []
     for i, caminho_imagem in enumerate(imagens):
         caminho_sub = os.path.join(pasta_tmp, f"{os.path.basename(caminho_saida)}_sub{i}.mp4")
-        # "personagem_cresce" (rembg) reativado 2026-09-09 com o fix real:
-        # requirements.txt agora força torch CPU-only via --extra-index-url
-        # (era o PyTorch com CUDA sendo puxado à toa que estourou o disco
-        # do runner antes, não o rembg em si). Testar de novo via
-        # workflow_dispatch com publicar=false antes de deixar ir pro
-        # cron -- já quebrou produção duas vezes.
-        tipo_movimento = random.choice(TIPOS_MOVIMENTO + ["personagem_cresce"])
+        # "personagem_cresce" (rembg) DESATIVADO DE NOVO 2026-09-09: o fix
+        # de torch CPU-only resolveu o estouro de disco, mas em produção
+        # real (não só teste) o runner recebeu "shutdown signal" duas vezes
+        # seguidas logo após baixar ~1GB (o modelo do rembg é baixado de
+        # novo a cada clipe, sem cache, no runner efêmero do GitHub Actions
+        # -- múltiplos downloads de 1GB na mesma run parecem estourar algum
+        # limite de recurso do runner). Isso derrubou vídeo real do Em Alta
+        # e do Arquivo Sombrio no mesmo dia. Reativar só depois de mover
+        # essa etapa pra rodar no Modal (que já tem Volume de cache), não
+        # no runner do GitHub Actions -- ver plano em
+        # ~/.claude/plans/toasty-jumping-wind.md.
+        tipo_movimento = random.choice(TIPOS_MOVIMENTO)
         gerar_clipe_imagem_silencioso(caminho_imagem, duracao_por_imagem, caminho_sub, tipo_movimento=tipo_movimento)
         sub_clipes.append(caminho_sub)
 
