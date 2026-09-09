@@ -42,7 +42,11 @@ jobs:
           python-version: '3.12'
 
       - name: Instalar ffmpeg
-        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+        # `|| true` no update: um repositório que nem usamos (ex: Chrome,
+        # pré-configurado na imagem do runner) pode falhar o hash-check e
+        # travar TODO o job via `&&` mesmo com o índice do ffmpeg atualizado
+        # -- aconteceu de verdade 2026-09-09, quebrando execuções reais.
+        run: sudo apt-get update || true; sudo apt-get install -y ffmpeg
 
       - name: Instalar dependências Python
         run: pip install -r requirements.txt
