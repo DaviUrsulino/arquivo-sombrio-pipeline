@@ -37,6 +37,16 @@ TEMAS_FALLBACK = {
         "um lugar que muda de aparência sempre que ninguém está olhando",
         "um encontro com um estranho que sabe informações que não deveria saber",
         "fotos antigas da família onde uma figura estranha aparece cada vez mais perto",
+        # Temas "relato real"/lenda documentada (feedback 2026-09-09: "gostei dos 3, quero
+        # roteiros assim") -- baseados em lendas/casos reais amplamente documentados,
+        # narrados em primeira pessoa fictícia (nunca afirmando ser a família real do caso).
+        "inspirado no caso real e documentado da casa de Amityville (EUA, 1975-1977) -- uma "
+        "pessoa se muda pra uma casa isolada com histórico parecido e começa a vivenciar "
+        "fenômenos semelhantes aos relatados no caso real",
+        "uma lenda antiga sobre um monge ou figura religiosa mal-assombrando uma igreja ou "
+        "mosteiro abandonado numa região isolada, com névoa e atmosfera decadente",
+        "uma teoria/mistério real sem solução (ex: um desaparecimento histórico documentado "
+        "sem explicação) contado como especulação, nunca como fato confirmado",
     ],
     "true_crime": [
         "um caso de desaparecimento nunca solucionado",

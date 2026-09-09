@@ -192,12 +192,30 @@ PERFIS_AMBIENCIA = {
 }
 
 
+CAMINHO_TRILHA_REAL = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "trilha_terror.mp3"
+)  # trilha livre de direitos autorais escolhida manualmente pelo Davi (2026-09-09)
+   # -- ver assets/trilha_terror.mp3. Usada em vez da ambientação sintetizada
+   # quando o arquivo existir; cai pro drone sintetizado como fallback se
+   # o arquivo não estiver presente (ex: clone do repo sem o asset).
+
+
 def gerar_ambiencia(caminho_saida: str, duracao: float, perfil: str = "leve"):
-    """Cama de som ambiente sintetizada (drone + tremolo) — NÃO é trilha
-    musical de verdade (composição autoral estaria sujeita a direito
-    autoral se baixada de terceiro), é atmosfera de fundo bem baixa, só
-    pra dar textura sonora por trás da narração. Perfil varia por
-    formato/canal (ver AMBIENCIA em cada canais/*.py)."""
+    """Trilha de fundo: usa a trilha real (CAMINHO_TRILHA_REAL, livre de
+    direitos autorais) se existir, cortada/repetida pra bater a duração do
+    vídeo com fade-out no final; senão cai pro drone sintetizado (sine +
+    tremolo) como fallback -- nunca falha por falta do arquivo de música."""
+    if os.path.exists(CAMINHO_TRILHA_REAL):
+        fade_inicio = max(duracao - 2, 0)
+        _rodar([
+            "ffmpeg", "-y",
+            "-stream_loop", "-1", "-i", CAMINHO_TRILHA_REAL,
+            "-t", str(duracao),
+            "-af", f"volume=0.12,afade=t=out:st={fade_inicio}:d=2",
+            caminho_saida,
+        ])
+        return
+
     p = PERFIS_AMBIENCIA.get(perfil, PERFIS_AMBIENCIA["leve"])
     _rodar([
         "ffmpeg", "-y",
@@ -207,7 +225,22 @@ def gerar_ambiencia(caminho_saida: str, duracao: float, perfil: str = "leve"):
     ])
 
 
-TIPOS_MOVIMENTO = ["zoom_in", "zoom_out", "zoom_forte", "pan_esquerda", "pan_direita", "pan_cima"]
+TIPOS_MOVIMENTO = [
+    # zoom repetido de propósito -- feedback 2026-09-09: "gostei demais, só
+    # falta mais zoom in/zoom out" -- pesa mais que os pans no sorteio.
+    "zoom_in", "zoom_in", "zoom_out", "zoom_out", "zoom_forte",
+    "pan_esquerda", "pan_direita", "pan_cima",
+]
+
+# Tipos de transição do xfade sorteados por corte entre cenas (ver
+# concatenar_com_transicao) -- nomes nativos do ffmpeg, sem precisar de
+# filtro customizado. Mistura arrastar de lado/cima com dissolve, pra não
+# ficar só "arrastando" toda hora nem só "esmaecendo" toda hora.
+TRANSICOES_XFADE = [
+    "fade", "dissolve",
+    "slideleft", "slideright", "slideup", "slidedown",
+    "wipeleft", "wiperight", "wipeup",
+]
 # "personagem_cresce" fica de fora da lista principal (sorteado com peso
 # menor em gerar_clipe_cena) porque depende de rembg (CPU, mais lento) e
 # tem fallback pra zoom_in se a extração falhar -- não deve ser o padrão.
@@ -447,14 +480,18 @@ def concatenar_com_transicao(
 
     filtros = []
 
-    # Vídeo: dissolve encadeado, como antes.
+    # Vídeo: transição encadeada, tipo sorteado por corte (arrasta lado,
+    # sobe, dissolve) em vez de sempre o mesmo "fade" -- feedback
+    # 2026-09-09: transição sempre igual não tinha a "fluidez" que
+    # referências reais do nicho usam entre um corte e outro.
     v_atual = "0:v"
     duracao_acumulada = duracoes[0]
     for i in range(1, len(caminhos_clipes)):
         offset = max(duracao_acumulada - duracao_transicao, 0)
         v_saida = f"v{i}" if i < len(caminhos_clipes) - 1 else "vout"
+        tipo_transicao = random.choice(TRANSICOES_XFADE)
         filtros.append(
-            f"[{v_atual}][{i}:v]xfade=transition=fade:duration={duracao_transicao}:offset={offset}[{v_saida}]"
+            f"[{v_atual}][{i}:v]xfade=transition={tipo_transicao}:duration={duracao_transicao}:offset={offset}[{v_saida}]"
         )
         v_atual = v_saida
         duracao_acumulada = duracao_acumulada + duracoes[i] - duracao_transicao

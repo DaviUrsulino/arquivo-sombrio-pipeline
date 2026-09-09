@@ -113,6 +113,11 @@ porque isso já causou falha de geração de imagem em teste anterior (ver READM
 - VARIEDADE VISUAL entre as cenas é obrigatória: cada "prompt_imagem" deve mudar o cenário, o \
 plano de câmera (plano geral, close-up, plano médio, visto de costas, over-the-shoulder) ou o \
 que está em quadro — nunca repita o mesmo enquadramento/cenário em duas cenas seguidas.
+- ATMOSFERA CONTEXTUAL NO PRÓPRIO PROMPT DA IMAGEM: quando o cenário combinar (igreja, \
+cemitério, floresta, pântano, porão úmido), inclua um elemento atmosférico condizente \
+diretamente na descrição da cena — névoa/neblina baixa, poeira flutuando na luz, respiração \
+visível no frio — em vez de deixar o ambiente "limpo demais". Isso é uma escolha por cena, não \
+uma regra fixa pra toda cena.
 
 IMPORTANTE — NÃO REDESCREVA O PERSONAGEM EM CADA CENA
 - O campo "prompt_imagem" de cada cena NÃO deve incluir a descrição física do personagem (idade, \
