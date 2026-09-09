@@ -192,24 +192,27 @@ PERFIS_AMBIENCIA = {
 }
 
 
-CAMINHO_TRILHA_REAL = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "trilha_terror.mp3"
-)  # trilha livre de direitos autorais escolhida manualmente pelo Davi (2026-09-09)
-   # -- ver assets/trilha_terror.mp3. Usada em vez da ambientação sintetizada
-   # quando o arquivo existir; cai pro drone sintetizado como fallback se
-   # o arquivo não estiver presente (ex: clone do repo sem o asset).
+_PASTA_ASSETS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets")
+
+# Trilhas reais livres de direitos autorais, uma por plataforma (Davi
+# escolheu manualmente, 2026-09-09) -- vídeo idêntico em tudo, só a
+# mixagem final de áudio muda entre as duas versões geradas.
+TRILHAS_POR_PLATAFORMA = {
+    "tiktok": os.path.join(_PASTA_ASSETS, "trilha_tiktok.mp3"),
+    "youtube": os.path.join(_PASTA_ASSETS, "trilha_youtube.mp3"),
+}
 
 
-def gerar_ambiencia(caminho_saida: str, duracao: float, perfil: str = "leve"):
-    """Trilha de fundo: usa a trilha real (CAMINHO_TRILHA_REAL, livre de
-    direitos autorais) se existir, cortada/repetida pra bater a duração do
-    vídeo com fade-out no final; senão cai pro drone sintetizado (sine +
-    tremolo) como fallback -- nunca falha por falta do arquivo de música."""
-    if os.path.exists(CAMINHO_TRILHA_REAL):
+def gerar_ambiencia(caminho_saida: str, duracao: float, perfil: str = "leve", caminho_trilha: str | None = None):
+    """Trilha de fundo: usa `caminho_trilha` (livre de direitos autorais)
+    se ele existir, cortada/repetida pra bater a duração do vídeo com
+    fade-out no final; senão cai pro drone sintetizado (sine + tremolo)
+    como fallback -- nunca falha por falta do arquivo de música."""
+    if caminho_trilha and os.path.exists(caminho_trilha):
         fade_inicio = max(duracao - 2, 0)
         _rodar([
             "ffmpeg", "-y",
-            "-stream_loop", "-1", "-i", CAMINHO_TRILHA_REAL,
+            "-stream_loop", "-1", "-i", caminho_trilha,
             "-t", str(duracao),
             "-af", f"volume=0.12,afade=t=out:st={fade_inicio}:d=2",
             caminho_saida,
@@ -654,25 +657,41 @@ def montar_video(roteiro: dict, canal, pasta_imagens: str, saida: str, sem_legen
             queimar_legenda(caminho_bruto, caminho_ass, caminho_com_legenda)
 
         perfil_ambiencia = getattr(canal, "AMBIENCIA", "leve")
-        print(f"Adicionando ambientação sonora ({perfil_ambiencia})...")
         duracao_total_video = _duracao_segundos(caminho_com_legenda)
-        caminho_ambiencia = os.path.join(pasta_tmp, "ambiencia.wav")
-        gerar_ambiencia(caminho_ambiencia, duracao_total_video, perfil_ambiencia)
-        _rodar([
-            "ffmpeg", "-y",
-            "-i", caminho_com_legenda, "-i", caminho_ambiencia,
-            # amix normaliza (divide o volume) por padrão -- sem normalize=0
-            # e sem reforçar a narração antes, o narrador saía pela metade
-            # do volume só por causa da mixagem (feedback 2026-09-08:
-            # "narrador muito baixo").
-            "-filter_complex",
-            "[0:a]volume=1.8[a0];[a0][1:a]amix=inputs=2:duration=first:dropout_transition=0:normalize=0[aout]",
-            "-map", "0:v", "-map", "[aout]",
-            "-c:v", "copy", "-c:a", "aac",
-            saida,
-        ])
 
-    print(f"\nVídeo salvo em: {saida} (custo: R$0,00)")
+        # Gera UMA versão do vídeo por plataforma (TikTok/YouTube), cada
+        # uma com sua própria trilha real -- tudo até aqui (imagens,
+        # narração, legenda, cortes) já rodou uma vez só, então isso não
+        # dobra o custo/tempo pesado, só repete a etapa barata de mixar
+        # áudio no final (feedback 2026-09-09).
+        base, ext = os.path.splitext(saida)
+        caminhos_finais = {}
+        for plataforma, caminho_trilha in TRILHAS_POR_PLATAFORMA.items():
+            print(f"Adicionando trilha real ({plataforma}, {perfil_ambiencia})...")
+            caminho_ambiencia = os.path.join(pasta_tmp, f"ambiencia_{plataforma}.wav")
+            gerar_ambiencia(caminho_ambiencia, duracao_total_video, perfil_ambiencia, caminho_trilha)
+            caminho_saida_plataforma = f"{base}_{plataforma}{ext}"
+            _rodar([
+                "ffmpeg", "-y",
+                "-i", caminho_com_legenda, "-i", caminho_ambiencia,
+                # amix normaliza (divide o volume) por padrão -- sem normalize=0
+                # e sem reforçar a narração antes, o narrador saía pela metade
+                # do volume só por causa da mixagem (feedback 2026-09-08:
+                # "narrador muito baixo").
+                "-filter_complex",
+                "[0:a]volume=1.8[a0];[a0][1:a]amix=inputs=2:duration=first:dropout_transition=0:normalize=0[aout]",
+                "-map", "0:v", "-map", "[aout]",
+                "-c:v", "copy", "-c:a", "aac",
+                caminho_saida_plataforma,
+            ])
+            caminhos_finais[plataforma] = caminho_saida_plataforma
+
+        # Mantém o caminho `saida` original como alias da versão do YouTube
+        # (compatibilidade com quem só espera um arquivo, ex: CLI antiga).
+        shutil.copyfile(caminhos_finais["youtube"], saida)
+
+    print(f"\nVídeo YouTube salvo em: {caminhos_finais['youtube']}")
+    print(f"Vídeo TikTok salvo em: {caminhos_finais['tiktok']} (custo: R$0,00)")
     return duracao_total
 
 

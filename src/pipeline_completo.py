@@ -291,7 +291,8 @@ def executar(canal_nome: str, tema: str | None, publicar: bool, publicar_tiktok:
         pasta_imagens = os.path.join(pasta_run, "imagens")
         usou_fallback_imagem = gerar_imagens_do_roteiro(roteiro, canal, pasta_imagens)
 
-        caminho_video = os.path.join(pasta_run, "video.mp4")
+        caminho_video = os.path.join(pasta_run, "video.mp4")  # alias == versão YouTube (ver montar_video)
+        caminho_video_tiktok = os.path.join(pasta_run, "video_tiktok.mp4")
         duracao = montar_video(roteiro, canal, pasta_imagens, caminho_video)
 
         video_ok = os.path.exists(caminho_video) and os.path.getsize(caminho_video) > 500_000
@@ -341,7 +342,10 @@ def executar(canal_nome: str, tema: str | None, publicar: bool, publicar_tiktok:
     if publicar_tiktok:
         try:
             from publicar_tiktok import publicar_video
-            publish_id = publicar_video(caminho_video, titulo, arquivo_token=credenciais["tiktok_token"])
+            # Versão com a trilha escolhida pro TikTok (Musica1), não a
+            # mesma cópia que vai pro YouTube (ver TRILHAS_POR_PLATAFORMA
+            # em montar_video_local.py).
+            publish_id = publicar_video(caminho_video_tiktok, titulo, arquivo_token=credenciais["tiktok_token"])
             resultado["tiktok_publish_id"] = publish_id
             print(f"TikTok publish_id: {publish_id}")
         except Exception as e:
