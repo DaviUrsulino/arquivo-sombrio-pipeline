@@ -398,11 +398,13 @@ def gerar_clipe_cena(
     sub_clipes = []
     for i, caminho_imagem in enumerate(imagens):
         caminho_sub = os.path.join(pasta_tmp, f"{os.path.basename(caminho_saida)}_sub{i}.mp4")
-        # "personagem_cresce" (rembg) reativado 2026-09-09 pra validar no
-        # GitHub Actions (memória de sobra lá, diferente do notebook do
-        # Davi onde deu OOM/código 137 antes) -- se aparecer erro de
-        # memória aqui também, tirar de novo do sorteio.
-        tipo_movimento = random.choice(TIPOS_MOVIMENTO + ["personagem_cresce"])
+        # "personagem_cresce" (rembg) DESATIVADO DE NOVO 2026-09-09 -- deu
+        # OOM local (código 137) E depois estourou o disco do runner do
+        # GitHub Actions (rembg/onnxruntime puxaram pacotes CUDA gigantes
+        # sem necessidade, "No space left on device", quebrando o cron
+        # inteiro). Precisa de uma abordagem mais leve (torch CPU-only
+        # explícito, ou outra lib sem essa pegada) antes de tentar de novo.
+        tipo_movimento = random.choice(TIPOS_MOVIMENTO)
         gerar_clipe_imagem_silencioso(caminho_imagem, duracao_por_imagem, caminho_sub, tipo_movimento=tipo_movimento)
         sub_clipes.append(caminho_sub)
 
