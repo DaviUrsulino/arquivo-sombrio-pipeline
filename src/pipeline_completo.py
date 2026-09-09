@@ -364,8 +364,16 @@ def main():
     resultado = executar(args.canal, args.tema, publicar=not args.sem_publicar, publicar_tiktok=args.publicar_tiktok)
     print("\n" + json.dumps(resultado, ensure_ascii=False, indent=2))
 
-    if not resultado["aprovado"]:
-        sys.exit(1)  # marca o job do GitHub Actions como "precisa de atenção"
+    # Feedback 2026-09-09: reprovação por motivo esperado (fallback
+    # Pollinations, duração curta) é comum quase todo dia quando a cota do
+    # Cloudflare esgota -- marcar isso como "falha" (X vermelho) no
+    # GitHub Actions criava alarme falso constante. Só um ERRO DE VERDADE
+    # (exceção durante geração -- roteiro malformado, ffmpeg quebrando,
+    # etc) deve marcar a execução como falha; reprovação por qualidade é
+    # esperada e o vídeo continua salvo em runs/ pra revisão manual.
+    motivo = resultado.get("motivo") or ""
+    if not resultado["aprovado"] and motivo.startswith("erro durante geração"):
+        sys.exit(1)
 
 
 if __name__ == "__main__":
