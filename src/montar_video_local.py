@@ -306,6 +306,11 @@ inicial já reserva, então nunca revela borda da imagem."""
                 expressao_zoom_bg = f"min(zoom+{zoom_por_frame_bg-1},1.08)"
                 zoom_por_frame_fg = 1 + (0.22 / max(n_frames, 1))
                 expressao_zoom_fg = f"min(zoom+{zoom_por_frame_fg-1},1.22)"
+                # Feedback 2026-09-09: "o fundo tremendo também, mas menos
+                # que o personagem" -- mesmo jitter senoidal usado no
+                # personagem, só que com amplitude bem menor (~40%).
+                jitter_x_bg = "2*sin(on*0.35)"
+                jitter_y_bg = "1.5*cos(on*0.27)"
 
                 _rodar([
                     "ffmpeg", "-y",
@@ -316,7 +321,7 @@ inicial já reserva, então nunca revela borda da imagem."""
                         f"[0:v]scale=w={LARGURA*2}:h={ALTURA*2}:force_original_aspect_ratio=increase,"
                         f"crop={LARGURA*2}:{ALTURA*2},"
                         f"zoompan=z='{expressao_zoom_bg}':d={n_frames}:"
-                        f"x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':"
+                        f"x='iw/2-(iw/zoom/2)+{jitter_x_bg}':y='ih/2-(ih/zoom/2)+{jitter_y_bg}':"
                         f"s={LARGURA}x{ALTURA}:fps={fps}[bg];"
                         f"[1:v]format=rgba,"
                         f"scale=w={LARGURA*2}:h={ALTURA*2}:force_original_aspect_ratio=increase,"
