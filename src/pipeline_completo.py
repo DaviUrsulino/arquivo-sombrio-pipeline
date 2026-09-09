@@ -257,23 +257,24 @@ def executar(canal_nome: str, tema: str | None, publicar: bool, publicar_tiktok:
             )
 
         pasta_imagens = os.path.join(pasta_run, "imagens")
-        usou_fallback_imagem = gerar_imagens_do_roteiro(roteiro, canal, pasta_imagens)
+        usou_fallback_imagem, fonte_fallback_imagem = gerar_imagens_do_roteiro(roteiro, canal, pasta_imagens)
 
         caminho_video = os.path.join(pasta_run, "video.mp4")  # alias == versão YouTube (ver montar_video)
         caminho_video_tiktok = os.path.join(pasta_run, "video_tiktok.mp4")
         duracao = montar_video(roteiro, canal, pasta_imagens, caminho_video)
 
         video_ok = os.path.exists(caminho_video) and os.path.getsize(caminho_video) > 500_000
-        # Vídeo com imagem do fallback Pollinations não publica sozinho --
-        # já vimos ele gerar algo completamente diferente do personagem
-        # pedido (ex: "geladeira" virou um monstro), precisa de olho humano.
+        # Vídeo com imagem de fallback (Modal ou Pollinations) não publica
+        # sozinho -- já vimos os dois gerarem algo diferente do pedido
+        # (Pollinations: "geladeira" virou monstro; Modal: composição igual
+        # em toda cena, ver bug 2026-09-09), precisa de olho humano.
         aprovado = video_ok and duracao >= 60 and not usou_fallback_imagem
         if not video_ok:
             motivo = "arquivo de vídeo não foi gerado corretamente"
         elif duracao < 60:
             motivo = "duração abaixo de 60s"
         elif usou_fallback_imagem:
-            motivo = "usou fallback Pollinations (imagem pode não bater com o personagem) — revisar antes de publicar"
+            motivo = f"usou fallback {fonte_fallback_imagem} (imagem pode não bater com o personagem) — revisar antes de publicar"
         else:
             motivo = None
     except Exception as e:

@@ -6,6 +6,7 @@ aqui; importar de lá pra não haver duas versões divergentes.
 """
 
 import os
+import random
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -26,7 +27,7 @@ PASTA_IMAGENS = "imagens_aprovadas/terror"
 
 AMBIENCIA = "tenso"  # ver PERFIS_AMBIENCIA em montar_video_local.py
 
-SYSTEM_PROMPT = f"""Você escreve roteiros curtos de terror (estilo creepypasta) para um canal \
+_SYSTEM_PROMPT_TEMPLATE = f"""Você escreve roteiros curtos de terror (estilo creepypasta) para um canal \
 dark de TikTok/YouTube Shorts chamado "Arquivo Sombrio". Regras:
 
 DURAÇÃO E FORMATO — META EM PALAVRAS, NÃO EM SEGUNDOS
@@ -46,28 +47,16 @@ atmosfera, não do choque.
 
 MOLDURA DE "RELATO REAL" — OBRIGATÓRIO (feedback 2026-09-08/09: histórias claramente \
 ficcionais/genéricas prendem menos que histórias que soam como relato pessoal real ou lenda \
-urbana com base real)
-- A história deve ser CONTADA como se fosse um relato pessoal real ou uma lenda urbana com \
-alguma base real (primeira pessoa, tom de depoimento) — nunca como conto de fadas ("Era uma \
-vez..."). Se o caso for lenda (não 100% comprovada), isso fica implícito no tom ("dizem que", \
-"nunca foi confirmado"), nunca afirmado como fato absoluto sem base.
-- O GANCHO (cena 1) precisa ter uma ÂNCORA DE REALIDADE: um detalhe concreto e específico (ano, \
-nome de rua/bairro genérico, idade do narrador na época) — nunca abstrato. Ruim: "uma coisa \
-estranha aconteceu". Bom: "no inverno de 2021, no meu antigo condomínio na Rua das Flores".
-- ESCALADA: 2 a 3 eventos, cada um mais intenso que o anterior — nunca resolver tudo de uma vez.
-- O FECHO deve ser SEMPRE AMBÍGUO — evite explicar tudo ("descobri que era..."). Prefira "nunca \
-foi provado", "até hoje ninguém sabe explicar", "ainda hoje eu durmo com a luz acesa". Isso \
-importa mais que resolver a curiosidade do espectador.
-- OCASIONALMENTE (não sempre) o tema pode ser enquadrado como uma TEORIA DA CONSPIRAÇÃO em vez \
-de terror pessoal — nesse caso, SEMPRE trate como teoria/especulação ("segundo essa teoria", \
-"alguns acreditam que"), nunca como fato confirmado, e prefira teorias "leves" sem dano real \
-(mistério não resolvido, fenômeno estranho, desaparecimento sem solução) — NUNCA teoria que \
-ataque grupo específico, negue tragédia real documentada, ou verse sobre saúde/eleições (altíssimo \
-risco de remoção/desmonetização e de causar dano real).
-- REGRA DE SEGURANÇA, sem exceção: nomes de lugares genéricos ou reais (cidade, bairro) são OK, \
-mas NUNCA invente nome de pessoa real viva, empresa real, ou acusação criminal específica contra \
-alguém identificável — isso é diferente de "baseado em caso real documentado publicamente", que \
-é função do canal "Casos Reais", não deste.
+urbana com base real; feedback 2026-09-09: deixar a IA "variar sozinha" entre os 3 modos abaixo \
+saía sempre igual, virando creepypasta genérica sem nenhum deles de verdade — por isso agora o \
+modo já vem ESCOLHIDO pelo código abaixo, não por você)
+
+@@MODO_HISTORIA@@
+
+- REGRA DE SEGURANÇA, sem exceção, vale pros 3 modos: nomes de lugares genéricos ou reais \
+(cidade, bairro) são OK, mas NUNCA invente nome de pessoa real viva, empresa real, ou acusação \
+criminal específica contra alguém identificável — isso é diferente de "baseado em caso real \
+documentado publicamente", que é função do canal "Casos Reais", não deste.
 
 O HOOK (cena 1) DECIDE SE ALGUÉM CONTINUA ASSISTINDO
 - Os primeiros segundos NÃO podem ser descrição neutra de cenário ("Eu morava em..."). Abra \
@@ -148,3 +137,69 @@ diferente) desta mesma narração — DEVE mostrar algo visualmente diferente da
 O campo "prompt_imagem" de cada cena, quando combinado com a descrição do personagem e o master \
 style lock (ambos adicionados separadamente pelo código, não repita nenhum dos dois aqui), deve \
 formar um prompt completo pronto pra colar num gerador de imagem."""
+
+
+# Os 3 modos que o Davi pediu pra diferenciar de verdade ("história real...
+# história baseada em fatos reais, e teoria da conspiração") — cada um com
+# instrução concreta + exemplo de abertura, em vez de uma frase genérica só
+# sugerindo variação (que na prática saía sempre como creepypasta comum, sem
+# nenhum dos 3 de forma reconhecível — feedback 2026-09-09, ver vídeo da
+# "fita cassete amaldiçoada").
+_MODO_RELATO_PESSOAL = """MODO DESTA HISTÓRIA: RELATO PESSOAL REAL
+- Primeira pessoa, tom de depoimento direto — como alguém contando pra um amigo algo que \
+aconteceu de verdade com ele. Nunca hedging tipo "dizem que" (isso é pro modo de lenda/fatos).
+- ÂNCORA DE REALIDADE no gancho: ano específico + bairro/cidade genérico + idade ou contexto de \
+vida do narrador na época. Ruim: "uma coisa estranha aconteceu". Bom: "em dois mil e dezenove, \
+no meu primeiro apartamento sozinho, no bairro da Lapa".
+Exemplo de abertura (adapte, não copie): "Em dois mil e dezenove, no meu primeiro apartamento \
+sozinho, comecei a perceber que o relógio da cozinha atrasava exatamente sete minutos, todo \
+santo dia, sempre na mesma hora."
+"""
+
+_MODO_BASEADO_FATOS = """MODO DESTA HISTÓRIA: BASEADO EM FATOS REAIS / LENDA DOCUMENTADA
+- NÃO é depoimento pessoal do narrador — é um caso relatado sobre OUTRAS pessoas (anônimas, \
+nunca nomeadas), como quem conta uma lenda urbana com lastro real. Use frases como "consta nos \
+registros da época", "moradores da região contam até hoje", "o caso nunca foi solucionado \
+oficialmente", "não existe explicação registrada pra o que aconteceu".
+- Cite um tipo de lugar/instituição real E genérico (fazenda abandonada, hospital desativado, \
+trecho de rodovia, colégio interno antigo) numa região BR genérica (interior de um estado, sem \
+cidade específica) — nunca pessoa viva, empresa real ou nome de instituição real.
+Exemplo de abertura: "Existe um caso registrado no interior de Minas Gerais, no fim dos anos \
+noventa, sobre uma escola rural onde três alunos relataram ouvir os mesmos passos, na mesma \
+sala, todo ano letivo — e a escola foi fechada sem explicação oficial."
+"""
+
+_MODO_CONSPIRACAO = """MODO DESTA HISTÓRIA: TEORIA DA CONSPIRAÇÃO (LEVE, SEM DANO REAL)
+- Trate SEMPRE como teoria/especulação — "segundo essa teoria", "alguns pesquisadores \
+acreditam", "ainda não foi provado" — nunca como fato confirmado.
+- Tema OBRIGATORIAMENTE leve e sem risco: fenômeno inexplicado, "missing time", padrão de \
+coincidências, sinal de rádio sem origem, lugar que muda de layout — NUNCA saúde, eleição, \
+tragédia real documentada, ou qualquer acusação contra grupo, pessoa ou empresa real (altíssimo \
+risco de remoção/desmonetização e de causar dano real).
+Exemplo de abertura: "Existe uma teoria pouco conhecida sobre um trecho de estrada no interior \
+do Paraná onde motoristas relatam, até hoje, perder até vinte minutos do trajeto sem explicação \
+nenhuma."
+"""
+
+_MODOS_HISTORIA = [
+    (_MODO_RELATO_PESSOAL, 0.5),
+    (_MODO_BASEADO_FATOS, 0.3),
+    (_MODO_CONSPIRACAO, 0.2),
+]
+
+
+def montar_system_prompt() -> str:
+    """Escolhe o modo da história AGORA, no código (não deixa a IA decidir
+    sozinha, ver feedback 2026-09-09 acima) e injeta o bloco de instrução +
+    exemplo correspondente no template. Chamado a cada geração de roteiro
+    (gerar_roteiro.py), então cada vídeo pode sair num modo diferente."""
+    blocos, pesos = zip(*_MODOS_HISTORIA)
+    modo_escolhido = random.choices(blocos, weights=pesos, k=1)[0]
+    return _SYSTEM_PROMPT_TEMPLATE.replace("@@MODO_HISTORIA@@", modo_escolhido)
+
+
+# Mantido por compatibilidade com qualquer código que ainda leia o atributo
+# estático diretamente -- usa o modo "relato pessoal" (o mais comum) como
+# valor padrão. gerar_roteiro.py já prefere montar_system_prompt() quando
+# ele existe (ver _system_prompt() lá).
+SYSTEM_PROMPT = _SYSTEM_PROMPT_TEMPLATE.replace("@@MODO_HISTORIA@@", _MODO_RELATO_PESSOAL)

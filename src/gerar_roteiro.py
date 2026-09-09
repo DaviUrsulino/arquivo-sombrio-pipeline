@@ -24,6 +24,16 @@ from canais import carregar_canal
 
 load_dotenv()
 
+
+def _system_prompt(canal) -> str:
+    """Canais que precisam variar o prompt por chamada (ex: terror.py
+    sorteando um dos 3 "modos" de história, feedback 2026-09-09) expõem
+    montar_system_prompt(); os demais continuam com o atributo estático
+    SYSTEM_PROMPT."""
+    if hasattr(canal, "montar_system_prompt"):
+        return canal.montar_system_prompt()
+    return canal.SYSTEM_PROMPT
+
 # Modelos tentados em ordem — se um estiver sobrecarregado (503), cai pro
 # próximo antes de desistir.
 MODELOS_FALLBACK = ["gemini-3.6-flash", "gemini-3.5-flash", "gemini-flash-latest"]
@@ -58,7 +68,7 @@ def _modelos_openrouter_disponiveis(chave: str) -> list[str]:
     return MODELOS_OPENROUTER_FALLBACK_ESTATICO
 
 
-def _gerar_roteiro_openrouter(tema: str, canal) -> dict:
+def _gerar_roteiro_openrouter(tema: str, system_prompt: str) -> dict:
     chave = os.environ.get("OPENROUTER_API_KEY")
     if not chave:
         raise RuntimeError("Gemini falhou e OPENROUTER_API_KEY não está configurada — sem fallback disponível.")
@@ -72,7 +82,7 @@ def _gerar_roteiro_openrouter(tema: str, canal) -> dict:
                 json={
                     "model": modelo,
                     "messages": [
-                        {"role": "system", "content": canal.SYSTEM_PROMPT},
+                        {"role": "system", "content": system_prompt},
                         {"role": "user", "content": f"Tema/premissa da história: {tema}"},
                     ],
                     "response_format": {"type": "json_object"},
@@ -98,7 +108,7 @@ def _gerar_roteiro_openrouter(tema: str, canal) -> dict:
 MODELOS_MISTRAL_FALLBACK = ["mistral-small-latest", "open-mistral-nemo"]
 
 
-def _gerar_roteiro_mistral(tema: str, canal) -> dict:
+def _gerar_roteiro_mistral(tema: str, system_prompt: str) -> dict:
     chave = os.environ.get("MISTRAL_API_KEY")
     if not chave:
         raise RuntimeError("Gemini e OpenRouter falharam e MISTRAL_API_KEY não está configurada.")
@@ -112,7 +122,7 @@ def _gerar_roteiro_mistral(tema: str, canal) -> dict:
                 json={
                     "model": modelo,
                     "messages": [
-                        {"role": "system", "content": canal.SYSTEM_PROMPT},
+                        {"role": "system", "content": system_prompt},
                         {"role": "user", "content": f"Tema/premissa da história: {tema}"},
                     ],
                     "response_format": {"type": "json_object"},
@@ -141,6 +151,12 @@ def _chaves_api() -> list[str]:
 
 
 def gerar_roteiro(tema: str, canal) -> dict:
+    # Calculado UMA vez por vídeo, não a cada tentativa/retry -- canais como
+    # terror.py sorteiam um "modo" de história aqui (relato pessoal/baseado
+    # em fatos/conspiração, feedback 2026-09-09); se recalculássemos a cada
+    # retry, um roteiro que precisasse de 2 tentativas podia trocar de modo
+    # no meio do caminho.
+    system_prompt = _system_prompt(canal)
     chaves = _chaves_api()
     ultimo_erro = None
 
@@ -155,7 +171,7 @@ def gerar_roteiro(tema: str, canal) -> dict:
                     model=modelo,
                     contents=f"Tema/premissa da história: {tema}",
                     config=types.GenerateContentConfig(
-                        system_instruction=canal.SYSTEM_PROMPT,
+                        system_instruction=system_prompt,
                         response_mime_type="application/json",
                     ),
                 )
@@ -187,10 +203,10 @@ def gerar_roteiro(tema: str, canal) -> dict:
             file=sys.stderr,
         )
         try:
-            texto = _gerar_roteiro_openrouter(tema, canal)
+            texto = _gerar_roteiro_openrouter(tema, system_prompt)
         except Exception as e_or:
             print(f"OpenRouter também falhou ({e_or}) — tentando fallback Mistral...", file=sys.stderr)
-            texto = _gerar_roteiro_mistral(tema, canal)
+            texto = _gerar_roteiro_mistral(tema, system_prompt)
         try:
             return json.loads(texto)
         except json.JSONDecodeError:

@@ -195,7 +195,9 @@ VARIACOES_SUBCENA = [
 ]
 
 
-def gerar_imagens_do_roteiro(roteiro: dict, canal, pasta_saida: str, imagens_por_cena: int = 2) -> bool:
+def gerar_imagens_do_roteiro(
+    roteiro: dict, canal, pasta_saida: str, imagens_por_cena: int = 2
+) -> tuple[bool, str | None]:
     """Gera e salva as imagens de cada cena do roteiro, encadeando sempre a
     última imagem gerada como referência da próxima (mantém o personagem
     consistente cena a cena E dentro da mesma cena). Com imagens_por_cena=2
@@ -205,15 +207,21 @@ def gerar_imagens_do_roteiro(roteiro: dict, canal, pasta_saida: str, imagens_por
     "vídeo muito parado" com poucas fotos e narração longa). Com
     imagens_por_cena=1, salva cenaN.jpg (formato antigo).
 
-    Retorna True se ALGUMA imagem precisou do fallback Pollinations — o
-    chamador usa isso pra decidir se publica sozinho ou não: o Pollinations
-    já produziu imagem completamente diferente do personagem pedido (ex:
-    "geladeira" virou um monstro ciclope), então vídeo com fallback não
-    deve ir ao ar sem revisão humana."""
+    Retorna (usou_fallback, fonte_fallback): usou_fallback é True se ALGUMA
+    imagem precisou de Modal ou Pollinations (o chamador usa isso pra decidir
+    se publica sozinho ou não), fonte_fallback identifica QUAL foi usado por
+    último ("Modal (FLUX.1-schnell)" ou "Pollinations") pra a mensagem de
+    revisão não mentir sobre a causa (bug real 2026-09-09: dizia sempre
+    "Pollinations" mesmo quando era o Modal)."""
     os.makedirs(pasta_saida, exist_ok=True)
     personagem = roteiro.get("personagem")
     imagem_anterior = None
     usou_fallback = False
+    # Bug real encontrado 2026-09-09: a mensagem de reprovação dizia sempre
+    # "usou fallback Pollinations", mesmo quando quem gerou a imagem foi o
+    # Modal -- confundia o diagnóstico (o vídeo ruim daquele dia tinha vindo
+    # 100% do Modal, não do Pollinations, e o log não deixava isso claro).
+    fonte_fallback = None
     hf_esgotado = False  # depois do primeiro esgotamento, nem tenta de novo (cota é bem curta)
     cloudflare_esgotado = False  # idem -- cota diária, não adianta insistir na mesma run
     modal_indisponivel = not (os.environ.get("MODAL_TOKEN_ID") and os.environ.get("MODAL_TOKEN_SECRET"))
@@ -254,6 +262,7 @@ def gerar_imagens_do_roteiro(roteiro: dict, canal, pasta_saida: str, imagens_por
                     # inteiro caiu no Modal e foi aprovado/publicado sozinho
                     # sem essa trava, saindo "horrível" segundo o Davi.
                     usou_fallback = True
+                    fonte_fallback = "Modal (FLUX.1-schnell)"
                 except Exception as e_modal:
                     print(f"  Modal falhou ({e_modal})")
 
@@ -269,6 +278,7 @@ def gerar_imagens_do_roteiro(roteiro: dict, canal, pasta_saida: str, imagens_por
                     print("  caindo pro fallback Pollinations...")
                     imagem_bytes = gerar_imagem_pollinations(prompt)
                     usou_fallback = True
+                    fonte_fallback = "Pollinations"
 
             nome = f"cena{i}.jpg" if imagens_por_cena == 1 else f"cena{i}_{parte}.jpg"
             caminho = os.path.join(pasta_saida, nome)
@@ -279,7 +289,7 @@ def gerar_imagens_do_roteiro(roteiro: dict, canal, pasta_saida: str, imagens_por
             imagem_anterior = imagem_bytes
             time.sleep(2)
 
-    return usou_fallback
+    return usou_fallback, fonte_fallback
 
 
 def main():

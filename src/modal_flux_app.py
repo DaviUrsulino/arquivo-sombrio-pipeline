@@ -121,13 +121,25 @@ class Flux:
             ref = Image.new("RGB", (largura, altura), (128, 128, 128))
             strength = 1.0  # sem referência real -- denoise quase total, equivale a txt2img
 
+        # Bug real encontrado 2026-09-09: em img2img, o nº de passos EFETIVOS
+        # de denoise é `strength * num_inference_steps`, não
+        # `num_inference_steps` sozinho. Com strength=0.75 fixo em 4 passos,
+        # sobravam só ~3 passos efetivos -- pouco pra FLUX.1-schnell se
+        # afastar da composição da imagem de referência, então toda cena
+        # saía com a MESMA pose/enquadramento da cena anterior (vídeo real:
+        # pedido "sentado numa poltrona" e "atrás da cortina" saíram
+        # idênticos ao "olhando pra porta" da cena 1). Escalar os passos
+        # pelo inverso da strength garante ~4 passos efetivos sempre.
+        passos_efetivos_alvo = 4
+        num_inference_steps = min(max(round(passos_efetivos_alvo / strength), passos_efetivos_alvo), 8)
+
         resultado = self.pipe(
             prompt=prompt,
             image=ref,
             height=altura,
             width=largura,
             strength=strength,
-            num_inference_steps=4,
+            num_inference_steps=num_inference_steps,
             guidance_scale=0.0,
         ).images[0]
 
