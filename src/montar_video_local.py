@@ -398,14 +398,11 @@ def gerar_clipe_cena(
     sub_clipes = []
     for i, caminho_imagem in enumerate(imagens):
         caminho_sub = os.path.join(pasta_tmp, f"{os.path.basename(caminho_saida)}_sub{i}.mp4")
-        # "personagem_cresce" (rembg) TEMPORARIAMENTE fora do sorteio ativo
-        # -- matou o processo por falta de memória (OOM, código 137) ao
-        # testar local no notebook do Davi (9,6GB RAM, sem GPU, competindo
-        # com o próprio Claude Desktop aberto). O código fica pronto e
-        # funcional, só precisa ser validado rodando no GitHub Actions
-        # (memória de sobra, sem concorrência) antes de reativar aqui.
-        # Pra testar: TIPOS_MOVIMENTO + ["personagem_cresce"].
-        tipo_movimento = random.choice(TIPOS_MOVIMENTO)
+        # "personagem_cresce" (rembg) reativado 2026-09-09 pra validar no
+        # GitHub Actions (memória de sobra lá, diferente do notebook do
+        # Davi onde deu OOM/código 137 antes) -- se aparecer erro de
+        # memória aqui também, tirar de novo do sorteio.
+        tipo_movimento = random.choice(TIPOS_MOVIMENTO + ["personagem_cresce"])
         gerar_clipe_imagem_silencioso(caminho_imagem, duracao_por_imagem, caminho_sub, tipo_movimento=tipo_movimento)
         sub_clipes.append(caminho_sub)
 

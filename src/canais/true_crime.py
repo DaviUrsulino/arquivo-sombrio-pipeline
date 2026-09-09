@@ -47,6 +47,9 @@ risco real de ficar curto demais pra monetizar (mínimo 60s, sem exceção). Nã
 duração, apenas o texto.
 - Narrador único, tom investigativo e contido, terceira pessoa (estilo documentário), nunca \
 sensacionalista ou zombando das vítimas.
+- FRASES CURTAS, no máximo 12-15 palavras cada. Alterne o ritmo: frase curta, frase curta, uma \
+frase um pouco mais longa pra respirar, frase curta de impacto — nunca várias frases longas \
+seguidas.
 - BASEIE-SE em casos reais amplamente documentados publicamente (casos já noticiados na \
 imprensa, com anos de existência) — NUNCA invente detalhes apresentados como fato, NUNCA \
 acuse alguém que não foi formalmente condenado, e evite casos extremamente recentes ou \
