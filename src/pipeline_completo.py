@@ -178,7 +178,10 @@ CREDENCIAIS_POR_CONTA = {
 }
 
 
-def executar(canal_nome: str, tema: str | None, publicar: bool, publicar_tiktok: bool = False) -> dict:
+def executar(
+    canal_nome: str, tema: str | None, publicar: bool, publicar_tiktok: bool = False,
+    roteiro_manual: dict | None = None,
+) -> dict:
     conta_nome = canal_nome  # antes de resolver "arquivo_sombrio" -> "terror"
 
     # "arquivo_sombrio" é o nome da CONTA -- decisão 2026-09-09: não tem
@@ -193,7 +196,7 @@ def executar(canal_nome: str, tema: str | None, publicar: bool, publicar_tiktok:
         canal = canal_tendencias.montar_canal_dinamico(tema)
     else:
         canal = carregar_canal(canal_nome)
-        tema = tema or escolher_tema(canal_nome)
+        tema = tema or (roteiro_manual and "roteiro manual") or escolher_tema(canal_nome)
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     pasta_run = os.path.join("runs", f"{canal_nome}_{timestamp}")
@@ -237,7 +240,14 @@ def executar(canal_nome: str, tema: str | None, publicar: bool, publicar_tiktok:
     # nada como reprovado (aconteceu de verdade: moderação da Cloudflare
     # recusou uma cena 3x seguidas e a exceção subiu sem tratamento).
     try:
-        roteiro = gerar_roteiro(tema_completo, canal)
+        if roteiro_manual is not None:
+            # Roteiro pronto (ex: escrito à mão, revisado, ou de outra fonte)
+            # -- pula a geração via IA por completo, mas passa pelo resto do
+            # pipeline (imagens, vídeo, publicação) normalmente.
+            roteiro = roteiro_manual
+            print(f"[{canal_nome}] usando roteiro manual (pulou gerar_roteiro)")
+        else:
+            roteiro = gerar_roteiro(tema_completo, canal)
         # Garantia em código (não só no prompt) de que o gênero forçado
         # realmente é usado -- a IA às vezes ignora a instrução de texto.
         roteiro["genero_narrador"] = genero_desejado
@@ -332,9 +342,21 @@ def main():
     parser.add_argument("--tema", default=None)
     parser.add_argument("--sem-publicar", action="store_true")
     parser.add_argument("--publicar-tiktok", action="store_true", help="Por padrão só publica no YouTube; TikTok fica manual")
+    parser.add_argument(
+        "--roteiro-json", default=None,
+        help="Caminho de um roteiro.json pronto -- pula gerar_roteiro() e usa esse roteiro direto",
+    )
     args = parser.parse_args()
 
-    resultado = executar(args.canal, args.tema, publicar=not args.sem_publicar, publicar_tiktok=args.publicar_tiktok)
+    roteiro_manual = None
+    if args.roteiro_json:
+        with open(args.roteiro_json, encoding="utf-8") as f:
+            roteiro_manual = json.load(f)
+
+    resultado = executar(
+        args.canal, args.tema, publicar=not args.sem_publicar, publicar_tiktok=args.publicar_tiktok,
+        roteiro_manual=roteiro_manual,
+    )
     print("\n" + json.dumps(resultado, ensure_ascii=False, indent=2))
 
     # Feedback 2026-09-09: reprovação por motivo esperado (fallback

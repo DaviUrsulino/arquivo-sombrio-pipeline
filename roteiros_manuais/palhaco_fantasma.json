@@ -1,0 +1,46 @@
+{
+  "genero_narrador": "masculino",
+  "personagem": "Homem alto usando uma fantasia de palhaço velha e desbotada de cores esmaecidas, luvas vermelhas surradas, maquiagem branca borrada e rachada, boca pintada num sorriso largo e sinistro que nunca muda de expressão.",
+  "cenas": [
+    {
+      "narracao": "Isso é uma história real. No final dos anos sessenta, crianças de diferentes partes dos Estados Unidos começaram a contar a mesma história: um homem vestido de palhaço aparecia perto das escolas, escondido próximo a parques, oferecendo carona numa van branca sem janelas.",
+      "prompt_imagem": "Plano geral, à noite, de uma van branca enorme sem janelas estacionada numa rua escura perto de um playground vazio, luzes de poste amareladas ao fundo, névoa baixa no asfalto.",
+      "prompt_imagem_2": "Plano médio do personagem parado nas sombras perto do muro de uma escola, meio escondido atrás de uma árvore, observando o playground vazio."
+    },
+    {
+      "narracao": "No começo, a polícia não levou os relatos a sério. Diziam que era só uma brincadeira... ou histeria coletiva. Mas então, crianças começaram a desaparecer.",
+      "prompt_imagem": "Plano médio de dois policiais conversando numa delegacia antiga estilo anos setenta, uma prancheta de relatório sobre a mesa, expressão de descrença.",
+      "prompt_imagem_2": "Plano geral de uma rua residencial suburbana à noite, uma bicicleta caída sozinha na calçada, nenhuma criança à vista."
+    },
+    {
+      "narracao": "As descrições eram assustadoramente parecidas: um homem alto, com uma fantasia de palhaço velha e desbotada, luvas vermelhas, e uma maquiagem borrada que fazia o rosto parecer quase deteriorado.",
+      "prompt_imagem": "Close-up no rosto do personagem, maquiagem branca borrada e rachada, sombra dura de um poste de luz sobre metade do rosto.",
+      "prompt_imagem_2": "Plano detalhe das luvas vermelhas surradas do personagem apoiadas na porta lateral aberta de uma van branca."
+    },
+    {
+      "narracao": "Pais relatavam a mesma van branca perto de playgrounds. Sempre que a polícia chegava, ela já tinha desaparecido. Algumas testemunhas juraram que havia mais de um palhaço lá dentro.",
+      "prompt_imagem": "Plano geral de um playground suburbano vazio à noite, balanços se mexendo sozinhos com o vento, uma van branca ao longe na rua.",
+      "prompt_imagem_2": "Visão de dentro de uma van escura, através do para-brisa embaçado, mostrando duas silhuetas de palhaço nos bancos da frente, só contorno, sem detalhe do rosto."
+    },
+    {
+      "narracao": "Eles ficavam observando as crianças... e rindo. Os jornais não queriam publicar a história. Nenhum relatório oficial parecia existir.",
+      "prompt_imagem": "Plano médio do personagem visto de costas, observando um playground distante num dia nublado e cinzento.",
+      "prompt_imagem_2": "Plano geral da redação de um jornal antigo dos anos setenta, mesas cheias de papel espalhado, uma manchete amassada jogada numa lixeira de metal."
+    },
+    {
+      "narracao": "Até que, em mil novecentos e sessenta e oito, um garoto de Ohio desapareceu depois de dizer uma frase que assustou seus pais: o homem engraçado queria mostrar um balão pra ele. O garoto nunca foi encontrado.",
+      "prompt_imagem": "Plano geral de uma casa suburbana simples ao anoitecer, uma janela de quarto infantil com a luz acesa, atmosfera tensa e silenciosa.",
+      "prompt_imagem_2": "Close-up num balão vermelho murcho, preso numa cerca de madeira numa calçada vazia, luz de poste piscando ao fundo."
+    },
+    {
+      "narracao": "Nos meses seguintes, relatos semelhantes surgiram em Illinois, Pensilvânia e Geórgia. Alguns acreditavam ser uma quadrilha se escondendo atrás da fantasia. Outros diziam que havia algo bem mais sombrio.",
+      "prompt_imagem": "Plano geral de um mapa antigo dos Estados Unidos sobre uma mesa de madeira, marcado com vários alfinetes vermelhos espalhados em diferentes pontos, luz de abajur amarelada.",
+      "prompt_imagem_2": "Plano médio do personagem visto de longe atravessando um estacionamento vazio ao anoitecer, projetando uma sombra comprida e distorcida no chão."
+    },
+    {
+      "narracao": "E o mais estranho? Ninguém nunca foi preso. Nenhum nome, nenhum rosto. Só desenhos antigos em arquivos de caso, todos mostrando a mesma figura: um palhaço de olhos completamente negros... e um sorriso que nunca parecia mudar.",
+      "prompt_imagem": "Plano detalhe de um desenho antigo a lápis de um palhaço com olhos completamente pretos, dentro de uma pasta de arquivo policial amarelada e surrada.",
+      "prompt_imagem_2": "Close-up extremo no sorriso pintado do personagem, levemente desfocado, iluminado por uma luz de poste piscando na escuridão."
+    }
+  ]
+}
