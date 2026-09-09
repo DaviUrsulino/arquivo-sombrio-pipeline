@@ -17,7 +17,33 @@ VOZES_LOCAIS, PASTA_IMAGENS, NOME_CANAL) pra reusar o resto do pipeline sem
 precisar mudar nada nele.
 """
 
+import os
+import sys
 import types
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from obter_trends import obter_trend_brasil  # noqa: E402
+
+# Chance de injetar o assunto em alta do dia (Google Trends BR) como
+# inspiração abstrata na novela/objeto falante -- não é 100% pra manter
+# variedade com os temas evergreen já mapeados, e porque nem todo trend do
+# dia rende um contraste bom pro formato.
+CHANCE_USAR_TREND = 0.5
+
+
+def _com_trend(situacao_base: str) -> str:
+    trend = obter_trend_brasil()
+    if not trend:
+        return situacao_base
+    return (
+        f"{situacao_base} (opcionalmente, se fizer sentido, inspire-se de forma "
+        f"ABSTRATA e fictícia no assunto em alta HOJE no Brasil -- \"{trend}\" -- "
+        "SEM citar nome de pessoa real, marca, empresa ou fonte jornalística, e "
+        "SEM tratar de crime real, violência real ou tragédia real -- use só a "
+        "sensação/tema geral por trás do assunto, filtrando qualquer coisa "
+        "sensível; se o assunto não render um contraste leve e cômico/dramático "
+        "adequado ao formato, ignore e siga só com a situação acima)"
+    )
 
 NOME_CANAL = "Em Alta"
 
@@ -148,11 +174,15 @@ def escolher_tema_do_dia(formato: str | None = None) -> str:
     if formato == "novela":
         protagonista = random.choice(PROTAGONISTAS_NOVELA)
         situacao = random.choice(TEMAS_NOVELA)
+        if random.random() < CHANCE_USAR_TREND:
+            situacao = _com_trend(situacao)
         return f"novela_mascote::{protagonista} que {situacao}"
 
     if formato == "objeto_falante":
         protagonista = random.choice(PROTAGONISTAS_OBJETO_FALANTE)
         situacao = random.choice(SITUACOES_OBJETO_FALANTE)
+        if random.random() < CHANCE_USAR_TREND:
+            situacao = _com_trend(situacao)
         return f"objeto_falante::{protagonista}, {situacao}"
 
     if formato == "historia_pov":

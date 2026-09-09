@@ -136,6 +136,25 @@ def gerar_imagem_huggingface(prompt: str, imagem_referencia: bytes | None) -> by
             return f.read()
 
 
+_CLIENTE_MODAL = None
+
+
+def gerar_imagem_modal(prompt: str, imagem_referencia: bytes | None) -> bytes:
+    """Terceiro fallback (entre Cloudflare e Hugging Face): FLUX.1-schnell
+    rodando na Modal (GPU serverless, $30/mês grátis) — ver
+    src/modal_flux_app.py. Suporta encadeamento de referência (img2img),
+    então mantém a consistência de personagem igual o Cloudflare. Entra
+    antes do Hugging Face na cadeia porque a cota do HF (ZeroGPU) é
+    minúscula (~3,5 min/dia) e a da Modal é bem mais folgada."""
+    global _CLIENTE_MODAL
+    import modal
+
+    if _CLIENTE_MODAL is None:
+        _CLIENTE_MODAL = modal.Cls.from_name("arquivo-sombrio-flux", "Flux")()
+
+    return _CLIENTE_MODAL.gerar.remote(prompt, imagem_referencia)
+
+
 def gerar_imagem_pollinations(prompt: str, tentativas: int = 5) -> bytes:
     """Fallback pra quando a cota do Cloudflare estoura (10.000 Neurons/dia
     já esgotados) — Pollinations.ai não precisa de chave/cadastro, mas a
@@ -197,6 +216,7 @@ def gerar_imagens_do_roteiro(roteiro: dict, canal, pasta_saida: str, imagens_por
     usou_fallback = False
     hf_esgotado = False  # depois do primeiro esgotamento, nem tenta de novo (cota é bem curta)
     cloudflare_esgotado = False  # idem -- cota diária, não adianta insistir na mesma run
+    modal_indisponivel = not (os.environ.get("MODAL_TOKEN_ID") and os.environ.get("MODAL_TOKEN_SECRET"))
 
     for i, cena in enumerate(roteiro["cenas"], start=1):
         for parte in range(1, imagens_por_cena + 1):
@@ -222,6 +242,13 @@ def gerar_imagens_do_roteiro(roteiro: dict, canal, pasta_saida: str, imagens_por
                     cloudflare_esgotado = True
                 except RuntimeError as e:
                     print(f"  Cloudflare falhou ({e})")
+
+            if imagem_bytes is None and not modal_indisponivel:
+                try:
+                    print("  tentando fallback Modal (FLUX.1-schnell)...")
+                    imagem_bytes = gerar_imagem_modal(prompt, imagem_anterior)
+                except Exception as e_modal:
+                    print(f"  Modal falhou ({e_modal})")
 
             if imagem_bytes is None:
                 if not hf_esgotado:
