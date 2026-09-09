@@ -225,7 +225,7 @@ def montar_prompts_completos(roteiro: dict, canal) -> list[str]:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--canal", default="terror", help="Nome do canal (ver src/canais/): terror, true_crime"
+        "--canal", default="terror", help="Nome do canal (ver src/canais/): terror"
     )
     parser.add_argument("--tema", required=True, help="Tema/premissa da história")
     parser.add_argument("--saida", default=None, help="Arquivo de saída do roteiro")

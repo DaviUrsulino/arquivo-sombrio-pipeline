@@ -398,17 +398,13 @@ def gerar_clipe_cena(
     sub_clipes = []
     for i, caminho_imagem in enumerate(imagens):
         caminho_sub = os.path.join(pasta_tmp, f"{os.path.basename(caminho_saida)}_sub{i}.mp4")
-        # "personagem_cresce" (rembg) DESATIVADO DE NOVO 2026-09-09 -- deu
-        # OOM local (código 137) E depois estourou o disco do runner do
-        # GitHub Actions ("No space left on device"). Causa raiz pesquisada:
-        # não é o rembg em si (modelo u2net é leve, ~176MB) -- é o pip
-        # resolvendo por padrão o PyTorch COM SUPORTE A CUDA (vários GB de
-        # bibliotecas Nvidia inúteis num runner só-CPU) como dependência
-        # transitiva do onnxruntime/rembg juntos. Fix real pra quando
-        # reativar: pinar a instalação do torch pra versão CPU-only
-        # explícita (`pip install torch --extra-index-url
-        # https://download.pytorch.org/whl/cpu`) em vez de trocar de lib.
-        tipo_movimento = random.choice(TIPOS_MOVIMENTO)
+        # "personagem_cresce" (rembg) reativado 2026-09-09 com o fix real:
+        # requirements.txt agora força torch CPU-only via --extra-index-url
+        # (era o PyTorch com CUDA sendo puxado à toa que estourou o disco
+        # do runner antes, não o rembg em si). Testar de novo via
+        # workflow_dispatch com publicar=false antes de deixar ir pro
+        # cron -- já quebrou produção duas vezes.
+        tipo_movimento = random.choice(TIPOS_MOVIMENTO + ["personagem_cresce"])
         gerar_clipe_imagem_silencioso(caminho_imagem, duracao_por_imagem, caminho_sub, tipo_movimento=tipo_movimento)
         sub_clipes.append(caminho_sub)
 

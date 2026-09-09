@@ -6,11 +6,10 @@ o resto do pipeline (gerar_roteiro.py, montar_video.py) já funciona pra
 qualquer canal registrado, sem precisar mudar mais nada.
 """
 
-from . import terror, true_crime
+from . import terror
 
 CANAIS = {
     "terror": terror,
-    "true_crime": true_crime,
 }
 
 

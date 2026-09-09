@@ -48,13 +48,6 @@ TEMAS_FALLBACK = {
         "uma teoria/mistério real sem solução (ex: um desaparecimento histórico documentado "
         "sem explicação) contado como especulação, nunca como fato confirmado",
     ],
-    "true_crime": [
-        "um caso de desaparecimento nunca solucionado",
-        "uma investigação sobre uma fraude que enganou uma cidade inteira",
-        "um crime solucionado décadas depois por uma nova evidência",
-        "um caso envolvendo um culto investigado pela polícia",
-        "um assassinato com um padrão que intrigou investigadores por anos",
-    ],
 }
 
 
@@ -95,8 +88,7 @@ def gerar_titulo(roteiro: dict) -> str:
 # o vídeo pra quem já assiste esse tipo de conteúdo. Reconhece o prefixo do
 # tema (ex: "novela_mascote::...") pros formatos do canal tendencias.
 HASHTAGS_POR_CONTEXTO = {
-    "terror": ["terror", "creepypasta", "historiadeterror", "assustador", "arquivosombrio", "medo", "shorts"],
-    "true_crime": ["casoreal", "truecrime", "investigacao", "misterio", "casosreais", "shorts"],
+    "terror": ["terror", "creepypasta", "historiadeterror", "assustador", "arquivosombrio", "medo", "misterio", "shorts"],
     "novela_mascote": ["novela", "drama", "comedia", "viral", "shorts", "fyp"],
     "objeto_falante": ["comedia", "humor", "relatable", "engracado", "shorts", "fyp"],
     "historia_pov": ["historia", "pov", "curiosidadeshistoricas", "vocesabia", "shorts"],
@@ -170,8 +162,8 @@ def gerar_metadados_publicacao(canal_nome: str, tema: str, roteiro: dict, nome_c
 
 
 # Cada CONTA (não canal) tem suas próprias credenciais de YouTube/TikTok.
-# "arquivo_sombrio" e "tendencias" são nomes de conta; terror/true_crime são
-# sub-tipos de conteúdo dentro da conta arquivo_sombrio.
+# "arquivo_sombrio" e "tendencias" são nomes de conta; "arquivo_sombrio"
+# resolve pro canal técnico "terror" (ver executar()).
 CREDENCIAIS_POR_CONTA = {
     "arquivo_sombrio": {
         "youtube_client_secret": "client_secret.json",
@@ -187,7 +179,7 @@ CREDENCIAIS_POR_CONTA = {
 
 
 def executar(canal_nome: str, tema: str | None, publicar: bool, publicar_tiktok: bool = False) -> dict:
-    conta_nome = canal_nome  # antes de resolver terror/true_crime
+    conta_nome = canal_nome  # antes de resolver "arquivo_sombrio" -> "terror"
 
     # "arquivo_sombrio" é o nome da CONTA -- decisão 2026-09-09: não tem
     # mais alternância com true_crime, a conta é 100% canal "terror"

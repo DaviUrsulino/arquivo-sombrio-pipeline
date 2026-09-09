@@ -2,16 +2,15 @@
 momento, gerando um vídeo narrado ORIGINAL inspirado no tema do dia (nunca
 copiando conteúdo de terceiro).
 
-IMPORTANTE — limitação conhecida: pesquisa de tendência 100% ao vivo (via
-Gemini com Google Search grounding) foi testada em 2026-09-07 e deu 429
-(cota esgotada/indisponível no plano gratuito da API). Enquanto isso não
-mudar, TEMAS_ROTATIVOS abaixo precisa ser atualizado periodicamente à mão
-(pesquisa manual, tipo a que já foi feita pro terror/true_crime) em vez de
-pesquisa automática a cada execução. Se um dia tiver uma API de busca paga
-configurada, dá pra trocar `escolher_tema_do_dia` por uma pesquisa real.
+Pesquisa de tendência ao vivo hoje vem de duas fontes automáticas e
+legítimas (ver obter_trends.py): feed RSS do Google Trends e o endpoint
+oficial do YouTube (`videos.list?chart=mostPopular`) -- injetadas como
+inspiração abstrata em `_com_trend()`. TEMAS_ROTATIVOS abaixo continua
+como base evergreen pra quando nenhuma das duas fontes render um trend
+aproveitável, e ainda precisa de atualização manual periódica.
 
-Diferente de terror.py/true_crime.py, o estilo visual muda por tema em vez
-de ser fixo — `montar_canal_dinamico()` monta um objeto com a mesma
+Diferente de terror.py, o estilo visual muda por tema em vez de ser fixo
+— `montar_canal_dinamico()` monta um objeto com a mesma
 interface dos outros canais (SYSTEM_PROMPT, MASTER_STYLE_LOCK, RESTRICOES,
 VOZES_LOCAIS, PASTA_IMAGENS, NOME_CANAL) pra reusar o resto do pipeline sem
 precisar mudar nada nele.
@@ -397,7 +396,7 @@ _TEMPLATES_POR_FORMATO = {
 
 
 def montar_canal_dinamico(topico: str, estilo_visual: str | None = None, restricoes: str | None = None):
-    """Monta um objeto com a mesma interface de terror.py/true_crime.py, mas
+    """Monta um objeto com a mesma interface de terror.py, mas
     com o SYSTEM_PROMPT construído em cima do tema escolhido pra essa
     execução. Temas prefixados com "<formato>::" usam o template, estilo
     visual e ambiência daquele formato em vez do padrão de curiosidade."""

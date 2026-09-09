@@ -29,7 +29,7 @@ roteiro (Gemini API)  →  imagens (Cloudflare Workers AI, grátis, automatizado
 - Suporta múltiplas chaves via `GEMINI_API_KEYS` (separadas por vírgula) — tenta a próxima se
   uma falhar.
 - Uso: `python src/gerar_roteiro.py --canal terror --tema "..."`
-- Cada canal (`src/canais/terror.py`, `src/canais/true_crime.py`) define seu próprio
+- Cada canal (`src/canais/terror.py`) define seu próprio
   `SYSTEM_PROMPT`, estilo visual e voz — **não tem hardcode de nicho no script principal**.
 - **Regra crítica de consistência de personagem**: o campo `"personagem"` do roteiro é
   injetado *literalmente* (palavra por palavra) em todo prompt de imagem pelo código — o
@@ -114,17 +114,16 @@ em `src/canais/__init__.py` (dict `CANAIS`). Todo o resto do pipeline (`gerar_ro
 `gerar_imagens_cloudflare.py`, `montar_video_local.py`) já funciona pra qualquer canal
 registrado via `--canal <nome>`, sem precisar tocar em mais nada.
 
-- **`terror`** (Arquivo Sombrio): ficção, animação 2D estilo early-2000s, personagem fixo
-  descrito uma vez e reaproveitado, terror atmosférico, premissa variando entre execuções
-  (perseguição, culto, entidade, objeto amaldiçoado, etc. — evitar sempre "preso em ambiente
-  fechado", ficou repetitivo).
-- **`true_crime`** (Casos Reais): baseado em casos reais documentados publicamente, NUNCA
-  mostra rosto humano reconhecível (só silhueta/ambiente/objeto) — evita risco de difamação e
-  uso indevido de imagem de pessoa real. Estilo documental fotográfico, não animação.
+- **`terror`** (Arquivo Sombrio, único canal técnico da conta desde 2026-09-09 — não alterna
+  mais com `true_crime`, removido): moldura de "relato real"/lenda documentada ou teoria da
+  conspiração (âncora de realidade no gancho, escalada de 2-3 eventos, fecho ambíguo), narrador
+  sempre masculino, personagem fixo descrito uma vez e reaproveitado, premissa variando entre
+  execuções (perseguição, culto, entidade, objeto amaldiçoado, etc. — evitar sempre "preso em
+  ambiente fechado", ficou repetitivo).
 
-Estilo de escrita (os dois canais): frases curtas e objetivas, pequenos suspenses entre cenas,
-nunca resolver a curiosidade até o final, sempre acima de 60s de narração (requisito do TikTok
-Creator Rewards Program).
+Estilo de escrita: frases curtas e objetivas (máx. 12-15 palavras), pequenos suspenses entre
+cenas, nunca resolver a curiosidade até o final, sempre acima de 60s de narração (requisito do
+TikTok Creator Rewards Program).
 
 ## O que já foi validado manualmente (2026-09-06, JSON2Video)
 
@@ -178,8 +177,8 @@ python src/publicar_youtube.py --video video_final.mp4 --titulo "..." --descrica
 
 - [ ] Aprovação da auditoria TikTok (submetido 2026-09-07) — trocar `PRIVACY_LEVEL_PADRAO`
       quando aprovar.
-- [ ] Gerar roteiro/imagens de teste pro canal `true_crime` (só o `terror` foi testado
-      ponta-a-ponta até agora).
+- [ ] Reativar "personagem cresce" (movimento de câmera) com torch CPU-only explícito no
+      requirements.txt (causou estouro de disco no runner antes, ver montar_video_local.py).
 - [ ] TikTok Shop (afiliado/dropshipping) — projeto separado, decidido não misturar com os
       canais dark. Ainda não iniciado, material de referência recebido do Davi mas não
       analisado a fundo.
