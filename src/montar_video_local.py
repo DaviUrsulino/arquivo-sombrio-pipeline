@@ -194,27 +194,14 @@ PERFIS_AMBIENCIA = {
 
 _PASTA_ASSETS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets")
 
-# Catálogo de trilhas reais de terror clássico, livres de direitos autorais
-# (Kevin MacLeod / incompetech.com, CC BY -- exige atribuição na descrição
-# do vídeo, nunca reduz alcance/monetização). Davi pediu explicitamente "no
-# máximo três trilhas... as mais famosas de terror que não tomem copyright"
-# (2026-09-09) -- substitui as 2 trilhas antigas (trilha_tiktok/youtube.mp3)
-# por essas 3, sorteadas por plataforma pra dar variedade entre as versões
-# TikTok/YouTube do mesmo vídeo.
-CATALOGO_TRILHAS = [
-    os.path.join(_PASTA_ASSETS, "trilha_toccata_fugue.mp3"),   # Bach - Toccata and Fugue in D Minor
-    os.path.join(_PASTA_ASSETS, "trilha_danse_macabre.mp3"),   # Saint-Saëns - Danse Macabre
-    os.path.join(_PASTA_ASSETS, "trilha_mountain_king.mp3"),   # Grieg - In the Hall of the Mountain King
-]
-
-# Créditos exigidos pela licença CC BY do Kevin MacLeod -- incluir na
-# descrição de qualquer vídeo que use uma trilha do CATALOGO_TRILHAS.
-CREDITOS_TRILHAS = (
-    'Music: "Toccata and Fugue in D Minor", "Danse Macabre", '
-    '"In the Hall of the Mountain King" by Kevin MacLeod (incompetech.com) '
-    "Licensed under Creative Commons: By Attribution 3.0/4.0 "
-    "http://creativecommons.org/licenses/by/4.0/"
-)
+# Trilhas reais livres de direitos autorais, uma por plataforma (escolhidas
+# manualmente pelo Davi, 2026-09-09). Testamos um catálogo de 3 clássicos de
+# terror (Bach/Saint-Saëns/Grieg via Kevin MacLeod) no mesmo dia, mas o Davi
+# não gostou ("horríveis") -- revertido de volta pra essas duas.
+TRILHAS_POR_PLATAFORMA = {
+    "tiktok": os.path.join(_PASTA_ASSETS, "trilha_tiktok.mp3"),
+    "youtube": os.path.join(_PASTA_ASSETS, "trilha_youtube.mp3"),
+}
 
 
 def gerar_ambiencia(caminho_saida: str, duracao: float, perfil: str = "leve", caminho_trilha: str | None = None):
@@ -593,17 +580,26 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 
 
 def queimar_legenda(caminho_video: str, caminho_ass: str, caminho_saida: str):
-    """Queima a legenda E aplica aberração cromática sutil e constante no
-    vídeo inteiro -- padrão observado no canal de referência "Contos
-    Urbanos" (@vulto_137): o efeito aparece em TODO frame, não só em
-    momentos de choque, então é filtro de vídeo (ffmpeg puro, sem custo de
-    imagem/GPU), não instrução de prompt pro gerador de imagem.
-    `rgbashift` roda ANTES de queimar a legenda, pra o texto continuar
-    nítido (só a imagem por baixo ganha a franja de cor)."""
+    """Queima a legenda E aplica os efeitos visuais constantes de "analog
+    horror" no vídeo inteiro -- padrão observado no canal de referência
+    "Contos Urbanos" (@vulto_137): aberração cromática (rgbashift) + agora
+    também um leve visual de fita VHS (scanline sutil, cor levemente lavada
+    com flicker, chromashift extra discreto) -- testado com o Davi em
+    2026-09-09 ("ficou top") numa versão leve, sem o ruído/blur pesado da
+    primeira tentativa (que multiplicava o tamanho do arquivo por 9x).
+    Tudo roda ANTES de queimar a legenda, pra o texto continuar nítido (só
+    a imagem por baixo recebe os efeitos)."""
     caminho_ass_escapado = caminho_ass.replace(":", "\\:")
+    filtro_vhs = (
+        "rgbashift=rh=-3:bh=3,"
+        "chromashift=crh=-1:cbh=1,"
+        "eq=contrast=1.05:saturation=0.85:brightness='0.01+0.008*sin(2*PI*t*6)':gamma_g=1.03:eval=frame,"
+        "drawgrid=w=iw:h=6:t=1:color=black@0.06,"
+        "vignette=PI/6"
+    )
     _rodar([
         "ffmpeg", "-y", "-i", caminho_video,
-        "-vf", f"rgbashift=rh=-3:bh=3,ass={caminho_ass_escapado}",
+        "-vf", f"{filtro_vhs},ass={caminho_ass_escapado}",
         "-c:a", "copy", caminho_saida,
     ])
 
@@ -685,10 +681,9 @@ def montar_video(roteiro: dict, canal, pasta_imagens: str, saida: str, sem_legen
 
         base, ext = os.path.splitext(saida)
         caminhos_finais = {}
-        for plataforma in ("tiktok", "youtube"):
-            # Sorteio independente por plataforma -- as versões TikTok e
-            # YouTube do mesmo vídeo podem sair com trilhas diferentes.
-            caminho_trilha = random.choice(CATALOGO_TRILHAS) if usar_trilha_real else None
+        for plataforma, caminho_trilha in TRILHAS_POR_PLATAFORMA.items():
+            if not usar_trilha_real:
+                caminho_trilha = None
             print(f"Adicionando ambientação ({plataforma}, {perfil_ambiencia})...")
             caminho_ambiencia = os.path.join(pasta_tmp, f"ambiencia_{plataforma}.wav")
             gerar_ambiencia(caminho_ambiencia, duracao_total_video, perfil_ambiencia, caminho_trilha)
