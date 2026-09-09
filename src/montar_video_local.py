@@ -299,7 +299,15 @@ inicial já reserva, então nunca revela borda da imagem."""
                     "-loop", "1", "-i", caminho_png,      # personagem recortado (RGBA)
                     "-filter_complex",
                     (
+                        # Fundo também cresce, só que bem mais devagar (8%)
+                        # que o personagem (22%) -- as duas camadas em
+                        # velocidades diferentes é o que dá sensação real de
+                        # profundidade/paralaxe (feedback 2026-09-09: "o
+                        # personagem cresce, aí tem um negócio atrás que
+                        # cresce também, pra dar sensação de movimento").
                         f"[0:v]scale=w={LARGURA}:h={ALTURA}:force_original_aspect_ratio=increase,"
+                        f"crop={LARGURA}:{ALTURA},"
+                        f"scale=w='iw*(1+0.08*t/{duracao})':h='ih*(1+0.08*t/{duracao})':eval=frame,"
                         f"crop={LARGURA}:{ALTURA}[bg];"
                         f"[1:v]format=rgba,"
                         f"scale=w={LARGURA}:h={ALTURA}:force_original_aspect_ratio=increase:eval=frame,"
