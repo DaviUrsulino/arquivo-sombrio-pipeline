@@ -18,21 +18,31 @@ precisar mudar nada nele.
 """
 
 import os
+import random
 import sys
 import types
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from obter_trends import obter_trend_brasil  # noqa: E402
+from obter_trends import obter_titulos_trending_youtube_br, obter_trend_brasil  # noqa: E402
 
-# Chance de injetar o assunto em alta do dia (Google Trends BR) como
-# inspiração abstrata na novela/objeto falante -- não é 100% pra manter
-# variedade com os temas evergreen já mapeados, e porque nem todo trend do
-# dia rende um contraste bom pro formato.
+# Chance de injetar o assunto em alta do dia (Google Trends + YouTube
+# trending BR) como inspiração abstrata na novela/objeto falante -- não é
+# 100% pra manter variedade com os temas evergreen já mapeados, e porque
+# nem todo trend do dia rende um contraste bom pro formato.
 CHANCE_USAR_TREND = 0.5
+
+ARQUIVO_TOKEN_YOUTUBE_TENDENCIAS = "token_tendencias.json"  # ver CREDENCIAIS_POR_CONTA
 
 
 def _com_trend(situacao_base: str) -> str:
-    trend = obter_trend_brasil()
+    candidatos = []
+    trend_google = obter_trend_brasil()
+    if trend_google:
+        candidatos.append(trend_google)
+    if os.path.exists(ARQUIVO_TOKEN_YOUTUBE_TENDENCIAS):
+        candidatos += obter_titulos_trending_youtube_br(ARQUIVO_TOKEN_YOUTUBE_TENDENCIAS, limite=5)
+
+    trend = random.choice(candidatos) if candidatos else None
     if not trend:
         return situacao_base
     return (
