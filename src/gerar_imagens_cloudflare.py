@@ -247,6 +247,13 @@ def gerar_imagens_do_roteiro(roteiro: dict, canal, pasta_saida: str, imagens_por
                 try:
                     print("  tentando fallback Modal (FLUX.1-schnell)...")
                     imagem_bytes = gerar_imagem_modal(prompt, imagem_anterior)
+                    # Bug real encontrado 2026-09-09: Modal só foi validado
+                    # pro estilo dark/terror -- pra formatos bem diferentes
+                    # (ex: novela de mascote, objeto falante) a qualidade e
+                    # aderência ao estilo não têm garantia nenhuma. Vídeo
+                    # inteiro caiu no Modal e foi aprovado/publicado sozinho
+                    # sem essa trava, saindo "horrível" segundo o Davi.
+                    usou_fallback = True
                 except Exception as e_modal:
                     print(f"  Modal falhou ({e_modal})")
 

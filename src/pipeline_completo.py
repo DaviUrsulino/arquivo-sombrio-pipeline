@@ -59,31 +59,6 @@ TEMAS_FALLBACK = {
 
 
 ARQUIVO_ESTADO_NARRADOR = os.path.join("runs", "ultimo_narrador.json")
-ARQUIVO_ESTADO_SUBCANAL = os.path.join("runs", "ultimo_subcanal.json")
-
-# A conta "Arquivo Sombrio" posta tanto terror ficcional quanto casos reais
-# (true crime) — alterna entre os dois em vez de manter contas separadas.
-SUBCANAIS_ARQUIVO_SOMBRIO = ["terror", "true_crime"]
-
-
-def proximo_subcanal_arquivo_sombrio() -> str:
-    """Alterna terror/true_crime pra conta 'Arquivo Sombrio' postar os dois
-    tipos de conteúdo sem depender de sorteio."""
-    estado = {}
-    if os.path.exists(ARQUIVO_ESTADO_SUBCANAL):
-        with open(ARQUIVO_ESTADO_SUBCANAL, encoding="utf-8") as f:
-            estado = json.load(f)
-
-    ultimo = estado.get("arquivo_sombrio", SUBCANAIS_ARQUIVO_SOMBRIO[-1])
-    idx_atual = SUBCANAIS_ARQUIVO_SOMBRIO.index(ultimo) if ultimo in SUBCANAIS_ARQUIVO_SOMBRIO else -1
-    proximo = SUBCANAIS_ARQUIVO_SOMBRIO[(idx_atual + 1) % len(SUBCANAIS_ARQUIVO_SOMBRIO)]
-
-    estado["arquivo_sombrio"] = proximo
-    os.makedirs("runs", exist_ok=True)
-    with open(ARQUIVO_ESTADO_SUBCANAL, "w", encoding="utf-8") as f:
-        json.dump(estado, f, ensure_ascii=False, indent=2)
-
-    return proximo
 
 
 def escolher_tema(canal_nome: str) -> str:
@@ -214,11 +189,12 @@ CREDENCIAIS_POR_CONTA = {
 def executar(canal_nome: str, tema: str | None, publicar: bool, publicar_tiktok: bool = False) -> dict:
     conta_nome = canal_nome  # antes de resolver terror/true_crime
 
-    # "arquivo_sombrio" é o nome da CONTA, não de um canal técnico — resolve
-    # pra terror ou true_crime alternadamente, pra postar os dois tipos de
-    # conteúdo na mesma conta.
+    # "arquivo_sombrio" é o nome da CONTA -- decisão 2026-09-09: não tem
+    # mais alternância com true_crime, a conta é 100% canal "terror"
+    # (histórias reais/baseadas em fatos reais/teoria da conspiração, já
+    # cobertas pela moldura "relato real" do próprio terror.py).
     if canal_nome == "arquivo_sombrio":
-        canal_nome = proximo_subcanal_arquivo_sombrio()
+        canal_nome = "terror"
 
     if canal_nome == "tendencias":
         tema = tema or canal_tendencias.escolher_tema_do_dia()

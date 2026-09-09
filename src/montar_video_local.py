@@ -400,10 +400,14 @@ def gerar_clipe_cena(
         caminho_sub = os.path.join(pasta_tmp, f"{os.path.basename(caminho_saida)}_sub{i}.mp4")
         # "personagem_cresce" (rembg) DESATIVADO DE NOVO 2026-09-09 -- deu
         # OOM local (código 137) E depois estourou o disco do runner do
-        # GitHub Actions (rembg/onnxruntime puxaram pacotes CUDA gigantes
-        # sem necessidade, "No space left on device", quebrando o cron
-        # inteiro). Precisa de uma abordagem mais leve (torch CPU-only
-        # explícito, ou outra lib sem essa pegada) antes de tentar de novo.
+        # GitHub Actions ("No space left on device"). Causa raiz pesquisada:
+        # não é o rembg em si (modelo u2net é leve, ~176MB) -- é o pip
+        # resolvendo por padrão o PyTorch COM SUPORTE A CUDA (vários GB de
+        # bibliotecas Nvidia inúteis num runner só-CPU) como dependência
+        # transitiva do onnxruntime/rembg juntos. Fix real pra quando
+        # reativar: pinar a instalação do torch pra versão CPU-only
+        # explícita (`pip install torch --extra-index-url
+        # https://download.pytorch.org/whl/cpu`) em vez de trocar de lib.
         tipo_movimento = random.choice(TIPOS_MOVIMENTO)
         gerar_clipe_imagem_silencioso(caminho_imagem, duracao_por_imagem, caminho_sub, tipo_movimento=tipo_movimento)
         sub_clipes.append(caminho_sub)
@@ -663,10 +667,17 @@ def montar_video(roteiro: dict, canal, pasta_imagens: str, saida: str, sem_legen
         # narração, legenda, cortes) já rodou uma vez só, então isso não
         # dobra o custo/tempo pesado, só repete a etapa barata de mixar
         # áudio no final (feedback 2026-09-09).
+        # Decisão 2026-09-09: trilha real só no canal "Arquivo Sombrio"
+        # (terror) -- "Em Alta" (tendencias) continua com a ambientação
+        # sintetizada, canal.USAR_TRILHA_REAL controla isso por canal.
+        usar_trilha_real = getattr(canal, "USAR_TRILHA_REAL", True)
+
         base, ext = os.path.splitext(saida)
         caminhos_finais = {}
         for plataforma, caminho_trilha in TRILHAS_POR_PLATAFORMA.items():
-            print(f"Adicionando trilha real ({plataforma}, {perfil_ambiencia})...")
+            if not usar_trilha_real:
+                caminho_trilha = None
+            print(f"Adicionando ambientação ({plataforma}, {perfil_ambiencia})...")
             caminho_ambiencia = os.path.join(pasta_tmp, f"ambiencia_{plataforma}.wav")
             gerar_ambiencia(caminho_ambiencia, duracao_total_video, perfil_ambiencia, caminho_trilha)
             caminho_saida_plataforma = f"{base}_{plataforma}{ext}"

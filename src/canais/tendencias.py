@@ -402,6 +402,10 @@ def montar_canal_dinamico(topico: str, estilo_visual: str | None = None, restric
                 RESTRICOES=restricoes or RESTRICOES_PADRAO,
                 SYSTEM_PROMPT=template.format(topico=topico_real),
                 AMBIENCIA=ambiencia,
+                # Trilha real (ver montar_video_local.py) é só do canal
+                # terror por decisão do Davi (2026-09-09) -- Em Alta
+                # mantém a ambientação sintetizada.
+                USAR_TRILHA_REAL=False,
             )
 
     return types.SimpleNamespace(
@@ -412,4 +416,5 @@ def montar_canal_dinamico(topico: str, estilo_visual: str | None = None, restric
         RESTRICOES=restricoes or RESTRICOES_PADRAO,
         SYSTEM_PROMPT=SYSTEM_PROMPT_TEMPLATE.format(topico=topico),
         AMBIENCIA="leve",
+        USAR_TRILHA_REAL=False,
     )

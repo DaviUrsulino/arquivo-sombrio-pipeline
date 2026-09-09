@@ -4,7 +4,8 @@ name: Pipeline Dark - geração e publicação automática
 # (BRT = UTC-3). Duas contas alternando ao longo do dia, 10 vídeos/dia no
 # total (5 cada) — acima da cota garantida do Cloudflare (~6-7/dia com boa
 # qualidade), o excedente cai no fallback Pollinations automaticamente.
-#   - "Arquivo Sombrio" (terror + true crime alternados): 5x/dia
+#   - "Arquivo Sombrio" (terror -- histórias reais/baseadas em fatos reais/
+#     teoria da conspiração, ver canais/terror.py): 5x/dia
 #   - "Em Alta" (tendências): 5x/dia
 on:
   schedule:
