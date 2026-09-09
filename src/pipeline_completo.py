@@ -285,6 +285,9 @@ def executar(canal_nome: str, tema: str | None, publicar: bool, publicar_tiktok:
         return {"aprovado": False, "motivo": motivo, "pasta": pasta_run}
 
     titulo, descricao, tags = gerar_metadados_publicacao(canal_nome, tema, roteiro, canal.NOME_CANAL)
+    if getattr(canal, "USAR_TRILHA_REAL", True):
+        from montar_video_local import CREDITOS_TRILHAS
+        descricao = f"{descricao}\n\n{CREDITOS_TRILHAS}"
     print(f"\nAprovado ({duracao:.1f}s). Título: {titulo}")
 
     if not publicar:
@@ -310,9 +313,9 @@ def executar(canal_nome: str, tema: str | None, publicar: bool, publicar_tiktok:
     if publicar_tiktok:
         try:
             from publicar_tiktok import publicar_video
-            # Versão com a trilha escolhida pro TikTok (Musica1), não a
-            # mesma cópia que vai pro YouTube (ver TRILHAS_POR_PLATAFORMA
-            # em montar_video_local.py).
+            # Versão com a trilha sorteada pro TikTok, não necessariamente
+            # a mesma que foi sorteada pra versão YouTube (ver
+            # CATALOGO_TRILHAS em montar_video_local.py).
             publish_id = publicar_video(caminho_video_tiktok, titulo, arquivo_token=credenciais["tiktok_token"])
             resultado["tiktok_publish_id"] = publish_id
             print(f"TikTok publish_id: {publish_id}")

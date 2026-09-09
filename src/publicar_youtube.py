@@ -73,6 +73,13 @@ def publicar_short(
         "status": {
             "privacyStatus": "public",
             "selfDeclaredMadeForKids": False,
+            # Declara conteúdo alterado/sintético (voz e imagens geradas por
+            # IA) -- exigido pela política de transparência do YouTube desde
+            # out/2024. NÃO declarar não impede publicação, mas expõe a um
+            # sistema de 3 avisos que pode suspender monetização; declarar
+            # não reduz alcance/monetização (ver YouTube Help, "How this
+            # content was made"), então não custa nada marcar sempre.
+            "containsSyntheticMedia": True,
         },
     }
 

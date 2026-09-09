@@ -194,13 +194,27 @@ PERFIS_AMBIENCIA = {
 
 _PASTA_ASSETS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets")
 
-# Trilhas reais livres de direitos autorais, uma por plataforma (Davi
-# escolheu manualmente, 2026-09-09) -- vídeo idêntico em tudo, só a
-# mixagem final de áudio muda entre as duas versões geradas.
-TRILHAS_POR_PLATAFORMA = {
-    "tiktok": os.path.join(_PASTA_ASSETS, "trilha_tiktok.mp3"),
-    "youtube": os.path.join(_PASTA_ASSETS, "trilha_youtube.mp3"),
-}
+# Catálogo de trilhas reais de terror clássico, livres de direitos autorais
+# (Kevin MacLeod / incompetech.com, CC BY -- exige atribuição na descrição
+# do vídeo, nunca reduz alcance/monetização). Davi pediu explicitamente "no
+# máximo três trilhas... as mais famosas de terror que não tomem copyright"
+# (2026-09-09) -- substitui as 2 trilhas antigas (trilha_tiktok/youtube.mp3)
+# por essas 3, sorteadas por plataforma pra dar variedade entre as versões
+# TikTok/YouTube do mesmo vídeo.
+CATALOGO_TRILHAS = [
+    os.path.join(_PASTA_ASSETS, "trilha_toccata_fugue.mp3"),   # Bach - Toccata and Fugue in D Minor
+    os.path.join(_PASTA_ASSETS, "trilha_danse_macabre.mp3"),   # Saint-Saëns - Danse Macabre
+    os.path.join(_PASTA_ASSETS, "trilha_mountain_king.mp3"),   # Grieg - In the Hall of the Mountain King
+]
+
+# Créditos exigidos pela licença CC BY do Kevin MacLeod -- incluir na
+# descrição de qualquer vídeo que use uma trilha do CATALOGO_TRILHAS.
+CREDITOS_TRILHAS = (
+    'Music: "Toccata and Fugue in D Minor", "Danse Macabre", '
+    '"In the Hall of the Mountain King" by Kevin MacLeod (incompetech.com) '
+    "Licensed under Creative Commons: By Attribution 3.0/4.0 "
+    "http://creativecommons.org/licenses/by/4.0/"
+)
 
 
 def gerar_ambiencia(caminho_saida: str, duracao: float, perfil: str = "leve", caminho_trilha: str | None = None):
@@ -288,6 +302,7 @@ inicial já reserva, então nunca revela borda da imagem."""
 
     if tipo_movimento == "personagem_cresce":
         try:
+            print("  [personagem_cresce] extraindo personagem (rembg)...")
             with tempfile.TemporaryDirectory() as pasta_tmp_fg:
                 caminho_png = os.path.join(pasta_tmp_fg, "personagem.png")
                 _extrair_personagem_rgba(caminho_imagem, caminho_png)
@@ -670,9 +685,10 @@ def montar_video(roteiro: dict, canal, pasta_imagens: str, saida: str, sem_legen
 
         base, ext = os.path.splitext(saida)
         caminhos_finais = {}
-        for plataforma, caminho_trilha in TRILHAS_POR_PLATAFORMA.items():
-            if not usar_trilha_real:
-                caminho_trilha = None
+        for plataforma in ("tiktok", "youtube"):
+            # Sorteio independente por plataforma -- as versões TikTok e
+            # YouTube do mesmo vídeo podem sair com trilhas diferentes.
+            caminho_trilha = random.choice(CATALOGO_TRILHAS) if usar_trilha_real else None
             print(f"Adicionando ambientação ({plataforma}, {perfil_ambiencia})...")
             caminho_ambiencia = os.path.join(pasta_tmp, f"ambiencia_{plataforma}.wav")
             gerar_ambiencia(caminho_ambiencia, duracao_total_video, perfil_ambiencia, caminho_trilha)
@@ -688,6 +704,11 @@ def montar_video(roteiro: dict, canal, pasta_imagens: str, saida: str, sem_legen
                 "[0:a]volume=1.8[a0];[a0][1:a]amix=inputs=2:duration=first:dropout_transition=0:normalize=0[aout]",
                 "-map", "0:v", "-map", "[aout]",
                 "-c:v", "copy", "-c:a", "aac",
+                # +faststart move o moov atom pro início do arquivo -- TikTok/
+                # YouTube conseguem começar a tocar sem baixar o mp4 inteiro
+                # primeiro (aprovado 2026-09-09, nível 1 item 2). Não força
+                # re-encode de vídeo (c:v copy continua igual).
+                "-movflags", "+faststart",
                 caminho_saida_plataforma,
             ])
             caminhos_finais[plataforma] = caminho_saida_plataforma
