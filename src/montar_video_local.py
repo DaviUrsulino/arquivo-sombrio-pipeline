@@ -250,19 +250,33 @@ TRANSICOES_XFADE = [
 # tem fallback pra zoom_in se a extração falhar -- não deve ser o padrão.
 
 
-def _extrair_personagem_rgba(caminho_imagem: str, caminho_saida_png: str):
-    """Remove o fundo da imagem (rembg, CPU, sem GPU/Modal) deixando só o
-    personagem opaco num PNG do mesmo tamanho da imagem original (RGBA,
-    fundo transparente) -- usado pelo movimento "personagem_cresce" pra dar
-    a sensação de personagem "recortado tipo figurinha" crescendo sozinho
-    enquanto o fundo fica parado (feedback 2026-09-09, referência real de
-    editores desse nicho)."""
-    from rembg import remove
-    from PIL import Image
+_CLIENTE_REMBG_MODAL = None
 
-    imagem = Image.open(caminho_imagem).convert("RGB")
-    resultado = remove(imagem)
-    resultado.save(caminho_saida_png)
+
+def _extrair_personagem_rgba(caminho_imagem: str, caminho_saida_png: str):
+    """Remove o fundo da imagem deixando só o personagem opaco num PNG do
+    mesmo tamanho da imagem original (RGBA, fundo transparente) -- usado
+    pelo movimento "personagem_cresce" pra dar a sensação de personagem
+    "recortado tipo figurinha" crescendo sozinho enquanto o fundo fica
+    parado (feedback 2026-09-09, referência real de editores desse nicho).
+
+    Roda no Modal (não local) -- ver src/modal_rembg_app.py: rodar isso no
+    runner efêmero do GitHub Actions baixava o modelo do rembg (~1GB) do
+    zero em toda execução, sem cache nenhum, e isso derrubou o runner real
+    ("the runner has received a shutdown signal") duas vezes em produção.
+    No Modal o modelo fica num Volume persistente, cache reaproveitado
+    entre chamadas (~4s por imagem depois do primeiro cold start)."""
+    global _CLIENTE_REMBG_MODAL
+    import modal
+
+    if _CLIENTE_REMBG_MODAL is None:
+        _CLIENTE_REMBG_MODAL = modal.Cls.from_name("arquivo-sombrio-rembg", "Rembg")()
+
+    with open(caminho_imagem, "rb") as f:
+        imagem_bytes = f.read()
+    resultado_bytes = _CLIENTE_REMBG_MODAL.remover_fundo.remote(imagem_bytes)
+    with open(caminho_saida_png, "wb") as f:
+        f.write(resultado_bytes)
 
 
 def gerar_clipe_imagem_silencioso(
@@ -423,18 +437,14 @@ def gerar_clipe_cena(
     sub_clipes = []
     for i, caminho_imagem in enumerate(imagens):
         caminho_sub = os.path.join(pasta_tmp, f"{os.path.basename(caminho_saida)}_sub{i}.mp4")
-        # "personagem_cresce" (rembg) DESATIVADO DE NOVO 2026-09-09: o fix
-        # de torch CPU-only resolveu o estouro de disco, mas em produção
-        # real (não só teste) o runner recebeu "shutdown signal" duas vezes
-        # seguidas logo após baixar ~1GB (o modelo do rembg é baixado de
-        # novo a cada clipe, sem cache, no runner efêmero do GitHub Actions
-        # -- múltiplos downloads de 1GB na mesma run parecem estourar algum
-        # limite de recurso do runner). Isso derrubou vídeo real do Em Alta
-        # e do Arquivo Sombrio no mesmo dia. Reativar só depois de mover
-        # essa etapa pra rodar no Modal (que já tem Volume de cache), não
-        # no runner do GitHub Actions -- ver plano em
-        # ~/.claude/plans/toasty-jumping-wind.md.
-        tipo_movimento = random.choice(TIPOS_MOVIMENTO)
+        # "personagem_cresce" reativado 2026-09-09 rodando no Modal (não
+        # mais localmente com rembg) -- ver src/modal_rembg_app.py e
+        # _extrair_personagem_rgba() acima. Isso resolve o motivo real por
+        # trás de duas quedas de runner em produção: o modelo do rembg
+        # baixava ~1GB do zero em toda execução no runner efêmero do
+        # GitHub Actions, sem cache nenhum. No Modal o cache é persistente
+        # (Volume), ~4s por imagem depois do primeiro cold start.
+        tipo_movimento = random.choice(TIPOS_MOVIMENTO + ["personagem_cresce"])
         gerar_clipe_imagem_silencioso(caminho_imagem, duracao_por_imagem, caminho_sub, tipo_movimento=tipo_movimento)
         sub_clipes.append(caminho_sub)
 

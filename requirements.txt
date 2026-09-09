@@ -1,9 +1,3 @@
-# Fonte extra de wheels do PyTorch -- sem isso o pip escolhe por padrão o
-# build COM CUDA (vários GB de bibliotecas Nvidia inúteis num runner só-CPU
-# do GitHub Actions), que já estourou o disco do runner uma vez (ver
-# montar_video_local.py, comentário sobre "personagem_cresce").
---extra-index-url https://download.pytorch.org/whl/cpu
-
 google-genai>=1.0.0
 requests>=2.31.0
 python-dotenv>=1.0.0
@@ -15,6 +9,3 @@ faster-whisper>=1.0.0
 gradio_client>=1.0.0
 Pillow>=10.0.0
 modal>=0.70.0
-torch
-rembg>=2.0.0
-onnxruntime>=1.18.0
