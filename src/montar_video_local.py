@@ -293,28 +293,38 @@ inicial já reserva, então nunca revela borda da imagem."""
             with tempfile.TemporaryDirectory() as pasta_tmp_fg:
                 caminho_png = os.path.join(pasta_tmp_fg, "personagem.png")
                 _extrair_personagem_rgba(caminho_imagem, caminho_png)
+
+                # Fundo cresce devagar (8%) e parado; personagem cresce mais
+                # rápido (22%) E treme (mesmo jitter senoidal de câmera na
+                # mão usado no resto do arquivo) -- feedback 2026-09-09: "o
+                # personagem treme mais que o fundo... ele vai aumentando".
+                # Usa zoompan (não scale+crop encadeado) porque o zoompan já
+                # é a técnica usada nos outros movimentos do projeto e evita
+                # a trepidação por arredondamento que o scale+crop duplo
+                # causava a cada frame.
+                zoom_por_frame_bg = 1 + (0.08 / max(n_frames, 1))
+                expressao_zoom_bg = f"min(zoom+{zoom_por_frame_bg-1},1.08)"
+                zoom_por_frame_fg = 1 + (0.22 / max(n_frames, 1))
+                expressao_zoom_fg = f"min(zoom+{zoom_por_frame_fg-1},1.22)"
+
                 _rodar([
                     "ffmpeg", "-y",
-                    "-loop", "1", "-i", caminho_imagem,   # fundo (imagem original, parado)
+                    "-loop", "1", "-i", caminho_imagem,   # fundo (imagem original)
                     "-loop", "1", "-i", caminho_png,      # personagem recortado (RGBA)
                     "-filter_complex",
                     (
-                        # Fundo também cresce, só que bem mais devagar (8%)
-                        # que o personagem (22%) -- as duas camadas em
-                        # velocidades diferentes é o que dá sensação real de
-                        # profundidade/paralaxe (feedback 2026-09-09: "o
-                        # personagem cresce, aí tem um negócio atrás que
-                        # cresce também, pra dar sensação de movimento").
-                        f"[0:v]scale=w={LARGURA}:h={ALTURA}:force_original_aspect_ratio=increase,"
-                        f"crop={LARGURA}:{ALTURA},"
-                        f"scale=w='iw*(1+0.08*t/{duracao})':h='ih*(1+0.08*t/{duracao})':eval=frame,"
-                        f"crop={LARGURA}:{ALTURA}[bg];"
+                        f"[0:v]scale=w={LARGURA*2}:h={ALTURA*2}:force_original_aspect_ratio=increase,"
+                        f"crop={LARGURA*2}:{ALTURA*2},"
+                        f"zoompan=z='{expressao_zoom_bg}':d={n_frames}:"
+                        f"x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':"
+                        f"s={LARGURA}x{ALTURA}:fps={fps}[bg];"
                         f"[1:v]format=rgba,"
-                        f"scale=w={LARGURA}:h={ALTURA}:force_original_aspect_ratio=increase:eval=frame,"
-                        f"crop={LARGURA}:{ALTURA},"
-                        # cresce ~22% ao longo do clipe, a partir do centro
-                        f"scale=w='iw*(1+0.22*t/{duracao})':h='ih*(1+0.22*t/{duracao})':eval=frame[fg];"
-                        f"[bg][fg]overlay=(W-w)/2:(H-h)/2:eval=frame[v]"
+                        f"scale=w={LARGURA*2}:h={ALTURA*2}:force_original_aspect_ratio=increase,"
+                        f"crop={LARGURA*2}:{ALTURA*2},"
+                        f"zoompan=z='{expressao_zoom_fg}':d={n_frames}:"
+                        f"x='iw/2-(iw/zoom/2)+{jitter_x}':y='ih/2-(ih/zoom/2)+{jitter_y}':"
+                        f"s={LARGURA}x{ALTURA}:fps={fps}[fg];"
+                        f"[bg][fg]overlay=0:0[v]"
                     ),
                     "-map", "[v]",
                     "-t", str(duracao),
