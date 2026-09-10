@@ -4,13 +4,13 @@
   "cenas": [
     {
       "narracao": "Isso é uma história real. No final dos anos sessenta, crianças de diferentes partes dos Estados Unidos começaram a contar a mesma história: um homem vestido de palhaço aparecia perto das escolas, escondido próximo a parques, oferecendo carona numa van branca sem janelas.",
-      "prompt_imagem": "Wide shot at night of a huge white windowless van parked on a dark street near an empty playground, yellowish streetlight glow in the background, low fog on the asphalt.",
+      "prompt_imagem": "NO_CHARACTER: Wide shot at night of a huge white windowless van parked on a dark street near an empty playground, yellowish streetlight glow in the background, low fog on the asphalt.",
       "prompt_imagem_2": "Medium shot of the character standing in the shadows near a school wall, half-hidden behind a tree, watching the empty playground."
     },
     {
       "narracao": "No começo, a polícia não levou os relatos a sério. Diziam que era só uma brincadeira... ou histeria coletiva. Mas então, crianças começaram a desaparecer.",
-      "prompt_imagem": "Medium shot of two police officers talking inside an old 1970s-style police station, a report clipboard on the desk, disbelieving expressions.",
-      "prompt_imagem_2": "Wide shot of a suburban residential street at night, a bicycle fallen alone on the sidewalk, no children in sight."
+      "prompt_imagem": "NO_CHARACTER: Medium shot of two police officers talking inside an old 1970s-style police station, a report clipboard on the desk, disbelieving expressions.",
+      "prompt_imagem_2": "NO_CHARACTER: Wide shot of a suburban residential street at night, a bicycle fallen alone on the sidewalk, no children in sight."
     },
     {
       "narracao": "As descrições eram assustadoramente parecidas: um homem alto, com uma fantasia de palhaço velha e desbotada, luvas vermelhas, e uma maquiagem borrada que fazia o rosto parecer quase deteriorado.",
@@ -19,27 +19,27 @@
     },
     {
       "narracao": "Pais relatavam a mesma van branca perto de playgrounds. Sempre que a polícia chegava, ela já tinha desaparecido. Algumas testemunhas juraram que havia mais de um palhaço lá dentro.",
-      "prompt_imagem": "Wide shot of an empty suburban playground at night, swings moving by themselves in the wind, a white van far away on the street.",
-      "prompt_imagem_2": "View from inside a dark van, through a fogged-up windshield, showing two clown silhouettes in the front seats, only outlines, no facial detail."
+      "prompt_imagem": "NO_CHARACTER: Wide shot of an empty suburban playground at night, swings moving by themselves in the wind, a white van far away on the street.",
+      "prompt_imagem_2": "NO_CHARACTER: View from inside a dark van, through a fogged-up windshield, showing two clown silhouettes in the front seats, only outlines, no facial detail."
     },
     {
       "narracao": "Eles ficavam observando as crianças... e rindo. Os jornais não queriam publicar a história. Nenhum relatório oficial parecia existir.",
       "prompt_imagem": "Medium shot of the character seen from behind, watching a distant playground on a gray overcast day.",
-      "prompt_imagem_2": "Wide shot of an old 1970s newspaper newsroom, desks covered in scattered papers, a crumpled headline thrown in a metal trash bin."
+      "prompt_imagem_2": "NO_CHARACTER: Wide shot of an old 1970s newspaper newsroom, desks covered in scattered papers, a crumpled headline thrown in a metal trash bin."
     },
     {
       "narracao": "Até que, em mil novecentos e sessenta e oito, um garoto de Ohio desapareceu depois de dizer uma frase que assustou seus pais: o homem engraçado queria mostrar um balão pra ele. O garoto nunca foi encontrado.",
-      "prompt_imagem": "Wide shot of a simple suburban house at dusk, a child's bedroom window with the light on, tense and silent atmosphere.",
-      "prompt_imagem_2": "Close-up on a deflated red balloon caught on a wooden fence on an empty sidewalk, a streetlight flickering in the background."
+      "prompt_imagem": "NO_CHARACTER: Wide shot of a simple suburban house at dusk, a child's bedroom window with the light on, tense and silent atmosphere.",
+      "prompt_imagem_2": "NO_CHARACTER: Close-up on a deflated red balloon caught on a wooden fence on an empty sidewalk, a streetlight flickering in the background."
     },
     {
       "narracao": "Nos meses seguintes, relatos semelhantes surgiram em Illinois, Pensilvânia e Geórgia. Alguns acreditavam ser uma quadrilha se escondendo atrás da fantasia. Outros diziam que havia algo bem mais sombrio.",
-      "prompt_imagem": "Wide shot of an old map of the United States on a wooden table, marked with several red pins scattered across different points, warm lamp light.",
+      "prompt_imagem": "NO_CHARACTER: Wide shot of an old map of the United States on a wooden table, marked with several red pins scattered across different points, warm lamp light.",
       "prompt_imagem_2": "Medium shot of the character seen from a distance crossing an empty parking lot at dusk, casting a long distorted shadow on the ground."
     },
     {
       "narracao": "E o mais estranho? Ninguém nunca foi preso. Nenhum nome, nenhum rosto. Só desenhos antigos em arquivos de caso, todos mostrando a mesma figura: um palhaço de olhos completamente negros... e um sorriso que nunca parecia mudar.",
-      "prompt_imagem": "Detail shot of an old pencil sketch of a clown with completely black eyes, inside a worn yellowed police case file folder.",
+      "prompt_imagem": "NO_CHARACTER: Detail shot of an old pencil sketch of a clown with completely black eyes, inside a worn yellowed police case file folder.",
       "prompt_imagem_2": "Extreme close-up on the character's painted smile, slightly out of focus, lit by a flickering streetlight in the darkness."
     }
   ]
