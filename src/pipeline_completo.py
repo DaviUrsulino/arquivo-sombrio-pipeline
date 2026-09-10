@@ -79,8 +79,23 @@ def proximo_genero_narrador(canal_nome: str) -> str:
 
 
 def gerar_titulo(roteiro: dict) -> str:
-    primeira_frase = roteiro["cenas"][0]["narracao"].split(".")[0].strip()
-    titulo = f"{primeira_frase}... #shorts"
+    """Bug real encontrado 2026-09-10, olhando os dados reais dos vídeos já
+    publicados: o título sempre foi a primeira frase da narração, literal.
+    Isso funcionava bem quando a narração abria curta e direta, mas desde
+    que os roteiros passaram a exigir "âncora de realidade" (ano+bairro+
+    contexto) na abertura pra dar credibilidade, o título ficou longo e
+    cheio de detalhe específico -- e as views despencaram (4-20 views nos
+    títulos longos vs. 66-297 nos títulos curtos tipo aviso/mistério de
+    antes da mudança). Agora usa "titulo_gancho" (campo pensado só pro
+    título público, sem a âncora de realidade) quando o roteiro trouxer
+    esse campo; cai pro comportamento antigo (primeira frase) só se um
+    roteiro mais antigo/manual não tiver esse campo."""
+    titulo_gancho = roteiro.get("titulo_gancho")
+    if titulo_gancho:
+        base = titulo_gancho.strip()
+    else:
+        base = roteiro["cenas"][0]["narracao"].split(".")[0].strip()
+    titulo = f"{base}... #shorts"
     return titulo[:100]
 
 

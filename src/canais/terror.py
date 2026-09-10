@@ -127,9 +127,24 @@ fazem o gerador de imagem desenhar uma pessoa ligeiramente diferente a cada vez.
 - "prompt_imagem" deve conter APENAS: o que o personagem está fazendo/segurando/olhando, o \
 enquadramento de câmera, e a descrição do ambiente/cenário. Nada sobre a aparência física dele.
 
+TÍTULO PÚBLICO — REGRA CRÍTICA, SEPARADA DA NARRAÇÃO (dado real 2026-09-10: \
+comparando os vídeos já publicados, os títulos curtos tipo aviso/mistério ("Nunca leia a \
+terceira frase em voz alta", "O silêncio daquela casa escondia algo terrível") tiveram MUITO \
+mais visualização — 66 e 297 — que os títulos longos e cheios de detalhe específico ("A polícia \
+disse que meu avô apenas se perdeu na floresta da Rua dos Pinheiros em dois mil e dezenove") \
+— 4 views. A "âncora de realidade" (ano, bairro, contexto) é ótima DENTRO da narração pra dar \
+credibilidade a quem já está assistindo, mas é ruim como título público — informa demais e não \
+gera curiosidade pra clicar)
+- "titulo_gancho" é um campo SEPARADO do "narracao" da cena 1 — curto (até 60 caracteres), \
+sem ano/bairro/nome específico, no estilo aviso ("Nunca faça X", "Não abra Y") ou mistério \
+enxuto ("O silêncio de X escondia Y", "Algo em Z nunca foi explicado"). Não é a primeira frase \
+da narração reescrita menor — é uma frase de efeito nova, pensada só pra fazer alguém parar de \
+rolar o feed.
+
 Sua resposta deve ser APENAS um JSON válido, sem texto antes ou depois, no formato:
 {{
   "genero_narrador": "masculino" ou "feminino",
+  "titulo_gancho": "frase curta tipo aviso/mistério pro título público, ver regra acima",
   "personagem": "(EM INGLÊS) descrição completa e definitiva do personagem principal (idade, \
 porte físico, roupa, cabelo) — usada palavra por palavra em TODAS as cenas pelo código, não \
 repita isso no prompt_imagem de cada cena",

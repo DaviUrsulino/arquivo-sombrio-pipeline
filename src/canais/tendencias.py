@@ -237,7 +237,11 @@ IDIOMA — REGRA CRÍTICA (bug real encontrado 2026-09-10: prompts de imagem em 
 
 Sua resposta deve ser APENAS um JSON válido, no formato:
 {{
-  "genero_narrador": "masculino" ou "feminino",
+  TÍTULO PÚBLICO -- REGRA CRÍTICA (dado real 2026-09-10: comparando os videos ja publicados do Em Alta, titulos curtos e diretos ("Salvei 200 milhoes de vidas porque tive preguica de lavar louca") tiveram 228 views, enquanto um titulo mais generico ("Se voce visse essa historia em um cinema...") teve 181 -- ambos bem acima de formatos ainda sem dado suficiente. O padrao que funciona: título curto, direto, com a virada/piada /gancho JA na primeira frase, sem enrolação.)
+- "titulo_gancho" e um campo SEPARADO do "narracao" da primeira cena -- curto (ate 60 caracteres), engracado ou intrigante o suficiente pra parar o scroll sozinho, sem precisar do resto do video pra fazer sentido.
+
+"genero_narrador": "masculino" ou "feminino",
+  "titulo_gancho": "frase curta pro titulo publico, ver regra acima",
   "personagem": "descrição do protagonista/narrador recorrente nas cenas, ou null se o tema \
 não pedir um personagem fixo",
   "cenas": [
@@ -288,7 +292,11 @@ IDIOMA — REGRA CRÍTICA (bug real encontrado 2026-09-10: prompts de imagem em 
 
 Sua resposta deve ser APENAS um JSON válido, no formato:
 {{
-  "genero_narrador": "masculino" ou "feminino",
+  TÍTULO PÚBLICO -- REGRA CRÍTICA (dado real 2026-09-10: comparando os videos ja publicados do Em Alta, titulos curtos e diretos ("Salvei 200 milhoes de vidas porque tive preguica de lavar louca") tiveram 228 views, enquanto um titulo mais generico ("Se voce visse essa historia em um cinema...") teve 181 -- ambos bem acima de formatos ainda sem dado suficiente. O padrao que funciona: título curto, direto, com a virada/piada /gancho JA na primeira frase, sem enrolação.)
+- "titulo_gancho" e um campo SEPARADO do "narracao" da primeira cena -- curto (ate 60 caracteres), engracado ou intrigante o suficiente pra parar o scroll sozinho, sem precisar do resto do video pra fazer sentido.
+
+"genero_narrador": "masculino" ou "feminino",
+  "titulo_gancho": "frase curta pro titulo publico, ver regra acima",
   "personagem": "descrição visual completa e definitiva do mascote (o que é, cor, rosto, \
 detalhe fofo marcante) — usada palavra por palavra em TODAS as cenas pelo código, não repita \
 isso no prompt_imagem de cada cena",
@@ -339,7 +347,11 @@ IDIOMA — REGRA CRÍTICA (bug real encontrado 2026-09-10: prompts de imagem em 
 
 Sua resposta deve ser APENAS um JSON válido, no formato:
 {{
-  "genero_narrador": "masculino" ou "feminino",
+  TÍTULO PÚBLICO -- REGRA CRÍTICA (dado real 2026-09-10: comparando os videos ja publicados do Em Alta, titulos curtos e diretos ("Salvei 200 milhoes de vidas porque tive preguica de lavar louca") tiveram 228 views, enquanto um titulo mais generico ("Se voce visse essa historia em um cinema...") teve 181 -- ambos bem acima de formatos ainda sem dado suficiente. O padrao que funciona: título curto, direto, com a virada/piada /gancho JA na primeira frase, sem enrolação.)
+- "titulo_gancho" e um campo SEPARADO do "narracao" da primeira cena -- curto (ate 60 caracteres), engracado ou intrigante o suficiente pra parar o scroll sozinho, sem precisar do resto do video pra fazer sentido.
+
+"genero_narrador": "masculino" ou "feminino",
+  "titulo_gancho": "frase curta pro titulo publico, ver regra acima",
   "personagem": "descrição visual completa e definitiva do objeto antropomorfizado (o que é, \
 cor, onde fica o rosto/olhos/boca, ambiente típico) — usada palavra por palavra em TODAS as \
 cenas pelo código, não repita isso no prompt_imagem de cada cena",
@@ -392,7 +404,11 @@ IDIOMA — REGRA CRÍTICA (bug real encontrado 2026-09-10: prompts de imagem em 
 
 Sua resposta deve ser APENAS um JSON válido, no formato:
 {{
-  "genero_narrador": "masculino" ou "feminino",
+  TÍTULO PÚBLICO -- REGRA CRÍTICA (dado real 2026-09-10: comparando os videos ja publicados do Em Alta, titulos curtos e diretos ("Salvei 200 milhoes de vidas porque tive preguica de lavar louca") tiveram 228 views, enquanto um titulo mais generico ("Se voce visse essa historia em um cinema...") teve 181 -- ambos bem acima de formatos ainda sem dado suficiente. O padrao que funciona: título curto, direto, com a virada/piada /gancho JA na primeira frase, sem enrolação.)
+- "titulo_gancho" e um campo SEPARADO do "narracao" da primeira cena -- curto (ate 60 caracteres), engracado ou intrigante o suficiente pra parar o scroll sozinho, sem precisar do resto do video pra fazer sentido.
+
+"genero_narrador": "masculino" ou "feminino",
+  "titulo_gancho": "frase curta pro titulo publico, ver regra acima",
   "personagem": "descrição visual completa e definitiva de como o narrador aparece nas cenas \
 (roupa de época + algum detalhe anacrônico sutil, aparência geral) — usada palavra por palavra \
 em TODAS as cenas pelo código, não repita isso no prompt_imagem de cada cena",
