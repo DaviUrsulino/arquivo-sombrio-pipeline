@@ -237,6 +237,17 @@ TIPOS_MOVIMENTO = [
     "pan_esquerda", "pan_direita", "pan_cima",
 ]
 
+# Bug real encontrado 2026-09-10: o Kokoro (TTS) mexe no estado do gerador
+# global `random` do Python quando gera narração (confirmado com teste
+# isolado: os sorteios logo depois de chamar o pipeline do Kokoro ficavam
+# visivelmente enviesados) -- como gerar_clipe_cena sorteia o tipo de
+# movimento LOGO DEPOIS de gerar a narração da cena, isso fazia
+# "personagem_cresce" aparecer bem menos que o peso configurado (2 vídeos
+# seguidos com só 1/16 em vez dos ~5-6/16 esperados a 35%). Usa um gerador
+# de aleatoriedade PRÓPRIO (random.Random, não o módulo `random` global)
+# só pra esse sorteio, imune a qualquer lib que reconfigure o estado global.
+_RNG_MOVIMENTO = random.Random()
+
 # Tipos de transição do xfade sorteados por corte entre cenas (ver
 # concatenar_com_transicao) -- nomes nativos do ffmpeg, sem precisar de
 # filtro customizado. Mistura arrastar de lado/cima com dissolve, pra não
@@ -471,7 +482,7 @@ def gerar_clipe_cena(
         # inteiro -- sobe pra ~35% de chance por imagem (peso 13 contra peso
         # 3 de cada um dos 8 tipos normais: 13/(8*3+13) = 35%).
         pesos_movimento = [3] * len(TIPOS_MOVIMENTO) + [13]
-        tipo_movimento = random.choices(TIPOS_MOVIMENTO + ["personagem_cresce"], weights=pesos_movimento)[0]
+        tipo_movimento = _RNG_MOVIMENTO.choices(TIPOS_MOVIMENTO + ["personagem_cresce"], weights=pesos_movimento)[0]
         gerar_clipe_imagem_silencioso(caminho_imagem, duracao_por_imagem, caminho_sub, tipo_movimento=tipo_movimento)
         sub_clipes.append(caminho_sub)
 
