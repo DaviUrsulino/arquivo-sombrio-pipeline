@@ -566,7 +566,19 @@ def concatenar_com_transicao(
         # clipes normais (1:1), e o filtro concat exige SAR IDÊNTICO em toda
         # entrada -- sem isso o ffmpeg falha com "Failed to configure output
         # pad" e não escreve nada no arquivo final.
-        normalizacao = "".join(f"[{i}:v]setsar=1[v{i}norm];" for i in range(len(caminhos_clipes)))
+        # Flash branco bem curto (2 frames a 30fps, ~0.07s) no INÍCIO de toda
+        # cena a partir da segunda -- pedido do Davi 2026-09-10: o corte
+        # seco sozinho parecia "sempre igual/sem graça"; queria um impacto
+        # no corte, mas sem virar dissolve/mistura entre as duas imagens
+        # (isso já foi descartado, a referência real não tem mistura
+        # nenhuma). O flash é instantâneo -- ainda é um corte seco, só que
+        # com um "pop" de luz na cena que entra, não mistura as duas cenas.
+        normalizacao = "".join(
+            f"[{i}:v]setsar=1"
+            + (",eq=brightness=0.9:enable='lte(t,0.07)'" if i > 0 else "")
+            + f"[v{i}norm];"
+            for i in range(len(caminhos_clipes))
+        )
         partes_concat = "".join(f"[v{i}norm][{i}:a]" for i in range(len(caminhos_clipes)))
         filtro = f"{normalizacao}{partes_concat}concat=n={len(caminhos_clipes)}:v=1:a=1[vout][aout]"
         _rodar([
