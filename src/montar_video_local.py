@@ -544,8 +544,15 @@ def concatenar_com_transicao(
         entradas = []
         for caminho in caminhos_clipes:
             entradas += ["-i", caminho]
-        partes_concat = "".join(f"[{i}:v][{i}:a]" for i in range(len(caminhos_clipes)))
-        filtro = f"{partes_concat}concat=n={len(caminhos_clipes)}:v=1:a=1[vout][aout]"
+        # setsar=1 em cada entrada -- bug real 2026-09-10: o clipe do
+        # personagem_cresce (passa por scale 2x + zoompan + overlay) sai com
+        # SAR ligeiramente diferente (7680:7679 por arredondamento) dos
+        # clipes normais (1:1), e o filtro concat exige SAR IDÊNTICO em toda
+        # entrada -- sem isso o ffmpeg falha com "Failed to configure output
+        # pad" e não escreve nada no arquivo final.
+        normalizacao = "".join(f"[{i}:v]setsar=1[v{i}norm];" for i in range(len(caminhos_clipes)))
+        partes_concat = "".join(f"[v{i}norm][{i}:a]" for i in range(len(caminhos_clipes)))
+        filtro = f"{normalizacao}{partes_concat}concat=n={len(caminhos_clipes)}:v=1:a=1[vout][aout]"
         _rodar([
             "ffmpeg", "-y",
             *entradas,
