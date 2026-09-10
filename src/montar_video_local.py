@@ -466,7 +466,12 @@ def gerar_clipe_cena(
         # baixava ~1GB do zero em toda execução no runner efêmero do
         # GitHub Actions, sem cache nenhum. No Modal o cache é persistente
         # (Volume), ~4s por imagem depois do primeiro cold start.
-        tipo_movimento = random.choice(TIPOS_MOVIMENTO + ["personagem_cresce"])
+        # Pedido do Davi 2026-09-10: "personagem_cresce" tava sorteado com
+        # chance baixa demais (1/9 ~= 11%) e passava despercebido no vídeo
+        # inteiro -- sobe pra ~35% de chance por imagem (peso 13 contra peso
+        # 3 de cada um dos 8 tipos normais: 13/(8*3+13) = 35%).
+        pesos_movimento = [3] * len(TIPOS_MOVIMENTO) + [13]
+        tipo_movimento = random.choices(TIPOS_MOVIMENTO + ["personagem_cresce"], weights=pesos_movimento)[0]
         gerar_clipe_imagem_silencioso(caminho_imagem, duracao_por_imagem, caminho_sub, tipo_movimento=tipo_movimento)
         sub_clipes.append(caminho_sub)
 
