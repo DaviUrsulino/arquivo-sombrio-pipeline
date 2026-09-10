@@ -25,6 +25,7 @@ import subprocess
 import tempfile
 
 import soundfile as sf
+from PIL import Image
 
 from canais import carregar_canal
 
@@ -307,6 +308,27 @@ inicial já reserva, então nunca revela borda da imagem."""
             with tempfile.TemporaryDirectory() as pasta_tmp_fg:
                 caminho_png = os.path.join(pasta_tmp_fg, "personagem.png")
                 _extrair_personagem_rgba(caminho_imagem, caminho_png)
+
+                # Bug real encontrado 2026-09-10 (vídeo do palhaço, cena dos
+                # dois policiais): rembg não tem como saber QUAL "personagem"
+                # recortar numa cena com duas pessoas ou sem um sujeito isolado
+                # claro -- às vezes devolve a imagem quase inteira como "frente"
+                # (opacidade >70% do quadro), o que faz o overlay virar um
+                # "fantasma" da cena inteira duplicada e ampliada por cima do
+                # fundo, em vez de só o personagem crescendo. Rejeita a
+                # extração nesses casos (ou quando não achou nada, <1%) e cai
+                # no fallback de zoom normal, igual já acontece quando o
+                # rembg falha de vez.
+                with Image.open(caminho_png) as img_rgba:
+                    alpha = img_rgba.getchannel("A")
+                    histograma = alpha.histogram()  # 256 bins, índice = valor do pixel
+                    pixels_opacos = sum(histograma[21:])  # >20 = considera "opaco"
+                    fracao_opaca = pixels_opacos / (alpha.width * alpha.height)
+                if not (0.01 <= fracao_opaca <= 0.70):
+                    raise RuntimeError(
+                        f"extração de personagem suspeita (área opaca {fracao_opaca:.0%} do quadro) "
+                        "-- provavelmente pegou a cena inteira em vez de só o personagem"
+                    )
 
                 # Fundo cresce devagar (8%) e parado; personagem cresce mais
                 # rápido (22%) E treme (mesmo jitter senoidal de câmera na
