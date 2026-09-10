@@ -573,11 +573,12 @@ def concatenar_com_transicao(caminhos_clipes: list[str], caminho_saida: str):
     FLASH = "flash"
     pool_transicoes = TRANSICOES_XFADE + [FLASH]  # 8 direções + 1 flash = ~11% de chance de flash
     duracao_slide = 0.25
+    duracao_flash = 0.06  # bem mais curto que o slide -- lê como "pop", não dissolve
 
     duracoes = [_duracao_segundos(c) for c in caminhos_clipes]
     n = len(caminhos_clipes)
     tipos_corte = [_RNG_MOVIMENTO.choice(pool_transicoes) for _ in range(n - 1)]
-    duracoes_corte = [0.0 if t == FLASH else duracao_slide for t in tipos_corte]
+    duracoes_corte = [duracao_flash if t == FLASH else duracao_slide for t in tipos_corte]
 
     entradas = []
     for caminho in caminhos_clipes:
@@ -587,30 +588,40 @@ def concatenar_com_transicao(caminhos_clipes: list[str], caminho_saida: str):
     # setsar=1 em toda entrada -- bug real 2026-09-10: o clipe do
     # personagem_cresce (passa por scale 2x + zoompan + overlay) sai com SAR
     # ligeiramente diferente (7680:7679 por arredondamento) dos clipes
-    # normais (1:1); o filtro concat (usado nos cortes tipo flash) exige SAR
-    # IDÊNTICO em toda entrada, senão falha silenciosamente e o arquivo
-    # final sai vazio. O flash em si (eq=brightness, só 2-3 frames no início
-    # do clipe que ENTRA) já é aplicado aqui, condicionado ao corte anterior.
+    # normais (1:1), e mesmo só usando xfade (ver abaixo) isso pode gerar
+    # inconsistência entre entradas -- normaliza sempre.
     for i in range(n):
-        corte_antes_eh_flash = i > 0 and tipos_corte[i - 1] == FLASH
-        filtro_flash = ",eq=brightness=0.9:enable='lte(t,0.07)'" if corte_antes_eh_flash else ""
-        filtros.append(f"[{i}:v]setsar=1{filtro_flash}[v{i}norm]")
+        filtros.append(f"[{i}:v]setsar=1[v{i}norm]")
 
+    # Bug real 2026-09-10 (tentativa anterior): usar `concat` pro corte tipo
+    # "flash" e `xfade` pros slides/wipes no mesmo grafo quebrava sempre que
+    # os dois se encadeavam -- cada filtro produz uma saída com timebase
+    # diferente (concat: 1/1000000 fixo; xfade: baseado no frame, variável) e
+    # settb=AVTB não resolvia (AVTB É o 1/1000000 que já não batia). Corrigido
+    # de vez usando xfade pra TUDO, inclusive o flash: o flash é só um xfade
+    # tipo "fade" bem mais curto (0.06s, quase instantâneo) combinado com um
+    # pico de brilho na cena que entra -- lê como um "pop" de luz no corte,
+    # não como o dissolve/mistura lento que já foi rejeitado antes. Um único
+    # tipo de filtro encadeado o tempo todo evita qualquer conflito de
+    # timebase entre um corte e o próximo, seja qual for a combinação.
     v_atual = "v0norm"
     duracao_acumulada = duracoes[0]
     for i in range(1, n):
         tipo = tipos_corte[i - 1]
         dur_corte = duracoes_corte[i - 1]
         v_saida = f"v{i}out" if i < n - 1 else "vout"
+        offset = max(duracao_acumulada - dur_corte, 0)
         if tipo == FLASH:
-            filtros.append(f"[{v_atual}][v{i}norm]concat=n=2:v=1:a=0[{v_saida}]")
-            duracao_acumulada += duracoes[i]
+            clipe_entrando = f"v{i}norm_flash"
+            filtros.append(f"[v{i}norm]eq=brightness=0.9:enable='lte(t,{dur_corte})'[{clipe_entrando}]")
+            tipo_xfade = "fade"
         else:
-            offset = max(duracao_acumulada - dur_corte, 0)
-            filtros.append(
-                f"[{v_atual}][v{i}norm]xfade=transition={tipo}:duration={dur_corte}:offset={offset}[{v_saida}]"
-            )
-            duracao_acumulada = duracao_acumulada + duracoes[i] - dur_corte
+            clipe_entrando = f"v{i}norm"
+            tipo_xfade = tipo
+        filtros.append(
+            f"[{v_atual}][{clipe_entrando}]xfade=transition={tipo_xfade}:duration={dur_corte}:offset={offset}[{v_saida}]"
+        )
+        duracao_acumulada = duracao_acumulada + duracoes[i] - dur_corte
         v_atual = v_saida
 
     # Áudio: mesma lógica de sempre, só que a duração recortada em cada
