@@ -521,20 +521,41 @@ def concatenar_clipes(caminhos_clipes: list[str], caminho_saida: str, pasta_tmp:
 
 
 def concatenar_com_transicao(
-    caminhos_clipes: list[str], caminho_saida: str, duracao_transicao: float = 0.4,
+    caminhos_clipes: list[str], caminho_saida: str, duracao_transicao: float = 0.0,
 ):
-    """Concatena as cenas com dissolve suave no VÍDEO (xfade), mas com corte
-    seco no ÁUDIO perto de cada junção (sem crossfade de áudio).
+    """Concatena as cenas. Com `duracao_transicao=0` (padrão, desde
+    2026-09-10) faz corte seco puro, sem nenhum dissolve — analisei quadro a
+    quadro (30fps) uma referência real que o Davi trouxe (vídeo do mesmo
+    roteiro do palhaço, feito por outro canal) e confirmei que TODA
+    transição de cena lá é corte seco instantâneo, zero blend entre um
+    quadro e outro. O dissolve de 0.4s que a gente usava antes (feedback
+    2026-09-09, "queria mais fluidez") suaviza demais e foge desse estilo
+    mais direto/"punchy" que é o alvo agora. Passando um valor > 0 ainda
+    aplica dissolve (xfade) como antes, caso algum canal queira no futuro.
 
-    Importante: crossfade de ÁUDIO com FALA (acrossfade) soa mal — é duas
-    narrações diferentes tocando ao mesmo tempo por uma fração de segundo,
-    o que o ouvido percebe como chiado/interferência, não como transição
-    suave (feedback real de usuário, 2026-09-08). Em vez disso, cada
-    junção recorta uma fatia curta (duracao_transicao) perto do corte —
-    metade do fim de uma cena, metade do começo da próxima — e concatena
-    sem sobrepor. Isso remove o mesmo tanto de tempo que o xfade de vídeo
-    remove (mantém vídeo e áudio com a mesma duração final), só que sem
-    misturar as duas falas."""
+    Importante pro caso com dissolve: crossfade de ÁUDIO com FALA (acrossfade)
+    soa mal — é duas narrações diferentes tocando ao mesmo tempo por uma
+    fração de segundo, o que o ouvido percebe como chiado/interferência, não
+    como transição suave (feedback real de usuário, 2026-09-08). Em vez
+    disso, cada junção recorta uma fatia curta (duracao_transicao) perto do
+    corte — metade do fim de uma cena, metade do começo da próxima — e
+    concatena sem sobrepor."""
+    if duracao_transicao <= 0:
+        entradas = []
+        for caminho in caminhos_clipes:
+            entradas += ["-i", caminho]
+        partes_concat = "".join(f"[{i}:v][{i}:a]" for i in range(len(caminhos_clipes)))
+        filtro = f"{partes_concat}concat=n={len(caminhos_clipes)}:v=1:a=1[vout][aout]"
+        _rodar([
+            "ffmpeg", "-y",
+            *entradas,
+            "-filter_complex", filtro,
+            "-map", "[vout]", "-map", "[aout]",
+            "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac",
+            caminho_saida,
+        ])
+        return
+
     duracoes = [_duracao_segundos(c) for c in caminhos_clipes]
     metade = duracao_transicao / 2
 
