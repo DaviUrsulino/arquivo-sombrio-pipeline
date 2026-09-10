@@ -166,12 +166,18 @@ EPOCAS_HISTORIA_POV = [
 
 
 def escolher_formato_do_dia() -> str:
-    """Sorteia o formato do vídeo, com peso maior pro mais validado
-    (curiosidade) e menor pros mais novos/menos testados — ajustar os
-    pesos conforme os formatos novos forem provando (ou não) que
-    performam bem."""
+    """Sorteia o formato do vídeo, com peso maior pros mais validados
+    (curiosidade, historia_pov) e menor pros que performaram pior --
+    ajustar os pesos conforme os formatos forem provando (ou não) que
+    performam bem.
+
+    Ajuste 2026-09-10: os 2 primeiros vídeos reais de POV/curiosidade
+    bombaram (181 e 227 views); o mesmo dia, um vídeo de "novela de
+    mascote" saiu zerado (feedback do Davi, ainda poucos dados mas é a
+    tendência) -- reduz o peso de "novela" e sobe "historia_pov" pra
+    compensar, mantendo "curiosidade" como formato mais forte."""
     import random
-    formatos = ["curiosidade", "novela", "objeto_falante", "historia_pov"]
+    formatos = ["curiosidade", "historia_pov", "objeto_falante", "novela"]
     pesos = [40, 25, 20, 15]
     return random.choices(formatos, weights=pesos)[0]
 
