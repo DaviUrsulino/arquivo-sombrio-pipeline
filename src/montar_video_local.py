@@ -250,12 +250,14 @@ _RNG_MOVIMENTO = random.Random()
 
 # Tipos de transição do xfade sorteados por corte entre cenas (ver
 # concatenar_com_transicao) -- nomes nativos do ffmpeg, sem precisar de
-# filtro customizado. Mistura arrastar de lado/cima com dissolve, pra não
-# ficar só "arrastando" toda hora nem só "esmaecendo" toda hora.
+# filtro customizado. SEM "fade"/"dissolve" de propósito -- pedido do Davi
+# 2026-09-10: essas duas MISTURAM (cross-blend) as duas imagens por cima
+# uma da outra, exatamente o efeito de "dissolve" que ele rejeitou antes.
+# "slide"/"wipe" são diferentes: a imagem nova empurra/varre a antiga pra
+# fora do quadro (movimento mecânico), sem sobrepor os dois quadros.
 TRANSICOES_XFADE = [
-    "fade", "dissolve",
     "slideleft", "slideright", "slideup", "slidedown",
-    "wipeleft", "wiperight", "wipeup",
+    "wipeleft", "wiperight", "wipeup", "wipedown",
 ]
 # "personagem_cresce" fica de fora da lista principal (sorteado com peso
 # menor em gerar_clipe_cena) porque depende de rembg (CPU, mais lento) e
@@ -536,93 +538,90 @@ def concatenar_clipes(caminhos_clipes: list[str], caminho_saida: str, pasta_tmp:
     ])
 
 
-def concatenar_com_transicao(
-    caminhos_clipes: list[str], caminho_saida: str, duracao_transicao: float = 0.0,
-):
-    """Concatena as cenas. Com `duracao_transicao=0` (padrão, desde
-    2026-09-10) faz corte seco puro, sem nenhum dissolve — analisei quadro a
-    quadro (30fps) uma referência real que o Davi trouxe (vídeo do mesmo
-    roteiro do palhaço, feito por outro canal) e confirmei que TODA
-    transição de cena lá é corte seco instantâneo, zero blend entre um
-    quadro e outro. O dissolve de 0.4s que a gente usava antes (feedback
-    2026-09-09, "queria mais fluidez") suaviza demais e foge desse estilo
-    mais direto/"punchy" que é o alvo agora. Passando um valor > 0 ainda
-    aplica dissolve (xfade) como antes, caso algum canal queira no futuro.
+def concatenar_com_transicao(caminhos_clipes: list[str], caminho_saida: str):
+    """Concatena as cenas com transição VARIADA por corte, sorteada entre:
+    puxar de um lado/cima/baixo (slide/wipe, duração curta ~0.25s) na
+    maioria das vezes, e um corte seco com flash de luz numa fração pequena
+    dos cortes (~9%) pra dar impacto sem virar a regra.
 
-    Importante pro caso com dissolve: crossfade de ÁUDIO com FALA (acrossfade)
-    soa mal — é duas narrações diferentes tocando ao mesmo tempo por uma
-    fração de segundo, o que o ouvido percebe como chiado/interferência, não
-    como transição suave (feedback real de usuário, 2026-09-08). Em vez
-    disso, cada junção recorta uma fatia curta (duracao_transicao) perto do
-    corte — metade do fim de uma cena, metade do começo da próxima — e
-    concatena sem sobrepor."""
-    if duracao_transicao <= 0:
-        entradas = []
-        for caminho in caminhos_clipes:
-            entradas += ["-i", caminho]
-        # setsar=1 em cada entrada -- bug real 2026-09-10: o clipe do
-        # personagem_cresce (passa por scale 2x + zoompan + overlay) sai com
-        # SAR ligeiramente diferente (7680:7679 por arredondamento) dos
-        # clipes normais (1:1), e o filtro concat exige SAR IDÊNTICO em toda
-        # entrada -- sem isso o ffmpeg falha com "Failed to configure output
-        # pad" e não escreve nada no arquivo final.
-        # Flash branco bem curto (2 frames a 30fps, ~0.07s) no INÍCIO de toda
-        # cena a partir da segunda -- pedido do Davi 2026-09-10: o corte
-        # seco sozinho parecia "sempre igual/sem graça"; queria um impacto
-        # no corte, mas sem virar dissolve/mistura entre as duas imagens
-        # (isso já foi descartado, a referência real não tem mistura
-        # nenhuma). O flash é instantâneo -- ainda é um corte seco, só que
-        # com um "pop" de luz na cena que entra, não mistura as duas cenas.
-        normalizacao = "".join(
-            f"[{i}:v]setsar=1"
-            + (",eq=brightness=0.9:enable='lte(t,0.07)'" if i > 0 else "")
-            + f"[v{i}norm];"
-            for i in range(len(caminhos_clipes))
-        )
-        partes_concat = "".join(f"[v{i}norm][{i}:a]" for i in range(len(caminhos_clipes)))
-        filtro = f"{normalizacao}{partes_concat}concat=n={len(caminhos_clipes)}:v=1:a=1[vout][aout]"
-        _rodar([
-            "ffmpeg", "-y",
-            *entradas,
-            "-filter_complex", filtro,
-            "-map", "[vout]", "-map", "[aout]",
-            "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac",
-            caminho_saida,
-        ])
-        return
+    Histórico (2026-09-10, várias idas e voltas com o Davi no mesmo dia):
+    1) Tínhamos dissolve de 0.4s sempre -- feedback: "quero mais fluidez".
+    2) Troquei pra corte seco puro depois de analisar quadro a quadro (30fps)
+       uma referência real que ele trouxe (mesmo roteiro do palhaço, outro
+       canal) -- lá é corte seco 100% do tempo, zero blend. Mas o resultado
+       ficou "sempre igual" na visão dele.
+    3) Adicionei só um flash de luz no corte -- ele achou bom mas queria de
+       volta o efeito de "puxar a foto de um lado" que já existia antes
+       (slide/wipe), com VÁRIOS tipos alternando pra ser dinâmico, e o
+       flash só ocasionalmente, não em todo corte.
+    Este é o esquema final: pool com as 8 direções de slide/wipe (peso 1
+    cada) + flash (peso 1) -- ~11% flash, ~89% puxão direcional variado.
+
+    Slide/wipe NÃO é a mesma coisa que o dissolve/fade rejeitado no passo
+    2 -- é um corte mecânico (a imagem nova empurra/varre a antiga pra fora
+    do quadro), sem misturar os dois quadros por cima um do outro como um
+    crossfade faz; por isso não conflita com o que foi validado na
+    referência sobre "zero mistura".
+
+    Importante sobre ÁUDIO: crossfade de ÁUDIO com FALA (acrossfade) soa
+    mal -- duas narrações tocando ao mesmo tempo por uma fração de segundo
+    vira chiado/interferência, não transição suave (feedback 2026-09-08).
+    Em vez disso, cada junção com slide/wipe recorta uma fatia curta (a
+    duração daquele corte) perto do ponto de troca -- metade do fim de uma
+    cena, metade do começo da próxima -- sem sobrepor as falas. Corte com
+    flash não recorta nada (não há overlap de vídeo nesse tipo)."""
+    FLASH = "flash"
+    pool_transicoes = TRANSICOES_XFADE + [FLASH]  # 8 direções + 1 flash = ~11% de chance de flash
+    duracao_slide = 0.25
 
     duracoes = [_duracao_segundos(c) for c in caminhos_clipes]
-    metade = duracao_transicao / 2
+    n = len(caminhos_clipes)
+    tipos_corte = [_RNG_MOVIMENTO.choice(pool_transicoes) for _ in range(n - 1)]
+    duracoes_corte = [0.0 if t == FLASH else duracao_slide for t in tipos_corte]
 
     entradas = []
     for caminho in caminhos_clipes:
         entradas += ["-i", caminho]
 
     filtros = []
+    # setsar=1 em toda entrada -- bug real 2026-09-10: o clipe do
+    # personagem_cresce (passa por scale 2x + zoompan + overlay) sai com SAR
+    # ligeiramente diferente (7680:7679 por arredondamento) dos clipes
+    # normais (1:1); o filtro concat (usado nos cortes tipo flash) exige SAR
+    # IDÊNTICO em toda entrada, senão falha silenciosamente e o arquivo
+    # final sai vazio. O flash em si (eq=brightness, só 2-3 frames no início
+    # do clipe que ENTRA) já é aplicado aqui, condicionado ao corte anterior.
+    for i in range(n):
+        corte_antes_eh_flash = i > 0 and tipos_corte[i - 1] == FLASH
+        filtro_flash = ",eq=brightness=0.9:enable='lte(t,0.07)'" if corte_antes_eh_flash else ""
+        filtros.append(f"[{i}:v]setsar=1{filtro_flash}[v{i}norm]")
 
-    # Vídeo: transição encadeada, tipo sorteado por corte (arrasta lado,
-    # sobe, dissolve) em vez de sempre o mesmo "fade" -- feedback
-    # 2026-09-09: transição sempre igual não tinha a "fluidez" que
-    # referências reais do nicho usam entre um corte e outro.
-    v_atual = "0:v"
+    v_atual = "v0norm"
     duracao_acumulada = duracoes[0]
-    for i in range(1, len(caminhos_clipes)):
-        offset = max(duracao_acumulada - duracao_transicao, 0)
-        v_saida = f"v{i}" if i < len(caminhos_clipes) - 1 else "vout"
-        tipo_transicao = random.choice(TRANSICOES_XFADE)
-        filtros.append(
-            f"[{v_atual}][{i}:v]xfade=transition={tipo_transicao}:duration={duracao_transicao}:offset={offset}[{v_saida}]"
-        )
+    for i in range(1, n):
+        tipo = tipos_corte[i - 1]
+        dur_corte = duracoes_corte[i - 1]
+        v_saida = f"v{i}out" if i < n - 1 else "vout"
+        if tipo == FLASH:
+            filtros.append(f"[{v_atual}][v{i}norm]concat=n=2:v=1:a=0[{v_saida}]")
+            duracao_acumulada += duracoes[i]
+        else:
+            offset = max(duracao_acumulada - dur_corte, 0)
+            filtros.append(
+                f"[{v_atual}][v{i}norm]xfade=transition={tipo}:duration={dur_corte}:offset={offset}[{v_saida}]"
+            )
+            duracao_acumulada = duracao_acumulada + duracoes[i] - dur_corte
         v_atual = v_saida
-        duracao_acumulada = duracao_acumulada + duracoes[i] - duracao_transicao
 
-    # Áudio: apara uma fatia curta perto de cada junção (sem misturar) e
-    # concatena — remove o mesmo total de tempo que o vídeo, mantendo os
-    # dois sincronizados, sem sobrepor duas falas.
+    # Áudio: mesma lógica de sempre, só que a duração recortada em cada
+    # junção agora vem de duracoes_corte (0 pra flash, duracao_slide pros
+    # outros) em vez de um único valor global.
     rotulos_audio = []
     for i, dur in enumerate(duracoes):
-        inicio = metade if i > 0 else 0
-        fim = dur - metade if i < len(duracoes) - 1 else dur
+        corte_esquerda = duracoes_corte[i - 1] if i > 0 else 0.0
+        corte_direita = duracoes_corte[i] if i < n - 1 else 0.0
+        inicio = corte_esquerda / 2
+        fim = dur - corte_direita / 2
         rotulo = f"atrim{i}"
         filtros.append(f"[{i}:a]atrim=start={inicio}:end={fim},asetpts=PTS-STARTPTS[{rotulo}]")
         rotulos_audio.append(rotulo)
