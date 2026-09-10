@@ -62,14 +62,20 @@ def gerar_imagem(prompt: str, imagem_referencia: bytes | None, tentativas: int =
         data = {"prompt": prompt}
         files = {"image": ("ref.jpg", imagem_referencia, "image/jpeg")} if imagem_referencia else None
 
-        resp = requests.post(url, headers=headers, data=data, files=files)
-        if resp.status_code == 200:
-            dados = resp.json()
-            if dados.get("success"):
-                return base64.b64decode(dados["result"]["image"])
-            ultimo_erro = f"Cloudflare retornou erro: {dados}"
-        else:
-            ultimo_erro = f"HTTP {resp.status_code}: {resp.text[:300]}"
+        try:
+            resp = requests.post(url, headers=headers, data=data, files=files, timeout=90)
+            if resp.status_code == 200:
+                dados = resp.json()
+                if dados.get("success"):
+                    return base64.b64decode(dados["result"]["image"])
+                ultimo_erro = f"Cloudflare retornou erro: {dados}"
+            else:
+                ultimo_erro = f"HTTP {resp.status_code}: {resp.text[:300]}"
+        except requests.exceptions.RequestException as e:
+            # rede instável/reset -- não derruba a run inteira (bug real
+            # 2026-09-10: ConnectionResetError sem try/except aqui travava
+            # todo o script em vez de cair pro próximo fallback).
+            ultimo_erro = f"erro de rede: {e}"
 
         # Cota diária esgotada (code 4006) não é erro passageiro -- tentar
         # de novo com backoff é só desperdiçar tempo, desiste na hora.
@@ -155,6 +161,104 @@ def gerar_imagem_modal(prompt: str, imagem_referencia: bytes | None) -> bytes:
     return _CLIENTE_MODAL.gerar.remote(prompt, imagem_referencia)
 
 
+def gerar_imagem_replicate(prompt: str, imagem_referencia: bytes | None, tentativas: int = 3) -> bytes:
+    """Fallback pago (Replicate, FLUX.1 [dev]) -- validado manualmente em
+    2026-09-10 como o de MELHOR fidelidade entre todos os fallbacks pagos
+    (ver testes com o roteiro do palhaço-fantasma). Entra ANTES do fal.ai
+    na cadeia por isso. Custo ~$0,025/imagem -- não é grátis, então só usa
+    quando Cloudflare/Modal (grátis) já falharam. Requer REPLICATE_API_TOKEN
+    no .env/secrets.
+
+    Achado importante na mesma sessão: a causa real da baixa fidelidade de
+    figurino em TODOS os provedores (não só aqui) era o prompt de imagem
+    estar em português -- FLUX (e modelos afins) são treinados majoritariamente
+    em inglês e ignoram/erram detalhes de roupa/objeto descritos em
+    português, mesmo termos comuns. Corrigido na fonte (ver canais/terror.py
+    e canais/tendencias.py, campo "prompt_imagem"/"personagem" agora exigidos
+    em inglês) -- isso melhora a qualidade em QUALQUER fallback, não só este."""
+    token = os.environ["REPLICATE_API_TOKEN"]
+    headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json", "Prefer": "wait"}
+
+    body = {"input": {"prompt": prompt, "aspect_ratio": "9:16", "output_format": "jpg"}}
+    if imagem_referencia:
+        body["input"]["image"] = "data:image/jpeg;base64," + base64.b64encode(imagem_referencia).decode()
+
+    ultimo_erro = None
+    for tentativa in range(1, tentativas + 1):
+        status_code = None
+        try:
+            resp = requests.post(
+                "https://api.replicate.com/v1/models/black-forest-labs/flux-dev/predictions",
+                headers=headers, json=body, timeout=90,
+            )
+            status_code = resp.status_code
+            if status_code in (200, 201):
+                dados = resp.json()
+                if dados.get("status") == "succeeded" and dados.get("output"):
+                    resp_img = requests.get(dados["output"][0], timeout=60)
+                    resp_img.raise_for_status()
+                    return resp_img.content
+                ultimo_erro = f"status {dados.get('status')}: {dados.get('error')}"
+            else:
+                ultimo_erro = f"HTTP {status_code}: {resp.text[:300]}"
+        except requests.exceptions.RequestException as e:
+            # rede instável/reset -- não é erro definitivo, entra no
+            # retry normal em vez de derrubar a run inteira (bug real
+            # 2026-09-10: isso não tratado fazia o script inteiro
+            # travar em vez de cair pro próximo fallback).
+            ultimo_erro = f"erro de rede: {e}"
+
+        if status_code in (401, 402, 403) or "credit" in ultimo_erro.lower() or "spend limit" in ultimo_erro.lower():
+            raise RuntimeError(f"Replicate sem crédito/autorização: {ultimo_erro}")
+        print(f"  [Replicate] tentativa {tentativa} falhou ({ultimo_erro[:120]}), esperando...")
+        # rate limit padrão da Replicate é 6 predictions/min -- espera de
+        # pelo menos 12s garante não estourar de novo na próxima tentativa
+        espera = 15 if status_code == 429 else 3 * tentativa
+        time.sleep(espera)
+
+    raise RuntimeError(f"Replicate falhou após {tentativas} tentativas: {ultimo_erro}")
+
+
+def gerar_imagem_falai(prompt: str, imagem_referencia: bytes | None, tentativas: int = 3) -> bytes:
+    """Quarto fallback (entre Modal e Hugging Face): FLUX.1 rodando na
+    fal.ai, pago mas muito barato (~$0,006/imagem em 9:16, $0,003/megapixel)
+    -- ver pesquisa 2026-09-09. Entra antes do Hugging Face porque não tem
+    cota curta (paga por uso, sem limite diário como o Cloudflare/HF), só
+    depende de ter crédito e a env var FAL_KEY configurada. Se a chave não
+    estiver configurada, o chamador pula esse fallback direto (ver
+    `falai_indisponivel` em `gerar_imagens_do_roteiro`)."""
+    chave = os.environ["FAL_KEY"]
+    headers = {"Authorization": f"Key {chave}", "Content-Type": "application/json"}
+
+    if imagem_referencia:
+        # img2img com a cena anterior como referência -- mesmo encadeamento
+        # de personagem que Cloudflare/Modal/HF já fazem.
+        data_uri = "data:image/jpeg;base64," + base64.b64encode(imagem_referencia).decode()
+        url = "https://fal.run/fal-ai/flux/dev/image-to-image"
+        body = {"prompt": prompt, "image_url": data_uri, "strength": 0.75}
+    else:
+        url = "https://fal.run/fal-ai/flux/schnell"
+        body = {"prompt": prompt, "image_size": {"width": 768, "height": 1344}}
+
+    ultimo_erro = None
+    for tentativa in range(1, tentativas + 1):
+        resp = requests.post(url, headers=headers, json=body, timeout=90)
+        if resp.status_code == 200:
+            dados = resp.json()
+            imagem_url = dados["images"][0]["url"]
+            resp_img = requests.get(imagem_url, timeout=60)
+            resp_img.raise_for_status()
+            return resp_img.content
+        ultimo_erro = f"HTTP {resp.status_code}: {resp.text[:300]}"
+        # sem crédito não adianta tentar de novo
+        if resp.status_code in (401, 403) or "credit" in ultimo_erro.lower():
+            raise RuntimeError(f"fal.ai sem crédito/autorização: {ultimo_erro}")
+        print(f"  [fal.ai] tentativa {tentativa} falhou ({ultimo_erro[:120]}), esperando...")
+        time.sleep(3 * tentativa)
+
+    raise RuntimeError(f"fal.ai falhou após {tentativas} tentativas: {ultimo_erro}")
+
+
 def gerar_imagem_pollinations(prompt: str, tentativas: int = 5) -> bytes:
     """Fallback pra quando a cota do Cloudflare estoura (10.000 Neurons/dia
     já esgotados) — Pollinations.ai não precisa de chave/cadastro, mas a
@@ -225,6 +329,10 @@ def gerar_imagens_do_roteiro(
     hf_esgotado = False  # depois do primeiro esgotamento, nem tenta de novo (cota é bem curta)
     cloudflare_esgotado = False  # idem -- cota diária, não adianta insistir na mesma run
     modal_indisponivel = not (os.environ.get("MODAL_TOKEN_ID") and os.environ.get("MODAL_TOKEN_SECRET"))
+    falai_indisponivel = not os.environ.get("FAL_KEY")
+    falai_sem_credito = False  # sem crédito não é passageiro, não insiste na mesma run
+    replicate_indisponivel = not os.environ.get("REPLICATE_API_TOKEN")
+    replicate_sem_credito = False
 
     for i, cena in enumerate(roteiro["cenas"], start=1):
         for parte in range(1, imagens_por_cena + 1):
@@ -265,6 +373,28 @@ def gerar_imagens_do_roteiro(
                     fonte_fallback = "Modal (FLUX.1-schnell)"
                 except Exception as e_modal:
                     print(f"  Modal falhou ({e_modal})")
+
+            if imagem_bytes is None and not replicate_indisponivel and not replicate_sem_credito:
+                try:
+                    print("  tentando fallback Replicate (FLUX.1 dev)...")
+                    imagem_bytes = gerar_imagem_replicate(prompt, imagem_anterior)
+                    usou_fallback = True
+                    fonte_fallback = "Replicate (FLUX.1 dev)"
+                except Exception as e_replicate:
+                    print(f"  Replicate falhou ({e_replicate})")
+                    if "crédito" in str(e_replicate) or "autorização" in str(e_replicate):
+                        replicate_sem_credito = True
+
+            if imagem_bytes is None and not falai_indisponivel and not falai_sem_credito:
+                try:
+                    print("  tentando fallback fal.ai (FLUX.1)...")
+                    imagem_bytes = gerar_imagem_falai(prompt, imagem_anterior)
+                    usou_fallback = True
+                    fonte_fallback = "fal.ai (FLUX.1)"
+                except Exception as e_falai:
+                    print(f"  fal.ai falhou ({e_falai})")
+                    if "crédito" in str(e_falai) or "autorização" in str(e_falai):
+                        falai_sem_credito = True
 
             if imagem_bytes is None:
                 if not hf_esgotado:

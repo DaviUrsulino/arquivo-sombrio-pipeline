@@ -225,6 +225,10 @@ assunto.
 ESTILO DE ESCRITA
 - Frases curtas e diretas, uma ideia por frase, sem floreio.
 
+IDIOMA — REGRA CRÍTICA (bug real encontrado 2026-09-10: prompts de imagem em português produziam personagens/objetos genéricos, sem os detalhes de figurino/cor pedidos — modelos de imagem (FLUX e afins) são treinados majoritariamente em inglês e interpretam mal termos em português, mesmo objetos comuns)
+- "narracao" continua em PORTUGUÊS — é isso que vira a voz do vídeo.
+- "personagem", "prompt_imagem" e "prompt_imagem_2" (quando existirem) devem ser escritos em INGLÊS — são texto que vai direto pro gerador de imagem, nunca aparecem faladas nem legendadas.
+
 Sua resposta deve ser APENAS um JSON válido, no formato:
 {{
   "genero_narrador": "masculino" ou "feminino",
@@ -272,6 +276,10 @@ devia ter aberto aquela porta." ou "Ele jurou que nunca faria isso comigo.".
 - TERMINE EM GANCHO DE CONTINUAÇÃO — a última cena não resolve o conflito, deixa uma pergunta \
 no ar e sinaliza que tem "próximo capítulo" (sem prometer data, só o gancho narrativo).
 
+IDIOMA — REGRA CRÍTICA (bug real encontrado 2026-09-10: prompts de imagem em português produziam personagens/objetos genéricos, sem os detalhes de figurino/cor pedidos — modelos de imagem (FLUX e afins) são treinados majoritariamente em inglês e interpretam mal termos em português, mesmo objetos comuns)
+- "narracao" continua em PORTUGUÊS — é isso que vira a voz do vídeo.
+- "personagem", "prompt_imagem" e "prompt_imagem_2" (quando existirem) devem ser escritos em INGLÊS — são texto que vai direto pro gerador de imagem, nunca aparecem faladas nem legendadas.
+
 Sua resposta deve ser APENAS um JSON válido, no formato:
 {{
   "genero_narrador": "masculino" ou "feminino",
@@ -318,6 +326,10 @@ literalmente seguro sua vida inteira junta e ninguém nem lava minha prateleira.
 do dono, cada um mais absurdo/engraçado que o anterior.
 - Termine com uma virada cômica ou tirada final memorável (não precisa de gancho de \
 continuação — este formato é episódico, cada vídeo se resolve sozinho).
+
+IDIOMA — REGRA CRÍTICA (bug real encontrado 2026-09-10: prompts de imagem em português produziam personagens/objetos genéricos, sem os detalhes de figurino/cor pedidos — modelos de imagem (FLUX e afins) são treinados majoritariamente em inglês e interpretam mal termos em português, mesmo objetos comuns)
+- "narracao" continua em PORTUGUÊS — é isso que vira a voz do vídeo.
+- "personagem", "prompt_imagem" e "prompt_imagem_2" (quando existirem) devem ser escritos em INGLÊS — são texto que vai direto pro gerador de imagem, nunca aparecem faladas nem legendadas.
 
 Sua resposta deve ser APENAS um JSON válido, no formato:
 {{
@@ -367,6 +379,10 @@ comida, tecnologia, hierarquia social, etc) com humor de contraste, sem soar did
 características gerais bem documentadas da época.
 - Termine com uma reação final cômica que resume a experiência (sem gancho de continuação \
 obrigatório, mas pode sugerir "será que consigo voltar" como fechamento leve).
+
+IDIOMA — REGRA CRÍTICA (bug real encontrado 2026-09-10: prompts de imagem em português produziam personagens/objetos genéricos, sem os detalhes de figurino/cor pedidos — modelos de imagem (FLUX e afins) são treinados majoritariamente em inglês e interpretam mal termos em português, mesmo objetos comuns)
+- "narracao" continua em PORTUGUÊS — é isso que vira a voz do vídeo.
+- "personagem", "prompt_imagem" e "prompt_imagem_2" (quando existirem) devem ser escritos em INGLÊS — são texto que vai direto pro gerador de imagem, nunca aparecem faladas nem legendadas.
 
 Sua resposta deve ser APENAS um JSON válido, no formato:
 {{

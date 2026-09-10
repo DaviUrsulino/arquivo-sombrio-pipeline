@@ -1,46 +1,46 @@
 {
   "genero_narrador": "masculino",
-  "personagem": "Homem alto usando uma fantasia de palhaço velha e desbotada de cores esmaecidas, luvas vermelhas surradas, maquiagem branca borrada e rachada, boca pintada num sorriso largo e sinistro que nunca muda de expressão.",
+  "personagem": "A tall man wearing an old faded clown costume with dull washed-out colors, worn shabby red gloves, cracked smudged white clown face paint, a wide sinister painted smile that never changes expression.",
   "cenas": [
     {
       "narracao": "Isso é uma história real. No final dos anos sessenta, crianças de diferentes partes dos Estados Unidos começaram a contar a mesma história: um homem vestido de palhaço aparecia perto das escolas, escondido próximo a parques, oferecendo carona numa van branca sem janelas.",
-      "prompt_imagem": "Plano geral, à noite, de uma van branca enorme sem janelas estacionada numa rua escura perto de um playground vazio, luzes de poste amareladas ao fundo, névoa baixa no asfalto.",
-      "prompt_imagem_2": "Plano médio do personagem parado nas sombras perto do muro de uma escola, meio escondido atrás de uma árvore, observando o playground vazio."
+      "prompt_imagem": "Wide shot at night of a huge white windowless van parked on a dark street near an empty playground, yellowish streetlight glow in the background, low fog on the asphalt.",
+      "prompt_imagem_2": "Medium shot of the character standing in the shadows near a school wall, half-hidden behind a tree, watching the empty playground."
     },
     {
       "narracao": "No começo, a polícia não levou os relatos a sério. Diziam que era só uma brincadeira... ou histeria coletiva. Mas então, crianças começaram a desaparecer.",
-      "prompt_imagem": "Plano médio de dois policiais conversando numa delegacia antiga estilo anos setenta, uma prancheta de relatório sobre a mesa, expressão de descrença.",
-      "prompt_imagem_2": "Plano geral de uma rua residencial suburbana à noite, uma bicicleta caída sozinha na calçada, nenhuma criança à vista."
+      "prompt_imagem": "Medium shot of two police officers talking inside an old 1970s-style police station, a report clipboard on the desk, disbelieving expressions.",
+      "prompt_imagem_2": "Wide shot of a suburban residential street at night, a bicycle fallen alone on the sidewalk, no children in sight."
     },
     {
       "narracao": "As descrições eram assustadoramente parecidas: um homem alto, com uma fantasia de palhaço velha e desbotada, luvas vermelhas, e uma maquiagem borrada que fazia o rosto parecer quase deteriorado.",
-      "prompt_imagem": "Close-up no rosto do personagem, maquiagem branca borrada e rachada, sombra dura de um poste de luz sobre metade do rosto.",
-      "prompt_imagem_2": "Plano detalhe das luvas vermelhas surradas do personagem apoiadas na porta lateral aberta de uma van branca."
+      "prompt_imagem": "Close-up on the character's face, cracked smudged white face paint, hard streetlight shadow across half of his face.",
+      "prompt_imagem_2": "Detail shot of the character's worn red gloves resting on the open side door of a white van."
     },
     {
       "narracao": "Pais relatavam a mesma van branca perto de playgrounds. Sempre que a polícia chegava, ela já tinha desaparecido. Algumas testemunhas juraram que havia mais de um palhaço lá dentro.",
-      "prompt_imagem": "Plano geral de um playground suburbano vazio à noite, balanços se mexendo sozinhos com o vento, uma van branca ao longe na rua.",
-      "prompt_imagem_2": "Visão de dentro de uma van escura, através do para-brisa embaçado, mostrando duas silhuetas de palhaço nos bancos da frente, só contorno, sem detalhe do rosto."
+      "prompt_imagem": "Wide shot of an empty suburban playground at night, swings moving by themselves in the wind, a white van far away on the street.",
+      "prompt_imagem_2": "View from inside a dark van, through a fogged-up windshield, showing two clown silhouettes in the front seats, only outlines, no facial detail."
     },
     {
       "narracao": "Eles ficavam observando as crianças... e rindo. Os jornais não queriam publicar a história. Nenhum relatório oficial parecia existir.",
-      "prompt_imagem": "Plano médio do personagem visto de costas, observando um playground distante num dia nublado e cinzento.",
-      "prompt_imagem_2": "Plano geral da redação de um jornal antigo dos anos setenta, mesas cheias de papel espalhado, uma manchete amassada jogada numa lixeira de metal."
+      "prompt_imagem": "Medium shot of the character seen from behind, watching a distant playground on a gray overcast day.",
+      "prompt_imagem_2": "Wide shot of an old 1970s newspaper newsroom, desks covered in scattered papers, a crumpled headline thrown in a metal trash bin."
     },
     {
       "narracao": "Até que, em mil novecentos e sessenta e oito, um garoto de Ohio desapareceu depois de dizer uma frase que assustou seus pais: o homem engraçado queria mostrar um balão pra ele. O garoto nunca foi encontrado.",
-      "prompt_imagem": "Plano geral de uma casa suburbana simples ao anoitecer, uma janela de quarto infantil com a luz acesa, atmosfera tensa e silenciosa.",
-      "prompt_imagem_2": "Close-up num balão vermelho murcho, preso numa cerca de madeira numa calçada vazia, luz de poste piscando ao fundo."
+      "prompt_imagem": "Wide shot of a simple suburban house at dusk, a child's bedroom window with the light on, tense and silent atmosphere.",
+      "prompt_imagem_2": "Close-up on a deflated red balloon caught on a wooden fence on an empty sidewalk, a streetlight flickering in the background."
     },
     {
       "narracao": "Nos meses seguintes, relatos semelhantes surgiram em Illinois, Pensilvânia e Geórgia. Alguns acreditavam ser uma quadrilha se escondendo atrás da fantasia. Outros diziam que havia algo bem mais sombrio.",
-      "prompt_imagem": "Plano geral de um mapa antigo dos Estados Unidos sobre uma mesa de madeira, marcado com vários alfinetes vermelhos espalhados em diferentes pontos, luz de abajur amarelada.",
-      "prompt_imagem_2": "Plano médio do personagem visto de longe atravessando um estacionamento vazio ao anoitecer, projetando uma sombra comprida e distorcida no chão."
+      "prompt_imagem": "Wide shot of an old map of the United States on a wooden table, marked with several red pins scattered across different points, warm lamp light.",
+      "prompt_imagem_2": "Medium shot of the character seen from a distance crossing an empty parking lot at dusk, casting a long distorted shadow on the ground."
     },
     {
       "narracao": "E o mais estranho? Ninguém nunca foi preso. Nenhum nome, nenhum rosto. Só desenhos antigos em arquivos de caso, todos mostrando a mesma figura: um palhaço de olhos completamente negros... e um sorriso que nunca parecia mudar.",
-      "prompt_imagem": "Plano detalhe de um desenho antigo a lápis de um palhaço com olhos completamente pretos, dentro de uma pasta de arquivo policial amarelada e surrada.",
-      "prompt_imagem_2": "Close-up extremo no sorriso pintado do personagem, levemente desfocado, iluminado por uma luz de poste piscando na escuridão."
+      "prompt_imagem": "Detail shot of an old pencil sketch of a clown with completely black eyes, inside a worn yellowed police case file folder.",
+      "prompt_imagem_2": "Extreme close-up on the character's painted smile, slightly out of focus, lit by a flickering streetlight in the darkness."
     }
   ]
 }

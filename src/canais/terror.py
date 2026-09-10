@@ -108,6 +108,16 @@ diretamente na descrição da cena — névoa/neblina baixa, poeira flutuando na
 visível no frio — em vez de deixar o ambiente "limpo demais". Isso é uma escolha por cena, não \
 uma regra fixa pra toda cena.
 
+IDIOMA — REGRA CRÍTICA (bug real encontrado 2026-09-10: prompts de imagem em \
+português produziam personagens genéricos, sem os detalhes de figurino pedidos — ex: \
+"fantasia de palhaço" não virava fantasia nenhuma, "luvas vermelhas" sumiam. O mesmo \
+prompt traduzido pra inglês funcionou perfeitamente no mesmo modelo. Os modelos de \
+imagem (FLUX e afins) são treinados majoritariamente em inglês e interpretam mal \
+termos em português, mesmo objetos/roupas comuns)
+- "narracao" continua em PORTUGUÊS — é isso que vira a voz do vídeo.
+- "personagem", "prompt_imagem" e "prompt_imagem_2" devem ser escritos em INGLÊS — \
+são texto que vai direto pro gerador de imagem, nunca aparecem faladas nem legendadas.
+
 IMPORTANTE — NÃO REDESCREVA O PERSONAGEM EM CADA CENA
 - O campo "prompt_imagem" de cada cena NÃO deve incluir a descrição física do personagem (idade, \
 roupa, cabelo, etc.) — o código insere essa descrição automaticamente, palavra por palavra, \
@@ -120,16 +130,17 @@ enquadramento de câmera, e a descrição do ambiente/cenário. Nada sobre a apa
 Sua resposta deve ser APENAS um JSON válido, sem texto antes ou depois, no formato:
 {{
   "genero_narrador": "masculino" ou "feminino",
-  "personagem": "descrição completa e definitiva do personagem principal (idade, porte físico, \
-roupa, cabelo) — usada palavra por palavra em TODAS as cenas pelo código, não repita isso no \
-prompt_imagem de cada cena",
+  "personagem": "(EM INGLÊS) descrição completa e definitiva do personagem principal (idade, \
+porte físico, roupa, cabelo) — usada palavra por palavra em TODAS as cenas pelo código, não \
+repita isso no prompt_imagem de cada cena",
   "cenas": [
-    {{"narracao": "texto que o narrador fala nesta cena (2-3 frases)", "prompt_imagem": "cena \
-pra ilustrar a PRIMEIRA frase/momento da narração desta cena — APENAS ação/pose/objeto do \
-personagem + enquadramento de câmera + ambiente/cenário, SEM descrever a aparência física do \
-personagem", "prompt_imagem_2": "cena pra ilustrar a ÚLTIMA frase/momento (o mais tenso/\
-diferente) desta mesma narração — DEVE mostrar algo visualmente diferente da primeira imagem \
-(outro detalhe, reação, ou o que mudou), não é só outro ângulo da mesma pose"}},
+    {{"narracao": "(EM PORTUGUÊS) texto que o narrador fala nesta cena (2-3 frases)", \
+"prompt_imagem": "(EM INGLÊS) cena pra ilustrar a PRIMEIRA frase/momento da narração desta \
+cena — APENAS ação/pose/objeto do personagem + enquadramento de câmera + ambiente/cenário, SEM \
+descrever a aparência física do personagem", "prompt_imagem_2": "(EM INGLÊS) cena pra ilustrar \
+a ÚLTIMA frase/momento (o mais tenso/diferente) desta mesma narração — DEVE mostrar algo \
+visualmente diferente da primeira imagem (outro detalhe, reação, ou o que mudou), não é só \
+outro ângulo da mesma pose"}},
     ...
   ]
 }}
