@@ -42,9 +42,23 @@ REFORCO_2D = (
 )
 
 
+MARCADOR_SEM_PERSONAGEM = "NO_CHARACTER:"
+
+
 def montar_prompt(prompt_imagem: str, canal, personagem: str | None, tem_referencia: bool) -> str:
-    descricao_personagem = f"{personagem}. " if personagem else ""
-    prefixo_referencia = "Same character as the reference image. " if tem_referencia else ""
+    """Bug real encontrado 2026-09-10: cenas puramente de cenário (ex: plano
+    geral de uma van vazia, sem o personagem em quadro) saíam sempre com o
+    personagem desenhado do mesmo jeito, porque a descrição dele era colada
+    incondicionalmente em TODO prompt_imagem/prompt_imagem_2. Roteiros
+    manuais que variam entre plano com personagem e plano só de cenário
+    (pedido do Davi: "mais cenário") agora podem prefixar o prompt_imagem
+    daquela cena/sub-imagem com "NO_CHARACTER:" pra pular a injeção."""
+    sem_personagem = prompt_imagem.startswith(MARCADOR_SEM_PERSONAGEM)
+    if sem_personagem:
+        prompt_imagem = prompt_imagem[len(MARCADOR_SEM_PERSONAGEM):].strip()
+
+    descricao_personagem = f"{personagem}. " if personagem and not sem_personagem else ""
+    prefixo_referencia = "Same character as the reference image. " if tem_referencia and not sem_personagem else ""
     return (
         f"{canal.MASTER_STYLE_LOCK}{REFORCO_2D}{prefixo_referencia}"
         f"{descricao_personagem}{prompt_imagem} {canal.RESTRICOES}"
@@ -161,7 +175,7 @@ def gerar_imagem_modal(prompt: str, imagem_referencia: bytes | None) -> bytes:
     return _CLIENTE_MODAL.gerar.remote(prompt, imagem_referencia)
 
 
-def gerar_imagem_replicate(prompt: str, imagem_referencia: bytes | None, tentativas: int = 3) -> bytes:
+def gerar_imagem_replicate(prompt: str, imagem_referencia: bytes | None, tentativas: int = 6) -> bytes:
     """Fallback pago (Replicate, FLUX.1 [dev]) -- validado manualmente em
     2026-09-10 como o de MELHOR fidelidade entre todos os fallbacks pagos
     (ver testes com o roteiro do palhaço-fantasma). Entra ANTES do fal.ai
@@ -208,13 +222,28 @@ def gerar_imagem_replicate(prompt: str, imagem_referencia: bytes | None, tentati
             # travar em vez de cair pro próximo fallback).
             ultimo_erro = f"erro de rede: {e}"
 
-        if status_code in (401, 402, 403) or "credit" in ultimo_erro.lower() or "spend limit" in ultimo_erro.lower():
+        # Bug real encontrado 2026-09-10: com saldo baixo (< $5) a Replicate
+        # responde 429 (rate limit reduzido pra 6 req/min) e a mensagem
+        # MENCIONA "credit" só de contexto ("...while you have less than
+        # $5.0 in credit") -- isso disparava a checagem de string abaixo e
+        # tratava um simples rate limit passageiro como falta de crédito
+        # definitiva, desistindo na primeira tentativa. 429 SEMPRE é
+        # passageiro (nunca falta de crédito de verdade) -- checa o
+        # status_code primeiro, não o texto da mensagem.
+        if status_code == 429:
+            espera = 15
+            try:
+                espera = max(float(resp.json().get("retry_after", 15)) + 2, espera)
+            except Exception:
+                pass
+            print(f"  [Replicate] rate limit (tentativa {tentativa}), esperando {espera:.0f}s...")
+            time.sleep(espera)
+            continue
+
+        if status_code in (401, 402, 403):
             raise RuntimeError(f"Replicate sem crédito/autorização: {ultimo_erro}")
         print(f"  [Replicate] tentativa {tentativa} falhou ({ultimo_erro[:120]}), esperando...")
-        # rate limit padrão da Replicate é 6 predictions/min -- espera de
-        # pelo menos 12s garante não estourar de novo na próxima tentativa
-        espera = 15 if status_code == 429 else 3 * tentativa
-        time.sleep(espera)
+        time.sleep(3 * tentativa)
 
     raise RuntimeError(f"Replicate falhou após {tentativas} tentativas: {ultimo_erro}")
 
