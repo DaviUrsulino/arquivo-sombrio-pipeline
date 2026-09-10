@@ -685,33 +685,42 @@ def montar_video(roteiro: dict, canal, pasta_imagens: str, saida: str, sem_legen
         print("Montando tela final (curta e se inscreva)...")
         caminho_cta = os.path.join(pasta_tmp, "cta_final.mp4")
         gerar_cta_final(caminho_cta)
-        clipes.append(caminho_cta)
 
-        print("Concatenando cenas (com transição fluida entre elas)...")
-        caminho_bruto = os.path.join(pasta_tmp, "bruto.mp4")
-        concatenar_com_transicao(clipes, caminho_bruto)
+        # A tela final de "curta e se inscreva/ativa o sininho" é conceito
+        # de YouTube -- TikTok não tem sino de notificação, incluir isso lá
+        # soa estranho/fora de contexto (feedback 2026-09-10). Por isso
+        # concatena e legenda DUAS vezes (uma por plataforma) em vez de uma
+        # vez só reaproveitada -- mais caro que o esquema antigo (que só
+        # repetia a mixagem de áudio barata no final), mas é o preço de ter
+        # o CTA só onde faz sentido.
+        clipes_por_plataforma = {
+            "youtube": clipes + [caminho_cta],
+            "tiktok": clipes,
+        }
 
-        caminho_com_legenda = os.path.join(pasta_tmp, "com_legenda.mp4")
-        if sem_legenda:
-            caminho_com_legenda = caminho_bruto
-        else:
-            print("Transcrevendo áudio pra gerar legenda (faster-whisper, pode demorar um pouco)...")
-            caminho_audio_full = os.path.join(pasta_tmp, "audio_full.wav")
-            extrair_audio(caminho_bruto, caminho_audio_full)
-            caminho_ass = os.path.join(pasta_tmp, "legenda.ass")
-            gerar_legenda_ass(caminho_audio_full, caminho_ass, LARGURA, ALTURA)
+        caminhos_com_legenda = {}
+        for plataforma, lista_clipes in clipes_por_plataforma.items():
+            print(f"Concatenando cenas ({plataforma}, com transição fluida entre elas)...")
+            caminho_bruto = os.path.join(pasta_tmp, f"bruto_{plataforma}.mp4")
+            concatenar_com_transicao(lista_clipes, caminho_bruto)
 
-            print("Queimando legenda no vídeo...")
-            queimar_legenda(caminho_bruto, caminho_ass, caminho_com_legenda)
+            caminho_com_legenda = os.path.join(pasta_tmp, f"com_legenda_{plataforma}.mp4")
+            if sem_legenda:
+                caminho_com_legenda = caminho_bruto
+            else:
+                print(f"Transcrevendo áudio ({plataforma}) pra gerar legenda (faster-whisper, pode demorar um pouco)...")
+                caminho_audio_full = os.path.join(pasta_tmp, f"audio_full_{plataforma}.wav")
+                extrair_audio(caminho_bruto, caminho_audio_full)
+                caminho_ass = os.path.join(pasta_tmp, f"legenda_{plataforma}.ass")
+                gerar_legenda_ass(caminho_audio_full, caminho_ass, LARGURA, ALTURA)
+
+                print(f"Queimando legenda no vídeo ({plataforma})...")
+                queimar_legenda(caminho_bruto, caminho_ass, caminho_com_legenda)
+
+            caminhos_com_legenda[plataforma] = caminho_com_legenda
 
         perfil_ambiencia = getattr(canal, "AMBIENCIA", "leve")
-        duracao_total_video = _duracao_segundos(caminho_com_legenda)
 
-        # Gera UMA versão do vídeo por plataforma (TikTok/YouTube), cada
-        # uma com sua própria trilha real -- tudo até aqui (imagens,
-        # narração, legenda, cortes) já rodou uma vez só, então isso não
-        # dobra o custo/tempo pesado, só repete a etapa barata de mixar
-        # áudio no final (feedback 2026-09-09).
         # Decisão 2026-09-09: trilha real só no canal "Arquivo Sombrio"
         # (terror) -- "Em Alta" (tendencias) continua com a ambientação
         # sintetizada, canal.USAR_TRILHA_REAL controla isso por canal.
@@ -722,6 +731,8 @@ def montar_video(roteiro: dict, canal, pasta_imagens: str, saida: str, sem_legen
         for plataforma, caminho_trilha in TRILHAS_POR_PLATAFORMA.items():
             if not usar_trilha_real:
                 caminho_trilha = None
+            caminho_com_legenda = caminhos_com_legenda[plataforma]
+            duracao_total_video = _duracao_segundos(caminho_com_legenda)
             print(f"Adicionando ambientação ({plataforma}, {perfil_ambiencia})...")
             caminho_ambiencia = os.path.join(pasta_tmp, f"ambiencia_{plataforma}.wav")
             gerar_ambiencia(caminho_ambiencia, duracao_total_video, perfil_ambiencia, caminho_trilha)
