@@ -106,7 +106,12 @@ jobs:
           MODAL_TOKEN_ID: ${{ secrets.MODAL_TOKEN_ID }}
           MODAL_TOKEN_SECRET: ${{ secrets.MODAL_TOKEN_SECRET }}
           FAL_KEY: ${{ secrets.FAL_KEY }}
-          REPLICATE_API_TOKEN: ${{ secrets.REPLICATE_API_TOKEN }}
+          # So passa a chave da Replicate em run MANUAL (workflow_dispatch),
+          # nunca em run automatica (schedule/cron) -- e paga por uso e o
+          # Davi colocou so US$1 pra testar, precisa ficar fora do
+          # fallback dos videos automaticos ate decidir usar de verdade
+          # (pedido explicito 2026-09-10, medo de gastar sem perceber).
+          REPLICATE_API_TOKEN: ${{ github.event_name == 'workflow_dispatch' && secrets.REPLICATE_API_TOKEN || '' }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
