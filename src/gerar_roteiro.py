@@ -150,6 +150,22 @@ def _chaves_api() -> list[str]:
     return [os.environ["GEMINI_API_KEY"]]
 
 
+def _extrair_primeiro_json(texto: str) -> dict:
+    """Extrai só o PRIMEIRO objeto JSON válido do texto, ignorando
+    qualquer coisa depois dele -- bug real 2026-09-11 (run que reprovou
+    sozinho): `texto.rfind("}")` pega o ÚLTIMO "}" do texto inteiro, então
+    se o modelo (Gemini/OpenRouter/Mistral) devolver o JSON certo seguido
+    de texto extra (comentário, um segundo bloco, etc), a fatia extraída
+    incluía esse lixo e `json.loads` estourava "Extra data". `raw_decode`
+    para de ler no fim do primeiro objeto válido, não importa o que vem
+    depois."""
+    inicio = texto.find("{")
+    if inicio == -1:
+        raise json.JSONDecodeError("nenhum '{' encontrado na resposta", texto, 0)
+    objeto, _ = json.JSONDecoder().raw_decode(texto, inicio)
+    return objeto
+
+
 def gerar_roteiro(tema: str, canal) -> dict:
     # Calculado UMA vez por vídeo, não a cada tentativa/retry -- canais como
     # terror.py sorteiam um "modo" de história aqui (relato pessoal/baseado
@@ -210,18 +226,14 @@ def gerar_roteiro(tema: str, canal) -> dict:
         try:
             return json.loads(texto)
         except json.JSONDecodeError:
-            inicio = texto.find("{")
-            fim = texto.rfind("}") + 1
-            return json.loads(texto[inicio:fim])
+            return _extrair_primeiro_json(texto)
 
     texto = response.text
     try:
         return json.loads(texto)
     except json.JSONDecodeError:
         print("Aviso: resposta não veio em JSON puro, tentando extrair...", file=sys.stderr)
-        inicio = texto.find("{")
-        fim = texto.rfind("}") + 1
-        return json.loads(texto[inicio:fim])
+        return _extrair_primeiro_json(texto)
 
 
 def montar_prompts_completos(roteiro: dict, canal) -> list[str]:

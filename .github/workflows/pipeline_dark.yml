@@ -11,14 +11,23 @@ on:
   schedule:
     # Ajuste 2026-09-11 (pedido do Davi: "4 vídeos por canal"): de 5 pra 4
     # publicações/dia por conta, mesmo espaçamento ao longo do dia.
-    - cron: '0 12 * * *'  # 09h BRT - arquivo_sombrio
-    - cron: '0 16 * * *'  # 13h BRT - arquivo_sombrio
-    - cron: '0 20 * * *'  # 17h BRT - arquivo_sombrio
-    - cron: '0 0 * * *'   # 21h BRT - arquivo_sombrio
-    - cron: '0 14 * * *'  # 11h BRT - tendencias
-    - cron: '0 18 * * *'  # 15h BRT - tendencias
-    - cron: '0 22 * * *'  # 19h BRT - tendencias
-    - cron: '0 2 * * *'   # 23h BRT - tendencias
+    #
+    # Ajuste 2026-09-11 (2ª rodada, mesmo dia): cron batendo EXATO em cima
+    # da hora ("0 12 * * *" etc) cai no horário de pico de congestionamento
+    # do agendador do GitHub Actions -- a doc deles avisa isso ("High load
+    # times include, for example, the start of every hour") e na prática
+    # duas execuções do dia (12h e 14h UTC) simplesmente sumiram, nem
+    # chegaram a rodar, enquanto outras atrasaram horas. Desloca todos os
+    # minutos pra fora da hora cheia (:07, :13, :23, :37) reduz a chance de
+    # cair nesse pico.
+    - cron: '7 12 * * *'   # ~09h07 BRT - arquivo_sombrio
+    - cron: '13 16 * * *'  # ~13h13 BRT - arquivo_sombrio
+    - cron: '23 20 * * *'  # ~17h23 BRT - arquivo_sombrio
+    - cron: '37 0 * * *'   # ~21h37 BRT - arquivo_sombrio
+    - cron: '7 14 * * *'   # ~11h07 BRT - tendencias
+    - cron: '13 18 * * *'  # ~15h13 BRT - tendencias
+    - cron: '23 22 * * *'  # ~19h23 BRT - tendencias
+    - cron: '37 2 * * *'   # ~23h37 BRT - tendencias
   workflow_dispatch:
     inputs:
       canal:
@@ -63,7 +72,7 @@ jobs:
             CANAL="${{ github.event.inputs.canal }}"
           else
             case "${{ github.event.schedule }}" in
-              '0 14 * * *'|'0 18 * * *'|'0 22 * * *'|'0 2 * * *') CANAL="tendencias" ;;
+              '7 14 * * *'|'13 18 * * *'|'23 22 * * *'|'37 2 * * *') CANAL="tendencias" ;;
               *) CANAL="arquivo_sombrio" ;;
             esac
           fi
