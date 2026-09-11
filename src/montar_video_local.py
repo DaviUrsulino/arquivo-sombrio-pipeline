@@ -70,6 +70,21 @@ def _contar_frames_reais(caminho: str) -> int:
     return int(resultado.stdout.strip())
 
 
+def _duracao_segundos_stream_audio(caminho: str) -> float:
+    """Duração do STREAM de áudio especificamente (não do container/vídeo)
+    -- usado pra detectar narração cortada mesmo quando o vídeo bate certo
+    (ver montar_video_de_audio_e_imagens)."""
+    resultado = subprocess.run(
+        [
+            "ffprobe", "-v", "error", "-select_streams", "a:0",
+            "-show_entries", "stream=duration",
+            "-of", "default=noprint_wrappers=1:nokey=1", caminho,
+        ],
+        capture_output=True, text=True,
+    )
+    return float(resultado.stdout.strip())
+
+
 def gerar_narracao(texto: str, voz: str, caminho_saida: str):
     """Kokoro (lang_code='p' = português brasileiro). Carrega o modelo uma
     vez só e reaproveita entre chamadas (fica pesado recarregar por cena)."""
@@ -786,11 +801,19 @@ def montar_video_de_audio_e_imagens(
         # Fix: em vez de encurtar o áudio, estica o vídeo segurando o
         # último frame (congelado) até bater a duração exata do áudio --
         # nunca perde uma palavra da narração.
+        # Bug real 2026-09-11 (2ª vez, corte de ~0.6s mesmo com o fix acima):
+        # `format=duration` do ffprobe em MP3 é só uma ESTIMATIVA (cabeçalho
+        # VBR impreciso) -- o áudio de verdade, decodificado, pode ser mais
+        # longo que essa estimativa. Com a margem exata calculada, o vídeo
+        # ainda saía um pouco mais curto que o áudio real, e o "-shortest"
+        # voltava a cortar esse restinho de narração. Fix: soma uma margem
+        # de segurança (2s) no padding -- garante que o vídeo sempre fica
+        # MAIS longo que o áudio de verdade, e o "-shortest" corta o excesso
+        # de VÍDEO (silêncio congelado sobrando), nunca a narração.
+        MARGEM_SEGURANCA = 2.0
         duracao_video_bruto = _duracao_segundos(caminho_bruto)
-        diferenca = duracao_total - duracao_video_bruto
-        filtro_video = "[0:v]null[v]"
-        if diferenca > 0.05:
-            filtro_video = f"[0:v]tpad=stop_mode=clone:stop_duration={diferenca:.3f}[v]"
+        diferenca = duracao_total - duracao_video_bruto + MARGEM_SEGURANCA
+        filtro_video = f"[0:v]tpad=stop_mode=clone:stop_duration={diferenca:.3f}[v]"
         caminho_com_audio = os.path.join(pasta_tmp, "com_audio.mp4")
         _rodar([
             "ffmpeg", "-y", "-i", caminho_bruto, "-i", caminho_audio,
@@ -814,17 +837,27 @@ def montar_video_de_audio_e_imagens(
         caminho_ambiencia = os.path.join(pasta_tmp, "ambiencia.wav")
         gerar_ambiencia(caminho_ambiencia, duracao_total, "tenso", caminho_trilha)
 
-        # Bug real 2026-09-10 (Somerton saiu truncado): usar -c:v copy nesse
-        # mux final pode preservar timestamps quebrados vindos do xfade
-        # encadeado -- reencoda sempre aqui pra garantir que a duração
-        # final bate com o áudio de entrada.
+        # Bug real 2026-09-11 (2ª causa raiz do corte de ~0.6s no final da
+        # narração, achado depurando o pivô passo a passo): misturar áudio
+        # (filter_complex) E reencodar vídeo (libx264) NA MESMA chamada do
+        # ffmpeg perde ~0.6s de áudio -- confirmado isolando cada etapa:
+        # o mesmo filtro de áudio sozinho (sem vídeo) dá a duração certa,
+        # e com "-c:v copy" (sem reencodar) também dá certo; só quebra
+        # quando os dois acontecem juntos na mesma chamada (bug/instabili-
+        # dade do libx264 processando junto com o filtergraph de áudio).
+        # O reencode de vídeo daqui tinha sido adicionado 2026-09-10 achando
+        # que corrigia o truncamento do xfade (não corrigia -- a causa real
+        # daquele era arredondamento de frame no offset do xfade, já
+        # corrigido em concatenar_com_transicao). Sem motivo real pra
+        # reencodar aqui, então volta pra "-c:v copy" -- mais rápido E sem
+        # o bug de áudio.
         _rodar([
             "ffmpeg", "-y",
             "-i", caminho_com_legenda, "-i", caminho_ambiencia,
             "-filter_complex",
             "[0:a]volume=1.8[a0];[a0][1:a]amix=inputs=2:duration=first:dropout_transition=0:normalize=0[aout]",
             "-map", "0:v", "-map", "[aout]",
-            "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac",
+            "-c:v", "copy", "-c:a", "aac",
             "-movflags", "+faststart",
             caminho_saida,
         ])
@@ -837,7 +870,21 @@ def montar_video_de_audio_e_imagens(
             f"pra {duracao_total:.1f}s de áudio esperado. Bug conhecido no xfade encadeado -- "
             "não usar esse arquivo, precisa remontar."
         )
-    print(f"\nVídeo salvo em: {caminho_saida} ({duracao_real:.1f}s reais, verificado)")
+    # Trava extra 2026-09-11: o bug real desta vez não era no VÍDEO (frame
+    # count batia certinho), era a NARRAÇÃO sendo cortada no fim por causa
+    # do "-shortest" -- contagem de frame de vídeo sozinha não pega isso,
+    # tem que conferir a duração do stream de ÁUDIO do arquivo final contra
+    # o áudio de entrada de verdade. Fluxo automático (pivô via Drive) não
+    # pode publicar nada com narração cortada sem ninguém perceber.
+    duracao_audio_final = _duracao_segundos_stream_audio(caminho_saida)
+    duracao_audio_fonte = _duracao_segundos(caminho_audio)
+    if duracao_audio_final < duracao_audio_fonte - 0.5:
+        raise RuntimeError(
+            f"Narração saiu cortada: áudio final tem {duracao_audio_final:.1f}s, "
+            f"a narração original tem {duracao_audio_fonte:.1f}s -- não usar esse arquivo, "
+            "precisa remontar."
+        )
+    print(f"\nVídeo salvo em: {caminho_saida} ({duracao_real:.1f}s de vídeo, {duracao_audio_final:.1f}s de áudio, verificado)")
     return duracao_total
 
 
@@ -1034,15 +1081,18 @@ def montar_video(
                 "-filter_complex",
                 "[0:a]volume=1.8[a0];[a0][1:a]amix=inputs=2:duration=first:dropout_transition=0:normalize=0[aout]",
                 "-map", "0:v", "-map", "[aout]",
-                # -c:v copy REMOVIDO 2026-09-10: a causa real do vídeo do
-                # Somerton saindo truncado (17-40s em vez de ~71s) era o
-                # offset dos xfade encadeados estourando por arredondamento
-                # de frame (ver concatenar_com_transicao) -- reencodar aqui
-                # não corrige isso sozinho (confirmado testando), mas evita
-                # que qualquer futura inconsistência de timestamp do xfade
-                # seja simplesmente copiada pro arquivo final sem chance de
-                # normalizar.
-                "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac",
+                # -c:v copy: a causa real do truncamento do Somerton
+                # (2026-09-10) era arredondamento de frame no offset do
+                # xfade encadeado, já corrigido em concatenar_com_transicao
+                # -- reencodar vídeo aqui não corrigia aquilo (confirmado
+                # testando). E reencodar vídeo (libx264) JUNTO com o filtro
+                # de mixagem de áudio nessa mesma chamada causa um bug
+                # DIFERENTE, achado 2026-09-11 depurando o fluxo do pivô:
+                # perde uns 0.6s do fim do ÁUDIO (confirmado isolando cada
+                # etapa -- só acontece quando os dois rodam juntos). Sem
+                # motivo real pra reencodar vídeo aqui, "-c:v copy" evita os
+                # dois problemas.
+                "-c:v", "copy", "-c:a", "aac",
                 # +faststart move o moov atom pro início do arquivo -- TikTok/
                 # YouTube conseguem começar a tocar sem baixar o mp4 inteiro
                 # primeiro (aprovado 2026-09-09, nível 1 item 2).

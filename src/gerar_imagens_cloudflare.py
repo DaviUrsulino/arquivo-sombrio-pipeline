@@ -171,23 +171,6 @@ def gerar_imagem_huggingface(prompt: str, imagem_referencia: bytes | None) -> by
             return f.read()
 
 
-_CLIENTE_MODAL = None
-
-
-def gerar_imagem_modal(prompt: str, imagem_referencia: bytes | None) -> bytes:
-    """Terceiro fallback (entre Cloudflare e Hugging Face): FLUX.1-schnell
-    rodando na Modal (GPU serverless, $30/mês grátis) — ver
-    src/modal_flux_app.py. Suporta encadeamento de referência (img2img),
-    então mantém a consistência de personagem igual o Cloudflare. Entra
-    antes do Hugging Face na cadeia porque a cota do HF (ZeroGPU) é
-    minúscula (~3,5 min/dia) e a da Modal é bem mais folgada."""
-    global _CLIENTE_MODAL
-    import modal
-
-    if _CLIENTE_MODAL is None:
-        _CLIENTE_MODAL = modal.Cls.from_name("arquivo-sombrio-flux", "Flux")()
-
-    return _CLIENTE_MODAL.gerar.remote(prompt, imagem_referencia)
 
 
 def gerar_imagem_replicate(prompt: str, imagem_referencia: bytes | None, tentativas: int = 6) -> bytes:
@@ -373,7 +356,6 @@ def gerar_imagens_do_roteiro(
     fonte_fallback = None
     hf_esgotado = False  # depois do primeiro esgotamento, nem tenta de novo (cota é bem curta)
     cloudflare_esgotado = False  # idem -- cota diária, não adianta insistir na mesma run
-    modal_indisponivel = not (os.environ.get("MODAL_TOKEN_ID") and os.environ.get("MODAL_TOKEN_SECRET"))
     falai_indisponivel = not os.environ.get("FAL_KEY")
     falai_sem_credito = False  # sem crédito não é passageiro, não insiste na mesma run
     replicate_indisponivel = not os.environ.get("REPLICATE_API_TOKEN")
@@ -425,22 +407,6 @@ def gerar_imagens_do_roteiro(
                     cloudflare_esgotado = True
                 except RuntimeError as e:
                     print(f"  Cloudflare falhou ({e})")
-
-            if imagem_bytes is None and not modal_indisponivel:
-                try:
-                    print("  tentando fallback Modal (FLUX.1-schnell)...")
-                    imagem_bytes = gerar_imagem_modal(prompt, imagem_referencia)
-                    # Bug real encontrado 2026-09-09: Modal só foi validado
-                    # pro estilo dark/terror -- pra formatos bem diferentes
-                    # (ex: novela de mascote, objeto falante) a qualidade e
-                    # aderência ao estilo não têm garantia nenhuma. Vídeo
-                    # inteiro caiu no Modal e foi aprovado/publicado sozinho
-                    # sem essa trava, saindo "horrível" segundo o Davi.
-                    usou_fallback = True
-                    fonte_fallback = "Modal (FLUX.1-schnell)"
-                    fonte_desta_imagem = fonte_fallback
-                except Exception as e_modal:
-                    print(f"  Modal falhou ({e_modal})")
 
             if imagem_bytes is None and not replicate_indisponivel and not replicate_sem_credito:
                 try:
