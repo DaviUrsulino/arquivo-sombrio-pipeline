@@ -41,8 +41,10 @@ final entre ~65-95 segundos mesmo na voz mais rápida — abaixo de 200 palavras
 real de o vídeo ficar curto demais pra monetizar no TikTok (mínimo 60s, sem exceção). Distribua \
 essas 200-230 palavras entre as cenas de forma equilibrada (não escreva a duração, apenas o \
 texto).
-- Narrador único, em primeira pessoa, tom calmo e contido (nunca gritando) — o medo vem da \
-atmosfera, não do choque.
+- Narrador único, em TERCEIRA PESSOA (narrador contando um caso, nunca "eu" vivendo a história), \
+tom calmo e contido (nunca gritando) — o medo vem da atmosfera, não do choque. Pedido do Davi \
+2026-09-11 depois de comparar resultado real: os vídeos que mais bombaram (Palhaço Fantasma, \
+Bell Witch) são narração documental de um caso, não depoimento pessoal em primeira pessoa.
 - Zero gore, zero violência gráfica — adequado pra qualquer plataforma.
 
 MOLDURA DE "RELATO REAL" — OBRIGATÓRIO (feedback 2026-09-08/09: histórias claramente \
@@ -165,33 +167,26 @@ style lock (ambos adicionados separadamente pelo código, não repita nenhum dos
 formar um prompt completo pronto pra colar num gerador de imagem."""
 
 
-# Os 3 modos que o Davi pediu pra diferenciar de verdade ("história real...
-# história baseada em fatos reais, e teoria da conspiração") — cada um com
-# instrução concreta + exemplo de abertura, em vez de uma frase genérica só
-# sugerindo variação (que na prática saía sempre como creepypasta comum, sem
-# nenhum dos 3 de forma reconhecível — feedback 2026-09-09, ver vídeo da
-# "fita cassete amaldiçoada").
-_MODO_RELATO_PESSOAL = """MODO DESTA HISTÓRIA: RELATO PESSOAL REAL
-- Primeira pessoa, tom de depoimento direto — como alguém contando pra um amigo algo que \
-aconteceu de verdade com ele. Nunca hedging tipo "dizem que" (isso é pro modo de lenda/fatos).
-- ÂNCORA DE REALIDADE no gancho: ano específico + bairro/cidade genérico + idade ou contexto de \
-vida do narrador na época. Ruim: "uma coisa estranha aconteceu". Bom: "em dois mil e dezenove, \
-no meu primeiro apartamento sozinho, no bairro da Lapa".
-Exemplo de abertura (adapte, não copie): "Em dois mil e dezenove, no meu primeiro apartamento \
-sozinho, comecei a perceber que o relógio da cozinha atrasava exatamente sete minutos, todo \
-santo dia, sempre na mesma hora."
-"""
-
+# 2 modos (o "relato pessoal" em primeira pessoa foi removido 2026-09-11,
+# ver histórico em _MODOS_HISTORIA) — cada um com instrução concreta +
+# exemplo de abertura, em vez de uma frase genérica só sugerindo variação
+# (que na prática saía sempre como creepypasta comum, sem nenhum dos 2 de
+# forma reconhecível — feedback 2026-09-09, ver vídeo da "fita cassete
+# amaldiçoada").
 _MODO_BASEADO_FATOS = """MODO DESTA HISTÓRIA: BASEADO EM FATOS REAIS / LENDA DOCUMENTADA
 - NÃO é depoimento pessoal do narrador — é um caso relatado sobre OUTRAS pessoas (anônimas, \
 nunca nomeadas), como quem conta uma lenda urbana com lastro real. Use frases como "consta nos \
 registros da época", "moradores da região contam até hoje", "o caso nunca foi solucionado \
 oficialmente", "não existe explicação registrada pra o que aconteceu".
-- Cite um tipo de lugar/instituição real E genérico (fazenda abandonada, hospital desativado, \
-trecho de rodovia, colégio interno antigo) numa região BR genérica (interior de um estado, sem \
-cidade específica) — nunca pessoa viva, empresa real ou nome de instituição real.
-Exemplo de abertura: "Existe um caso registrado no interior de Minas Gerais, no fim dos anos \
-noventa, sobre uma escola rural onde três alunos relataram ouvir os mesmos passos, na mesma \
+- PREFIRA lugar/instituição de FORA do Brasil (feedback real 2026-09-10: os vídeos que mais \
+bombaram — Palhaço Fantasma, Bell Witch — são lendas dos Estados Unidos; conteúdo ambientado no \
+Brasil performa pior). Cite um tipo de lugar real e genérico (fazenda abandonada, hospital \
+desativado, trecho de rodovia, colégio interno antigo, sanatório) numa região genérica de um \
+país como Estados Unidos, Reino Unido, Alemanha ou Japão — nunca pessoa viva, empresa real ou \
+nome de instituição real. O narrador pode continuar falando português, só o cenário da lenda é \
+que deve ser estrangeiro.
+Exemplo de abertura: "Existe um caso registrado no interior do estado da Pensilvânia, no fim dos \
+anos noventa, sobre uma escola rural onde três alunos relataram ouvir os mesmos passos, na mesma \
 sala, todo ano letivo — e a escola foi fechada sem explicação oficial."
 """
 
@@ -208,9 +203,12 @@ nenhuma."
 """
 
 _MODOS_HISTORIA = [
-    (_MODO_RELATO_PESSOAL, 0.5),
-    (_MODO_BASEADO_FATOS, 0.3),
-    (_MODO_CONSPIRACAO, 0.2),
+    # "_MODO_RELATO_PESSOAL" (primeira pessoa) tirado da rotação 2026-09-11
+    # -- pedido do Davi comparando view real: os vídeos que mais bombaram
+    # (Palhaço Fantasma, Bell Witch) são no estilo documental/terceira
+    # pessoa do "_MODO_BASEADO_FATOS", nunca depoimento em primeira pessoa.
+    (_MODO_BASEADO_FATOS, 0.7),
+    (_MODO_CONSPIRACAO, 0.3),
 ]
 
 
@@ -225,7 +223,7 @@ def montar_system_prompt() -> str:
 
 
 # Mantido por compatibilidade com qualquer código que ainda leia o atributo
-# estático diretamente -- usa o modo "relato pessoal" (o mais comum) como
-# valor padrão. gerar_roteiro.py já prefere montar_system_prompt() quando
-# ele existe (ver _system_prompt() lá).
-SYSTEM_PROMPT = _SYSTEM_PROMPT_TEMPLATE.replace("@@MODO_HISTORIA@@", _MODO_RELATO_PESSOAL)
+# estático diretamente -- usa "baseado em fatos reais" (terceira pessoa,
+# modo padrão desde 2026-09-11) como valor default. gerar_roteiro.py já
+# prefere montar_system_prompt() quando ele existe (ver _system_prompt() lá).
+SYSTEM_PROMPT = _SYSTEM_PROMPT_TEMPLATE.replace("@@MODO_HISTORIA@@", _MODO_BASEADO_FATOS)

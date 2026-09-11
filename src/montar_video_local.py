@@ -20,6 +20,7 @@ import argparse
 import json
 import os
 import random
+import re
 import shutil
 import subprocess
 import tempfile
@@ -49,6 +50,24 @@ def _duracao_segundos(caminho: str) -> float:
         capture_output=True, text=True,
     )
     return float(resultado.stdout.strip())
+
+
+def _contar_frames_reais(caminho: str) -> int:
+    """Conta frames de vídeo DECODIFICANDO de verdade (-count_frames), não
+    só lendo a duração declarada no container (`format=duration`) -- bug
+    real 2026-09-11: um vídeo com xfade encadeado quebrado reportava
+    duração normal via `format=duration` mas só tinha metade dos frames de
+    vídeo de verdade quando contado. Mais lento (decodifica o arquivo
+    inteiro), só usar pra verificação final, não em loop apertado."""
+    resultado = subprocess.run(
+        [
+            "ffprobe", "-v", "error", "-select_streams", "v:0", "-count_frames",
+            "-show_entries", "stream=nb_read_frames",
+            "-of", "default=noprint_wrappers=1:nokey=1", caminho,
+        ],
+        capture_output=True, text=True,
+    )
+    return int(resultado.stdout.strip())
 
 
 def gerar_narracao(texto: str, voz: str, caminho_saida: str):
@@ -344,22 +363,28 @@ inicial já reserva, então nunca revela borda da imagem."""
                     )
 
                 # Fundo cresce devagar (8%) e parado; personagem cresce mais
-                # rápido (22%) E treme (mesmo jitter senoidal de câmera na
-                # mão usado no resto do arquivo) -- feedback 2026-09-09: "o
-                # personagem treme mais que o fundo... ele vai aumentando".
-                # Usa zoompan (não scale+crop encadeado) porque o zoompan já
-                # é a técnica usada nos outros movimentos do projeto e evita
-                # a trepidação por arredondamento que o scale+crop duplo
-                # causava a cada frame.
+                # rápido E treme mais forte (mesmo jitter senoidal de câmera
+                # na mão usado no resto do arquivo) -- feedback 2026-09-09: "o
+                # personagem treme mais que o fundo... ele vai aumentando",
+                # reforçado em 2026-09-10: "precisa mais, acentuar mais isso"
+                # (22% e jitter de 5px ainda liam como sutis demais pro Davi
+                # perceber o efeito só assistindo o vídeo final). Sobe o
+                # crescimento do personagem pra 40% e dobra a amplitude do
+                # tremor dele. Usa zoompan (não scale+crop encadeado) porque
+                # o zoompan já é a técnica usada nos outros movimentos do
+                # projeto e evita a trepidação por arredondamento que o
+                # scale+crop duplo causava a cada frame.
                 zoom_por_frame_bg = 1 + (0.08 / max(n_frames, 1))
                 expressao_zoom_bg = f"min(zoom+{zoom_por_frame_bg-1},1.08)"
-                zoom_por_frame_fg = 1 + (0.22 / max(n_frames, 1))
-                expressao_zoom_fg = f"min(zoom+{zoom_por_frame_fg-1},1.22)"
+                zoom_por_frame_fg = 1 + (0.40 / max(n_frames, 1))
+                expressao_zoom_fg = f"min(zoom+{zoom_por_frame_fg-1},1.40)"
+                jitter_x = "10*sin(on*0.35)"
+                jitter_y = "8*cos(on*0.27)"
                 # Feedback 2026-09-09: "o fundo tremendo também, mas menos
                 # que o personagem" -- mesmo jitter senoidal usado no
-                # personagem, só que com amplitude bem menor (~40%).
-                jitter_x_bg = "2*sin(on*0.35)"
-                jitter_y_bg = "1.5*cos(on*0.27)"
+                # personagem, só que com amplitude bem menor (~40% dele).
+                jitter_x_bg = "4*sin(on*0.35)"
+                jitter_y_bg = "3*cos(on*0.27)"
 
                 _rodar([
                     "ffmpeg", "-y",
@@ -572,8 +597,22 @@ def concatenar_com_transicao(caminhos_clipes: list[str], caminho_saida: str):
     flash não recorta nada (não há overlap de vídeo nesse tipo)."""
     FLASH = "flash"
     pool_transicoes = TRANSICOES_XFADE + [FLASH]  # 8 direções + 1 flash = ~11% de chance de flash
-    duracao_slide = 0.25
-    duracao_flash = 0.06  # bem mais curto que o slide -- lê como "pop", não dissolve
+    # Feedback 2026-09-10: "está demorando, tá tipo carregando... é como se
+    # ela tivesse sido jogada" -- 0.25s de slide/wipe lia como um scroll
+    # lento, não uma foto "jogada" pra fora do quadro. Encurtar pra 0.12s
+    # deixa o xfade rápido o bastante pra ler como um corte com impacto
+    # (arremesso), não uma transição suave de carregamento.
+    # Bug real encontrado 2026-09-10 (vídeo do Somerton saiu truncado pra
+    # 17-41s em vez de ~71s): 0.12s/0.06s não caem num número inteiro de
+    # frames a 30fps (3.6 e 1.8 frames) -- o xfade encadeado (offset de um
+    # merge depende do acumulado do anterior) space compõe esse erro de
+    # arredondamento a cada corte, e pra certas combinações aleatórias de
+    # tipo de transição isso estourava o offset além da duração real do
+    # clipe seguinte, cortando o resto do vídeo inteiro. Fixado usando
+    # duração em frames inteiros (4 e 2 frames a 30fps) em vez de segundos
+    # arbitrários.
+    duracao_slide = 4 / 30
+    duracao_flash = 2 / 30
 
     duracoes = [_duracao_segundos(c) for c in caminhos_clipes]
     n = len(caminhos_clipes)
@@ -647,6 +686,144 @@ def concatenar_com_transicao(caminhos_clipes: list[str], caminho_saida: str):
         "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac",
         caminho_saida,
     ])
+
+
+def concatenar_video_silencioso_com_transicao(caminhos_clipes: list[str], caminho_saida: str):
+    """Mesmo esquema de transição de `concatenar_com_transicao` (slide/wipe
+    variado + flash raro, tudo via xfade), mas SEM a parte de áudio -- usado
+    quando os clipes de entrada não têm narração própria (áudio vem de um
+    arquivo externo já pronto, ver `montar_video_de_audio_e_imagens`)."""
+    FLASH = "flash"
+    pool_transicoes = TRANSICOES_XFADE + [FLASH]
+    duracao_slide = 4 / 30
+    duracao_flash = 2 / 30
+
+    duracoes = [_duracao_segundos(c) for c in caminhos_clipes]
+    n = len(caminhos_clipes)
+    tipos_corte = [_RNG_MOVIMENTO.choice(pool_transicoes) for _ in range(n - 1)]
+    duracoes_corte = [duracao_flash if t == FLASH else duracao_slide for t in tipos_corte]
+
+    entradas = []
+    for caminho in caminhos_clipes:
+        entradas += ["-i", caminho]
+
+    filtros = []
+    for i in range(n):
+        filtros.append(f"[{i}:v]setsar=1[v{i}norm]")
+
+    v_atual = "v0norm"
+    duracao_acumulada = duracoes[0]
+    for i in range(1, n):
+        tipo = tipos_corte[i - 1]
+        dur_corte = duracoes_corte[i - 1]
+        v_saida = f"v{i}out" if i < n - 1 else "vout"
+        offset = max(duracao_acumulada - dur_corte, 0)
+        if tipo == FLASH:
+            clipe_entrando = f"v{i}norm_flash"
+            filtros.append(f"[v{i}norm]eq=brightness=0.9:enable='lte(t,{dur_corte})'[{clipe_entrando}]")
+            tipo_xfade = "fade"
+        else:
+            clipe_entrando = f"v{i}norm"
+            tipo_xfade = tipo
+        filtros.append(
+            f"[{v_atual}][{clipe_entrando}]xfade=transition={tipo_xfade}:duration={dur_corte}:offset={offset}[{v_saida}]"
+        )
+        duracao_acumulada = duracao_acumulada + duracoes[i] - dur_corte
+        v_atual = v_saida
+
+    _rodar([
+        "ffmpeg", "-y",
+        *entradas,
+        "-filter_complex", ";".join(filtros),
+        "-map", f"[{v_atual}]",
+        "-c:v", "libx264", "-pix_fmt", "yuv420p",
+        caminho_saida,
+    ])
+
+
+def montar_video_de_audio_e_imagens(
+    caminho_audio: str, imagens: list[str], caminho_saida: str, plataforma: str = "tiktok",
+) -> float:
+    """Monta o vídeo final a partir de uma narração JÁ PRONTA (mp3/wav
+    gerado fora daqui) + uma lista de imagens já aprovadas -- caminho pro
+    fluxo novo (2026-09-10) onde o roteiro/imagem/voz vêm de outro
+    workflow (feito pelo irmão do Davi) e esse pipeline só cuida da EDIÇÃO:
+    reparte a duração total do áudio igualmente entre as imagens, aplica o
+    mesmo Ken Burns variado + tremida + personagem_cresce de sempre
+    (`gerar_clipe_imagem_silencioso`), concatena com a mesma transição
+    variada (slide/wipe + flash raro), queima legenda transcrita do áudio
+    e mixa a ambientação/trilha por cima -- tudo reaproveitado do fluxo
+    normal, só sem gerar roteiro/narração/imagem aqui dentro.
+
+    Retorna a duração total do vídeo (= duração do áudio de entrada)."""
+    import random as _random_stdlib
+
+    duracao_total = _duracao_segundos(caminho_audio)
+    duracao_por_imagem = duracao_total / len(imagens)
+
+    with tempfile.TemporaryDirectory() as pasta_tmp:
+        pesos_movimento = [3] * len(TIPOS_MOVIMENTO) + [13]
+        clipes = []
+        for i, imagem in enumerate(imagens):
+            tipo_movimento = _RNG_MOVIMENTO.choices(
+                TIPOS_MOVIMENTO + ["personagem_cresce"], weights=pesos_movimento
+            )[0]
+            caminho_clipe = os.path.join(pasta_tmp, f"clipe{i}.mp4")
+            gerar_clipe_imagem_silencioso(imagem, duracao_por_imagem, caminho_clipe, tipo_movimento)
+            clipes.append(caminho_clipe)
+
+        print("Concatenando imagens (com transição fluida entre elas)...")
+        caminho_bruto = os.path.join(pasta_tmp, "bruto.mp4")
+        concatenar_video_silencioso_com_transicao(clipes, caminho_bruto)
+
+        print("Juntando com a narração...")
+        caminho_com_audio = os.path.join(pasta_tmp, "com_audio.mp4")
+        _rodar([
+            "ffmpeg", "-y", "-i", caminho_bruto, "-i", caminho_audio,
+            "-map", "0:v", "-map", "1:a",
+            "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac",
+            "-shortest",
+            caminho_com_audio,
+        ])
+
+        print("Transcrevendo áudio pra gerar legenda (faster-whisper, pode demorar um pouco)...")
+        caminho_ass = os.path.join(pasta_tmp, "legenda.ass")
+        gerar_legenda_ass(caminho_audio, caminho_ass, LARGURA, ALTURA)
+
+        print("Queimando legenda no vídeo...")
+        caminho_com_legenda = os.path.join(pasta_tmp, "com_legenda.mp4")
+        queimar_legenda(caminho_com_audio, caminho_ass, caminho_com_legenda)
+
+        caminho_trilha = TRILHAS_POR_PLATAFORMA.get(plataforma)
+        print(f"Adicionando ambientação ({plataforma})...")
+        caminho_ambiencia = os.path.join(pasta_tmp, "ambiencia.wav")
+        gerar_ambiencia(caminho_ambiencia, duracao_total, "tenso", caminho_trilha)
+
+        # Bug real 2026-09-10 (Somerton saiu truncado): usar -c:v copy nesse
+        # mux final pode preservar timestamps quebrados vindos do xfade
+        # encadeado -- reencoda sempre aqui pra garantir que a duração
+        # final bate com o áudio de entrada.
+        _rodar([
+            "ffmpeg", "-y",
+            "-i", caminho_com_legenda, "-i", caminho_ambiencia,
+            "-filter_complex",
+            "[0:a]volume=1.8[a0];[a0][1:a]amix=inputs=2:duration=first:dropout_transition=0:normalize=0[aout]",
+            "-map", "0:v", "-map", "[aout]",
+            "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac",
+            "-movflags", "+faststart",
+            caminho_saida,
+        ])
+
+    frames_reais = _contar_frames_reais(caminho_saida)
+    duracao_real = frames_reais / 30
+    if duracao_real < duracao_total * 0.8:
+        raise RuntimeError(
+            f"Vídeo saiu truncado: {duracao_real:.1f}s reais de vídeo ({frames_reais} frames) "
+            f"pra {duracao_total:.1f}s de áudio esperado. Bug conhecido no xfade encadeado -- "
+            "não usar esse arquivo, precisa remontar."
+        )
+    print(f"\nVídeo salvo em: {caminho_saida} ({duracao_real:.1f}s reais, verificado)")
+    return duracao_total
 
 
 def extrair_audio(caminho_video: str, caminho_saida: str):
@@ -730,7 +907,10 @@ def queimar_legenda(caminho_video: str, caminho_ass: str, caminho_saida: str):
     ])
 
 
-def montar_video(roteiro: dict, canal, pasta_imagens: str, saida: str, sem_legenda: bool = False) -> float:
+def montar_video(
+    roteiro: dict, canal, pasta_imagens: str, saida: str, sem_legenda: bool = False,
+    plataformas: list[str] | None = None,
+) -> float:
     """Monta o vídeo final a partir do roteiro + imagens aprovadas. Retorna a
     duração total narrada (segundos) — o chamador (CLI ou pipeline
     automatizado) decide o que fazer se ficar abaixo dos 60s exigidos."""
@@ -781,10 +961,12 @@ def montar_video(roteiro: dict, canal, pasta_imagens: str, saida: str, sem_legen
         # vez só reaproveitada -- mais caro que o esquema antigo (que só
         # repetia a mixagem de áudio barata no final), mas é o preço de ter
         # o CTA só onde faz sentido.
+        plataformas_ativas = plataformas or ["youtube", "tiktok"]
         clipes_por_plataforma = {
             "youtube": clipes + [caminho_cta],
             "tiktok": clipes,
         }
+        clipes_por_plataforma = {p: c for p, c in clipes_por_plataforma.items() if p in plataformas_ativas}
 
         caminhos_com_legenda = {}
         for plataforma, lista_clipes in clipes_por_plataforma.items():
@@ -817,6 +999,8 @@ def montar_video(roteiro: dict, canal, pasta_imagens: str, saida: str, sem_legen
         base, ext = os.path.splitext(saida)
         caminhos_finais = {}
         for plataforma, caminho_trilha in TRILHAS_POR_PLATAFORMA.items():
+            if plataforma not in plataformas_ativas:
+                continue
             if not usar_trilha_real:
                 caminho_trilha = None
             caminho_com_legenda = caminhos_com_legenda[plataforma]
@@ -835,11 +1019,18 @@ def montar_video(roteiro: dict, canal, pasta_imagens: str, saida: str, sem_legen
                 "-filter_complex",
                 "[0:a]volume=1.8[a0];[a0][1:a]amix=inputs=2:duration=first:dropout_transition=0:normalize=0[aout]",
                 "-map", "0:v", "-map", "[aout]",
-                "-c:v", "copy", "-c:a", "aac",
+                # -c:v copy REMOVIDO 2026-09-10: a causa real do vídeo do
+                # Somerton saindo truncado (17-40s em vez de ~71s) era o
+                # offset dos xfade encadeados estourando por arredondamento
+                # de frame (ver concatenar_com_transicao) -- reencodar aqui
+                # não corrige isso sozinho (confirmado testando), mas evita
+                # que qualquer futura inconsistência de timestamp do xfade
+                # seja simplesmente copiada pro arquivo final sem chance de
+                # normalizar.
+                "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac",
                 # +faststart move o moov atom pro início do arquivo -- TikTok/
                 # YouTube conseguem começar a tocar sem baixar o mp4 inteiro
-                # primeiro (aprovado 2026-09-09, nível 1 item 2). Não força
-                # re-encode de vídeo (c:v copy continua igual).
+                # primeiro (aprovado 2026-09-09, nível 1 item 2).
                 "-movflags", "+faststart",
                 caminho_saida_plataforma,
             ])
@@ -847,21 +1038,73 @@ def montar_video(roteiro: dict, canal, pasta_imagens: str, saida: str, sem_legen
 
         # Mantém o caminho `saida` original como alias da versão do YouTube
         # (compatibilidade com quem só espera um arquivo, ex: CLI antiga).
-        shutil.copyfile(caminhos_finais["youtube"], saida)
+        if "youtube" in caminhos_finais:
+            shutil.copyfile(caminhos_finais["youtube"], saida)
 
-    print(f"\nVídeo YouTube salvo em: {caminhos_finais['youtube']}")
-    print(f"Vídeo TikTok salvo em: {caminhos_finais['tiktok']} (custo: R$0,00)")
+    # Trava de segurança 2026-09-11: o vídeo do Somerton Man saiu publicado
+    # duas vezes com metade do conteúdo cortado (bug real no xfade
+    # encadeado, ainda não 100% raiz-causado) sem NENHUM erro/aviso -- o
+    # arquivo saía, ffprobe reportava duração normal no nível do container,
+    # mas os frames de vídeo de verdade acabavam bem antes do áudio. Confere
+    # aqui com CONTAGEM DE FRAMES real (não só metadata, que mentiu nos dois
+    # casos) se o vídeo final bate com o esperado antes de deixar
+    # `pipeline_completo.py` aprovar e publicar sozinho.
+    for plataforma, caminho in caminhos_finais.items():
+        fps_saida = 30
+        frames_reais = _contar_frames_reais(caminho)
+        duracao_real = frames_reais / fps_saida
+        # Tolerância de 20% pra cobrir os cortes normais das transições
+        # (cada corte tira uns 4 frames) e o CTA extra no youtube.
+        if duracao_real < duracao_total * 0.8:
+            raise RuntimeError(
+                f"Vídeo {plataforma} saiu truncado: {duracao_real:.1f}s reais de vídeo "
+                f"({frames_reais} frames) pra {duracao_total:.1f}s de narração esperada. "
+                "Bug conhecido no xfade encadeado (ver concatenar_com_transicao) -- "
+                "não publica isso, precisa remontar."
+            )
+        print(f"\nVídeo {plataforma} salvo em: {caminho} ({duracao_real:.1f}s reais, verificado)")
     return duracao_total
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--canal", default="terror")
-    parser.add_argument("--roteiro", required=True)
+    parser.add_argument("--roteiro", default=None)
     parser.add_argument("--imagens", default=None)
     parser.add_argument("--saida", default="video_final.mp4")
     parser.add_argument("--sem-legenda", action="store_true")
+    # Fluxo novo (2026-09-10): áudio + imagens já prontos de outro workflow,
+    # esse script só cuida da edição (transição, tremida, legenda, trilha).
+    parser.add_argument("--audio", default=None, help="narração já pronta (mp3/wav) -- ativa o modo 'só edição'")
+    parser.add_argument("--plataforma", default="tiktok", choices=["tiktok", "youtube"])
     args = parser.parse_args()
+
+    if args.audio:
+        pasta_imagens = args.imagens
+        if not pasta_imagens:
+            raise SystemExit("--imagens é obrigatório junto com --audio (pasta com as fotos, em ordem)")
+        # Bug real encontrado 2026-09-10 durante o teste com o Davi: sorted()
+        # comum ordena "img10.jpeg" ANTES de "img2.jpeg" (ordem alfabética
+        # de string, não numérica) -- com 20 fotos (img1..img20) isso
+        # embaralhava a ordem certinha a partir da décima foto. Ordena pela
+        # sequência de dígitos no nome do arquivo (numérica de verdade).
+        def _chave_ordenacao(nome_arquivo: str):
+            numeros = re.findall(r"\d+", nome_arquivo)
+            return (int(numeros[0]), nome_arquivo) if numeros else (float("inf"), nome_arquivo)
+
+        nomes = sorted(
+            (f for f in os.listdir(pasta_imagens) if f.lower().endswith((".jpg", ".jpeg", ".png"))),
+            key=_chave_ordenacao,
+        )
+        if not nomes:
+            raise SystemExit(f"nenhuma imagem encontrada em {pasta_imagens}")
+        imagens = [os.path.join(pasta_imagens, n) for n in nomes]
+        print(f"{len(imagens)} imagens encontradas, ordem: {nomes}")
+        montar_video_de_audio_e_imagens(args.audio, imagens, args.saida, plataforma=args.plataforma)
+        return
+
+    if not args.roteiro:
+        raise SystemExit("--roteiro é obrigatório (ou use --audio pro modo 'só edição')")
 
     canal = carregar_canal(args.canal)
     pasta_imagens = args.imagens or canal.PASTA_IMAGENS

@@ -171,15 +171,16 @@ def escolher_formato_do_dia() -> str:
     ajustar os pesos conforme os formatos forem provando (ou não) que
     performam bem.
 
-    Ajuste 2026-09-10: os 2 primeiros vídeos reais de POV/curiosidade
-    bombaram (181 e 227 views); o mesmo dia, um vídeo de "novela de
-    mascote" saiu zerado (feedback do Davi, ainda poucos dados mas é a
-    tendência) -- reduz o peso de "novela" e sobe "historia_pov" pra
-    compensar, mantendo "curiosidade" como formato mais forte."""
-    import random
-    formatos = ["curiosidade", "historia_pov", "objeto_falante", "novela"]
-    pesos = [40, 25, 20, 15]
-    return random.choices(formatos, weights=pesos)[0]
+    Ajuste 2026-09-11 (2ª rodada, mesmo dia): Davi pediu explicitamente que
+    TODOS os vídeos automáticos (dos dois canais) sejam narrados em
+    terceira pessoa, nunca em primeira pessoa -- "sempre no estilo de
+    narrador nao primeira pessoa". "historia_pov" é POV/primeira pessoa por
+    definição (o narrador reage em primeira pessoa a ser "transportado" pra
+    uma época), então sai da rotação também -- sobra só "curiosidade", que
+    já suporta narrador terceira pessoa sem personagem fixo (ver
+    SYSTEM_PROMPT_TEMPLATE) e é o formato validado com mais view real (228,
+    "Salvei 200 milhões de vidas...")."""
+    return "curiosidade"
 
 
 def escolher_tema_do_dia(formato: str | None = None) -> str:

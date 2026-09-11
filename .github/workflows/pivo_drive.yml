@@ -1,0 +1,61 @@
+name: Pivô Drive - processa pastas de vídeo prontas (fotos + narração)
+
+# Fluxo separado do pipeline_dark.yml: aqui o roteiro/imagens/narração já
+# vêm prontos de outro workflow (feito pelo irmão do Davi), esse job só
+# baixa do Google Drive, monta o vídeo (transição/tremida/legenda/trilha)
+# e sobe o resultado -- ver src/pivo_drive.py pro setup completo (pastas,
+# credenciais, etc).
+on:
+  schedule:
+    # Checa a cada 20 min, só das 08h às 22h BRT (11h-00h UTC) -- pedido do
+    # Davi 2026-09-11: parar de checar de madrugada, sem vídeo novo chegando
+    # nesse horário mesmo.
+    - cron: '*/20 11-23,0 * * *'
+  workflow_dispatch: {}
+
+jobs:
+  processar-drive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Instalar ffmpeg
+        run: sudo apt-get update || true; sudo apt-get install -y ffmpeg
+
+      - name: Instalar dependências Python
+        run: pip install -r requirements.txt
+
+      - name: Restaurar credenciais do Google Drive
+        env:
+          YOUTUBE_CLIENT_SECRET_JSON: ${{ secrets.YOUTUBE_CLIENT_SECRET_JSON }}
+          GOOGLE_DRIVE_TOKEN_JSON: ${{ secrets.GOOGLE_DRIVE_TOKEN_JSON }}
+        run: |
+          if [ -z "$GOOGLE_DRIVE_TOKEN_JSON" ]; then
+            echo "GOOGLE_DRIVE_TOKEN_JSON não configurado ainda -- rode 'python src/pivo_drive.py --auth' localmente e salve o token_drive.json gerado como esse secret."
+            exit 1
+          fi
+          echo "$YOUTUBE_CLIENT_SECRET_JSON" > client_secret.json
+          echo "$GOOGLE_DRIVE_TOKEN_JSON" > token_drive.json
+
+      - name: Processar pastas pendentes do Drive
+        env:
+          DRIVE_PASTA_ENTRADA_ID: ${{ secrets.DRIVE_PASTA_ENTRADA_ID }}
+          DRIVE_PASTA_SAIDA_ID: ${{ secrets.DRIVE_PASTA_SAIDA_ID }}
+        run: python src/pivo_drive.py
+
+      - name: Persistir token atualizado (refresh token roda uma vez só)
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT_SECRETS }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "Sem GH_PAT_SECRETS configurado — token não foi persistido."
+            exit 0
+          fi
+          [ -f token_drive.json ] && gh secret set GOOGLE_DRIVE_TOKEN_JSON --repo "${{ github.repository }}" < token_drive.json

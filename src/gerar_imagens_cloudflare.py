@@ -41,6 +41,21 @@ REFORCO_2D = (
     "hand-drawn animation style, NOT photorealistic, NOT a photo, NOT 3D render. "
 )
 
+# Pedido do Davi 2026-09-10: "ia fraca de geradora de imagem, melhore o
+# prompt, ia fraca cerebro monstro" -- o modelo usado (FLUX.2 klein-4b, a
+# variante pequena/rápida da Cloudflare) é fraco em detalhe fino comparado a
+# modelos grandes tipo o FLUX.1 dev da Replicate. Compensa isso com termos
+# de qualidade concretos e específicos no fim do prompt (não genéricos tipo
+# "trending on artstation", que modelos recentes já aprenderam a ignorar) --
+# reforça nitidez de linha, riqueza de textura e composição, que é onde
+# modelo pequeno costuma "borrar"/simplificar demais.
+REFORCO_QUALIDADE = (
+    "Extremely detailed illustration, crisp clean linework with no blur or smudging, "
+    "rich intricate textures on every surface, masterful use of light, shadow and depth, "
+    "sharp focus throughout, high production value single comic panel, coherent anatomy "
+    "and proportions. "
+)
+
 
 MARCADOR_SEM_PERSONAGEM = "NO_CHARACTER:"
 
@@ -60,7 +75,7 @@ def montar_prompt(prompt_imagem: str, canal, personagem: str | None, tem_referen
     descricao_personagem = f"{personagem}. " if personagem and not sem_personagem else ""
     prefixo_referencia = "Same character as the reference image. " if tem_referencia and not sem_personagem else ""
     return (
-        f"{canal.MASTER_STYLE_LOCK}{REFORCO_2D}{prefixo_referencia}"
+        f"{canal.MASTER_STYLE_LOCK}{REFORCO_2D}{REFORCO_QUALIDADE}{prefixo_referencia}"
         f"{descricao_personagem}{prompt_imagem} {canal.RESTRICOES}"
     )
 
@@ -329,7 +344,8 @@ VARIACOES_SUBCENA = [
 
 
 def gerar_imagens_do_roteiro(
-    roteiro: dict, canal, pasta_saida: str, imagens_por_cena: int = 2
+    roteiro: dict, canal, pasta_saida: str, imagens_por_cena: int = 2,
+    contagem_saida: dict | None = None,
 ) -> tuple[bool, str | None]:
     """Gera e salva as imagens de cada cena do roteiro, encadeando sempre a
     última imagem gerada como referência da próxima (mantém o personagem
@@ -348,8 +364,8 @@ def gerar_imagens_do_roteiro(
     "Pollinations" mesmo quando era o Modal)."""
     os.makedirs(pasta_saida, exist_ok=True)
     personagem = roteiro.get("personagem")
-    imagem_anterior = None
     usou_fallback = False
+    contagem_fontes: dict[str, int] = {}
     # Bug real encontrado 2026-09-09: a mensagem de reprovação dizia sempre
     # "usou fallback Pollinations", mesmo quando quem gerou a imagem foi o
     # Modal -- confundia o diagnóstico (o vídeo ruim daquele dia tinha vindo
@@ -362,6 +378,8 @@ def gerar_imagens_do_roteiro(
     falai_sem_credito = False  # sem crédito não é passageiro, não insiste na mesma run
     replicate_indisponivel = not os.environ.get("REPLICATE_API_TOKEN")
     replicate_sem_credito = False
+
+    ultima_imagem_personagem = None  # encadeia referência só entre fotos COM personagem
 
     for i, cena in enumerate(roteiro["cenas"], start=1):
         for parte in range(1, imagens_por_cena + 1):
@@ -377,11 +395,31 @@ def gerar_imagens_do_roteiro(
                 prompt_base = cena.get("prompt_imagem_2") or (
                     cena["prompt_imagem"] + VARIACOES_SUBCENA[(parte - 1) % len(VARIACOES_SUBCENA)]
                 )
-            prompt = montar_prompt(prompt_base, canal, personagem, imagem_anterior is not None)
+            sem_personagem = prompt_base.startswith(MARCADOR_SEM_PERSONAGEM)
+            # Bug real encontrado 2026-09-10 (feedback do Davi repetido três
+            # vezes: "tá faltando cenário, tudo fica parecido" / "ficou um
+            # lixo todas iguais"): mesmo com o prompt de texto pedindo só
+            # cenário/objeto, o img2img mandava a ÚLTIMA imagem gerada como
+            # referência visual -- o modelo ancora na composição em pixels
+            # da referência, não só no texto. Dois casos precisam de
+            # NENHUMA referência:
+            # 1) cena marcada NO_CHARACTER -- não deve herdar composição de
+            #    uma cena anterior que tinha o personagem;
+            # 2) roteiro SEM personagem nenhum (ex: "Em Alta" formato
+            #    documentário/curiosidade, tipo Chernobyl) -- não existe
+            #    identidade nenhuma pra manter consistente, então encadear
+            #    imagem só faz cada cena puxar a composição da anterior
+            #    (sala de controle -> explosão -> bombeiros ficam todos
+            #    parecidos por causa da referência, não do prompt).
+            # Só encadeia entre si fotos que TÊM personagem definido no
+            # roteiro E não estão marcadas NO_CHARACTER.
+            imagem_referencia = None if (sem_personagem or not personagem) else ultima_imagem_personagem
+            prompt = montar_prompt(prompt_base, canal, personagem, imagem_referencia is not None)
             imagem_bytes = None
+            fonte_desta_imagem = "Cloudflare"
             if not cloudflare_esgotado:
                 try:
-                    imagem_bytes = gerar_imagem(prompt, imagem_anterior)
+                    imagem_bytes = gerar_imagem(prompt, imagem_referencia)
                 except CotaEsgotadaError as e:
                     print(f"  Cloudflare esgotado ({e}) — não tenta mais nessa run")
                     cloudflare_esgotado = True
@@ -391,7 +429,7 @@ def gerar_imagens_do_roteiro(
             if imagem_bytes is None and not modal_indisponivel:
                 try:
                     print("  tentando fallback Modal (FLUX.1-schnell)...")
-                    imagem_bytes = gerar_imagem_modal(prompt, imagem_anterior)
+                    imagem_bytes = gerar_imagem_modal(prompt, imagem_referencia)
                     # Bug real encontrado 2026-09-09: Modal só foi validado
                     # pro estilo dark/terror -- pra formatos bem diferentes
                     # (ex: novela de mascote, objeto falante) a qualidade e
@@ -400,15 +438,17 @@ def gerar_imagens_do_roteiro(
                     # sem essa trava, saindo "horrível" segundo o Davi.
                     usou_fallback = True
                     fonte_fallback = "Modal (FLUX.1-schnell)"
+                    fonte_desta_imagem = fonte_fallback
                 except Exception as e_modal:
                     print(f"  Modal falhou ({e_modal})")
 
             if imagem_bytes is None and not replicate_indisponivel and not replicate_sem_credito:
                 try:
                     print("  tentando fallback Replicate (FLUX.1 dev)...")
-                    imagem_bytes = gerar_imagem_replicate(prompt, imagem_anterior)
+                    imagem_bytes = gerar_imagem_replicate(prompt, imagem_referencia)
                     usou_fallback = True
                     fonte_fallback = "Replicate (FLUX.1 dev)"
+                    fonte_desta_imagem = fonte_fallback
                 except Exception as e_replicate:
                     print(f"  Replicate falhou ({e_replicate})")
                     if "crédito" in str(e_replicate) or "autorização" in str(e_replicate):
@@ -417,9 +457,10 @@ def gerar_imagens_do_roteiro(
             if imagem_bytes is None and not falai_indisponivel and not falai_sem_credito:
                 try:
                     print("  tentando fallback fal.ai (FLUX.1)...")
-                    imagem_bytes = gerar_imagem_falai(prompt, imagem_anterior)
+                    imagem_bytes = gerar_imagem_falai(prompt, imagem_referencia)
                     usou_fallback = True
                     fonte_fallback = "fal.ai (FLUX.1)"
+                    fonte_desta_imagem = fonte_fallback
                 except Exception as e_falai:
                     print(f"  fal.ai falhou ({e_falai})")
                     if "crédito" in str(e_falai) or "autorização" in str(e_falai):
@@ -429,7 +470,10 @@ def gerar_imagens_do_roteiro(
                 if not hf_esgotado:
                     try:
                         print("  tentando fallback Hugging Face (FLUX.1 Kontext)...")
-                        imagem_bytes = gerar_imagem_huggingface(prompt, imagem_anterior)
+                        imagem_bytes = gerar_imagem_huggingface(prompt, imagem_referencia)
+                        usou_fallback = True
+                        fonte_fallback = "Hugging Face (FLUX.1 Kontext)"
+                        fonte_desta_imagem = fonte_fallback
                     except Exception as e_hf:
                         print(f"  Hugging Face falhou/esgotou ({e_hf}) — não tenta mais nessa run")
                         hf_esgotado = True
@@ -438,6 +482,7 @@ def gerar_imagens_do_roteiro(
                     imagem_bytes = gerar_imagem_pollinations(prompt)
                     usou_fallback = True
                     fonte_fallback = "Pollinations"
+                    fonte_desta_imagem = fonte_fallback
 
             nome = f"cena{i}.jpg" if imagens_por_cena == 1 else f"cena{i}_{parte}.jpg"
             caminho = os.path.join(pasta_saida, nome)
@@ -445,7 +490,11 @@ def gerar_imagens_do_roteiro(
                 f.write(imagem_bytes)
             print(f"  salvo em {caminho}")
 
-            imagem_anterior = imagem_bytes
+            if contagem_saida is not None:
+                contagem_saida[fonte_desta_imagem] = contagem_saida.get(fonte_desta_imagem, 0) + 1
+
+            if not sem_personagem:
+                ultima_imagem_personagem = imagem_bytes
             time.sleep(2)
 
     return usou_fallback, fonte_fallback
@@ -465,11 +514,23 @@ def main():
     with open(args.roteiro, encoding="utf-8") as f:
         roteiro = json.load(f)
 
-    gerar_imagens_do_roteiro(roteiro, canal, pasta_saida, imagens_por_cena=args.imagens_por_cena)
+    contagem: dict[str, int] = {}
+    gerar_imagens_do_roteiro(
+        roteiro, canal, pasta_saida, imagens_por_cena=args.imagens_por_cena, contagem_saida=contagem,
+    )
 
+    # Bug real encontrado 2026-09-10: essa mensagem sempre dizia "custo:
+    # R$0,00" e contava só len(cenas) em vez do total de imagens (cenas x
+    # imagens_por_cena) -- mentia justamente na única run em que caiu tudo
+    # na Replicate (paga) por causa da cota do Cloudflare já ter acabado no
+    # dia. Preço por imagem é em USD (Replicate cobra em dólar).
+    CUSTO_USD_POR_IMAGEM = {"Replicate (FLUX.1 dev)": 0.025}
+    total_imagens = sum(contagem.values())
+    custo_total = sum(CUSTO_USD_POR_IMAGEM.get(fonte, 0.0) * n for fonte, n in contagem.items())
+    resumo_fontes = ", ".join(f"{n}x {fonte}" for fonte, n in contagem.items())
     print(
-        f"\n{len(roteiro['cenas'])} imagens geradas em {pasta_saida} — custo: R$0,00. "
-        "Confira visualmente antes de montar o vídeo."
+        f"\n{total_imagens} imagens geradas em {pasta_saida} ({resumo_fontes}) — "
+        f"custo estimado: US$ {custo_total:.2f}. Confira visualmente antes de montar o vídeo."
     )
 
 

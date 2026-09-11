@@ -9,16 +9,16 @@ name: Pipeline Dark - geração e publicação automática
 #   - "Em Alta" (tendências): 5x/dia
 on:
   schedule:
+    # Ajuste 2026-09-11 (pedido do Davi: "4 vídeos por canal"): de 5 pra 4
+    # publicações/dia por conta, mesmo espaçamento ao longo do dia.
     - cron: '0 12 * * *'  # 09h BRT - arquivo_sombrio
-    - cron: '0 15 * * *'  # 12h BRT - arquivo_sombrio
-    - cron: '0 18 * * *'  # 15h BRT - arquivo_sombrio
-    - cron: '0 21 * * *'  # 18h BRT - arquivo_sombrio
+    - cron: '0 16 * * *'  # 13h BRT - arquivo_sombrio
+    - cron: '0 20 * * *'  # 17h BRT - arquivo_sombrio
     - cron: '0 0 * * *'   # 21h BRT - arquivo_sombrio
-    - cron: '0 13 * * *'  # 10h BRT - tendencias
-    - cron: '0 16 * * *'  # 13h BRT - tendencias
-    - cron: '0 19 * * *'  # 16h BRT - tendencias
+    - cron: '0 14 * * *'  # 11h BRT - tendencias
+    - cron: '0 18 * * *'  # 15h BRT - tendencias
     - cron: '0 22 * * *'  # 19h BRT - tendencias
-    - cron: '0 1 * * *'   # 22h BRT - tendencias
+    - cron: '0 2 * * *'   # 23h BRT - tendencias
   workflow_dispatch:
     inputs:
       canal:
@@ -63,7 +63,7 @@ jobs:
             CANAL="${{ github.event.inputs.canal }}"
           else
             case "${{ github.event.schedule }}" in
-              '0 13 * * *'|'0 16 * * *'|'0 19 * * *'|'0 22 * * *'|'0 1 * * *') CANAL="tendencias" ;;
+              '0 14 * * *'|'0 18 * * *'|'0 22 * * *'|'0 2 * * *') CANAL="tendencias" ;;
               *) CANAL="arquivo_sombrio" ;;
             esac
           fi
