@@ -756,35 +756,126 @@ def concatenar_video_silencioso_com_transicao(caminhos_clipes: list[str], caminh
     ])
 
 
+def _transcrever_palavras(caminho_audio: str) -> list[tuple[float, float, str]]:
+    """Transcreve o áudio com timestamp por palavra (faster-whisper) --
+    extraído do que já era feito dentro de `gerar_legenda_ass` pra poder
+    reaproveitar a MESMA transcrição tanto pra gerar a legenda quanto pra
+    detectar pausas de fala (ver `_detectar_pausas_da_fala`), sem rodar o
+    Whisper duas vezes no mesmo áudio."""
+    from faster_whisper import WhisperModel
+
+    modelo = WhisperModel("small", device="cpu", compute_type="int8")
+    segmentos, _ = modelo.transcribe(caminho_audio, language="pt", word_timestamps=True)
+
+    palavras = []
+    for seg in segmentos:
+        for palavra in seg.words:
+            palavras.append((palavra.start, palavra.end, palavra.word.strip()))
+    return palavras
+
+
+def _detectar_pausas_da_fala(palavras: list[tuple[float, float, str]], duracao_minima: float = 0.25) -> list[float]:
+    """Detecta pausas de fala a partir dos timestamps de palavra do Whisper
+    (gap entre o fim de uma palavra e o início da próxima), retornando o
+    ponto MÉDIO de cada pausa -- feedback real do irmão do Davi 2026-09-11
+    ("a imagem não acompanha o áudio"): a montagem trocava de foto num tempo
+    fixo (duração total / nº de fotos), sem saber quanto a narração realmente
+    falava sobre cada foto, então o corte de imagem caía no meio de uma frase
+    enquanto o áudio já tinha mudado de assunto.
+
+    Usa a TRANSCRIÇÃO em vez de detectar silêncio por volume (ffmpeg
+    silencedetect) porque o áudio que o irmão do Davi manda SEMPRE já vem
+    com a trilha sonora misturada na narração (confirmado pelo Davi
+    2026-09-11) -- a música de fundo nunca deixa o volume cair o bastante
+    pra parecer silêncio, então detecção por volume não acharia pausa
+    nenhuma. O Whisper detecta palavras faladas mesmo com música por baixo,
+    então o GAP entre palavras continua um sinal confiável de pausa real.
+
+    Não garante que a foto CERTA apareça na hora certa (ainda assume que a
+    ordem numérica das fotos segue a ordem da fala), mas elimina o sintoma
+    mais chocante: nunca mais corta imagem no meio de uma frase."""
+    pausas = []
+    for (_, fim_atual, _), (inicio_prox, _, _) in zip(palavras, palavras[1:]):
+        gap = inicio_prox - fim_atual
+        if gap >= duracao_minima:
+            pausas.append((fim_atual + inicio_prox) / 2)
+    return pausas
+
+
+def _calcular_cortes_por_pausa(
+    duracao_total: float, n_imagens: int, pausas: list[float], tolerancia: float = 1.5,
+) -> list[float]:
+    """A partir dos pontos de corte IDEAIS (divisão igual do tempo total
+    pelo nº de fotos), ajusta cada um pro ponto de pausa mais próximo
+    detectado no áudio, dentro de uma tolerância -- se não tiver pausa perto
+    o suficiente (ex: narração corrida sem respiro), mantém o corte no
+    tempo ideal em vez de deslocar demais e piorar o desalinhamento.
+    Retorna a lista de DURAÇÕES por imagem (não os pontos de corte)."""
+    ideal = [duracao_total * i / n_imagens for i in range(1, n_imagens)]
+    cortes = []
+    pausas_disponiveis = list(pausas)
+    for alvo in ideal:
+        candidatas = [p for p in pausas_disponiveis if abs(p - alvo) <= tolerancia]
+        if candidatas:
+            escolhida = min(candidatas, key=lambda p: abs(p - alvo))
+            pausas_disponiveis.remove(escolhida)
+        else:
+            escolhida = alvo
+        cortes.append(escolhida)
+
+    cortes = [0.0] + sorted(cortes) + [duracao_total]
+    return [cortes[i + 1] - cortes[i] for i in range(n_imagens)]
+
+
 def montar_video_de_audio_e_imagens(
     caminho_audio: str, imagens: list[str], caminho_saida: str, plataforma: str = "tiktok",
 ) -> float:
-    """Monta o vídeo final a partir de uma narração JÁ PRONTA (mp3/wav
-    gerado fora daqui) + uma lista de imagens já aprovadas -- caminho pro
-    fluxo novo (2026-09-10) onde o roteiro/imagem/voz vêm de outro
-    workflow (feito pelo irmão do Davi) e esse pipeline só cuida da EDIÇÃO:
-    reparte a duração total do áudio igualmente entre as imagens, aplica o
-    mesmo Ken Burns variado + tremida + personagem_cresce de sempre
+    """Monta o vídeo final a partir de uma narração JÁ PRONTA (mp3/wav já
+    com trilha embutida, gerado fora daqui) + uma lista de imagens numeradas
+    já aprovadas -- caminho pro fluxo novo (2026-09-10) onde o roteiro/
+    imagem/voz vêm de outro workflow (feito pelo irmão do Davi, formato
+    fixo: fotos enumeradas 1, 2, 3... + um único áudio narrando com trilha
+    já misturada) e esse pipeline só cuida da EDIÇÃO.
+
+    A troca de imagem NÃO usa divisão igual de tempo (duração total / nº de
+    fotos) -- feedback real do irmão do Davi 2026-09-11 ("a imagem não
+    acompanha o áudio, fala uma coisa e mostra outra"): se a narração não
+    fala o mesmo tempo sobre cada foto, divisão igual desalinha e o erro vai
+    acumulando. Em vez disso, transcreve o áudio (Whisper, único jeito
+    confiável de achar pausa de fala aqui porque o áudio já vem com trilha
+    embutida -- detecção de silêncio por volume não funcionaria) e ajusta os
+    cortes de imagem pra caírem nas pausas de fala mais próximas do tempo
+    ideal (ver `_detectar_pausas_da_fala`/`_calcular_cortes_por_pausa`) --
+    não garante que a foto CERTA apareça no segundo certo (ainda assume que
+    a ordem numérica das fotos segue a ordem da fala), mas nunca mais corta
+    imagem no meio de uma frase.
+
+    Aplica o mesmo Ken Burns variado + tremida + personagem_cresce de sempre
     (`gerar_clipe_imagem_silencioso`), concatena com a mesma transição
     variada (slide/wipe + flash raro), queima legenda transcrita do áudio
-    e mixa a ambientação/trilha por cima -- tudo reaproveitado do fluxo
-    normal, só sem gerar roteiro/narração/imagem aqui dentro.
+    (reaproveitando a MESMA transcrição, sem rodar o Whisper 2x) e mixa a
+    ambientação/trilha por cima -- tudo reaproveitado do fluxo normal, só
+    sem gerar roteiro/narração/imagem aqui dentro.
 
     Retorna a duração total do vídeo (= duração do áudio de entrada)."""
     import random as _random_stdlib
 
     duracao_total = _duracao_segundos(caminho_audio)
-    duracao_por_imagem = duracao_total / len(imagens)
+
+    print("Transcrevendo áudio pra sincronizar corte de imagem com a fala...")
+    palavras = _transcrever_palavras(caminho_audio)
+    pausas = _detectar_pausas_da_fala(palavras)
+    duracoes_por_imagem = _calcular_cortes_por_pausa(duracao_total, len(imagens), pausas)
 
     with tempfile.TemporaryDirectory() as pasta_tmp:
         pesos_movimento = [3] * len(TIPOS_MOVIMENTO) + [13]
         clipes = []
-        for i, imagem in enumerate(imagens):
+        for i, (imagem, duracao_imagem) in enumerate(zip(imagens, duracoes_por_imagem)):
             tipo_movimento = _RNG_MOVIMENTO.choices(
                 TIPOS_MOVIMENTO + ["personagem_cresce"], weights=pesos_movimento
             )[0]
             caminho_clipe = os.path.join(pasta_tmp, f"clipe{i}.mp4")
-            gerar_clipe_imagem_silencioso(imagem, duracao_por_imagem, caminho_clipe, tipo_movimento)
+            gerar_clipe_imagem_silencioso(imagem, duracao_imagem, caminho_clipe, tipo_movimento)
             clipes.append(caminho_clipe)
 
         print("Concatenando imagens (com transição fluida entre elas)...")
@@ -824,9 +915,9 @@ def montar_video_de_audio_e_imagens(
             caminho_com_audio,
         ])
 
-        print("Transcrevendo áudio pra gerar legenda (faster-whisper, pode demorar um pouco)...")
+        print("Gerando legenda (reaproveitando a transcrição feita pro sincronismo)...")
         caminho_ass = os.path.join(pasta_tmp, "legenda.ass")
-        gerar_legenda_ass(caminho_audio, caminho_ass, LARGURA, ALTURA)
+        gerar_legenda_ass(caminho_audio, caminho_ass, LARGURA, ALTURA, palavras=palavras)
 
         print("Queimando legenda no vídeo...")
         caminho_com_legenda = os.path.join(pasta_tmp, "com_legenda.mp4")
@@ -902,16 +993,16 @@ def _formatar_tempo_ass(segundos: float) -> str:
     return f"{h}:{m:02d}:{int(s):02d}.{cs:02d}"
 
 
-def gerar_legenda_ass(caminho_audio: str, caminho_saida_ass: str, largura: int, altura: int):
-    from faster_whisper import WhisperModel
-
-    modelo = WhisperModel("small", device="cpu", compute_type="int8")
-    segmentos, _ = modelo.transcribe(caminho_audio, language="pt", word_timestamps=True)
-
-    palavras = []
-    for seg in segmentos:
-        for palavra in seg.words:
-            palavras.append((palavra.start, palavra.end, palavra.word.strip()))
+def gerar_legenda_ass(
+    caminho_audio: str, caminho_saida_ass: str, largura: int, altura: int,
+    palavras: list[tuple[float, float, str]] | None = None,
+):
+    """`palavras` opcional -- se quem chamou já transcreveu o áudio pra
+    outro fim (ex: sincronismo de imagem no fluxo pivô, ver
+    `_transcrever_palavras`), passa aqui pra não rodar o Whisper de novo no
+    mesmo áudio."""
+    if palavras is None:
+        palavras = _transcrever_palavras(caminho_audio)
 
     cabecalho = f"""[Script Info]
 PlayResX: {largura}
