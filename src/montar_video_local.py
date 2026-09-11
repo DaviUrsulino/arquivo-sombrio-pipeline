@@ -777,10 +777,25 @@ def montar_video_de_audio_e_imagens(
         concatenar_video_silencioso_com_transicao(clipes, caminho_bruto)
 
         print("Juntando com a narração...")
+        # Bug real 2026-09-11 (Davi: "a narração tem dois e cinco e o vídeo
+        # dois e três"): as transições cortam alguns frames a cada corte
+        # (ver concatenar_video_silencioso_com_transicao), então o vídeo
+        # monttado sempre sai um pouco MAIS CURTO que o áudio original.
+        # "-shortest" cortava o que sobrava do ÁUDIO pra bater com o vídeo
+        # -- ou seja, cortava a narração de verdade, não só o enquadramento.
+        # Fix: em vez de encurtar o áudio, estica o vídeo segurando o
+        # último frame (congelado) até bater a duração exata do áudio --
+        # nunca perde uma palavra da narração.
+        duracao_video_bruto = _duracao_segundos(caminho_bruto)
+        diferenca = duracao_total - duracao_video_bruto
+        filtro_video = "[0:v]null[v]"
+        if diferenca > 0.05:
+            filtro_video = f"[0:v]tpad=stop_mode=clone:stop_duration={diferenca:.3f}[v]"
         caminho_com_audio = os.path.join(pasta_tmp, "com_audio.mp4")
         _rodar([
             "ffmpeg", "-y", "-i", caminho_bruto, "-i", caminho_audio,
-            "-map", "0:v", "-map", "1:a",
+            "-filter_complex", filtro_video,
+            "-map", "[v]", "-map", "1:a",
             "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac",
             "-shortest",
             caminho_com_audio,
