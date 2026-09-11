@@ -33,6 +33,7 @@ import os
 import re
 import sys
 import tempfile
+from datetime import datetime, timedelta, timezone
 
 from dotenv import load_dotenv
 from google.auth.transport.requests import Request
@@ -53,6 +54,15 @@ NOME_PASTA_PROCESSADOS = "Processados"
 
 EXTENSOES_IMAGEM = (".jpg", ".jpeg", ".png")
 EXTENSOES_AUDIO = (".mp3", ".wav", ".m4a", ".mpeg", ".mpga")
+
+# Pedido do Davi 2026-09-11: não mover a pasta original pra "Processados" na
+# hora -- se o vídeo saiu cortado ou com algum problema, o irmão (e o Davi)
+# ainda precisam achar fácil as fotos/áudio originais pra refazer. Em vez de
+# mover na hora, marca a pasta como processada (appProperties, que sobrevive
+# entre execuções do cron já que cada run é um processo novo) e só move de
+# fato depois desse prazo, numa passada separada em toda execução.
+PRAZO_ARQUIVAMENTO = timedelta(hours=24)
+CHAVE_PROCESSADO_EM = "processado_em"
 
 
 def autenticar_drive(arquivo_client_secret: str = ARQUIVO_CLIENT_SECRET, arquivo_token: str = ARQUIVO_TOKEN_DRIVE):
@@ -102,14 +112,52 @@ def obter_ou_criar_subpasta(service, nome: str, pasta_pai_id: str) -> str:
 
 
 def listar_subpastas_pendentes(service, pasta_entrada_id: str, pasta_processados_id: str) -> list[dict]:
-    """Lista subpastas de trabalho dentro da pasta de entrada, ignorando a
-    própria pasta "Processados"."""
+    """Lista subpastas de trabalho dentro da pasta de entrada ainda não
+    processadas -- ignora a própria pasta "Processados" e qualquer pasta que
+    já tenha sido processada com sucesso (marcada via appProperties, ver
+    `marcar_como_processada`) mas ainda não foi arquivada."""
     query = (
         f"'{pasta_entrada_id}' in parents and mimeType = 'application/vnd.google-apps.folder' "
         "and trashed = false"
     )
-    resultado = service.files().list(q=query, fields="files(id, name)").execute()
-    return [p for p in resultado.get("files", []) if p["id"] != pasta_processados_id]
+    resultado = service.files().list(q=query, fields="files(id, name, appProperties)").execute()
+    return [
+        p
+        for p in resultado.get("files", [])
+        if p["id"] != pasta_processados_id and not (p.get("appProperties") or {}).get(CHAVE_PROCESSADO_EM)
+    ]
+
+
+def marcar_como_processada(service, pasta_id: str):
+    """Marca a pasta como processada com sucesso, sem movê-la ainda -- o
+    arquivamento de verdade (mover pra "Processados") só acontece depois de
+    PRAZO_ARQUIVAMENTO, pra dar tempo de perceber e refazer se o vídeo sair
+    com problema."""
+    agora = datetime.now(timezone.utc).isoformat()
+    service.files().update(fileId=pasta_id, body={"appProperties": {CHAVE_PROCESSADO_EM: agora}}).execute()
+
+
+def arquivar_pastas_processadas_antigas(service, pasta_entrada_id: str, pasta_processados_id: str):
+    """Move pra "Processados" as pastas que já foram processadas há mais de
+    PRAZO_ARQUIVAMENTO -- roda em toda execução, separado do processamento
+    de pastas novas."""
+    query = (
+        f"'{pasta_entrada_id}' in parents and mimeType = 'application/vnd.google-apps.folder' "
+        "and trashed = false"
+    )
+    resultado = service.files().list(q=query, fields="files(id, name, appProperties)").execute()
+    agora = datetime.now(timezone.utc)
+
+    for pasta in resultado.get("files", []):
+        if pasta["id"] == pasta_processados_id:
+            continue
+        processado_em = (pasta.get("appProperties") or {}).get(CHAVE_PROCESSADO_EM)
+        if not processado_em:
+            continue
+        if agora - datetime.fromisoformat(processado_em) < PRAZO_ARQUIVAMENTO:
+            continue
+        mover_para_processados(service, pasta["id"], pasta_entrada_id, pasta_processados_id)
+        print(f"  pasta '{pasta['name']}' arquivada em Processados (processada há mais de 24h)")
 
 
 def baixar_arquivos_da_pasta(service, pasta_id: str, destino_local: str) -> tuple[list[str], str | None]:
@@ -163,9 +211,9 @@ def mover_para_processados(service, pasta_id: str, pasta_entrada_id: str, pasta_
 
 def processar_pasta(service, pasta: dict, pasta_saida_id: str) -> bool:
     """Processa uma pasta de trabalho: baixa fotos+áudio, monta o vídeo,
-    sobe o resultado. Retorna True se deu tudo certo (só então a pasta é
-    movida pra "Processados" pelo chamador -- falha não move, fica
-    disponível pra nova tentativa)."""
+    sobe o resultado. Retorna True se deu tudo certo (só então o chamador
+    marca a pasta como processada, ver `marcar_como_processada` -- falha não
+    marca, fica disponível pra nova tentativa)."""
     print(f"\n=== Processando pasta '{pasta['name']}' ===")
     with tempfile.TemporaryDirectory() as pasta_tmp:
         imagens, audio = baixar_arquivos_da_pasta(service, pasta["id"], pasta_tmp)
@@ -199,14 +247,15 @@ def processar_tudo():
 
     if not pendentes:
         print("Nenhuma pasta nova pra processar.")
-        return
+    else:
+        print(f"{len(pendentes)} pasta(s) pendente(s): {[p['name'] for p in pendentes]}")
+        for pasta in pendentes:
+            sucesso = processar_pasta(service, pasta, pasta_saida_id)
+            if sucesso:
+                marcar_como_processada(service, pasta["id"])
+                print(f"  pasta '{pasta['name']}' processada (fica na entrada por 24h antes de arquivar)")
 
-    print(f"{len(pendentes)} pasta(s) pendente(s): {[p['name'] for p in pendentes]}")
-    for pasta in pendentes:
-        sucesso = processar_pasta(service, pasta, pasta_saida_id)
-        if sucesso:
-            mover_para_processados(service, pasta["id"], pasta_entrada_id, pasta_processados_id)
-            print(f"  pasta '{pasta['name']}' movida pra Processados")
+    arquivar_pastas_processadas_antigas(service, pasta_entrada_id, pasta_processados_id)
 
 
 def main():
