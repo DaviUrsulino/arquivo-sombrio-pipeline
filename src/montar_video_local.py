@@ -1023,57 +1023,110 @@ def _casar_imagens_com_segmentos(segmentos_texto: list[str], descricoes_imagens:
     # IA seguir a instrução".
     pares_fixos = _pares_por_numero_exato(segmentos_texto, descricoes_imagens)
 
-    chave = os.environ.get("GEMINI_API_KEY") or (os.environ.get("GEMINI_API_KEYS", "").split(",") or [None])[0]
-    if not chave:
-        print("  AVISO: GEMINI_API_KEY não configurada -- casamento por conteúdo (tema) cancelado.")
-        return _aplicar_pares_fixos(ordem_original, pares_fixos)
-
-    try:
-        from google import genai
-        from google.genai import types
-
-        dica_fixos = ""
-        if pares_fixos:
-            dica_fixos = (
-                "\n\nOs seguintes pares JÁ ESTÃO DECIDIDOS por um número/texto idêntico "
-                "entre o trecho e a foto -- NÃO mude esses, só decida os outros: "
-                + ", ".join(f"trecho {seg} = foto {img}" for seg, img in pares_fixos.items())
-            )
-        prompt = (
-            "Trechos de narração, em ordem cronológica (0-based):\n"
-            + "\n".join(f"{i}: {t}" for i, t in enumerate(segmentos_texto))
-            + "\n\nFotos disponíveis, com descrição do conteúdo (0-based):\n"
-            + "\n".join(f"{i}: {d}" for i, d in enumerate(descricoes_imagens))
-            + dica_fixos
-            + "\n\nPra cada trecho de narração, diga qual foto combina melhor com a cena/"
-            "tema do que está sendo dito. Cada foto deve ser usada EXATAMENTE uma vez. Se "
-            "não tiver certeza pra algum trecho, mantenha o índice da foto igual ao índice "
-            "do trecho. "
-            'Responda só em JSON: {"ordem": [indice_da_foto_pro_trecho_0, indice_da_foto_pro_trecho_1, ...]}'
+    dica_fixos = ""
+    if pares_fixos:
+        dica_fixos = (
+            "\n\nOs seguintes pares JÁ ESTÃO DECIDIDOS por um número/texto idêntico "
+            "entre o trecho e a foto -- NÃO mude esses, só decida os outros: "
+            + ", ".join(f"trecho {seg} = foto {img}" for seg, img in pares_fixos.items())
         )
-        client = genai.Client(api_key=chave.strip(), http_options=types.HttpOptions(timeout=60_000))
-        ultimo_erro = None
-        for tentativa in range(2):
-            try:
-                resposta = client.models.generate_content(
-                    model="gemini-3.6-flash",
-                    contents=prompt,
-                    config=types.GenerateContentConfig(response_mime_type="application/json"),
-                )
-                dados = json.loads(resposta.text)
-                ordem = dados["ordem"]
-                if len(ordem) == n and sorted(ordem) == ordem_original:
-                    return _aplicar_pares_fixos(ordem, pares_fixos)
-                ultimo_erro = f"resposta inválida: {dados}"
-            except Exception as e:
-                ultimo_erro = e
-                if tentativa == 0:
-                    time.sleep(3)
-        print(f"  AVISO: casamento por tema via Gemini falhou ({ultimo_erro}), usando só os pares por número exato.")
-    except Exception as e:
-        print(f"  AVISO: casamento por tema via Gemini falhou ({e}), usando só os pares por número exato.")
+    prompt = (
+        "Trechos de narração, em ordem cronológica (0-based):\n"
+        + "\n".join(f"{i}: {t}" for i, t in enumerate(segmentos_texto))
+        + "\n\nFotos disponíveis, com descrição do conteúdo (0-based):\n"
+        + "\n".join(f"{i}: {d}" for i, d in enumerate(descricoes_imagens))
+        + dica_fixos
+        + "\n\nPra cada trecho de narração, diga qual foto combina melhor com a cena/"
+        "tema do que está sendo dito. Cada foto deve ser usada EXATAMENTE uma vez. Se "
+        "não tiver certeza pra algum trecho, mantenha o índice da foto igual ao índice "
+        "do trecho. "
+        'Responda só em JSON: {"ordem": [indice_da_foto_pro_trecho_0, indice_da_foto_pro_trecho_1, ...]}'
+    )
+
+    dados = _chamar_llm_para_json(prompt)
+    if dados is not None:
+        try:
+            ordem = dados["ordem"]
+            if len(ordem) == n and sorted(ordem) == ordem_original:
+                return _aplicar_pares_fixos(ordem, pares_fixos)
+            print(f"  AVISO: resposta de casamento por tema inválida ({dados}), usando só os pares por número exato.")
+        except Exception as e:
+            print(f"  AVISO: resposta de casamento por tema mal formada ({e}), usando só os pares por número exato.")
 
     return _aplicar_pares_fixos(ordem_original, pares_fixos)
+
+
+def _chamar_llm_para_json(prompt: str) -> dict | None:
+    """Pedido do Davi 2026-09-12 ("pensa numa segunda saída, se o Gemini
+    ficar dando erro os vídeos não vão ter uma boa edição"): o casamento
+    por tema (`_casar_imagens_com_segmentos`) dependia só do Gemini -- se
+    ele estiver sobrecarregado (aconteceu de verdade, 503 "high demand"),
+    o vídeo saía só com os pares por número exato, sem casamento de tema
+    nenhum pro resto das fotos. Mesmo padrão de camadas de fallback já
+    usado em `gerar_roteiro.py` pra geração de roteiro (Gemini ->
+    OpenRouter free tier -> Mistral free tier), aplicado aqui: só desiste
+    de verdade se os três provedores falharem."""
+    chave_gemini = os.environ.get("GEMINI_API_KEY") or (os.environ.get("GEMINI_API_KEYS", "").split(",") or [None])[0]
+    if chave_gemini:
+        try:
+            from google import genai
+            from google.genai import types
+
+            client = genai.Client(api_key=chave_gemini.strip(), http_options=types.HttpOptions(timeout=60_000))
+            ultimo_erro = None
+            for tentativa in range(2):
+                try:
+                    resposta = client.models.generate_content(
+                        model="gemini-3.6-flash",
+                        contents=prompt,
+                        config=types.GenerateContentConfig(response_mime_type="application/json"),
+                    )
+                    return json.loads(resposta.text)
+                except Exception as e:
+                    ultimo_erro = e
+                    if tentativa == 0:
+                        time.sleep(3)
+            print(f"  AVISO: Gemini indisponível pro casamento de tema ({ultimo_erro}), tentando OpenRouter...")
+        except Exception as e:
+            print(f"  AVISO: Gemini indisponível pro casamento de tema ({e}), tentando OpenRouter...")
+
+    chave_or = os.environ.get("OPENROUTER_API_KEY")
+    if chave_or:
+        try:
+            resp = requests.post(
+                "https://openrouter.ai/api/v1/chat/completions",
+                headers={"Authorization": f"Bearer {chave_or}", "Content-Type": "application/json"},
+                json={
+                    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+                    "messages": [{"role": "user", "content": prompt}],
+                    "response_format": {"type": "json_object"},
+                },
+                timeout=45,
+            )
+            resp.raise_for_status()
+            return json.loads(resp.json()["choices"][0]["message"]["content"])
+        except Exception as e:
+            print(f"  AVISO: OpenRouter indisponível pro casamento de tema ({e}), tentando Mistral...")
+
+    chave_mistral = os.environ.get("MISTRAL_API_KEY")
+    if chave_mistral:
+        try:
+            resp = requests.post(
+                "https://api.mistral.ai/v1/chat/completions",
+                headers={"Authorization": f"Bearer {chave_mistral}", "Content-Type": "application/json"},
+                json={
+                    "model": "mistral-small-latest",
+                    "messages": [{"role": "user", "content": prompt}],
+                    "response_format": {"type": "json_object"},
+                },
+                timeout=45,
+            )
+            resp.raise_for_status()
+            return json.loads(resp.json()["choices"][0]["message"]["content"])
+        except Exception as e:
+            print(f"  AVISO: Mistral também indisponível pro casamento de tema ({e}) -- todos os provedores falharam.")
+
+    return None
 
 
 def _pares_por_numero_exato(segmentos_texto: list[str], descricoes_imagens: list[str]) -> dict[int, int]:
