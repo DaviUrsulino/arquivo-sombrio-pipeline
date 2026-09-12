@@ -17,6 +17,8 @@ Uso:
 """
 
 import argparse
+import base64
+import io
 import json
 import os
 import random
@@ -24,7 +26,9 @@ import re
 import shutil
 import subprocess
 import tempfile
+import time
 
+import requests
 import soundfile as sf
 from PIL import Image
 
@@ -774,14 +778,14 @@ def _transcrever_palavras(caminho_audio: str) -> list[tuple[float, float, str]]:
     return palavras
 
 
-def _detectar_pausas_da_fala(palavras: list[tuple[float, float, str]], duracao_minima: float = 0.25) -> list[float]:
+def _detectar_pausas_da_fala(
+    palavras: list[tuple[float, float, str]], duracao_minima: float = 0.15,
+) -> list[tuple[float, float]]:
     """Detecta pausas de fala a partir dos timestamps de palavra do Whisper
-    (gap entre o fim de uma palavra e o início da próxima), retornando o
-    ponto MÉDIO de cada pausa -- feedback real do irmão do Davi 2026-09-11
-    ("a imagem não acompanha o áudio"): a montagem trocava de foto num tempo
-    fixo (duração total / nº de fotos), sem saber quanto a narração realmente
-    falava sobre cada foto, então o corte de imagem caía no meio de uma frase
-    enquanto o áudio já tinha mudado de assunto.
+    (gap entre o fim de uma palavra e o início da próxima), retornando
+    (ponto MÉDIO da pausa, duração do gap) pra cada uma -- a duração é o que
+    permite depois separar "respiro entre frase do mesmo assunto" de "pausa
+    grande entre um assunto/foto e outro" (ver `_calcular_cortes_por_pausa`).
 
     Usa a TRANSCRIÇÃO em vez de detectar silêncio por volume (ffmpeg
     silencedetect) porque o áudio que o irmão do Davi manda SEMPRE já vem
@@ -789,42 +793,217 @@ def _detectar_pausas_da_fala(palavras: list[tuple[float, float, str]], duracao_m
     2026-09-11) -- a música de fundo nunca deixa o volume cair o bastante
     pra parecer silêncio, então detecção por volume não acharia pausa
     nenhuma. O Whisper detecta palavras faladas mesmo com música por baixo,
-    então o GAP entre palavras continua um sinal confiável de pausa real.
-
-    Não garante que a foto CERTA apareça na hora certa (ainda assume que a
-    ordem numérica das fotos segue a ordem da fala), mas elimina o sintoma
-    mais chocante: nunca mais corta imagem no meio de uma frase."""
+    então o GAP entre palavras continua um sinal confiável de pausa real."""
     pausas = []
     for (_, fim_atual, _), (inicio_prox, _, _) in zip(palavras, palavras[1:]):
         gap = inicio_prox - fim_atual
         if gap >= duracao_minima:
-            pausas.append((fim_atual + inicio_prox) / 2)
+            pausas.append(((fim_atual + inicio_prox) / 2, gap))
     return pausas
 
 
 def _calcular_cortes_por_pausa(
-    duracao_total: float, n_imagens: int, pausas: list[float], tolerancia: float = 1.5,
+    duracao_total: float, n_imagens: int, pausas: list[tuple[float, float]],
 ) -> list[float]:
-    """A partir dos pontos de corte IDEAIS (divisão igual do tempo total
-    pelo nº de fotos), ajusta cada um pro ponto de pausa mais próximo
-    detectado no áudio, dentro de uma tolerância -- se não tiver pausa perto
-    o suficiente (ex: narração corrida sem respiro), mantém o corte no
-    tempo ideal em vez de deslocar demais e piorar o desalinhamento.
-    Retorna a lista de DURAÇÕES por imagem (não os pontos de corte)."""
-    ideal = [duracao_total * i / n_imagens for i in range(1, n_imagens)]
-    cortes = []
-    pausas_disponiveis = list(pausas)
-    for alvo in ideal:
-        candidatas = [p for p in pausas_disponiveis if abs(p - alvo) <= tolerancia]
-        if candidatas:
-            escolhida = min(candidatas, key=lambda p: abs(p - alvo))
-            pausas_disponiveis.remove(escolhida)
-        else:
-            escolhida = alvo
-        cortes.append(escolhida)
-
-    cortes = [0.0] + sorted(cortes) + [duracao_total]
+    """Wrapper fino sobre `_pontos_de_corte` que retorna DURAÇÕES por
+    imagem em vez dos pontos de corte em si -- ver aquela função pro
+    critério de corte (maiores pausas de fala, não tempo ideal)."""
+    cortes = _pontos_de_corte(duracao_total, n_imagens, pausas)
     return [cortes[i + 1] - cortes[i] for i in range(n_imagens)]
+
+
+def _pontos_de_corte(duracao_total: float, n_imagens: int, pausas: list[tuple[float, float]]) -> list[float]:
+    """Bug real 2026-09-12 (feedback do Manuel, irmão do Davi, DEPOIS do
+    primeiro fix por pausa): "quando ele fala do capotamento do ônibus já
+    tá numa imagem muito na frente" -- a 1ª versão desse fix ainda ancorava
+    cada corte num tempo IDEAL (divisão igual do total pelo nº de fotos) e
+    só ajustava pra pausa mais próxima DENTRO de uma tolerância pequena; se
+    a narração real não distribui o tempo igualmente entre as fotos (o
+    normal -- ele fala mais de um assunto que de outro), o "ideal" desvia
+    cada vez mais da fala real conforme o vídeo avança, e a tolerância
+    pequena não alcança mais a pausa certa -- daí o atraso ACUMULA e fica
+    pior nas fotos finais, exatamente o sintoma relatado.
+
+    Fix de verdade: ignora o tempo ideal. Assume que ele faz uma pausa mais
+    longa entre o que fala de uma foto e o que fala da próxima (parágrafo/
+    frase nova) do que as pausas curtas dentro da mesma frase -- então pega
+    as (n_imagens - 1) MAIORES pausas detectadas (por duração do gap, não
+    por proximidade de um tempo ideal) e usa a ordem CRONOLÓGICA delas como
+    os cortes de verdade. Isso deixa o corte de imagem seguir o ritmo real
+    da fala em vez de um relógio que não tem nada a ver com o conteúdo.
+
+    Se não tiver pausa suficiente pra achar uma por foto (narração corrida
+    demais, ex: menos de n_imagens-1 pausas detectáveis), cai de volta pra
+    divisão igual só nesse caso -- melhor que travar, mas não é o caminho
+    esperado no dia a dia.
+
+    Retorna a lista de PONTOS (n_imagens + 1 valores, incluindo 0.0 e
+    duracao_total) -- usado tanto pra calcular duração por imagem quanto
+    pra recortar o texto transcrito de cada trecho (ver
+    `_textos_por_segmento`, usado no casamento de conteúdo com
+    `_casar_imagens_com_segmentos`)."""
+    n_cortes_necessarios = n_imagens - 1
+    if n_cortes_necessarios <= 0:
+        return [0.0, duracao_total]
+
+    if len(pausas) >= n_cortes_necessarios:
+        maiores_pausas = sorted(pausas, key=lambda p: p[1], reverse=True)[:n_cortes_necessarios]
+        cortes = sorted(ponto for ponto, _gap in maiores_pausas)
+    else:
+        print(
+            f"  AVISO: só {len(pausas)} pausa(s) detectada(s) pra {n_imagens} fotos -- "
+            "narração corrida demais pra sincronizar por pausa, caindo pra divisão igual."
+        )
+        cortes = [duracao_total * i / n_imagens for i in range(1, n_imagens)]
+
+    return [0.0] + cortes + [duracao_total]
+
+
+def _textos_por_segmento(palavras: list[tuple[float, float, str]], pontos_de_corte: list[float]) -> list[str]:
+    """Junta as palavras transcritas que caem dentro de cada janela de
+    tempo definida por `pontos_de_corte`, formando o texto falado
+    correspondente a cada imagem -- usado pra casar imagem com o CONTEÚDO
+    do que está sendo dito (`_casar_imagens_com_segmentos`), não só o tempo."""
+    segmentos = []
+    for i in range(len(pontos_de_corte) - 1):
+        inicio, fim = pontos_de_corte[i], pontos_de_corte[i + 1]
+        texto = " ".join(palavra for (ini_p, _fim_p, palavra) in palavras if inicio <= ini_p < fim)
+        segmentos.append(texto)
+    return segmentos
+
+
+def _descrever_imagem_cloudflare(caminho_imagem: str) -> str | None:
+    """Descreve o conteúdo de uma foto em poucas palavras via modelo de
+    visão da Cloudflare Workers AI (mesma conta já usada pra gerar imagem
+    em `gerar_imagens_cloudflare.py`) -- usado pra casar cada foto com o
+    trecho da narração que fala sobre ela de verdade, em vez de assumir
+    que a ordem numérica do arquivo já é a ordem certa. Retorna None se
+    a chamada falhar por qualquer motivo (sem chave configurada, rede,
+    cota) -- quem chama trata None como "sem info, mantém ordem original"."""
+    account_id = os.environ.get("CLOUDFLARE_ACCOUNT_ID")
+    token = os.environ.get("CLOUDFLARE_API_TOKEN")
+    if not account_id or not token:
+        return None
+
+    url = f"https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/@cf/llava-hf/llava-1.5-7b-hf"
+    headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+
+    # Bug real 2026-09-12: mandar a foto original (2K) como array de bytes
+    # no JSON incha o payload (cada byte vira um número JSON, ~3-4x o
+    # tamanho) e a Cloudflare rejeita com 413 "Request is too large" pra
+    # boa parte das fotos maiores -- foi por isso que 9 de 16 fotos do
+    # ônibus vieram sem descrição e o casamento por conteúdo nunca rodou de
+    # verdade. Visão não precisa de resolução alta: redimensiona pro máximo
+    # de 768px no lado maior antes de mandar.
+    with Image.open(caminho_imagem) as img:
+        img = img.convert("RGB")
+        if max(img.size) > 768:
+            escala = 768 / max(img.size)
+            img = img.resize((round(img.width * escala), round(img.height * escala)))
+        buffer = io.BytesIO()
+        img.save(buffer, format="JPEG", quality=85)
+        imagem_bytes = buffer.getvalue()
+
+    # Bug real 2026-09-12: rodando 16 fotos em sequência sem pausa, boa
+    # parte das chamadas falhava (provável rate limit da Cloudflare) e
+    # `_casar_imagens_com_segmentos` desistia SILENCIOSAMENTE do casamento
+    # inteiro assim que via qualquer descrição None -- nenhum dos vídeos
+    # até agora teve o casamento por conteúdo aplicado de verdade, e a falha
+    # não aparecia em lugar nenhum do log. Retry com backoff (mesmo padrão
+    # de `gerar_imagem` em gerar_imagens_cloudflare.py) + aviso explícito
+    # quando desiste de verdade, pra nunca mais passar em branco.
+    ultimo_erro = None
+    for tentativa in range(3):
+        try:
+            # Esse modelo (diferente do modelo de GERAÇÃO de imagem, que
+            # aceita multipart com "files=") só aceita a imagem como array
+            # de bytes no corpo JSON -- bug real 2026-09-12: multipart
+            # devolvia 400 "Unsupported image data".
+            resp = requests.post(
+                url, headers=headers,
+                json={
+                    "image": list(imagem_bytes),
+                    "prompt": "Descreva em uma frase curta, em português, o que aparece nesta foto.",
+                    "max_tokens": 100,
+                },
+                timeout=60,
+            )
+            if resp.status_code != 200:
+                ultimo_erro = f"HTTP {resp.status_code}: {resp.text[:200]}"
+            else:
+                dados = resp.json()
+                if not dados.get("success"):
+                    ultimo_erro = f"resposta sem sucesso: {dados}"
+                else:
+                    descricao = dados["result"].get("description", "").strip()
+                    if descricao:
+                        return descricao
+                    ultimo_erro = "descrição vazia"
+        except Exception as e:
+            ultimo_erro = str(e)
+
+        if tentativa < 2:
+            time.sleep(2 * (tentativa + 1))
+
+    print(f"  AVISO: falhou ao descrever {os.path.basename(caminho_imagem)} após 3 tentativas ({ultimo_erro})")
+    return None
+
+
+def _casar_imagens_com_segmentos(segmentos_texto: list[str], descricoes_imagens: list[str | None]) -> list[int]:
+    """Pede pro Gemini casar cada trecho de narração (em ordem cronológica)
+    com a foto cujo conteúdo combina melhor, em vez de assumir que a ordem
+    numérica das fotos já segue a ordem da fala -- pedido do Davi 2026-09-12
+    ("junta com a imagem do contexto certo"). Retorna uma lista de índices
+    (0-based) com o mesmo tamanho de `segmentos_texto`: `resultado[i]` é o
+    índice da foto que deve aparecer no trecho i.
+
+    Se qualquer coisa der errado (sem GEMINI_API_KEY, resposta inválida,
+    fotos sem descrição por falha da Cloudflare) cai pra ORDEM NUMÉRICA
+    original -- esse casamento é uma melhoria best-effort, nunca pode
+    travar a montagem do vídeo."""
+    n = len(segmentos_texto)
+    ordem_original = list(range(n))
+    faltando = [i for i, d in enumerate(descricoes_imagens) if d is None]
+    if faltando:
+        print(
+            f"  AVISO: {len(faltando)}/{n} foto(s) sem descrição (índices {faltando}) -- "
+            "casamento por conteúdo cancelado, mantendo ordem numérica."
+        )
+        return ordem_original
+
+    chave = os.environ.get("GEMINI_API_KEY") or (os.environ.get("GEMINI_API_KEYS", "").split(",") or [None])[0]
+    if not chave:
+        print("  AVISO: GEMINI_API_KEY não configurada -- casamento por conteúdo cancelado.")
+        return ordem_original
+
+    try:
+        from google import genai
+        from google.genai import types
+
+        prompt = (
+            "Trechos de narração, em ordem cronológica (0-based):\n"
+            + "\n".join(f"{i}: {t}" for i, t in enumerate(segmentos_texto))
+            + "\n\nFotos disponíveis, com descrição do conteúdo (0-based):\n"
+            + "\n".join(f"{i}: {d}" for i, d in enumerate(descricoes_imagens))
+            + "\n\nPra cada trecho de narração, diga qual foto combina melhor com o que "
+            "está sendo dito. Cada foto deve ser usada EXATAMENTE uma vez. Se não tiver "
+            "certeza pra algum trecho, mantenha o índice da foto igual ao índice do trecho. "
+            'Responda só em JSON: {"ordem": [indice_da_foto_pro_trecho_0, indice_da_foto_pro_trecho_1, ...]}'
+        )
+        client = genai.Client(api_key=chave.strip(), http_options=types.HttpOptions(timeout=30_000))
+        resposta = client.models.generate_content(
+            model="gemini-3.6-flash",
+            contents=prompt,
+            config=types.GenerateContentConfig(response_mime_type="application/json"),
+        )
+        dados = json.loads(resposta.text)
+        ordem = dados["ordem"]
+        if len(ordem) == n and sorted(ordem) == ordem_original:
+            return ordem
+    except Exception as e:
+        print(f"  AVISO: casamento imagem/conteúdo via Gemini falhou ({e}), mantendo ordem numérica.")
+
+    return ordem_original
 
 
 def montar_video_de_audio_e_imagens(
@@ -838,17 +1017,25 @@ def montar_video_de_audio_e_imagens(
     já misturada) e esse pipeline só cuida da EDIÇÃO.
 
     A troca de imagem NÃO usa divisão igual de tempo (duração total / nº de
-    fotos) -- feedback real do irmão do Davi 2026-09-11 ("a imagem não
-    acompanha o áudio, fala uma coisa e mostra outra"): se a narração não
-    fala o mesmo tempo sobre cada foto, divisão igual desalinha e o erro vai
-    acumulando. Em vez disso, transcreve o áudio (Whisper, único jeito
-    confiável de achar pausa de fala aqui porque o áudio já vem com trilha
-    embutida -- detecção de silêncio por volume não funcionaria) e ajusta os
-    cortes de imagem pra caírem nas pausas de fala mais próximas do tempo
-    ideal (ver `_detectar_pausas_da_fala`/`_calcular_cortes_por_pausa`) --
-    não garante que a foto CERTA apareça no segundo certo (ainda assume que
-    a ordem numérica das fotos segue a ordem da fala), mas nunca mais corta
-    imagem no meio de uma frase.
+    fotos) -- feedback real do irmão do Davi 2026-09-11/12 ("a imagem não
+    acompanha o áudio, fala uma coisa e mostra outra" / "quando fala do
+    capotamento já tá numa imagem muito na frente"): se a narração não fala
+    o mesmo tempo sobre cada foto, divisão igual desalinha e o erro vai
+    acumulando (pior nas fotos finais). Em vez disso, transcreve o áudio
+    (Whisper, único jeito confiável de achar pausa de fala aqui porque o
+    áudio já vem com trilha embutida -- detecção de silêncio por volume não
+    funcionaria) e usa as (nº de fotos - 1) MAIORES pausas de fala, em ordem
+    cronológica, como os cortes de imagem -- sem ancorar num tempo ideal
+    (ver `_detectar_pausas_da_fala`/`_pontos_de_corte`).
+
+    Além do RITMO do corte, também casa o CONTEÚDO: descreve cada foto via
+    visão computacional (Cloudflare Workers AI) e pede pro Gemini casar cada
+    trecho de narração com a foto que combina melhor (pedido do Davi
+    2026-09-12: "junta com a imagem do contexto certo", não só assumir que a
+    ordem numérica do arquivo já é a ordem da fala) -- ver
+    `_descrever_imagem_cloudflare`/`_casar_imagens_com_segmentos`. Se a
+    visão ou o casamento falharem por qualquer motivo, cai pra ordem
+    numérica original (nunca trava a montagem por causa disso).
 
     Aplica o mesmo Ken Burns variado + tremida + personagem_cresce de sempre
     (`gerar_clipe_imagem_silencioso`), concatena com a mesma transição
@@ -865,7 +1052,16 @@ def montar_video_de_audio_e_imagens(
     print("Transcrevendo áudio pra sincronizar corte de imagem com a fala...")
     palavras = _transcrever_palavras(caminho_audio)
     pausas = _detectar_pausas_da_fala(palavras)
-    duracoes_por_imagem = _calcular_cortes_por_pausa(duracao_total, len(imagens), pausas)
+    pontos_de_corte = _pontos_de_corte(duracao_total, len(imagens), pausas)
+    duracoes_por_imagem = [pontos_de_corte[i + 1] - pontos_de_corte[i] for i in range(len(imagens))]
+
+    print("Descrevendo fotos pra casar com o trecho certo da narração...")
+    descricoes_imagens = [_descrever_imagem_cloudflare(img) for img in imagens]
+    segmentos_texto = _textos_por_segmento(palavras, pontos_de_corte)
+    ordem_por_conteudo = _casar_imagens_com_segmentos(segmentos_texto, descricoes_imagens)
+    if ordem_por_conteudo != list(range(len(imagens))):
+        print(f"  ordem ajustada pelo conteúdo: {ordem_por_conteudo}")
+    imagens = [imagens[i] for i in ordem_por_conteudo]
 
     with tempfile.TemporaryDirectory() as pasta_tmp:
         pesos_movimento = [3] * len(TIPOS_MOVIMENTO) + [13]
