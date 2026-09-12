@@ -907,51 +907,6 @@ def _textos_por_segmento(palavras: list[tuple[float, float, str]], pontos_de_cor
     return segmentos
 
 
-def _refinar_cortes_por_numero_no_texto(
-    pontos_de_corte: list[float], palavras: list[tuple[float, float, str]],
-) -> list[float]:
-    """Bug real 2026-09-12, achado extraindo frame do vídeo ENTREGUE: um
-    bloco de pausa pode juntar duas frases (pausa curta demais entre elas
-    pro espaçamento mínimo de `_pontos_de_corte`) -- ex: "nunca chegou ao
-    seu destino final, é a linha 315." vira UM bloco só. Quando esse bloco
-    cita um número específico só na PARTE FINAL da frase (o "315" só
-    aparece depois de "nunca chegou..."), a foto escolhida pro bloco
-    inteiro (mesmo que certa) acaba aparecendo cedo demais, ainda durante
-    a parte que não tem nada a ver com esse número.
-
-    Tentativa anterior desse fix dependia de casar o número com a
-    descrição da foto (OCR do modelo de visão) -- e essa OCR se provou
-    NADA confiável nessas imagens escuras/estilizadas (leu "31355" onde a
-    placa real era "3155", chegou a inventar número totalmente errado).
-    Fix novo: não depende de OCR de imagem nenhuma, só do PRÓPRIO TEXTO
-    transcrito -- se um bloco cita um número que só aparece depois de pelo
-    menos 1s de fala sem número nenhum, divide o bloco ali (empurra o
-    início pra ~0.3s antes da palavra do número, roubando tempo do bloco
-    ANTERIOR). Roda antes de decidir qual foto vai em cada bloco, então o
-    casamento por conteúdo já trabalha em cima dos blocos certos.
-
-    Bug real 2026-09-12 (achado no mesmo processo de conferência): exigir
-    só 2+ dígitos pegava número de HORA no meio da frase (ex: "meia-noite
-    e 15") e criava um corte de menos de 1s sem necessidade nenhuma --
-    "15" sozinho não é um identificador visual (linha de ônibus, placa,
-    ano), é só uma referência de horário. Exige 3+ dígitos (linha de
-    ônibus, placa, ano) pra evitar esse falso positivo."""
-    pontos = list(pontos_de_corte)
-    for i in range(1, len(pontos) - 1):
-        inicio, fim = pontos[i], pontos[i + 1]
-        palavra_numero = next(
-            (ini for ini, _fim, p in palavras if inicio <= ini < fim and re.search(r"\d{3,}", p)),
-            None,
-        )
-        if palavra_numero is None or palavra_numero - inicio < 1.0:
-            continue
-        novo_inicio = palavra_numero - 0.3
-        limite_minimo = pontos[i - 1] + 1.0
-        if novo_inicio > limite_minimo and novo_inicio > pontos[i]:
-            pontos[i] = novo_inicio
-    return pontos
-
-
 def montar_video_de_audio_e_imagens(
     caminho_audio: str, imagens: list[str], caminho_saida: str, plataforma: str = "tiktok",
 ) -> float:
@@ -999,7 +954,15 @@ def montar_video_de_audio_e_imagens(
     palavras = _transcrever_palavras(caminho_audio)
     pausas = _detectar_pausas_da_fala(palavras)
     pontos_de_corte = _pontos_de_corte(duracao_total, len(imagens), pausas)
-    pontos_de_corte = _refinar_cortes_por_numero_no_texto(pontos_de_corte, palavras)
+    # Bug real 2026-09-12: `_refinar_cortes_por_numero_no_texto` (que dividia
+    # um bloco de pausa quando um número aparecia só na parte final da
+    # frase) fazia sentido quando esse número servia pra CASAR a foto certa
+    # com o trecho certo -- mas isso foi removido (ordem das fotos agora é
+    # sempre a numérica original, nunca mais decidida por conteúdo). Sem
+    # esse propósito, o refino reagia a QUALQUER número de 3+ dígitos
+    # (inclusive ANO, tipo "1991", que não tem nenhuma foto correspondente
+    # de verdade) e comprimia demais o bloco vizinho sem necessidade
+    # nenhuma. Removido -- confia só nas pausas reais da fala.
 
     # Bug real 2026-09-12 (correção direta do Davi, depois de várias
     # rodadas tentando "melhorar" o casamento por conteúdo): as fotos que
@@ -1250,6 +1213,7 @@ def montar_video(
             caminho_clipe = os.path.join(pasta_tmp, f"clipe{i}.mp4")
             gerar_clipe_cena(imagens, caminho_audio, duracao, caminho_clipe, pasta_tmp, caminho_sfx=caminho_sfx)
             clipes.append(caminho_clipe)
+            print(f"  [DEBUG] clipe{i}.mp4 real: {_duracao_segundos(caminho_clipe):.2f}s (esperado {duracao:.2f}s), frames={_contar_frames_reais(caminho_clipe)}")
 
         if duracao_total < 60:
             print(
@@ -1278,8 +1242,10 @@ def montar_video(
         caminhos_com_legenda = {}
         for plataforma, lista_clipes in clipes_por_plataforma.items():
             print(f"Concatenando cenas ({plataforma}, com transição fluida entre elas)...")
+            print(f"  [DEBUG] {len(lista_clipes)} clipes: {[os.path.basename(c) for c in lista_clipes]}")
             caminho_bruto = os.path.join(pasta_tmp, f"bruto_{plataforma}.mp4")
             concatenar_com_transicao(lista_clipes, caminho_bruto)
+            print(f"  [DEBUG] bruto_{plataforma}.mp4 real: {_duracao_segundos(caminho_bruto):.2f}s, frames={_contar_frames_reais(caminho_bruto)}")
 
             caminho_com_legenda = os.path.join(pasta_tmp, f"com_legenda_{plataforma}.mp4")
             if sem_legenda:
