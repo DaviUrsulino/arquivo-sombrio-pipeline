@@ -841,54 +841,59 @@ def _pontos_de_corte(duracao_total: float, n_imagens: int, pausas: list[tuple[fl
     duracao_total) -- usado tanto pra calcular duração por imagem quanto
     pra recortar o texto transcrito de cada trecho (ver
     `_textos_por_segmento`, usado no casamento de conteúdo com
-    `_casar_imagens_com_segmentos`)."""
+    `_casar_imagens_com_segmentos`).
+
+    Bug real 2026-09-12 (feedback do Manuel, RODADA 2, depois do fix por
+    pausa E do fix por conteúdo): "tem umas que tá muito rápido" E o
+    casamento do "315" voltou a falhar de novo. Raiz dos dois problemas
+    era a MESMA: a 1ª versão deste fix pegava as (n-1) maiores pausas por
+    duração do gap e, se sobrasse foto com menos de 2s, EMPURRAVA o corte
+    pra um ponto arbitrário -- que na prática não é mais uma pausa real,
+    e pior: esses mesmos pontos empurrados eram usados pra recortar o
+    TEXTO de cada trecho (`_textos_por_segmento`), corrompendo o texto que
+    ia pro casamento por conteúdo (o "315" podia ficar cortado ao meio,
+    ou grudado no trecho vizinho). Fix de verdade: exige espaçamento
+    mínimo já na HORA DE ESCOLHER os cortes (nunca aceita uma pausa muito
+    perto de outra já escolhida), em vez de escolher só pelo tamanho do
+    gap e consertar a posição depois -- todo ponto final é sempre uma
+    pausa real, então o texto de cada trecho nunca fica corrompido."""
     n_cortes_necessarios = n_imagens - 1
     if n_cortes_necessarios <= 0:
         return [0.0, duracao_total]
 
-    if len(pausas) >= n_cortes_necessarios:
-        maiores_pausas = sorted(pausas, key=lambda p: p[1], reverse=True)[:n_cortes_necessarios]
-        cortes = sorted(ponto for ponto, _gap in maiores_pausas)
-    else:
-        print(
-            f"  AVISO: só {len(pausas)} pausa(s) detectada(s) pra {n_imagens} fotos -- "
-            "narração corrida demais pra sincronizar por pausa, caindo pra divisão igual."
-        )
-        cortes = [duracao_total * i / n_imagens for i in range(1, n_imagens)]
-
-    pontos = [0.0] + cortes + [duracao_total]
-    return _impor_duracao_minima(pontos, duracao_total, n_imagens)
-
-
-def _impor_duracao_minima(
-    pontos: list[float], duracao_total: float, n_imagens: int, duracao_minima: float = 2.0,
-) -> list[float]:
-    """Bug real 2026-09-12 (feedback do Manuel DEPOIS do fix por conteúdo):
-    "ficou melhor mas tem umas que tá muito rápido" -- pegar sempre as
-    MAIORES pausas por duração do gap não impede que duas pausas grandes
-    caiam perto uma da outra no tempo (ex: alguém fala uma frase curta
-    entre dois respiros longos), o que sobra uma foto na tela por menos de
-    1s -- corte rápido demais pra acompanhar visualmente, mesmo estando
-    tecnicamente "no ritmo certo" da fala.
-
-    Empurra os cortes pra garantir pelo menos `duracao_minima` segundos de
-    tela por foto: uma passada da esquerda pra direita empurrando o próximo
-    corte quando o intervalo atual for curto demais, depois uma passada
-    reversa (direita pra esquerda) garantindo que essa correção não
-    empurrou nenhum corte além do fim do áudio. Se `duracao_minima * n`
-    for maior que o áudio inteiro (narração curta demais pra tantas fotos),
-    reduz a mínima proporcionalmente em vez de produzir cortes fora de
-    ordem."""
+    duracao_minima = 2.5
     if duracao_minima * n_imagens > duracao_total:
         duracao_minima = duracao_total / n_imagens
 
-    pontos = list(pontos)
-    for i in range(1, len(pontos) - 1):
-        if pontos[i] - pontos[i - 1] < duracao_minima:
-            pontos[i] = pontos[i - 1] + duracao_minima
-    for i in range(len(pontos) - 2, 0, -1):
-        if pontos[i + 1] - pontos[i] < duracao_minima:
-            pontos[i] = pontos[i + 1] - duracao_minima
+    candidatas = sorted(pausas, key=lambda p: p[1], reverse=True)
+    aceitas = []
+    for ponto, _gap in candidatas:
+        if len(aceitas) >= n_cortes_necessarios:
+            break
+        if ponto < duracao_minima or ponto > duracao_total - duracao_minima:
+            continue
+        if all(abs(ponto - outro) >= duracao_minima for outro in aceitas):
+            aceitas.append(ponto)
+
+    pontos = [0.0] + sorted(aceitas) + [duracao_total]
+    faltam = n_cortes_necessarios - len(aceitas)
+    if faltam > 0:
+        # Bug real 2026-09-12 (RODADA 3): fallback era tudo-ou-nada -- faltando
+        # SÓ 1 pausa bem espaçada de 15 necessárias, jogava fora as 14 boas e
+        # caía pra divisão igual no vídeo INTEIRO (por isso o fix de ritmo
+        # nunca chegava a valer de verdade). Fix: mantém as pausas reais já
+        # aceitas e só preenche o que falta dividindo ao meio o(s) MAIOR(ES)
+        # intervalo(s) restante(s) -- só o trecho sem pausa real vira divisão
+        # igual, o resto continua alinhado com a fala de verdade.
+        print(
+            f"  AVISO: só {len(aceitas)}/{n_cortes_necessarios} pausa(s) bem espaçada(s) "
+            f"(mínimo {duracao_minima:.1f}s entre fotos) -- completando {faltam} corte(s) "
+            "por divisão igual só no(s) trecho(s) sem pausa real."
+        )
+        for _ in range(faltam):
+            maior_i = max(range(len(pontos) - 1), key=lambda i: pontos[i + 1] - pontos[i])
+            pontos.insert(maior_i + 1, (pontos[maior_i] + pontos[maior_i + 1]) / 2)
+
     return pontos
 
 
