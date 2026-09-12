@@ -950,7 +950,16 @@ def _descrever_imagem_cloudflare(caminho_imagem: str) -> str | None:
     # não aparecia em lugar nenhum do log. Retry com backoff (mesmo padrão
     # de `gerar_imagem` em gerar_imagens_cloudflare.py) + aviso explícito
     # quando desiste de verdade, pra nunca mais passar em branco.
+    # Bug real 2026-09-12 (achado extraindo frame do vídeo entregue): o
+    # modelo de visão é NÃO DETERMINÍSTICO -- a mesma foto do "3155" saiu
+    # descrita SEM o número numa chamada, o que quebra o match exato por
+    # número (`_pares_por_numero_exato` depende da descrição citar o
+    # número) e deixa o Gemini escolher por "vibe" uma foto errada. Em vez
+    # de aceitar a primeira resposta que vier, coleta até 3 tentativas e
+    # prefere a que MENCIONA um número (2+ dígitos) -- se nenhuma mencionar,
+    # usa a primeira que deu certo.
     ultimo_erro = None
+    descricoes_obtidas = []
     for tentativa in range(3):
         try:
             # Esse modelo (diferente do modelo de GERAÇÃO de imagem, que
@@ -961,7 +970,12 @@ def _descrever_imagem_cloudflare(caminho_imagem: str) -> str | None:
                 url, headers=headers,
                 json={
                     "image": list(imagem_bytes),
-                    "prompt": "Descreva em uma frase curta, em português, o que aparece nesta foto.",
+                    "prompt": (
+                        "Descreva em uma frase curta, em português, o que aparece nesta foto. "
+                        "Se houver algum número, placa ou texto visível na imagem (ex: número de "
+                        "linha de ônibus, placa de veículo, letreiro), cite EXATAMENTE qual número/"
+                        "texto é, não deixe de mencionar."
+                    ),
                     "max_tokens": 100,
                 },
                 timeout=60,
@@ -975,13 +989,21 @@ def _descrever_imagem_cloudflare(caminho_imagem: str) -> str | None:
                 else:
                     descricao = dados["result"].get("description", "").strip()
                     if descricao:
-                        return descricao
-                    ultimo_erro = "descrição vazia"
+                        if re.search(r"\d{2,}", descricao):
+                            return descricao
+                        descricoes_obtidas.append(descricao)
+                        if len(descricoes_obtidas) >= 2:
+                            break
+                    else:
+                        ultimo_erro = "descrição vazia"
         except Exception as e:
             ultimo_erro = str(e)
 
         if tentativa < 2:
             time.sleep(2 * (tentativa + 1))
+
+    if descricoes_obtidas:
+        return descricoes_obtidas[0]
 
     print(f"  AVISO: falhou ao descrever {os.path.basename(caminho_imagem)} após 3 tentativas ({ultimo_erro})")
     return None
