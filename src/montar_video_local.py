@@ -1076,12 +1076,54 @@ def _casar_imagens_com_segmentos(segmentos_texto: list[str], descricoes_imagens:
         try:
             ordem = dados["ordem"]
             if len(ordem) == n and sorted(ordem) == ordem_original:
+                ordem = _revisar_casamento(segmentos_texto, descricoes_imagens, ordem)
                 return _aplicar_pares_fixos(ordem, pares_fixos)
             print(f"  AVISO: resposta de casamento por tema inválida ({dados}), usando só os pares por número exato.")
         except Exception as e:
             print(f"  AVISO: resposta de casamento por tema mal formada ({e}), usando só os pares por número exato.")
 
     return _aplicar_pares_fixos(ordem_original, pares_fixos)
+
+
+def _revisar_casamento(segmentos_texto: list[str], descricoes_imagens: list[str], ordem: list[int]) -> list[int]:
+    """Segunda passada de revisão -- pedido do Davi 2026-09-12 ("confere
+    início e fim de cada uma das 16 fotos, uma por uma"): o erro mais
+    comum observado (foto de um evento indo pro trecho vizinho errado,
+    ex: capotamento aparecendo um trecho atrasado) só apareceu de novo
+    mesmo depois de reforçar o prompt original -- pedir pra IA CONFERIR A
+    PRÓPRIA RESPOSTA com o resultado já pronto na frente (em vez de
+    decidir tudo de uma vez) dá uma segunda chance de pegar esse tipo de
+    deslocamento, o mesmo processo que o Davi descreveu fazendo na mão.
+    Se a revisão falhar ou vier inválida, mantém a ordem original -- é
+    uma melhoria best-effort, nunca pode piorar o que já tinha."""
+    n = len(ordem)
+    prompt = (
+        "Esta é a correspondência trecho de narração -> foto, já decidida:\n"
+        + "\n".join(
+            f'trecho {i} ("{segmentos_texto[i]}") = foto {ordem[i]} ("{descricoes_imagens[ordem[i]]}")'
+            for i in range(n)
+        )
+        + "\n\nRevise com cuidado, trecho por trecho, comparando cada um com o ANTERIOR e o "
+        "SEGUINTE. Erro mais comum a caçar: a foto de uma ação/evento específico (acidente, "
+        "pessoa fazendo algo, objeto aparecendo, cabeça baixa, portas abrindo etc) estar UM "
+        "TRECHO ANTES ou DEPOIS de onde essa ação é realmente narrada -- nesse caso, TROQUE as "
+        "duas fotos de posição. Só troque pares que estiverem realmente errados; não mude o "
+        "que já está certo. Cada foto continua usada EXATAMENTE uma vez (é uma permutação dos "
+        "mesmos 0.." + str(n - 1) + ", só pode trocar posições, nunca inventar índice novo). "
+        'Responda só em JSON com a ordem final (corrigida ou igual): {"ordem": [...]}'
+    )
+    dados = _chamar_llm_para_json(prompt)
+    if dados is None:
+        return ordem
+    try:
+        ordem_revisada = dados["ordem"]
+        if len(ordem_revisada) == n and sorted(ordem_revisada) == sorted(ordem):
+            if ordem_revisada != ordem:
+                print(f"  revisão corrigiu o casamento: {ordem} -> {ordem_revisada}")
+            return ordem_revisada
+    except Exception:
+        pass
+    return ordem
 
 
 def _chamar_llm_para_json(prompt: str) -> dict | None:
