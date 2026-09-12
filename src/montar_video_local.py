@@ -907,6 +907,43 @@ def _textos_por_segmento(palavras: list[tuple[float, float, str]], pontos_de_cor
     return segmentos
 
 
+def _refinar_cortes_por_numero_no_texto(
+    pontos_de_corte: list[float], palavras: list[tuple[float, float, str]],
+) -> list[float]:
+    """Divide um bloco de pausa quando ele junta duas frases (pausa curta
+    demais entre elas pro espaçamento mínimo de `_pontos_de_corte`) e a
+    segunda frase cita um número tipo linha de ônibus/placa (ex: "nunca
+    chegou ao seu destino final, é a linha 315." vira um bloco só, e a
+    foto do bloco aparece cedo demais, ainda durante "nunca chegou...").
+    Empurra o início do bloco pra ~0.3s antes da palavra do número,
+    roubando tempo do bloco ANTERIOR.
+
+    Bug real 2026-09-12 (achado na conferência, DEPOIS de já remover isso
+    uma vez achando que não servia mais pra nada sem o casamento por
+    conteúdo): sem essa divisão, o "315" volta a aparecer cedo demais
+    mesmo com a ordem das fotos correta -- o problema nunca foi "qual
+    foto", foi sempre "quando trocar". Mas exigir só 3+ dígitos também
+    pegava ANO ("1991", que aparece no meio de uma frase sobre a mesma
+    foto, sem motivo nenhum pra dividir ali) e comprimia um bloco vizinho
+    à toa; e exigir 2+ pegava número de HORA ("meia-noite e 15"). Fix:
+    exige EXATAMENTE 3 dígitos -- formato mais comum de linha de ônibus
+    (315), evita ano (4 dígitos) e hora (1-2 dígitos)."""
+    pontos = list(pontos_de_corte)
+    for i in range(1, len(pontos) - 1):
+        inicio, fim = pontos[i], pontos[i + 1]
+        palavra_numero = next(
+            (ini for ini, _fim, p in palavras if inicio <= ini < fim and re.search(r"(?<!\d)\d{3}(?!\d)", p)),
+            None,
+        )
+        if palavra_numero is None or palavra_numero - inicio < 1.0:
+            continue
+        novo_inicio = palavra_numero - 0.3
+        limite_minimo = pontos[i - 1] + 1.0
+        if novo_inicio > limite_minimo and novo_inicio > pontos[i]:
+            pontos[i] = novo_inicio
+    return pontos
+
+
 def montar_video_de_audio_e_imagens(
     caminho_audio: str, imagens: list[str], caminho_saida: str, plataforma: str = "tiktok",
 ) -> float:
@@ -954,15 +991,7 @@ def montar_video_de_audio_e_imagens(
     palavras = _transcrever_palavras(caminho_audio)
     pausas = _detectar_pausas_da_fala(palavras)
     pontos_de_corte = _pontos_de_corte(duracao_total, len(imagens), pausas)
-    # Bug real 2026-09-12: `_refinar_cortes_por_numero_no_texto` (que dividia
-    # um bloco de pausa quando um número aparecia só na parte final da
-    # frase) fazia sentido quando esse número servia pra CASAR a foto certa
-    # com o trecho certo -- mas isso foi removido (ordem das fotos agora é
-    # sempre a numérica original, nunca mais decidida por conteúdo). Sem
-    # esse propósito, o refino reagia a QUALQUER número de 3+ dígitos
-    # (inclusive ANO, tipo "1991", que não tem nenhuma foto correspondente
-    # de verdade) e comprimia demais o bloco vizinho sem necessidade
-    # nenhuma. Removido -- confia só nas pausas reais da fala.
+    pontos_de_corte = _refinar_cortes_por_numero_no_texto(pontos_de_corte, palavras)
 
     # Bug real 2026-09-12 (correção direta do Davi, depois de várias
     # rodadas tentando "melhorar" o casamento por conteúdo): as fotos que
