@@ -910,6 +910,44 @@ def _textos_por_segmento(palavras: list[tuple[float, float, str]], pontos_de_cor
     return segmentos
 
 
+def _refinar_cortes_por_numero_no_texto(
+    pontos_de_corte: list[float], palavras: list[tuple[float, float, str]],
+) -> list[float]:
+    """Bug real 2026-09-12, achado extraindo frame do vídeo ENTREGUE: um
+    bloco de pausa pode juntar duas frases (pausa curta demais entre elas
+    pro espaçamento mínimo de `_pontos_de_corte`) -- ex: "nunca chegou ao
+    seu destino final, é a linha 315." vira UM bloco só. Quando esse bloco
+    cita um número específico só na PARTE FINAL da frase (o "315" só
+    aparece depois de "nunca chegou..."), a foto escolhida pro bloco
+    inteiro (mesmo que certa) acaba aparecendo cedo demais, ainda durante
+    a parte que não tem nada a ver com esse número.
+
+    Tentativa anterior desse fix dependia de casar o número com a
+    descrição da foto (OCR do modelo de visão) -- e essa OCR se provou
+    NADA confiável nessas imagens escuras/estilizadas (leu "31355" onde a
+    placa real era "3155", chegou a inventar número totalmente errado).
+    Fix novo: não depende de OCR de imagem nenhuma, só do PRÓPRIO TEXTO
+    transcrito -- se um bloco cita um número que só aparece depois de pelo
+    menos 1s de fala sem número nenhum, divide o bloco ali (empurra o
+    início pra ~0.3s antes da palavra do número, roubando tempo do bloco
+    ANTERIOR). Roda antes de decidir qual foto vai em cada bloco, então o
+    casamento por conteúdo já trabalha em cima dos blocos certos."""
+    pontos = list(pontos_de_corte)
+    for i in range(1, len(pontos) - 1):
+        inicio, fim = pontos[i], pontos[i + 1]
+        palavra_numero = next(
+            (ini for ini, _fim, p in palavras if inicio <= ini < fim and re.search(r"\d{2,}", p)),
+            None,
+        )
+        if palavra_numero is None or palavra_numero - inicio < 1.0:
+            continue
+        novo_inicio = palavra_numero - 0.3
+        limite_minimo = pontos[i - 1] + 1.0
+        if novo_inicio > limite_minimo and novo_inicio > pontos[i]:
+            pontos[i] = novo_inicio
+    return pontos
+
+
 def _descrever_imagem_cloudflare(caminho_imagem: str) -> str | None:
     """Descreve o conteúdo de uma foto em poucas palavras via modelo de
     visão da Cloudflare Workers AI (mesma conta já usada pra gerar imagem
@@ -1254,6 +1292,7 @@ def montar_video_de_audio_e_imagens(
     palavras = _transcrever_palavras(caminho_audio)
     pausas = _detectar_pausas_da_fala(palavras)
     pontos_de_corte = _pontos_de_corte(duracao_total, len(imagens), pausas)
+    pontos_de_corte = _refinar_cortes_por_numero_no_texto(pontos_de_corte, palavras)
 
     print("Descrevendo fotos pra casar com o trecho certo da narração...")
     descricoes_imagens = [_descrever_imagem_cloudflare(img) for img in imagens]
