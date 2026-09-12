@@ -1023,16 +1023,25 @@ def _casar_imagens_com_segmentos(segmentos_texto: list[str], descricoes_imagens:
             "certeza pra algum trecho, mantenha o índice da foto igual ao índice do trecho. "
             'Responda só em JSON: {"ordem": [indice_da_foto_pro_trecho_0, indice_da_foto_pro_trecho_1, ...]}'
         )
-        client = genai.Client(api_key=chave.strip(), http_options=types.HttpOptions(timeout=30_000))
-        resposta = client.models.generate_content(
-            model="gemini-3.6-flash",
-            contents=prompt,
-            config=types.GenerateContentConfig(response_mime_type="application/json"),
-        )
-        dados = json.loads(resposta.text)
-        ordem = dados["ordem"]
-        if len(ordem) == n and sorted(ordem) == ordem_original:
-            return ordem
+        client = genai.Client(api_key=chave.strip(), http_options=types.HttpOptions(timeout=60_000))
+        ultimo_erro = None
+        for tentativa in range(2):
+            try:
+                resposta = client.models.generate_content(
+                    model="gemini-3.6-flash",
+                    contents=prompt,
+                    config=types.GenerateContentConfig(response_mime_type="application/json"),
+                )
+                dados = json.loads(resposta.text)
+                ordem = dados["ordem"]
+                if len(ordem) == n and sorted(ordem) == ordem_original:
+                    return ordem
+                ultimo_erro = f"resposta inválida: {dados}"
+            except Exception as e:
+                ultimo_erro = e
+                if tentativa == 0:
+                    time.sleep(3)
+        print(f"  AVISO: casamento imagem/conteúdo via Gemini falhou ({ultimo_erro}), mantendo ordem numérica.")
     except Exception as e:
         print(f"  AVISO: casamento imagem/conteúdo via Gemini falhou ({e}), mantendo ordem numérica.")
 
