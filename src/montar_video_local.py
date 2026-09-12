@@ -1019,8 +1019,14 @@ def _casar_imagens_com_segmentos(segmentos_texto: list[str], descricoes_imagens:
             + "\n\nFotos disponíveis, com descrição do conteúdo (0-based):\n"
             + "\n".join(f"{i}: {d}" for i, d in enumerate(descricoes_imagens))
             + "\n\nPra cada trecho de narração, diga qual foto combina melhor com o que "
-            "está sendo dito. Cada foto deve ser usada EXATAMENTE uma vez. Se não tiver "
-            "certeza pra algum trecho, mantenha o índice da foto igual ao índice do trecho. "
+            "está sendo dito. REGRA MAIS IMPORTANTE: se um trecho menciona um número, "
+            "placa, nome ou texto específico (ex: 'linha 315', 'ônibus 4521') e a descrição "
+            "de alguma foto mostra ESSE MESMO número/texto visível nela, essa foto é "
+            "OBRIGATÓRIA pra esse trecho -- vale muito mais que qualquer semelhança de tema "
+            "ou cenário geral. Só quando não houver esse tipo de match exato, escolha pela "
+            "cena/tema que mais combina. Cada foto deve ser usada EXATAMENTE uma vez. Se não "
+            "tiver certeza pra algum trecho, mantenha o índice da foto igual ao índice do "
+            "trecho. "
             'Responda só em JSON: {"ordem": [indice_da_foto_pro_trecho_0, indice_da_foto_pro_trecho_1, ...]}'
         )
         client = genai.Client(api_key=chave.strip(), http_options=types.HttpOptions(timeout=60_000))
