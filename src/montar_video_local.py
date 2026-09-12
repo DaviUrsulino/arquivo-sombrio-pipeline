@@ -17,8 +17,6 @@ Uso:
 """
 
 import argparse
-import base64
-import io
 import json
 import os
 import random
@@ -26,9 +24,7 @@ import re
 import shutil
 import subprocess
 import tempfile
-import time
 
-import requests
 import soundfile as sf
 from PIL import Image
 
@@ -840,8 +836,8 @@ def _pontos_de_corte(duracao_total: float, n_imagens: int, pausas: list[tuple[fl
     Retorna a lista de PONTOS (n_imagens + 1 valores, incluindo 0.0 e
     duracao_total) -- usado tanto pra calcular duração por imagem quanto
     pra recortar o texto transcrito de cada trecho (ver
-    `_textos_por_segmento`, usado no casamento de conteúdo com
-    `_casar_imagens_com_segmentos`).
+    `_textos_por_segmento`, só pra legenda/log -- a ORDEM das fotos nunca
+    muda, é sempre a numérica original).
 
     Bug real 2026-09-12 (feedback do Manuel, RODADA 2, depois do fix por
     pausa E do fix por conteúdo): "tem umas que tá muito rápido" E o
@@ -900,8 +896,9 @@ def _pontos_de_corte(duracao_total: float, n_imagens: int, pausas: list[tuple[fl
 def _textos_por_segmento(palavras: list[tuple[float, float, str]], pontos_de_corte: list[float]) -> list[str]:
     """Junta as palavras transcritas que caem dentro de cada janela de
     tempo definida por `pontos_de_corte`, formando o texto falado
-    correspondente a cada imagem -- usado pra casar imagem com o CONTEÚDO
-    do que está sendo dito (`_casar_imagens_com_segmentos`), não só o tempo."""
+    correspondente a cada imagem -- usado só pro log de conferência
+    (`montar_video_de_audio_e_imagens` imprime isso pra bater contra o
+    vídeo entregue), não afeta a ordem das fotos."""
     segmentos = []
     for i in range(len(pontos_de_corte) - 1):
         inicio, fim = pontos_de_corte[i], pontos_de_corte[i + 1]
@@ -955,308 +952,6 @@ def _refinar_cortes_por_numero_no_texto(
     return pontos
 
 
-def _descrever_imagem_cloudflare(caminho_imagem: str) -> str | None:
-    """Descreve o conteúdo de uma foto em poucas palavras via modelo de
-    visão da Cloudflare Workers AI (mesma conta já usada pra gerar imagem
-    em `gerar_imagens_cloudflare.py`) -- usado pra casar cada foto com o
-    trecho da narração que fala sobre ela de verdade, em vez de assumir
-    que a ordem numérica do arquivo já é a ordem certa. Retorna None se
-    a chamada falhar por qualquer motivo (sem chave configurada, rede,
-    cota) -- quem chama trata None como "sem info, mantém ordem original"."""
-    account_id = os.environ.get("CLOUDFLARE_ACCOUNT_ID")
-    token = os.environ.get("CLOUDFLARE_API_TOKEN")
-    if not account_id or not token:
-        return None
-
-    url = f"https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/@cf/llava-hf/llava-1.5-7b-hf"
-    headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
-
-    # Bug real 2026-09-12: mandar a foto original (2K) como array de bytes
-    # no JSON incha o payload (cada byte vira um número JSON, ~3-4x o
-    # tamanho) e a Cloudflare rejeita com 413 "Request is too large" pra
-    # boa parte das fotos maiores -- foi por isso que 9 de 16 fotos do
-    # ônibus vieram sem descrição e o casamento por conteúdo nunca rodou de
-    # verdade. Visão não precisa de resolução alta: redimensiona pro máximo
-    # de 768px no lado maior antes de mandar.
-    with Image.open(caminho_imagem) as img:
-        img = img.convert("RGB")
-        if max(img.size) > 768:
-            escala = 768 / max(img.size)
-            img = img.resize((round(img.width * escala), round(img.height * escala)))
-        buffer = io.BytesIO()
-        img.save(buffer, format="JPEG", quality=85)
-        imagem_bytes = buffer.getvalue()
-
-    # Bug real 2026-09-12: rodando 16 fotos em sequência sem pausa, boa
-    # parte das chamadas falhava (provável rate limit da Cloudflare) e
-    # `_casar_imagens_com_segmentos` desistia SILENCIOSAMENTE do casamento
-    # inteiro assim que via qualquer descrição None -- nenhum dos vídeos
-    # até agora teve o casamento por conteúdo aplicado de verdade, e a falha
-    # não aparecia em lugar nenhum do log. Retry com backoff (mesmo padrão
-    # de `gerar_imagem` em gerar_imagens_cloudflare.py) + aviso explícito
-    # quando desiste de verdade, pra nunca mais passar em branco.
-    # Bug real 2026-09-12 (achado extraindo frame do vídeo entregue): o
-    # modelo de visão é NÃO DETERMINÍSTICO -- a mesma foto do "3155" saiu
-    # descrita SEM o número numa chamada, o que tira do Gemini um sinal
-    # forte de casamento (número citado no trecho = número na foto) e
-    # aumenta a chance de errar por "vibe". Em vez de aceitar a primeira
-    # resposta que vier, coleta até 3 tentativas e prefere a que MENCIONA
-    # um número (2+ dígitos) -- se nenhuma mencionar, usa a primeira que
-    # deu certo. Nota: a leitura do número em si (OCR) não é confiável
-    # nessas imagens escuras/estilizadas (já vimos alucinar dígito a mais
-    # ou número totalmente errado) -- por isso o casamento NÃO exige mais
-    # que o número bata exato em código (ver `_casar_imagens_com_segmentos`),
-    # só usa como sinal a mais pro Gemini.
-    ultimo_erro = None
-    descricoes_obtidas = []
-    for tentativa in range(3):
-        try:
-            # Esse modelo (diferente do modelo de GERAÇÃO de imagem, que
-            # aceita multipart com "files=") só aceita a imagem como array
-            # de bytes no corpo JSON -- bug real 2026-09-12: multipart
-            # devolvia 400 "Unsupported image data".
-            resp = requests.post(
-                url, headers=headers,
-                json={
-                    "image": list(imagem_bytes),
-                    "prompt": (
-                        "Descreva em uma frase curta, em português, o que aparece nesta foto. "
-                        "Se houver algum número, placa ou texto visível na imagem (ex: número de "
-                        "linha de ônibus, placa de veículo, letreiro), cite EXATAMENTE qual número/"
-                        "texto é, não deixe de mencionar."
-                    ),
-                    "max_tokens": 100,
-                },
-                timeout=60,
-            )
-            if resp.status_code != 200:
-                ultimo_erro = f"HTTP {resp.status_code}: {resp.text[:200]}"
-            else:
-                dados = resp.json()
-                if not dados.get("success"):
-                    ultimo_erro = f"resposta sem sucesso: {dados}"
-                else:
-                    descricao = dados["result"].get("description", "").strip()
-                    if descricao:
-                        if re.search(r"\d{2,}", descricao):
-                            return descricao
-                        descricoes_obtidas.append(descricao)
-                        if len(descricoes_obtidas) >= 2:
-                            break
-                    else:
-                        ultimo_erro = "descrição vazia"
-        except Exception as e:
-            ultimo_erro = str(e)
-
-        if tentativa < 2:
-            time.sleep(2 * (tentativa + 1))
-
-    if descricoes_obtidas:
-        return descricoes_obtidas[0]
-
-    print(f"  AVISO: falhou ao descrever {os.path.basename(caminho_imagem)} após 3 tentativas ({ultimo_erro})")
-    return None
-
-
-def _casar_imagens_com_segmentos(segmentos_texto: list[str], descricoes_imagens: list[str | None]) -> list[int]:
-    """Pede pro Gemini casar cada trecho de narração (em ordem cronológica)
-    com a foto cujo conteúdo combina melhor, em vez de assumir que a ordem
-    numérica das fotos já segue a ordem da fala -- pedido do Davi 2026-09-12
-    ("junta com a imagem do contexto certo"). Retorna uma lista de índices
-    (0-based) com o mesmo tamanho de `segmentos_texto`: `resultado[i]` é o
-    índice da foto que deve aparecer no trecho i.
-
-    Se qualquer coisa der errado (sem GEMINI_API_KEY, resposta inválida,
-    fotos sem descrição por falha da Cloudflare) cai pra ORDEM NUMÉRICA
-    original -- esse casamento é uma melhoria best-effort, nunca pode
-    travar a montagem do vídeo."""
-    n = len(segmentos_texto)
-    ordem_original = list(range(n))
-    faltando = [i for i, d in enumerate(descricoes_imagens) if d is None]
-    if faltando:
-        print(
-            f"  AVISO: {len(faltando)}/{n} foto(s) sem descrição (índices {faltando}) -- "
-            "casamento por conteúdo cancelado, mantendo ordem numérica."
-        )
-        return ordem_original
-
-    # Bug real 2026-09-12 (feedback do Manuel): tentamos forçar pares de
-    # número EXATO (linha de ônibus, placa) em código, de forma
-    # determinística, ANTES de confiar no Gemini -- mas isso dependia do
-    # modelo de visão ler o número CERTO na imagem (OCR), e ele lê ERRADO
-    # com frequência nessas imagens estilizadas escuras: viu "31355" onde
-    # a placa real era "3155" (um dígito a mais alucinado), e chegou a
-    # descrever uma foto que na verdade mostra "315" como "313-031"
-    # (número totalmente errado). Um match por substring de dígito não
-    # sobrevive a esse tipo de erro de leitura -- removido. Em vez disso,
-    # o Gemini recebe a instrução explícita de tratar número/placa citado
-    # como forte sinal de casamento (ver prompt abaixo), mas sem forçar
-    # cegamente em código -- e a 2ª passada de revisão
-    # (`_revisar_casamento`) pega o resto.
-    prompt = (
-        "Trechos de narração, em ordem cronológica (0-based):\n"
-        + "\n".join(f"{i}: {t}" for i, t in enumerate(segmentos_texto))
-        + "\n\nFotos disponíveis, com descrição do conteúdo (0-based):\n"
-        + "\n".join(f"{i}: {d}" for i, d in enumerate(descricoes_imagens))
-        + "\n\nPra cada trecho de narração, diga qual foto combina melhor com a AÇÃO/CENA "
-        "específica que está sendo narrada NAQUELE trecho -- não com o tema geral da "
-        "história. Se o trecho cita um número específico (linha de ônibus, placa, ano) e "
-        "a descrição de uma foto cita um número parecido (a leitura do número pela IA de "
-        "visão pode ter um dígito errado, não exija bater 100%), prefira essa foto. ERRO "
-        "MAIS COMUM a evitar: colocar a foto de um evento (acidente, queda, descoberta, "
-        "morte etc) um trecho ANTES ou DEPOIS de quando esse evento é realmente narrado -- "
-        "ex: se o trecho 3 fala 'o motorista perdeu o controle e o ônibus caiu na "
-        "ribanceira', a foto do ônibus acidentado/tombado tem que ir NO TRECHO 3, não no "
-        "trecho 2 (que só fala de uma data, sem o acidente ainda) nem no trecho 4. Leia o "
-        "trecho anterior e o seguinte antes de decidir, pra não adiantar ou atrasar o "
-        "momento certo por engano. Da mesma forma, uma foto com um significado bem "
-        "específico (ex: polícia investigando, corpo, cena de crime) só combina com o "
-        "trecho que narra EXATAMENTE aquilo (ex: descoberta/investigação) -- não a use como "
-        "preenchimento genérico pra um trecho que só fala algo vago tipo 'moradores afirmam' "
-        "sem mencionar investigação nenhuma; nesse caso prefira uma foto mais neutra/genérica "
-        "de ônibus. Cada foto deve ser usada EXATAMENTE uma vez. Se não tiver "
-        "certeza pra algum trecho, mantenha o índice da foto igual ao índice do trecho. "
-        'Responda só em JSON: {"ordem": [indice_da_foto_pro_trecho_0, indice_da_foto_pro_trecho_1, ...]}'
-    )
-
-    dados = _chamar_llm_para_json(prompt)
-    if dados is not None:
-        try:
-            ordem = dados["ordem"]
-            if len(ordem) == n and sorted(ordem) == ordem_original:
-                return _revisar_casamento(segmentos_texto, descricoes_imagens, ordem)
-            print(f"  AVISO: resposta de casamento por tema inválida ({dados}), mantendo ordem numérica.")
-        except Exception as e:
-            print(f"  AVISO: resposta de casamento por tema mal formada ({e}), mantendo ordem numérica.")
-
-    return ordem_original
-
-
-def _revisar_casamento(segmentos_texto: list[str], descricoes_imagens: list[str], ordem: list[int]) -> list[int]:
-    """Segunda passada de revisão -- pedido do Davi 2026-09-12 ("confere
-    início e fim de cada uma das 16 fotos, uma por uma"): o erro mais
-    comum observado (foto de um evento indo pro trecho vizinho errado,
-    ex: capotamento aparecendo um trecho atrasado) só apareceu de novo
-    mesmo depois de reforçar o prompt original -- pedir pra IA CONFERIR A
-    PRÓPRIA RESPOSTA com o resultado já pronto na frente (em vez de
-    decidir tudo de uma vez) dá uma segunda chance de pegar esse tipo de
-    deslocamento, o mesmo processo que o Davi descreveu fazendo na mão.
-    Se a revisão falhar ou vier inválida, mantém a ordem original -- é
-    uma melhoria best-effort, nunca pode piorar o que já tinha."""
-    n = len(ordem)
-    prompt = (
-        "Esta é a correspondência trecho de narração -> foto, já decidida:\n"
-        + "\n".join(
-            f'trecho {i} ("{segmentos_texto[i]}") = foto {ordem[i]} ("{descricoes_imagens[ordem[i]]}")'
-            for i in range(n)
-        )
-        + "\n\nRevise com cuidado, trecho por trecho, comparando cada um com o ANTERIOR e o "
-        "SEGUINTE. Erro mais comum a caçar: a foto de uma ação/evento específico (acidente, "
-        "pessoa fazendo algo, objeto aparecendo, cabeça baixa, portas abrindo etc) estar UM "
-        "TRECHO ANTES ou DEPOIS de onde essa ação é realmente narrada -- nesse caso, TROQUE as "
-        "duas fotos de posição. Só troque pares que estiverem realmente errados; não mude o "
-        "que já está certo. Cada foto continua usada EXATAMENTE uma vez (é uma permutação dos "
-        "mesmos 0.." + str(n - 1) + ", só pode trocar posições, nunca inventar índice novo). "
-        'Responda só em JSON com a ordem final (corrigida ou igual): {"ordem": [...]}'
-    )
-    dados = _chamar_llm_para_json(prompt)
-    if dados is None:
-        return ordem
-    try:
-        ordem_revisada = dados["ordem"]
-        if len(ordem_revisada) == n and sorted(ordem_revisada) == sorted(ordem):
-            if ordem_revisada != ordem:
-                print(f"  revisão corrigiu o casamento: {ordem} -> {ordem_revisada}")
-            return ordem_revisada
-    except Exception:
-        pass
-    return ordem
-
-
-def _chamar_llm_para_json(prompt: str) -> dict | None:
-    """Pedido do Davi 2026-09-12 ("pensa numa segunda saída, se o Gemini
-    ficar dando erro os vídeos não vão ter uma boa edição"): o casamento
-    por tema (`_casar_imagens_com_segmentos`) dependia só do Gemini -- se
-    ele estiver sobrecarregado (aconteceu de verdade, 503 "high demand"),
-    o vídeo saía só com os pares por número exato, sem casamento de tema
-    nenhum pro resto das fotos. Mesmo padrão de camadas de fallback já
-    usado em `gerar_roteiro.py` pra geração de roteiro (Gemini ->
-    OpenRouter free tier -> Mistral free tier), aplicado aqui: só desiste
-    de verdade se os três provedores falharem."""
-    chave_gemini = os.environ.get("GEMINI_API_KEY") or (os.environ.get("GEMINI_API_KEYS", "").split(",") or [None])[0]
-    if chave_gemini:
-        try:
-            from google import genai
-            from google.genai import types
-
-            client = genai.Client(api_key=chave_gemini.strip(), http_options=types.HttpOptions(timeout=60_000))
-            ultimo_erro = None
-            for tentativa in range(2):
-                try:
-                    resposta = client.models.generate_content(
-                        model="gemini-3.6-flash",
-                        contents=prompt,
-                        config=types.GenerateContentConfig(response_mime_type="application/json", temperature=0),
-                    )
-                    return json.loads(resposta.text)
-                except Exception as e:
-                    ultimo_erro = e
-                    if tentativa == 0:
-                        time.sleep(3)
-            print(f"  AVISO: Gemini indisponível pro casamento de tema ({ultimo_erro}), tentando OpenRouter...")
-        except Exception as e:
-            print(f"  AVISO: Gemini indisponível pro casamento de tema ({e}), tentando OpenRouter...")
-
-    chave_or = os.environ.get("OPENROUTER_API_KEY")
-    if chave_or:
-        # Bug real 2026-09-12: usar só UM modelo fixo (nemotron 550B) deu
-        # timeout repetido (modelo free tier grande demais, provavelmente
-        # sobrecarregado) -- reaproveita a mesma lista dinâmica de modelos
-        # ":free" disponíveis já usada em gerar_roteiro.py, tentando mais
-        # de um em sequência com timeout maior antes de desistir.
-        from gerar_roteiro import _modelos_openrouter_disponiveis
-
-        for modelo in _modelos_openrouter_disponiveis(chave_or):
-            try:
-                resp = requests.post(
-                    "https://openrouter.ai/api/v1/chat/completions",
-                    headers={"Authorization": f"Bearer {chave_or}", "Content-Type": "application/json"},
-                    json={
-                        "model": modelo,
-                        "messages": [{"role": "user", "content": prompt}],
-                        "response_format": {"type": "json_object"},
-                        "temperature": 0,
-                    },
-                    timeout=90,
-                )
-                resp.raise_for_status()
-                return json.loads(resp.json()["choices"][0]["message"]["content"])
-            except Exception as e:
-                print(f"  AVISO: OpenRouter {modelo} indisponível pro casamento de tema ({e}), tentando próximo...")
-        print("  AVISO: todos os modelos OpenRouter falharam pro casamento de tema, tentando Mistral...")
-
-    chave_mistral = os.environ.get("MISTRAL_API_KEY")
-    if chave_mistral:
-        try:
-            resp = requests.post(
-                "https://api.mistral.ai/v1/chat/completions",
-                headers={"Authorization": f"Bearer {chave_mistral}", "Content-Type": "application/json"},
-                json={
-                    "model": "mistral-small-latest",
-                    "messages": [{"role": "user", "content": prompt}],
-                    "response_format": {"type": "json_object"},
-                    "temperature": 0,
-                },
-                timeout=45,
-            )
-            resp.raise_for_status()
-            return json.loads(resp.json()["choices"][0]["message"]["content"])
-        except Exception as e:
-            print(f"  AVISO: Mistral também indisponível pro casamento de tema ({e}) -- todos os provedores falharam.")
-
-    return None
-
-
 def montar_video_de_audio_e_imagens(
     caminho_audio: str, imagens: list[str], caminho_saida: str, plataforma: str = "tiktok",
 ) -> float:
@@ -1279,14 +974,14 @@ def montar_video_de_audio_e_imagens(
     cronológica, como os cortes de imagem -- sem ancorar num tempo ideal
     (ver `_detectar_pausas_da_fala`/`_pontos_de_corte`).
 
-    Além do RITMO do corte, também casa o CONTEÚDO: descreve cada foto via
-    visão computacional (Cloudflare Workers AI) e pede pro Gemini casar cada
-    trecho de narração com a foto que combina melhor (pedido do Davi
-    2026-09-12: "junta com a imagem do contexto certo", não só assumir que a
-    ordem numérica do arquivo já é a ordem da fala) -- ver
-    `_descrever_imagem_cloudflare`/`_casar_imagens_com_segmentos`. Se a
-    visão ou o casamento falharem por qualquer motivo, cai pra ordem
-    numérica original (nunca trava a montagem por causa disso).
+    A ORDEM das fotos NUNCA muda -- é sempre a ordem numérica do arquivo
+    (1, 2, 3...), porque o irmão do Davi já numera seguindo a narração.
+    Chegou a existir aqui uma tentativa de "casar por conteúdo" (visão
+    computacional + LLM decidindo qual foto combina com qual trecho), mas
+    o Davi confirmou 2026-09-12 que isso estava DESFAZENDO uma ordem que
+    já vinha certa -- removido. Este pipeline só decide UMA coisa: o
+    RITMO do corte (quando trocar de foto, baseado nas pausas reais da
+    fala), nunca qual foto vai em qual trecho.
 
     Aplica o mesmo Ken Burns variado + tremida + personagem_cresce de sempre
     (`gerar_clipe_imagem_silencioso`), concatena com a mesma transição
@@ -1306,20 +1001,24 @@ def montar_video_de_audio_e_imagens(
     pontos_de_corte = _pontos_de_corte(duracao_total, len(imagens), pausas)
     pontos_de_corte = _refinar_cortes_por_numero_no_texto(pontos_de_corte, palavras)
 
-    print("Descrevendo fotos pra casar com o trecho certo da narração...")
-    descricoes_imagens = [_descrever_imagem_cloudflare(img) for img in imagens]
+    # Bug real 2026-09-12 (correção direta do Davi, depois de várias
+    # rodadas tentando "melhorar" o casamento por conteúdo): as fotos que
+    # o irmão manda JÁ VÊM na ordem certa da narração -- ele numera 1, 2,
+    # 3... seguindo o que vai falar. Reordenar por "conteúdo" (Gemini
+    # tentando adivinhar qual foto combina com qual trecho) estava
+    # DESFAZENDO uma ordem que já estava certa, trocando fotos de lugar
+    # sem necessidade e piorando o resultado. Removido -- a única coisa
+    # que este pipeline decide é O RITMO do corte (quando trocar, baseado
+    # nas pausas reais da fala), nunca A ORDEM das fotos, que é sempre a
+    # ordem numérica original.
     segmentos_texto = _textos_por_segmento(palavras, pontos_de_corte)
     duracoes_por_imagem = [pontos_de_corte[i + 1] - pontos_de_corte[i] for i in range(len(imagens))]
-    ordem_por_conteudo = _casar_imagens_com_segmentos(segmentos_texto, descricoes_imagens)
-    if ordem_por_conteudo != list(range(len(imagens))):
-        print(f"  ordem ajustada pelo conteúdo: {ordem_por_conteudo}")
-    imagens = [imagens[i] for i in ordem_por_conteudo]
 
     print("  === plano final de corte (conferir contra o vídeo entregue) ===")
-    for i, foto_idx in enumerate(ordem_por_conteudo):
+    for i, imagem in enumerate(imagens):
         print(
             f"  [{i}] {pontos_de_corte[i]:.1f}s-{pontos_de_corte[i + 1]:.1f}s "
-            f"foto={os.path.basename(imagens[i])} ({descricoes_imagens[foto_idx]!r}): {segmentos_texto[i]!r}"
+            f"foto={os.path.basename(imagem)}: {segmentos_texto[i]!r}"
         )
 
     with tempfile.TemporaryDirectory() as pasta_tmp:
