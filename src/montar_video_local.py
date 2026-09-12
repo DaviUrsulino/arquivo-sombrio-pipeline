@@ -1159,22 +1159,31 @@ def _chamar_llm_para_json(prompt: str) -> dict | None:
 
     chave_or = os.environ.get("OPENROUTER_API_KEY")
     if chave_or:
-        try:
-            resp = requests.post(
-                "https://openrouter.ai/api/v1/chat/completions",
-                headers={"Authorization": f"Bearer {chave_or}", "Content-Type": "application/json"},
-                json={
-                    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
-                    "messages": [{"role": "user", "content": prompt}],
-                    "response_format": {"type": "json_object"},
-                    "temperature": 0,
-                },
-                timeout=45,
-            )
-            resp.raise_for_status()
-            return json.loads(resp.json()["choices"][0]["message"]["content"])
-        except Exception as e:
-            print(f"  AVISO: OpenRouter indisponível pro casamento de tema ({e}), tentando Mistral...")
+        # Bug real 2026-09-12: usar só UM modelo fixo (nemotron 550B) deu
+        # timeout repetido (modelo free tier grande demais, provavelmente
+        # sobrecarregado) -- reaproveita a mesma lista dinâmica de modelos
+        # ":free" disponíveis já usada em gerar_roteiro.py, tentando mais
+        # de um em sequência com timeout maior antes de desistir.
+        from gerar_roteiro import _modelos_openrouter_disponiveis
+
+        for modelo in _modelos_openrouter_disponiveis(chave_or):
+            try:
+                resp = requests.post(
+                    "https://openrouter.ai/api/v1/chat/completions",
+                    headers={"Authorization": f"Bearer {chave_or}", "Content-Type": "application/json"},
+                    json={
+                        "model": modelo,
+                        "messages": [{"role": "user", "content": prompt}],
+                        "response_format": {"type": "json_object"},
+                        "temperature": 0,
+                    },
+                    timeout=90,
+                )
+                resp.raise_for_status()
+                return json.loads(resp.json()["choices"][0]["message"]["content"])
+            except Exception as e:
+                print(f"  AVISO: OpenRouter {modelo} indisponível pro casamento de tema ({e}), tentando próximo...")
+        print("  AVISO: todos os modelos OpenRouter falharam pro casamento de tema, tentando Mistral...")
 
     chave_mistral = os.environ.get("MISTRAL_API_KEY")
     if chave_mistral:
