@@ -952,12 +952,16 @@ def _descrever_imagem_cloudflare(caminho_imagem: str) -> str | None:
     # quando desiste de verdade, pra nunca mais passar em branco.
     # Bug real 2026-09-12 (achado extraindo frame do vídeo entregue): o
     # modelo de visão é NÃO DETERMINÍSTICO -- a mesma foto do "3155" saiu
-    # descrita SEM o número numa chamada, o que quebra o match exato por
-    # número (`_pares_por_numero_exato` depende da descrição citar o
-    # número) e deixa o Gemini escolher por "vibe" uma foto errada. Em vez
-    # de aceitar a primeira resposta que vier, coleta até 3 tentativas e
-    # prefere a que MENCIONA um número (2+ dígitos) -- se nenhuma mencionar,
-    # usa a primeira que deu certo.
+    # descrita SEM o número numa chamada, o que tira do Gemini um sinal
+    # forte de casamento (número citado no trecho = número na foto) e
+    # aumenta a chance de errar por "vibe". Em vez de aceitar a primeira
+    # resposta que vier, coleta até 3 tentativas e prefere a que MENCIONA
+    # um número (2+ dígitos) -- se nenhuma mencionar, usa a primeira que
+    # deu certo. Nota: a leitura do número em si (OCR) não é confiável
+    # nessas imagens escuras/estilizadas (já vimos alucinar dígito a mais
+    # ou número totalmente errado) -- por isso o casamento NÃO exige mais
+    # que o número bata exato em código (ver `_casar_imagens_com_segmentos`),
+    # só usa como sinal a mais pro Gemini.
     ultimo_erro = None
     descricoes_obtidas = []
     for tentativa in range(3):
@@ -1031,38 +1035,32 @@ def _casar_imagens_com_segmentos(segmentos_texto: list[str], descricoes_imagens:
         )
         return ordem_original
 
-    # Bug real 2026-09-12 (feedback do Manuel, DEPOIS de já ter pedido pro
-    # Gemini "priorizar match exato" via instrução no prompt): mesmo com a
-    # instrução explícita, o Gemini ainda errava o par óbvio (narração diz
-    # "linha 315", foto mostra literalmente "3155" escrito no ônibus) --
-    # instrução em texto livre não é GARANTIA nenhuma de comportamento.
-    # Fix de verdade: resolve pares de número EXATO (placa, linha, ano etc)
-    # em código, de forma determinística, ANTES de chamar o Gemini -- e
-    # depois FORÇA esses pares no resultado final não importa o que o
-    # Gemini responda. Isso generaliza pra qualquer vídeo (não só esse
-    # ônibus): sempre que a narração citar um número que aparece também
-    # numa foto, o casamento correto está garantido, não é mais "sorte da
-    # IA seguir a instrução".
-    pares_fixos = _pares_por_numero_exato(segmentos_texto, descricoes_imagens)
-
-    dica_fixos = ""
-    if pares_fixos:
-        dica_fixos = (
-            "\n\nOs seguintes pares JÁ ESTÃO DECIDIDOS por um número/texto idêntico "
-            "entre o trecho e a foto -- NÃO mude esses, só decida os outros: "
-            + ", ".join(f"trecho {seg} = foto {img}" for seg, img in pares_fixos.items())
-        )
+    # Bug real 2026-09-12 (feedback do Manuel): tentamos forçar pares de
+    # número EXATO (linha de ônibus, placa) em código, de forma
+    # determinística, ANTES de confiar no Gemini -- mas isso dependia do
+    # modelo de visão ler o número CERTO na imagem (OCR), e ele lê ERRADO
+    # com frequência nessas imagens estilizadas escuras: viu "31355" onde
+    # a placa real era "3155" (um dígito a mais alucinado), e chegou a
+    # descrever uma foto que na verdade mostra "315" como "313-031"
+    # (número totalmente errado). Um match por substring de dígito não
+    # sobrevive a esse tipo de erro de leitura -- removido. Em vez disso,
+    # o Gemini recebe a instrução explícita de tratar número/placa citado
+    # como forte sinal de casamento (ver prompt abaixo), mas sem forçar
+    # cegamente em código -- e a 2ª passada de revisão
+    # (`_revisar_casamento`) pega o resto.
     prompt = (
         "Trechos de narração, em ordem cronológica (0-based):\n"
         + "\n".join(f"{i}: {t}" for i, t in enumerate(segmentos_texto))
         + "\n\nFotos disponíveis, com descrição do conteúdo (0-based):\n"
         + "\n".join(f"{i}: {d}" for i, d in enumerate(descricoes_imagens))
-        + dica_fixos
         + "\n\nPra cada trecho de narração, diga qual foto combina melhor com a AÇÃO/CENA "
         "específica que está sendo narrada NAQUELE trecho -- não com o tema geral da "
-        "história. ERRO MAIS COMUM a evitar: colocar a foto de um evento (acidente, queda, "
-        "descoberta, morte etc) um trecho ANTES ou DEPOIS de quando esse evento é realmente "
-        "narrado -- ex: se o trecho 3 fala 'o motorista perdeu o controle e o ônibus caiu na "
+        "história. Se o trecho cita um número específico (linha de ônibus, placa, ano) e "
+        "a descrição de uma foto cita um número parecido (a leitura do número pela IA de "
+        "visão pode ter um dígito errado, não exija bater 100%), prefira essa foto. ERRO "
+        "MAIS COMUM a evitar: colocar a foto de um evento (acidente, queda, descoberta, "
+        "morte etc) um trecho ANTES ou DEPOIS de quando esse evento é realmente narrado -- "
+        "ex: se o trecho 3 fala 'o motorista perdeu o controle e o ônibus caiu na "
         "ribanceira', a foto do ônibus acidentado/tombado tem que ir NO TRECHO 3, não no "
         "trecho 2 (que só fala de uma data, sem o acidente ainda) nem no trecho 4. Leia o "
         "trecho anterior e o seguinte antes de decidir, pra não adiantar ou atrasar o "
@@ -1076,13 +1074,12 @@ def _casar_imagens_com_segmentos(segmentos_texto: list[str], descricoes_imagens:
         try:
             ordem = dados["ordem"]
             if len(ordem) == n and sorted(ordem) == ordem_original:
-                ordem = _revisar_casamento(segmentos_texto, descricoes_imagens, ordem)
-                return _aplicar_pares_fixos(ordem, pares_fixos)
-            print(f"  AVISO: resposta de casamento por tema inválida ({dados}), usando só os pares por número exato.")
+                return _revisar_casamento(segmentos_texto, descricoes_imagens, ordem)
+            print(f"  AVISO: resposta de casamento por tema inválida ({dados}), mantendo ordem numérica.")
         except Exception as e:
-            print(f"  AVISO: resposta de casamento por tema mal formada ({e}), usando só os pares por número exato.")
+            print(f"  AVISO: resposta de casamento por tema mal formada ({e}), mantendo ordem numérica.")
 
-    return _aplicar_pares_fixos(ordem_original, pares_fixos)
+    return ordem_original
 
 
 def _revisar_casamento(segmentos_texto: list[str], descricoes_imagens: list[str], ordem: list[int]) -> list[int]:
@@ -1201,89 +1198,6 @@ def _chamar_llm_para_json(prompt: str) -> dict | None:
     return None
 
 
-def _pares_por_numero_exato(segmentos_texto: list[str], descricoes_imagens: list[str]) -> dict[int, int]:
-    """Casa trecho<->foto de forma DETERMINÍSTICA (sem depender de LLM
-    seguir instrução) quando os dois citam o MESMO número de 2+ dígitos
-    (linha de ônibus, placa, ano, nº de prédio etc) -- ex: trecho diz "linha
-    315", foto descrita como "ônibus com a numeração 3155" (315 é
-    substring de 3155). Só usa o par quando é uma correspondência ÚNICA
-    (só um trecho e só uma foto compartilham aquele número) -- ambiguidade
-    fica pro Gemini decidir por tema, não força um palpite errado."""
-    def numeros(texto: str) -> set[str]:
-        return set(re.findall(r"\d{2,}", texto))
-
-    numeros_por_segmento = [numeros(t) for t in segmentos_texto]
-    numeros_por_imagem = [numeros(d) for d in descricoes_imagens]
-
-    pares = {}
-    fotos_usadas = set()
-    for i, nums_seg in enumerate(numeros_por_segmento):
-        if not nums_seg:
-            continue
-        candidatos = [
-            j for j, nums_img in enumerate(numeros_por_imagem)
-            if nums_img and any(a in b or b in a for a in nums_seg for b in nums_img)
-        ]
-        if len(candidatos) == 1 and candidatos[0] not in fotos_usadas:
-            pares[i] = candidatos[0]
-            fotos_usadas.add(candidatos[0])
-    return pares
-
-
-def _aplicar_pares_fixos(ordem: list[int], pares_fixos: dict[int, int]) -> list[int]:
-    """Força os pares determinísticos (`_pares_por_numero_exato`) no
-    resultado final, trocando de lugar o que for preciso pra manter uma
-    permutação válida -- garante o match exato não importa o que o Gemini
-    (ou a ordem numérica de fallback) tenha decidido."""
-    ordem = list(ordem)
-    for segmento, foto in pares_fixos.items():
-        if ordem[segmento] == foto:
-            continue
-        posicao_atual = ordem.index(foto)
-        ordem[posicao_atual], ordem[segmento] = ordem[segmento], ordem[posicao_atual]
-    return ordem
-
-
-def _refinar_cortes_por_numero(
-    pontos_de_corte: list[float],
-    palavras: list[tuple[float, float, str]],
-    pares_fixos: dict[int, int],
-) -> list[float]:
-    """Bug real 2026-09-12, achado extraindo frame do vídeo ENTREGUE (não
-    só lendo log): narração diz "nunca chegou ao seu destino final, é a
-    linha 315." como um trecho SÓ (a pausa entre as duas frases era curta
-    demais pro espaçamento mínimo de `_pontos_de_corte`, então viraram um
-    bloco só) -- a foto do "315" (escolhida certa por
-    `_pares_por_numero_exato`) cobria o trecho INTEIRO, aparecendo já
-    durante "nunca chegou...", bem antes do "315" ser falado de verdade.
-    A legenda na tela dizia "NUNCA" com a foto do 315 já visível -- prova
-    em frame extraído do mp4 real, não achismo.
-
-    Fix: pra cada par fixo por número, acha a palavra EXATA onde o número
-    é falado dentro daquele bloco e empurra o INÍCIO do bloco pra logo
-    antes dela (~0.3s de antecedência) -- rouba esse tempo do bloco
-    anterior (nunca do próprio conteúdo, só do começo "genérico" que não
-    tem nada a ver com o número). Não mexe no bloco 0 (sem irmão anterior
-    pra ceder tempo) nem invade o bloco anterior além de deixar pelo menos
-    1s pra ele."""
-    pontos = list(pontos_de_corte)
-    for seg_idx in sorted(pares_fixos):
-        if seg_idx == 0:
-            continue
-        inicio_seg, fim_seg = pontos[seg_idx], pontos[seg_idx + 1]
-        palavra_numero = next(
-            (ini for ini, _fim, p in palavras if inicio_seg <= ini < fim_seg and re.search(r"\d{2,}", p)),
-            None,
-        )
-        if palavra_numero is None:
-            continue
-        novo_inicio = palavra_numero - 0.3
-        limite_minimo = pontos[seg_idx - 1] + 1.0
-        if novo_inicio > limite_minimo and novo_inicio > pontos[seg_idx]:
-            pontos[seg_idx] = novo_inicio
-    return pontos
-
-
 def montar_video_de_audio_e_imagens(
     caminho_audio: str, imagens: list[str], caminho_saida: str, plataforma: str = "tiktok",
 ) -> float:
@@ -1335,18 +1249,6 @@ def montar_video_de_audio_e_imagens(
     print("Descrevendo fotos pra casar com o trecho certo da narração...")
     descricoes_imagens = [_descrever_imagem_cloudflare(img) for img in imagens]
     segmentos_texto = _textos_por_segmento(palavras, pontos_de_corte)
-
-    # Bug real 2026-09-12 (achado extraindo frame do vídeo entregue): o
-    # bloco de pausa pode juntar duas frases (pausa curta demais entre
-    # elas pro espaçamento mínimo) e a foto do número exato (ex: "315")
-    # aparecia já no INÍCIO do bloco, durante a frase anterior que não
-    # tem nada a ver com ela. Refina o início desses blocos pra logo antes
-    # da palavra com o número, e recalcula tudo que depende dos pontos.
-    pares_fixos_prelim = _pares_por_numero_exato(segmentos_texto, descricoes_imagens)
-    if pares_fixos_prelim:
-        pontos_de_corte = _refinar_cortes_por_numero(pontos_de_corte, palavras, pares_fixos_prelim)
-        segmentos_texto = _textos_por_segmento(palavras, pontos_de_corte)
-
     duracoes_por_imagem = [pontos_de_corte[i + 1] - pontos_de_corte[i] for i in range(len(imagens))]
     ordem_por_conteudo = _casar_imagens_com_segmentos(segmentos_texto, descricoes_imagens)
     if ordem_por_conteudo != list(range(len(imagens))):
