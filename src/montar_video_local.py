@@ -1229,6 +1229,13 @@ def montar_video_de_audio_e_imagens(
         print(f"  ordem ajustada pelo conteúdo: {ordem_por_conteudo}")
     imagens = [imagens[i] for i in ordem_por_conteudo]
 
+    print("  === plano final de corte (conferir contra o vídeo entregue) ===")
+    for i, foto_idx in enumerate(ordem_por_conteudo):
+        print(
+            f"  [{i}] {pontos_de_corte[i]:.1f}s-{pontos_de_corte[i + 1]:.1f}s "
+            f"foto={os.path.basename(imagens[i])} ({descricoes_imagens[foto_idx]!r}): {segmentos_texto[i]!r}"
+        )
+
     with tempfile.TemporaryDirectory() as pasta_tmp:
         pesos_movimento = [3] * len(TIPOS_MOVIMENTO) + [13]
         clipes = []
