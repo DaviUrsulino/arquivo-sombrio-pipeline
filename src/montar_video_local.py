@@ -1004,29 +1004,46 @@ def _casar_imagens_com_segmentos(segmentos_texto: list[str], descricoes_imagens:
         )
         return ordem_original
 
+    # Bug real 2026-09-12 (feedback do Manuel, DEPOIS de já ter pedido pro
+    # Gemini "priorizar match exato" via instrução no prompt): mesmo com a
+    # instrução explícita, o Gemini ainda errava o par óbvio (narração diz
+    # "linha 315", foto mostra literalmente "3155" escrito no ônibus) --
+    # instrução em texto livre não é GARANTIA nenhuma de comportamento.
+    # Fix de verdade: resolve pares de número EXATO (placa, linha, ano etc)
+    # em código, de forma determinística, ANTES de chamar o Gemini -- e
+    # depois FORÇA esses pares no resultado final não importa o que o
+    # Gemini responda. Isso generaliza pra qualquer vídeo (não só esse
+    # ônibus): sempre que a narração citar um número que aparece também
+    # numa foto, o casamento correto está garantido, não é mais "sorte da
+    # IA seguir a instrução".
+    pares_fixos = _pares_por_numero_exato(segmentos_texto, descricoes_imagens)
+
     chave = os.environ.get("GEMINI_API_KEY") or (os.environ.get("GEMINI_API_KEYS", "").split(",") or [None])[0]
     if not chave:
-        print("  AVISO: GEMINI_API_KEY não configurada -- casamento por conteúdo cancelado.")
-        return ordem_original
+        print("  AVISO: GEMINI_API_KEY não configurada -- casamento por conteúdo (tema) cancelado.")
+        return _aplicar_pares_fixos(ordem_original, pares_fixos)
 
     try:
         from google import genai
         from google.genai import types
 
+        dica_fixos = ""
+        if pares_fixos:
+            dica_fixos = (
+                "\n\nOs seguintes pares JÁ ESTÃO DECIDIDOS por um número/texto idêntico "
+                "entre o trecho e a foto -- NÃO mude esses, só decida os outros: "
+                + ", ".join(f"trecho {seg} = foto {img}" for seg, img in pares_fixos.items())
+            )
         prompt = (
             "Trechos de narração, em ordem cronológica (0-based):\n"
             + "\n".join(f"{i}: {t}" for i, t in enumerate(segmentos_texto))
             + "\n\nFotos disponíveis, com descrição do conteúdo (0-based):\n"
             + "\n".join(f"{i}: {d}" for i, d in enumerate(descricoes_imagens))
-            + "\n\nPra cada trecho de narração, diga qual foto combina melhor com o que "
-            "está sendo dito. REGRA MAIS IMPORTANTE: se um trecho menciona um número, "
-            "placa, nome ou texto específico (ex: 'linha 315', 'ônibus 4521') e a descrição "
-            "de alguma foto mostra ESSE MESMO número/texto visível nela, essa foto é "
-            "OBRIGATÓRIA pra esse trecho -- vale muito mais que qualquer semelhança de tema "
-            "ou cenário geral. Só quando não houver esse tipo de match exato, escolha pela "
-            "cena/tema que mais combina. Cada foto deve ser usada EXATAMENTE uma vez. Se não "
-            "tiver certeza pra algum trecho, mantenha o índice da foto igual ao índice do "
-            "trecho. "
+            + dica_fixos
+            + "\n\nPra cada trecho de narração, diga qual foto combina melhor com a cena/"
+            "tema do que está sendo dito. Cada foto deve ser usada EXATAMENTE uma vez. Se "
+            "não tiver certeza pra algum trecho, mantenha o índice da foto igual ao índice "
+            "do trecho. "
             'Responda só em JSON: {"ordem": [indice_da_foto_pro_trecho_0, indice_da_foto_pro_trecho_1, ...]}'
         )
         client = genai.Client(api_key=chave.strip(), http_options=types.HttpOptions(timeout=60_000))
@@ -1041,17 +1058,60 @@ def _casar_imagens_com_segmentos(segmentos_texto: list[str], descricoes_imagens:
                 dados = json.loads(resposta.text)
                 ordem = dados["ordem"]
                 if len(ordem) == n and sorted(ordem) == ordem_original:
-                    return ordem
+                    return _aplicar_pares_fixos(ordem, pares_fixos)
                 ultimo_erro = f"resposta inválida: {dados}"
             except Exception as e:
                 ultimo_erro = e
                 if tentativa == 0:
                     time.sleep(3)
-        print(f"  AVISO: casamento imagem/conteúdo via Gemini falhou ({ultimo_erro}), mantendo ordem numérica.")
+        print(f"  AVISO: casamento por tema via Gemini falhou ({ultimo_erro}), usando só os pares por número exato.")
     except Exception as e:
-        print(f"  AVISO: casamento imagem/conteúdo via Gemini falhou ({e}), mantendo ordem numérica.")
+        print(f"  AVISO: casamento por tema via Gemini falhou ({e}), usando só os pares por número exato.")
 
-    return ordem_original
+    return _aplicar_pares_fixos(ordem_original, pares_fixos)
+
+
+def _pares_por_numero_exato(segmentos_texto: list[str], descricoes_imagens: list[str]) -> dict[int, int]:
+    """Casa trecho<->foto de forma DETERMINÍSTICA (sem depender de LLM
+    seguir instrução) quando os dois citam o MESMO número de 2+ dígitos
+    (linha de ônibus, placa, ano, nº de prédio etc) -- ex: trecho diz "linha
+    315", foto descrita como "ônibus com a numeração 3155" (315 é
+    substring de 3155). Só usa o par quando é uma correspondência ÚNICA
+    (só um trecho e só uma foto compartilham aquele número) -- ambiguidade
+    fica pro Gemini decidir por tema, não força um palpite errado."""
+    def numeros(texto: str) -> set[str]:
+        return set(re.findall(r"\d{2,}", texto))
+
+    numeros_por_segmento = [numeros(t) for t in segmentos_texto]
+    numeros_por_imagem = [numeros(d) for d in descricoes_imagens]
+
+    pares = {}
+    fotos_usadas = set()
+    for i, nums_seg in enumerate(numeros_por_segmento):
+        if not nums_seg:
+            continue
+        candidatos = [
+            j for j, nums_img in enumerate(numeros_por_imagem)
+            if nums_img and any(a in b or b in a for a in nums_seg for b in nums_img)
+        ]
+        if len(candidatos) == 1 and candidatos[0] not in fotos_usadas:
+            pares[i] = candidatos[0]
+            fotos_usadas.add(candidatos[0])
+    return pares
+
+
+def _aplicar_pares_fixos(ordem: list[int], pares_fixos: dict[int, int]) -> list[int]:
+    """Força os pares determinísticos (`_pares_por_numero_exato`) no
+    resultado final, trocando de lugar o que for preciso pra manter uma
+    permutação válida -- garante o match exato não importa o que o Gemini
+    (ou a ordem numérica de fallback) tenha decidido."""
+    ordem = list(ordem)
+    for segmento, foto in pares_fixos.items():
+        if ordem[segmento] == foto:
+            continue
+        posicao_atual = ordem.index(foto)
+        ordem[posicao_atual], ordem[segmento] = ordem[segmento], ordem[posicao_atual]
+    return ordem
 
 
 def montar_video_de_audio_e_imagens(
