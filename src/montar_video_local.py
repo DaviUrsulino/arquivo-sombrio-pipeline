@@ -856,7 +856,40 @@ def _pontos_de_corte(duracao_total: float, n_imagens: int, pausas: list[tuple[fl
         )
         cortes = [duracao_total * i / n_imagens for i in range(1, n_imagens)]
 
-    return [0.0] + cortes + [duracao_total]
+    pontos = [0.0] + cortes + [duracao_total]
+    return _impor_duracao_minima(pontos, duracao_total, n_imagens)
+
+
+def _impor_duracao_minima(
+    pontos: list[float], duracao_total: float, n_imagens: int, duracao_minima: float = 2.0,
+) -> list[float]:
+    """Bug real 2026-09-12 (feedback do Manuel DEPOIS do fix por conteúdo):
+    "ficou melhor mas tem umas que tá muito rápido" -- pegar sempre as
+    MAIORES pausas por duração do gap não impede que duas pausas grandes
+    caiam perto uma da outra no tempo (ex: alguém fala uma frase curta
+    entre dois respiros longos), o que sobra uma foto na tela por menos de
+    1s -- corte rápido demais pra acompanhar visualmente, mesmo estando
+    tecnicamente "no ritmo certo" da fala.
+
+    Empurra os cortes pra garantir pelo menos `duracao_minima` segundos de
+    tela por foto: uma passada da esquerda pra direita empurrando o próximo
+    corte quando o intervalo atual for curto demais, depois uma passada
+    reversa (direita pra esquerda) garantindo que essa correção não
+    empurrou nenhum corte além do fim do áudio. Se `duracao_minima * n`
+    for maior que o áudio inteiro (narração curta demais pra tantas fotos),
+    reduz a mínima proporcionalmente em vez de produzir cortes fora de
+    ordem."""
+    if duracao_minima * n_imagens > duracao_total:
+        duracao_minima = duracao_total / n_imagens
+
+    pontos = list(pontos)
+    for i in range(1, len(pontos) - 1):
+        if pontos[i] - pontos[i - 1] < duracao_minima:
+            pontos[i] = pontos[i - 1] + duracao_minima
+    for i in range(len(pontos) - 2, 0, -1):
+        if pontos[i + 1] - pontos[i] < duracao_minima:
+            pontos[i] = pontos[i + 1] - duracao_minima
+    return pontos
 
 
 def _textos_por_segmento(palavras: list[tuple[float, float, str]], pontos_de_corte: list[float]) -> list[str]:
