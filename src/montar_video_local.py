@@ -931,12 +931,19 @@ def _refinar_cortes_por_numero_no_texto(
     menos 1s de fala sem número nenhum, divide o bloco ali (empurra o
     início pra ~0.3s antes da palavra do número, roubando tempo do bloco
     ANTERIOR). Roda antes de decidir qual foto vai em cada bloco, então o
-    casamento por conteúdo já trabalha em cima dos blocos certos."""
+    casamento por conteúdo já trabalha em cima dos blocos certos.
+
+    Bug real 2026-09-12 (achado no mesmo processo de conferência): exigir
+    só 2+ dígitos pegava número de HORA no meio da frase (ex: "meia-noite
+    e 15") e criava um corte de menos de 1s sem necessidade nenhuma --
+    "15" sozinho não é um identificador visual (linha de ônibus, placa,
+    ano), é só uma referência de horário. Exige 3+ dígitos (linha de
+    ônibus, placa, ano) pra evitar esse falso positivo."""
     pontos = list(pontos_de_corte)
     for i in range(1, len(pontos) - 1):
         inicio, fim = pontos[i], pontos[i + 1]
         palavra_numero = next(
-            (ini for ini, _fim, p in palavras if inicio <= ini < fim and re.search(r"\d{2,}", p)),
+            (ini for ini, _fim, p in palavras if inicio <= ini < fim and re.search(r"\d{3,}", p)),
             None,
         )
         if palavra_numero is None or palavra_numero - inicio < 1.0:
@@ -1102,7 +1109,12 @@ def _casar_imagens_com_segmentos(segmentos_texto: list[str], descricoes_imagens:
         "ribanceira', a foto do ônibus acidentado/tombado tem que ir NO TRECHO 3, não no "
         "trecho 2 (que só fala de uma data, sem o acidente ainda) nem no trecho 4. Leia o "
         "trecho anterior e o seguinte antes de decidir, pra não adiantar ou atrasar o "
-        "momento certo por engano. Cada foto deve ser usada EXATAMENTE uma vez. Se não tiver "
+        "momento certo por engano. Da mesma forma, uma foto com um significado bem "
+        "específico (ex: polícia investigando, corpo, cena de crime) só combina com o "
+        "trecho que narra EXATAMENTE aquilo (ex: descoberta/investigação) -- não a use como "
+        "preenchimento genérico pra um trecho que só fala algo vago tipo 'moradores afirmam' "
+        "sem mencionar investigação nenhuma; nesse caso prefira uma foto mais neutra/genérica "
+        "de ônibus. Cada foto deve ser usada EXATAMENTE uma vez. Se não tiver "
         "certeza pra algum trecho, mantenha o índice da foto igual ao índice do trecho. "
         'Responda só em JSON: {"ordem": [indice_da_foto_pro_trecho_0, indice_da_foto_pro_trecho_1, ...]}'
     )
