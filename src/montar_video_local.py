@@ -1172,6 +1172,46 @@ def _aplicar_pares_fixos(ordem: list[int], pares_fixos: dict[int, int]) -> list[
     return ordem
 
 
+def _refinar_cortes_por_numero(
+    pontos_de_corte: list[float],
+    palavras: list[tuple[float, float, str]],
+    pares_fixos: dict[int, int],
+) -> list[float]:
+    """Bug real 2026-09-12, achado extraindo frame do vídeo ENTREGUE (não
+    só lendo log): narração diz "nunca chegou ao seu destino final, é a
+    linha 315." como um trecho SÓ (a pausa entre as duas frases era curta
+    demais pro espaçamento mínimo de `_pontos_de_corte`, então viraram um
+    bloco só) -- a foto do "315" (escolhida certa por
+    `_pares_por_numero_exato`) cobria o trecho INTEIRO, aparecendo já
+    durante "nunca chegou...", bem antes do "315" ser falado de verdade.
+    A legenda na tela dizia "NUNCA" com a foto do 315 já visível -- prova
+    em frame extraído do mp4 real, não achismo.
+
+    Fix: pra cada par fixo por número, acha a palavra EXATA onde o número
+    é falado dentro daquele bloco e empurra o INÍCIO do bloco pra logo
+    antes dela (~0.3s de antecedência) -- rouba esse tempo do bloco
+    anterior (nunca do próprio conteúdo, só do começo "genérico" que não
+    tem nada a ver com o número). Não mexe no bloco 0 (sem irmão anterior
+    pra ceder tempo) nem invade o bloco anterior além de deixar pelo menos
+    1s pra ele."""
+    pontos = list(pontos_de_corte)
+    for seg_idx in sorted(pares_fixos):
+        if seg_idx == 0:
+            continue
+        inicio_seg, fim_seg = pontos[seg_idx], pontos[seg_idx + 1]
+        palavra_numero = next(
+            (ini for ini, _fim, p in palavras if inicio_seg <= ini < fim_seg and re.search(r"\d{2,}", p)),
+            None,
+        )
+        if palavra_numero is None:
+            continue
+        novo_inicio = palavra_numero - 0.3
+        limite_minimo = pontos[seg_idx - 1] + 1.0
+        if novo_inicio > limite_minimo and novo_inicio > pontos[seg_idx]:
+            pontos[seg_idx] = novo_inicio
+    return pontos
+
+
 def montar_video_de_audio_e_imagens(
     caminho_audio: str, imagens: list[str], caminho_saida: str, plataforma: str = "tiktok",
 ) -> float:
@@ -1219,11 +1259,23 @@ def montar_video_de_audio_e_imagens(
     palavras = _transcrever_palavras(caminho_audio)
     pausas = _detectar_pausas_da_fala(palavras)
     pontos_de_corte = _pontos_de_corte(duracao_total, len(imagens), pausas)
-    duracoes_por_imagem = [pontos_de_corte[i + 1] - pontos_de_corte[i] for i in range(len(imagens))]
 
     print("Descrevendo fotos pra casar com o trecho certo da narração...")
     descricoes_imagens = [_descrever_imagem_cloudflare(img) for img in imagens]
     segmentos_texto = _textos_por_segmento(palavras, pontos_de_corte)
+
+    # Bug real 2026-09-12 (achado extraindo frame do vídeo entregue): o
+    # bloco de pausa pode juntar duas frases (pausa curta demais entre
+    # elas pro espaçamento mínimo) e a foto do número exato (ex: "315")
+    # aparecia já no INÍCIO do bloco, durante a frase anterior que não
+    # tem nada a ver com ela. Refina o início desses blocos pra logo antes
+    # da palavra com o número, e recalcula tudo que depende dos pontos.
+    pares_fixos_prelim = _pares_por_numero_exato(segmentos_texto, descricoes_imagens)
+    if pares_fixos_prelim:
+        pontos_de_corte = _refinar_cortes_por_numero(pontos_de_corte, palavras, pares_fixos_prelim)
+        segmentos_texto = _textos_por_segmento(palavras, pontos_de_corte)
+
+    duracoes_por_imagem = [pontos_de_corte[i + 1] - pontos_de_corte[i] for i in range(len(imagens))]
     ordem_por_conteudo = _casar_imagens_com_segmentos(segmentos_texto, descricoes_imagens)
     if ordem_por_conteudo != list(range(len(imagens))):
         print(f"  ordem ajustada pelo conteúdo: {ordem_por_conteudo}")
