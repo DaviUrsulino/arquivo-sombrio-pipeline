@@ -1058,10 +1058,16 @@ def _casar_imagens_com_segmentos(segmentos_texto: list[str], descricoes_imagens:
         + "\n\nFotos disponíveis, com descrição do conteúdo (0-based):\n"
         + "\n".join(f"{i}: {d}" for i, d in enumerate(descricoes_imagens))
         + dica_fixos
-        + "\n\nPra cada trecho de narração, diga qual foto combina melhor com a cena/"
-        "tema do que está sendo dito. Cada foto deve ser usada EXATAMENTE uma vez. Se "
-        "não tiver certeza pra algum trecho, mantenha o índice da foto igual ao índice "
-        "do trecho. "
+        + "\n\nPra cada trecho de narração, diga qual foto combina melhor com a AÇÃO/CENA "
+        "específica que está sendo narrada NAQUELE trecho -- não com o tema geral da "
+        "história. ERRO MAIS COMUM a evitar: colocar a foto de um evento (acidente, queda, "
+        "descoberta, morte etc) um trecho ANTES ou DEPOIS de quando esse evento é realmente "
+        "narrado -- ex: se o trecho 3 fala 'o motorista perdeu o controle e o ônibus caiu na "
+        "ribanceira', a foto do ônibus acidentado/tombado tem que ir NO TRECHO 3, não no "
+        "trecho 2 (que só fala de uma data, sem o acidente ainda) nem no trecho 4. Leia o "
+        "trecho anterior e o seguinte antes de decidir, pra não adiantar ou atrasar o "
+        "momento certo por engano. Cada foto deve ser usada EXATAMENTE uma vez. Se não tiver "
+        "certeza pra algum trecho, mantenha o índice da foto igual ao índice do trecho. "
         'Responda só em JSON: {"ordem": [indice_da_foto_pro_trecho_0, indice_da_foto_pro_trecho_1, ...]}'
     )
 
@@ -1101,7 +1107,7 @@ def _chamar_llm_para_json(prompt: str) -> dict | None:
                     resposta = client.models.generate_content(
                         model="gemini-3.6-flash",
                         contents=prompt,
-                        config=types.GenerateContentConfig(response_mime_type="application/json"),
+                        config=types.GenerateContentConfig(response_mime_type="application/json", temperature=0),
                     )
                     return json.loads(resposta.text)
                 except Exception as e:
@@ -1122,6 +1128,7 @@ def _chamar_llm_para_json(prompt: str) -> dict | None:
                     "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
                     "messages": [{"role": "user", "content": prompt}],
                     "response_format": {"type": "json_object"},
+                    "temperature": 0,
                 },
                 timeout=45,
             )
@@ -1140,6 +1147,7 @@ def _chamar_llm_para_json(prompt: str) -> dict | None:
                     "model": "mistral-small-latest",
                     "messages": [{"role": "user", "content": prompt}],
                     "response_format": {"type": "json_object"},
+                    "temperature": 0,
                 },
                 timeout=45,
             )
