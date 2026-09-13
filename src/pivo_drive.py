@@ -54,6 +54,10 @@ NOME_PASTA_PROCESSADOS = "Processados"
 
 EXTENSOES_IMAGEM = (".jpg", ".jpeg", ".png")
 EXTENSOES_AUDIO = (".mp3", ".wav", ".m4a", ".mpeg", ".mpga")
+# .txt com o roteiro escrito marcado ([FOTO 1]..[FOTO N]) -- formato novo
+# 2026-09-12, opcional (pastas antigas/sem roteiro caem pro fallback de
+# detecção de pausa dentro de montar_video_de_audio_e_imagens).
+EXTENSAO_ROTEIRO = ".txt"
 
 # Pedido do Davi 2026-09-11: não mover a pasta original pra "Processados" na
 # hora -- se o vídeo saiu cortado ou com algum problema, o irmão (e o Davi)
@@ -160,20 +164,23 @@ def arquivar_pastas_processadas_antigas(service, pasta_entrada_id: str, pasta_pr
         print(f"  pasta '{pasta['name']}' arquivada em Processados (processada há mais de 24h)")
 
 
-def baixar_arquivos_da_pasta(service, pasta_id: str, destino_local: str) -> tuple[list[str], str | None]:
-    """Baixa todo arquivo de imagem/áudio dentro da pasta pro diretório
-    local, mantendo o nome original (a ordem numérica das imagens é
-    resolvida por quem chama, igual já acontece no modo --audio local)."""
+def baixar_arquivos_da_pasta(service, pasta_id: str, destino_local: str) -> tuple[list[str], str | None, str | None]:
+    """Baixa todo arquivo de imagem/áudio/roteiro dentro da pasta pro
+    diretório local, mantendo o nome original (a ordem numérica das
+    imagens é resolvida por quem chama, igual já acontece no modo --audio
+    local). O roteiro (.txt com marcadores [FOTO N], ver
+    EXTENSAO_ROTEIRO/montar_video_de_audio_e_imagens) é opcional -- pasta
+    sem ele ainda funciona, só cai pro fallback de detecção de pausa."""
     resultado = service.files().list(
         q=f"'{pasta_id}' in parents and trashed = false",
         fields="files(id, name, mimeType)",
     ).execute()
 
-    imagens, audio = [], None
+    imagens, audio, roteiro = [], None, None
     for arquivo in resultado.get("files", []):
         nome = arquivo["name"]
         extensao = os.path.splitext(nome)[1].lower()
-        if extensao not in EXTENSOES_IMAGEM and extensao not in EXTENSOES_AUDIO:
+        if extensao not in EXTENSOES_IMAGEM and extensao not in EXTENSOES_AUDIO and extensao != EXTENSAO_ROTEIRO:
             continue
 
         caminho_local = os.path.join(destino_local, nome)
@@ -186,14 +193,19 @@ def baixar_arquivos_da_pasta(service, pasta_id: str, destino_local: str) -> tupl
 
         if extensao in EXTENSOES_IMAGEM:
             imagens.append(caminho_local)
-        else:
+        elif extensao in EXTENSOES_AUDIO:
             if audio is not None:
                 print(f"  AVISO: mais de um áudio na pasta, usando o primeiro ({os.path.basename(audio)})")
             else:
                 audio = caminho_local
+        else:
+            if roteiro is not None:
+                print(f"  AVISO: mais de um roteiro (.txt) na pasta, usando o primeiro ({os.path.basename(roteiro)})")
+            else:
+                roteiro = caminho_local
 
     imagens.sort(key=lambda c: _chave_ordenacao_arquivo(os.path.basename(c)))
-    return imagens, audio
+    return imagens, audio, roteiro
 
 
 def subir_video(service, caminho_video: str, pasta_saida_id: str, nome: str):
@@ -216,15 +228,15 @@ def processar_pasta(service, pasta: dict, pasta_saida_id: str) -> bool:
     marca, fica disponível pra nova tentativa)."""
     print(f"\n=== Processando pasta '{pasta['name']}' ===")
     with tempfile.TemporaryDirectory() as pasta_tmp:
-        imagens, audio = baixar_arquivos_da_pasta(service, pasta["id"], pasta_tmp)
+        imagens, audio, roteiro = baixar_arquivos_da_pasta(service, pasta["id"], pasta_tmp)
         if not imagens or not audio:
             print(f"  pasta incompleta (imagens={len(imagens)}, audio={'sim' if audio else 'não'}) -- pulando")
             return False
 
-        print(f"  {len(imagens)} imagens + 1 áudio encontrados")
+        print(f"  {len(imagens)} imagens + 1 áudio" + (" + 1 roteiro marcado" if roteiro else " (sem roteiro marcado, usando detecção de pausa)"))
         caminho_saida = os.path.join(pasta_tmp, "video_final.mp4")
         try:
-            montar_video_de_audio_e_imagens(audio, imagens, caminho_saida, plataforma="tiktok")
+            montar_video_de_audio_e_imagens(audio, imagens, caminho_saida, plataforma="tiktok", caminho_roteiro=roteiro)
         except Exception as e:
             print(f"  ERRO ao montar vídeo: {e}")
             return False

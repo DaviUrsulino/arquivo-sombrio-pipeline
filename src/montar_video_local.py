@@ -293,6 +293,13 @@ TRANSICOES_XFADE = [
     "slideleft", "slideright", "slideup", "slidedown",
     "wipeleft", "wiperight", "wipeup", "wipedown",
 ]
+
+# Mesmo valor de `duracao_slide` em concatenar_video_silencioso_com_transicao
+# -- exposto aqui pra quem gera clipe por clipe (pivô) poder compensar o
+# encolhimento do crossfade na hora de decidir a duração de cada clipe (ver
+# `montar_video_de_audio_e_imagens`). Usa sempre o valor do slide (maior que
+# o do flash) por segurança -- ver docstring de onde é usado.
+DURACAO_TRANSICAO_PADRAO = 4 / 30
 # "personagem_cresce" fica de fora da lista principal (sorteado com peso
 # menor em gerar_clipe_cena) porque depende de rembg (CPU, mais lento) e
 # tem fallback pra zoom_in se a extração falhar -- não deve ser o padrão.
@@ -568,13 +575,42 @@ def gerar_clipe_cena(
 
 
 def concatenar_clipes(caminhos_clipes: list[str], caminho_saida: str, pasta_tmp: str):
+    """Junta os sub-clipes de UMA cena (quando ela tem mais de uma imagem)
+    num único clipe silencioso.
+
+    Bug real 2026-09-13 (causa raiz do "vídeo tiktok/youtube saiu
+    truncado" -- achado inspecionando o vídeo de uma execução real que
+    falhou: 40s de vídeo reais, sem nenhum corte/gap nos timestamps, só
+    terminando limpo e cedo demais, com ÁUDIO E VÍDEO cortando juntos no
+    mesmo ponto -- assinatura clássica de um filtro do ffmpeg ficando sem
+    fonte no meio e encerrando a saída inteira ali, sem erro).
+
+    Antes usava `-c copy` (concat demuxer, sem reencodar) -- rápido, mas
+    exige que os sub-clipes tenham EXATAMENTE o mesmo parâmetro de
+    codec/timebase pra funcionar direito. Cada sub-clipe da cena sorteia
+    um tipo de movimento diferente (`gerar_clipe_cena`), incluindo
+    "personagem_cresce", que usa um filtro completamente diferente (scale
+    2x + zoompan + overlay de 2 inputs) do resto (scale+crop+zoompan de 1
+    input só) -- mesmo os dois saindo como libx264/yuv420p, o encoder
+    pode gerar parâmetros (SPS/timebase) sutilmente diferentes entre eles.
+    Concatenar isso com stream copy pode produzir um arquivo cuja duração
+    DECLARADA no container não bate com os frames reais decodificáveis --
+    e como `concatenar_com_transicao` confia nessa duração declarada pra
+    calcular o offset de cada xfade, o filtro fica sem frame de verdade
+    no meio do processo e o ffmpeg encerra a saída ali, cortando TUDO que
+    viria depois (as cenas seguintes inteiras, não só um pedaço).
+
+    Fix: reencoda em vez de copiar -- mais lento, mas garante que a
+    duração declarada do clipe da cena sempre bate com o conteúdo real,
+    não importa que combinação de movimentos foi sorteada."""
     lista_txt = os.path.join(pasta_tmp, "lista.txt")
     with open(lista_txt, "w", encoding="utf-8") as f:
         for caminho in caminhos_clipes:
             f.write(f"file '{os.path.abspath(caminho)}'\n")
     _rodar([
         "ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", lista_txt,
-        "-c", "copy", caminho_saida,
+        "-c:v", "libx264", "-pix_fmt", "yuv420p", "-r", "30", "-c:a", "aac",
+        caminho_saida,
     ])
 
 
@@ -944,8 +980,187 @@ def _refinar_cortes_por_numero_no_texto(
     return pontos
 
 
+_PADRAO_MARCADOR_FOTO = re.compile(r"\[\s*FOTO\s*(\d+)\s*\]", re.IGNORECASE)
+
+
+def _carregar_roteiro_marcado(caminho_roteiro: str, n_imagens: int) -> list[str]:
+    """Lê o roteiro ESCRITO com marcadores [FOTO 1], [FOTO 2]... [FOTO N]
+    que o irmão do Davi passou a inserir no texto no ponto exato onde cada
+    foto deve trocar (formato acordado 2026-09-12, depois da detecção de
+    pausa continuar desalinhando em alguns pontos mesmo com a ordem das
+    fotos certa e o split por número -- ver `_pontos_de_corte` e
+    `_refinar_cortes_por_numero_no_texto`). Retorna o texto entre cada
+    marcador (o trecho que o narrador fala sobre aquela foto), na ordem
+    1..N -- usado por `_pontos_de_corte_por_roteiro` pra achar onde isso
+    cai no áudio real.
+
+    Exige os marcadores 1..n_imagens em sequência, sem pular nem repetir
+    -- erra alto (RuntimeError) em vez de tentar adivinhar, porque um
+    roteiro com marcador errado desalinharia o vídeo inteiro em silêncio,
+    exatamente o problema que esse formato existe pra resolver."""
+    with open(caminho_roteiro, "r", encoding="utf-8") as f:
+        texto = f.read()
+
+    marcadores = list(_PADRAO_MARCADOR_FOTO.finditer(texto))
+    numeros = [int(m.group(1)) for m in marcadores]
+    if numeros != list(range(1, n_imagens + 1)):
+        raise RuntimeError(
+            f"Marcadores do roteiro não batem com as {n_imagens} fotos -- esperado "
+            f"[FOTO 1] até [FOTO {n_imagens}] em sequência, achei {numeros or 'nenhum'}. "
+            "Confere o roteiro escrito antes de rodar de novo."
+        )
+
+    segmentos = []
+    for i, marcador in enumerate(marcadores):
+        inicio_texto = marcador.end()
+        fim_texto = marcadores[i + 1].start() if i + 1 < len(marcadores) else len(texto)
+        segmentos.append(texto[inicio_texto:fim_texto].strip())
+    return segmentos
+
+
+def _normalizar_palavra(palavra: str) -> str:
+    """Minúsculo, sem acento, sem pontuação -- só pra COMPARAR a mesma
+    palavra escrita no roteiro com a transcrita pelo Whisper (que às vezes
+    sai sem acento ou com hífen/pontuação diferente do texto original),
+    usado só no alinhamento de `_pontos_de_corte_por_roteiro`. Nunca altera
+    o texto exibido/logado."""
+    import unicodedata
+
+    sem_acento = "".join(
+        c for c in unicodedata.normalize("NFD", palavra) if unicodedata.category(c) != "Mn"
+    )
+    return re.sub(r"[^a-z0-9]", "", sem_acento.lower())
+
+
+def _pontos_de_corte_por_roteiro(
+    segmentos_roteiro: list[str], palavras: list[tuple[float, float, str]], duracao_total: float,
+) -> list[float]:
+    """Usa o roteiro ESCRITO com marcadores [FOTO N] (ver
+    `_carregar_roteiro_marcado`) pra achar o ponto exato de troca de cada
+    foto no ÁUDIO REAL, em vez de tentar adivinhar por pausa de fala. Com
+    o roteiro marcado, já sabemos exatamente onde cada foto deveria
+    começar NO TEXTO -- falta só achar onde isso cai no áudio de verdade,
+    porque o narrador não fala 100% igual ao texto escrito (troca palavra,
+    hesita, repete).
+
+    Alinha a sequência de palavras do roteiro com a sequência de palavras
+    TRANSCRITAS do áudio (difflib -- mesmo algoritmo de "diff" de arquivo
+    de texto) pra achar, pra cada fronteira entre fotos, qual palavra
+    transcrita corresponde, e usa o timestamp de INÍCIO dessa palavra como
+    o ponto de corte. Compara só a palavra normalizada (ver
+    `_normalizar_palavra`) pra tolerar essas pequenas diferenças.
+
+    Se uma fronteira não achar nenhuma palavra alinhada logo à frente
+    (trecho reescrito na hora pelo narrador, sem nada parecido no
+    roteiro), procura pra TRÁS em vez de deixar sem corte -- prefere
+    trocar de foto um pouco tarde a um pouco cedo, já que "foto aparece
+    cedo demais" foi a reclamação original que motivou todo esse
+    redesenho (ver `_refinar_cortes_por_numero_no_texto`)."""
+    import difflib
+
+    palavras_roteiro_norm = []
+    fronteiras = [0]  # índice em palavras_roteiro_norm onde cada foto começa
+    for segmento in segmentos_roteiro:
+        for palavra in segmento.split():
+            norm = _normalizar_palavra(palavra)
+            if norm:
+                palavras_roteiro_norm.append(norm)
+        fronteiras.append(len(palavras_roteiro_norm))
+
+    palavras_transcricao_norm = [_normalizar_palavra(p) for _, _, p in palavras]
+
+    matcher = difflib.SequenceMatcher(None, palavras_roteiro_norm, palavras_transcricao_norm, autojunk=False)
+    mapa: list[int | None] = [None] * len(palavras_roteiro_norm)
+    for bloco in matcher.get_matching_blocks():
+        for offset in range(bloco.size):
+            mapa[bloco.a + offset] = bloco.b + offset
+
+    def _achar_timestamp(indice_roteiro: int) -> float:
+        for i in range(indice_roteiro, len(mapa)):
+            if mapa[i] is not None:
+                return palavras[mapa[i]][0]
+        for i in range(indice_roteiro - 1, -1, -1):
+            if mapa[i] is not None:
+                return palavras[mapa[i]][1]
+        return duracao_total
+
+    pontos = [0.0] + [_achar_timestamp(f) for f in fronteiras[1:-1]] + [duracao_total]
+
+    # Trava: se o alinhamento falhar numa fronteira específica e voltar um
+    # timestamp menor que o corte anterior, força ordem crescente -- nunca
+    # deixa uma foto "voltar no tempo".
+    for i in range(1, len(pontos)):
+        if pontos[i] < pontos[i - 1]:
+            pontos[i] = pontos[i - 1]
+
+    return pontos
+
+
+def _ajustar_cortes_para_pausa_mais_proxima(
+    pontos_de_corte: list[float], pausas: list[tuple[float, float]], tolerancia: float = 0.6,
+) -> list[float]:
+    """Puxa cada corte (achado pelo alinhamento com o roteiro marcado, ver
+    `_pontos_de_corte_por_roteiro`) pro meio da pausa de fala real mais
+    próxima, se houver uma dentro de `tolerancia` segundos.
+
+    Bug real 2026-09-12 (feedback do Davi na v1 do roteiro marcado): da
+    metade do vídeo em diante "não tá totalmente encaixado" mesmo com a
+    ORDEM certa. Causa: o alinhamento por texto (difflib) acha a palavra
+    certa onde a próxima foto deveria começar, mas o corte cai no início
+    exato dessa palavra -- que pode ficar no meio de uma respiração/
+    cadência natural da fala em vez de bater com uma pausa real. Puxar
+    pro centro da pausa mais próxima (quando existe) deixa o corte
+    "grudado" na fala, do jeito que lê como sincronizado de verdade.
+
+    Não mexe no corte se não houver pausa perto o bastante -- melhor
+    manter o ponto exato do texto do que empurrar pra um lugar arbitrário
+    sem pausa nenhuma por perto."""
+    ajustados = list(pontos_de_corte)
+    for i in range(1, len(ajustados) - 1):
+        candidatas = [ponto for ponto, _gap in pausas if abs(ponto - ajustados[i]) <= tolerancia]
+        if candidatas:
+            ajustados[i] = min(candidatas, key=lambda ponto: abs(ponto - ajustados[i]))
+    return ajustados
+
+
+def _atrasar_troca_quando_curto(
+    pontos_de_corte: list[float], minimo: float = 3.0, atraso_maximo: float = 1.0, piso_seguranca: float = 1.5,
+) -> list[float]:
+    """Segura a foto atual até `atraso_maximo` segundos A MAIS antes de
+    trocar pra próxima, só quando a foto atual ficou mais curta que
+    `minimo` -- NUNCA antecipa um corte, só atrasa (rouba tempo só da
+    foto SEGUINTE, e só o que sobra dela acima de `piso_seguranca`).
+
+    Bug real 2026-09-13 (feedback do Davi, vídeo do ônibus): a 1ª versão
+    desse fix (`_impor_duracao_minima_a_partir_de`, removida) empurrava
+    E PUXAVA cortes pra abrir espaço, sem saber onde a frase terminava --
+    isso ENCURTAVA fotos que já estavam certas, cortando a fala delas no
+    meio (ex: cortou "sentado de olhos fechados" ao meio, empurrando o
+    resto pra foto seguinte, porque a foto anterior tinha "sobra" que o
+    algoritmo achou que podia tomar emprestado). Ele disse: "não está
+    esperando nem terminar a fala e já está trocando de imagem".
+
+    Fix de verdade: só espichar pra FRENTE a partir do ponto que o
+    roteiro/pausa já confirmaram como o fim da fala daquela foto -- nunca
+    mexe no INÍCIO de nenhuma foto, só atrasa o fim. Isso nunca corta uma
+    fala no meio; o pior que acontece é a próxima foto aparecer um pouco
+    depois do início da fala dela (efeito J-cut leve, comum em edição,
+    bem menos perceptível que cortar a frase anterior no meio)."""
+    pontos = list(pontos_de_corte)
+    n = len(pontos)
+    for i in range(1, n - 1):
+        duracao_atual = pontos[i] - pontos[i - 1]
+        if duracao_atual >= minimo:
+            continue
+        espaco_disponivel = (pontos[i + 1] - pontos[i]) - piso_seguranca
+        atraso = max(0.0, min(atraso_maximo, espaco_disponivel))
+        pontos[i] += atraso
+    return pontos
+
+
 def montar_video_de_audio_e_imagens(
     caminho_audio: str, imagens: list[str], caminho_saida: str, plataforma: str = "tiktok",
+    caminho_roteiro: str | None = None,
 ) -> float:
     """Monta o vídeo final a partir de uma narração JÁ PRONTA (mp3/wav já
     com trilha embutida, gerado fora daqui) + uma lista de imagens numeradas
@@ -982,6 +1197,16 @@ def montar_video_de_audio_e_imagens(
     ambientação/trilha por cima -- tudo reaproveitado do fluxo normal, só
     sem gerar roteiro/narração/imagem aqui dentro.
 
+    Se `caminho_roteiro` for passado, ele deve ser um .txt com marcadores
+    [FOTO 1]..[FOTO N] no ponto exato do texto onde cada foto troca (ver
+    `_carregar_roteiro_marcado`/`_pontos_de_corte_por_roteiro`) -- esse é o
+    fluxo NOVO (2026-09-12), preferido sobre a detecção de pausa: o irmão
+    do Davi passou a escrever o roteiro e marcar ele mesmo onde cada foto
+    entra, porque a detecção de pausa (mesmo com espaçamento mínimo e
+    split por número de 3 dígitos) ainda desalinhava em alguns pontos.
+    Sem `caminho_roteiro`, cai pro fluxo antigo (detecção de pausa) --
+    mantido como fallback pra vídeo que ainda não tem roteiro marcado.
+
     Retorna a duração total do vídeo (= duração do áudio de entrada)."""
     import random as _random_stdlib
 
@@ -989,22 +1214,54 @@ def montar_video_de_audio_e_imagens(
 
     print("Transcrevendo áudio pra sincronizar corte de imagem com a fala...")
     palavras = _transcrever_palavras(caminho_audio)
-    pausas = _detectar_pausas_da_fala(palavras)
-    pontos_de_corte = _pontos_de_corte(duracao_total, len(imagens), pausas)
-    pontos_de_corte = _refinar_cortes_por_numero_no_texto(pontos_de_corte, palavras)
 
-    # Bug real 2026-09-12 (correção direta do Davi, depois de várias
-    # rodadas tentando "melhorar" o casamento por conteúdo): as fotos que
-    # o irmão manda JÁ VÊM na ordem certa da narração -- ele numera 1, 2,
-    # 3... seguindo o que vai falar. Reordenar por "conteúdo" (Gemini
-    # tentando adivinhar qual foto combina com qual trecho) estava
-    # DESFAZENDO uma ordem que já estava certa, trocando fotos de lugar
-    # sem necessidade e piorando o resultado. Removido -- a única coisa
-    # que este pipeline decide é O RITMO do corte (quando trocar, baseado
-    # nas pausas reais da fala), nunca A ORDEM das fotos, que é sempre a
-    # ordem numérica original.
+    if caminho_roteiro:
+        print(f"Roteiro marcado fornecido ({os.path.basename(caminho_roteiro)}) -- usando [FOTO N] em vez de pausa...")
+        segmentos_roteiro = _carregar_roteiro_marcado(caminho_roteiro, len(imagens))
+        pontos_de_corte = _pontos_de_corte_por_roteiro(segmentos_roteiro, palavras, duracao_total)
+        # Puxa cada corte pra pausa de fala real mais próxima (se houver
+        # uma perto) -- o alinhamento por texto acha a palavra certa, mas
+        # sem isso o corte pode cair no meio de uma respiração em vez de
+        # bater com uma pausa de verdade (ver docstring da função).
+        pontos_de_corte = _ajustar_cortes_para_pausa_mais_proxima(pontos_de_corte, _detectar_pausas_da_fala(palavras))
+        # Trecho de texto curto marcado pro irmão pra uma foto (poucas
+        # palavras) faz o corte por roteiro refletir fielmente esse tempo
+        # curto -- só que isso lê como apressado demais assistindo (ver
+        # docstring da função, feedback do Davi 2026-09-12/13). Só ATRASA
+        # a troca quando dá espaço, nunca corta a fala da foto atual.
+        pontos_de_corte = _atrasar_troca_quando_curto(pontos_de_corte)
+    else:
+        pausas = _detectar_pausas_da_fala(palavras)
+        pontos_de_corte = _pontos_de_corte(duracao_total, len(imagens), pausas)
+        pontos_de_corte = _refinar_cortes_por_numero_no_texto(pontos_de_corte, palavras)
+
+    # A ORDEM das fotos NUNCA muda -- é sempre a ordem numérica do arquivo
+    # (1, 2, 3...), porque o irmão do Davi já numera seguindo a narração
+    # (ver docstring desta função). Este pipeline só decide O RITMO do
+    # corte (quando trocar de foto), nunca A ORDEM das fotos.
     segmentos_texto = _textos_por_segmento(palavras, pontos_de_corte)
     duracoes_por_imagem = [pontos_de_corte[i + 1] - pontos_de_corte[i] for i in range(len(imagens))]
+
+    # Bug real 2026-09-13 (confirmado extraindo frame a frame do vídeo
+    # entregue): cada transição entre fotos (`concatenar_video_silencioso_
+    # com_transicao`) é um crossfade DE VERDADE de ~4 frames -- durante
+    # esse tempo, a foto anterior é substituída pela próxima na tela, ou
+    # seja, a LINHA DO TEMPO DO VÍDEO encolhe ~4 frames a cada corte
+    # (a foto seguinte começa a aparecer um pouco antes do fim "oficial"
+    # da foto anterior). Isso não é problema pro fluxo automatizado
+    # (`concatenar_com_transicao`), porque lá o ÁUDIO de cada cena também
+    # é recortado nos mesmos pontos -- mas aqui a trilha é um áudio
+    # EXTERNO pronto, nunca recortado, então esse encolhimento não tem
+    # como ele compensar sozinho: a cada corte a foto passa a aparecer um
+    # pouco mais cedo que o áudio, e isso ACUMULA (na foto 7 já tava
+    # quase 0.5s adiantada). Fix: soma de volta a duração da transição em
+    # cada foto (menos a última, que não tem corte depois dela) -- assim
+    # a duração REAL renderizada de cada clipe bate com o ponto de corte
+    # calculado, mesmo depois do crossfade "comer" um pedaço dela.
+    duracoes_por_imagem = [
+        duracao + (DURACAO_TRANSICAO_PADRAO if i < len(duracoes_por_imagem) - 1 else 0.0)
+        for i, duracao in enumerate(duracoes_por_imagem)
+    ]
 
     print("  === plano final de corte (conferir contra o vídeo entregue) ===")
     for i, imagem in enumerate(imagens):
@@ -1270,11 +1527,42 @@ def montar_video(
 
         caminhos_com_legenda = {}
         for plataforma, lista_clipes in clipes_por_plataforma.items():
-            print(f"Concatenando cenas ({plataforma}, com transição fluida entre elas)...")
-            print(f"  [DEBUG] {len(lista_clipes)} clipes: {[os.path.basename(c) for c in lista_clipes]}")
             caminho_bruto = os.path.join(pasta_tmp, f"bruto_{plataforma}.mp4")
-            concatenar_com_transicao(lista_clipes, caminho_bruto)
-            print(f"  [DEBUG] bruto_{plataforma}.mp4 real: {_duracao_segundos(caminho_bruto):.2f}s, frames={_contar_frames_reais(caminho_bruto)}")
+            duracao_esperada_bruto = sum(_duracao_segundos(c) for c in lista_clipes)
+
+            # Bug real 2026-09-13 (achado inspecionando o vídeo real de uma
+            # execução que falhou): o xfade encadeado às vezes trunca o
+            # vídeo de forma limpa (sem gap/corrupção nos timestamps, só
+            # termina cedo) mesmo com todos os clipes de entrada verificados
+            # saudáveis -- testei os MESMOS clipes que falharam em produção
+            # com 15 sequências de transição diferentes e todas deram
+            # certo, então não é uma combinação específica de transição que
+            # quebra sempre, é uma falha rara/intermitente do próprio
+            # ffmpeg (provavelmente ligada ao runner). Como sortear de novo
+            # as transições e tentar de novo resolve na prática (15/15 no
+            # teste), tenta até 3 vezes antes de desistir -- muito mais
+            # barato que perder o vídeo inteiro (REPROVADO) por uma falha
+            # que na segunda tentativa quase sempre não se repete.
+            for tentativa in range(1, 4):
+                print(f"Concatenando cenas ({plataforma}, com transição fluida entre elas)" + (f", tentativa {tentativa}/3..." if tentativa > 1 else "..."))
+                if tentativa == 1:
+                    print(f"  [DEBUG] {len(lista_clipes)} clipes: {[os.path.basename(c) for c in lista_clipes]}")
+                concatenar_com_transicao(lista_clipes, caminho_bruto)
+                frames_bruto = _contar_frames_reais(caminho_bruto)
+                duracao_real_bruto = frames_bruto / 30
+                print(f"  [DEBUG] bruto_{plataforma}.mp4 real: {_duracao_segundos(caminho_bruto):.2f}s, frames={frames_bruto}")
+                if duracao_real_bruto >= duracao_esperada_bruto * 0.9:
+                    break
+                print(
+                    f"  AVISO: concatenação saiu curta ({duracao_real_bruto:.1f}s reais pra "
+                    f"~{duracao_esperada_bruto:.1f}s esperado) -- provável falha intermitente "
+                    "do xfade, sorteando transições de novo e tentando outra vez."
+                )
+            else:
+                raise RuntimeError(
+                    f"Concatenação ({plataforma}) saiu truncada 3 vezes seguidas -- não é falha "
+                    "intermitente comum, precisa investigar os clipes de entrada dessa cena."
+                )
 
             caminho_com_legenda = os.path.join(pasta_tmp, f"com_legenda_{plataforma}.mp4")
             if sem_legenda:
