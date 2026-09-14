@@ -519,19 +519,13 @@ def gerar_clipe_cena(
     sub_clipes = []
     for i, caminho_imagem in enumerate(imagens):
         caminho_sub = os.path.join(pasta_tmp, f"{os.path.basename(caminho_saida)}_sub{i}.mp4")
-        # "personagem_cresce" reativado 2026-09-09 rodando no Modal (não
-        # mais localmente com rembg) -- ver src/modal_rembg_app.py e
-        # _extrair_personagem_rgba() acima. Isso resolve o motivo real por
-        # trás de duas quedas de runner em produção: o modelo do rembg
-        # baixava ~1GB do zero em toda execução no runner efêmero do
-        # GitHub Actions, sem cache nenhum. No Modal o cache é persistente
-        # (Volume), ~4s por imagem depois do primeiro cold start.
-        # Pedido do Davi 2026-09-10: "personagem_cresce" tava sorteado com
-        # chance baixa demais (1/9 ~= 11%) e passava despercebido no vídeo
-        # inteiro -- sobe pra ~35% de chance por imagem (peso 13 contra peso
-        # 3 de cada um dos 8 tipos normais: 13/(8*3+13) = 35%).
-        pesos_movimento = [3] * len(TIPOS_MOVIMENTO) + [13]
-        tipo_movimento = _RNG_MOVIMENTO.choices(TIPOS_MOVIMENTO + ["personagem_cresce"], weights=pesos_movimento)[0]
+        # "personagem_cresce" removido da rotação 2026-09-14: depende do app
+        # Modal "arquivo-sombrio-rembg", que estava fora do ar (causava
+        # fallback silencioso pra zoom_in em toda cena, e misturava clipes
+        # com filtro diferente no mesmo vídeo -- suspeito nº 1 do
+        # truncamento determinístico visto no concat do Em Alta). Pedido do
+        # Davi: não usar Modal por enquanto.
+        tipo_movimento = _RNG_MOVIMENTO.choice(TIPOS_MOVIMENTO)
         gerar_clipe_imagem_silencioso(caminho_imagem, duracao_por_imagem, caminho_sub, tipo_movimento=tipo_movimento)
         sub_clipes.append(caminho_sub)
 
@@ -1271,12 +1265,15 @@ def montar_video_de_audio_e_imagens(
         )
 
     with tempfile.TemporaryDirectory() as pasta_tmp:
-        pesos_movimento = [3] * len(TIPOS_MOVIMENTO) + [13]
         clipes = []
         for i, (imagem, duracao_imagem) in enumerate(zip(imagens, duracoes_por_imagem)):
-            tipo_movimento = _RNG_MOVIMENTO.choices(
-                TIPOS_MOVIMENTO + ["personagem_cresce"], weights=pesos_movimento
-            )[0]
+            # "personagem_cresce" removido da rotação 2026-09-14: depende do
+            # app Modal "arquivo-sombrio-rembg", que estava fora do ar
+            # (causava fallback silencioso pra zoom_in em toda cena, e
+            # misturava clipes com filtro diferente no mesmo vídeo -- suspeito
+            # nº 1 do truncamento determinístico visto no concat do Em Alta).
+            # Pedido do Davi: não usar Modal por enquanto.
+            tipo_movimento = _RNG_MOVIMENTO.choice(TIPOS_MOVIMENTO)
             caminho_clipe = os.path.join(pasta_tmp, f"clipe{i}.mp4")
             gerar_clipe_imagem_silencioso(imagem, duracao_imagem, caminho_clipe, tipo_movimento)
             clipes.append(caminho_clipe)
