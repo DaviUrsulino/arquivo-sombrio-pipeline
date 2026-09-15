@@ -173,77 +173,24 @@ def gerar_imagem_huggingface(prompt: str, imagem_referencia: bytes | None) -> by
 
 
 
-def gerar_imagem_replicate(prompt: str, imagem_referencia: bytes | None, tentativas: int = 6) -> bytes:
-    """Fallback pago (Replicate, FLUX.1 [dev]) -- validado manualmente em
-    2026-09-10 como o de MELHOR fidelidade entre todos os fallbacks pagos
-    (ver testes com o roteiro do palhaço-fantasma). Entra ANTES do fal.ai
-    na cadeia por isso. Custo ~$0,025/imagem -- não é grátis, então só usa
-    quando Cloudflare/Modal (grátis) já falharam. Requer REPLICATE_API_TOKEN
-    no .env/secrets.
+_APP_MODAL_FLUX = None
 
-    Achado importante na mesma sessão: a causa real da baixa fidelidade de
-    figurino em TODOS os provedores (não só aqui) era o prompt de imagem
-    estar em português -- FLUX (e modelos afins) são treinados majoritariamente
-    em inglês e ignoram/erram detalhes de roupa/objeto descritos em
-    português, mesmo termos comuns. Corrigido na fonte (ver canais/terror.py
-    e canais/tendencias.py, campo "prompt_imagem"/"personagem" agora exigidos
-    em inglês) -- isso melhora a qualidade em QUALQUER fallback, não só este."""
-    token = os.environ["REPLICATE_API_TOKEN"]
-    headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json", "Prefer": "wait"}
 
-    body = {"input": {"prompt": prompt, "aspect_ratio": "9:16", "output_format": "jpg"}}
-    if imagem_referencia:
-        body["input"]["image"] = "data:image/jpeg;base64," + base64.b64encode(imagem_referencia).decode()
+def gerar_imagem_modal(prompt: str, imagem_referencia: bytes | None) -> bytes:
+    """Segundo fallback (logo depois do Cloudflare, antes de qualquer coisa
+    paga): FLUX.1-schnell rodando no Modal (`src/modal_flux_app.py`), usando
+    o crédito mensal grátis do Modal (~$30/mês, cobre milhares de imagens --
+    cada geração custa fração de centavo de GPU). Substitui o antigo
+    fallback Replicate 2026-09-15: o Davi não quer mais pagar por imagem
+    avulsa, e esse app já existia deployado sem nunca ter sido ligado de
+    verdade na cadeia -- ver commit que remove `gerar_imagem_replicate`."""
+    global _APP_MODAL_FLUX
+    import modal
 
-    ultimo_erro = None
-    for tentativa in range(1, tentativas + 1):
-        status_code = None
-        try:
-            resp = requests.post(
-                "https://api.replicate.com/v1/models/black-forest-labs/flux-dev/predictions",
-                headers=headers, json=body, timeout=90,
-            )
-            status_code = resp.status_code
-            if status_code in (200, 201):
-                dados = resp.json()
-                if dados.get("status") == "succeeded" and dados.get("output"):
-                    resp_img = requests.get(dados["output"][0], timeout=60)
-                    resp_img.raise_for_status()
-                    return resp_img.content
-                ultimo_erro = f"status {dados.get('status')}: {dados.get('error')}"
-            else:
-                ultimo_erro = f"HTTP {status_code}: {resp.text[:300]}"
-        except requests.exceptions.RequestException as e:
-            # rede instável/reset -- não é erro definitivo, entra no
-            # retry normal em vez de derrubar a run inteira (bug real
-            # 2026-09-10: isso não tratado fazia o script inteiro
-            # travar em vez de cair pro próximo fallback).
-            ultimo_erro = f"erro de rede: {e}"
+    if _APP_MODAL_FLUX is None:
+        _APP_MODAL_FLUX = modal.Cls.from_name("arquivo-sombrio-flux", "Flux")()
 
-        # Bug real encontrado 2026-09-10: com saldo baixo (< $5) a Replicate
-        # responde 429 (rate limit reduzido pra 6 req/min) e a mensagem
-        # MENCIONA "credit" só de contexto ("...while you have less than
-        # $5.0 in credit") -- isso disparava a checagem de string abaixo e
-        # tratava um simples rate limit passageiro como falta de crédito
-        # definitiva, desistindo na primeira tentativa. 429 SEMPRE é
-        # passageiro (nunca falta de crédito de verdade) -- checa o
-        # status_code primeiro, não o texto da mensagem.
-        if status_code == 429:
-            espera = 15
-            try:
-                espera = max(float(resp.json().get("retry_after", 15)) + 2, espera)
-            except Exception:
-                pass
-            print(f"  [Replicate] rate limit (tentativa {tentativa}), esperando {espera:.0f}s...")
-            time.sleep(espera)
-            continue
-
-        if status_code in (401, 402, 403):
-            raise RuntimeError(f"Replicate sem crédito/autorização: {ultimo_erro}")
-        print(f"  [Replicate] tentativa {tentativa} falhou ({ultimo_erro[:120]}), esperando...")
-        time.sleep(3 * tentativa)
-
-    raise RuntimeError(f"Replicate falhou após {tentativas} tentativas: {ultimo_erro}")
+    return _APP_MODAL_FLUX.gerar.remote(prompt, imagem_referencia)
 
 
 def gerar_imagem_falai(prompt: str, imagem_referencia: bytes | None, tentativas: int = 3) -> bytes:
@@ -356,10 +303,9 @@ def gerar_imagens_do_roteiro(
     fonte_fallback = None
     hf_esgotado = False  # depois do primeiro esgotamento, nem tenta de novo (cota é bem curta)
     cloudflare_esgotado = False  # idem -- cota diária, não adianta insistir na mesma run
+    modal_esgotado = False  # idem, se o app do Modal falhar de forma clara (não cold start)
     falai_indisponivel = not os.environ.get("FAL_KEY")
     falai_sem_credito = False  # sem crédito não é passageiro, não insiste na mesma run
-    replicate_indisponivel = not os.environ.get("REPLICATE_API_TOKEN")
-    replicate_sem_credito = False
 
     ultima_imagem_personagem = None  # encadeia referência só entre fotos COM personagem
 
@@ -408,17 +354,21 @@ def gerar_imagens_do_roteiro(
                 except RuntimeError as e:
                     print(f"  Cloudflare falhou ({e})")
 
-            if imagem_bytes is None and not replicate_indisponivel and not replicate_sem_credito:
+            if imagem_bytes is None and not modal_esgotado:
                 try:
-                    print("  tentando fallback Replicate (FLUX.1 dev)...")
-                    imagem_bytes = gerar_imagem_replicate(prompt, imagem_referencia)
+                    print("  tentando fallback Modal (FLUX.1-schnell)...")
+                    imagem_bytes = gerar_imagem_modal(prompt, imagem_referencia)
                     usou_fallback = True
-                    fonte_fallback = "Replicate (FLUX.1 dev)"
+                    fonte_fallback = "Modal (FLUX.1-schnell)"
                     fonte_desta_imagem = fonte_fallback
-                except Exception as e_replicate:
-                    print(f"  Replicate falhou ({e_replicate})")
-                    if "crédito" in str(e_replicate) or "autorização" in str(e_replicate):
-                        replicate_sem_credito = True
+                except Exception as e_modal:
+                    print(f"  Modal falhou ({e_modal})")
+                    # não desiste da run inteira num erro isolado (pode ser
+                    # cold start/timeout passageiro), só marca esgotado se o
+                    # mesmo tipo de erro já bateu antes -- mas por ora trata
+                    # qualquer falha como não repetir nessa cena específica,
+                    # deixando o resto da cadeia (fal.ai/HF/Pollinations)
+                    # cobrir essa imagem.
 
             if imagem_bytes is None and not falai_indisponivel and not falai_sem_credito:
                 try:
@@ -487,10 +437,11 @@ def main():
 
     # Bug real encontrado 2026-09-10: essa mensagem sempre dizia "custo:
     # R$0,00" e contava só len(cenas) em vez do total de imagens (cenas x
-    # imagens_por_cena) -- mentia justamente na única run em que caiu tudo
-    # na Replicate (paga) por causa da cota do Cloudflare já ter acabado no
-    # dia. Preço por imagem é em USD (Replicate cobra em dólar).
-    CUSTO_USD_POR_IMAGEM = {"Replicate (FLUX.1 dev)": 0.025}
+    # imagens_por_cena). Removido o fallback Replicate 2026-09-15 (o Davi
+    # não quer mais pagar por imagem avulsa) -- Modal entra no lugar dele,
+    # cobrado do crédito mensal já alocado, não por chamada individual aqui.
+    # fal.ai continua sendo o único fallback com custo direto por imagem.
+    CUSTO_USD_POR_IMAGEM = {"fal.ai (FLUX.1)": 0.006}
     total_imagens = sum(contagem.values())
     custo_total = sum(CUSTO_USD_POR_IMAGEM.get(fonte, 0.0) * n for fonte, n in contagem.items())
     resumo_fontes = ", ".join(f"{n}x {fonte}" for fonte, n in contagem.items())
