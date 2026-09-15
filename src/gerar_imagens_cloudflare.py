@@ -173,24 +173,11 @@ def gerar_imagem_huggingface(prompt: str, imagem_referencia: bytes | None) -> by
 
 
 
-_APP_MODAL_FLUX = None
 
-
-def gerar_imagem_modal(prompt: str, imagem_referencia: bytes | None) -> bytes:
-    """Segundo fallback (logo depois do Cloudflare, antes de qualquer coisa
-    paga): FLUX.1-schnell rodando no Modal (`src/modal_flux_app.py`), usando
-    o crédito mensal grátis do Modal (~$30/mês, cobre milhares de imagens --
-    cada geração custa fração de centavo de GPU). Substitui o antigo
-    fallback Replicate 2026-09-15: o Davi não quer mais pagar por imagem
-    avulsa, e esse app já existia deployado sem nunca ter sido ligado de
-    verdade na cadeia -- ver commit que remove `gerar_imagem_replicate`."""
-    global _APP_MODAL_FLUX
-    import modal
-
-    if _APP_MODAL_FLUX is None:
-        _APP_MODAL_FLUX = modal.Cls.from_name("arquivo-sombrio-flux", "Flux")()
-
-    return _APP_MODAL_FLUX.gerar.remote(prompt, imagem_referencia)
+# NÃO usar Modal aqui -- o app/crédito do Modal (mesmo o "arquivo-sombrio-
+# flux") é compartilhado com o projeto podcasthub, decisão explícita do
+# Davi 2026-09-15 de não gastar esse crédito neste pipeline. Removido de
+# novo depois de uma tentativa (commit anterior) que ligou isso por engano.
 
 
 def gerar_imagem_falai(prompt: str, imagem_referencia: bytes | None, tentativas: int = 3) -> bytes:
@@ -303,7 +290,6 @@ def gerar_imagens_do_roteiro(
     fonte_fallback = None
     hf_esgotado = False  # depois do primeiro esgotamento, nem tenta de novo (cota é bem curta)
     cloudflare_esgotado = False  # idem -- cota diária, não adianta insistir na mesma run
-    modal_esgotado = False  # idem, se o app do Modal falhar de forma clara (não cold start)
     falai_indisponivel = not os.environ.get("FAL_KEY")
     falai_sem_credito = False  # sem crédito não é passageiro, não insiste na mesma run
 
@@ -353,22 +339,6 @@ def gerar_imagens_do_roteiro(
                     cloudflare_esgotado = True
                 except RuntimeError as e:
                     print(f"  Cloudflare falhou ({e})")
-
-            if imagem_bytes is None and not modal_esgotado:
-                try:
-                    print("  tentando fallback Modal (FLUX.1-schnell)...")
-                    imagem_bytes = gerar_imagem_modal(prompt, imagem_referencia)
-                    usou_fallback = True
-                    fonte_fallback = "Modal (FLUX.1-schnell)"
-                    fonte_desta_imagem = fonte_fallback
-                except Exception as e_modal:
-                    print(f"  Modal falhou ({e_modal})")
-                    # não desiste da run inteira num erro isolado (pode ser
-                    # cold start/timeout passageiro), só marca esgotado se o
-                    # mesmo tipo de erro já bateu antes -- mas por ora trata
-                    # qualquer falha como não repetir nessa cena específica,
-                    # deixando o resto da cadeia (fal.ai/HF/Pollinations)
-                    # cobrir essa imagem.
 
             if imagem_bytes is None and not falai_indisponivel and not falai_sem_credito:
                 try:
@@ -438,9 +408,10 @@ def main():
     # Bug real encontrado 2026-09-10: essa mensagem sempre dizia "custo:
     # R$0,00" e contava só len(cenas) em vez do total de imagens (cenas x
     # imagens_por_cena). Removido o fallback Replicate 2026-09-15 (o Davi
-    # não quer mais pagar por imagem avulsa) -- Modal entra no lugar dele,
-    # cobrado do crédito mensal já alocado, não por chamada individual aqui.
-    # fal.ai continua sendo o único fallback com custo direto por imagem.
+    # não quer mais pagar por imagem avulsa) -- SEM substituto pago no lugar
+    # dele (Modal também está fora, é crédito compartilhado com o
+    # podcasthub, não pode ser gasto aqui). fal.ai continua sendo o único
+    # fallback com custo direto por imagem, se a chave estiver configurada.
     CUSTO_USD_POR_IMAGEM = {"fal.ai (FLUX.1)": 0.006}
     total_imagens = sum(contagem.values())
     custo_total = sum(CUSTO_USD_POR_IMAGEM.get(fonte, 0.0) * n for fonte, n in contagem.items())
