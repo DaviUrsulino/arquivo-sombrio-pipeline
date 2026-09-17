@@ -2,32 +2,38 @@ name: Pipeline Dark - geração e publicação automática
 
 # Roda de graça no GitHub Actions, sem precisar do PC ligado. Cron em UTC
 # (BRT = UTC-3). Duas contas alternando ao longo do dia, 10 vídeos/dia no
-# total (5 cada) — acima da cota garantida do Cloudflare (~6-7/dia com boa
-# qualidade), o excedente cai no fallback Pollinations automaticamente.
+# total (5 cada) -- cabe com folga na cota da YouTube Data API desde que
+# cada canal passou a ter projeto Google Cloud próprio (2026-09-17, ver
+# CREDENCIAIS_POR_CONTA em pipeline_completo.py): 10.000 unidades/dia por
+# projeto, 1.600 por upload, ~6/dia de teto por canal -- 5/dia usa 8.000,
+# com folga real. Cota de imagem (Cloudflare) também parou de ser gargalo
+# depois de somar 4 contas (~40.000 neurons/dia, ver gerar_imagens_cloudflare.py).
 #   - "Arquivo Sombrio" (terror -- histórias reais/baseadas em fatos reais/
 #     teoria da conspiração, ver canais/terror.py): 5x/dia
 #   - "Em Alta" (tendências): 5x/dia
 on:
   schedule:
-    # Ajuste 2026-09-11 (pedido do Davi: "4 vídeos por canal"): de 5 pra 4
-    # publicações/dia por conta, mesmo espaçamento ao longo do dia.
+    # Ajuste 2026-09-17 (pedido do Davi: "5 por dia pra fechar redondo"):
+    # de 4 pra 5 publicações/dia por conta, ~4h48min de espaçamento entre
+    # uma e outra do mesmo canal (24h / 5).
     #
-    # Ajuste 2026-09-11 (2ª rodada, mesmo dia): cron batendo EXATO em cima
-    # da hora ("0 12 * * *" etc) cai no horário de pico de congestionamento
-    # do agendador do GitHub Actions -- a doc deles avisa isso ("High load
-    # times include, for example, the start of every hour") e na prática
-    # duas execuções do dia (12h e 14h UTC) simplesmente sumiram, nem
-    # chegaram a rodar, enquanto outras atrasaram horas. Desloca todos os
-    # minutos pra fora da hora cheia (:07, :13, :23, :37) reduz a chance de
-    # cair nesse pico.
+    # Ajuste 2026-09-11: cron batendo EXATO em cima da hora ("0 12 * * *"
+    # etc) cai no horário de pico de congestionamento do agendador do
+    # GitHub Actions -- a doc deles avisa isso ("High load times include,
+    # for example, the start of every hour") e na prática duas execuções
+    # do dia simplesmente sumiram, nem chegaram a rodar, enquanto outras
+    # atrasaram horas. Minutos quebrados (não :00/:15/:30/:45) em todos os
+    # horários reduz a chance de cair nesse pico.
     - cron: '7 12 * * *'   # ~09h07 BRT - arquivo_sombrio
-    - cron: '13 16 * * *'  # ~13h13 BRT - arquivo_sombrio
-    - cron: '23 20 * * *'  # ~17h23 BRT - arquivo_sombrio
-    - cron: '37 0 * * *'   # ~21h37 BRT - arquivo_sombrio
+    - cron: '55 16 * * *'  # ~13h55 BRT - arquivo_sombrio
+    - cron: '43 21 * * *'  # ~18h43 BRT - arquivo_sombrio
+    - cron: '31 2 * * *'   # ~23h31 BRT (dia anterior) - arquivo_sombrio
+    - cron: '19 7 * * *'   # ~04h19 BRT - arquivo_sombrio
     - cron: '7 14 * * *'   # ~11h07 BRT - tendencias
-    - cron: '13 18 * * *'  # ~15h13 BRT - tendencias
-    - cron: '23 22 * * *'  # ~19h23 BRT - tendencias
-    - cron: '37 2 * * *'   # ~23h37 BRT - tendencias
+    - cron: '55 18 * * *'  # ~15h55 BRT - tendencias
+    - cron: '43 23 * * *'  # ~20h43 BRT - tendencias
+    - cron: '31 4 * * *'   # ~01h31 BRT - tendencias
+    - cron: '19 9 * * *'   # ~06h19 BRT - tendencias
   workflow_dispatch:
     inputs:
       canal:
@@ -72,7 +78,7 @@ jobs:
             CANAL="${{ github.event.inputs.canal }}"
           else
             case "${{ github.event.schedule }}" in
-              '7 14 * * *'|'13 18 * * *'|'23 22 * * *'|'37 2 * * *') CANAL="tendencias" ;;
+              '7 14 * * *'|'55 18 * * *'|'43 23 * * *'|'31 4 * * *'|'19 9 * * *') CANAL="tendencias" ;;
               *) CANAL="arquivo_sombrio" ;;
             esac
           fi
