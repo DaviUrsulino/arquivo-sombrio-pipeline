@@ -80,41 +80,74 @@ def montar_prompt(prompt_imagem: str, canal, personagem: str | None, tem_referen
     )
 
 
+def _carregar_contas_cloudflare() -> list[tuple[str, str]]:
+    """Pedido do Davi 2026-09-16 ("3 apis de 3 emails diferentes agora temos
+    4x de tokens"): cada conta Cloudflare grátis tem seu próprio limite de
+    ~10.000 neurons/dia, então várias contas = mais cota, não mais
+    velocidade. A conta original continua em CLOUDFLARE_ACCOUNT_ID/
+    CLOUDFLARE_API_TOKEN; as extras usam sufixo _2, _3, _4 (nem todas
+    precisam estar configuradas)."""
+    contas = []
+    for sufixo in ("", "_2", "_3", "_4"):
+        account_id = os.environ.get(f"CLOUDFLARE_ACCOUNT_ID{sufixo}")
+        token = os.environ.get(f"CLOUDFLARE_API_TOKEN{sufixo}")
+        if account_id and token:
+            contas.append((account_id, token))
+    return contas
+
+
+# Índice da conta atual dentro da run -- uma vez que uma conta esgota a cota
+# diária, não faz sentido tentar ela de novo pras próximas imagens da mesma
+# run (mesmo motivo do `cloudflare_esgotado` em gerar_imagens_do_roteiro,
+# só que agora por conta em vez de pro provedor inteiro).
+_indice_conta_cloudflare = 0
+
+
 def gerar_imagem(prompt: str, imagem_referencia: bytes | None, tentativas: int = 3) -> bytes:
-    account_id = os.environ["CLOUDFLARE_ACCOUNT_ID"]
-    token = os.environ["CLOUDFLARE_API_TOKEN"]
-    url = f"{API_BASE}/{account_id}/ai/run/{MODELO}"
-    headers = {"Authorization": f"Bearer {token}"}
+    global _indice_conta_cloudflare
+    contas = _carregar_contas_cloudflare()
+    if not contas:
+        raise RuntimeError("Nenhuma conta Cloudflare configurada (CLOUDFLARE_ACCOUNT_ID/CLOUDFLARE_API_TOKEN)")
 
-    ultimo_erro = None
-    for tentativa in range(1, tentativas + 1):
-        data = {"prompt": prompt}
-        files = {"image": ("ref.jpg", imagem_referencia, "image/jpeg")} if imagem_referencia else None
+    while _indice_conta_cloudflare < len(contas):
+        account_id, token = contas[_indice_conta_cloudflare]
+        url = f"{API_BASE}/{account_id}/ai/run/{MODELO}"
+        headers = {"Authorization": f"Bearer {token}"}
 
-        try:
-            resp = requests.post(url, headers=headers, data=data, files=files, timeout=90)
-            if resp.status_code == 200:
-                dados = resp.json()
-                if dados.get("success"):
-                    return base64.b64decode(dados["result"]["image"])
-                ultimo_erro = f"Cloudflare retornou erro: {dados}"
-            else:
-                ultimo_erro = f"HTTP {resp.status_code}: {resp.text[:300]}"
-        except requests.exceptions.RequestException as e:
-            # rede instável/reset -- não derruba a run inteira (bug real
-            # 2026-09-10: ConnectionResetError sem try/except aqui travava
-            # todo o script em vez de cair pro próximo fallback).
-            ultimo_erro = f"erro de rede: {e}"
+        ultimo_erro = None
+        for tentativa in range(1, tentativas + 1):
+            data = {"prompt": prompt}
+            files = {"image": ("ref.jpg", imagem_referencia, "image/jpeg")} if imagem_referencia else None
 
-        # Cota diária esgotada (code 4006) não é erro passageiro -- tentar
-        # de novo com backoff é só desperdiçar tempo, desiste na hora.
-        if "daily free allocation" in ultimo_erro or '"code":4006' in ultimo_erro:
-            raise CotaEsgotadaError(f"Cota diária esgotada: {ultimo_erro}")
+            try:
+                resp = requests.post(url, headers=headers, data=data, files=files, timeout=90)
+                if resp.status_code == 200:
+                    dados = resp.json()
+                    if dados.get("success"):
+                        return base64.b64decode(dados["result"]["image"])
+                    ultimo_erro = f"Cloudflare retornou erro: {dados}"
+                else:
+                    ultimo_erro = f"HTTP {resp.status_code}: {resp.text[:300]}"
+            except requests.exceptions.RequestException as e:
+                # rede instável/reset -- não derruba a run inteira (bug real
+                # 2026-09-10: ConnectionResetError sem try/except aqui travava
+                # todo o script em vez de cair pro próximo fallback).
+                ultimo_erro = f"erro de rede: {e}"
 
-        print(f"  tentativa {tentativa} falhou ({ultimo_erro[:120]}), esperando...")
-        time.sleep(3 * tentativa)
+            # Cota diária esgotada (code 4006) não é erro passageiro -- tentar
+            # de novo com backoff é só desperdiçar tempo, passa pra próxima
+            # conta configurada (se tiver) em vez de desistir na hora.
+            if "daily free allocation" in ultimo_erro or '"code":4006' in ultimo_erro:
+                print(f"  conta Cloudflare {_indice_conta_cloudflare + 1}/{len(contas)} esgotada, trocando de conta...")
+                _indice_conta_cloudflare += 1
+                break
 
-    raise RuntimeError(f"Falhou após {tentativas} tentativas: {ultimo_erro}")
+            print(f"  tentativa {tentativa} falhou ({ultimo_erro[:120]}), esperando...")
+            time.sleep(3 * tentativa)
+        else:
+            raise RuntimeError(f"Falhou após {tentativas} tentativas: {ultimo_erro}")
+
+    raise CotaEsgotadaError(f"Cota diária esgotada nas {len(contas)} conta(s) Cloudflare configurada(s)")
 
 
 _CLIENTE_HF = None
