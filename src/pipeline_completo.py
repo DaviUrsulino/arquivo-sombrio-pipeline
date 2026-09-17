@@ -186,7 +186,13 @@ CREDENCIAIS_POR_CONTA = {
         "tiktok_token": "tiktok_token.json",
     },
     "tendencias": {
-        "youtube_client_secret": "client_secret.json",  # mesmo app OAuth, conta Google diferente
+        # Projeto Google Cloud PRÓPRIO (2026-09-17, "arquivo-sombrio-tendencias")
+        # -- antes usava o mesmo client_secret.json do arquivo_sombrio, e a
+        # cota da YouTube Data API é por PROJETO, não por canal: os dois
+        # juntos dividiam só 10.000 unidades/dia (~6 uploads/dia no total,
+        # 1600 unidades cada), abaixo dos 4+4=8/dia que o cron já tentava
+        # fazer. Projeto separado dá 10.000 unidades próprias pra cada canal.
+        "youtube_client_secret": "client_secret_tendencias.json",
         "youtube_token": "token_tendencias.json",
         "tiktok_token": "tiktok_token_tendencias.json",
     },

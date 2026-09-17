@@ -1690,7 +1690,14 @@ def main():
             raise SystemExit(f"nenhuma imagem encontrada em {pasta_imagens}")
         imagens = [os.path.join(pasta_imagens, n) for n in nomes]
         print(f"{len(imagens)} imagens encontradas, ordem: {nomes}")
-        montar_video_de_audio_e_imagens(args.audio, imagens, args.saida, plataforma=args.plataforma)
+        # Bug real encontrado 2026-09-17: esse modo nunca repassava --roteiro
+        # pra montar_video_de_audio_e_imagens, mesmo ela aceitando um roteiro
+        # marcado [FOTO N] -- sempre caía no fallback de detecção de pausa
+        # (menos preciso, gera corte vazando fala de uma foto pra outra),
+        # mesmo quando um roteiro marcado já existia pronto.
+        montar_video_de_audio_e_imagens(
+            args.audio, imagens, args.saida, plataforma=args.plataforma, caminho_roteiro=args.roteiro,
+        )
         return
 
     if not args.roteiro:

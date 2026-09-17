@@ -1,5 +1,6 @@
 .env
 client_secret.json
+client_secret_*.json
 token.json
 token_*.json
 tiktok_token.json
