@@ -568,6 +568,192 @@ def gerar_clipe_cena(
         ])
 
 
+PASTA_ASSETS_PERSONAGEM = os.path.join(os.path.dirname(os.path.dirname(__file__)), "assets", "personagem")
+LARGURA_PERSONAGEM_OVERLAY = 850
+MARGEM_PERSONAGEM_OVERLAY = -60
+
+# Poses de "ênfase" que entram por cima do ciclo de fala de vez em quando
+# (feedback 2026-09-18: só abrir/fechar boca sempre igual por 80s+ ficou
+# "muito igual" -- intercalar reação/expressão dá mais variedade sem
+# precisar de mais nenhuma pose nova, já que as 8 já existem).
+POSES_ENFASE = [
+    "surpreso.png", "confuso.png", "apontando.png", "piscando_2.png",
+    "gargalhando.png", "impressionado.png", "negando.png", "comemorando.png",
+    "pensativo_intenso.png", "chocado.png",
+]
+
+
+def _janelas_de_fala(palavras: list[tuple[float, float, str]]) -> list[tuple[float, float]]:
+    """Funde palavras vizinhas (gap < 0.15s) num intervalo só de "boca
+    aberta" -- sem isso a boca abriria/fecharia palavra por palavra, rápido
+    demais e picotado; fundindo, cada frase/bloco de fala vira um intervalo
+    contínuo com a boca aberta, fechando só nas pausas de verdade."""
+    if not palavras:
+        return []
+    janelas = []
+    inicio_atual, fim_atual = palavras[0][0], palavras[0][1]
+    for ini, fim, _palavra in palavras[1:]:
+        if ini - fim_atual < 0.15:
+            fim_atual = fim
+        else:
+            janelas.append((max(0.0, inicio_atual - 0.03), fim_atual + 0.05))
+            inicio_atual, fim_atual = ini, fim
+    janelas.append((max(0.0, inicio_atual - 0.03), fim_atual + 0.05))
+    return janelas
+
+
+def _dentro_de_alguma(t: float, janelas: list[tuple[float, float]]) -> bool:
+    return any(ini <= t < fim for ini, fim in janelas)
+
+
+def _escolher_pose_por_frame(
+    duracao_total: float, janelas_fala: list[tuple[float, float]],
+    caminhos_enfase: list[str], caminho_aberto: str, caminho_meio: str, caminho_piscando: str,
+    passo: float = 1 / 15,
+) -> list[tuple[float, float, str]]:
+    """Decide, numa grade fina de tempo, EXATAMENTE uma pose ativa por
+    instante (prioridade: ênfase > piscada > fala > repouso) e funde
+    instantes vizinhos com a mesma pose em segmentos -- garante que nunca
+    duas poses ficam "empilhadas" ao mesmo tempo.
+
+    Bug real 2026-09-18 (achado numa captura de tela do Davi: dois rostos
+    diferentes visíveis ao mesmo tempo, tipo fantasma) -- a versão anterior
+    desenhava cada pose por cima da anterior via `overlay` encadeado; como
+    as poses têm a cabeça em posições/tamanhos levemente diferentes dentro
+    do recorte, nenhuma cobria 100% a área da outra, e sobrava pedaço da
+    pose de baixo aparecendo ao lado da de cima sempre que duas janelas
+    (ex: piscada + ênfase) coincidiam no tempo. Escolhendo só UMA pose por
+    instante (em vez de empilhar camadas condicionais), isso não pode mais
+    acontecer -- só existe uma imagem "certa" a cada momento."""
+    fase_piscada = random.uniform(0, 3.5)
+    fase_base_enfase = random.uniform(0, 6.0)
+    janelas_piscada = []
+    t = 0.0
+    while t < duracao_total:
+        ini = t + ((fase_piscada - t) % 3.5)
+        if ini < duracao_total:
+            janelas_piscada.append((ini, min(ini + 0.15, duracao_total)))
+        t = ini + 3.5
+
+    janelas_enfase = []  # (ini, fim, caminho)
+    for i, caminho in enumerate(caminhos_enfase):
+        fase = fase_base_enfase + i * 6.0
+        t = 0.0
+        while t < duracao_total:
+            ini = t + ((fase - t) % 18.0)
+            if ini < duracao_total:
+                janelas_enfase.append((ini, min(ini + 0.7, duracao_total), caminho))
+            t = ini + 18.0
+
+    n_passos = int(duracao_total / passo) + 1
+    escolhas = []
+    for i in range(n_passos):
+        t = i * passo
+        pose = None
+        for ini, fim, caminho in janelas_enfase:
+            if ini <= t < fim:
+                pose = caminho
+                break
+        if pose is None and _dentro_de_alguma(t, janelas_piscada):
+            pose = caminho_piscando
+        if pose is None and _dentro_de_alguma(t, janelas_fala):
+            pose = caminho_aberto
+        if pose is None:
+            pose = caminho_meio
+        escolhas.append((t, pose))
+
+    segmentos = []
+    inicio_seg, pose_seg = escolhas[0]
+    for t, pose in escolhas[1:]:
+        if pose != pose_seg:
+            segmentos.append((inicio_seg, t, pose_seg))
+            inicio_seg, pose_seg = t, pose
+    segmentos.append((inicio_seg, duracao_total, pose_seg))
+    return segmentos
+
+
+def aplicar_overlay_personagem(
+    caminho_video: str, caminho_saida: str,
+    palavras: list[tuple[float, float, str]] | None = None,
+):
+    """Sobrepõe o mascote (pasta assets/personagem, PNG com fundo
+    transparente já recortado) no canto inferior esquerdo do vídeo, com
+    leve balanço (respiração/idle, senoidal) pra nunca ficar 100% estático
+    "colado" -- efeito "sprite falante" de canal faceless, sem precisar de
+    IA de vídeo/lip-sync de verdade.
+
+    Constrói uma "trilha do personagem" à parte primeiro (vídeo com alpha,
+    exatamente uma pose ativa a cada instante, ver `_escolher_pose_por_
+    frame`) e só depois sobrepõe ela no vídeo principal numa única
+    operação -- evita empilhar overlay por cima de overlay (causa real do
+    "fantasma"/dupla-face visto em produção, ver docstring de
+    `_escolher_pose_por_frame`).
+
+    Se `palavras` for passado (mesma transcrição já usada pra legenda, ver
+    `_transcrever_palavras`), a boca abre/fecha SINCRONIZADA com a fala de
+    verdade em vez de um timer fixo -- timer fixo lia como "mastigando" o
+    tempo todo, inclusive nas pausas (feedback 2026-09-18: "a animação do
+    boneco tá muito rasa"). Sem `palavras`, cai pro flap por timer
+    (fallback pra quem chama isolado, sem transcrição em mãos)."""
+    caminho_aberto = os.path.join(PASTA_ASSETS_PERSONAGEM, "falando_aberto.png")
+    caminho_meio = os.path.join(PASTA_ASSETS_PERSONAGEM, "falando_meio.png")
+    caminho_piscando = os.path.join(PASTA_ASSETS_PERSONAGEM, "piscando.png")
+    caminhos_enfase = [os.path.join(PASTA_ASSETS_PERSONAGEM, p) for p in random.sample(POSES_ENFASE, 3)]
+
+    for p in (caminho_aberto, caminho_meio, caminho_piscando, *caminhos_enfase):
+        if not os.path.exists(p):
+            raise FileNotFoundError(f"pose do personagem faltando: {p}")
+
+    duracao_total = _duracao_segundos(caminho_video)
+    janelas_fala = _janelas_de_fala(palavras) if palavras else []
+    if not palavras:
+        # Sem transcrição em mãos: fallback pro flap por timer -- fabrica
+        # "janelas de fala" sintéticas alternando 0.12s ligado/desligado.
+        t = 0.0
+        while t < duracao_total:
+            janelas_fala.append((t, min(t + 0.12, duracao_total)))
+            t += 0.24
+
+    segmentos = _escolher_pose_por_frame(
+        duracao_total, janelas_fala, caminhos_enfase, caminho_aberto, caminho_meio, caminho_piscando,
+    )
+
+    with tempfile.TemporaryDirectory() as pasta_tmp:
+        # Trilha do personagem: concat demuxer com um PNG por segmento
+        # (dura o tempo do segmento) -- gera um mp4 com alpha real
+        # (qtrle/mov) mostrando SEMPRE uma pose só por vez.
+        caminho_lista = os.path.join(pasta_tmp, "lista.txt")
+        with open(caminho_lista, "w") as f:
+            for ini, fim, pose in segmentos:
+                caminho_pose_escapado = pose.replace("'", "'\\''")
+                f.write(f"file '{caminho_pose_escapado}'\n")
+                f.write(f"duration {fim - ini:.3f}\n")
+            # concat demuxer exige repetir o último arquivo sem duration
+            f.write(f"file '{segmentos[-1][2].replace(chr(39), chr(92)+chr(39))}'\n")
+
+        caminho_trilha = os.path.join(pasta_tmp, "personagem.mov")
+        _rodar([
+            "ffmpeg", "-y",
+            "-f", "concat", "-safe", "0", "-i", caminho_lista,
+            "-vf", f"scale={LARGURA_PERSONAGEM_OVERLAY}:-1,fps=30",
+            "-c:v", "qtrle",
+            caminho_trilha,
+        ])
+
+        y_base = f"(H-h-{MARGEM_PERSONAGEM_OVERLAY}+4*sin(t*2.2))"
+        x = MARGEM_PERSONAGEM_OVERLAY
+        _rodar([
+            "ffmpeg", "-y",
+            "-i", caminho_video,
+            "-i", caminho_trilha,
+            "-filter_complex", f"[0:v][1:v]overlay=x={x}:y={y_base}:shortest=1[v]",
+            "-map", "[v]", "-map", "0:a",
+            "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "copy",
+            "-shortest",
+            caminho_saida,
+        ])
+
+
 def concatenar_clipes(caminhos_clipes: list[str], caminho_saida: str, pasta_tmp: str):
     """Junta os sub-clipes de UMA cena (quando ela tem mais de uma imagem)
     num único clipe silencioso.
@@ -608,7 +794,7 @@ def concatenar_clipes(caminhos_clipes: list[str], caminho_saida: str, pasta_tmp:
     ])
 
 
-def concatenar_com_transicao(caminhos_clipes: list[str], caminho_saida: str):
+def concatenar_com_transicao(caminhos_clipes: list[str], caminho_saida: str, threads_unico: bool = False):
     """Concatena as cenas com transição VARIADA por corte, sorteada entre:
     puxar de um lado/cima/baixo (slide/wipe, duração curta ~0.25s) na
     maioria das vezes, e um corte seco com flash de luz numa fração pequena
@@ -723,9 +909,17 @@ def concatenar_com_transicao(caminhos_clipes: list[str], caminho_saida: str):
     entradas_audio = "".join(f"[{r}]" for r in rotulos_audio)
     filtros.append(f"{entradas_audio}concat=n={len(rotulos_audio)}:v=0:a=1[aout]")
 
+    # `threads_unico`: 2026-09-20 -- no runner do GitHub Actions o xfade
+    # encadeado sai com ~metade dos frames (2272 esperados, 1120 reais) mesmo
+    # com clipes de entrada saudáveis, e a MESMA concatenação com os mesmos
+    # clipes roda perfeita local (2272 frames). Suspeita: condição de corrida
+    # no filtergraph multithread do runner -- forçar 1 thread é a
+    # tentativa mais barata de contornar (ver retry em `montar_video`).
+    opcoes_threads = ["-filter_complex_threads", "1"] if threads_unico else []
     _rodar([
         "ffmpeg", "-y",
         *entradas,
+        *opcoes_threads,
         "-filter_complex", ";".join(filtros),
         "-map", f"[{v_atual}]", "-map", "[aout]",
         "-c:v", "libx264", "-pix_fmt", "yuv420p", "-c:a", "aac",
@@ -1475,6 +1669,11 @@ def montar_video(
     fator_pitch = VARIANTES_PITCH[nome_variante]
     print(f"Narrador: {genero_narrador} (voz Kokoro: {voz}, variante: {nome_variante})\n")
 
+    # Mascote falante (assets/personagem/) só nos canais que optarem por ele
+    # (ver USAR_PERSONAGEM_OVERLAY em canais/tendencias.py) -- efeito de
+    # "sprite falante" sobreposto na cena, não uma animação de IA de verdade.
+    usar_personagem = getattr(canal, "USAR_PERSONAGEM_OVERLAY", False)
+
     with tempfile.TemporaryDirectory() as pasta_tmp:
         # SFX de whoosh removido (feedback 2026-09-08: soava como chiado/
         # estática nos cortes de imagem dentro da cena, "ficou horrível").
@@ -1495,6 +1694,12 @@ def montar_video(
             print(f"Cena {i}: montando clipe ({duracao:.1f}s)...")
             caminho_clipe = os.path.join(pasta_tmp, f"clipe{i}.mp4")
             gerar_clipe_cena(imagens, caminho_audio, duracao, caminho_clipe, pasta_tmp, caminho_sfx=caminho_sfx)
+
+            if usar_personagem:
+                caminho_clipe_personagem = os.path.join(pasta_tmp, f"clipe{i}_personagem.mp4")
+                aplicar_overlay_personagem(caminho_clipe, caminho_clipe_personagem)
+                caminho_clipe = caminho_clipe_personagem
+
             clipes.append(caminho_clipe)
             print(f"  [DEBUG] clipe{i}.mp4 real: {_duracao_segundos(caminho_clipe):.2f}s (esperado {duracao:.2f}s), frames={_contar_frames_reais(caminho_clipe)}")
 
@@ -1544,7 +1749,16 @@ def montar_video(
                 print(f"Concatenando cenas ({plataforma}, com transição fluida entre elas)" + (f", tentativa {tentativa}/3..." if tentativa > 1 else "..."))
                 if tentativa == 1:
                     print(f"  [DEBUG] {len(lista_clipes)} clipes: {[os.path.basename(c) for c in lista_clipes]}")
-                concatenar_com_transicao(lista_clipes, caminho_bruto)
+                if tentativa == 3:
+                    # Última cartada (2026-09-20): xfade falhou 2x seguidas
+                    # (bug recorrente do runner, ver concatenar_com_transicao)
+                    # -- monta com corte seco em vez de perder o vídeo todo.
+                    # Sem transição, mas publicável; o áudio dos clipes é
+                    # mantido pelo concat com reencode.
+                    print("  Fallback: montando com corte seco (sem transição) pra não perder o vídeo.")
+                    concatenar_clipes(lista_clipes, caminho_bruto, pasta_tmp)
+                else:
+                    concatenar_com_transicao(lista_clipes, caminho_bruto, threads_unico=(tentativa == 2))
                 frames_bruto = _contar_frames_reais(caminho_bruto)
                 duracao_real_bruto = frames_bruto / 30
                 print(f"  [DEBUG] bruto_{plataforma}.mp4 real: {_duracao_segundos(caminho_bruto):.2f}s, frames={frames_bruto}")
