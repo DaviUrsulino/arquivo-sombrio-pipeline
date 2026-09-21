@@ -90,6 +90,15 @@ def autenticar_drive(arquivo_client_secret: str = ARQUIVO_CLIENT_SECRET, arquivo
 
 
 def _chave_ordenacao_arquivo(nome: str):
+    # Bug real 2026-09-21: fotos baixadas do Google Flow chegam com nome tipo
+    # "Boy_clutching_kite_string_2K_20260918172835.jpeg" -- o primeiro número
+    # é sempre o "2" de "2K", então todas empatavam e caíam em ordem
+    # alfabética pela descrição (vídeo 4 e 5 saíram com as fotos fora de
+    # ordem). O carimbo de 14 dígitos (AAAAMMDDHHMMSS) no fim do nome é a
+    # ordem em que o Flow gerou -- a mesma da narração.
+    carimbo = re.search(r"(?<!\d)(20\d{12})(?!\d)", nome)
+    if carimbo:
+        return (-1, int(carimbo.group(1)), nome)
     numeros = re.findall(r"\d+", nome)
     return (int(numeros[0]), nome) if numeros else (float("inf"), nome)
 
