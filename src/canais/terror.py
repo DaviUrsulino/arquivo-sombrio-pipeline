@@ -104,6 +104,14 @@ porque isso já causou falha de geração de imagem em teste anterior (ver READM
 - VARIEDADE VISUAL entre as cenas é obrigatória: cada "prompt_imagem" deve mudar o cenário, o \
 plano de câmera (plano geral, close-up, plano médio, visto de costas, over-the-shoulder) ou o \
 que está em quadro — nunca repita o mesmo enquadramento/cenário em duas cenas seguidas.
+- CENÁRIO E DETALHES SEM PERSONAGEM (feedback 2026-09-21: "o vídeo só mostra o personagem", \
+os vídeos de referência do TikTok mostram cenário, objetos e evidências): pelo menos METADE de \
+todos os prompts de imagem (contando "prompt_imagem" e "prompt_imagem_2" de cada cena) deve \
+começar EXATAMENTE com "NO_CHARACTER: " e mostrar SÓ o lugar, um objeto, uma pista, um detalhe \
+ou um ambiente vazio (uma estrada deserta, uma porta entreaberta, um diário aberto, uma janela \
+iluminada, uma foto antiga, uma marca no chão) — SEM nenhuma pessoa em quadro. Alterne: nunca \
+mais de 2 imagens seguidas com o personagem. NÃO descreva o personagem nos prompts que \
+começam com "NO_CHARACTER: ".
 - ATMOSFERA CONTEXTUAL NO PRÓPRIO PROMPT DA IMAGEM: quando o cenário combinar (igreja, \
 cemitério, floresta, pântano, porão úmido), inclua um elemento atmosférico condizente \
 diretamente na descrição da cena — névoa/neblina baixa, poeira flutuando na luz, respiração \

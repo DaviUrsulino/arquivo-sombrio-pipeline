@@ -166,7 +166,7 @@ def _extrair_primeiro_json(texto: str) -> dict:
     return objeto
 
 
-def gerar_roteiro(tema: str, canal) -> dict:
+def _gerar_roteiro_uma_vez(tema: str, canal) -> dict:
     # Calculado UMA vez por vídeo, não a cada tentativa/retry -- canais como
     # terror.py sorteiam um "modo" de história aqui (relato pessoal/baseado
     # em fatos/conspiração, feedback 2026-09-09); se recalculássemos a cada
@@ -234,6 +234,40 @@ def gerar_roteiro(tema: str, canal) -> dict:
     except json.JSONDecodeError:
         print("Aviso: resposta não veio em JSON puro, tentando extrair...", file=sys.stderr)
         return _extrair_primeiro_json(texto)
+
+
+MAX_PALAVRAS_ROTEIRO = 240
+TENTATIVAS_ROTEIRO_CURTO = 3
+
+
+def _total_palavras(roteiro: dict) -> int:
+    return sum(len(c.get("narracao", "").split()) for c in roteiro.get("cenas", []))
+
+
+def gerar_roteiro(tema: str, canal) -> dict:
+    """Gera o roteiro e garante teto de tamanho.
+
+    Bug real 2026-09-21 (feedback do Davi: "shorts tem que ser no máximo
+    1:30, o mais próximo de 1:00"): o prompt já pede 200-230 palavras
+    (~65-95s), mas o modelo ignora e vieram vídeos publicados de 120s e
+    129s -- nada validava o teto. Agora regera até TENTATIVAS_ROTEIRO_CURTO
+    vezes se passar de MAX_PALAVRAS_ROTEIRO e, se nenhuma couber, usa a mais
+    curta (nunca trava o cron por isso)."""
+    melhor = None
+    for tentativa in range(1, TENTATIVAS_ROTEIRO_CURTO + 1):
+        roteiro = _gerar_roteiro_uma_vez(tema, canal)
+        n = _total_palavras(roteiro)
+        if melhor is None or n < _total_palavras(melhor):
+            melhor = roteiro
+        if n <= MAX_PALAVRAS_ROTEIRO:
+            return roteiro
+        print(
+            f"  Roteiro com {n} palavras (teto {MAX_PALAVRAS_ROTEIRO}, ~1:30) -- "
+            f"gerando de novo (tentativa {tentativa}/{TENTATIVAS_ROTEIRO_CURTO})...",
+            file=sys.stderr,
+        )
+    print(f"  Nenhuma tentativa coube no teto; usando a mais curta ({_total_palavras(melhor)} palavras).", file=sys.stderr)
+    return melhor
 
 
 def montar_prompts_completos(roteiro: dict, canal) -> list[str]:
