@@ -115,9 +115,10 @@ def gerar_imagem(prompt: str, imagem_referencia: bytes | None, tentativas: int =
         headers = {"Authorization": f"Bearer {token}"}
 
         ultimo_erro = None
+        prompt_atual, ref_atual = prompt, imagem_referencia
         for tentativa in range(1, tentativas + 1):
-            data = {"prompt": prompt}
-            files = {"image": ("ref.jpg", imagem_referencia, "image/jpeg")} if imagem_referencia else None
+            data = {"prompt": prompt_atual}
+            files = {"image": ("ref.jpg", ref_atual, "image/jpeg")} if ref_atual else None
 
             try:
                 resp = requests.post(url, headers=headers, data=data, files=files, timeout=90)
@@ -143,6 +144,19 @@ def gerar_imagem(prompt: str, imagem_referencia: bytes | None, tentativas: int =
                 break
 
             print(f"  tentativa {tentativa} falhou ({ultimo_erro[:120]}), esperando...")
+            # Filtro de moderação do Cloudflare (code 3030, "output has been
+            # flagged... choose another prompt / input image combination"):
+            # repetir o MESMO prompt+referência é garantido dar o mesmo bloqueio
+            # (3 tentativas idênticas em runs reais 2026-09-19..21, e depois
+            # caía no fallback do Hugging Face e o vídeo era reprovado).
+            # Muda a combinação: 1º sem a foto de referência, depois com
+            # prompt mais suave.
+            if '"code":3030' in ultimo_erro or "has been flagged" in ultimo_erro:
+                if ref_atual is not None:
+                    ref_atual = None
+                else:
+                    prompt_atual = prompt + " Safe for all audiences, non-violent, no blood, no injuries."
+                continue
             time.sleep(3 * tentativa)
         else:
             raise RuntimeError(f"Falhou após {tentativas} tentativas: {ultimo_erro}")
