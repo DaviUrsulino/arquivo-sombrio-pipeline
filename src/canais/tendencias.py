@@ -235,6 +235,7 @@ ESTILO DE ESCRITA
 IDIOMA — REGRA CRÍTICA (bug real encontrado 2026-09-10: prompts de imagem em português produziam personagens/objetos genéricos, sem os detalhes de figurino/cor pedidos — modelos de imagem (FLUX e afins) são treinados majoritariamente em inglês e interpretam mal termos em português, mesmo objetos comuns)
 - "narracao" continua em PORTUGUÊS — é isso que vira a voz do vídeo.
 - "personagem", "prompt_imagem" e "prompt_imagem_2" (quando existirem) devem ser escritos em INGLÊS — são texto que vai direto pro gerador de imagem, nunca aparecem faladas nem legendadas.
+- CENÁRIO E DETALHES SEM PERSONAGEM (feedback 2026-09-21: os vídeos ficavam só no personagem, os de referência do TikTok mostram cenário, objetos e detalhes): pelo menos METADE dos prompts de imagem (contando "prompt_imagem" e "prompt_imagem_2" de cada cena) deve começar EXATAMENTE com "NO_CHARACTER: " e mostrar SÓ o lugar, um objeto, um detalhe ou o ambiente — SEM o personagem em quadro e sem descrevê-lo. Alterne: nunca mais de 2 imagens seguidas com o personagem.
 
 Sua resposta deve ser APENAS um JSON válido, no formato:
 {{
@@ -290,6 +291,7 @@ no ar e sinaliza que tem "próximo capítulo" (sem prometer data, só o gancho n
 IDIOMA — REGRA CRÍTICA (bug real encontrado 2026-09-10: prompts de imagem em português produziam personagens/objetos genéricos, sem os detalhes de figurino/cor pedidos — modelos de imagem (FLUX e afins) são treinados majoritariamente em inglês e interpretam mal termos em português, mesmo objetos comuns)
 - "narracao" continua em PORTUGUÊS — é isso que vira a voz do vídeo.
 - "personagem", "prompt_imagem" e "prompt_imagem_2" (quando existirem) devem ser escritos em INGLÊS — são texto que vai direto pro gerador de imagem, nunca aparecem faladas nem legendadas.
+- CENÁRIO E DETALHES SEM PERSONAGEM (feedback 2026-09-21: os vídeos ficavam só no personagem, os de referência do TikTok mostram cenário, objetos e detalhes): pelo menos METADE dos prompts de imagem (contando "prompt_imagem" e "prompt_imagem_2" de cada cena) deve começar EXATAMENTE com "NO_CHARACTER: " e mostrar SÓ o lugar, um objeto, um detalhe ou o ambiente — SEM o personagem em quadro e sem descrevê-lo. Alterne: nunca mais de 2 imagens seguidas com o personagem.
 
 Sua resposta deve ser APENAS um JSON válido, no formato:
 {{
@@ -345,6 +347,7 @@ continuação — este formato é episódico, cada vídeo se resolve sozinho).
 IDIOMA — REGRA CRÍTICA (bug real encontrado 2026-09-10: prompts de imagem em português produziam personagens/objetos genéricos, sem os detalhes de figurino/cor pedidos — modelos de imagem (FLUX e afins) são treinados majoritariamente em inglês e interpretam mal termos em português, mesmo objetos comuns)
 - "narracao" continua em PORTUGUÊS — é isso que vira a voz do vídeo.
 - "personagem", "prompt_imagem" e "prompt_imagem_2" (quando existirem) devem ser escritos em INGLÊS — são texto que vai direto pro gerador de imagem, nunca aparecem faladas nem legendadas.
+- CENÁRIO E DETALHES SEM PERSONAGEM (feedback 2026-09-21: os vídeos ficavam só no personagem, os de referência do TikTok mostram cenário, objetos e detalhes): pelo menos METADE dos prompts de imagem (contando "prompt_imagem" e "prompt_imagem_2" de cada cena) deve começar EXATAMENTE com "NO_CHARACTER: " e mostrar SÓ o lugar, um objeto, um detalhe ou o ambiente — SEM o personagem em quadro e sem descrevê-lo. Alterne: nunca mais de 2 imagens seguidas com o personagem.
 
 Sua resposta deve ser APENAS um JSON válido, no formato:
 {{
@@ -402,6 +405,7 @@ obrigatório, mas pode sugerir "será que consigo voltar" como fechamento leve).
 IDIOMA — REGRA CRÍTICA (bug real encontrado 2026-09-10: prompts de imagem em português produziam personagens/objetos genéricos, sem os detalhes de figurino/cor pedidos — modelos de imagem (FLUX e afins) são treinados majoritariamente em inglês e interpretam mal termos em português, mesmo objetos comuns)
 - "narracao" continua em PORTUGUÊS — é isso que vira a voz do vídeo.
 - "personagem", "prompt_imagem" e "prompt_imagem_2" (quando existirem) devem ser escritos em INGLÊS — são texto que vai direto pro gerador de imagem, nunca aparecem faladas nem legendadas.
+- CENÁRIO E DETALHES SEM PERSONAGEM (feedback 2026-09-21: os vídeos ficavam só no personagem, os de referência do TikTok mostram cenário, objetos e detalhes): pelo menos METADE dos prompts de imagem (contando "prompt_imagem" e "prompt_imagem_2" de cada cena) deve começar EXATAMENTE com "NO_CHARACTER: " e mostrar SÓ o lugar, um objeto, um detalhe ou o ambiente — SEM o personagem em quadro e sem descrevê-lo. Alterne: nunca mais de 2 imagens seguidas com o personagem.
 
 Sua resposta deve ser APENAS um JSON válido, no formato:
 {{
