@@ -213,6 +213,11 @@ def baixar_arquivos_da_pasta(service, pasta_id: str, destino_local: str) -> tupl
             else:
                 roteiro = caminho_local
 
+    # Duas fotos com o MESMO nome (Flow gera duplicata quando dois downloads
+    # caem no mesmo segundo) baixam pro mesmo caminho local -- sem isso a
+    # foto entrava 2x na lista e estourava a contagem de [FOTO N] do roteiro
+    # (video4, 2026-09-21: 17 fotos pra 16 marcadores).
+    imagens = list(dict.fromkeys(imagens))
     imagens.sort(key=lambda c: _chave_ordenacao_arquivo(os.path.basename(c)))
     return imagens, audio, roteiro
 
