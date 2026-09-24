@@ -36,6 +36,7 @@ import tempfile
 from datetime import datetime, timedelta, timezone
 
 from dotenv import load_dotenv
+from google.auth.exceptions import RefreshError
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -78,7 +79,15 @@ def autenticar_drive(arquivo_client_secret: str = ARQUIVO_CLIENT_SECRET, arquivo
 
     if not credenciais or not credenciais.valid:
         if credenciais and credenciais.expired and credenciais.refresh_token:
-            credenciais.refresh(Request())
+            try:
+                credenciais.refresh(Request())
+            except RefreshError:
+                # Mesmo bug de src/publicar_youtube.py: sem isso, o persist
+                # do workflow reintroduz um token quebrado por cima de uma
+                # correção manual feita enquanto a run ainda está de pé.
+                if os.path.exists(arquivo_token):
+                    os.remove(arquivo_token)
+                raise
         else:
             flow = InstalledAppFlow.from_client_secrets_file(arquivo_client_secret, SCOPES)
             credenciais = flow.run_local_server(port=0)

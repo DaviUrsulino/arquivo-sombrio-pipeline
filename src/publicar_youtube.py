@@ -19,7 +19,9 @@ próximas execuções não pedem login de novo.
 """
 
 import argparse
+import os
 
+from google.auth.exceptions import RefreshError
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -40,7 +42,24 @@ def autenticar(arquivo_client_secret: str = ARQUIVO_CLIENT_SECRET, arquivo_token
 
     if not credenciais or not credenciais.valid:
         if credenciais and credenciais.expired and credenciais.refresh_token:
-            credenciais.refresh(Request())
+            try:
+                credenciais.refresh(Request())
+            except RefreshError:
+                # Bug real 2026-09-22 (causa raiz do "invalid_grant" se
+                # perpetuando run após run mesmo já tendo sido reautenticado
+                # na mão): a etapa "Persistir tokens atualizados" do
+                # workflow sobe de volta QUALQUER token.json que sobrar no
+                # workspace do job (if: always()). Se o refresh falha aqui,
+                # o arquivo local nunca é reescrito -- continua sendo a
+                # MESMA cópia (quebrada) que foi restaurada do secret no
+                # início do job. Se um humano corrige o secret manualmente
+                # enquanto essa run ainda está rodando, o persist dela sobe
+                # de novo o token quebrado por cima da correção. Apagar o
+                # arquivo aqui faz o persist NÃO ter nada pra subir nesse
+                # caso, em vez de reintroduzir silenciosamente o problema.
+                if os.path.exists(arquivo_token):
+                    os.remove(arquivo_token)
+                raise
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
                 arquivo_client_secret, SCOPES
