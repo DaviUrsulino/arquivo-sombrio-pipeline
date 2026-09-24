@@ -101,6 +101,17 @@ def autenticar_drive(arquivo_client_secret: str = ARQUIVO_CLIENT_SECRET, arquivo
 
 
 def _chave_ordenacao_arquivo(nome: str):
+    # Bug real 2026-09-24: quando alguém nomeia a foto na mão com um índice
+    # explícito (ex: "la_11_2K_....jpeg", "navio_9_2K_....jpeg"), esse número
+    # é a ordem PRETENDIDA -- mas se a foto foi regerada depois (carimbo de
+    # geração mais novo que o de fotos posteriores), ordenar só pelo carimbo
+    # (ver abaixo) jogava ela pro lugar errado (video LA e video navio, os
+    # dois saíram com foto fora de ordem mesmo com roteiro certo). Índice
+    # explícito imediatamente antes de "_2K_" tem prioridade sobre o carimbo.
+    indice_explicito = re.search(r"_(\d+)_2K_", nome)
+    if indice_explicito:
+        return (-2, int(indice_explicito.group(1)), nome)
+
     # Bug real 2026-09-21: fotos baixadas do Google Flow chegam com nome tipo
     # "Boy_clutching_kite_string_2K_20260918172835.jpeg" -- o primeiro número
     # é sempre o "2" de "2K", então todas empatavam e caíam em ordem
