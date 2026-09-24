@@ -31,8 +31,10 @@ import argparse
 import io
 import os
 import re
+import ssl
 import sys
 import tempfile
+import time
 from datetime import datetime, timedelta, timezone
 
 from dotenv import load_dotenv
@@ -231,11 +233,23 @@ def baixar_arquivos_da_pasta(service, pasta_id: str, destino_local: str) -> tupl
     return imagens, audio, roteiro
 
 
-def subir_video(service, caminho_video: str, pasta_saida_id: str, nome: str):
+def subir_video(service, caminho_video: str, pasta_saida_id: str, nome: str, tentativas: int = 3):
+    """Sobe o vídeo montado pro Drive, tentando de novo em caso de falha de
+    rede transitória (ex: SSLEOFError, 2026-09-24 -- vídeo já tinha sido
+    montado com sucesso e a run inteira quebrava sem tentar de novo, tendo
+    que remontar o vídeo do zero na próxima execução)."""
     metadados = {"name": nome, "parents": [pasta_saida_id]}
-    media = MediaFileUpload(caminho_video, mimetype="video/mp4", resumable=True)
-    arquivo = service.files().create(body=metadados, media_body=media, fields="id").execute()
-    return arquivo["id"]
+    ultimo_erro = None
+    for tentativa in range(1, tentativas + 1):
+        try:
+            media = MediaFileUpload(caminho_video, mimetype="video/mp4", resumable=True)
+            arquivo = service.files().create(body=metadados, media_body=media, fields="id").execute()
+            return arquivo["id"]
+        except (ssl.SSLError, OSError, TimeoutError) as e:
+            ultimo_erro = e
+            print(f"  upload falhou (tentativa {tentativa}/{tentativas}): {e}")
+            time.sleep(5 * tentativa)
+    raise RuntimeError(f"Upload pro Drive falhou após {tentativas} tentativas: {ultimo_erro}")
 
 
 def mover_para_processados(service, pasta_id: str, pasta_entrada_id: str, pasta_processados_id: str):
@@ -265,7 +279,11 @@ def processar_pasta(service, pasta: dict, pasta_saida_id: str) -> bool:
             return False
 
         nome_saida = f"{pasta['name']}.mp4"
-        subir_video(service, caminho_saida, pasta_saida_id, nome_saida)
+        try:
+            subir_video(service, caminho_saida, pasta_saida_id, nome_saida)
+        except Exception as e:
+            print(f"  ERRO ao subir vídeo: {e}")
+            return False
         print(f"  enviado como '{nome_saida}' pra pasta de saída")
         return True
 
@@ -285,7 +303,16 @@ def processar_tudo():
     else:
         print(f"{len(pendentes)} pasta(s) pendente(s): {[p['name'] for p in pendentes]}")
         for pasta in pendentes:
-            sucesso = processar_pasta(service, pasta, pasta_saida_id)
+            try:
+                sucesso = processar_pasta(service, pasta, pasta_saida_id)
+            except Exception as e:
+                # Bug real 2026-09-24: uma exceção não tratada numa pasta
+                # (ex: falha de rede no upload) derrubava a run inteira,
+                # deixando as pastas SEGUINTES da lista sem nem tentar
+                # nessa execução (video navio ficou parado esperando o
+                # video LA, que tinha acabado de quebrar no upload).
+                print(f"  ERRO inesperado processando '{pasta['name']}': {e}")
+                sucesso = False
             if sucesso:
                 marcar_como_processada(service, pasta["id"])
                 print(f"  pasta '{pasta['name']}' processada (fica na entrada por 24h antes de arquivar)")
