@@ -92,6 +92,8 @@ def _gerar_roteiro_openrouter(tema: str, system_prompt: str) -> dict:
             resp.raise_for_status()
             dados = resp.json()
             texto = dados["choices"][0]["message"]["content"]
+            if not _json_valido(texto):
+                raise ValueError("resposta veio em JSON truncado/inválido")
             print(f"(Gemini indisponível — usando fallback OpenRouter: {modelo})", file=sys.stderr)
             return texto
         except Exception as e:
@@ -131,6 +133,8 @@ def _gerar_roteiro_mistral(tema: str, system_prompt: str) -> dict:
             )
             resp.raise_for_status()
             texto = resp.json()["choices"][0]["message"]["content"]
+            if not _json_valido(texto):
+                raise ValueError("resposta veio em JSON truncado/inválido")
             print(f"(Gemini e OpenRouter indisponíveis — usando fallback Mistral: {modelo})", file=sys.stderr)
             return texto
         except Exception as e:
@@ -148,6 +152,26 @@ def _chaves_api() -> list[str]:
     if varias:
         return [k.strip() for k in varias.split(",") if k.strip()]
     return [os.environ["GEMINI_API_KEY"]]
+
+
+def _json_valido(texto: str) -> bool:
+    """Bug real encontrado 2026-09-28 (causa raiz da run 36479636607,
+    falhou de verdade): modelo de fallback do OpenRouter respondeu HTTP 200
+    com um corpo de JSON truncado/quebrado ("Unterminated string starting
+    at..."). Nem _gerar_roteiro_openrouter nem _gerar_roteiro_mistral
+    validavam o corpo antes de aceitar como sucesso -- um 200 com texto
+    quebrado era tratado como "deu certo", sem tentar o próximo modelo da
+    lista, e o erro só estourava depois, propagando até derrubar a run
+    inteira."""
+    try:
+        json.loads(texto)
+        return True
+    except json.JSONDecodeError:
+        try:
+            _extrair_primeiro_json(texto)
+            return True
+        except json.JSONDecodeError:
+            return False
 
 
 def _extrair_primeiro_json(texto: str) -> dict:

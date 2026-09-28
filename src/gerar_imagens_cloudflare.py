@@ -15,6 +15,7 @@ Uso:
 
 import argparse
 import base64
+import concurrent.futures
 import json
 import os
 import tempfile
@@ -166,15 +167,20 @@ def gerar_imagem(prompt: str, imagem_referencia: bytes | None, tentativas: int =
 
 _CLIENTE_HF = None
 
+# Bug real encontrado 2026-09-28 (causa raiz da run 36241362674, cancelada
+# em 2026-09-26T12:15:42Z pelo limite de 90min do próprio GitHub Actions):
+# quando a cota do Cloudflare esgota (rotina, ver `cloudflare_esgotado`
+# acima) o pipeline cai pro Hugging Face pra TODAS as imagens do vídeo, e o
+# Space compartilhado e gratuito pode ficar preso na fila por dezenas de
+# minutos sem aviso quando está concorrido -- `gradio_client.Client.predict`
+# não aceita timeout nativo, então uma única imagem pode travar a run
+# inteira até o runner matar tudo à força (log mostrou 35min de silêncio
+# antes do cancelamento). Roda numa thread separada e desiste depois de
+# TIMEOUT_HF_SEGUNDOS, caindo pro Pollinations em vez disso.
+TIMEOUT_HF_SEGUNDOS = 120
 
-def gerar_imagem_huggingface(prompt: str, imagem_referencia: bytes | None) -> bytes:
-    """Segundo fallback (antes do Pollinations): FLUX.1 Kontext via Hugging
-    Face Space, gratuito com conta (token em HUGGINGFACE_TOKEN) — cota bem
-    curta (~3,5 min de GPU/dia, ~6-7 imagens), mas qualidade e aderência ao
-    prompt bem melhores que o Pollinations, com suporte real a imagem de
-    referência (mantém personagem consistente, validado em 2026-09-08).
-    Como a cota é curta, só cobre uma fração das cenas de um vídeo — o
-    chamador cai pro Pollinations quando essa também esgotar."""
+
+def _gerar_imagem_huggingface_sync(prompt: str, imagem_referencia: bytes | None) -> bytes:
     global _CLIENTE_HF
     from gradio_client import Client, handle_file
 
@@ -218,6 +224,28 @@ def gerar_imagem_huggingface(prompt: str, imagem_referencia: bytes | None) -> by
             return f.read()
 
 
+def gerar_imagem_huggingface(prompt: str, imagem_referencia: bytes | None) -> bytes:
+    """Segundo fallback (antes do Pollinations): FLUX.1 Kontext via Hugging
+    Face Space, gratuito com conta (token em HUGGINGFACE_TOKEN) — cota bem
+    curta (~3,5 min de GPU/dia, ~6-7 imagens), mas qualidade e aderência ao
+    prompt bem melhores que o Pollinations, com suporte real a imagem de
+    referência (mantém personagem consistente, validado em 2026-09-08).
+    Como a cota é curta, só cobre uma fração das cenas de um vídeo — o
+    chamador cai pro Pollinations quando essa também esgotar.
+
+    Roda a chamada de verdade (_gerar_imagem_huggingface_sync) numa thread
+    à parte com timeout — ver comentário de TIMEOUT_HF_SEGUNDOS acima."""
+    executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
+    future = executor.submit(_gerar_imagem_huggingface_sync, prompt, imagem_referencia)
+    try:
+        return future.result(timeout=TIMEOUT_HF_SEGUNDOS)
+    except concurrent.futures.TimeoutError:
+        raise RuntimeError(f"Hugging Face não respondeu em {TIMEOUT_HF_SEGUNDOS}s (fila do Space cheia)")
+    finally:
+        # wait=False: não espera a thread travada terminar sozinha (pode
+        # nunca terminar) -- ela fica rodando solta em segundo plano até o
+        # runner encerrar o processo, mas isso não bloqueia mais a run.
+        executor.shutdown(wait=False)
 
 
 
