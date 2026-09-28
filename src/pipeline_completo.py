@@ -24,7 +24,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from canais import carregar_canal
 from canais import tendencias as canal_tendencias
 from gerar_imagens_cloudflare import gerar_imagens_do_roteiro
-from gerar_roteiro import _chaves_api, gerar_roteiro
+from gerar_roteiro import MODELOS_FALLBACK, _chaves_api, gerar_roteiro
 from montar_video_local import montar_video
 
 TEMAS_FALLBACK = {
@@ -47,6 +47,30 @@ TEMAS_FALLBACK = {
         "mosteiro abandonado numa região isolada, com névoa e atmosfera decadente",
         "uma teoria/mistério real sem solução (ex: um desaparecimento histórico documentado "
         "sem explicação) contado como especulação, nunca como fato confirmado",
+        # Adicionados 2026-09-28: essa lista é sorteada em TODO run automático
+        # sem --tema (ver escolher_tema() e o cron em pipeline_dark.yml) -- com
+        # só 11 opções, o canal já devia estar repetindo premissa depois de
+        # algumas semanas rodando várias vezes ao dia. Cobre premissas do
+        # próprio leque que terror.py pede em "VARIEDADE DE PREMISSA" e ainda
+        # não tinham exemplo aqui: culto/ritual em grupo, assassino em série
+        # fictício, objeto que reflete errado, lugar que muda de identidade,
+        # tempo que some sem explicação.
+        "um culto isolado numa cidade pequena e afastada, décadas atrás, e um forasteiro que "
+        "só percebe tarde demais no que se meteu",
+        "um assassino em série completamente fictício (nunca baseado em pessoa real) que "
+        "sempre deixa o mesmo objeto simbólico na cena, contado como um caso arquivado sem solução",
+        "uma fazenda isolada onde o mesmo som de passos é ouvido sempre às três da manhã, "
+        "por gerações diferentes da mesma família, sem explicação",
+        "um hospital ou sanatório desativado numa região isolada, com um paciente que não "
+        "consta em nenhum registro oficial de internação",
+        "um espelho antigo comprado num brechó cujo reflexo não corresponde exatamente ao "
+        "que está no quarto",
+        "uma estação de trem abandonada onde moradores da região juram ver, à noite, um trem "
+        "que não deveria mais circular",
+        "um relato de tempo perdido -- horas inteiras que somem sem explicação -- sempre "
+        "associado ao mesmo trecho isolado de estrada",
+        "um vídeo caseiro gravado décadas atrás por um grupo de amigos, o desaparecimento de "
+        "um deles nunca explicado, e a fita reaparecendo anos depois",
     ],
 }
 
@@ -102,13 +126,56 @@ def gerar_titulo(roteiro: dict) -> str:
 # Hashtags por canal/formato — YouTube e TikTok usam pra indexar/recomendar
 # o vídeo pra quem já assiste esse tipo de conteúdo. Reconhece o prefixo do
 # tema (ex: "novela_mascote::...") pros formatos do canal tendencias.
-HASHTAGS_POR_CONTEXTO = {
-    "terror": ["terror", "creepypasta", "historiadeterror", "assustador", "arquivosombrio", "medo", "misterio", "shorts"],
-    "novela_mascote": ["novela", "drama", "comedia", "viral", "shorts", "fyp"],
-    "objeto_falante": ["comedia", "humor", "relatable", "engracado", "shorts", "fyp"],
-    "historia_pov": ["historia", "pov", "curiosidadeshistoricas", "vocesabia", "shorts"],
-    "curiosidade": ["curiosidades", "vocesabia", "fatosreais", "shorts", "aprenda"],
+#
+# Âncoras: sempre presentes (identidade do canal + tag de formato) — poucas
+# de propósito, pra manter a marca reconhecível.
+# Pool: usado pra sortear o RESTANTE, variando de vídeo pra vídeo. Antes era
+# a mesma lista fixa (8 tags idênticas) em TODO vídeo publicado — mesmo risco
+# que a política de "conteúdo inautêntico" do YouTube já penaliza na
+# descrição (ver gerar_descricao_unica), só que aqui pro bloco de hashtags,
+# e hashtag idêntica em todo post também é sinal de automação pro algoritmo
+# de descoberta do TikTok/Shorts (reduz alcance orgânico de vídeo novo).
+HASHTAGS_ANCORA_POR_CONTEXTO = {
+    "terror": ["arquivosombrio", "shorts"],
+    "novela_mascote": ["shorts", "fyp"],
+    "objeto_falante": ["shorts", "fyp"],
+    "historia_pov": ["shorts"],
+    "curiosidade": ["shorts"],
 }
+
+HASHTAGS_POOL_POR_CONTEXTO = {
+    "terror": [
+        "terror", "creepypasta", "historiadeterror", "assustador", "medo", "misterio",
+        "assombrado", "paranormal", "casonaoresolvido", "lendaurbana", "relatoreal",
+        "terrorpsicologico", "historiareal", "darkstories", "creepy", "fyp", "foryou",
+    ],
+    "novela_mascote": [
+        "novela", "drama", "comedia", "viral", "humor", "engracado", "personagem",
+        "historinha", "podcast", "conversamaluca", "risadas",
+    ],
+    "objeto_falante": [
+        "comedia", "humor", "relatable", "engracado", "viral", "podcast",
+        "situacoesreais", "humornegro", "riu", "fyp", "foryou",
+    ],
+    "historia_pov": [
+        "historia", "pov", "curiosidadeshistoricas", "vocesabia", "historiareal",
+        "aconteceudeverdade", "fatoshistoricos", "documentario", "fyp",
+    ],
+    "curiosidade": [
+        "curiosidades", "vocesabia", "fatosreais", "aprenda", "vocenaosabia",
+        "conhecimento", "fatoscuriosos", "sabiaque", "fyp", "foryou",
+    ],
+}
+
+
+def _montar_hashtags(contexto: str, n_extra: int = 6) -> list[str]:
+    """Âncoras fixas (identidade do canal) + amostra aleatória do pool —
+    cada vídeo publicado sai com uma combinação diferente de hashtags em vez
+    da mesma lista estática de sempre."""
+    ancoras = HASHTAGS_ANCORA_POR_CONTEXTO.get(contexto, ["shorts"])
+    pool = [h for h in HASHTAGS_POOL_POR_CONTEXTO.get(contexto, []) if h not in ancoras]
+    extras = random.sample(pool, k=min(n_extra, len(pool)))
+    return ancoras + extras
 
 
 def gerar_descricao_unica(roteiro: dict, nome_canal_exibicao: str) -> str | None:
@@ -116,9 +183,14 @@ def gerar_descricao_unica(roteiro: dict, nome_canal_exibicao: str) -> str | None
     (não um template com hook trocado) — feedback 2026-09-09: a política de
     "conteúdo inautêntico" do YouTube (jul/2026) pune canal onde trocar de
     vídeo pra vídeo revela a mesma estrutura por trás ("substância só \
-levemente diferente"), o que inclui descrição template. Retorna None se a \
-chamada de IA falhar por qualquer motivo — o chamador cai pro template \
-antigo como rede de segurança, nunca trava a publicação por causa disso."""
+levemente diferente"), o que inclui descrição template. Retorna None se \
+TODAS as chaves/modelos falharem — o chamador cai pro template antigo como \
+rede de segurança, nunca trava a publicação por causa disso.
+
+    Antes tentava só 1 chave + 1 modelo (gemini-3.5-flash) e desistia no \
+primeiro erro — único ponto sem o retry que o resto do pipeline já tem \
+(ver gerar_roteiro.py), o que jogava mais vídeo do que precisava pro \
+template-fallback (o próprio risco que essa função existe pra evitar)."""
     from google import genai
     from google.genai import types
 
@@ -131,13 +203,20 @@ antigo como rede de segurança, nunca trava a publicação por causa disso."""
         f'canal "{nome_canal_exibicao}", com uma frase diferente a cada vez (nunca repita uma '
         "fórmula fixa). Responda só com o texto da descrição, sem aspas, sem markdown."
     )
-    try:
-        client = genai.Client(api_key=_chaves_api()[0], http_options=types.HttpOptions(timeout=20_000))
-        resposta = client.models.generate_content(model="gemini-3.5-flash", contents=prompt)
-        return resposta.text.strip()
-    except Exception as e:
-        print(f"[gerar_descricao_unica] falhou ({e}), usando descrição-template de fallback")
-        return None
+
+    ultimo_erro = None
+    for chave in _chaves_api():
+        client = genai.Client(api_key=chave, http_options=types.HttpOptions(timeout=20_000))
+        for modelo in MODELOS_FALLBACK:
+            try:
+                resposta = client.models.generate_content(model=modelo, contents=prompt)
+                return resposta.text.strip()
+            except Exception as e:
+                ultimo_erro = e
+                continue
+
+    print(f"[gerar_descricao_unica] falhou em todas as chaves/modelos ({ultimo_erro}), usando template de fallback")
+    return None
 
 
 def gerar_metadados_publicacao(canal_nome: str, tema: str, roteiro: dict, nome_canal_exibicao: str) -> tuple[str, str, list[str]]:
@@ -153,7 +232,7 @@ def gerar_metadados_publicacao(canal_nome: str, tema: str, roteiro: dict, nome_c
         if canal_nome == "tendencias":
             contexto = "curiosidade"
 
-    hashtags = HASHTAGS_POR_CONTEXTO.get(contexto, ["shorts"])
+    hashtags = _montar_hashtags(contexto)
     titulo = gerar_titulo(roteiro)
 
     # Descrição gerada pela IA em cima da história específica deste vídeo

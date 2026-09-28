@@ -91,6 +91,18 @@ TEMAS_ROTATIVOS = [
     "um erro histórico que as pessoas ainda repetem por engano até hoje",
     "uma experiência científica real que teve um resultado completamente inesperado",
     "um objeto do cotidiano com uma origem ou motivo de existir surpreendente",
+    # Adicionados 2026-09-28 (manutenção periódica sugerida no comentário
+    # abaixo) -- categorias ainda não cobertas pela lista original (corpo
+    # humano, espaço, economia/dinheiro, linguagem), pra reduzir repetição
+    # de tema conforme o canal acumula vídeos publicados.
+    "uma característica do corpo humano que parece um defeito de design mas tem uma razão evolutiva",
+    "um evento espacial real e documentado que é maior ou mais estranho do que parece à primeira vista",
+    "uma decisão econômica ou monetária real que teve um efeito colateral bizarro e inesperado",
+    "uma palavra ou expressão comum cuja origem real é completamente diferente do que todo mundo assume",
+    "um recorde da natureza (maior, mais rápido, mais antigo) que a maioria das pessoas erra ao adivinhar",
+    "uma regra de trânsito, aviação ou navegação real que existe por causa de um acidente específico",
+    "uma coincidência numérica ou estatística real que parece armação mas é comprovada",
+    "um hábito considerado saudável que na real não tem a base científica que todo mundo acha que tem",
 ]
 
 # Rotina de manutenção sugerida: revisar esta lista a cada poucas semanas —
