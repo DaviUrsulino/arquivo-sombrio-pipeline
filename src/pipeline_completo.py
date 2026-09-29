@@ -24,7 +24,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from canais import carregar_canal
 from canais import tendencias as canal_tendencias
 from gerar_imagens_cloudflare import gerar_imagens_do_roteiro
-from gerar_roteiro import MODELOS_FALLBACK, _chaves_api, gerar_roteiro
+from gerar_roteiro import MIN_PALAVRAS_ROTEIRO, MODELOS_FALLBACK, _chaves_api, gerar_roteiro
 from montar_video_local import montar_video
 
 TEMAS_FALLBACK = {
@@ -355,12 +355,15 @@ def executar(
             json.dump(roteiro, f, ensure_ascii=False, indent=2)
 
         # Checa a contagem de palavras ANTES de gastar cota de imagem — na
-        # voz mais rápida do Kokoro (~3 palavras/s), menos de 185 palavras
-        # não bate os 60s mínimos de jeito nenhum. Sem essa checagem, o
+        # voz mais rápida do Kokoro (~3 palavras/s), menos de MIN_PALAVRAS_ROTEIRO
+        # palavras não bate os 60s mínimos de jeito nenhum. Sem essa checagem, o
         # pipeline gastava Neurons do Cloudflare num vídeo que já ia ser
         # reprovado de qualquer forma (aconteceu de verdade em 2026-09-08).
+        # Rede de segurança final -- gerar_roteiro() já tenta regenerar se cair
+        # abaixo desse piso (ver bug 2026-09-29 lá), então só chega aqui se
+        # TODAS as tentativas saírem curtas.
         total_palavras = sum(len(c["narracao"].split()) for c in roteiro["cenas"])
-        if total_palavras < 185:
+        if total_palavras < MIN_PALAVRAS_ROTEIRO:
             raise ValueError(
                 f"roteiro saiu com só {total_palavras} palavras — não vai bater 60s "
                 "nem na voz mais lenta, abortando antes de gastar cota de imagem"

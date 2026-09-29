@@ -154,7 +154,7 @@ def _chaves_api() -> list[str]:
     return [os.environ["GEMINI_API_KEY"]]
 
 
-def _json_valido(texto: str) -> bool:
+def _json_valido(texto) -> bool:
     """Bug real encontrado 2026-09-28 (causa raiz da run 36479636607,
     falhou de verdade): modelo de fallback do OpenRouter respondeu HTTP 200
     com um corpo de JSON truncado/quebrado ("Unterminated string starting
@@ -162,7 +162,14 @@ def _json_valido(texto: str) -> bool:
     validavam o corpo antes de aceitar como sucesso -- um 200 com texto
     quebrado era tratado como "deu certo", sem tentar o próximo modelo da
     lista, e o erro só estourava depois, propagando até derrubar a run
-    inteira."""
+    inteira.
+
+    Também cobre o caso (visto na run 36491518194, minutos antes deste
+    fix) de a API devolver "content": null -- json.loads(None) dá TypeError,
+    não JSONDecodeError, então checa o tipo primeiro em vez de confiar só
+    no except."""
+    if not isinstance(texto, str):
+        return False
     try:
         json.loads(texto)
         return True
@@ -261,6 +268,10 @@ def _gerar_roteiro_uma_vez(tema: str, canal) -> dict:
 
 
 MAX_PALAVRAS_ROTEIRO = 240
+# Abaixo disso o vídeo não bate 60s nem na voz mais lenta do Kokoro (~3
+# palavras/s) -- mesmo limite que pipeline_completo.py já checava ANTES de
+# gastar cota de imagem (ver executar()), só que só aqui dá pra regenerar.
+MIN_PALAVRAS_ROTEIRO = 185
 TENTATIVAS_ROTEIRO_CURTO = 3
 
 
@@ -268,29 +279,50 @@ def _total_palavras(roteiro: dict) -> int:
     return sum(len(c.get("narracao", "").split()) for c in roteiro.get("cenas", []))
 
 
+def _distancia_da_faixa(n: int) -> int:
+    """0 se n está dentro de [MIN_PALAVRAS_ROTEIRO, MAX_PALAVRAS_ROTEIRO],
+    senão a distância até a borda mais próxima -- usado só pra escolher a
+    "menos pior" tentativa se nenhuma couber na faixa."""
+    if n < MIN_PALAVRAS_ROTEIRO:
+        return MIN_PALAVRAS_ROTEIRO - n
+    if n > MAX_PALAVRAS_ROTEIRO:
+        return n - MAX_PALAVRAS_ROTEIRO
+    return 0
+
+
 def gerar_roteiro(tema: str, canal) -> dict:
-    """Gera o roteiro e garante teto de tamanho.
+    """Gera o roteiro e garante que a contagem de palavras cai na faixa
+    publicável.
 
     Bug real 2026-09-21 (feedback do Davi: "shorts tem que ser no máximo
     1:30, o mais próximo de 1:00"): o prompt já pede 200-230 palavras
     (~65-95s), mas o modelo ignora e vieram vídeos publicados de 120s e
     129s -- nada validava o teto. Agora regera até TENTATIVAS_ROTEIRO_CURTO
-    vezes se passar de MAX_PALAVRAS_ROTEIRO e, se nenhuma couber, usa a mais
-    curta (nunca trava o cron por isso)."""
+    vezes se passar de MAX_PALAVRAS_ROTEIRO.
+
+    Bug real 2026-09-29 (run 36545771186, run perdida sem vídeo publicado em
+    NENHUM canal naquele dia): só o teto de cima tinha retry -- um roteiro
+    curto demais (165 palavras) era aceito de primeira aqui (165 <= 240) e
+    só rejeitado DEPOIS, em pipeline_completo.py, sem chance de regenerar.
+    Agora o piso entra no mesmo loop de retry do teto."""
     melhor = None
+    melhor_distancia = None
     for tentativa in range(1, TENTATIVAS_ROTEIRO_CURTO + 1):
         roteiro = _gerar_roteiro_uma_vez(tema, canal)
         n = _total_palavras(roteiro)
-        if melhor is None or n < _total_palavras(melhor):
-            melhor = roteiro
-        if n <= MAX_PALAVRAS_ROTEIRO:
+        distancia = _distancia_da_faixa(n)
+        if melhor is None or distancia < melhor_distancia:
+            melhor, melhor_distancia = roteiro, distancia
+        if distancia == 0:
             return roteiro
+        motivo = "curto demais" if n < MIN_PALAVRAS_ROTEIRO else "longo demais"
         print(
-            f"  Roteiro com {n} palavras (teto {MAX_PALAVRAS_ROTEIRO}, ~1:30) -- "
-            f"gerando de novo (tentativa {tentativa}/{TENTATIVAS_ROTEIRO_CURTO})...",
+            f"  Roteiro com {n} palavras ({motivo}, faixa válida "
+            f"{MIN_PALAVRAS_ROTEIRO}-{MAX_PALAVRAS_ROTEIRO}) -- gerando de novo "
+            f"(tentativa {tentativa}/{TENTATIVAS_ROTEIRO_CURTO})...",
             file=sys.stderr,
         )
-    print(f"  Nenhuma tentativa coube no teto; usando a mais curta ({_total_palavras(melhor)} palavras).", file=sys.stderr)
+    print(f"  Nenhuma tentativa coube na faixa; usando a mais próxima ({_total_palavras(melhor)} palavras).", file=sys.stderr)
     return melhor
 
 
