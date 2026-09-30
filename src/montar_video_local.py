@@ -1206,6 +1206,77 @@ def _carregar_roteiro_marcado(caminho_roteiro: str, n_imagens: int) -> list[str]
     return segmentos
 
 
+# Segundo formato de roteiro marcado, pedido do Davi 2026-09-30 (irmão dele
+# escreveu assim sem combinar antes): "CENA N — MM:SS–MM:SS" com o
+# timestamp de início/fim de cada cena já escrito à mão, em vez do texto
+# entre marcadores [FOTO N]. Aceita "-", "–" (en dash) ou "—" (em dash)
+# como separador, já que copiar/colar de Word costuma trocar hífen por
+# travessão sozinho.
+_PADRAO_CENA_TIMESTAMP = re.compile(
+    r"CENA\s*(\d+)\s*[-–—]\s*(\d{1,2}):(\d{2})\s*[-–—]\s*(\d{1,2}):(\d{2})",
+    re.IGNORECASE,
+)
+
+
+def _formato_do_roteiro(caminho_roteiro: str) -> str:
+    """Detecta qual dos dois formatos de roteiro marcado o arquivo usa,
+    olhando qual padrão aparece primeiro -- "foto" ([FOTO N]) ou
+    "cena_timestamp" (CENA N — MM:SS–MM:SS). "desconhecido" se nenhum dos
+    dois aparecer (roteiro mal formatado ou vazio)."""
+    with open(caminho_roteiro, "r", encoding="utf-8") as f:
+        texto = f.read()
+    tem_foto = _PADRAO_MARCADOR_FOTO.search(texto)
+    tem_cena = _PADRAO_CENA_TIMESTAMP.search(texto)
+    if tem_cena and not tem_foto:
+        return "cena_timestamp"
+    if tem_foto:
+        return "foto"
+    return "desconhecido"
+
+
+def _carregar_roteiro_por_timestamp(caminho_roteiro: str, n_imagens: int) -> list[float]:
+    """Lê o roteiro no formato "CENA N — MM:SS–MM:SS" e retorna os pontos
+    de corte DECLARADOS (antes de escalar pra duração real do áudio, ver
+    `_escalar_pontos_de_corte`) -- [0.0, fim da cena 1, fim da cena 2, ...,
+    fim da última cena], no mesmo formato que `_pontos_de_corte_por_roteiro`
+    devolve pro formato [FOTO N]."""
+    with open(caminho_roteiro, "r", encoding="utf-8") as f:
+        texto = f.read()
+
+    cenas = list(_PADRAO_CENA_TIMESTAMP.finditer(texto))
+    numeros = [int(m.group(1)) for m in cenas]
+    if numeros != list(range(1, n_imagens + 1)):
+        raise RuntimeError(
+            f"Cenas do roteiro não batem com as {n_imagens} fotos -- esperado "
+            f"CENA 1 até CENA {n_imagens} em sequência, achei {numeros or 'nenhuma'}. "
+            "Confere o roteiro escrito antes de rodar de novo."
+        )
+
+    pontos = [0.0]
+    for m in cenas:
+        fim_min, fim_seg = int(m.group(4)), int(m.group(5))
+        pontos.append(fim_min * 60 + fim_seg)
+    return pontos
+
+
+def _escalar_pontos_de_corte(pontos_declarados: list[float], duracao_real: float) -> list[float]:
+    """O timestamp que o irmão do Davi escreve à mão é uma ESTIMATIVA de
+    quanto tempo cada cena vai durar quando narrada -- o áudio de verdade
+    (ElevenLabs) quase nunca bate 100% com essa estimativa (fala um pouco
+    mais rápido ou devagar do que ele cronometrou). Usar o timestamp cru
+    desalinharia cada vez mais conforme o vídeo avança (mesmo tipo de erro
+    acumulado que a divisão-igual-de-tempo antiga já tinha, ver
+    `montar_video_de_audio_e_imagens`). Em vez disso, escala
+    PROPORCIONALMENTE pra bater a duração real do áudio -- mantém o timing
+    relativo entre cenas (que o irmão do Davi já acertou de ouvido), só
+    ajusta a escala absoluta."""
+    duracao_declarada = pontos_declarados[-1]
+    if duracao_declarada <= 0:
+        return pontos_declarados
+    fator = duracao_real / duracao_declarada
+    return [p * fator for p in pontos_declarados]
+
+
 def _normalizar_palavra(palavra: str) -> str:
     """Minúsculo, sem acento, sem pontuação -- só pra COMPARAR a mesma
     palavra escrita no roteiro com a transcrita pelo Whisper (que às vezes
@@ -1411,7 +1482,16 @@ def montar_video_de_audio_e_imagens(
     print("Transcrevendo áudio pra sincronizar corte de imagem com a fala...")
     palavras = _transcrever_palavras(caminho_audio)
 
-    if caminho_roteiro:
+    if caminho_roteiro and _formato_do_roteiro(caminho_roteiro) == "cena_timestamp":
+        print(f"Roteiro marcado fornecido ({os.path.basename(caminho_roteiro)}) -- formato CENA N com timestamp...")
+        pontos_declarados = _carregar_roteiro_por_timestamp(caminho_roteiro, len(imagens))
+        # O timestamp foi escrito à mão ANTES do áudio existir de verdade --
+        # escala pra duração real em vez de usar cru (ver docstring de
+        # _escalar_pontos_de_corte).
+        pontos_de_corte = _escalar_pontos_de_corte(pontos_declarados, duracao_total)
+        pontos_de_corte = _ajustar_cortes_para_pausa_mais_proxima(pontos_de_corte, _detectar_pausas_da_fala(palavras))
+        pontos_de_corte = _atrasar_troca_quando_curto(pontos_de_corte)
+    elif caminho_roteiro:
         print(f"Roteiro marcado fornecido ({os.path.basename(caminho_roteiro)}) -- usando [FOTO N] em vez de pausa...")
         segmentos_roteiro = _carregar_roteiro_marcado(caminho_roteiro, len(imagens))
         pontos_de_corte = _pontos_de_corte_por_roteiro(segmentos_roteiro, palavras, duracao_total)
