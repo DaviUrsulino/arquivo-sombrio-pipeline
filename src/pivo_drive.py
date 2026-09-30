@@ -61,6 +61,11 @@ EXTENSOES_AUDIO = (".mp3", ".wav", ".m4a", ".mpeg", ".mpga")
 # 2026-09-12, opcional (pastas antigas/sem roteiro caem pro fallback de
 # detecção de pausa dentro de montar_video_de_audio_e_imagens).
 EXTENSAO_ROTEIRO = ".txt"
+# Bug real 2026-09-30: o irmão do Davi escreveu o roteiro marcado num Word
+# (.docx) em vez de .txt puro -- baixar_arquivos_da_pasta ignorava o
+# arquivo inteiro (extensão não reconhecida), então caía sempre no
+# fallback de detecção de pausa mesmo com o roteiro pronto na pasta.
+EXTENSAO_ROTEIRO_DOCX = ".docx"
 # Trilha de fundo CUSTOM por pasta (pedido do Davi 2026-09-30, canal virando
 # estilo "mistério"): sem isso, montar_video_de_audio_e_imagens sempre mixa
 # a mesma trilha fixa (TRILHAS_POR_PLATAFORMA["tiktok"]) em todo vídeo do
@@ -204,6 +209,28 @@ def arquivar_pastas_processadas_antigas(service, pasta_entrada_id: str, pasta_pr
         print(f"  pasta '{pasta['name']}' arquivada em Processados (processada há mais de 24h)")
 
 
+def _extrair_texto_docx(caminho: str) -> str:
+    """Extrai o texto puro (parágrafo por parágrafo) de um .docx, só com o
+    que já vem na biblioteca padrão (zipfile + XML -- um .docx é só um zip
+    com word/document.xml dentro) -- suficiente pra pegar os marcadores
+    [FOTO N] que _carregar_roteiro_marcado precisa, sem puxar dependência
+    nova só pra isso (ver bug real do av<19 nesta mesma semana -- toda
+    dependência nova é mais um jeito de o cron quebrar sozinho)."""
+    import xml.etree.ElementTree as ET
+    import zipfile
+
+    ns_w = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
+    with zipfile.ZipFile(caminho) as z:
+        xml_bytes = z.read("word/document.xml")
+    raiz = ET.fromstring(xml_bytes)
+
+    paragrafos = []
+    for p in raiz.iter(f"{{{ns_w}}}p"):
+        texto_paragrafo = "".join(t.text or "" for t in p.iter(f"{{{ns_w}}}t"))
+        paragrafos.append(texto_paragrafo)
+    return "\n".join(paragrafos)
+
+
 def baixar_arquivos_da_pasta(
     service, pasta_id: str, destino_local: str
 ) -> tuple[list[str], str | None, str | None, str | None]:
@@ -226,7 +253,8 @@ def baixar_arquivos_da_pasta(
         extensao = os.path.splitext(nome)[1].lower()
         reconhecida = (
             extensao in EXTENSOES_IMAGEM or extensao in EXTENSOES_AUDIO
-            or extensao == EXTENSAO_ROTEIRO or extensao in EXTENSOES_MUSICA_CUSTOM
+            or extensao == EXTENSAO_ROTEIRO or extensao == EXTENSAO_ROTEIRO_DOCX
+            or extensao in EXTENSOES_MUSICA_CUSTOM
         )
         if not reconhecida:
             continue
@@ -253,7 +281,16 @@ def baixar_arquivos_da_pasta(
                 musica_custom = caminho_local
         else:
             if roteiro is not None:
-                print(f"  AVISO: mais de um roteiro (.txt) na pasta, usando o primeiro ({os.path.basename(roteiro)})")
+                print(f"  AVISO: mais de um roteiro na pasta, usando o primeiro ({os.path.basename(roteiro)})")
+                continue
+            if extensao == EXTENSAO_ROTEIRO_DOCX:
+                # _carregar_roteiro_marcado só lê .txt puro -- extrai o
+                # texto do .docx pra um .txt irmão no mesmo diretório
+                # temporário antes de expor como "roteiro".
+                caminho_txt = os.path.splitext(caminho_local)[0] + ".txt"
+                with open(caminho_txt, "w", encoding="utf-8") as f:
+                    f.write(_extrair_texto_docx(caminho_local))
+                roteiro = caminho_txt
             else:
                 roteiro = caminho_local
 
