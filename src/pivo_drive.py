@@ -61,6 +61,15 @@ EXTENSOES_AUDIO = (".mp3", ".wav", ".m4a", ".mpeg", ".mpga")
 # 2026-09-12, opcional (pastas antigas/sem roteiro caem pro fallback de
 # detecção de pausa dentro de montar_video_de_audio_e_imagens).
 EXTENSAO_ROTEIRO = ".txt"
+# Trilha de fundo CUSTOM por pasta (pedido do Davi 2026-09-30, canal virando
+# estilo "mistério"): sem isso, montar_video_de_audio_e_imagens sempre mixa
+# a mesma trilha fixa (TRILHAS_POR_PLATAFORMA["tiktok"]) em todo vídeo do
+# pivô -- vídeo "sonho"/"morte" saíram com a trilha errada (a de terror) no
+# mesmo processamento que já rodou. O irmão do Davi baixa a música nova como
+# vídeo (ex: "Warm Nights Song.mp4", só o áudio importa) -- ffmpeg lê a
+# faixa de áudio de um container de vídeo sem problema, não precisa
+# extrair antes.
+EXTENSOES_MUSICA_CUSTOM = (".mp4", ".mov", ".m4v")
 
 # Pedido do Davi 2026-09-11: não mover a pasta original pra "Processados" na
 # hora -- se o vídeo saiu cortado ou com algum problema, o irmão (e o Davi)
@@ -195,23 +204,31 @@ def arquivar_pastas_processadas_antigas(service, pasta_entrada_id: str, pasta_pr
         print(f"  pasta '{pasta['name']}' arquivada em Processados (processada há mais de 24h)")
 
 
-def baixar_arquivos_da_pasta(service, pasta_id: str, destino_local: str) -> tuple[list[str], str | None, str | None]:
-    """Baixa todo arquivo de imagem/áudio/roteiro dentro da pasta pro
-    diretório local, mantendo o nome original (a ordem numérica das
-    imagens é resolvida por quem chama, igual já acontece no modo --audio
-    local). O roteiro (.txt com marcadores [FOTO N], ver
-    EXTENSAO_ROTEIRO/montar_video_de_audio_e_imagens) é opcional -- pasta
-    sem ele ainda funciona, só cai pro fallback de detecção de pausa."""
+def baixar_arquivos_da_pasta(
+    service, pasta_id: str, destino_local: str
+) -> tuple[list[str], str | None, str | None, str | None]:
+    """Baixa todo arquivo de imagem/áudio/roteiro/trilha-custom dentro da
+    pasta pro diretório local, mantendo o nome original (a ordem numérica
+    das imagens é resolvida por quem chama, igual já acontece no modo
+    --audio local). O roteiro (.txt com marcadores [FOTO N], ver
+    EXTENSAO_ROTEIRO/montar_video_de_audio_e_imagens) e a trilha custom
+    (ver EXTENSOES_MUSICA_CUSTOM) são opcionais -- pasta sem eles ainda
+    funciona (cai pro fallback de detecção de pausa e pra trilha padrão
+    fixa, respectivamente)."""
     resultado = service.files().list(
         q=f"'{pasta_id}' in parents and trashed = false",
         fields="files(id, name, mimeType)",
     ).execute()
 
-    imagens, audio, roteiro = [], None, None
+    imagens, audio, roteiro, musica_custom = [], None, None, None
     for arquivo in resultado.get("files", []):
         nome = arquivo["name"]
         extensao = os.path.splitext(nome)[1].lower()
-        if extensao not in EXTENSOES_IMAGEM and extensao not in EXTENSOES_AUDIO and extensao != EXTENSAO_ROTEIRO:
+        reconhecida = (
+            extensao in EXTENSOES_IMAGEM or extensao in EXTENSOES_AUDIO
+            or extensao == EXTENSAO_ROTEIRO or extensao in EXTENSOES_MUSICA_CUSTOM
+        )
+        if not reconhecida:
             continue
 
         caminho_local = os.path.join(destino_local, nome)
@@ -229,6 +246,11 @@ def baixar_arquivos_da_pasta(service, pasta_id: str, destino_local: str) -> tupl
                 print(f"  AVISO: mais de um áudio na pasta, usando o primeiro ({os.path.basename(audio)})")
             else:
                 audio = caminho_local
+        elif extensao in EXTENSOES_MUSICA_CUSTOM:
+            if musica_custom is not None:
+                print(f"  AVISO: mais de uma trilha custom na pasta, usando a primeira ({os.path.basename(musica_custom)})")
+            else:
+                musica_custom = caminho_local
         else:
             if roteiro is not None:
                 print(f"  AVISO: mais de um roteiro (.txt) na pasta, usando o primeiro ({os.path.basename(roteiro)})")
@@ -241,7 +263,7 @@ def baixar_arquivos_da_pasta(service, pasta_id: str, destino_local: str) -> tupl
     # (video4, 2026-09-21: 17 fotos pra 16 marcadores).
     imagens = list(dict.fromkeys(imagens))
     imagens.sort(key=lambda c: _chave_ordenacao_arquivo(os.path.basename(c)))
-    return imagens, audio, roteiro
+    return imagens, audio, roteiro, musica_custom
 
 
 def subir_video(service, caminho_video: str, pasta_saida_id: str, nome: str, tentativas: int = 3):
@@ -276,15 +298,22 @@ def processar_pasta(service, pasta: dict, pasta_saida_id: str) -> bool:
     marca, fica disponível pra nova tentativa)."""
     print(f"\n=== Processando pasta '{pasta['name']}' ===")
     with tempfile.TemporaryDirectory() as pasta_tmp:
-        imagens, audio, roteiro = baixar_arquivos_da_pasta(service, pasta["id"], pasta_tmp)
+        imagens, audio, roteiro, musica_custom = baixar_arquivos_da_pasta(service, pasta["id"], pasta_tmp)
         if not imagens or not audio:
             print(f"  pasta incompleta (imagens={len(imagens)}, audio={'sim' if audio else 'não'}) -- pulando")
             return False
 
-        print(f"  {len(imagens)} imagens + 1 áudio" + (" + 1 roteiro marcado" if roteiro else " (sem roteiro marcado, usando detecção de pausa)"))
+        print(
+            f"  {len(imagens)} imagens + 1 áudio"
+            + (" + 1 roteiro marcado" if roteiro else " (sem roteiro marcado, usando detecção de pausa)")
+            + (f" + trilha custom ({os.path.basename(musica_custom)})" if musica_custom else "")
+        )
         caminho_saida = os.path.join(pasta_tmp, "video_final.mp4")
         try:
-            montar_video_de_audio_e_imagens(audio, imagens, caminho_saida, plataforma="tiktok", caminho_roteiro=roteiro)
+            montar_video_de_audio_e_imagens(
+                audio, imagens, caminho_saida, plataforma="tiktok", caminho_roteiro=roteiro,
+                caminho_trilha_custom=musica_custom,
+            )
         except Exception as e:
             print(f"  ERRO ao montar vídeo: {e}")
             return False

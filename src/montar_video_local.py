@@ -1348,7 +1348,7 @@ def _atrasar_troca_quando_curto(
 
 def montar_video_de_audio_e_imagens(
     caminho_audio: str, imagens: list[str], caminho_saida: str, plataforma: str = "tiktok",
-    caminho_roteiro: str | None = None,
+    caminho_roteiro: str | None = None, caminho_trilha_custom: str | None = None,
 ) -> float:
     """Monta o vídeo final a partir de uma narração JÁ PRONTA (mp3/wav já
     com trilha embutida, gerado fora daqui) + uma lista de imagens numeradas
@@ -1384,6 +1384,14 @@ def montar_video_de_audio_e_imagens(
     (reaproveitando a MESMA transcrição, sem rodar o Whisper 2x) e mixa a
     ambientação/trilha por cima -- tudo reaproveitado do fluxo normal, só
     sem gerar roteiro/narração/imagem aqui dentro.
+
+    Se `caminho_trilha_custom` for passado (ver EXTENSOES_MUSICA_CUSTOM em
+    pivo_drive.py), usa esse arquivo como trilha de fundo em vez da trilha
+    fixa de TRILHAS_POR_PLATAFORMA -- pedido do Davi 2026-09-30 pra poder
+    trocar de música por vídeo (ex: estilo "mistério" com trilha própria)
+    sem toda pasta do pivô ficar presa na mesma trilha de terror de sempre.
+    Aceita mp4/mov (ffmpeg lê só a faixa de áudio de um container de vídeo
+    sem precisar extrair antes).
 
     Se `caminho_roteiro` for passado, ele deve ser um .txt com marcadores
     [FOTO 1]..[FOTO N] no ponto exato do texto onde cada foto troca (ver
@@ -1517,8 +1525,8 @@ def montar_video_de_audio_e_imagens(
         caminho_com_legenda = os.path.join(pasta_tmp, "com_legenda.mp4")
         queimar_legenda(caminho_com_audio, caminho_ass, caminho_com_legenda)
 
-        caminho_trilha = TRILHAS_POR_PLATAFORMA.get(plataforma)
-        print(f"Adicionando ambientação ({plataforma})...")
+        caminho_trilha = caminho_trilha_custom or TRILHAS_POR_PLATAFORMA.get(plataforma)
+        print(f"Adicionando ambientação ({'trilha custom' if caminho_trilha_custom else plataforma})...")
         caminho_ambiencia = os.path.join(pasta_tmp, "ambiencia.wav")
         gerar_ambiencia(caminho_ambiencia, duracao_total, "tenso", caminho_trilha)
 
