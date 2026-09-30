@@ -1216,6 +1216,12 @@ _PADRAO_CENA_TIMESTAMP = re.compile(
     r"CENA\s*(\d+)\s*[-–—]\s*(\d{1,2}):(\d{2})\s*[-–—]\s*(\d{1,2}):(\d{2})",
     re.IGNORECASE,
 )
+# Só o número da cena, sem exigir a faixa MM:SS–MM:SS completa -- usado pra
+# validar a SEQUÊNCIA de cenas mesmo quando uma ou mais não tem faixa válida
+# (ver bug real 2026-09-30, "video morte": "CENA 17 — LOOP VISUAL" e
+# "CENA 18 — 01:11 — FINAL" são anotações de estilo/encerramento, não uma
+# faixa de tempo normal, e travavam o processamento inteiro por causa disso).
+_PADRAO_NUMERO_CENA = re.compile(r"CENA\s*(\d+)", re.IGNORECASE)
 
 
 def _formato_do_roteiro(caminho_roteiro: str) -> str:
@@ -1239,12 +1245,18 @@ def _carregar_roteiro_por_timestamp(caminho_roteiro: str, n_imagens: int) -> lis
     de corte DECLARADOS (antes de escalar pra duração real do áudio, ver
     `_escalar_pontos_de_corte`) -- [0.0, fim da cena 1, fim da cena 2, ...,
     fim da última cena], no mesmo formato que `_pontos_de_corte_por_roteiro`
-    devolve pro formato [FOTO N]."""
+    devolve pro formato [FOTO N].
+
+    Tolera cena sem faixa MM:SS–MM:SS válida (anotação de estilo tipo "CENA
+    17 — LOOP VISUAL" ou só um timestamp solto tipo "CENA 18 — 01:11 —
+    FINAL", em vez de travar exigindo documento perfeito -- bug real
+    2026-09-30, "video morte"): estima a duração dela pela MÉDIA das cenas
+    anteriores que TÊM faixa válida (assume ritmo parecido), em vez de
+    rejeitar o roteiro inteiro."""
     with open(caminho_roteiro, "r", encoding="utf-8") as f:
         texto = f.read()
 
-    cenas = list(_PADRAO_CENA_TIMESTAMP.finditer(texto))
-    numeros = [int(m.group(1)) for m in cenas]
+    numeros = [int(m.group(1)) for m in _PADRAO_NUMERO_CENA.finditer(texto)]
     if numeros != list(range(1, n_imagens + 1)):
         raise RuntimeError(
             f"Cenas do roteiro não batem com as {n_imagens} fotos -- esperado "
@@ -1252,10 +1264,28 @@ def _carregar_roteiro_por_timestamp(caminho_roteiro: str, n_imagens: int) -> lis
             "Confere o roteiro escrito antes de rodar de novo."
         )
 
-    pontos = [0.0]
-    for m in cenas:
+    fins_declarados: list[float | None] = [None] * n_imagens
+    for m in _PADRAO_CENA_TIMESTAMP.finditer(texto):
+        numero = int(m.group(1))
         fim_min, fim_seg = int(m.group(4)), int(m.group(5))
-        pontos.append(fim_min * 60 + fim_seg)
+        fins_declarados[numero - 1] = float(fim_min * 60 + fim_seg)
+
+    if all(fim is None for fim in fins_declarados):
+        raise RuntimeError(
+            "Nenhuma cena do roteiro tem uma faixa MM:SS–MM:SS válida -- confere o "
+            "roteiro escrito antes de rodar de novo."
+        )
+
+    # Ritmo médio (segundos por cena) das cenas COM faixa válida, contando
+    # a partir do início (00:00) -- usado só pra estimar a duração das
+    # cenas SEM faixa válida.
+    ultimo_indice_conhecido = max(i for i, fim in enumerate(fins_declarados) if fim is not None)
+    duracao_media_por_cena = fins_declarados[ultimo_indice_conhecido] / (ultimo_indice_conhecido + 1)
+
+    pontos = [0.0]
+    for fim in fins_declarados:
+        fim_real = fim if fim is not None else pontos[-1] + duracao_media_por_cena
+        pontos.append(fim_real)
     return pontos
 
 
