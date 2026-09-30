@@ -205,8 +205,20 @@ def arquivar_pastas_processadas_antigas(service, pasta_entrada_id: str, pasta_pr
             continue
         if agora - datetime.fromisoformat(processado_em) < PRAZO_ARQUIVAMENTO:
             continue
-        mover_para_processados(service, pasta["id"], pasta_entrada_id, pasta_processados_id)
-        print(f"  pasta '{pasta['name']}' arquivada em Processados (processada há mais de 24h)")
+        try:
+            mover_para_processados(service, pasta["id"], pasta_entrada_id, pasta_processados_id)
+            print(f"  pasta '{pasta['name']}' arquivada em Processados (processada há mais de 24h)")
+        except Exception as e:
+            # Bug real 2026-09-30 (run 36742567890): "video5" tinha mais de
+            # um parent no Drive (ex: atalho/item em Shared Drive) e o Drive
+            # recusa addParents nesse caso ("Increasing the number of
+            # parents is not allowed") -- isso derrubava o processo INTEIRO
+            # sem try/except aqui, mesmo essa chamada rodando DEPOIS de
+            # processar_pasta() já ter isolado sua própria exceção (mesmo
+            # princípio do bug de 2026-09-24 acima, só que no arquivamento
+            # em vez do processamento). Uma pasta com parent problemático
+            # não pode impedir o arquivamento das outras.
+            print(f"  ERRO ao arquivar '{pasta['name']}' em Processados ({e}) -- continua com as outras")
 
 
 def _extrair_texto_docx(caminho: str) -> str:
