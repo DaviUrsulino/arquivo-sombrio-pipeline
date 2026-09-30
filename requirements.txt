@@ -6,6 +6,15 @@ google-auth-oauthlib>=1.2.0
 kokoro>=0.9.0
 soundfile>=0.12.0
 faster-whisper>=1.0.0
+# Bug real 2026-09-29/30: faster-whisper chama av.open(..., metadata_errors=...)
+# internamente (src/audio.py) -- o PyAV 19.0.0 removeu esse parâmetro, e como
+# essa dependência transitiva não tinha pin nenhum, TODA run do cron (venv
+# nova a cada job) passou a instalar a versão quebrada e derrubar a
+# transcrição/legenda em NENHUM vídeo publicar por 2 dias inteiros (streak de
+# 7 falhas seguidas, ver runs a partir de 36609075093). Trava av<19 até
+# confirmar que uma versão futura restaura o parâmetro ou faster-whisper para
+# de depender dele.
+av<19
 gradio_client>=1.0.0
 Pillow>=10.0.0
 modal>=0.70.0
