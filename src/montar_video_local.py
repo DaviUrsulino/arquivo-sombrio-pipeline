@@ -1216,6 +1216,14 @@ _PADRAO_CENA_TIMESTAMP = re.compile(
     r"CENA\s*(\d+)\s*[-–—]\s*(\d{1,2}):(\d{2})\s*[-–—]\s*(\d{1,2}):(\d{2})",
     re.IGNORECASE,
 )
+# Formato que o irmão do Davi usa no Google Docs: "00:00 – 00:04 (CENA 1)".
+# O parser antigo só aceitava a mesma informação com a cena antes do tempo
+# ("CENA 1 — 00:00–00:04"), então um roteiro perfeitamente válido era
+# tratado como se não tivesse marcador nenhum.
+_PADRAO_TIMESTAMP_CENA_FINAL = re.compile(
+    r"(\d{1,2}):(\d{2})\s*[-–—]\s*(\d{1,2}):(\d{2})\s*\(\s*CENA\s*(\d+)\s*\)",
+    re.IGNORECASE,
+)
 # Só o número da cena, sem exigir a faixa MM:SS–MM:SS completa -- usado pra
 # validar a SEQUÊNCIA de cenas mesmo quando uma ou mais não tem faixa válida
 # (ver bug real 2026-09-30, "video morte": "CENA 17 — LOOP VISUAL" e
@@ -1232,12 +1240,21 @@ def _formato_do_roteiro(caminho_roteiro: str) -> str:
     with open(caminho_roteiro, "r", encoding="utf-8") as f:
         texto = f.read()
     tem_foto = _PADRAO_MARCADOR_FOTO.search(texto)
-    tem_cena = _PADRAO_CENA_TIMESTAMP.search(texto)
+    tem_cena = _PADRAO_CENA_TIMESTAMP.search(texto) or _PADRAO_TIMESTAMP_CENA_FINAL.search(texto)
     if tem_cena and not tem_foto:
         return "cena_timestamp"
     if tem_foto:
         return "foto"
     return "desconhecido"
+
+
+def _normalizar_timestamps_de_cena(texto: str) -> str:
+    """Converte "00:00 – 00:04 (CENA 1)" para o formato interno já
+    suportado, preservando o restante do texto do roteiro."""
+    return _PADRAO_TIMESTAMP_CENA_FINAL.sub(
+        lambda m: f"CENA {m.group(5)} — {m.group(1)}:{m.group(2)} – {m.group(3)}:{m.group(4)}",
+        texto,
+    )
 
 
 def _carregar_roteiro_por_timestamp(caminho_roteiro: str, n_imagens: int) -> list[float]:
@@ -1254,7 +1271,7 @@ def _carregar_roteiro_por_timestamp(caminho_roteiro: str, n_imagens: int) -> lis
     anteriores que TÊM faixa válida (assume ritmo parecido), em vez de
     rejeitar o roteiro inteiro."""
     with open(caminho_roteiro, "r", encoding="utf-8") as f:
-        texto = f.read()
+        texto = _normalizar_timestamps_de_cena(f.read())
 
     numeros = [int(m.group(1)) for m in _PADRAO_NUMERO_CENA.finditer(texto)]
     if numeros != list(range(1, n_imagens + 1)):
