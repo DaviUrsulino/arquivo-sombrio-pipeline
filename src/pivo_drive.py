@@ -66,6 +66,11 @@ EXTENSAO_ROTEIRO = ".txt"
 # arquivo inteiro (extensão não reconhecida), então caía sempre no
 # fallback de detecção de pausa mesmo com o roteiro pronto na pasta.
 EXTENSAO_ROTEIRO_DOCX = ".docx"
+# O irmão do Davi também escreve os roteiros diretamente no Google Docs.
+# Arquivos nativos do Docs não têm extensão e, portanto, eram ignorados
+# inteiramente pelo filtro baseado no nome abaixo. Exportamos seu texto
+# temporariamente como .txt para reaproveitar o mesmo parser de marcadores.
+MIMETYPE_GOOGLE_DOC = "application/vnd.google-apps.document"
 # Trilha de fundo CUSTOM por pasta (pedido do Davi 2026-09-30, canal virando
 # estilo "mistério"): sem isso, montar_video_de_audio_e_imagens sempre mixa
 # a mesma trilha fixa (TRILHAS_POR_PLATAFORMA["tiktok"]) em todo vídeo do
@@ -260,19 +265,29 @@ def baixar_arquivos_da_pasta(
     ).execute()
 
     imagens, audio, roteiro, musica_custom = [], None, None, None
+    # Se houver mais de uma versão de roteiro, prefere o Google Docs
+    # original, depois .docx, depois .txt. Assim um .txt antigo/raçunho
+    # não vence por acaso só porque a API do Drive o listou primeiro.
+    prioridade_roteiro = 0
     for arquivo in resultado.get("files", []):
         nome = arquivo["name"]
         extensao = os.path.splitext(nome)[1].lower()
+        eh_google_doc = arquivo["mimeType"] == MIMETYPE_GOOGLE_DOC
         reconhecida = (
             extensao in EXTENSOES_IMAGEM or extensao in EXTENSOES_AUDIO
             or extensao == EXTENSAO_ROTEIRO or extensao == EXTENSAO_ROTEIRO_DOCX
-            or extensao in EXTENSOES_MUSICA_CUSTOM
+            or extensao in EXTENSOES_MUSICA_CUSTOM or eh_google_doc
         )
         if not reconhecida:
             continue
 
-        caminho_local = os.path.join(destino_local, nome)
-        request = service.files().get_media(fileId=arquivo["id"])
+        # Google Docs nativo precisa ser exportado; get_media só serve para
+        # arquivos binários enviados ao Drive.
+        caminho_local = os.path.join(destino_local, nome + ".txt" if eh_google_doc else nome)
+        request = (
+            service.files().export_media(fileId=arquivo["id"], mimeType="text/plain")
+            if eh_google_doc else service.files().get_media(fileId=arquivo["id"])
+        )
         with open(caminho_local, "wb") as f:
             downloader = MediaIoBaseDownload(f, request)
             concluido = False
@@ -292,8 +307,12 @@ def baixar_arquivos_da_pasta(
             else:
                 musica_custom = caminho_local
         else:
-            if roteiro is not None:
-                print(f"  AVISO: mais de um roteiro na pasta, usando o primeiro ({os.path.basename(roteiro)})")
+            nova_prioridade = 3 if eh_google_doc else 2 if extensao == EXTENSAO_ROTEIRO_DOCX else 1
+            if nova_prioridade < prioridade_roteiro:
+                print(f"  AVISO: roteiro '{nome}' ignorado; usando versão de maior prioridade ({os.path.basename(roteiro)})")
+                continue
+            if nova_prioridade == prioridade_roteiro and roteiro is not None:
+                print(f"  AVISO: mais de um roteiro no mesmo formato, usando o primeiro ({os.path.basename(roteiro)})")
                 continue
             if extensao == EXTENSAO_ROTEIRO_DOCX:
                 # _carregar_roteiro_marcado só lê .txt puro -- extrai o
@@ -305,6 +324,7 @@ def baixar_arquivos_da_pasta(
                 roteiro = caminho_txt
             else:
                 roteiro = caminho_local
+            prioridade_roteiro = nova_prioridade
 
     # Duas fotos com o MESMO nome (Flow gera duplicata quando dois downloads
     # caem no mesmo segundo) baixam pro mesmo caminho local -- sem isso a
