@@ -37,18 +37,15 @@ def autenticar(arquivo_client_secret: str = ARQUIVO_CLIENT_SECRET, arquivo_token
     credenciais = None
     try:
         credenciais = Credentials.from_authorized_user_file(arquivo_token, SCOPES)
-        print(f"[AUTH] token carregado: valid={credenciais.valid} expired={credenciais.expired} expiry={credenciais.expiry} scopes={list(credenciais.scopes or [])}")
     except FileNotFoundError:
-        print(f"[AUTH] arquivo não encontrado: {arquivo_token}")
-    except Exception as e:
-        print(f"[AUTH] erro ao carregar token: {type(e).__name__}: {e}")
+        pass
+    except Exception:
+        pass
 
     if not credenciais or not credenciais.valid:
         if credenciais and credenciais.expired and credenciais.refresh_token:
-            print("[AUTH] tentando refresh do token...")
             try:
                 credenciais.refresh(Request())
-                print(f"[AUTH] refresh OK - novo expiry={credenciais.expiry}")
             except RefreshError:
                 # Bug real 2026-09-22 (causa raiz do "invalid_grant" se
                 # perpetuando run após run mesmo já tendo sido reautenticado
@@ -66,7 +63,6 @@ def autenticar(arquivo_client_secret: str = ARQUIVO_CLIENT_SECRET, arquivo_token
                     os.remove(arquivo_token)
                 raise
         else:
-            print(f"[AUTH] credenciais={credenciais is not None} expired={credenciais.expired if credenciais else 'N/A'} refresh_token={bool(credenciais.refresh_token) if credenciais else 'N/A'} → iniciando novo fluxo OAuth")
             flow = InstalledAppFlow.from_client_secrets_file(
                 arquivo_client_secret, SCOPES
             )
