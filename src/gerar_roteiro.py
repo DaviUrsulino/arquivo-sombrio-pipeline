@@ -240,6 +240,15 @@ def _gerar_roteiro_uma_vez(tema: str, canal) -> dict:
                 print(f"  {modelo} indisponível ({e.code if hasattr(e, 'code') else e}), tentando próxima opção...", file=sys.stderr)
                 time.sleep(2)
                 continue
+            except Exception as e:
+                # Timeout de rede ("The read operation timed out") e outros
+                # erros não tipados não são ServerError/ClientError -- sem
+                # esse except, propagam direto e matam o pipeline sem tentar
+                # OpenRouter/Mistral (bug confirmado 2026-10-12).
+                ultimo_erro = e
+                print(f"  {modelo} erro inesperado ({type(e).__name__}: {e}), tentando próxima opção...", file=sys.stderr)
+                time.sleep(2)
+                continue
         else:
             continue  # essa chave esgotou os modelos, tenta a próxima chave
         break  # deu certo, não precisa tentar outra chave
