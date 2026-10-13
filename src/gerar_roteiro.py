@@ -11,6 +11,7 @@ Saída:
 import argparse
 import json
 import os
+import re
 import sys
 import time
 
@@ -299,6 +300,36 @@ def _distancia_da_faixa(n: int) -> int:
     return 0
 
 
+# Primeira frase da cena 1 é o gancho: acima disso já não cabe nos ~2s em que
+# a pessoa decide se continua (run 38471682430, 2026-10-13: abriu com 30
+# palavras de contexto antes de qualquer pergunta).
+MAX_PALAVRAS_GANCHO = 15
+
+
+def _palavras_do_gancho(roteiro: dict) -> int:
+    cenas = roteiro.get("cenas") or [{}]
+    narracao = (cenas[0].get("narracao") or "").strip()
+    primeira_frase = re.split(r"(?<=[.!?…])\s+", narracao, maxsplit=1)[0]
+    return len(primeira_frase.split())
+
+
+def _problemas(roteiro: dict) -> list[str]:
+    problemas = []
+    n = _total_palavras(roteiro)
+    if n < MIN_PALAVRAS_ROTEIRO or n > MAX_PALAVRAS_ROTEIRO:
+        problemas.append(
+            f"a tentativa anterior saiu com {n} palavras de narração no total; "
+            f"o total PRECISA ficar entre 200 e 230 palavras"
+        )
+    gancho = _palavras_do_gancho(roteiro)
+    if gancho > MAX_PALAVRAS_GANCHO:
+        problemas.append(
+            f"a primeira frase da cena 1 tinha {gancho} palavras; ela precisa ter no máximo "
+            f"{MAX_PALAVRAS_GANCHO} palavras e abrir uma pergunta, sem contexto antes"
+        )
+    return problemas
+
+
 def gerar_roteiro(tema: str, canal) -> dict:
     """Gera o roteiro e garante que a contagem de palavras cai na faixa
     publicável.
@@ -315,22 +346,26 @@ def gerar_roteiro(tema: str, canal) -> dict:
     só rejeitado DEPOIS, em pipeline_completo.py, sem chance de regenerar.
     Agora o piso entra no mesmo loop de retry do teto."""
     melhor = None
-    melhor_distancia = None
+    melhor_nota = None
+    aviso = ""
     for tentativa in range(1, TENTATIVAS_ROTEIRO_CURTO + 1):
-        roteiro = _gerar_roteiro_uma_vez(tema, canal)
-        n = _total_palavras(roteiro)
-        distancia = _distancia_da_faixa(n)
-        if melhor is None or distancia < melhor_distancia:
-            melhor, melhor_distancia = roteiro, distancia
-        if distancia == 0:
+        roteiro = _gerar_roteiro_uma_vez(tema + aviso, canal)
+        problemas = _problemas(roteiro)
+        # Faixa de palavras pesa mais que gancho: roteiro curto não publica.
+        nota = (_distancia_da_faixa(_total_palavras(roteiro)), len(problemas))
+        if melhor is None or nota < melhor_nota:
+            melhor, melhor_nota = roteiro, nota
+        if not problemas:
             return roteiro
-        motivo = "curto demais" if n < MIN_PALAVRAS_ROTEIRO else "longo demais"
         print(
-            f"  Roteiro com {n} palavras ({motivo}, faixa válida "
-            f"{MIN_PALAVRAS_ROTEIRO}-{MAX_PALAVRAS_ROTEIRO}) -- gerando de novo "
+            f"  Roteiro reprovado ({'; '.join(problemas)}) -- gerando de novo "
             f"(tentativa {tentativa}/{TENTATIVAS_ROTEIRO_CURTO})...",
             file=sys.stderr,
         )
+        # Bug real 2026-10-13 (run 38460672942): as 3 tentativas vieram com
+        # ~158 palavras porque o modelo recebia o mesmo pedido sem saber o que
+        # errou. Agora o motivo vai junto no próximo pedido.
+        aviso = "\n\nCORRIJA NESTA VERSÃO: " + "; ".join(problemas) + "."
     print(f"  Nenhuma tentativa coube na faixa; usando a mais próxima ({_total_palavras(melhor)} palavras).", file=sys.stderr)
     return melhor
 

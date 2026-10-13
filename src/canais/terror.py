@@ -10,7 +10,7 @@ import random
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from estilo import MASTER_STYLE_LOCK, RESTRICOES  # noqa: E402
+from estilo import ESTILO_CENARIO, MASTER_STYLE_LOCK, RESTRICAO_SEM_PROTAGONISTA, RESTRICOES  # noqa: E402,F401
 
 NOME_CANAL = "Arquivo Sombrio"
 VOZ = "Clyde"  # ElevenLabs, via JSON2Video (pago)

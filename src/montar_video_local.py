@@ -1722,9 +1722,13 @@ def _formatar_tempo_ass(segundos: float) -> str:
     return f"{h}:{m:02d}:{int(s):02d}.{cs:02d}"
 
 
+DURACAO_TITULO_GANCHO = 3.0
+
+
 def gerar_legenda_ass(
     caminho_audio: str, caminho_saida_ass: str, largura: int, altura: int,
     palavras: list[tuple[float, float, str]] | None = None,
+    titulo_gancho: str | None = None,
 ):
     """`palavras` opcional -- se quem chamou já transcreveu o áudio pra
     outro fim (ex: sincronismo de imagem no fluxo pivô, ver
@@ -1740,7 +1744,8 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, OutlineColour, BackColour, Bold, Italic, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Legenda,Arial Black,84,&H00FFFFFF,&H00000000,&H00000000,-1,0,1,6,0,2,60,60,800,1
+Style: Legenda,Archivo Black,84,&H00FFFFFF,&H00000000,&H00000000,0,0,1,6,0,2,60,60,800,1
+Style: Gancho,Archivo Black,80,&H00FFFFFF,&H00000000,&H96000000,0,0,3,18,0,8,70,70,230,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
@@ -1751,12 +1756,27 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     # "Contos Urbanos" (@vulto_137, ver gravação de tela 2026-09-08):
     # palavra única, grande, branca com contorno preto grosso, sem bloco de
     # frase nem destaque de cor (isso era o padrão CapCut anterior).
+    # Pop de entrada (2026-10-13): a palavra nasce em 70% e cresce pra 100%
+    # em 90ms -- o olho percebe a troca mesmo com palavras curtas seguidas,
+    # sem mudar fonte, cor nem posição validadas acima.
+    pop = r"{\fscx70\fscy70\t(0,90,\fscx100\fscy100)}"
     linhas = []
     for inicio, fim, palavra in palavras:
         texto = palavra.strip().upper()
         linhas.append(
             f"Dialogue: 0,{_formatar_tempo_ass(inicio)},{_formatar_tempo_ass(fim)},"
-            f"Legenda,,0,0,0,,{texto}"
+            f"Legenda,,0,0,0,,{pop}{texto}"
+        )
+
+    # Título-gancho no topo nos primeiros segundos (2026-10-13): quem chega
+    # pelo feed decide em ~2s se fica; a narração da cena 1 sozinha demora
+    # mais que isso pra criar a pergunta. Caixa escura atrás (BorderStyle 3)
+    # pra ler em cima de qualquer imagem.
+    if titulo_gancho:
+        texto_titulo = titulo_gancho.strip().upper().replace("{", "(").replace("}", ")")
+        linhas.insert(0,
+            f"Dialogue: 1,{_formatar_tempo_ass(0)},{_formatar_tempo_ass(DURACAO_TITULO_GANCHO)},"
+            f"Gancho,,0,0,0,,{{\\fad(0,250)\\q0}}{texto_titulo}"
         )
 
     with open(caminho_saida_ass, "w", encoding="utf-8") as f:
@@ -1775,6 +1795,9 @@ def queimar_legenda(caminho_video: str, caminho_ass: str, caminho_saida: str):
     Tudo roda ANTES de queimar a legenda, pra o texto continuar nítido (só
     a imagem por baixo recebe os efeitos)."""
     caminho_ass_escapado = caminho_ass.replace(":", "\\:")
+    # A fonte vem do repo (assets/fontes, licença OFL): o runner do GitHub
+    # não tem Arial Black e o libass caía numa fonte genérica sem avisar.
+    pasta_fontes = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "fontes").replace(":", "\\:")
     filtro_vhs = (
         "rgbashift=rh=-3:bh=3,"
         "chromashift=crh=-1:cbh=1,"
@@ -1784,7 +1807,7 @@ def queimar_legenda(caminho_video: str, caminho_ass: str, caminho_saida: str):
     )
     _rodar([
         "ffmpeg", "-y", "-i", caminho_video,
-        "-vf", f"{filtro_vhs},ass={caminho_ass_escapado}",
+        "-vf", f"{filtro_vhs},ass={caminho_ass_escapado}:fontsdir={pasta_fontes}",
         "-c:a", "copy", caminho_saida,
     ])
 
@@ -1918,7 +1941,8 @@ def montar_video(
                 caminho_audio_full = os.path.join(pasta_tmp, f"audio_full_{plataforma}.wav")
                 extrair_audio(caminho_bruto, caminho_audio_full)
                 caminho_ass = os.path.join(pasta_tmp, f"legenda_{plataforma}.ass")
-                gerar_legenda_ass(caminho_audio_full, caminho_ass, LARGURA, ALTURA)
+                gerar_legenda_ass(caminho_audio_full, caminho_ass, LARGURA, ALTURA,
+                                  titulo_gancho=roteiro.get("titulo_gancho"))
 
                 print(f"Queimando legenda no vídeo ({plataforma})...")
                 queimar_legenda(caminho_bruto, caminho_ass, caminho_com_legenda)

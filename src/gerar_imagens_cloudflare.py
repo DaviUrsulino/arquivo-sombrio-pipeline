@@ -75,6 +75,13 @@ def montar_prompt(prompt_imagem: str, canal, personagem: str | None, tem_referen
 
     descricao_personagem = f"{personagem}. " if personagem and not sem_personagem else ""
     prefixo_referencia = "Same character as the reference image. " if tem_referencia and not sem_personagem else ""
+    if sem_personagem:
+        estilo_cenario = getattr(canal, "ESTILO_CENARIO", None)
+        if estilo_cenario:
+            return (
+                f"{estilo_cenario}{REFORCO_2D}{REFORCO_QUALIDADE}"
+                f"{prompt_imagem} {canal.RESTRICOES} {canal.RESTRICAO_SEM_PROTAGONISTA}"
+            )
     return (
         f"{canal.MASTER_STYLE_LOCK}{REFORCO_2D}{REFORCO_QUALIDADE}{prefixo_referencia}"
         f"{descricao_personagem}{prompt_imagem} {canal.RESTRICOES}"

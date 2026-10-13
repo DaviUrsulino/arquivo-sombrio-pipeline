@@ -32,3 +32,27 @@ MASTER_STYLE_LOCK = (
 RESTRICOES = (
     "No gore, no blood, not photorealistic, not 3D, not anime, no text, no logos, no watermark."
 )
+
+# Variante pra planos SEM o personagem (prompt marcado NO_CHARACTER), criada
+# 2026-10-13. O MASTER_STYLE_LOCK descreve rosto com medo e olhos arregalados;
+# aplicado a um plano de cenário/objeto, o modelo desenhava o mesmo homem
+# assustado em toda imagem e a coisa assustadora da história (a foto, a
+# figura, a casa) nunca aparecia. Mesmo traço, paleta e textura, sem rosto.
+ESTILO_CENARIO = (
+    "Dark semi-realistic 2D cartoon comic-book illustration, mature cinematic horror "
+    "storytelling style. Strong bold hand-drawn black ink outlines, rough but controlled "
+    "linework, slightly irregular contours. Dark cinematic atmosphere, deep shadows, strong "
+    "contrast, dramatic directional lighting. Predominantly dark muted color palette: deep navy "
+    "blue, dark green, charcoal gray, muted brown, black — warm orange/yellow/red lighting only "
+    "where naturally appropriate. Detailed, meaningful background with realistic objects and "
+    "architecture, strong sense of depth (foreground/middle/background). Subtle vintage analog "
+    "and printed-comic texture, slight film grain, subtle chromatic aberration. Detailed "
+    "hand-painted 2D textures, rich shadows, no glossy digital appearance. "
+    "The subject of this panel is the place, object or presence described below, framed as an "
+    "establishing shot or an object close-up. "
+)
+
+RESTRICAO_SEM_PROTAGONISTA = (
+    "Do not draw the main character, no frightened man looking at the viewer, no close-up of a "
+    "human face unless the description explicitly asks for one."
+)
