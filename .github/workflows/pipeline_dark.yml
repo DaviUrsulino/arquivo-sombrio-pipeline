@@ -77,10 +77,27 @@ jobs:
           if [ -n "${{ github.event.inputs.canal }}" ]; then
             CANAL="${{ github.event.inputs.canal }}"
           else
-            case "${{ github.event.schedule }}" in
-              '7 14 * * *'|'55 18 * * *'|'43 23 * * *'|'31 4 * * *'|'19 9 * * *') CANAL="tendencias" ;;
-              *) CANAL="arquivo_sombrio" ;;
-            esac
+            # github.event.schedule é vazio em alguns contextos -- detecta
+            # pelo horário UTC real da execução (mais confiável).
+            # Slots TEND UTC: ~14:07, ~18:55, ~23:43, ~04:31, ~09:19
+            # Slots AS UTC:   ~12:07, ~16:55, ~21:43, ~02:31, ~07:19
+            # Janela de 90min por slot (cron + até 50min sleep + margem).
+            HORA=$(date -u +%H)
+            MIN=$(date -u +%M)
+            MINUTO_UTC=$((10#$HORA * 60 + 10#$MIN))
+            # Centros dos slots TEND em minutos UTC
+            TEND_SLOTS="847 1135 1423 271 559"  # 14:07 18:55 23:43 04:31 09:19
+            CANAL="arquivo_sombrio"
+            for SLOT in $TEND_SLOTS; do
+              DIFF=$(( MINUTO_UTC - SLOT ))
+              [ $DIFF -lt 0 ] && DIFF=$(( -DIFF ))
+              [ $DIFF -gt 720 ] && DIFF=$(( 1440 - DIFF ))  # wrap meia-noite
+              if [ $DIFF -le 65 ]; then
+                CANAL="tendencias"
+                break
+              fi
+            done
+            echo "debug: hora=${HORA}:${MIN} UTC, minuto=${MINUTO_UTC}, canal=${CANAL}"
           fi
           echo "canal=$CANAL" >> "$GITHUB_OUTPUT"
 
