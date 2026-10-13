@@ -327,6 +327,14 @@ def _problemas(roteiro: dict) -> list[str]:
             f"a primeira frase da cena 1 tinha {gancho} palavras; ela precisa ter no máximo "
             f"{MAX_PALAVRAS_GANCHO} palavras e abrir uma pergunta, sem contexto antes"
         )
+    if roteiro.get("personagem"):
+        prompts = [c.get(k) or "" for c in roteiro.get("cenas", []) for k in ("prompt_imagem", "prompt_imagem_2")]
+        sem_personagem = sum(p.startswith("NO_CHARACTER:") for p in prompts)
+        if prompts and sem_personagem * 2 < len(prompts):
+            problemas.append(
+                f"só {sem_personagem} de {len(prompts)} prompts de imagem começam com \"NO_CHARACTER: \"; "
+                f"pelo menos metade precisa mostrar só lugar, objeto ou pista, sem o personagem"
+            )
     return problemas
 
 
