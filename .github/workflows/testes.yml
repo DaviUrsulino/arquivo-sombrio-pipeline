@@ -1,0 +1,34 @@
+name: testes
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      # Os testes usam dublês no lugar das APIs (ElevenLabs, GitHub, Instagram) e não
+      # precisam das dependências pesadas dos canais dark (kokoro, faster-whisper, modal).
+      - name: Instala dependências de teste
+        run: pip install "pytest>=8.0" "python-dotenv>=1.0.0"
+      - name: Roda os testes
+        run: python -m pytest -q
+
+  segredos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Procura chave ou token versionado por engano
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

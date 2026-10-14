@@ -1,0 +1,77 @@
+name: Pipeline Instagram - robo.estagiario
+
+# Gera Reels + carrossel sozinho, todo dia. A PUBLICAÇÃO fica manual por
+# enquanto (dispara o workflow pelo botão "Run workflow" com publicar=true)
+# até o sistema provar que acerta a pauta sozinho sem supervisão — um post
+# errado 3x/dia sem ninguém olhar antes é pior do que não automatizar.
+# Revisar essa trava quando o seletor automático de pauta (RF-01/RF-02,
+# docs/estudio-instagram.md) estiver rodando e validado por algumas semanas.
+#
+# Minutos quebrados pelo mesmo motivo do pipeline_dark.yml: evitar o pico de
+# carga do agendador do GitHub Actions no início de cada hora.
+#
+# Hoje toda execução usa a MESMA pauta de teste (pautas/5-repos-claude-code.json),
+# então gerar todo dia com a pauta fixa repete o vídeo — trocar a pauta à mão
+# em pautas/ antes de cada run até o seletor automático existir.
+
+on:
+  schedule:
+    - cron: '13 11 * * *'  # ~08h13 BRT
+  workflow_dispatch:
+    inputs:
+      pauta:
+        description: 'Arquivo de pauta (em pautas/)'
+        required: false
+        default: '5-repos-claude-code.json'
+      publicar:
+        description: 'Publicar de verdade no Instagram (true/false) -- confirme a pauta antes de marcar true'
+        required: false
+        default: 'false'
+
+jobs:
+  gerar-e-opcionalmente-publicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instala dependências
+        run: |
+          sudo apt-get update || true
+          sudo apt-get install -y ffmpeg
+          pip install "python-dotenv>=1.0.0"
+
+      - name: Escreve os segredos no .env
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          PUBLORA_API_KEY: ${{ secrets.PUBLORA_API_KEY }}
+          INSTAGRAM_PLATFORM_ID: ${{ secrets.INSTAGRAM_PLATFORM_ID }}
+        run: |
+          printf 'ELEVENLABS_API_KEY=%s\nPUBLORA_API_KEY=%s\nINSTAGRAM_PLATFORM_ID=%s\n' \
+            "$ELEVENLABS_API_KEY" "$PUBLORA_API_KEY" "$INSTAGRAM_PLATFORM_ID" > .env
+
+      - name: Gera (publica só se "publicar" foi marcado true no disparo manual)
+        run: |
+          PAUTA="pautas/${{ github.event.inputs.pauta || '5-repos-claude-code.json' }}"
+          FLAG=""
+          if [ "${{ github.event.inputs.publicar }}" = "true" ]; then FLAG="--publicar"; fi
+          python -m src.estudio_instagram.pipeline --pauta "$PAUTA" $FLAG
+
+      - name: Guarda o Reels, o carrossel e o registro pra revisão
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: instagram-${{ github.run_id }}
+          path: |
+            saida/instagram/*/reels.mp4
+            saida/instagram/*/carrossel/*.png
+            saida/instagram/*/registro.json
+          retention-days: 14
