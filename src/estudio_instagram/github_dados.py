@@ -2,6 +2,7 @@
 
 import json
 import os
+import urllib.parse
 import urllib.request
 from dataclasses import dataclass
 from pathlib import Path
@@ -34,6 +35,18 @@ def buscar(repo: str, abrir=urllib.request.urlopen) -> DadosRepo:
     if licenca == "NOASSERTION":
         licenca = "licença própria"
     return DadosRepo(d["full_name"], d["stargazers_count"], licenca, d.get("description") or "", d["html_url"])
+
+
+def buscar_candidatos(consulta: str, minimo_estrelas: int = 50, limite: int = 15, abrir=urllib.request.urlopen) -> list[DadosRepo]:
+    """Repositórios que combinam com a busca, ordenados por estrela (mais relevante primeiro)."""
+    url = "https://api.github.com/search/repositories?" + urllib.parse.urlencode({
+        "q": f"{consulta} stars:>={minimo_estrelas} license:mit,apache-2.0,bsd-3-clause",
+        "sort": "stars", "order": "desc", "per_page": limite,
+    })
+    with abrir(urllib.request.Request(url, headers=_cabecalhos()), timeout=30) as resposta:
+        itens = json.load(resposta)["items"]
+    return [DadosRepo(i["full_name"], i["stargazers_count"], (i.get("license") or {}).get("spdx_id", "licença própria"),
+                       i.get("description") or "", i["html_url"]) for i in itens]
 
 
 def baixar_cartao(repo: str, destino: Path, abrir=urllib.request.urlopen) -> Path:
