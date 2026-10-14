@@ -6,17 +6,29 @@ from pathlib import Path
 PADRAO = Path(__file__).resolve().parents[2] / "pautas" / "historico.json"
 
 
-def carregar(arquivo: Path = PADRAO) -> set[str]:
+def _ler(arquivo: Path) -> dict:
     if not arquivo.exists():
-        return set()
-    return set(json.loads(arquivo.read_text(encoding="utf-8")).get("repositorios_usados", []))
+        return {"repositorios_usados": [], "pautas_geradas": 0}
+    return json.loads(arquivo.read_text(encoding="utf-8"))
+
+
+def carregar(arquivo: Path = PADRAO) -> set[str]:
+    return set(_ler(arquivo).get("repositorios_usados", []))
+
+
+def contar_pautas(arquivo: Path = PADRAO) -> int:
+    """Quantas pautas já foram geradas — usado por `selecao.escolher_estilo` pra alternar o gancho."""
+    return _ler(arquivo).get("pautas_geradas", 0)
 
 
 def registrar(repos: list[str], arquivo: Path = PADRAO):
-    usados = carregar(arquivo)
+    dados = _ler(arquivo)
+    usados = set(dados.get("repositorios_usados", []))
     usados.update(repos)
     arquivo.parent.mkdir(parents=True, exist_ok=True)
-    arquivo.write_text(json.dumps({"repositorios_usados": sorted(usados)}, ensure_ascii=False, indent=2), encoding="utf-8")
+    arquivo.write_text(json.dumps({
+        "repositorios_usados": sorted(usados), "pautas_geradas": dados.get("pautas_geradas", 0) + 1,
+    }, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
 def inedito(candidatos: list[str], arquivo: Path = PADRAO) -> list[str]:

@@ -15,10 +15,20 @@ def _repo(n, estrelas=1000):
 
 
 @pytest.mark.parametrize("quantidade", [3, 4, 5])
-def test_pauta_gerada_sempre_passa_na_validacao(quantidade):
+@pytest.mark.parametrize("estilo", selecao.ESTILOS)
+def test_pauta_gerada_sempre_passa_na_validacao(quantidade, estilo):
     repos = [_repo(i) for i in range(quantidade)]
-    p = selecao.montar_pauta(repos, titulo="teste")
+    p = selecao.montar_pauta(repos, titulo="teste", estilo=estilo)
     assert pauta.problemas(p, ICONES) == []
+
+
+def test_estilo_desconhecido_e_recusado():
+    with pytest.raises(ValueError, match="estilo"):
+        selecao.montar_pauta([_repo(0), _repo(1), _repo(2)], titulo="t", estilo="inventado")
+
+
+def test_escolher_estilo_alterna_de_forma_previsivel():
+    assert [selecao.escolher_estilo(i) for i in range(4)] == ["lista", "fofoca", "lista", "fofoca"]
 
 
 @pytest.mark.parametrize("n", [0, 1, 2, 6])
@@ -53,8 +63,11 @@ def test_escolher_repos_ignora_quem_ja_virou_post(tmp_path):
 
 
 def test_historico_registra_e_persiste(tmp_path):
+    from src.estudio_instagram.historico import contar_pautas
     arquivo = tmp_path / "historico.json"
     assert carregar(arquivo) == set()
+    assert contar_pautas(arquivo) == 0
     registrar(["a/b"], arquivo)
     registrar(["c/d"], arquivo)
     assert carregar(arquivo) == {"a/b", "c/d"}
+    assert contar_pautas(arquivo) == 2

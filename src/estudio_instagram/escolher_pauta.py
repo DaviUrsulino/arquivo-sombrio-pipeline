@@ -10,12 +10,12 @@ from datetime import date
 from pathlib import Path
 
 from . import github_dados, selecao
-from .historico import registrar
+from .historico import contar_pautas, registrar
 
 RAIZ = Path(__file__).resolve().parents[2]
 
 
-def executar(buscas: list[str], quantidade: int, titulo: str | None, palavra_chave: str) -> dict:
+def executar(buscas: list[str], quantidade: int, titulo: str | None, palavra_chave: str, estilo: str | None = None) -> dict:
     candidatos, vistos = [], set()
     for consulta in buscas:
         for repo in github_dados.buscar_candidatos(consulta):
@@ -29,7 +29,8 @@ def executar(buscas: list[str], quantidade: int, titulo: str | None, palavra_cha
             "aumenta `buscas` ou baixa `quantidade`"
         )
     titulo = titulo or f"{quantidade} repositórios grátis — {date.today().isoformat()}"
-    return selecao.montar_pauta(escolhidos, titulo=titulo, palavra_chave=palavra_chave)
+    estilo = estilo or selecao.escolher_estilo(contar_pautas())
+    return selecao.montar_pauta(escolhidos, titulo=titulo, palavra_chave=palavra_chave, estilo=estilo)
 
 
 def main():
@@ -38,10 +39,12 @@ def main():
     parser.add_argument("--quantidade", type=int, default=5)
     parser.add_argument("--palavra-chave", default="GITHUB")
     parser.add_argument("--titulo", default=None)
+    parser.add_argument("--estilo", choices=selecao.ESTILOS, default=None, help="padrão: alterna sozinho entre lista/fofoca")
     parser.add_argument("--saida", type=Path, required=True)
     args = parser.parse_args()
 
-    nova_pauta = executar(args.buscas, args.quantidade, args.titulo, args.palavra_chave)
+    nova_pauta = executar(args.buscas, args.quantidade, args.titulo, args.palavra_chave, args.estilo)
+    print(f"estilo do gancho: {nova_pauta['capa']['linha1']} {nova_pauta['capa']['linha2']}")
     args.saida.write_text(json.dumps(nova_pauta, ensure_ascii=False, indent=2), encoding="utf-8")
     registrar([item["repo"] for item in nova_pauta["itens"]])
     print(f"pauta escrita em {args.saida}")

@@ -1,7 +1,10 @@
 {
   "repositorios_usados": [
     "DietrichGebert/ponytail",
+    "Graphify-Labs/graphify",
+    "JuliusBrussee/caveman",
     "NousResearch/hermes-agent",
+    "addyosmani/agent-skills",
     "affaan-m/ECC",
     "farion1231/cc-switch",
     "heygen-com/hyperframes",
@@ -9,6 +12,9 @@
     "morluto/rea",
     "mvanhorn/last30days-skill",
     "obra/superpowers",
-    "pbakaus/impeccable"
-  ]
+    "paperclipai/paperclip",
+    "pbakaus/impeccable",
+    "thedotmack/claude-mem"
+  ],
+  "pautas_geradas": 1
 }
