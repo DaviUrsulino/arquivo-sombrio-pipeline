@@ -233,9 +233,13 @@ _PASTA_ASSETS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__f
 # manualmente pelo Davi, 2026-09-09). Testamos um catálogo de 3 clássicos de
 # terror (Bach/Saint-Saëns/Grieg via Kevin MacLeod) no mesmo dia, mas o Davi
 # não gostou ("horríveis") -- revertido de volta pra essas duas.
+# YouTube sem trilha (2026-10-14): 6 Shorts publicados desde 04/10 foram bloqueados no mundo todo
+# (regionRestriction com 249 países), sinal de Content ID na trilha_youtube.mp3; Short acima de 1 min
+# com reivindicação é bloqueado globalmente. O YouTube usa a ambiência gerada (perfil do canal), que
+# ninguém pode reivindicar e não divide a receita do Shorts.
 TRILHAS_POR_PLATAFORMA = {
     "tiktok": os.path.join(_PASTA_ASSETS, "trilha_tiktok.mp3"),
-    "youtube": os.path.join(_PASTA_ASSETS, "trilha_youtube.mp3"),
+    "youtube": None,
 }
 
 
@@ -251,6 +255,25 @@ def gerar_ambiencia(caminho_saida: str, duracao: float, perfil: str = "leve", ca
             "-stream_loop", "-1", "-i", caminho_trilha,
             "-t", str(duracao),
             "-af", f"volume=0.12,afade=t=out:st={fade_inicio}:d=2",
+            caminho_saida,
+        ])
+        return
+
+    if perfil == "tenso":
+        # Vento grave (ruído marrom filtrado, audível em caixinha de celular) + dois zumbidos graves que
+        # respiram devagar. Os 55 Hz sozinhos sumiam no celular e o vídeo ficava só com a narração.
+        fade_inicio = max(duracao - 2, 0)
+        _rodar([
+            "ffmpeg", "-y",
+            "-f", "lavfi", "-i", f"anoisesrc=color=brown:amplitude=0.5:duration={duracao}",
+            "-f", "lavfi", "-i", f"sine=frequency=55:duration={duracao}",
+            "-f", "lavfi", "-i", f"sine=frequency=110.5:duration={duracao}",
+            "-filter_complex",
+            "[0]highpass=f=60,lowpass=f=500,tremolo=f=0.1:d=0.5,volume=0.5[vento];"
+            "[1]tremolo=f=0.15:d=0.6,volume=0.5[grave];"
+            "[2]tremolo=f=0.11:d=0.7,volume=0.25[harm];"
+            f"[vento][grave][harm]amix=inputs=3:normalize=0,volume=0.6,"
+            f"afade=t=in:d=1.5,afade=t=out:st={fade_inicio}:d=2",
             caminho_saida,
         ])
         return
