@@ -92,6 +92,10 @@ função do canal "Casos Reais", não deste), lugar que muda quando ninguém olh
 premissa diferente da mais óbvia pro tema pedido.
 - Escalada de tensão: começo calmo, meio com desconforto crescente, final com revelação \
 perturbadora (gancho, sem resolver tudo).
+- FINAL EM LOOP (guia de Shorts, 2026-10-14: replay pesa muito no algoritmo): a última frase da \
+última cena deve conversar com a primeira frase da cena 1 — repetir uma palavra-chave dela ou \
+deixar uma pergunta que a primeira frase parece responder — pra quem chega ao fim sentir vontade \
+de ver de novo quando o vídeo recomeça.
 
 PERSONAGEM E NARRADOR
 - O narrador/personagem principal deste canal é SEMPRE masculino (feedback 2026-09-09: a \
@@ -145,7 +149,8 @@ disse que meu avô apenas se perdeu na floresta da Rua dos Pinheiros em dois mil
 — 4 views. A "âncora de realidade" (ano, bairro, contexto) é ótima DENTRO da narração pra dar \
 credibilidade a quem já está assistindo, mas é ruim como título público — informa demais e não \
 gera curiosidade pra clicar)
-- "titulo_gancho" é um campo SEPARADO do "narracao" da cena 1 — curto (até 60 caracteres), \
+- "titulo_gancho" é um campo SEPARADO do "narracao" da cena 1 — curto: 4 a 6 palavras, NO MÁXIMO 40 \
+caracteres (o Shorts corta o título por volta disso), com a palavra forte no começo, \
 sem ano/bairro/nome específico, no estilo aviso ("Nunca faça X", "Não abra Y") ou mistério \
 enxuto ("O silêncio de X escondia Y", "Algo em Z nunca foi explicado"). Não é a primeira frase \
 da narração reescrita menor — é uma frase de efeito nova, pensada só pra fazer alguém parar de \
