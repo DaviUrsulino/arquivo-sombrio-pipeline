@@ -168,7 +168,8 @@ HASHTAGS_POOL_POR_CONTEXTO = {
 }
 
 
-def _montar_hashtags(contexto: str, n_extra: int = 6) -> list[str]:
+# 2 âncoras + 3 extras = 5 hashtags: o guia de Shorts recomenda 3 a 5 (claude-youtube, 2026-10-14).
+def _montar_hashtags(contexto: str, n_extra: int = 3) -> list[str]:
     """Âncoras fixas (identidade do canal) + amostra aleatória do pool —
     cada vídeo publicado sai com uma combinação diferente de hashtags em vez
     da mesma lista estática de sempre."""
