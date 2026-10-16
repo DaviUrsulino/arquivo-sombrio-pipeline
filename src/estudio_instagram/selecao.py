@@ -15,19 +15,40 @@ mudam.
 from .github_dados import DadosRepo
 from .historico import inedito
 
-BUSCAS_PADRAO = ["claude code skill", "claude-code agent"]
+# Mais termos = mais candidato = menos vídeo repetido. Cada um cobre um canto diferente
+# do ecossistema (skill, MCP, agente, plugin, automação de dev) pra não ficar só em
+# "claude code skill" e sempre achar o mesmo punhado de repositório.
+BUSCAS_PADRAO = [
+    "claude code skill", "claude-code agent", "claude code mcp", "claude code plugin",
+    "mcp server claude", "claude code workflow", "ai coding agent open source",
+]
 CORES = ["laranja", "azul", "roxo", "verde", "amarelo"]
 ICONE_ITEM = "github"
 ESTILOS = ("lista", "fofoca")
+FORMATOS = ("curto", "aprofundado")
+ICONES_APROFUNDADO = ["zap", "flame", "rocket", "sparkles", "shield-check", "flask-conical", "brain"]
 
 
-def _nome_exibicao(repo: str) -> str:
+def nome_exibicao(repo: str) -> str:
     return repo.split("/", 1)[1]
 
 
-def _promessa(repo: DadosRepo) -> str:
-    descricao = repo.descricao.strip().rstrip(".")
-    return descricao[:70] + ("…" if len(descricao) > 70 else "") if descricao else "Mais uma ferramenta grátis pro seu Claude Code."
+# A descrição real do repositório vem em inglês do GitHub (fica visível no cartão da
+# imagem, como prova). Falada em português no meio da frase ela soa mal (mistura de
+# idioma), então a narração usa uma destas frases genéricas em vez de traduzir —
+# nenhuma inventa número ou fato, só a moldura. O número de estrelas continua vindo
+# direto do GitHub (RN-1).
+_PROMESSAS_GENERICAS = [
+    "Um projeto open source que vale testar agora.",
+    "Resolve um problema real, e é de graça.",
+    "Tá bombando no GitHub essa semana.",
+    "Pouca gente usa, mas devia.",
+    "Instala em minutos e já ajuda no seu fluxo.",
+]
+
+
+def _promessa(indice: int) -> str:
+    return _PROMESSAS_GENERICAS[indice % len(_PROMESSAS_GENERICAS)]
 
 
 def _gancho_lista(n: int) -> dict:
@@ -78,8 +99,8 @@ def montar_pauta(repos: list[DadosRepo], titulo: str, palavra_chave: str = "GITH
     gancho = _GANCHOS[estilo](n)
 
     itens = [{
-        "repo": r.repo, "nome": _nome_exibicao(r.repo), "cor": CORES[i % len(CORES)],
-        "promessa": _promessa(r), "texto": f"com {{estrelas:{r.repo}}} estrelas no GitHub",
+        "repo": r.repo, "nome": nome_exibicao(r.repo), "cor": CORES[i % len(CORES)],
+        "promessa": _promessa(i), "texto": f"com {{estrelas:{r.repo}}} estrelas no GitHub",
     } for i, r in enumerate(repos)]
 
     ordinais = ["primeiro", "segundo", "terceiro", "quarto", "quinto"]
@@ -115,10 +136,81 @@ def montar_pauta(repos: list[DadosRepo], titulo: str, palavra_chave: str = "GITH
     }
 
 
+_ATRIBUTOS_APROFUNDADO = ["licença aberta", "mantido ativamente", "instala rápido"]
+
+
+def montar_pauta_aprofundada(repo: DadosRepo, titulo: str, palavra_chave: str = "GITHUB", voz: dict | None = None) -> dict:
+    """Formato diferente do 'curto' (lista de 5): aprofunda em UM repositório só, com mais
+    cena por item. Muda a estrutura, não só o texto — é o terceiro jeito de variar o vídeo
+    (os outros dois são os estilos de gancho em `montar_pauta`)."""
+    voz = voz or {"id": "iP95p4xoKVk53GoZ742B", "modelo": "eleven_multilingual_v2"}
+    nome = nome_exibicao(repo.repo)
+    icone = ICONES_APROFUNDADO[len(repo.descricao) % len(ICONES_APROFUNDADO)]
+    cor = CORES[len(repo.repo) % len(CORES)]
+    item = {"repo": repo.repo, "nome": nome, "cor": cor, "promessa": "A ferramenta que pouca gente conhece ainda.",
+            "texto": f"com {{estrelas:{repo.repo}}} estrelas no GitHub"}
+
+    cenas = [
+        {
+            "id": "gancho", "cor": cor,
+            "narracao": f"{nome} é a ferramenta que pouca gente conhece no Claude Code. "
+                        f"Já são {{estrelas:{repo.repo}}} estrelas no GitHub.",
+            "elementos": [
+                {"tipo": "icone", "icone": icone, "ancora": nome, "y": 540, "tamanho": 240, "cor": cor},
+                {"tipo": "texto", "texto": nome, "ancora": nome, "y": 860, "grande": True},
+                {"tipo": "etiqueta", "texto": "★ {estrelas:" + repo.repo + "} estrelas", "ancora": "estrelas", "y": 1180, "cor": "amarelo"},
+            ],
+        },
+        {
+            "id": "oque", "cor": "azul",
+            "narracao": "Ele resolve um problema real no seu dia a dia. Tem licença aberta, "
+                        "é mantido ativamente, e você instala em minutos.",
+            "elementos": [
+                {"tipo": "cabecalho", "texto": "por que vale a pena", "ancora": "resolve"},
+                {"tipo": "lista", "itens": _ATRIBUTOS_APROFUNDADO, "ancoras": ["licença", "mantido", "instala"], "y": 640},
+            ],
+        },
+        {
+            "id": "prova", "cor": cor,
+            "narracao": f"E quem usa, recomenda: {{estrelas:{repo.repo}}} estrelas no GitHub, sob licença {repo.licenca}.",
+            "elementos": [
+                {"tipo": "cabecalho", "texto": "a prova", "ancora": "recomenda"},
+                {"tipo": "cartao", "numero": nome, "texto": item["texto"], "icone": ICONE_ITEM,
+                 "repo": repo.repo, "ancora": "estrelas", "y": 600, "cor": cor},
+            ],
+        },
+        {
+            "id": "cta", "cor": "laranja",
+            "narracao": f"Quer o link? Comenta {palavra_chave} aqui embaixo, que eu te mando no direct.",
+            "elementos": [
+                {"tipo": "icone", "icone": "message-circle", "ancora": "Quer", "y": 520, "tamanho": 240, "cor": "azul"},
+                {"tipo": "texto", "texto": "quer o link?", "ancora": "link", "y": 820, "grande": True},
+                {"tipo": "destaque", "texto": f"comenta {palavra_chave}", "ancora": "Comenta", "y": 1040, "cor": "amarelo"},
+            ],
+        },
+    ]
+
+    return {
+        "titulo": titulo, "palavra_chave": palavra_chave, "perfil": "@robo.estagiario", "voz": voz,
+        "capa": {"linha1": "A FERRAMENTA", "linha2": nome.upper()[:20], "subtitulo": "que pouca gente conhece ainda",
+                 "selo": "★ {estrelas:" + repo.repo + "} estrelas"},
+        "chamada": {"pergunta": "quer o link?", "promessa": "que eu te mando no direct",
+                    "rodape": "e segue pra mais ferramenta grátis de IA"},
+        "itens": [item], "cenas": cenas,
+    }
+
+
 def escolher_estilo(indice: int) -> str:
     """Alterna os estilos de forma determinística (ex.: `indice` = nº de pautas já geradas),
     pra variar o gancho sem depender de aleatoriedade (mais fácil de testar e repetir)."""
     return ESTILOS[indice % len(ESTILOS)]
+
+
+def escolher_formato(indice: int) -> str:
+    """1 a cada 3 pautas vira 'aprofundado' (1 repositório só); as outras ficam no formato
+    'curto' (lista de 5) que é o comprovado. Mantém a maioria no que já funciona, mas
+    quebra a repetição de vez em quando."""
+    return "aprofundado" if indice % 3 == 2 else "curto"
 
 
 def escolher_repos(candidatos: list[DadosRepo], quantidade: int = 5, arquivo_historico=None) -> list[DadosRepo]:

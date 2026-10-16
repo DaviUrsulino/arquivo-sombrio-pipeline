@@ -2,6 +2,7 @@
 
 import json
 import os
+import time
 import urllib.parse
 import urllib.request
 from dataclasses import dataclass
@@ -49,10 +50,22 @@ def buscar_candidatos(consulta: str, minimo_estrelas: int = 50, limite: int = 15
                        i.get("description") or "", i["html_url"]) for i in itens]
 
 
-def baixar_cartao(repo: str, destino: Path, abrir=urllib.request.urlopen) -> Path:
-    """Baixa o cartão de prévia do repositório (a imagem que o GitHub mostra ao compartilhar o link)."""
+def baixar_cartao(repo: str, destino: Path, abrir=urllib.request.urlopen, tentativas: int = 4, dormir=time.sleep) -> Path:
+    """Baixa o cartão de prévia do repositório (a imagem que o GitHub mostra ao compartilhar o link).
+
+    O gerador de imagem do GitHub (opengraph.githubassets.com) tem limite de requisição por
+    IP sem chave — passa de 2 ou 3 por segundo e devolve 429. Tenta de novo com espera
+    crescente em vez de falhar a execução inteira por um cartão só.
+    """
     destino = Path(destino)
     destino.parent.mkdir(parents=True, exist_ok=True)
-    with abrir(urllib.request.Request(CARTAO.format(repo=repo), headers={"User-Agent": "estudio-automatico"}), timeout=30) as resposta:
-        destino.write_bytes(resposta.read())
-    return destino
+    pedido = urllib.request.Request(CARTAO.format(repo=repo), headers={"User-Agent": "estudio-automatico"})
+    for tentativa in range(tentativas):
+        try:
+            with abrir(pedido, timeout=30) as resposta:
+                destino.write_bytes(resposta.read())
+            return destino
+        except urllib.error.HTTPError as erro:
+            if erro.code != 429 or tentativa == tentativas - 1:
+                raise
+            dormir(2 ** tentativa)

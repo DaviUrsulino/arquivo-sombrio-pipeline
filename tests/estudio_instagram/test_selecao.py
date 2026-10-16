@@ -71,3 +71,23 @@ def test_historico_registra_e_persiste(tmp_path):
     registrar(["c/d"], arquivo)
     assert carregar(arquivo) == {"a/b", "c/d"}
     assert contar_pautas(arquivo) == 2
+
+
+def test_pauta_aprofundada_passa_na_validacao():
+    p = selecao.montar_pauta_aprofundada(_repo(0, 42_000), titulo="teste")
+    assert pauta.problemas(p, ICONES) == []
+    assert len(p["itens"]) == 1
+
+
+def test_pauta_aprofundada_preenchida_mostra_estrelas_reais():
+    repo = _repo(0, 42_123)
+    p = selecao.montar_pauta_aprofundada(repo, titulo="teste")
+    preenchida = pauta.preencher(p, {repo.repo: repo.estrelas})
+    assert "42 mil" in preenchida["cenas"][0]["elementos"][2]["texto"]
+    assert "42 mil" in preenchida["capa"]["selo"]
+
+
+def test_escolher_formato_e_um_aprofundado_a_cada_tres():
+    assert [selecao.escolher_formato(i) for i in range(6)] == [
+        "curto", "curto", "aprofundado", "curto", "curto", "aprofundado",
+    ]

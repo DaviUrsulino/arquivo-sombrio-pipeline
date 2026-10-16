@@ -1,37 +1,37 @@
 name: Pipeline Instagram - robo.estagiario
 
-# Gera Reels + carrossel sozinho, todo dia. A PUBLICAÇÃO fica manual por
-# enquanto (dispara o workflow pelo botão "Run workflow" com publicar=true)
-# até o sistema provar que acerta a pauta sozinho sem supervisão — um post
-# errado 3x/dia sem ninguém olhar antes é pior do que não automatizar.
-# Revisar essa trava quando o seletor automático de pauta (RF-01/RF-02,
-# docs/estudio-instagram.md) estiver rodando e validado por algumas semanas.
+# Roda sozinho, do início ao fim: escolhe o assunto (GitHub, nunca repete —
+# ver src/estudio_instagram/escolher_pauta.py), gera Reels + carrossel e
+# publica (Publora). Ativado em 2026-10-15 depois de 3 posts reais
+# validados na mão (ver pautas/historico.json e docs/estudio-instagram.md).
+#
+# O histórico (`pautas/historico.json`) e a pauta gerada são commitados de
+# volta no repositório no fim da run — sem isso, a próxima execução (runner
+# novo, disco limpo) não saberia o que já foi publicado e repetiria post.
 #
 # Minutos quebrados pelo mesmo motivo do pipeline_dark.yml: evitar o pico de
 # carga do agendador do GitHub Actions no início de cada hora.
-#
-# Hoje toda execução usa a MESMA pauta de teste (pautas/5-repos-claude-code.json),
-# então gerar todo dia com a pauta fixa repete o vídeo — trocar a pauta à mão
-# em pautas/ antes de cada run até o seletor automático existir.
 
 on:
   schedule:
     - cron: '13 11 * * *'  # ~08h13 BRT
   workflow_dispatch:
     inputs:
-      pauta:
-        description: 'Arquivo de pauta (em pautas/)'
+      formato:
+        description: 'curto (lista de 5) / aprofundado (1 repo) — vazio: alterna sozinho'
         required: false
-        default: '5-repos-claude-code.json'
+        default: ''
       publicar:
-        description: 'Publicar de verdade no Instagram (true/false) -- confirme a pauta antes de marcar true'
+        description: 'Publicar de verdade no Instagram (true/false)'
         required: false
-        default: 'false'
+        default: 'true'
 
 jobs:
-  gerar-e-opcionalmente-publicar:
+  gerar-e-publicar:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
@@ -54,18 +54,28 @@ jobs:
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
           PUBLORA_API_KEY: ${{ secrets.PUBLORA_API_KEY }}
           INSTAGRAM_PLATFORM_ID: ${{ secrets.INSTAGRAM_PLATFORM_ID }}
+          GH_TOKEN_PARA_BUSCA: ${{ secrets.GITHUB_TOKEN }}  # token automático do Actions, só pra elevar o limite de busca no GitHub
         run: |
-          printf 'ELEVENLABS_API_KEY=%s\nPUBLORA_API_KEY=%s\nINSTAGRAM_PLATFORM_ID=%s\n' \
-            "$ELEVENLABS_API_KEY" "$PUBLORA_API_KEY" "$INSTAGRAM_PLATFORM_ID" > .env
+          printf 'ELEVENLABS_API_KEY=%s\nPUBLORA_API_KEY=%s\nINSTAGRAM_PLATFORM_ID=%s\nGITHUB_TOKEN=%s\n' \
+            "$ELEVENLABS_API_KEY" "$PUBLORA_API_KEY" "$INSTAGRAM_PLATFORM_ID" "$GH_TOKEN_PARA_BUSCA" > .env
 
-      - name: Gera (publica só se "publicar" foi marcado true no disparo manual)
+      - name: Escolhe o assunto sozinho (nunca repete um repositório já publicado)
+        id: pauta
         run: |
-          PAUTA="pautas/${{ github.event.inputs.pauta || '5-repos-claude-code.json' }}"
+          NOME="pautas/auto-$(date -u +%F)-${{ github.run_number }}.json"
+          FORMATO_FLAG=""
+          if [ -n "${{ github.event.inputs.formato }}" ]; then FORMATO_FLAG="--formato ${{ github.event.inputs.formato }}"; fi
+          python -m src.estudio_instagram.escolher_pauta --saida "$NOME" $FORMATO_FLAG
+          echo "arquivo=$NOME" >> "$GITHUB_OUTPUT"
+
+      - name: Gera e publica
+        run: |
+          PUBLICAR="${{ github.event.inputs.publicar }}"
           FLAG=""
-          if [ "${{ github.event.inputs.publicar }}" = "true" ]; then FLAG="--publicar"; fi
-          python -m src.estudio_instagram.pipeline --pauta "$PAUTA" $FLAG
+          if [ "${PUBLICAR:-true}" = "true" ]; then FLAG="--publicar"; fi
+          python -m src.estudio_instagram.pipeline --pauta "${{ steps.pauta.outputs.arquivo }}" $FLAG
 
-      - name: Guarda o Reels, o carrossel e o registro pra revisão
+      - name: Guarda o Reels, o carrossel e o registro pra conferência
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -75,3 +85,12 @@ jobs:
             saida/instagram/*/carrossel/*.png
             saida/instagram/*/registro.json
           retention-days: 14
+
+      - name: Guarda o histórico e a pauta gerada (pra nunca repetir post)
+        if: always()
+        run: |
+          git config user.name "estudio-automatico (bot)"
+          git config user.email "actions@github.com"
+          git add pautas/historico.json "${{ steps.pauta.outputs.arquivo }}"
+          git diff --cached --quiet || git commit -m "chore: registra pauta ${{ steps.pauta.outputs.arquivo }} [skip ci]"
+          git push

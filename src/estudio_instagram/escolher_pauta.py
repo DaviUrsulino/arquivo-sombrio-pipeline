@@ -15,36 +15,47 @@ from .historico import contar_pautas, registrar
 RAIZ = Path(__file__).resolve().parents[2]
 
 
-def executar(buscas: list[str], quantidade: int, titulo: str | None, palavra_chave: str, estilo: str | None = None) -> dict:
+def executar(buscas: list[str], quantidade: int, titulo: str | None, palavra_chave: str,
+             estilo: str | None = None, formato: str | None = None) -> dict:
     candidatos, vistos = [], set()
     for consulta in buscas:
         for repo in github_dados.buscar_candidatos(consulta):
             if repo.repo not in vistos:
                 vistos.add(repo.repo)
                 candidatos.append(repo)
-    escolhidos = selecao.escolher_repos(candidatos, quantidade=quantidade)
-    if len(escolhidos) < quantidade:
+
+    indice = contar_pautas()
+    formato = formato or selecao.escolher_formato(indice)
+    quantidade_real = 1 if formato == "aprofundado" else quantidade
+    escolhidos = selecao.escolher_repos(candidatos, quantidade=quantidade_real)
+    if len(escolhidos) < quantidade_real:
         raise SystemExit(
             f"só achei {len(escolhidos)} repositório(s) inédito(s) de {len(candidatos)} candidatos — "
             "aumenta `buscas` ou baixa `quantidade`"
         )
-    titulo = titulo or f"{quantidade} repositórios grátis — {date.today().isoformat()}"
-    estilo = estilo or selecao.escolher_estilo(contar_pautas())
+
+    if formato == "aprofundado":
+        titulo = titulo or f"{selecao.nome_exibicao(escolhidos[0].repo)} — {date.today().isoformat()}"
+        return selecao.montar_pauta_aprofundada(escolhidos[0], titulo=titulo, palavra_chave=palavra_chave)
+
+    titulo = titulo or f"{quantidade_real} repositórios grátis — {date.today().isoformat()}"
+    estilo = estilo or selecao.escolher_estilo(indice)
     return selecao.montar_pauta(escolhidos, titulo=titulo, palavra_chave=palavra_chave, estilo=estilo)
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--buscas", nargs="+", default=selecao.BUSCAS_PADRAO)
-    parser.add_argument("--quantidade", type=int, default=5)
+    parser.add_argument("--quantidade", type=int, default=5, help="só vale pro formato 'curto'")
     parser.add_argument("--palavra-chave", default="GITHUB")
     parser.add_argument("--titulo", default=None)
-    parser.add_argument("--estilo", choices=selecao.ESTILOS, default=None, help="padrão: alterna sozinho entre lista/fofoca")
+    parser.add_argument("--estilo", choices=selecao.ESTILOS, default=None, help="só vale pro formato 'curto'; padrão: alterna sozinho")
+    parser.add_argument("--formato", choices=selecao.FORMATOS, default=None, help="padrão: alterna sozinho (2 'curto' pra 1 'aprofundado')")
     parser.add_argument("--saida", type=Path, required=True)
     args = parser.parse_args()
 
-    nova_pauta = executar(args.buscas, args.quantidade, args.titulo, args.palavra_chave, args.estilo)
-    print(f"estilo do gancho: {nova_pauta['capa']['linha1']} {nova_pauta['capa']['linha2']}")
+    nova_pauta = executar(args.buscas, args.quantidade, args.titulo, args.palavra_chave, args.estilo, args.formato)
+    print(f"gancho: {nova_pauta['capa']['linha1']} {nova_pauta['capa']['linha2']}")
     args.saida.write_text(json.dumps(nova_pauta, ensure_ascii=False, indent=2), encoding="utf-8")
     registrar([item["repo"] for item in nova_pauta["itens"]])
     print(f"pauta escrita em {args.saida}")
