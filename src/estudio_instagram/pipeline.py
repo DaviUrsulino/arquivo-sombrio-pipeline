@@ -42,16 +42,24 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
     if erros:
         raise SystemExit("pauta inválida:\n- " + "\n- ".join(erros))
 
+    # "prompt": molde sem lista de repositórios (ver modelos/prompt.html.tpl) — só Reels,
+    # sem carrossel (o carrossel existe pra mostrar N itens, aqui só tem o prompt em si).
+    eh_prompt = dados_pauta.get("formato") == "prompt"
+
     trabalho = pasta_saida / "trabalho"
     repos = {item["repo"]: github_dados.buscar(item["repo"]) for item in dados_pauta["itens"]}
     cartoes = {r: github_dados.baixar_cartao(r, trabalho / "cartoes" / f"{r.replace('/', '_')}.png") for r in repos}
 
     voz = ElevenLabs(dados_pauta["voz"]["id"], dados_pauta["voz"]["modelo"], RAIZ / ".cache" / "voz")
-    duracao = montagem.montar_reels(dados_pauta, repos, voz, trabalho / "reels")
-    n_slides = montagem.montar_carrossel(dados_pauta, repos, cartoes, trabalho / "carrossel")
-
+    modelo_reels = "prompt.html.tpl" if eh_prompt else "reels.html.tpl"
+    duracao = montagem.montar_reels(dados_pauta, repos, voz, trabalho / "reels", modelo=modelo_reels)
     video = render.renderizar_reels(trabalho / "reels", pasta_saida / "reels.mp4")
-    slides = render.renderizar_carrossel(trabalho / "carrossel", n_slides, pasta_saida / "carrossel")
+
+    if not eh_prompt:
+        n_slides = montagem.montar_carrossel(dados_pauta, repos, cartoes, trabalho / "carrossel")
+        slides = render.renderizar_carrossel(trabalho / "carrossel", n_slides, pasta_saida / "carrossel")
+    else:
+        slides = []
 
     registro = {
         "pauta": str(caminho_pauta),
@@ -67,16 +75,18 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
         legenda = montar_legenda(dados_pauta, repos)
         nome_base = pasta_saida.name
         url_video = hospedagem.publicar(video, f"{nome_base}-reels.mp4")
-        urls_slides = [
-            hospedagem.publicar(s, f"{nome_base}-slide-{i:02d}.png") for i, s in enumerate(slides, start=1)
-        ]
         ig = InstagramGraph(os.environ["INSTAGRAM_GRAPH_TOKEN"], os.environ["INSTAGRAM_USER_ID"])
         reels_publicado = ig.publicar_reels(url_video, legenda)
-        carrossel_publicado = ig.publicar_carrossel(urls_slides, legenda)
         registro["publicado"] = True
         registro["legenda"] = legenda
         registro["reels"]["media_id"] = reels_publicado.media_id
-        registro["carrossel_media_id"] = carrossel_publicado.media_id
+
+        if not eh_prompt:
+            urls_slides = [
+                hospedagem.publicar(s, f"{nome_base}-slide-{i:02d}.png") for i, s in enumerate(slides, start=1)
+            ]
+            carrossel_publicado = ig.publicar_carrossel(urls_slides, legenda)
+            registro["carrossel_media_id"] = carrossel_publicado.media_id
 
     (pasta_saida / "registro.json").write_text(json.dumps(registro, ensure_ascii=False, indent=2), encoding="utf-8")
     return registro

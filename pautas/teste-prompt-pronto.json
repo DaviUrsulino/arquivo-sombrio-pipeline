@@ -1,0 +1,54 @@
+{
+  "titulo": "Prompt pronto — revisão de PR cética",
+  "formato": "prompt",
+  "palavra_chave": "PROMPT",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "o prompt que faz o Claude revisar seu código antes do PR"
+  },
+  "chamada": {
+    "pergunta": "quer esse prompt pronto?"
+  },
+  "itens": [],
+  "cenas": [
+    {
+      "id": "1",
+      "cor": "vermelho",
+      "narracao": "Esse prompt faz o Claude revisar seu código antes de você abrir o PR.",
+      "elementos": [
+        {"tipo": "cabecalho", "texto": "PROMPT PROIBIDO\nANTES DO PR", "t": 0.1, "ancora": "revisar", "cor": "vermelho", "y": 210, "tamanho": 96},
+        {"tipo": "emoji", "emoji": "🚨", "t": 0.35, "ancora": "prompt", "y": 600}
+      ]
+    },
+    {
+      "id": "2",
+      "cor": "azul",
+      "narracao": "Cola isso no Claude Code antes do commit e deixa ele achar os bugs sozinho.",
+      "elementos": [
+        {
+          "tipo": "card_prompt",
+          "texto": "Revise este diff como um staff engineer cético. Aponte bugs reais, riscos de segurança e código confuso. Ignore estilo. Seja direto: liste só o que pode quebrar em produção.",
+          "t": 0.15,
+          "ancora": "cola",
+          "cor": "azul",
+          "rotulo": "COLE NO CLAUDE CODE",
+          "icone": "terminal",
+          "y": 560,
+          "velocidade": 0.011
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "cor": "verde",
+      "narracao": "Comenta PROMPT que eu mando esse e mais cinco direto no seu direct.",
+      "elementos": [
+        {"tipo": "cabecalho", "texto": "COMENTA\nPROMPT", "t": 0.15, "ancora": "prompt", "cor": "verde", "y": 720, "tamanho": 120}
+      ]
+    }
+  ]
+}

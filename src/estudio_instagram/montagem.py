@@ -56,8 +56,14 @@ def _icones_usados(cenas: list[dict]) -> set[str]:
     return usados
 
 
-def montar_reels(pauta: dict, repos: dict[str, DadosRepo], voz: ProvedorDeVoz, destino: Path) -> float:
-    """Gera narração, tempos e index.html do Reels. Devolve a duração em segundos."""
+def montar_reels(
+    pauta: dict, repos: dict[str, DadosRepo], voz: ProvedorDeVoz, destino: Path, modelo: str = "reels.html.tpl"
+) -> float:
+    """Gera narração, tempos e index.html do Reels. Devolve a duração em segundos.
+
+    `modelo` escolhe o "molde" visual (arquivo em modelos/*.html.tpl) — a orquestração
+    (voz, sincronia, legendas) é a mesma pra qualquer molde; só o HTML/CSS/JS muda.
+    """
     destino = Path(destino)
     destino.mkdir(parents=True, exist_ok=True)
     _copiar_assets(destino)
@@ -103,8 +109,8 @@ def montar_reels(pauta: dict, repos: dict[str, DadosRepo], voz: ProvedorDeVoz, d
         f'data-duration="{c["duracao"]}" data-track-index="1"><div class="palco"></div></section>'
         for c in cenas
     )
-    modelo = (MODELOS / "reels.html.tpl").read_text(encoding="utf-8")
-    (destino / "index.html").write_text(modelo.replace("{{DURACAO}}", str(total)).replace("{{CENAS}}", secoes), encoding="utf-8")
+    html = (MODELOS / modelo).read_text(encoding="utf-8")
+    (destino / "index.html").write_text(html.replace("{{DURACAO}}", str(total)).replace("{{CENAS}}", secoes), encoding="utf-8")
     return total
 
 

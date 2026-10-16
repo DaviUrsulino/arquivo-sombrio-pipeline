@@ -11,7 +11,10 @@ from pathlib import Path
 from .sincronia import normalizar
 
 CORES = {"laranja", "azul", "verde", "roxo", "vermelho", "amarelo", "branco"}
-TIPOS = {"numero", "texto", "icone", "etiqueta", "cabecalho", "lista", "fluxo", "cartao", "barra", "comparacao", "destaque"}
+TIPOS = {
+    "numero", "texto", "icone", "etiqueta", "cabecalho", "lista", "fluxo", "cartao", "barra", "comparacao",
+    "destaque", "emoji", "card_prompt",
+}
 MARCADOR = re.compile(r"\{(estrelas:[\w.-]+/[\w.-]+|total_estrelas)\}")
 MAX_CARACTERES_NARRACAO = 1500
 
