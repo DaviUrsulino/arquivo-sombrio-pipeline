@@ -1,0 +1,230 @@
+{
+  "titulo": "5 repositórios grátis — 2026-10-16",
+  "palavra_chave": "GITHUB",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "linha1": "VOCÊ PRECISA",
+    "linha2": "CONHECER ISSO",
+    "subtitulo": "5 repositórios grátis pro Claude Code",
+    "selo": "★ {total_estrelas} estrelas"
+  },
+  "chamada": {
+    "pergunta": "quer os 5 links?",
+    "promessa": "que eu te mando no direct",
+    "rodape": "e segue pra mais ferramenta grátis de IA"
+  },
+  "itens": [
+    {
+      "repo": "ruvnet/ruflo",
+      "nome": "ruflo",
+      "cor": "laranja",
+      "promessa": "Um projeto open source que vale testar agora.",
+      "texto": "com {estrelas:ruvnet/ruflo} estrelas no GitHub"
+    },
+    {
+      "repo": "career-ops-hq/career-ops",
+      "nome": "career-ops",
+      "cor": "azul",
+      "promessa": "Resolve um problema real, e é de graça.",
+      "texto": "com {estrelas:career-ops-hq/career-ops} estrelas no GitHub"
+    },
+    {
+      "repo": "aaif-goose/goose",
+      "nome": "goose",
+      "cor": "roxo",
+      "promessa": "Tá bombando no GitHub essa semana.",
+      "texto": "com {estrelas:aaif-goose/goose} estrelas no GitHub"
+    },
+    {
+      "repo": "wshobson/agents",
+      "nome": "agents",
+      "cor": "verde",
+      "promessa": "Pouca gente usa, mas devia.",
+      "texto": "com {estrelas:wshobson/agents} estrelas no GitHub"
+    },
+    {
+      "repo": "anthropics/claude-plugins-official",
+      "nome": "claude-plugins-official",
+      "cor": "amarelo",
+      "promessa": "Instala em minutos e já ajuda no seu fluxo.",
+      "texto": "com {estrelas:anthropics/claude-plugins-official} estrelas no GitHub"
+    }
+  ],
+  "cenas": [
+    {
+      "id": "gancho",
+      "cor": "laranja",
+      "narracao": "5 repositórios grátis que você precisa conhecer pro Claude Code. Juntos, eles têm {total_estrelas} estrelas.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "você precisa conhecer...",
+          "ancora": "repositórios"
+        },
+        {
+          "tipo": "numero",
+          "texto": "5",
+          "ancora": "5",
+          "y": 640
+        },
+        {
+          "tipo": "texto",
+          "texto": "repositórios grátis",
+          "ancora": "grátis",
+          "y": 960,
+          "grande": true
+        },
+        {
+          "tipo": "etiqueta",
+          "texto": "★ {total_estrelas} estrelas",
+          "ancora": "estrelas",
+          "y": 1180,
+          "cor": "amarelo"
+        }
+      ]
+    },
+    {
+      "id": "r1",
+      "cor": "laranja",
+      "narracao": "O primeiro é o ruflo. Um projeto open source que vale testar agora.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#1",
+          "ancora": "primeiro"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "ruflo",
+          "texto": "com {estrelas:ruvnet/ruflo} estrelas no GitHub",
+          "icone": "github",
+          "repo": "ruvnet/ruflo",
+          "ancora": "ruflo",
+          "y": 600,
+          "cor": "laranja"
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "cor": "azul",
+      "narracao": "O segundo é o career-ops. Resolve um problema real, e é de graça.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#2",
+          "ancora": "segundo"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "career-ops",
+          "texto": "com {estrelas:career-ops-hq/career-ops} estrelas no GitHub",
+          "icone": "github",
+          "repo": "career-ops-hq/career-ops",
+          "ancora": "career-ops",
+          "y": 600,
+          "cor": "azul"
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "cor": "roxo",
+      "narracao": "O terceiro é o goose. Tá bombando no GitHub essa semana.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#3",
+          "ancora": "terceiro"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "goose",
+          "texto": "com {estrelas:aaif-goose/goose} estrelas no GitHub",
+          "icone": "github",
+          "repo": "aaif-goose/goose",
+          "ancora": "goose",
+          "y": 600,
+          "cor": "roxo"
+        }
+      ]
+    },
+    {
+      "id": "r4",
+      "cor": "verde",
+      "narracao": "O quarto é o agents. Pouca gente usa, mas devia.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#4",
+          "ancora": "quarto"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "agents",
+          "texto": "com {estrelas:wshobson/agents} estrelas no GitHub",
+          "icone": "github",
+          "repo": "wshobson/agents",
+          "ancora": "agents",
+          "y": 600,
+          "cor": "verde"
+        }
+      ]
+    },
+    {
+      "id": "r5",
+      "cor": "amarelo",
+      "narracao": "O quinto é o claude-plugins-official. Instala em minutos e já ajuda no seu fluxo.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#5",
+          "ancora": "quinto"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "claude-plugins-official",
+          "texto": "com {estrelas:anthropics/claude-plugins-official} estrelas no GitHub",
+          "icone": "github",
+          "repo": "anthropics/claude-plugins-official",
+          "ancora": "claude-plugins-official",
+          "y": 600,
+          "cor": "amarelo"
+        }
+      ]
+    },
+    {
+      "id": "cta",
+      "cor": "laranja",
+      "narracao": "Quer o link de todos? Comenta GITHUB aqui embaixo, que eu te mando no direct.",
+      "elementos": [
+        {
+          "tipo": "icone",
+          "icone": "message-circle",
+          "ancora": "Quer",
+          "y": 520,
+          "tamanho": 240,
+          "cor": "azul"
+        },
+        {
+          "tipo": "texto",
+          "texto": "quer os 5 links?",
+          "ancora": "link",
+          "y": 820,
+          "grande": true
+        },
+        {
+          "tipo": "destaque",
+          "texto": "comenta GITHUB",
+          "ancora": "Comenta",
+          "y": 1040,
+          "cor": "amarelo"
+        }
+      ]
+    }
+  ]
+}

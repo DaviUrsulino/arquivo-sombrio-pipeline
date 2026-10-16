@@ -10,9 +10,12 @@
     "Nutlope/hallmark",
     "Panniantong/Agent-Reach",
     "VoltAgent/awesome-agent-skills",
+    "aaif-goose/goose",
     "addyosmani/agent-skills",
     "affaan-m/ECC",
+    "anthropics/claude-plugins-official",
     "bytedance/deer-flow",
+    "career-ops-hq/career-ops",
     "coreyhaines31/marketingskills",
     "diegosouzapw/OmniRoute",
     "farion1231/cc-switch",
@@ -25,13 +28,15 @@
     "obra/superpowers",
     "paperclipai/paperclip",
     "pbakaus/impeccable",
+    "ruvnet/ruflo",
     "shareAI-lab/learn-claude-code",
     "stablyai/orca",
     "thedotmack/claude-mem",
     "tt-a1i/archify",
     "virgiliojr94/book-to-skill",
+    "wshobson/agents",
     "zarazhangrui/frontend-slides",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 6
+  "pautas_geradas": 7
 }
