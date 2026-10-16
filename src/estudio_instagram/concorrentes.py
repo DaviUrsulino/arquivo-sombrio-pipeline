@@ -60,3 +60,44 @@ def classificar_tema(legenda: str) -> str | None:
         if any(p in texto for p in palavras):
             return tema
     return None
+
+
+# Cada tema vira uma busca diferente no GitHub — é a ponte entre "o que tá bombando
+# no Instagram hoje" e "quais repositórios buscar", sem precisar de LLM.
+BUSCA_GITHUB_POR_TEMA = {
+    "repositorio": ["claude code skill", "claude-code agent"],
+    "skill": ["claude code skill", "claude code plugin"],
+    "site": ["claude code website builder", "ai website generator open source"],
+    "video": ["claude code motion graphics", "ai video automation open source"],
+    "limite": ["claude code token usage", "llm proxy rate limit"],
+}
+
+
+def temas_em_alta(posts: list[PostConcorrente], minimo: int = 2) -> list[str]:
+    """Soma o engajamento por tema e devolve do mais quente pro mais frio.
+
+    `minimo`: um tema só conta se tiver pelo menos esse número de posts classificados —
+    um post isolado com muito comentário não deve virar tendência sozinho.
+    """
+    comentarios_por_tema: dict[str, int] = {}
+    contagem_por_tema: dict[str, int] = {}
+    for post in posts:
+        tema = classificar_tema(post.legenda)
+        if tema is None:
+            continue
+        comentarios_por_tema[tema] = comentarios_por_tema.get(tema, 0) + post.comentarios
+        contagem_por_tema[tema] = contagem_por_tema.get(tema, 0) + 1
+    quentes = [t for t, n in contagem_por_tema.items() if n >= minimo]
+    return sorted(quentes, key=lambda t: comentarios_por_tema[t], reverse=True)
+
+
+def buscas_do_dia(posts: list[PostConcorrente], buscas_padrao: list[str], quantidade_temas: int = 2) -> list[str]:
+    """Monta a lista de busca do dia: os temas mais quentes primeiro, `buscas_padrao` no
+    final como rede de segurança (garante candidato mesmo se nada bateu com os temas)."""
+    buscas = []
+    for tema in temas_em_alta(posts)[:quantidade_temas]:
+        buscas += BUSCA_GITHUB_POR_TEMA.get(tema, [])
+    for busca in buscas_padrao:
+        if busca not in buscas:
+            buscas.append(busca)
+    return buscas

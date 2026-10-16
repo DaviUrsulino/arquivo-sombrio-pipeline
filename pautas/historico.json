@@ -1,5 +1,6 @@
 {
   "repositorios_usados": [
+    "DayuanJiang/next-ai-draw-io",
     "DietrichGebert/ponytail",
     "Graphify-Labs/graphify",
     "JuliusBrussee/caveman",
@@ -15,7 +16,9 @@
     "affaan-m/ECC",
     "anthropics/claude-plugins-official",
     "bytedance/deer-flow",
+    "can1357/oh-my-pi",
     "career-ops-hq/career-ops",
+    "continuedev/continue",
     "coreyhaines31/marketingskills",
     "diegosouzapw/OmniRoute",
     "farion1231/cc-switch",
@@ -26,6 +29,7 @@
     "mukul975/Anthropic-Cybersecurity-Skills",
     "mvanhorn/last30days-skill",
     "obra/superpowers",
+    "openai/codex-plugin-cc",
     "paperclipai/paperclip",
     "pbakaus/impeccable",
     "ruvnet/ruflo",
