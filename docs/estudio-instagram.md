@@ -1,6 +1,6 @@
 # Canal @robo.estagiario (Instagram) — requisitos e desenho
 
-> Status: em construção (branch `feat/estudio-automatico`). Decisões: ADR-0003 e ADR-0004.
+> Status: em construção (branch `feat/estudio-automatico`). Decisões: ADR-0003, ADR-0004 e ADR-0005.
 
 ## 1. Requisitos
 

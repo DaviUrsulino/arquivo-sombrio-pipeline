@@ -5,7 +5,7 @@ Uso:
     python -m src.estudio_instagram.pipeline --pauta pautas/5-repos-claude-code.json --publicar
 
 Saída em saida/instagram/<nome-da-pauta>/: reels.mp4, carrossel/slide-NN.png e registro.json.
-Publicar exige PUBLORA_API_KEY e INSTAGRAM_PLATFORM_ID no .env (ver docs/estudio-instagram.md).
+Publicar exige INSTAGRAM_GRAPH_TOKEN e INSTAGRAM_USER_ID no .env (ver docs/estudio-instagram.md).
 """
 
 import argparse
@@ -16,8 +16,8 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from . import github_dados, montagem, pauta, render
-from .publicacao import Publora
+from . import github_dados, hospedagem, montagem, pauta, render
+from .graph_api import InstagramGraph
 from .voz import ElevenLabs
 
 RAIZ = Path(__file__).resolve().parents[2]
@@ -65,13 +65,18 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
 
     if publicar:
         legenda = montar_legenda(dados_pauta, repos)
-        publora = Publora(os.environ["PUBLORA_API_KEY"], os.environ["INSTAGRAM_PLATFORM_ID"])
-        reels_publicado = publora.publicar_reels(video, legenda, agora=True)
-        carrossel_publicado = publora.publicar_carrossel(slides, legenda, agora=True)
+        nome_base = pasta_saida.name
+        url_video = hospedagem.publicar(video, f"{nome_base}-reels.mp4")
+        urls_slides = [
+            hospedagem.publicar(s, f"{nome_base}-slide-{i:02d}.png") for i, s in enumerate(slides, start=1)
+        ]
+        ig = InstagramGraph(os.environ["INSTAGRAM_GRAPH_TOKEN"], os.environ["INSTAGRAM_USER_ID"])
+        reels_publicado = ig.publicar_reels(url_video, legenda)
+        carrossel_publicado = ig.publicar_carrossel(urls_slides, legenda)
         registro["publicado"] = True
         registro["legenda"] = legenda
-        registro["reels"]["post_group_id"] = reels_publicado.post_group_id
-        registro["carrossel_post_group_id"] = carrossel_publicado.post_group_id
+        registro["reels"]["media_id"] = reels_publicado.media_id
+        registro["carrossel_media_id"] = carrossel_publicado.media_id
 
     (pasta_saida / "registro.json").write_text(json.dumps(registro, ensure_ascii=False, indent=2), encoding="utf-8")
     return registro

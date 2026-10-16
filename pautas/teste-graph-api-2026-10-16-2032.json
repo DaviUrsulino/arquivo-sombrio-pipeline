@@ -1,0 +1,230 @@
+{
+  "titulo": "5 repositórios grátis — 2026-10-16",
+  "palavra_chave": "GITHUB",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "linha1": "QUASE NINGUÉM",
+    "linha2": "SABE DISSO",
+    "subtitulo": "5 repositórios grátis que ninguém te contou",
+    "selo": "★ {total_estrelas} estrelas"
+  },
+  "chamada": {
+    "pergunta": "quer os 5 links?",
+    "promessa": "que eu te mando no direct",
+    "rodape": "e segue pra mais ferramenta grátis de IA"
+  },
+  "itens": [
+    {
+      "repo": "iOfficeAI/AionUi",
+      "nome": "AionUi",
+      "cor": "laranja",
+      "promessa": "Um projeto open source que vale testar agora.",
+      "texto": "com {estrelas:iOfficeAI/AionUi} estrelas no GitHub"
+    },
+    {
+      "repo": "tirth8205/code-review-graph",
+      "nome": "code-review-graph",
+      "cor": "azul",
+      "promessa": "Resolve um problema real, e é de graça.",
+      "texto": "com {estrelas:tirth8205/code-review-graph} estrelas no GitHub"
+    },
+    {
+      "repo": "jarrodwatts/claude-hud",
+      "nome": "claude-hud",
+      "cor": "roxo",
+      "promessa": "Tá bombando no GitHub essa semana.",
+      "texto": "com {estrelas:jarrodwatts/claude-hud} estrelas no GitHub"
+    },
+    {
+      "repo": "QwenLM/qwen-code",
+      "nome": "qwen-code",
+      "cor": "verde",
+      "promessa": "Pouca gente usa, mas devia.",
+      "texto": "com {estrelas:QwenLM/qwen-code} estrelas no GitHub"
+    },
+    {
+      "repo": "alirezarezvani/claude-skills",
+      "nome": "claude-skills",
+      "cor": "amarelo",
+      "promessa": "Instala em minutos e já ajuda no seu fluxo.",
+      "texto": "com {estrelas:alirezarezvani/claude-skills} estrelas no GitHub"
+    }
+  ],
+  "cenas": [
+    {
+      "id": "gancho",
+      "cor": "laranja",
+      "narracao": "Isso aqui quase ninguém usa no Claude Code, e devia. São 5 repositórios grátis que somam {total_estrelas} estrelas, e ninguém te contou.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "quase ninguém sabe disso",
+          "ancora": "ninguém"
+        },
+        {
+          "tipo": "numero",
+          "texto": "5",
+          "ancora": "5",
+          "y": 640
+        },
+        {
+          "tipo": "texto",
+          "texto": "repositórios grátis",
+          "ancora": "repositórios",
+          "y": 960,
+          "grande": true
+        },
+        {
+          "tipo": "etiqueta",
+          "texto": "★ {total_estrelas} estrelas",
+          "ancora": "estrelas",
+          "y": 1180,
+          "cor": "amarelo"
+        }
+      ]
+    },
+    {
+      "id": "r1",
+      "cor": "laranja",
+      "narracao": "O primeiro é o AionUi. Um projeto open source que vale testar agora.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#1",
+          "ancora": "primeiro"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "AionUi",
+          "texto": "com {estrelas:iOfficeAI/AionUi} estrelas no GitHub",
+          "icone": "github",
+          "repo": "iOfficeAI/AionUi",
+          "ancora": "AionUi",
+          "y": 600,
+          "cor": "laranja"
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "cor": "azul",
+      "narracao": "O segundo é o code-review-graph. Resolve um problema real, e é de graça.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#2",
+          "ancora": "segundo"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "code-review-graph",
+          "texto": "com {estrelas:tirth8205/code-review-graph} estrelas no GitHub",
+          "icone": "github",
+          "repo": "tirth8205/code-review-graph",
+          "ancora": "code-review-graph",
+          "y": 600,
+          "cor": "azul"
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "cor": "roxo",
+      "narracao": "O terceiro é o claude-hud. Tá bombando no GitHub essa semana.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#3",
+          "ancora": "terceiro"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "claude-hud",
+          "texto": "com {estrelas:jarrodwatts/claude-hud} estrelas no GitHub",
+          "icone": "github",
+          "repo": "jarrodwatts/claude-hud",
+          "ancora": "claude-hud",
+          "y": 600,
+          "cor": "roxo"
+        }
+      ]
+    },
+    {
+      "id": "r4",
+      "cor": "verde",
+      "narracao": "O quarto é o qwen-code. Pouca gente usa, mas devia.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#4",
+          "ancora": "quarto"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "qwen-code",
+          "texto": "com {estrelas:QwenLM/qwen-code} estrelas no GitHub",
+          "icone": "github",
+          "repo": "QwenLM/qwen-code",
+          "ancora": "qwen-code",
+          "y": 600,
+          "cor": "verde"
+        }
+      ]
+    },
+    {
+      "id": "r5",
+      "cor": "amarelo",
+      "narracao": "O quinto é o claude-skills. Instala em minutos e já ajuda no seu fluxo.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#5",
+          "ancora": "quinto"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "claude-skills",
+          "texto": "com {estrelas:alirezarezvani/claude-skills} estrelas no GitHub",
+          "icone": "github",
+          "repo": "alirezarezvani/claude-skills",
+          "ancora": "claude-skills",
+          "y": 600,
+          "cor": "amarelo"
+        }
+      ]
+    },
+    {
+      "id": "cta",
+      "cor": "laranja",
+      "narracao": "Quer o link de todos? Comenta GITHUB aqui embaixo, que eu te mando no direct.",
+      "elementos": [
+        {
+          "tipo": "icone",
+          "icone": "message-circle",
+          "ancora": "Quer",
+          "y": 520,
+          "tamanho": 240,
+          "cor": "azul"
+        },
+        {
+          "tipo": "texto",
+          "texto": "quer os 5 links?",
+          "ancora": "link",
+          "y": 820,
+          "grande": true
+        },
+        {
+          "tipo": "destaque",
+          "texto": "comenta GITHUB",
+          "ancora": "Comenta",
+          "y": 1040,
+          "cor": "amarelo"
+        }
+      ]
+    }
+  ]
+}

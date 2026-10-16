@@ -2,8 +2,9 @@ name: Pipeline Instagram - robo.estagiario
 
 # Roda sozinho, do início ao fim: escolhe o assunto (GitHub, nunca repete —
 # ver src/estudio_instagram/escolher_pauta.py), gera Reels + carrossel e
-# publica (Publora). Ativado em 2026-10-15 depois de 3 posts reais
-# validados na mão (ver pautas/historico.json e docs/estudio-instagram.md).
+# publica direto na Instagram Graph API (ver ADR-0005). Ativado em 2026-10-15
+# depois de 3 posts reais validados na mão (ver pautas/historico.json e
+# docs/estudio-instagram.md).
 #
 # O histórico (`pautas/historico.json`) e a pauta gerada são commitados de
 # volta no repositório no fim da run — sem isso, a próxima execução (runner
@@ -52,12 +53,12 @@ jobs:
       - name: Escreve os segredos no .env
         env:
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
-          PUBLORA_API_KEY: ${{ secrets.PUBLORA_API_KEY }}
-          INSTAGRAM_PLATFORM_ID: ${{ secrets.INSTAGRAM_PLATFORM_ID }}
+          INSTAGRAM_GRAPH_TOKEN: ${{ secrets.INSTAGRAM_GRAPH_TOKEN }}
+          INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
           GH_TOKEN_PARA_BUSCA: ${{ secrets.GITHUB_TOKEN }}  # token automático do Actions, só pra elevar o limite de busca no GitHub
         run: |
-          printf 'ELEVENLABS_API_KEY=%s\nPUBLORA_API_KEY=%s\nINSTAGRAM_PLATFORM_ID=%s\nGITHUB_TOKEN=%s\n' \
-            "$ELEVENLABS_API_KEY" "$PUBLORA_API_KEY" "$INSTAGRAM_PLATFORM_ID" "$GH_TOKEN_PARA_BUSCA" > .env
+          printf 'ELEVENLABS_API_KEY=%s\nINSTAGRAM_GRAPH_TOKEN=%s\nINSTAGRAM_USER_ID=%s\nGITHUB_TOKEN=%s\n' \
+            "$ELEVENLABS_API_KEY" "$INSTAGRAM_GRAPH_TOKEN" "$INSTAGRAM_USER_ID" "$GH_TOKEN_PARA_BUSCA" > .env
 
       - name: Escolhe o assunto sozinho (nunca repete um repositório já publicado)
         id: pauta
