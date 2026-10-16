@@ -14,6 +14,26 @@ mais contas no futuro, sempre reaproveitando este mesmo código via `src/canais/
 **Se a sessão de chat foi compactada ou é uma sessão nova**: leia este arquivo inteiro antes de
 sugerir qualquer mudança — ele documenta decisões já testadas, não suposições.
 
+## Estúdio automático (2026-10-14)
+
+O repositório está virando o `estudio-automatico`: um lugar só para todos os canais (ADR-0003).
+Além dos canais dark, entrou o **@robo.estagiario** no Instagram, em `src/estudio_instagram/`:
+Reels + carrossel neon desenhado à mão, gerados a partir de um arquivo de pauta. Requisitos,
+diagrama de classes e de sequência em [`docs/estudio-instagram.md`](docs/estudio-instagram.md);
+escolha de render e voz no ADR-0004.
+
+```bash
+# gera reels.mp4 + carrossel/slide-NN.png + registro.json em saida/instagram/<pauta>/
+venv/bin/python -m src.estudio_instagram.pipeline --pauta pautas/5-repos-claude-code.json
+
+# testes (dublês no lugar das APIs: não gastam crédito)
+venv/bin/python -m pytest -q
+```
+
+Precisa de `ELEVENLABS_API_KEY` no `.env` (narração; a resposta fica em cache em `.cache/voz/`)
+e de Node 22+ para o Hyperframes. Rodando local, use limite de memória para o Chrome do render
+não derrubar o PC: `systemd-run --user -p MemoryMax=4G ...`.
+
 ## Arquitetura (estado atual)
 
 ```

@@ -1,0 +1,301 @@
+{
+  "titulo": "Não use o Claude Code sem esses 5 repositórios grátis",
+  "palavra_chave": "GITHUB",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "linha1": "NÃO USE O",
+    "linha2": "CLAUDE CODE",
+    "subtitulo": "sem esses 5 repositórios grátis",
+    "selo": "★ {total_estrelas} estrelas"
+  },
+  "chamada": {
+    "pergunta": "quer os 5 links?",
+    "promessa": "que eu te mando no direct",
+    "rodape": "e segue pra mais ferramenta grátis de IA"
+  },
+  "itens": [
+    {
+      "repo": "obra/superpowers",
+      "nome": "Superpowers",
+      "cor": "laranja",
+      "promessa": "Um time de dev inteiro, de graça.",
+      "texto": "Faz o Claude planejar, testar e revisar o código antes de te entregar."
+    },
+    {
+      "repo": "mattpocock/skills",
+      "nome": "Matt Pocock Skills",
+      "cor": "azul",
+      "promessa": "Engenharia de verdade, não vibe coding.",
+      "texto": "As skills que um dev sênior usa todo dia. Instala em 30 segundos."
+    },
+    {
+      "repo": "pbakaus/impeccable",
+      "nome": "Impeccable",
+      "cor": "roxo",
+      "promessa": "Seu site sem cara de feito por IA.",
+      "texto": "Ensina o Claude a fazer design com identidade, não aquele layout genérico."
+    },
+    {
+      "repo": "mvanhorn/last30days-skill",
+      "nome": "last30days",
+      "cor": "verde",
+      "promessa": "Pesquisa de mercado em minutos.",
+      "texto": "Varre Reddit, X e YouTube e te entrega o resumo do último mês sobre qualquer assunto."
+    },
+    {
+      "repo": "heygen-com/hyperframes",
+      "nome": "HyperFrames",
+      "cor": "amarelo",
+      "promessa": "Vídeo animado sem After Effects.",
+      "texto": "O Claude escreve HTML e ele transforma em vídeo. Nossos Reels são feitos com ele."
+    }
+  ],
+  "cenas": [
+    {
+      "id": "gancho",
+      "cor": "laranja",
+      "narracao": "Não use o Claude Code sem esses cinco repositórios grátis. Juntos, eles têm quase oitocentas mil estrelas no GitHub.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "não use o Claude Code sem...",
+          "ancora": "Não"
+        },
+        {
+          "tipo": "numero",
+          "texto": "5",
+          "ancora": "cinco",
+          "y": 640
+        },
+        {
+          "tipo": "texto",
+          "texto": "repositórios grátis",
+          "ancora": "repositórios",
+          "y": 960,
+          "grande": true
+        },
+        {
+          "tipo": "etiqueta",
+          "texto": "★ {total_estrelas} estrelas",
+          "ancora": "estrelas",
+          "y": 1180,
+          "cor": "amarelo"
+        }
+      ]
+    },
+    {
+      "id": "r1",
+      "cor": "laranja",
+      "narracao": "Primeiro, o Superpowers. Ele transforma o Claude num time de desenvolvimento: planeja, testa e revisa antes de te entregar.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#1",
+          "ancora": "Primeiro"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "Superpowers",
+          "texto": "★ {estrelas:obra/superpowers} estrelas",
+          "icone": "github",
+          "ancora": "Superpowers",
+          "y": 560,
+          "cor": "laranja",
+          "repo": "obra/superpowers"
+        },
+        {
+          "tipo": "lista",
+          "itens": [
+            "planeja",
+            "testa",
+            "revisa antes de entregar"
+          ],
+          "ancoras": [
+            "planeja",
+            "testa",
+            "revisa"
+          ],
+          "y": 1000
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "cor": "azul",
+      "narracao": "Segundo, as skills do Matt Pocock. São as skills que ele usa todo dia pra programar de verdade, não vibe coding.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#2",
+          "ancora": "Segundo"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "Matt Pocock",
+          "texto": "★ {estrelas:mattpocock/skills} estrelas",
+          "icone": "github",
+          "ancora": "Matt",
+          "y": 560,
+          "cor": "azul",
+          "repo": "mattpocock/skills"
+        },
+        {
+          "tipo": "comparacao",
+          "y": 990,
+          "ancoras": [
+            "skills",
+            "programar"
+          ],
+          "esquerda": {
+            "titulo": "engenharia",
+            "icone": "check",
+            "texto": "de verdade",
+            "rodape": "com teste",
+            "cor": "verde"
+          },
+          "direita": {
+            "titulo": "vibe coding",
+            "icone": "x",
+            "texto": "no chute",
+            "rodape": "cheio de bug",
+            "cor": "vermelho"
+          }
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "cor": "roxo",
+      "narracao": "Terceiro, o Impeccable. Ele tira do seu site aquela cara de feito por IA.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#3",
+          "ancora": "Terceiro"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "Impeccable",
+          "texto": "★ {estrelas:pbakaus/impeccable} estrelas",
+          "icone": "palette",
+          "ancora": "Impeccable",
+          "y": 560,
+          "cor": "roxo",
+          "repo": "pbakaus/impeccable"
+        },
+        {
+          "tipo": "destaque",
+          "texto": "sem cara de IA",
+          "ancora": "cara",
+          "y": 1040,
+          "cor": "roxo"
+        }
+      ]
+    },
+    {
+      "id": "r4",
+      "cor": "verde",
+      "narracao": "Quarto, o Last thirty days. Ele pesquisa qualquer assunto no Reddit, no X e no YouTube, e te entrega o resumo do último mês.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#4",
+          "ancora": "Quarto"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "last30days",
+          "texto": "★ {estrelas:mvanhorn/last30days-skill} estrelas",
+          "icone": "search",
+          "ancora": "Last",
+          "y": 560,
+          "cor": "verde",
+          "repo": "mvanhorn/last30days-skill"
+        },
+        {
+          "tipo": "lista",
+          "itens": [
+            "Reddit",
+            "X",
+            "YouTube"
+          ],
+          "ancoras": [
+            "Reddit",
+            "X",
+            "YouTube"
+          ],
+          "y": 1000
+        },
+        {
+          "tipo": "etiqueta",
+          "texto": "resumo do último mês",
+          "ancora": "resumo",
+          "y": 1420,
+          "cor": "verde"
+        }
+      ]
+    },
+    {
+      "id": "r5",
+      "cor": "amarelo",
+      "narracao": "E o quinto é o HyperFrames. Ele cria vídeo a partir de código. Esse vídeo aqui foi feito com ele.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#5",
+          "ancora": "quinto"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "HyperFrames",
+          "texto": "★ {estrelas:heygen-com/hyperframes} estrelas",
+          "icone": "clapperboard",
+          "ancora": "HyperFrames",
+          "y": 560,
+          "cor": "amarelo",
+          "repo": "heygen-com/hyperframes"
+        },
+        {
+          "tipo": "destaque",
+          "texto": "este vídeo!",
+          "ancora": "Esse",
+          "y": 1040,
+          "cor": "laranja"
+        }
+      ]
+    },
+    {
+      "id": "cta",
+      "cor": "laranja",
+      "narracao": "Quer o link dos cinco? Comenta GITHUB aqui embaixo, que eu te mando no direct.",
+      "elementos": [
+        {
+          "tipo": "icone",
+          "icone": "message-circle",
+          "ancora": "Quer",
+          "y": 520,
+          "tamanho": 240,
+          "cor": "azul"
+        },
+        {
+          "tipo": "texto",
+          "texto": "quer os 5 links?",
+          "ancora": "link",
+          "y": 820,
+          "grande": true
+        },
+        {
+          "tipo": "destaque",
+          "texto": "comenta GITHUB",
+          "ancora": "Comenta",
+          "y": 1040,
+          "cor": "amarelo"
+        }
+      ]
+    }
+  ]
+}

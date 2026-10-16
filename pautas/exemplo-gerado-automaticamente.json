@@ -1,0 +1,230 @@
+{
+  "titulo": "5 repositórios grátis — 2026-10-14",
+  "palavra_chave": "GITHUB",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "linha1": "VOCÊ PRECISA",
+    "linha2": "CONHECER ISSO",
+    "subtitulo": "5 repositórios grátis pro Claude Code",
+    "selo": "★ {total_estrelas} estrelas"
+  },
+  "chamada": {
+    "pergunta": "quer os 5 links?",
+    "promessa": "que eu te mando no direct",
+    "rodape": "e segue pra mais ferramenta grátis de IA"
+  },
+  "itens": [
+    {
+      "repo": "affaan-m/ECC",
+      "nome": "ECC",
+      "cor": "laranja",
+      "promessa": "The agent harness performance optimization system. Skills, instincts, …",
+      "texto": "com {estrelas:affaan-m/ECC} estrelas no GitHub"
+    },
+    {
+      "repo": "NousResearch/hermes-agent",
+      "nome": "hermes-agent",
+      "cor": "azul",
+      "promessa": "The agent that grows with you",
+      "texto": "com {estrelas:NousResearch/hermes-agent} estrelas no GitHub"
+    },
+    {
+      "repo": "morluto/rea",
+      "nome": "rea",
+      "cor": "roxo",
+      "promessa": "Reverse engineer anything with agents, from app behavior down to nativ…",
+      "texto": "com {estrelas:morluto/rea} estrelas no GitHub"
+    },
+    {
+      "repo": "DietrichGebert/ponytail",
+      "nome": "ponytail",
+      "cor": "verde",
+      "promessa": "Makes your AI agent think like the laziest senior dev in the room. The…",
+      "texto": "com {estrelas:DietrichGebert/ponytail} estrelas no GitHub"
+    },
+    {
+      "repo": "farion1231/cc-switch",
+      "nome": "cc-switch",
+      "cor": "amarelo",
+      "promessa": "A cross-platform desktop All-in-One assistant for Claude Code, Codex, …",
+      "texto": "com {estrelas:farion1231/cc-switch} estrelas no GitHub"
+    }
+  ],
+  "cenas": [
+    {
+      "id": "gancho",
+      "cor": "laranja",
+      "narracao": "5 repositórios grátis que você precisa conhecer pro Claude Code. Juntos, eles têm {total_estrelas} estrelas.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "você precisa conhecer...",
+          "ancora": "repositórios"
+        },
+        {
+          "tipo": "numero",
+          "texto": "5",
+          "ancora": "5",
+          "y": 640
+        },
+        {
+          "tipo": "texto",
+          "texto": "repositórios grátis",
+          "ancora": "grátis",
+          "y": 960,
+          "grande": true
+        },
+        {
+          "tipo": "etiqueta",
+          "texto": "★ {total_estrelas} estrelas",
+          "ancora": "estrelas",
+          "y": 1180,
+          "cor": "amarelo"
+        }
+      ]
+    },
+    {
+      "id": "r1",
+      "cor": "laranja",
+      "narracao": "O primeiro é o ECC. The agent harness performance optimization system. Skills, instincts, …",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#1",
+          "ancora": "primeiro"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "ECC",
+          "texto": "com {estrelas:affaan-m/ECC} estrelas no GitHub",
+          "icone": "github",
+          "repo": "affaan-m/ECC",
+          "ancora": "ECC",
+          "y": 600,
+          "cor": "laranja"
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "cor": "azul",
+      "narracao": "O segundo é o hermes-agent. The agent that grows with you",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#2",
+          "ancora": "segundo"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "hermes-agent",
+          "texto": "com {estrelas:NousResearch/hermes-agent} estrelas no GitHub",
+          "icone": "github",
+          "repo": "NousResearch/hermes-agent",
+          "ancora": "hermes-agent",
+          "y": 600,
+          "cor": "azul"
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "cor": "roxo",
+      "narracao": "O terceiro é o rea. Reverse engineer anything with agents, from app behavior down to nativ…",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#3",
+          "ancora": "terceiro"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "rea",
+          "texto": "com {estrelas:morluto/rea} estrelas no GitHub",
+          "icone": "github",
+          "repo": "morluto/rea",
+          "ancora": "rea",
+          "y": 600,
+          "cor": "roxo"
+        }
+      ]
+    },
+    {
+      "id": "r4",
+      "cor": "verde",
+      "narracao": "O quarto é o ponytail. Makes your AI agent think like the laziest senior dev in the room. The…",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#4",
+          "ancora": "quarto"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "ponytail",
+          "texto": "com {estrelas:DietrichGebert/ponytail} estrelas no GitHub",
+          "icone": "github",
+          "repo": "DietrichGebert/ponytail",
+          "ancora": "ponytail",
+          "y": 600,
+          "cor": "verde"
+        }
+      ]
+    },
+    {
+      "id": "r5",
+      "cor": "amarelo",
+      "narracao": "O quinto é o cc-switch. A cross-platform desktop All-in-One assistant for Claude Code, Codex, …",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#5",
+          "ancora": "quinto"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "cc-switch",
+          "texto": "com {estrelas:farion1231/cc-switch} estrelas no GitHub",
+          "icone": "github",
+          "repo": "farion1231/cc-switch",
+          "ancora": "cc-switch",
+          "y": 600,
+          "cor": "amarelo"
+        }
+      ]
+    },
+    {
+      "id": "cta",
+      "cor": "laranja",
+      "narracao": "Quer o link de todos? Comenta GITHUB aqui embaixo, que eu te mando no direct.",
+      "elementos": [
+        {
+          "tipo": "icone",
+          "icone": "message-circle",
+          "ancora": "Quer",
+          "y": 520,
+          "tamanho": 240,
+          "cor": "azul"
+        },
+        {
+          "tipo": "texto",
+          "texto": "quer os 5 links?",
+          "ancora": "link",
+          "y": 820,
+          "grande": true
+        },
+        {
+          "tipo": "destaque",
+          "texto": "comenta GITHUB",
+          "ancora": "Comenta",
+          "y": 1040,
+          "cor": "amarelo"
+        }
+      ]
+    }
+  ]
+}

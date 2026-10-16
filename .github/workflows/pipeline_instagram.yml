@@ -1,0 +1,96 @@
+name: Pipeline Instagram - robo.estagiario
+
+# Roda sozinho, do início ao fim: escolhe o assunto (GitHub, nunca repete —
+# ver src/estudio_instagram/escolher_pauta.py), gera Reels + carrossel e
+# publica (Publora). Ativado em 2026-10-15 depois de 3 posts reais
+# validados na mão (ver pautas/historico.json e docs/estudio-instagram.md).
+#
+# O histórico (`pautas/historico.json`) e a pauta gerada são commitados de
+# volta no repositório no fim da run — sem isso, a próxima execução (runner
+# novo, disco limpo) não saberia o que já foi publicado e repetiria post.
+#
+# Minutos quebrados pelo mesmo motivo do pipeline_dark.yml: evitar o pico de
+# carga do agendador do GitHub Actions no início de cada hora.
+
+on:
+  schedule:
+    - cron: '13 11 * * *'  # ~08h13 BRT
+  workflow_dispatch:
+    inputs:
+      formato:
+        description: 'curto (lista de 5) / aprofundado (1 repo) — vazio: alterna sozinho'
+        required: false
+        default: ''
+      publicar:
+        description: 'Publicar de verdade no Instagram (true/false)'
+        required: false
+        default: 'true'
+
+jobs:
+  gerar-e-publicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instala dependências
+        run: |
+          sudo apt-get update || true
+          sudo apt-get install -y ffmpeg
+          pip install "python-dotenv>=1.0.0"
+
+      - name: Escreve os segredos no .env
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          PUBLORA_API_KEY: ${{ secrets.PUBLORA_API_KEY }}
+          INSTAGRAM_PLATFORM_ID: ${{ secrets.INSTAGRAM_PLATFORM_ID }}
+          GH_TOKEN_PARA_BUSCA: ${{ secrets.GITHUB_TOKEN }}  # token automático do Actions, só pra elevar o limite de busca no GitHub
+        run: |
+          printf 'ELEVENLABS_API_KEY=%s\nPUBLORA_API_KEY=%s\nINSTAGRAM_PLATFORM_ID=%s\nGITHUB_TOKEN=%s\n' \
+            "$ELEVENLABS_API_KEY" "$PUBLORA_API_KEY" "$INSTAGRAM_PLATFORM_ID" "$GH_TOKEN_PARA_BUSCA" > .env
+
+      - name: Escolhe o assunto sozinho (nunca repete um repositório já publicado)
+        id: pauta
+        run: |
+          NOME="pautas/auto-$(date -u +%F)-${{ github.run_number }}.json"
+          FORMATO_FLAG=""
+          if [ -n "${{ github.event.inputs.formato }}" ]; then FORMATO_FLAG="--formato ${{ github.event.inputs.formato }}"; fi
+          python -m src.estudio_instagram.escolher_pauta --saida "$NOME" $FORMATO_FLAG
+          echo "arquivo=$NOME" >> "$GITHUB_OUTPUT"
+
+      - name: Gera e publica
+        run: |
+          PUBLICAR="${{ github.event.inputs.publicar }}"
+          FLAG=""
+          if [ "${PUBLICAR:-true}" = "true" ]; then FLAG="--publicar"; fi
+          python -m src.estudio_instagram.pipeline --pauta "${{ steps.pauta.outputs.arquivo }}" $FLAG
+
+      - name: Guarda o Reels, o carrossel e o registro pra conferência
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: instagram-${{ github.run_id }}
+          path: |
+            saida/instagram/*/reels.mp4
+            saida/instagram/*/carrossel/*.png
+            saida/instagram/*/registro.json
+          retention-days: 14
+
+      - name: Guarda o histórico e a pauta gerada (pra nunca repetir post)
+        if: always()
+        run: |
+          git config user.name "estudio-automatico (bot)"
+          git config user.email "actions@github.com"
+          git add pautas/historico.json "${{ steps.pauta.outputs.arquivo }}"
+          git diff --cached --quiet || git commit -m "chore: registra pauta ${{ steps.pauta.outputs.arquivo }} [skip ci]"
+          git push
