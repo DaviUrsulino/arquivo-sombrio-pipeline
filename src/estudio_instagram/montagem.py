@@ -45,7 +45,7 @@ def _miolo_do_icone(nome: str) -> str:
 
 
 def _icones_usados(cenas: list[dict]) -> set[str]:
-    usados = {"check"}
+    usados = {"check", "github", "star", "shield-check"}  # "github", "star" e "shield-check": cartão do molde repo
     for cena in cenas:
         for elemento in cena["elementos"]:
             if "icone" in elemento:
@@ -103,6 +103,9 @@ def montar_reels(
         "duracao": total,
         "cenas": cenas,
         "legenda": blocos_de_legenda(todas, cursor),
+        "destaques": pauta.get("destaques", []),
+        "repos": {r: {"repo": d.repo, "estrelas": d.estrelas, "licenca": d.licenca, "descricao": d.descricao, "url": d.url}
+                  for r, d in repos.items()},
         "icones": {nome: _miolo_do_icone(nome) for nome in sorted(_icones_usados(cenas))},
     })
     secoes = "\n".join(

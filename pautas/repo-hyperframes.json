@@ -1,0 +1,140 @@
+{
+ "titulo": "Hyperframes: a IA cria vídeo escrevendo HTML",
+ "formato": "repo",
+ "palavra_chave": "HTML",
+ "perfil": "@robo.estagiario",
+ "voz": {
+  "id": "iP95p4xoKVk53GoZ742B",
+  "modelo": "eleven_multilingual_v2"
+ },
+ "capa": {
+  "subtitulo": "esse repositório do github deixa a ia criar vídeo escrevendo só html"
+ },
+ "chamada": {
+  "pergunta": "quer o link do repositório?"
+ },
+ "itens": [
+  {
+   "repo": "heygen-com/hyperframes",
+   "nome": "Hyperframes",
+   "cor": "azul",
+   "promessa": "A IA cria vídeo escrevendo HTML.",
+   "texto": "Escreve HTML, renderiza vídeo, feito pra agentes."
+  }
+ ],
+ "destaques": [
+  "html",
+  "hyperframes",
+  "github",
+  "apache",
+  "agentes",
+  "mil"
+ ],
+ "cenas": [
+  {
+   "id": "1",
+   "cor": "azul",
+   "narracao": "Esse repositório do GitHub deixa a IA criar vídeo escrevendo só HTML.",
+   "elementos": [
+    {
+     "tipo": "cabecalho",
+     "texto": "ESSE REPO\nDO GITHUB",
+     "t": 0.1,
+     "ancora": "esse",
+     "cor": "branco",
+     "y": 170,
+     "tamanho": 132
+    },
+    {
+     "tipo": "cartao_repo",
+     "repo": "heygen-com/hyperframes",
+     "y": 620,
+     "t": 0.5,
+     "ancora": "repositorio"
+    }
+   ]
+  },
+  {
+   "id": "2",
+   "cor": "amarelo",
+   "narracao": "O Hyperframes tem mais de {estrelas:heygen-com/hyperframes} estrelas e licença Apache dois ponto zero.",
+   "elementos": [
+    {
+     "tipo": "estrelas_gigante",
+     "repo": "heygen-com/hyperframes",
+     "y": 440,
+     "ancoras": [
+      "estrelas",
+      "apache"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "3",
+   "cor": "verde",
+   "narracao": "Você escreve a cena em HTML, ele renderiza o vídeo, e foi feito pra agentes de IA.",
+   "elementos": [
+    {
+     "tipo": "cabecalho",
+     "texto": "COMO FUNCIONA",
+     "t": 0.1,
+     "ancora": "voce",
+     "cor": "branco",
+     "y": 300,
+     "tamanho": 96
+    },
+    {
+     "tipo": "fluxo_linha",
+     "y": 700,
+     "ancoras": [
+      "html",
+      "renderiza",
+      "agentes"
+     ],
+     "itens": [
+      {
+       "icone": "code-xml",
+       "rotulo": "Escreve\nHTML",
+       "cor": "azul"
+      },
+      {
+       "icone": "clapperboard",
+       "rotulo": "Renderiza\no vídeo",
+       "cor": "amarelo"
+      },
+      {
+       "icone": "bot",
+       "rotulo": "Feito pra\nagentes",
+       "cor": "verde"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "4",
+   "cor": "verde",
+   "narracao": "Eu mesmo uso ele pra fazer os vídeos deste perfil. Comenta HTML que eu te mando o link.",
+   "elementos": [
+    {
+     "tipo": "cartao_repo",
+     "repo": "heygen-com/hyperframes",
+     "y": 240,
+     "t": 0.2,
+     "ancora": "mesmo",
+     "escala": 0.82
+    },
+    {
+     "tipo": "cabecalho",
+     "texto": "COMENTA\nHTML",
+     "t": 0.2,
+     "ancora": "comenta",
+     "cor": "verde",
+     "y": 1000,
+     "tamanho": 170
+    }
+   ]
+  }
+ ]
+}

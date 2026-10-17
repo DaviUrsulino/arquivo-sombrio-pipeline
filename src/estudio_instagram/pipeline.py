@@ -24,7 +24,8 @@ RAIZ = Path(__file__).resolve().parents[2]
 ICONES = {p.stem for p in (montagem.MODELOS / "assets" / "icons").glob("*.svg")}
 LIMITE_LEGENDA_INSTAGRAM = 2200
 # Formatos que geram só o Reels (sem carrossel) e o molde visual de cada um.
-MOLDES_SO_REELS = {"prompt": "prompt.html.tpl", "diagrama": "diagrama.html.tpl", "palito": "palito.html.tpl"}
+MOLDES_SO_REELS = {"prompt": "prompt.html.tpl", "diagrama": "diagrama.html.tpl", "palito": "palito.html.tpl",
+                   "repo": "repo.html.tpl"}
 
 
 def montar_legenda(dados_pauta: dict, repos: dict) -> str:

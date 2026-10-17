@@ -14,6 +14,7 @@ CORES = {"laranja", "azul", "verde", "roxo", "vermelho", "amarelo", "branco"}
 TIPOS = {
     "numero", "texto", "icone", "etiqueta", "cabecalho", "lista", "fluxo", "cartao", "barra", "comparacao",
     "destaque", "emoji", "card_prompt", "fluxo_icones", "selo", "personagem", "balao", "chips",
+    "cartao_repo", "estrelas_gigante", "fluxo_linha",
 }
 MARCADOR = re.compile(r"\{(estrelas:[\w.-]+/[\w.-]+|total_estrelas)\}")
 MAX_CARACTERES_NARRACAO = 1500
