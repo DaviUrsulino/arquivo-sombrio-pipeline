@@ -1,0 +1,230 @@
+{
+  "titulo": "5 repositórios grátis — 2026-10-17",
+  "palavra_chave": "GITHUB",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "linha1": "VOCÊ PRECISA",
+    "linha2": "CONHECER ISSO",
+    "subtitulo": "5 repositórios grátis pro Claude Code",
+    "selo": "★ {total_estrelas} estrelas"
+  },
+  "chamada": {
+    "pergunta": "quer os 5 links?",
+    "promessa": "que eu te mando no direct",
+    "rodape": "e segue pra mais ferramenta grátis de IA"
+  },
+  "itens": [
+    {
+      "repo": "google/adk-python",
+      "nome": "adk-python",
+      "cor": "laranja",
+      "promessa": "Um projeto open source que vale testar agora.",
+      "texto": "com {estrelas:google/adk-python} estrelas no GitHub"
+    },
+    {
+      "repo": "jnMetaCode/agency-agents-zh",
+      "nome": "agency-agents-zh",
+      "cor": "azul",
+      "promessa": "Resolve um problema real, e é de graça.",
+      "texto": "com {estrelas:jnMetaCode/agency-agents-zh} estrelas no GitHub"
+    },
+    {
+      "repo": "1jehuang/jcode",
+      "nome": "jcode",
+      "cor": "roxo",
+      "promessa": "Tá bombando no GitHub essa semana.",
+      "texto": "com {estrelas:1jehuang/jcode} estrelas no GitHub"
+    },
+    {
+      "repo": "NVIDIA/SkillSpector",
+      "nome": "SkillSpector",
+      "cor": "verde",
+      "promessa": "Pouca gente usa, mas devia.",
+      "texto": "com {estrelas:NVIDIA/SkillSpector} estrelas no GitHub"
+    },
+    {
+      "repo": "browser-use/browser-harness",
+      "nome": "browser-harness",
+      "cor": "amarelo",
+      "promessa": "Instala em minutos e já ajuda no seu fluxo.",
+      "texto": "com {estrelas:browser-use/browser-harness} estrelas no GitHub"
+    }
+  ],
+  "cenas": [
+    {
+      "id": "gancho",
+      "cor": "laranja",
+      "narracao": "5 repositórios grátis que você precisa conhecer pro Claude Code. Juntos, eles têm {total_estrelas} estrelas.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "você precisa conhecer...",
+          "ancora": "repositórios"
+        },
+        {
+          "tipo": "numero",
+          "texto": "5",
+          "ancora": "5",
+          "y": 640
+        },
+        {
+          "tipo": "texto",
+          "texto": "repositórios grátis",
+          "ancora": "grátis",
+          "y": 960,
+          "grande": true
+        },
+        {
+          "tipo": "etiqueta",
+          "texto": "★ {total_estrelas} estrelas",
+          "ancora": "estrelas",
+          "y": 1180,
+          "cor": "amarelo"
+        }
+      ]
+    },
+    {
+      "id": "r1",
+      "cor": "laranja",
+      "narracao": "O primeiro é o adk-python. Um projeto open source que vale testar agora.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#1",
+          "ancora": "primeiro"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "adk-python",
+          "texto": "com {estrelas:google/adk-python} estrelas no GitHub",
+          "icone": "github",
+          "repo": "google/adk-python",
+          "ancora": "adk-python",
+          "y": 600,
+          "cor": "laranja"
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "cor": "azul",
+      "narracao": "O segundo é o agency-agents-zh. Resolve um problema real, e é de graça.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#2",
+          "ancora": "segundo"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "agency-agents-zh",
+          "texto": "com {estrelas:jnMetaCode/agency-agents-zh} estrelas no GitHub",
+          "icone": "github",
+          "repo": "jnMetaCode/agency-agents-zh",
+          "ancora": "agency-agents-zh",
+          "y": 600,
+          "cor": "azul"
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "cor": "roxo",
+      "narracao": "O terceiro é o jcode. Tá bombando no GitHub essa semana.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#3",
+          "ancora": "terceiro"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "jcode",
+          "texto": "com {estrelas:1jehuang/jcode} estrelas no GitHub",
+          "icone": "github",
+          "repo": "1jehuang/jcode",
+          "ancora": "jcode",
+          "y": 600,
+          "cor": "roxo"
+        }
+      ]
+    },
+    {
+      "id": "r4",
+      "cor": "verde",
+      "narracao": "O quarto é o SkillSpector. Pouca gente usa, mas devia.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#4",
+          "ancora": "quarto"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "SkillSpector",
+          "texto": "com {estrelas:NVIDIA/SkillSpector} estrelas no GitHub",
+          "icone": "github",
+          "repo": "NVIDIA/SkillSpector",
+          "ancora": "SkillSpector",
+          "y": 600,
+          "cor": "verde"
+        }
+      ]
+    },
+    {
+      "id": "r5",
+      "cor": "amarelo",
+      "narracao": "O quinto é o browser-harness. Instala em minutos e já ajuda no seu fluxo.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#5",
+          "ancora": "quinto"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "browser-harness",
+          "texto": "com {estrelas:browser-use/browser-harness} estrelas no GitHub",
+          "icone": "github",
+          "repo": "browser-use/browser-harness",
+          "ancora": "browser-harness",
+          "y": 600,
+          "cor": "amarelo"
+        }
+      ]
+    },
+    {
+      "id": "cta",
+      "cor": "laranja",
+      "narracao": "Quer o link de todos? Comenta GITHUB aqui embaixo, que eu te mando no direct.",
+      "elementos": [
+        {
+          "tipo": "icone",
+          "icone": "message-circle",
+          "ancora": "Quer",
+          "y": 520,
+          "tamanho": 240,
+          "cor": "azul"
+        },
+        {
+          "tipo": "texto",
+          "texto": "quer os 5 links?",
+          "ancora": "link",
+          "y": 820,
+          "grande": true
+        },
+        {
+          "tipo": "destaque",
+          "texto": "comenta GITHUB",
+          "ancora": "Comenta",
+          "y": 1040,
+          "cor": "amarelo"
+        }
+      ]
+    }
+  ]
+}
