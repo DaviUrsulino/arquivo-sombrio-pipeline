@@ -1,0 +1,50 @@
+name: Instagram agendado - publica Reels prontos na hora marcada
+
+# Lê pautas/agendadas.json e publica o que já passou do horário e ainda não saiu. O vídeo já
+# está hospedado (URL pública na release do repositório), então este job não gera nada: só
+# chama a Graph API. Roda a cada 30 minutos; sem nada vencido, termina em segundos.
+# Minutos quebrados pelo mesmo motivo do pipeline_dark.yml (evitar o pico do agendador).
+on:
+  schedule:
+    - cron: '9,39 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: instagram-agendado
+  cancel-in-progress: false
+
+jobs:
+  publicar-vencidos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instala dependências
+        run: pip install "python-dotenv>=1.0.0"
+
+      - name: Escreve os segredos no .env
+        env:
+          INSTAGRAM_GRAPH_TOKEN: ${{ secrets.INSTAGRAM_GRAPH_TOKEN }}
+          INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+        run: printf 'INSTAGRAM_GRAPH_TOKEN=%s\nINSTAGRAM_USER_ID=%s\n' "$INSTAGRAM_GRAPH_TOKEN" "$INSTAGRAM_USER_ID" > .env
+
+      - name: Publica o que venceu
+        run: python -m src.estudio_instagram.agendador
+
+      - name: Registra o que foi publicado
+        if: always()
+        run: |
+          git config user.name "estudio-automatico (bot)"
+          git config user.email "actions@github.com"
+          git add pautas/agendadas.json
+          git diff --cached --quiet && exit 0
+          git commit -m "chore: registra Reels agendado publicado [skip ci]"
+          git pull --rebase
+          git push
