@@ -72,3 +72,21 @@ caminho provável é construir o estilo dentro dele, não assinar ferramenta.
 2. Novo molde de Reels com: gancho de proibição/lista no primeiro quadro, ícones ligados por setas,
    legenda por palavra, CTA "comenta X", e selo "Parte N" quando for série.
 3. Testar um Reels por vez, olhando o resultado antes de aceitar.
+
+## lowcodepedro (8,4 mil seguidores) — referência de qualidade, adicionada em 2026-10-17
+
+- Formato dividido na tela: metade de cima é gráfico animado, metade de baixo é a pessoa falando,
+  com legenda que destaca uma palavra por vez (verde).
+- O gráfico de cima é um **cartão de repositório do GitHub** (nome, linguagem, estrelas) flutuando
+  em perspectiva, ou ícones de apps com marca de "feito", ou um cartão "ITEM LENDÁRIO / LV 1 / XP"
+  em estilo de jogo para apresentar um repositório.
+- O mesmo repositório (`morluto/rea`, 269 mil estrelas, "engenharia reversa de qualquer app") virou
+  três Reels em dias seguidos, cada um com palavra de comentar diferente: 386 mil, 87 mil e 81 mil
+  views. Cada um reuniu de 70 a 330 comentários só com a palavra-chave (ENGENHARIA, CLONE).
+- Legenda do post: abre com "Esse repositório do GitHub pode mudar a forma como você...", explica em
+  3 frases, fecha com `Comenta "PALAVRA" que eu te mando o link`.
+
+Leitura: o formato que mais rendeu é "um repositório do GitHub + cartão do repositório + palavra para
+comentar". O robô já coleta dados do GitHub (estrelas, licença, cartão), então o ingrediente está
+no código. Falta um molde de Reels com o cartão do repositório em destaque e reaproveitar o mesmo
+repositório com ganchos e palavras diferentes.
