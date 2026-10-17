@@ -3,7 +3,7 @@ import json
 
 import pytest
 
-from src.estudio_instagram.graph_api import InstagramGraph
+from src.estudio_instagram.graph_api import INTERVALO_STATUS_S, TENTATIVAS_STATUS, InstagramGraph
 
 
 class RespostaFalsa(io.BytesIO):
@@ -39,7 +39,7 @@ def test_reels_cria_espera_ficar_pronto_e_publica():
     resultado = ig.publicar_reels("https://cdn/video.mp4", "legenda")
 
     assert resultado.media_id == "media-1"
-    assert esperas == [3]
+    assert esperas == [INTERVALO_STATUS_S]
     caminhos = [p.full_url.split("?")[0] for p in abrir.pedidos]
     assert caminhos == [
         "https://graph.instagram.com/v22.0/user-9/media",
@@ -62,7 +62,7 @@ def test_reels_manda_video_url_e_legenda_no_corpo():
 
 
 def test_reels_estoura_tentativas_se_nunca_terminar():
-    respostas = [{"id": "c1"}] + [{"status_code": "IN_PROGRESS"}] * 25
+    respostas = [{"id": "c1"}] + [{"status_code": "IN_PROGRESS"}] * (TENTATIVAS_STATUS + 5)
     abrir = AbridorFalso(respostas)
     ig = InstagramGraph("token", "user", abrir=abrir, esperar=lambda s: None)
     with pytest.raises(RuntimeError, match="não ficou pronta"):
