@@ -1,0 +1,366 @@
+{
+ "titulo": "3 comandos do Claude Code que você provavelmente não usa",
+ "formato": "pixel",
+ "palavra_chave": "COMANDOS",
+ "perfil": "@robo.estagiario",
+ "voz": {
+  "id": "iP95p4xoKVk53GoZ742B",
+  "modelo": "eleven_multilingual_v2"
+ },
+ "capa": {
+  "subtitulo": "3 comandos do claude code que você provavelmente não usa: rewind, context e resume"
+ },
+ "chamada": {
+  "pergunta": "quer o guia de comandos?"
+ },
+ "itens": [],
+ "destaques": [
+  "rewind",
+  "context",
+  "resume",
+  "/rewind",
+  "/context",
+  "/resume",
+  "comandos",
+  "claude"
+ ],
+ "cenas": [
+  {
+   "id": "1",
+   "cor": "laranja",
+   "narracao": "Três comandos do Claude Code que você provavelmente não usa.",
+   "elementos": [
+    {
+     "tipo": "hud",
+     "texto": "NOVO JOGO",
+     "progresso": 0.1,
+     "t": 0.1,
+     "ancora": "tres",
+     "y": 110
+    },
+    {
+     "tipo": "titulo_pixel",
+     "y": 280,
+     "t": 0.2,
+     "ancora": "comandos",
+     "linhas": [
+      {
+       "texto": "3 COMANDOS",
+       "cor": "branco",
+       "tamanho": 128
+      },
+      {
+       "texto": "DO CLAUDE CODE",
+       "cor": "laranja",
+       "tamanho": 84
+      },
+      {
+       "texto": "QUE VOCÊ",
+       "cor": "branco",
+       "tamanho": 104
+      },
+      {
+       "texto": "NÃO USA",
+       "cor": "vermelho",
+       "tamanho": 132
+      }
+     ]
+    },
+    {
+     "tipo": "robo",
+     "pose": "animado",
+     "x": 383,
+     "y": 1130,
+     "escala": 1.6,
+     "t": 0.5,
+     "ancora": "claude"
+    }
+   ]
+  },
+  {
+   "id": "2",
+   "cor": "amarelo",
+   "narracao": "O barra rewind volta a conversa e o código para um ponto anterior.",
+   "elementos": [
+    {
+     "tipo": "hud",
+     "texto": "COMANDO 1/3",
+     "progresso": 0.33,
+     "t": 0.05,
+     "ancora": "rewind",
+     "y": 110
+    },
+    {
+     "tipo": "titulo_pixel",
+     "y": 260,
+     "t": 0.1,
+     "ancora": "rewind",
+     "linhas": [
+      {
+       "texto": "VOLTA NO",
+       "cor": "amarelo",
+       "tamanho": 110
+      },
+      {
+       "texto": "TEMPO",
+       "cor": "amarelo",
+       "tamanho": 110
+      }
+     ]
+    },
+    {
+     "tipo": "terminal",
+     "y": 640,
+     "comando": "/rewind",
+     "texto": "Volta a conversa e o código para um ponto anterior.",
+     "rotulo": "claude",
+     "ancoras": [
+      "rewind",
+      "volta"
+     ]
+    },
+    {
+     "tipo": "robo",
+     "pose": "feliz",
+     "x": 790,
+     "y": 1300,
+     "escala": 0.9,
+     "t": 0.4,
+     "ancora": "conversa"
+    }
+   ]
+  },
+  {
+   "id": "3",
+   "cor": "azul",
+   "narracao": "O barra context mostra quanto da conversa já está cheia, e sugere como economizar.",
+   "elementos": [
+    {
+     "tipo": "hud",
+     "texto": "COMANDO 2/3",
+     "progresso": 0.66,
+     "t": 0.05,
+     "ancora": "context",
+     "y": 110
+    },
+    {
+     "tipo": "titulo_pixel",
+     "y": 260,
+     "t": 0.1,
+     "ancora": "context",
+     "linhas": [
+      {
+       "texto": "VEJA O",
+       "cor": "azul",
+       "tamanho": 110
+      },
+      {
+       "texto": "CONTEXTO",
+       "cor": "azul",
+       "tamanho": 110
+      }
+     ]
+    },
+    {
+     "tipo": "terminal",
+     "y": 640,
+     "comando": "/context",
+     "texto": "Mostra o quanto da conversa já está cheio e sugere como economizar.",
+     "rotulo": "claude",
+     "ancoras": [
+      "context",
+      "mostra"
+     ]
+    },
+    {
+     "tipo": "robo",
+     "pose": "pensando",
+     "x": 790,
+     "y": 1300,
+     "escala": 0.9,
+     "t": 0.4,
+     "ancora": "quanto"
+    }
+   ]
+  },
+  {
+   "id": "4",
+   "cor": "verde",
+   "narracao": "O barra resume retoma uma conversa antiga, pelo nome ou escolhendo numa lista.",
+   "elementos": [
+    {
+     "tipo": "hud",
+     "texto": "COMANDO 3/3",
+     "progresso": 1.0,
+     "t": 0.05,
+     "ancora": "resume",
+     "y": 110
+    },
+    {
+     "tipo": "titulo_pixel",
+     "y": 260,
+     "t": 0.1,
+     "ancora": "resume",
+     "linhas": [
+      {
+       "texto": "RETOME DE",
+       "cor": "verde",
+       "tamanho": 110
+      },
+      {
+       "texto": "ONDE PAROU",
+       "cor": "verde",
+       "tamanho": 104
+      }
+     ]
+    },
+    {
+     "tipo": "terminal",
+     "y": 640,
+     "comando": "/resume",
+     "texto": "Retoma uma conversa antiga, pelo nome ou escolhendo numa lista.",
+     "rotulo": "claude",
+     "ancoras": [
+      "resume",
+      "retoma"
+     ]
+    },
+    {
+     "tipo": "robo",
+     "pose": "feliz",
+     "x": 790,
+     "y": 1300,
+     "escala": 0.9,
+     "t": 0.4,
+     "ancora": "conversa"
+    }
+   ]
+  },
+  {
+   "id": "5",
+   "cor": "verde",
+   "narracao": "Comenta COMANDOS que eu te mando o guia completo.",
+   "elementos": [
+    {
+     "tipo": "titulo_pixel",
+     "y": 300,
+     "t": 0.1,
+     "ancora": "comenta",
+     "linhas": [
+      {
+       "texto": "COMENTA",
+       "cor": "branco",
+       "tamanho": 140
+      },
+      {
+       "texto": "COMANDOS",
+       "cor": "verde",
+       "tamanho": 140
+      }
+     ]
+    },
+    {
+     "tipo": "selo_pixel",
+     "texto": "GUIA GRÁTIS",
+     "y": 840,
+     "t": 0.3,
+     "ancora": "guia"
+    },
+    {
+     "tipo": "robo",
+     "pose": "animado",
+     "x": 383,
+     "y": 1130,
+     "escala": 1.6,
+     "t": 0.3,
+     "ancora": "mando"
+    }
+   ]
+  }
+ ],
+ "slides": [
+  {
+   "tipo": "capa",
+   "linhas": [
+    {
+     "texto": "3 COMANDOS",
+     "cor": "branco",
+     "tamanho": 112
+    },
+    {
+     "texto": "DO CLAUDE CODE",
+     "cor": "laranja",
+     "tamanho": 72
+    },
+    {
+     "texto": "QUE VOCÊ",
+     "cor": "branco",
+     "tamanho": 92
+    },
+    {
+     "texto": "NÃO USA",
+     "cor": "vermelho",
+     "tamanho": 116
+    }
+   ],
+   "subtitulo": "dica rápida de Claude Code"
+  },
+  {
+   "tipo": "comando",
+   "fase": "COMANDO 1/3",
+   "progresso": 0.33,
+   "linhas": [
+    {
+     "texto": "VOLTA NO TEMPO",
+     "cor": "amarelo"
+    }
+   ],
+   "comando": "/rewind",
+   "texto": "Volta a conversa e/ou o código para um ponto anterior. Também funciona como /undo.",
+   "rotulo": "claude"
+  },
+  {
+   "tipo": "comando",
+   "fase": "COMANDO 2/3",
+   "progresso": 0.66,
+   "linhas": [
+    {
+     "texto": "VEJA O CONTEXTO",
+     "cor": "azul"
+    }
+   ],
+   "comando": "/context",
+   "texto": "Mostra o uso do contexto numa grade colorida, com sugestões para economizar.",
+   "rotulo": "claude"
+  },
+  {
+   "tipo": "comando",
+   "fase": "COMANDO 3/3",
+   "progresso": 1.0,
+   "linhas": [
+    {
+     "texto": "RETOME DE ONDE PAROU",
+     "cor": "verde"
+    }
+   ],
+   "comando": "/resume",
+   "texto": "Retoma uma conversa antiga pelo nome, ou abre a lista para você escolher.",
+   "rotulo": "claude"
+  },
+  {
+   "tipo": "cta",
+   "linhas": [
+    {
+     "texto": "QUER O GUIA",
+     "cor": "branco"
+    },
+    {
+     "texto": "COMPLETO?",
+     "cor": "verde"
+    }
+   ],
+   "subtitulo": "Mando o guia de comandos e um modelo de CLAUDE.md no direct.",
+   "palavra": "COMANDOS"
+  }
+ ]
+}

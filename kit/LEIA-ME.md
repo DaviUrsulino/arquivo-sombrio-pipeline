@@ -1,11 +1,13 @@
 # Kit do iniciante em Claude Code
 
-Do perfil [@robo.estagiario](https://www.instagram.com/robo.estagiario/). Dois arquivos, grátis:
+Do perfil [@robo.estagiario](https://www.instagram.com/robo.estagiario/). Três arquivos, grátis:
 
 1. [`modelo-CLAUDE.md`](modelo-CLAUDE.md): modelo do arquivo de regras que o Claude Code lê em toda
    sessão, para ele parar de esquecer o seu projeto.
 2. [`prompt-planejamento.md`](prompt-planejamento.md): o prompt para o Claude planejar antes de editar
    (plan mode), com o checklist para revisar o plano.
+3. [`guia-de-comandos.md`](guia-de-comandos.md): os comandos e atalhos do Claude Code conferidos na
+   documentação oficial (`/rewind`, `/context`, `/resume`, `/compact`, `/clear`, `Shift+Tab` e mais).
 
 ## Ordem sugerida
 

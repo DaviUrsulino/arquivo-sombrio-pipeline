@@ -154,3 +154,29 @@ def montar_carrossel(pauta: dict, repos: dict[str, DadosRepo], cartoes: dict[str
     modelo = (MODELOS / "carrossel.html.tpl").read_text(encoding="utf-8")
     (destino / "index.html").write_text(modelo.replace("{{DURACAO}}", str(total_slides)).replace("{{SLIDES}}", slides), encoding="utf-8")
     return total_slides
+
+
+def montar_carrossel_pixel(pauta: dict, destino: Path) -> int:
+    """Carrossel do molde pixel: um slide por segundo, o conteúdo vem de `pauta["slides"]`.
+
+    Não depende de repositório do GitHub: serve para dica, lista, passo a passo.
+    """
+    destino = Path(destino)
+    destino.mkdir(parents=True, exist_ok=True)
+    _copiar_assets(destino)
+    _escrever_projeto(destino, "carrossel")
+    slides_pauta = pauta["slides"]
+    _escrever_dados(destino, {
+        "perfil": pauta["perfil"],
+        "slides": slides_pauta,
+        "icones": {},
+    })
+    secoes = "\n".join(
+        f'      <section id="s{i}" class="slide clip" data-start="{i - 1}" data-duration="1" data-track-index="0"></section>'
+        for i in range(1, len(slides_pauta) + 1)
+    )
+    modelo = (MODELOS / "pixel-carrossel.html.tpl").read_text(encoding="utf-8")
+    (destino / "index.html").write_text(
+        modelo.replace("{{DURACAO}}", str(len(slides_pauta))).replace("{{SLIDES}}", secoes), encoding="utf-8"
+    )
+    return len(slides_pauta)

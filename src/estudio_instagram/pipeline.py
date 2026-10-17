@@ -26,6 +26,8 @@ LIMITE_LEGENDA_INSTAGRAM = 2200
 # Formatos que geram só o Reels (sem carrossel) e o molde visual de cada um.
 MOLDES_SO_REELS = {"prompt": "prompt.html.tpl", "diagrama": "diagrama.html.tpl", "palito": "palito.html.tpl",
                    "repo": "repo.html.tpl"}
+# Formatos com Reels + carrossel próprio (os slides vêm da pauta, não de repositórios).
+MOLDES_COM_SLIDES = {"pixel": "pixel.html.tpl"}
 
 
 def montar_legenda(dados_pauta: dict, repos: dict) -> str:
@@ -53,16 +55,19 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
     trabalho = pasta_saida / "trabalho"
     repos = {item["repo"]: github_dados.buscar(item["repo"]) for item in dados_pauta["itens"]}
     # Cartão só serve ao carrossel; o molde "prompt" não tem carrossel, então nem baixa.
-    cartoes = {} if eh_prompt else {
+    cartoes = {} if (eh_prompt or formato in MOLDES_COM_SLIDES) else {
         r: github_dados.baixar_cartao(r, trabalho / "cartoes" / f"{r.replace('/', '_')}.png") for r in repos
     }
 
     voz = ElevenLabs(dados_pauta["voz"]["id"], dados_pauta["voz"]["modelo"], RAIZ / ".cache" / "voz")
-    modelo_reels = MOLDES_SO_REELS.get(formato, "reels.html.tpl")
+    modelo_reels = MOLDES_SO_REELS.get(formato) or MOLDES_COM_SLIDES.get(formato) or "reels.html.tpl"
     duracao = montagem.montar_reels(dados_pauta, repos, voz, trabalho / "reels", modelo=modelo_reels)
     video = render.renderizar_reels(trabalho / "reels", pasta_saida / "reels.mp4")
 
-    if not eh_prompt:
+    if formato in MOLDES_COM_SLIDES:
+        n_slides = montagem.montar_carrossel_pixel(dados_pauta, trabalho / "carrossel")
+        slides = render.renderizar_carrossel(trabalho / "carrossel", n_slides, pasta_saida / "carrossel")
+    elif not eh_prompt:
         n_slides = montagem.montar_carrossel(dados_pauta, repos, cartoes, trabalho / "carrossel")
         slides = render.renderizar_carrossel(trabalho / "carrossel", n_slides, pasta_saida / "carrossel")
     else:
