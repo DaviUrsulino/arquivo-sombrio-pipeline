@@ -17,8 +17,8 @@ import urllib.request
 from dataclasses import dataclass
 
 BASE = "https://graph.instagram.com/v22.0"
-TENTATIVAS_STATUS = 20
-INTERVALO_STATUS_S = 3
+TENTATIVAS_STATUS = 60
+INTERVALO_STATUS_S = 5
 
 
 @dataclass(frozen=True)
