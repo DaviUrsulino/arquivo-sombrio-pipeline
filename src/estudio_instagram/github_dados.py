@@ -50,7 +50,7 @@ def buscar_candidatos(consulta: str, minimo_estrelas: int = 50, limite: int = 15
                        i.get("description") or "", i["html_url"]) for i in itens]
 
 
-def baixar_cartao(repo: str, destino: Path, abrir=urllib.request.urlopen, tentativas: int = 4, dormir=time.sleep) -> Path:
+def baixar_cartao(repo: str, destino: Path, abrir=urllib.request.urlopen, tentativas: int = 6, dormir=time.sleep) -> Path:
     """Baixa o cartão de prévia do repositório (a imagem que o GitHub mostra ao compartilhar o link).
 
     O gerador de imagem do GitHub (opengraph.githubassets.com) tem limite de requisição por
@@ -68,4 +68,4 @@ def baixar_cartao(repo: str, destino: Path, abrir=urllib.request.urlopen, tentat
         except urllib.error.HTTPError as erro:
             if erro.code != 429 or tentativa == tentativas - 1:
                 raise
-            dormir(2 ** tentativa)
+            dormir(5 * 2 ** tentativa)

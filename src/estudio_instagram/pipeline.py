@@ -48,7 +48,10 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
 
     trabalho = pasta_saida / "trabalho"
     repos = {item["repo"]: github_dados.buscar(item["repo"]) for item in dados_pauta["itens"]}
-    cartoes = {r: github_dados.baixar_cartao(r, trabalho / "cartoes" / f"{r.replace('/', '_')}.png") for r in repos}
+    # Cartão só serve ao carrossel; o molde "prompt" não tem carrossel, então nem baixa.
+    cartoes = {} if eh_prompt else {
+        r: github_dados.baixar_cartao(r, trabalho / "cartoes" / f"{r.replace('/', '_')}.png") for r in repos
+    }
 
     voz = ElevenLabs(dados_pauta["voz"]["id"], dados_pauta["voz"]["modelo"], RAIZ / ".cache" / "voz")
     modelo_reels = "prompt.html.tpl" if eh_prompt else "reels.html.tpl"
