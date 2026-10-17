@@ -84,3 +84,35 @@ class InstagramGraph:
         self._esperar_pronto(criado["id"])
         publicado = self._pedir(f"{self.ig_user_id}/media_publish", {"creation_id": criado["id"]})
         return PostPublicado(publicado["id"])
+
+    def _ler(self, caminho: str, **consulta) -> dict:
+        consulta = {**consulta, "access_token": self.token}
+        pedido = urllib.request.Request(
+            f"{BASE}/{caminho}?{urllib.parse.urlencode(consulta)}",
+            headers={"User-Agent": "estudio-automatico/1.0"},
+        )
+        with self._abrir(pedido, timeout=30) as resposta:
+            return json.load(resposta)
+
+    def comentarios_recentes(self, quantas_midias: int = 10) -> list[dict]:
+        """Comentários das últimas mídias: id, texto, usuário e hora. Só olha mídia com comentário."""
+        midias = self._ler(f"{self.ig_user_id}/media", fields="id,comments_count", limit=quantas_midias)["data"]
+        comentarios = []
+        for midia in midias:
+            if not midia.get("comments_count"):
+                continue
+            achados = self._ler(f"{midia['id']}/comments", fields="id,text,username,timestamp", limit=50)
+            comentarios += [{**c, "midia_id": midia["id"]} for c in achados.get("data", [])]
+        return comentarios
+
+    def responder_comentario(self, comment_id: str, texto: str) -> dict:
+        """Resposta privada (DM) a um comentário. A Meta aceita uma por comentário, em até 7 dias."""
+        corpo = json.dumps({"recipient": {"comment_id": comment_id}, "message": {"text": texto}}).encode()
+        pedido = urllib.request.Request(
+            f"{BASE}/{self.ig_user_id}/messages?access_token={urllib.parse.quote(self.token)}",
+            data=corpo,
+            headers={"User-Agent": "estudio-automatico/1.0", "Content-Type": "application/json"},
+            method="POST",
+        )
+        with self._abrir(pedido, timeout=60) as resposta:
+            return json.load(resposta)

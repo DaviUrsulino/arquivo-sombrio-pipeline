@@ -1,0 +1,51 @@
+name: Instagram respondedor - manda o kit por DM para quem comenta a palavra-chave
+
+# Bot do "comenta PALAVRA": a cada ~10 minutos lê os comentários recentes e responde em DM
+# (resposta privada da Graph API) quem comentou uma palavra de pautas/bot_respostas.json.
+# O que já foi respondido fica em pautas/respostas_enviadas.json (a Meta só aceita uma
+# resposta privada por comentário, em até 7 dias). Minutos quebrados pelo mesmo motivo do
+# pipeline_dark.yml (evitar o pico do agendador).
+on:
+  schedule:
+    - cron: '4,14,24,34,44,54 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: instagram-respondedor
+  cancel-in-progress: false
+
+jobs:
+  responder:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instala dependências
+        run: pip install "python-dotenv>=1.0.0"
+
+      - name: Escreve os segredos no .env
+        env:
+          INSTAGRAM_GRAPH_TOKEN: ${{ secrets.INSTAGRAM_GRAPH_TOKEN }}
+          INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+        run: printf 'INSTAGRAM_GRAPH_TOKEN=%s\nINSTAGRAM_USER_ID=%s\n' "$INSTAGRAM_GRAPH_TOKEN" "$INSTAGRAM_USER_ID" > .env
+
+      - name: Responde os comentários novos
+        run: python -m src.estudio_instagram.respondedor
+
+      - name: Registra quem já recebeu
+        if: always()
+        run: |
+          git config user.name "estudio-automatico (bot)"
+          git config user.email "actions@github.com"
+          git add pautas/respostas_enviadas.json
+          git diff --cached --quiet && exit 0
+          git commit -m "chore: registra respostas enviadas pelo bot [skip ci]"
+          git pull --rebase
+          git push
