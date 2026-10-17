@@ -13,7 +13,7 @@ from .sincronia import normalizar
 CORES = {"laranja", "azul", "verde", "roxo", "vermelho", "amarelo", "branco"}
 TIPOS = {
     "numero", "texto", "icone", "etiqueta", "cabecalho", "lista", "fluxo", "cartao", "barra", "comparacao",
-    "destaque", "emoji", "card_prompt",
+    "destaque", "emoji", "card_prompt", "fluxo_icones", "selo", "personagem", "balao", "chips",
 }
 MARCADOR = re.compile(r"\{(estrelas:[\w.-]+/[\w.-]+|total_estrelas)\}")
 MAX_CARACTERES_NARRACAO = 1500
@@ -32,6 +32,7 @@ def _icones_do_elemento(elemento: dict) -> list[str]:
     for lado in ("esquerda", "direita"):
         if lado in elemento and "icone" in elemento[lado]:
             icones.append(elemento[lado]["icone"])
+    icones += [item["icone"] for item in elemento.get("itens", []) if isinstance(item, dict) and "icone" in item]
     return icones
 
 

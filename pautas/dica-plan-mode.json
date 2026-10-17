@@ -1,0 +1,133 @@
+{
+ "titulo": "Plan mode: o Claude planeja antes de editar",
+ "palavra_chave": "PLANO",
+ "perfil": "@robo.estagiario",
+ "voz": {
+  "id": "iP95p4xoKVk53GoZ742B",
+  "modelo": "eleven_multilingual_v2"
+ },
+ "capa": {
+  "subtitulo": "pare de deixar o claude code sair editando sem plano, use o plan mode"
+ },
+ "chamada": {
+  "pergunta": "quer meu prompt de planejamento?"
+ },
+ "itens": [],
+ "formato": "palito",
+ "cenas": [
+  {
+   "id": "1",
+   "cor": "vermelho",
+   "narracao": "Pare de deixar o Claude Code sair mexendo no seu projeto sem plano.",
+   "elementos": [
+    {
+     "tipo": "cabecalho",
+     "texto": "PARE DE DEIXAR\nELE SAIR\nEDITANDO",
+     "t": 0.1,
+     "ancora": "pare",
+     "cor": "vermelho",
+     "y": 150,
+     "tamanho": 128
+    },
+    {
+     "tipo": "personagem",
+     "pose": "aponta",
+     "t": 0.3,
+     "ancora": "claude",
+     "y": 600
+    }
+   ]
+  },
+  {
+   "id": "2",
+   "cor": "azul",
+   "narracao": "Digita barra plan antes do pedido. Ele só lê o projeto e escreve o plano, sem editar nada.",
+   "elementos": [
+    {
+     "tipo": "balao",
+     "estilo": "caixa",
+     "texto": "/plan",
+     "x": 300,
+     "y": 170,
+     "largura": 480,
+     "cor": "azul",
+     "t": 0.2,
+     "ancora": "plan",
+     "rot": -2
+    },
+    {
+     "tipo": "chips",
+     "itens": [
+      "lê o projeto",
+      "escreve o plano",
+      "edita: nada"
+     ],
+     "y": 690,
+     "ancoras": [
+      "lê",
+      "plano",
+      "nada"
+     ]
+    },
+    {
+     "tipo": "personagem",
+     "pose": "aponta",
+     "t": 0.2,
+     "ancora": "digita",
+     "y": 820
+    }
+   ]
+  },
+  {
+   "id": "3",
+   "cor": "verde",
+   "narracao": "Você revisa o plano, corrige o que não gostou, e só depois manda executar.",
+   "elementos": [
+    {
+     "tipo": "chips",
+     "itens": [
+      "revisa o plano",
+      "corrige",
+      "manda executar"
+     ],
+     "y": 720,
+     "ancoras": [
+      "revisa",
+      "corrige",
+      "executar"
+     ]
+    },
+    {
+     "tipo": "personagem",
+     "pose": "alivio",
+     "t": 0.1,
+     "ancora": "voce",
+     "y": 800
+    }
+   ]
+  },
+  {
+   "id": "4",
+   "cor": "verde",
+   "narracao": "Comenta PLANO que eu te mando meu prompt de planejamento.",
+   "elementos": [
+    {
+     "tipo": "cabecalho",
+     "texto": "COMENTA\nPLANO",
+     "t": 0.15,
+     "ancora": "plano",
+     "cor": "verde",
+     "y": 150,
+     "tamanho": 170
+    },
+    {
+     "tipo": "personagem",
+     "pose": "acena",
+     "t": 0.3,
+     "ancora": "mando",
+     "y": 620
+    }
+   ]
+  }
+ ]
+}

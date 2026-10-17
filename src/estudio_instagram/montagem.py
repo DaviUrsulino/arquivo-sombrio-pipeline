@@ -53,6 +53,7 @@ def _icones_usados(cenas: list[dict]) -> set[str]:
             for lado in ("esquerda", "direita"):
                 if lado in elemento:
                     usados.add(elemento[lado]["icone"])
+            usados.update(item["icone"] for item in elemento.get("itens", []) if isinstance(item, dict) and "icone" in item)
     return usados
 
 

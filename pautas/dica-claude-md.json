@@ -1,0 +1,140 @@
+{
+ "titulo": "Claude Code esquece tudo toda sessão",
+ "palavra_chave": "CLAUDE",
+ "perfil": "@robo.estagiario",
+ "voz": {
+  "id": "iP95p4xoKVk53GoZ742B",
+  "modelo": "eleven_multilingual_v2"
+ },
+ "capa": {
+  "subtitulo": "o claude code esquece tudo quando você fecha, e esse arquivo resolve"
+ },
+ "chamada": {
+  "pergunta": "quer um modelo pronto?"
+ },
+ "itens": [],
+ "formato": "diagrama",
+ "cenas": [
+  {
+   "id": "1",
+   "cor": "vermelho",
+   "narracao": "O Claude Code esquece tudo quando você fecha o terminal. Toda sessão começa do zero.",
+   "elementos": [
+    {
+     "tipo": "selo",
+     "texto": "DICA RÁPIDA",
+     "t": 0.1,
+     "ancora": "claude",
+     "y": 170
+    },
+    {
+     "tipo": "cabecalho",
+     "texto": "ELE ESQUECE\nTUDO",
+     "t": 0.3,
+     "ancora": "esquece",
+     "cor": "vermelho",
+     "y": 430,
+     "tamanho": 170
+    },
+    {
+     "tipo": "emoji",
+     "emoji": "🧠",
+     "t": 0.6,
+     "ancora": "zero",
+     "y": 1060
+    }
+   ]
+  },
+  {
+   "id": "2",
+   "cor": "azul",
+   "narracao": "A saída é um arquivo de regras na raiz do projeto, o CLAUDE ponto M D. Toda sessão começa lendo ele.",
+   "elementos": [
+    {
+     "tipo": "fluxo_icones",
+     "layout": "vertical",
+     "y": 260,
+     "ancoras": [
+      "arquivo",
+      "claude",
+      "sessao"
+     ],
+     "itens": [
+      {
+       "icone": "file-text",
+       "rotulo": "Arquivo de regras",
+       "cor": "amarelo"
+      },
+      {
+       "icone": "terminal",
+       "rotulo": "Toda sessão lê",
+       "cor": "azul"
+      },
+      {
+       "icone": "check",
+       "rotulo": "Já sabe tudo",
+       "cor": "verde"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "3",
+   "cor": "verde",
+   "narracao": "Pra criar o primeiro, digita init. Ele analisa seu projeto e escreve o arquivo pra você.",
+   "elementos": [
+    {
+     "tipo": "fluxo_icones",
+     "layout": "bifurca",
+     "y": 420,
+     "ancoras": [
+      "digita",
+      "analisa",
+      "escreve"
+     ],
+     "itens": [
+      {
+       "icone": "terminal",
+       "rotulo": "/init",
+       "cor": "branco"
+      },
+      {
+       "icone": "search",
+       "rotulo": "Analisa o\nprojeto",
+       "cor": "azul"
+      },
+      {
+       "icone": "file-text",
+       "rotulo": "Escreve o\narquivo",
+       "cor": "verde"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "4",
+   "cor": "verde",
+   "narracao": "Comenta CLAUDE que eu te mando um modelo pronto pra copiar.",
+   "elementos": [
+    {
+     "tipo": "cabecalho",
+     "texto": "COMENTA\nCLAUDE",
+     "t": 0.15,
+     "ancora": "claude",
+     "cor": "verde",
+     "y": 560,
+     "tamanho": 190
+    },
+    {
+     "tipo": "emoji",
+     "emoji": "👇",
+     "t": 0.6,
+     "ancora": "pronto",
+     "y": 1120
+    }
+   ]
+  }
+ ]
+}

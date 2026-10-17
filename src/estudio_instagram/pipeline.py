@@ -23,6 +23,8 @@ from .voz import ElevenLabs
 RAIZ = Path(__file__).resolve().parents[2]
 ICONES = {p.stem for p in (montagem.MODELOS / "assets" / "icons").glob("*.svg")}
 LIMITE_LEGENDA_INSTAGRAM = 2200
+# Formatos que geram só o Reels (sem carrossel) e o molde visual de cada um.
+MOLDES_SO_REELS = {"prompt": "prompt.html.tpl", "diagrama": "diagrama.html.tpl", "palito": "palito.html.tpl"}
 
 
 def montar_legenda(dados_pauta: dict, repos: dict) -> str:
@@ -44,7 +46,8 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
 
     # "prompt": molde sem lista de repositórios (ver modelos/prompt.html.tpl) — só Reels,
     # sem carrossel (o carrossel existe pra mostrar N itens, aqui só tem o prompt em si).
-    eh_prompt = dados_pauta.get("formato") == "prompt"
+    formato = dados_pauta.get("formato")
+    eh_prompt = formato in MOLDES_SO_REELS
 
     trabalho = pasta_saida / "trabalho"
     repos = {item["repo"]: github_dados.buscar(item["repo"]) for item in dados_pauta["itens"]}
@@ -54,7 +57,7 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
     }
 
     voz = ElevenLabs(dados_pauta["voz"]["id"], dados_pauta["voz"]["modelo"], RAIZ / ".cache" / "voz")
-    modelo_reels = "prompt.html.tpl" if eh_prompt else "reels.html.tpl"
+    modelo_reels = MOLDES_SO_REELS.get(formato, "reels.html.tpl")
     duracao = montagem.montar_reels(dados_pauta, repos, voz, trabalho / "reels", modelo=modelo_reels)
     video = render.renderizar_reels(trabalho / "reels", pasta_saida / "reels.mp4")
 
