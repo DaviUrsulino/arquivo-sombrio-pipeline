@@ -90,3 +90,28 @@ Leitura: o formato que mais rendeu é "um repositório do GitHub + cartão do re
 comentar". O robô já coleta dados do GitHub (estrelas, licença, cartão), então o ingrediente está
 no código. Falta um molde de Reels com o cartão do repositório em destaque e reaproveitar o mesmo
 repositório com ganchos e palavras diferentes.
+
+## Como os perfis monetizam e como funciona o "comenta PALAVRA" (2026-10-17)
+
+Pesquisa só em páginas públicas e documentação oficial. Não comentei em nenhum post nem entrei em
+nenhum funil.
+
+### Funil observado
+1. Reels com CTA `Comenta "PALAVRA"` (centenas de comentários só com a palavra).
+2. Um bot responde o comentário e manda DM com o material grátis ou o link.
+3. Link da bio leva ao produto:
+   - `oguiadaia` → página `superclaude.com.br/pv2`: "42 especialistas dentro do seu Claude",
+     R$ 47 pagamento único, "preço de lançamento", garantia de 7 dias.
+   - `lowcodepedro` → mentoria 1:1 de Claude Code por aplicação, serviço de edição de vídeo com IA,
+     agência de sistemas com IA, material gratuito e WhatsApp. Sem preço na página.
+   - Os outros perfis da lista seguem o mesmo padrão: aula gratuita, mentoria por aplicação ou grupo.
+
+### Como o bot funciona
+- É a "resposta privada a comentário" da API do Instagram, que é oficial. Endpoint
+  `POST <IG_ID>/messages`, campo de webhook `comments`.
+- Limites da documentação da Meta: a mensagem só pode sair em até 7 dias depois do comentário, só
+  uma mensagem por comentário, e mensagens seguintes só em até 24 horas se a pessoa responder.
+- Ferramentas prontas: ManyChat (plano grátis limitado a 25 contatos e 3 palavras-chave; pago a
+  partir de cerca de US$ 17 por mês), mais alternativas de US$ 10 a 15 por mês. Dá para fazer o
+  próprio bot com a Graph API que o robô já usa, só falta a permissão de mensagens e olhar os
+  comentários de tempos em tempos (não precisa de servidor de webhook).
