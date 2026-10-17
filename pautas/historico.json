@@ -10,10 +10,12 @@
     "NousResearch/hermes-agent",
     "Nutlope/hallmark",
     "Panniantong/Agent-Reach",
+    "QwenLM/qwen-code",
     "VoltAgent/awesome-agent-skills",
     "aaif-goose/goose",
     "addyosmani/agent-skills",
     "affaan-m/ECC",
+    "alirezarezvani/claude-skills",
     "anthropics/claude-plugins-official",
     "bytedance/deer-flow",
     "can1357/oh-my-pi",
@@ -24,6 +26,8 @@
     "farion1231/cc-switch",
     "headroomlabs-ai/headroom",
     "heygen-com/hyperframes",
+    "iOfficeAI/AionUi",
+    "jarrodwatts/claude-hud",
     "mattpocock/skills",
     "morluto/rea",
     "mukul975/Anthropic-Cybersecurity-Skills",
@@ -36,11 +40,12 @@
     "shareAI-lab/learn-claude-code",
     "stablyai/orca",
     "thedotmack/claude-mem",
+    "tirth8205/code-review-graph",
     "tt-a1i/archify",
     "virgiliojr94/book-to-skill",
     "wshobson/agents",
     "zarazhangrui/frontend-slides",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 7
+  "pautas_geradas": 8
 }
