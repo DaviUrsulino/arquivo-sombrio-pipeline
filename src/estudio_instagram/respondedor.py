@@ -73,7 +73,9 @@ def responder_novos(config: dict, enviadas: dict, ig, agora: datetime | None = N
         if not palavra:
             continue
         texto = config["palavras"][palavra]
-        registro = {"comentario_id": comentario["id"], "usuario": comentario.get("username"), "palavra": palavra}
+        # Só o id do comentário e a palavra: o arquivo vai pro repositório público (LGPD, RN-3), então
+        # nada que identifique a pessoa (nome de usuário, texto do comentário).
+        registro = {"comentario_id": comentario["id"], "palavra": palavra}
         if simular:
             feitos.append({**registro, "simulado": True})
             continue
