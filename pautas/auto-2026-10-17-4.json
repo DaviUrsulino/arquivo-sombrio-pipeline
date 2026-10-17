@@ -1,0 +1,137 @@
+{
+  "titulo": "kilocode — 2026-10-17",
+  "palavra_chave": "GITHUB",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "linha1": "A FERRAMENTA",
+    "linha2": "KILOCODE",
+    "subtitulo": "que pouca gente conhece ainda",
+    "selo": "★ {estrelas:Kilo-Org/kilocode} estrelas"
+  },
+  "chamada": {
+    "pergunta": "quer o link?",
+    "promessa": "que eu te mando no direct",
+    "rodape": "e segue pra mais ferramenta grátis de IA"
+  },
+  "itens": [
+    {
+      "repo": "Kilo-Org/kilocode",
+      "nome": "kilocode",
+      "cor": "roxo",
+      "promessa": "A ferramenta que pouca gente conhece ainda.",
+      "texto": "com {estrelas:Kilo-Org/kilocode} estrelas no GitHub"
+    }
+  ],
+  "cenas": [
+    {
+      "id": "gancho",
+      "cor": "roxo",
+      "narracao": "kilocode é a ferramenta que pouca gente conhece no Claude Code. Já são {estrelas:Kilo-Org/kilocode} estrelas no GitHub.",
+      "elementos": [
+        {
+          "tipo": "icone",
+          "icone": "brain",
+          "ancora": "kilocode",
+          "y": 540,
+          "tamanho": 240,
+          "cor": "roxo"
+        },
+        {
+          "tipo": "texto",
+          "texto": "kilocode",
+          "ancora": "kilocode",
+          "y": 860,
+          "grande": true
+        },
+        {
+          "tipo": "etiqueta",
+          "texto": "★ {estrelas:Kilo-Org/kilocode} estrelas",
+          "ancora": "estrelas",
+          "y": 1180,
+          "cor": "amarelo"
+        }
+      ]
+    },
+    {
+      "id": "oque",
+      "cor": "azul",
+      "narracao": "Ele resolve um problema real no seu dia a dia. Tem licença aberta, é mantido ativamente, e você instala em minutos.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "por que vale a pena",
+          "ancora": "resolve"
+        },
+        {
+          "tipo": "lista",
+          "itens": [
+            "licença aberta",
+            "mantido ativamente",
+            "instala rápido"
+          ],
+          "ancoras": [
+            "licença",
+            "mantido",
+            "instala"
+          ],
+          "y": 640
+        }
+      ]
+    },
+    {
+      "id": "prova",
+      "cor": "roxo",
+      "narracao": "E quem usa, recomenda: {estrelas:Kilo-Org/kilocode} estrelas no GitHub, sob licença MIT.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "a prova",
+          "ancora": "recomenda"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "kilocode",
+          "texto": "com {estrelas:Kilo-Org/kilocode} estrelas no GitHub",
+          "icone": "github",
+          "repo": "Kilo-Org/kilocode",
+          "ancora": "estrelas",
+          "y": 600,
+          "cor": "roxo"
+        }
+      ]
+    },
+    {
+      "id": "cta",
+      "cor": "laranja",
+      "narracao": "Quer o link? Comenta GITHUB aqui embaixo, que eu te mando no direct.",
+      "elementos": [
+        {
+          "tipo": "icone",
+          "icone": "message-circle",
+          "ancora": "Quer",
+          "y": 520,
+          "tamanho": 240,
+          "cor": "azul"
+        },
+        {
+          "tipo": "texto",
+          "texto": "quer o link?",
+          "ancora": "link",
+          "y": 820,
+          "grande": true
+        },
+        {
+          "tipo": "destaque",
+          "texto": "comenta GITHUB",
+          "ancora": "Comenta",
+          "y": 1040,
+          "cor": "amarelo"
+        }
+      ]
+    }
+  ]
+}

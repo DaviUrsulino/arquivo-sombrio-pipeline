@@ -5,6 +5,7 @@
     "Graphify-Labs/graphify",
     "JuliusBrussee/caveman",
     "K-Dense-AI/scientific-agent-skills",
+    "Kilo-Org/kilocode",
     "Leonxlnx/taste-skill",
     "LibreChat-AI/LibreChat",
     "NousResearch/hermes-agent",
@@ -47,5 +48,5 @@
     "zarazhangrui/frontend-slides",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 8
+  "pautas_geradas": 9
 }
