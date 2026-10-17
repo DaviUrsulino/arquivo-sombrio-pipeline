@@ -116,3 +116,39 @@ def test_cliente_lista_comentarios_so_de_midia_com_comentario():
     achados = InstagramGraph("tok", "user-9", abrir=abrir).comentarios_recentes()
     assert [c["id"] for c in achados] == ["c1"] and achados[0]["midia_id"] == "m1"
     assert len(pedidos) == 2
+
+
+def test_avisa_no_comentario_depois_da_dm_e_reveza_o_texto():
+    class IgComAviso(InstagramFalso):
+        publicos = []
+
+        def responder_publico(self, comment_id, texto):
+            self.publicos.append((comment_id, texto))
+
+    ig = IgComAviso([_c("c1", "CLAUDE"), _c("c2", "PLANO")])
+    config = {**CONFIG, "resposta_publica": ["a", "b"]}
+    responder_novos(config, {}, ig, AGORA)
+    assert len(ig.publicos) == 2 and ig.publicos[0][1] != ig.publicos[1][1]
+
+
+def test_falha_na_resposta_publica_nao_desfaz_a_dm():
+    class IgPublicoQuebrado(InstagramFalso):
+        def responder_publico(self, comment_id, texto):
+            raise urllib.error.HTTPError("u", 400, "ruim", {}, io.BytesIO(b"x"))
+
+    ig = IgPublicoQuebrado([_c("c1", "CLAUDE")])
+    enviadas = {}
+    responder_novos({**CONFIG, "resposta_publica": ["a"]}, enviadas, ig, AGORA)
+    assert ig.respostas == [("c1", "kit do claude")] and "c1" in enviadas
+
+
+def test_cliente_responde_publico_no_endpoint_de_replies():
+    pedidos = []
+
+    def abrir(pedido, timeout=None):
+        pedidos.append(pedido)
+        return RespostaFalsa(b'{"id": "r1"}')
+
+    InstagramGraph("tok", "user-9", abrir=abrir).responder_publico("c1", "oi")
+    assert pedidos[0].full_url == "https://graph.instagram.com/v22.0/c1/replies"
+    assert "message=oi" in pedidos[0].data.decode()

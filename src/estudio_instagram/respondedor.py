@@ -42,6 +42,20 @@ def palavra_encontrada(texto: str, palavras: dict[str, str]) -> str | None:
     return None
 
 
+def _avisar_no_comentario(config: dict, ig, comment_id: str, n: int):
+    """Resposta pública curta embaixo do comentário. Revezar o texto evita parecer spam.
+
+    Falhar aqui não pode desfazer a DM que já saiu, então só registra o erro.
+    """
+    avisos = config.get("resposta_publica") or []
+    if not avisos:
+        return
+    try:
+        ig.responder_publico(comment_id, avisos[n % len(avisos)])
+    except urllib.error.HTTPError as erro:
+        print(f"DM enviada, mas a resposta pública em {comment_id} falhou: HTTP {erro.code}")
+
+
 def responder_novos(config: dict, enviadas: dict, ig, agora: datetime | None = None, simular: bool = False) -> list[dict]:
     """Responde cada comentário novo com palavra-chave. Devolve o que foi (ou seria) respondido.
 
@@ -67,6 +81,7 @@ def responder_novos(config: dict, enviadas: dict, ig, agora: datetime | None = N
             ig.responder_comentario(comentario["id"], texto)
             enviadas[comentario["id"]] = {**registro, "enviado_em": agora.isoformat(timespec="seconds")}
             feitos.append(registro)
+            _avisar_no_comentario(config, ig, comentario["id"], len(enviadas))
         except urllib.error.HTTPError as erro:
             corpo = erro.read().decode(errors="replace")[:300]
             print(f"falhou ao responder {comentario['id']}: HTTP {erro.code} {corpo}")

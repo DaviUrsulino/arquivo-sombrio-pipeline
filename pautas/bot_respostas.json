@@ -1,6 +1,11 @@
 {
+  "resposta_publica": [
+    "Te mandei no direct! 📩",
+    "Mandei no seu direct 🚀",
+    "Enviei no direct, dá uma olhada! 📩"
+  ],
   "palavras": {
-    "CLAUDE": "Oi! Aqui está o kit grátis do @robo.estagiario: o modelo de CLAUDE.md e o prompt de planejamento (plan mode). Baixe o zip: https://github.com/DaviUrsulino/arquivo-sombrio-pipeline/releases/download/midia-publicacao/kit-robo-estagiario.zip",
-    "PLANO": "Oi! Aqui está o kit grátis do @robo.estagiario: o prompt de planejamento (plan mode) e o modelo de CLAUDE.md. Baixe o zip: https://github.com/DaviUrsulino/arquivo-sombrio-pipeline/releases/download/midia-publicacao/kit-robo-estagiario.zip"
+    "CLAUDE": "Oi! Aqui está o robo-estagiario.zip com o modelo de CLAUDE.md e o prompt de planejamento (plan mode): https://tinyurl.com/2bgkh263",
+    "PLANO": "Oi! Aqui está o robo-estagiario.zip com o prompt de planejamento (plan mode) e o modelo de CLAUDE.md: https://tinyurl.com/2bgkh263"
   }
 }

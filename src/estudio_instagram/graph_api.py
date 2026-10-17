@@ -116,3 +116,7 @@ class InstagramGraph:
         )
         with self._abrir(pedido, timeout=60) as resposta:
             return json.load(resposta)
+
+    def responder_publico(self, comment_id: str, texto: str) -> dict:
+        """Resposta pública embaixo do comentário (ex.: "te mandei no direct")."""
+        return self._pedir(f"{comment_id}/replies", {"message": texto})
