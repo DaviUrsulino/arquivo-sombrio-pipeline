@@ -18,7 +18,7 @@ from dotenv import load_dotenv
 
 from . import cenas_pixel, github_dados, hospedagem, montagem, pauta, render
 from .graph_api import InstagramGraph
-from .voz import ElevenLabs
+from .voz import EdgeTTS, ComReserva, ElevenLabs
 
 RAIZ = Path(__file__).resolve().parents[2]
 ICONES = {p.stem for p in (montagem.MODELOS / "assets" / "icons").glob("*.svg")}
@@ -74,7 +74,7 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
         r: github_dados.baixar_cartao(r, trabalho / "cartoes" / f"{r.replace('/', '_')}.png") for r in repos
     }
 
-    voz = ElevenLabs(dados_pauta["voz"]["id"], dados_pauta["voz"]["modelo"], RAIZ / ".cache" / "voz")
+    voz = ComReserva(ElevenLabs(dados_pauta["voz"]["id"], dados_pauta["voz"]["modelo"], RAIZ / ".cache" / "voz"), EdgeTTS())
     modelo_reels = MOLDES_SO_REELS.get(formato) or MOLDES_COM_SLIDES.get(formato) or "reels.html.tpl"
     duracao = montagem.montar_reels(dados_pauta, repos, voz, trabalho / "reels", modelo=modelo_reels)
     video = render.renderizar_reels(trabalho / "reels", pasta_saida / "reels.mp4")

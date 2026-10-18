@@ -83,3 +83,33 @@ def test_github_buscar_traduz_licenca(licenca, esperado):
 def test_github_baixar_cartao_grava_imagem(tmp_path):
     destino = github_dados.baixar_cartao("a/b", tmp_path / "x" / "a_b.png", abrir=AbridorFalso(b"PNG"))
     assert destino.read_bytes() == b"PNG"
+
+
+def test_com_reserva_usa_a_principal_quando_funciona():
+    from src.estudio_instagram.voz import ComReserva, Narracao
+
+    class Fixa:
+        def __init__(self, nome): self.nome, self.chamadas = nome, []
+        def sintetizar(self, t):
+            self.chamadas.append(t); return Narracao(self.nome.encode(), [])
+
+    p, r = Fixa("p"), Fixa("r")
+    voz = ComReserva(p, r); voz.preparar(["a", "b"])
+    assert voz.sintetizar("a").audio_pcm == b"p" and r.chamadas == []
+
+
+def test_com_reserva_troca_o_video_inteiro_se_a_cota_acaba_no_meio():
+    from src.estudio_instagram.voz import ComReserva, Narracao
+
+    class AcabaNaSegunda:
+        n = 0
+        def sintetizar(self, t):
+            self.n += 1
+            if self.n == 2: raise RuntimeError("quota_exceeded")
+            return Narracao(b"principal", [])
+
+    class Reserva:
+        def sintetizar(self, t): return Narracao(b"reserva", [])
+
+    voz = ComReserva(AcabaNaSegunda(), Reserva()); voz.preparar(["a", "b", "c"])
+    assert [voz.sintetizar(t).audio_pcm for t in "abc"] == [b"reserva"] * 3

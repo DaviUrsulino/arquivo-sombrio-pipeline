@@ -72,6 +72,9 @@ def montar_reels(
     estrelas = {r: d.estrelas for r, d in repos.items()}
     cenas = preencher(pauta["cenas"], estrelas)
 
+    if hasattr(voz, "preparar"):
+        voz.preparar([cena["narracao"] for cena in cenas])
+
     pcm_total = bytearray()
     silencio = bytes(int(TAXA_AMOSTRA * PAUSA_ENTRE_CENAS_S) * 2)
     cursor = 0.0

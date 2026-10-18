@@ -90,3 +90,62 @@ class ElevenLabs:
         alinhamento = dados["alignment"]
         palavras = palavras_do_alinhamento(alinhamento["characters"], alinhamento["character_start_times_seconds"])
         return Narracao(mp3_para_pcm(base64.b64decode(dados["audio_base64"])), palavras)
+
+
+class EdgeTTS:
+    """Voz reserva gratuita (vozes neurais do Edge), com tempo por palavra. Sem chave e sem cota.
+
+    Entra quando o ElevenLabs recusa por cota. Soa mais "assistente" que o ElevenLabs, mas nunca
+    deixa o cron sem post.
+    """
+
+    def __init__(self, voz: str = "pt-BR-AntonioNeural", ritmo: str = "+8%"):
+        self.voz = voz
+        self.ritmo = ritmo
+
+    def sintetizar(self, texto: str) -> Narracao:
+        import asyncio
+
+        import edge_tts  # só aqui: o job só instala quando precisa
+
+        async def _rodar():
+            comunicacao = edge_tts.Communicate(texto, self.voz, rate=self.ritmo, boundary="WordBoundary")
+            audio, palavras = bytearray(), []
+            async for evento in comunicacao.stream():
+                if evento["type"] == "audio":
+                    audio += evento["data"]
+                elif evento["type"] == "WordBoundary":
+                    palavras.append(PalavraNoTempo(round(evento["offset"] / 1e7, 3), evento["text"]))
+            return bytes(audio), palavras
+
+        mp3, palavras = asyncio.run(_rodar())
+        if not mp3 or not palavras:
+            raise RuntimeError("EdgeTTS não devolveu áudio ou tempos de palavra")
+        return Narracao(mp3_para_pcm(mp3), palavras)
+
+
+class ComReserva:
+    """Usa `principal`; se ele recusar (cota, chave), usa `reserva` para o vídeo INTEIRO.
+
+    `preparar` sintetiza todas as falas de uma vez antes de montar o vídeo. Assim, se a cota acabar
+    no meio, nenhuma fala sai com a voz principal e o vídeo não mistura duas vozes.
+    """
+
+    def __init__(self, principal: ProvedorDeVoz, reserva: ProvedorDeVoz):
+        self.principal = principal
+        self.reserva = reserva
+        self._prontas: dict[str, Narracao] = {}
+        self.usando_reserva = False
+
+    def preparar(self, textos: list[str]):
+        try:
+            self._prontas = {t: self.principal.sintetizar(t) for t in textos}
+        except RuntimeError as erro:
+            print(f"voz principal indisponível ({str(erro)[:160]}); usando a voz reserva")
+            self._prontas = {}
+            self.usando_reserva = True
+
+    def sintetizar(self, texto: str) -> Narracao:
+        if not self.usando_reserva and texto in self._prontas:
+            return self._prontas[texto]
+        return (self.reserva if self.usando_reserva else self.principal).sintetizar(texto)
