@@ -9,6 +9,7 @@ import hashlib
 import json
 import os
 import subprocess
+import urllib.error
 import urllib.request
 from dataclasses import dataclass
 from pathlib import Path
@@ -70,8 +71,13 @@ class ElevenLabs:
             data=json.dumps({"text": texto, "model_id": self.modelo, "language_code": "pt"}).encode(),
             headers={"xi-api-key": self._chave_api(), "Content-Type": "application/json"},
         )
-        with self._abrir(pedido, timeout=120) as resposta:
-            return json.load(resposta)
+        try:
+            with self._abrir(pedido, timeout=120) as resposta:
+                return json.load(resposta)
+        except urllib.error.HTTPError as erro:
+            # O ElevenLabs devolve 401 tanto para chave inválida quanto para cota esgotada; o motivo vem no corpo.
+            detalhe = erro.read().decode(errors="replace")[:300]
+            raise RuntimeError(f"ElevenLabs recusou (HTTP {erro.code}): {detalhe}") from erro
 
     def sintetizar(self, texto: str) -> Narracao:
         arquivo = self._arquivo_cache(texto)
