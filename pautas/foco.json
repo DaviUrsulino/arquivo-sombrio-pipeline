@@ -1,0 +1,17 @@
+{
+  "descricao": "Foco temporário dos posts pixel2: enquanto `restantes` > 0, a busca usa estes termos (tema que mais rendeu: vídeo e criação de conteúdo com IA). Cada pauta gerada desconta 1.",
+  "restantes": 6,
+  "minimo_estrelas": 200,
+  "buscas": [
+    "ai video generation",
+    "text to video open source",
+    "video editing agent claude",
+    "remotion video",
+    "automated video shorts ai",
+    "ai captions subtitles video",
+    "faceless video generator",
+    "video skill claude code",
+    "motion graphics code ai",
+    "ai video editor"
+  ]
+}

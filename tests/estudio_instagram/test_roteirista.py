@@ -88,3 +88,16 @@ def test_modelo_pode_recusar_ferramenta_de_risco_e_nao_tenta_de_novo():
     with pytest.raises(roteirista.Recusado, match="rodízio"):
         roteirista.gerar_pauta(DADOS, README, "LINK", ICONES, llm=llm)
     assert len(chamadas) == 1
+
+
+def test_foco_so_vale_enquanto_tem_restantes(tmp_path):
+    import json as _json
+
+    from src.estudio_instagram.escolher_pauta import gastar_foco, ler_foco
+
+    arq = tmp_path / "foco.json"
+    arq.write_text(_json.dumps({"restantes": 2, "buscas": ["ai video"]}))
+    assert ler_foco(arq)["buscas"] == ["ai video"]
+    gastar_foco(arq); gastar_foco(arq); gastar_foco(arq)
+    assert _json.loads(arq.read_text())["restantes"] == 0 and ler_foco(arq) is None
+    assert ler_foco(tmp_path / "nao_existe.json") is None

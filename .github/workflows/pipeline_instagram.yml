@@ -103,7 +103,7 @@ jobs:
         run: |
           git config user.name "estudio-automatico (bot)"
           git config user.email "actions@github.com"
-          git add pautas/historico.json pautas/links_por_post.json "${{ steps.pauta.outputs.arquivo }}"
+          git add pautas/historico.json pautas/links_por_post.json pautas/foco.json "${{ steps.pauta.outputs.arquivo }}"
           git diff --cached --quiet || git commit -m "chore: registra pauta ${{ steps.pauta.outputs.arquivo }} [skip ci]"
           git pull --rebase
           git push

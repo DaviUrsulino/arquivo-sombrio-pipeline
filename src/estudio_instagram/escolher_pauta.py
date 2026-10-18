@@ -59,14 +59,32 @@ def _candidatos(buscas: list[str], **filtro) -> list:
     return candidatos
 
 
-def pauta_pixel2(buscas: list[str], palavra_chave: str, dias_novidade: int = 120, llm=None) -> dict | None:
+FOCO = RAIZ / "pautas" / "foco.json"
+
+
+def ler_foco(arquivo: Path = FOCO) -> dict | None:
+    """Foco temporário de tema (pautas/foco.json). None quando não há foco ou ele já acabou."""
+    if not arquivo.exists():
+        return None
+    foco = json.loads(arquivo.read_text(encoding="utf-8"))
+    return foco if foco.get("restantes", 0) > 0 and foco.get("buscas") else None
+
+
+def gastar_foco(arquivo: Path = FOCO):
+    foco = json.loads(arquivo.read_text(encoding="utf-8"))
+    foco["restantes"] = max(0, foco.get("restantes", 0) - 1)
+    arquivo.write_text(json.dumps(foco, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def pauta_pixel2(buscas: list[str], palavra_chave: str, dias_novidade: int = 120, llm=None,
+                 minimo_estrelas: int = 300) -> dict | None:
     """Notícia de ferramenta: um repositório novo e inédito, roteiro escrito pelo LLM a partir do README.
 
     Devolve None se não achar candidato ou o LLM não passar na validação; quem chama cai no formato
     antigo, para o cron nunca ficar sem post.
     """
     desde = (date.today() - timedelta(days=dias_novidade)).isoformat()
-    candidatos = _candidatos(buscas, minimo_estrelas=300, criado_apos=desde) or _candidatos(buscas)
+    candidatos = _candidatos(buscas, minimo_estrelas=minimo_estrelas, criado_apos=desde) or _candidatos(buscas)
     icones = {p.stem for p in (montagem.MODELOS / "assets" / "icons").glob("*.svg")}
     for dados in selecao.escolher_repos(candidatos, quantidade=5):
         try:
@@ -83,8 +101,12 @@ def pauta_pixel2(buscas: list[str], palavra_chave: str, dias_novidade: int = 120
 def executar(buscas: list[str], quantidade: int, titulo: str | None, palavra_chave: str,
              estilo: str | None = None, formato: str | None = None) -> dict:
     if formato == "pixel2":
-        nova = pauta_pixel2(buscas, palavra_chave)
+        foco = ler_foco()
+        nova = (pauta_pixel2(foco["buscas"], palavra_chave, minimo_estrelas=foco.get("minimo_estrelas", 200)) if foco else None) \
+            or pauta_pixel2(buscas, palavra_chave)
         if nova:
+            if foco:
+                gastar_foco()
             return nova
         print("pixel2 não saiu; caindo no formato antigo")
         formato = None
