@@ -76,3 +76,15 @@ def test_visual_desconhecido_e_rejeitado():
 
 def test_extrair_json_aceita_cerca_de_markdown():
     assert extrair_json('```json\n{"a": {"b": 1}}\n```') == {"a": {"b": 1}}
+
+
+def test_modelo_pode_recusar_ferramenta_de_risco_e_nao_tenta_de_novo():
+    chamadas = []
+
+    def llm(sistema, usuario):
+        chamadas.append(1)
+        return {"recusar": True, "motivo": "faz rodízio de contas para burlar cota"}
+
+    with pytest.raises(roteirista.Recusado, match="rodízio"):
+        roteirista.gerar_pauta(DADOS, README, "LINK", ICONES, llm=llm)
+    assert len(chamadas) == 1

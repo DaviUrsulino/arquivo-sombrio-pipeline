@@ -23,6 +23,10 @@ MAX_README = 9000
 CORES_VALIDAS = pauta.CORES
 HUMORES = cenas_pixel.HUMORES
 
+class Recusado(ValueError):
+    """O modelo achou que a ferramenta não deve virar post (ver REGRAS DE RECUSA no prompt)."""
+
+
 SISTEMA = """Você é roteirista de Reels de 45 a 60 segundos de um perfil brasileiro de Instagram sobre ferramentas de IA para quem programa (@robo.estagiario). Tom: informativo, direto e curioso, como quem conta uma descoberta útil para um amigo.
 
 Você recebe DADOS REAIS de um repositório do GitHub e o README dele. REGRAS DE FATO (inegociáveis):
@@ -35,6 +39,8 @@ ESTILO DA NARRAÇÃO (é lida em voz alta):
 - Português do Brasil, frases curtas de 8 a 14 palavras, uma ideia por frase, sem "galera", sem emoji, sem hashtag.
 - Escreva siglas e comandos do jeito que se fala ("barra plan", "ponto md"), sem símbolos como / @ # *.
 - Nunca peça para comentar nem cite palavra-chave: o fecho é adicionado depois.
+
+REGRAS DE RECUSA: se a ferramenta (a) faz rodízio ou compartilhamento de contas, assinaturas ou chaves para contornar limite de uso ou cota de provedores, (b) burla ou viola termos de serviço de algum provedor, (c) rouba, extrai ou expõe credenciais, (d) é de ataque ou invasão, golpe, cripto especulativa ou conteúdo adulto, ou (e) o README não deixa claro o que ela faz, NÃO escreva roteiro. Responda só {"recusar": true, "motivo": "uma frase"}.
 
 ESTRUTURA: de 9 a 11 cenas. Cada cena = UMA frase falada + UM visual diferente do anterior.
 1. Gancho (visual titulo_pixel): curiosidade honesta ligada ao que a ferramenta tem de mais surpreendente de verdade.
@@ -166,6 +172,8 @@ def gerar_pauta(dados: DadosRepo, readme: str, palavra_chave: str, icones: set[s
     for _ in range(tentativas):
         pedido = usuario if not erros else usuario + "\n\nSUA RESPOSTA ANTERIOR TEVE ESTES PROBLEMAS, corrija todos:\n- " + "\n- ".join(erros)
         resposta = llm(sistema, pedido)
+        if resposta.get("recusar"):
+            raise Recusado(f"{dados.repo} recusado: {resposta.get('motivo', 'sem motivo')}")
         erros = _problemas_roteiro(resposta, dados, readme, icones)
         if not erros:
             nova = montar_pauta(resposta, dados, palavra_chave)
