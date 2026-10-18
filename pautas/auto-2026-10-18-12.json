@@ -1,0 +1,249 @@
+{
+  "titulo": "universal-modder: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "como agentes de ia criam mods para quase qualquer jogo de pc"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "rehan-remade/universal-modder",
+      "nome": "universal-modder",
+      "cor": "azul",
+      "promessa": "Point Claude at any game. Skills, tools and the fal MCP that let Claude Code mod",
+      "texto": "Point Claude at any game. Skills, tools and the fal MCP that let Claude Code mod almost any PC game you own: recon, reve"
+    }
+  ],
+  "destaques": [
+    "universal modder",
+    "claude code",
+    "mods",
+    "fal",
+    "jogos",
+    "python",
+    "git",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "E se você pudesse mandar uma inteligência artificial criar mods para os seus jogos?",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "IA CRIA MODS",
+            "cor": "branco",
+            "tamanho": 130
+          },
+          {
+            "texto": "PARA JOGOS",
+            "cor": "laranja",
+            "tamanho": 130
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O repositório Universal Modder já soma {estrelas:rehan-remade/universal-modder} no GitHub com essa proposta.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "contador",
+        "repo": "rehan-remade/universal-modder"
+      }
+    },
+    {
+      "narracao": "Ele reúne ferramentas e instruções para agentes modificarem jogos de computador quase sozinhos.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "bot",
+        "cor": "azul",
+        "rotulo": "MODDER COM IA"
+      }
+    },
+    {
+      "narracao": "O pacote funciona direto no Claude Code, no Codex, Cursor e Gemini CLI.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Claude Code",
+          "Codex",
+          "Cursor",
+          "Gemini CLI"
+        ]
+      }
+    },
+    {
+      "narracao": "O agente analisa o jogo, lê o código real e cria a modificação.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "search",
+            "rotulo": "Reconhece",
+            "cor": "azul"
+          },
+          {
+            "icone": "code-xml",
+            "rotulo": "Codigo",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "zap",
+            "rotulo": "Cria mod",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Ele usa a plataforma fal para gerar sprites, modelos tridimensionais, sons e texturas.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "palette",
+        "cor": "roxo",
+        "rotulo": "ASSETS COM FAL"
+      }
+    },
+    {
+      "narracao": "Os agentes também consultam e gravam notas técnicas sobre o motor de cada jogo.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "um kb search \"grand theft auto\"",
+        "texto": "pesquisa notas tecnicas"
+      }
+    },
+    {
+      "narracao": "Para executar todo o processo, você só precisa de Git, Python e ffmpeg.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Git",
+          "Python 3.10+",
+          "ffmpeg",
+          "Chave fal.ai"
+        ]
+      }
+    },
+    {
+      "narracao": "A ferramenta de linha de comando pode ser instalada diretamente através do uv.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "uv tool install git+https://github.com/rehan-remade/universal-modder",
+        "texto": "instala a CLI um"
+      }
+    },
+    {
+      "narracao": "O projeto é totalmente de código aberto e está registrado sob licença MIT.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "banner_repo",
+        "url": "github.com/rehan-remade/universal-modder"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "IA CRIA MODS",
+          "cor": "branco",
+          "tamanho": 110
+        },
+        {
+          "texto": "PARA JOGOS",
+          "cor": "laranja",
+          "tamanho": 110
+        }
+      ],
+      "subtitulo": "conheça o universal modder"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "MODS COM IA",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "o que e",
+      "texto": "Habilidades e ferramentas para agentes de IA criarem modificações em jogos de PC. Funciona com Claude Code, Codex e outros agentes."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "INSTALAR CLI",
+          "cor": "verde"
+        }
+      ],
+      "comando": "uv tool install git+https://github.com/rehan-remade/universal-modder",
+      "texto": "instala a CLI um no sistema",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "FLUXO COMPLETO",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "como funciona",
+      "texto": "O agente analisa o executável, lê o código real, gera texturas e modelos com fal e testa no jogo."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "REQUISITOS",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "requisitos",
+      "texto": "Exige Python 3.10 ou superior, Git e ffmpeg. O projeto e distribuido sob licenca MIT."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK"
+    }
+  ]
+}
