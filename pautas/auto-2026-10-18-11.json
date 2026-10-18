@@ -1,0 +1,240 @@
+{
+  "titulo": "genoffice: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "uma suíte de escritório de código aberto com inteligência artificial integrada"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "genspark-ai/genoffice",
+      "nome": "genoffice",
+      "cor": "azul",
+      "promessa": "Free, open-source AI Office suite: Docs, Sheets, Slides, PDF, Markdown and HTML ",
+      "texto": "Free, open-source AI Office suite: Docs, Sheets, Slides, PDF, Markdown and HTML editors with a built-in AI agent, plus a"
+    }
+  ],
+  "destaques": [
+    "genoffice",
+    "office",
+    "word",
+    "excel",
+    "planilhas",
+    "cursor",
+    "local",
+    "agentes",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Uma suíte de escritório inteira de código aberto com inteligência artificial integrada direto nos arquivos.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "OFFICE COM IA",
+            "cor": "laranja",
+            "tamanho": 120
+          },
+          {
+            "texto": "OPEN SOURCE",
+            "cor": "branco",
+            "tamanho": 110
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto GenOffice já acumula {estrelas:genspark-ai/genoffice} estrelas no GitHub.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "genspark-ai/genoffice"
+      }
+    },
+    {
+      "narracao": "Ele abre e salva arquivos reais de Word, Excel, PowerPoint e também edita PDFs.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Word e Excel",
+          "PowerPoint",
+          "PDF e Markdown",
+          "Editor de HTML"
+        ]
+      }
+    },
+    {
+      "narracao": "As alterações preservam os bytes originais e geram revisões no estilo do Word.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "file-text",
+        "cor": "azul",
+        "rotulo": "CONTROLE DE MUDANCAS"
+      }
+    },
+    {
+      "narracao": "No editor de planilhas, a inteligência artificial cria fórmulas vivas em vez de números colados.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "message-circle",
+            "rotulo": "Comando",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "zap",
+            "rotulo": "GenOffice",
+            "cor": "azul"
+          },
+          {
+            "icone": "list-checks",
+            "rotulo": "Formulas",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Toda conversão de documentos roda localmente na sua máquina sem enviar arquivos para fora.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "shield-check",
+        "cor": "verde",
+        "rotulo": "PROCESSAMENTO LOCAL"
+      }
+    },
+    {
+      "narracao": "A ferramenta traz uma linha de comando para agentes como Claude Code e Cursor.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "genoffice",
+        "texto": "skill para agentes"
+      }
+    },
+    {
+      "narracao": "Dá para usar sua própria chave da OpenAI, Claude, DeepSeek ou modelos locais compatíveis.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Chave propria",
+          "OpenAI e Claude",
+          "DeepSeek e Gemini",
+          "Servidores locais"
+        ]
+      }
+    },
+    {
+      "narracao": "O aplicativo roda em macOS, Windows e Linux sob a licença Apache dois ponto zero.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "banner_repo",
+        "url": "github.com/genspark-ai/genoffice"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "SUÍTE OFFICE",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "COM IA NATIVA",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o genoffice"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "OFFICE OPEN SOURCE",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "genoffice",
+      "texto": "Alternativa de código aberto ao Microsoft Office com inteligência artificial integrada. Abre e salva arquivos reais em docx, xlsx e pptx."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "CLI PARA AGENTES",
+          "cor": "verde"
+        }
+      ],
+      "comando": "genoffice",
+      "texto": "Linha de comando e skill para Claude Code, Codex e Cursor editarem arquivos locais.",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "FÓRMULAS VIVAS",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "recursos",
+      "texto": "Cria planilhas com fórmulas reais e gráficos com histórico de alterações. Converte PDFs para Word direto no seu dispositivo."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "CHAVES E SISTEMAS",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "licença",
+      "texto": "Funciona em macOS, Windows e Linux sob licença Apache 2.0. Permite usar sua própria chave de IA ou servidores locais."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK"
+    }
+  ]
+}
