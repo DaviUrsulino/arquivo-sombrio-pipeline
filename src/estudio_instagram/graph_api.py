@@ -12,6 +12,7 @@ depois um container pai referenciando os filhos, espera, publica.
 
 import json
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from dataclasses import dataclass
@@ -41,8 +42,12 @@ class InstagramGraph:
             headers={"User-Agent": "estudio-automatico/1.0"},
             method="POST",
         )
-        with self._abrir(pedido, timeout=60) as resposta:
-            return json.load(resposta)
+        try:
+            with self._abrir(pedido, timeout=60) as resposta:
+                return json.load(resposta)
+        except urllib.error.HTTPError as erro:
+            detalhe = erro.read().decode(errors="replace")[:400].replace(self.token, "[token]")
+            raise RuntimeError(f"Instagram recusou {caminho} (HTTP {erro.code}): {detalhe}") from erro
 
     def _status(self, creation_id: str) -> str:
         pedido = urllib.request.Request(
