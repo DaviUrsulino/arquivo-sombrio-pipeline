@@ -170,7 +170,10 @@ class ComReserva:
 
     def preparar(self, textos: list[str]):
         try:
-            self._prontas = {t: self.principal.sintetizar(t) for t in textos}
+            if hasattr(self.principal, "sintetizar_varios"):
+                self._prontas = self.principal.sintetizar_varios(textos)
+            else:
+                self._prontas = {t: self.principal.sintetizar(t) for t in textos}
         except RuntimeError as erro:
             print(f"voz principal indisponível ({str(erro)[:160]}); usando a voz reserva")
             self._prontas = {}
@@ -245,17 +248,29 @@ class GeminiTTS:
                 self._esperar(3)
         raise RuntimeError(f"Gemini TTS recusou: {ultimo}")
 
+    def _pcm(self, texto: str) -> bytes:
+        arquivo = self._arquivo_cache(texto)
+        if arquivo and arquivo.exists():
+            return arquivo.read_bytes()
+        pcm = self._pedir_pcm(texto)
+        if arquivo:
+            arquivo.parent.mkdir(parents=True, exist_ok=True)
+            arquivo.write_bytes(pcm)
+        return pcm
+
     def sintetizar(self, texto: str) -> Narracao:
         from .alinhamento import alinhar, aparar
 
-        arquivo = self._arquivo_cache(texto)
-        if arquivo and arquivo.exists():
-            pcm = arquivo.read_bytes()
-        else:
-            pcm = self._pedir_pcm(texto)
-            if arquivo:
-                arquivo.parent.mkdir(parents=True, exist_ok=True)
-                arquivo.write_bytes(pcm)
-        pcm, _ = aparar(pcm)
-        palavras = alinhar(texto, pcm)
-        return Narracao(pcm, palavras)
+        pcm, _ = aparar(self._pcm(texto))
+        return Narracao(pcm, alinhar(texto, pcm))
+
+    def sintetizar_varios(self, textos: list[str]) -> dict[str, Narracao]:
+        """Um único pedido para o vídeo inteiro (o plano grátis só aguenta poucos pedidos por dia).
+
+        Fala tudo junto, o que também deixa a entonação mais natural, e corta nas pausas entre as frases.
+        """
+        from .alinhamento import aparar, cortar_em_cenas
+
+        pcm, _ = aparar(self._pcm(" ".join(textos)))
+        fatias = cortar_em_cenas(textos, pcm)
+        return {texto: Narracao(fatia, palavras) for texto, (fatia, palavras) in zip(textos, fatias)}

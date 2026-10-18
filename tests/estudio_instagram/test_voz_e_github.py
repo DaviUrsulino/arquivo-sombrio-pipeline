@@ -189,3 +189,30 @@ def test_gemini_tts_desiste_com_erro_claro_se_nao_for_limite():
 
     with _pytest.raises(RuntimeError, match="Gemini TTS recusou"):
         GeminiTTS("Orus", chave="x", abrir=abrir, esperar=lambda s: None).sintetizar("oi")
+
+
+def test_cortar_em_cenas_divide_a_narracao_unica_na_pausa_entre_frases():
+    from src.estudio_instagram.alinhamento import aparar, cortar_em_cenas
+
+    pcm, _ = aparar(_pcm_com_fala_e_pausas())
+    cenas = cortar_em_cenas(["um dois três.", "quatro cinco seis."], pcm)
+    assert len(cenas) == 2
+    (a1, p1), (a2, p2) = cenas
+    assert [p.palavra for p in p1] == ["um", "dois", "três."] and [p.palavra for p in p2] == ["quatro", "cinco", "seis."]
+    assert abs(len(a1) / 2 / 24000 - 1.15) < 0.25 and abs(len(a2) / 2 / 24000 - 1.15) < 0.35  # ~1 s de fala cada
+    assert p2[0].t < 0.2  # a segunda cena começa colada na fatia dela
+
+
+def test_com_reserva_usa_pedido_unico_quando_o_provedor_sabe():
+    from src.estudio_instagram.voz import ComReserva, Narracao
+
+    class EmLote:
+        chamadas = 0
+        def sintetizar_varios(self, textos):
+            EmLote.chamadas += 1
+            return {t: Narracao(b"x", []) for t in textos}
+        def sintetizar(self, t): raise AssertionError("não devia chamar uma a uma")
+
+    voz = ComReserva(EmLote(), EmLote())
+    voz.preparar(["a", "b", "c"])
+    assert EmLote.chamadas == 1 and voz.sintetizar("b").audio_pcm == b"x"
