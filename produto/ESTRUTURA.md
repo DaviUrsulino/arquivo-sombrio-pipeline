@@ -1,4 +1,4 @@
-# Produto: Kit Claude Code (R$ 27)
+# Produto: Kit Claude Code (R$ 17)
 
 Documento de planejamento. O produto em si está em `kit-claude-code/` e o texto de venda em
 `PAGINA-DE-VENDA.md`.
@@ -47,7 +47,7 @@ Documento de planejamento. O produto em si está em `kit-claude-code/` e o texto
 ## 4. Preço e funil
 
 - **Grátis (já no ar):** `robo-estagiario.zip` com 1 modelo e 1 prompt de planejamento.
-- **Pago:** este kit, **R$ 27**, pagamento único. Preço de entrada por ser perfil novo; o concorrente
+- **Pago:** este kit, **R$ 17** (decisão do Davi em 2026-10-18; antes pensado R$ 27), pagamento único. Preço de entrada por ser perfil novo; o concorrente
   mais próximo cobra R$ 47. Subir depois de ter prova social.
 - **Ponte:** uma linha no `LEIA-ME` do grátis apontando para o kit completo.
 - **Plataforma de pagamento:** a escolher pelo Davi (exige conta e CPF dele).

@@ -43,7 +43,7 @@ testados e checklists curtos.
 
 ### Investimento
 
-**R$ 27**, pagamento único, acesso imediato. Atualizações da versão 1 incluídas.
+**R$ 17**, pagamento único, acesso imediato. Atualizações da versão 1 incluídas.
 
 [Garantia: 7 dias para pedir o dinheiro de volta, conforme o direito de arrependimento em compras
 online do Código de Defesa do Consumidor. Confirmar a política da plataforma escolhida.]
