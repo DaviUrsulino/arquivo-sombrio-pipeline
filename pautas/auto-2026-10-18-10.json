@@ -1,0 +1,268 @@
+{
+  "titulo": "Trail-Code: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "um mapa de contexto e histórico para agentes de programação"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "trailhq/Trail-Code",
+      "nome": "Trail-Code",
+      "cor": "azul",
+      "promessa": "Turbocharge Claude Code, Cursor, Codex, Gemini & every coding agent: faster, che",
+      "texto": "Turbocharge Claude Code, Cursor, Codex, Gemini & every coding agent: faster, cheaper, with contextual understanding spec"
+    }
+  ],
+  "destaques": [
+    "trail code",
+    "contexto",
+    "agentes",
+    "mapa",
+    "tree sitter",
+    "claude code",
+    "cursor",
+    "mit",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Seu agente de código começa toda tarefa procurando arquivos do zero às cegas.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "AGENTE",
+            "cor": "laranja",
+            "tamanho": 140
+          },
+          {
+            "texto": "ÀS CEGAS?",
+            "cor": "branco",
+            "tamanho": 130
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O Trail Code já reúne {estrelas:trailhq/Trail-Code} com uma solução direta para isso.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "contador",
+        "repo": "trailhq/Trail-Code"
+      }
+    },
+    {
+      "narracao": "A ferramenta gera um índice completo de cada função e quem chama quem.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "code-xml",
+            "rotulo": "Funções",
+            "cor": "azul"
+          },
+          {
+            "icone": "zap",
+            "rotulo": "Trail",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "bot",
+            "rotulo": "Agente",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O mapa usa tree-sitter direto na sua máquina em vinte e três linguagens.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "23 linguagens",
+          "Sem embeddings",
+          "Roda local"
+        ]
+      }
+    },
+    {
+      "narracao": "Ele também guarda decisões do time em arquivos legíveis na pasta ponto trail.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "file-text",
+        "cor": "verde",
+        "rotulo": "MEMÓRIA EM TEXTO"
+      }
+    },
+    {
+      "narracao": "Assim o agente evita buscas repetidas e descobre o impacto de cada alteração.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "comparar",
+        "esq": {
+          "titulo": "SEM MAPA",
+          "icone": "search-x",
+          "cor": "vermelho",
+          "linhas": [
+            {
+              "rotulo": "buscas cegas",
+              "valor": 8
+            }
+          ]
+        },
+        "dir": {
+          "titulo": "COM TRAIL",
+          "icone": "shield-check",
+          "cor": "verde",
+          "linhas": [
+            {
+              "rotulo": "foco exato",
+              "valor": 8
+            }
+          ]
+        }
+      }
+    },
+    {
+      "narracao": "Para instalar e começar no projeto, execute npm install global e trail init.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "npm install -g @trailhq/trail-code && trail init",
+        "texto": "instala o cli e gera o mapa do repositorio"
+      }
+    },
+    {
+      "narracao": "O sistema conecta com Claude Code, Cursor e outros agentes através de MCP.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Claude Code",
+          "Cursor",
+          "Codex",
+          "Gemini"
+        ]
+      }
+    },
+    {
+      "narracao": "O repositório é de código aberto sob licença MIT e não exige servidor.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "shield-check",
+        "cor": "amarelo",
+        "rotulo": "LICENÇA MIT"
+      }
+    },
+    {
+      "narracao": "Você encontra todos os detalhes no GitHub oficial do Trail Code.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "banner_repo",
+        "url": "github.com/trailhq/Trail-Code"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "MAPA DE CÓDIGO",
+          "cor": "branco",
+          "tamanho": 100
+        },
+        {
+          "texto": "PARA AGENTES",
+          "cor": "laranja",
+          "tamanho": 95
+        }
+      ],
+      "subtitulo": "conheça o trail-code"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "INDEXADOR LOCAL",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "trail-code",
+      "texto": "Cria um mapa de símbolos e chamadores no seu repositório sem usar modelos externos. Guarda aprendizados e decisões da equipe em arquivos de texto."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMANDO",
+          "cor": "verde"
+        }
+      ],
+      "comando": "npm install -g @trailhq/trail-code && trail init",
+      "texto": "Configura os agentes e inicializa a pasta ponto trail.",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "NA PRÁTICA",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "benefício",
+      "texto": "O agente recebe arquivos e dependências exatas a cada prompt. Mostra o raio de impacto logo após a edição de um arquivo."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "OPEN SOURCE",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "licença",
+      "texto": "Licença MIT com suporte a 23 linguagens via tree-sitter. Tudo roda localmente sem exigir servidores ou bancos em segundo plano."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK"
+    }
+  ]
+}

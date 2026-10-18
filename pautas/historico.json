@@ -54,6 +54,7 @@
     "stablyai/orca",
     "thedotmack/claude-mem",
     "tirth8205/code-review-graph",
+    "trailhq/Trail-Code",
     "tt-a1i/archify",
     "virgiliojr94/book-to-skill",
     "wshobson/agents",
@@ -61,5 +62,5 @@
     "zarazhangrui/frontend-slides",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 14
+  "pautas_geradas": 15
 }
