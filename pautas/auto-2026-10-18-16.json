@@ -1,0 +1,202 @@
+{
+  "titulo": "Venda 4: do zero ao vídeo em 3 passos",
+  "formato": "pixel2",
+  "palavra_chave": "BIO",
+  "fecho_proprio": true,
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "do roteiro ao vídeo em 3 passos"
+  },
+  "chamada": {
+    "pergunta": "quer aprender?"
+  },
+  "itens": [],
+  "destaques": [
+    "roteiro",
+    "voz",
+    "script",
+    "pack"
+  ],
+  "legenda": "Do roteiro ao vídeo pronto em 3 passos, com o Pack Pixel (R$ 27): escreve o roteiro, grava a voz, roda o script. Link na bio.\n\n#claudecode #ia #reels #automacao",
+  "cenas_roteiro": [
+    {
+      "humor": "animado",
+      "narracao": "Do roteiro ao vídeo pronto em três passos.",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "DO ZERO",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "AO VÍDEO",
+            "cor": "laranja",
+            "tamanho": 130
+          },
+          {
+            "texto": "EM 3 PASSOS",
+            "cor": "amarelo",
+            "tamanho": 110
+          }
+        ]
+      }
+    },
+    {
+      "humor": "normal",
+      "narracao": "Primeiro, peça o roteiro ao Claude com o prompt que vem no pack.",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "claude",
+        "comando": "> escreva o roteiro de um Reels sobre...",
+        "texto": "o prompt já vem pronto no pack"
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Segundo, grave a narração lendo as frases na ordem, com uma pausa entre elas.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "message-circle",
+        "cor": "amarelo",
+        "rotulo": "GRAVE A NARRAÇÃO"
+      }
+    },
+    {
+      "humor": "pensando",
+      "narracao": "Terceiro, rode o script com o roteiro e o áudio.",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "python3 montar.py roteiro.json --audio voz.mp3 --renderizar",
+        "texto": "o vídeo sai em MP4"
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Funciona com Python, Node e ffmpeg instalados, e o script não usa nada pago.",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Python 3.9+",
+          "Node 22+",
+          "ffmpeg"
+        ]
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "O pack Pixel custa vinte e sete reais.",
+      "visual": {
+        "tipo": "contador",
+        "valor": 27,
+        "formato": "cheio",
+        "rotulo": "REAIS"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Quer fazer igual? O link está na bio.",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "LINK NA",
+            "cor": "branco",
+            "tamanho": 130
+          },
+          {
+            "texto": "BIO",
+            "cor": "verde",
+            "tamanho": 140
+          }
+        ]
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "DO ZERO",
+          "cor": "branco",
+          "tamanho": 112
+        },
+        {
+          "texto": "AO VÍDEO",
+          "cor": "laranja",
+          "tamanho": 112
+        },
+        {
+          "texto": "EM 3 PASSOS",
+          "cor": "amarelo",
+          "tamanho": 100
+        }
+      ],
+      "subtitulo": "com o pack pixel"
+    },
+    {
+      "tipo": "comando",
+      "fase": "PASSO 1",
+      "progresso": 0.33,
+      "linhas": [
+        {
+          "texto": "O ROTEIRO",
+          "cor": "azul"
+        }
+      ],
+      "comando": "> escreva o roteiro...",
+      "texto": "Use o prompt do pack no Claude.",
+      "rotulo": "claude"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "PASSO 2",
+      "progresso": 0.66,
+      "linhas": [
+        {
+          "texto": "A NARRAÇÃO",
+          "cor": "verde"
+        }
+      ],
+      "rotulo": "voz",
+      "texto": "Leia as frases na ordem, com uma pausa curta entre elas. É nela que o script corta as cenas."
+    },
+    {
+      "tipo": "comando",
+      "fase": "PASSO 3",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "O VÍDEO",
+          "cor": "amarelo"
+        }
+      ],
+      "comando": "python3 montar.py roteiro.json --audio voz.mp3 --renderizar",
+      "texto": "Sai um MP4 vertical.",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER FAZER",
+          "cor": "branco"
+        },
+        {
+          "texto": "IGUAL?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Pack Pixel R$ 27",
+      "selo": "LINK NA BIO",
+      "palavra": "BIO"
+    }
+  ]
+}
