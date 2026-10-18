@@ -1,0 +1,60 @@
+{
+ "titulo": "Exemplo curto de dica",
+ "destaques": [
+  "terminal",
+  "atalho"
+ ],
+ "cenas": [
+  {
+   "humor": "animado",
+   "narracao": "Um atalho que economiza tempo no terminal todos os dias.",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {
+      "texto": "ATALHO QUE",
+      "cor": "branco",
+      "tamanho": 120
+     },
+     {
+      "texto": "POUPA TEMPO",
+      "cor": "laranja",
+      "tamanho": 120
+     }
+    ]
+   }
+  },
+  {
+   "humor": "normal",
+   "narracao": "Em vez de digitar o comando inteiro de novo, repita o último com duas exclamações.",
+   "visual": {
+    "tipo": "terminal",
+    "rotulo": "bash",
+    "comando": "sudo !!",
+    "texto": "repete o último comando com sudo"
+   }
+  },
+  {
+   "humor": "feliz",
+   "narracao": "Funciona no bash e no zsh, e serve para qualquer comando que deu permissão negada.",
+   "visual": {
+    "tipo": "lista",
+    "itens": [
+     "bash",
+     "zsh",
+     "qualquer comando"
+    ]
+   }
+  },
+  {
+   "humor": "animado",
+   "narracao": "Salva pra não esquecer.",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "star",
+    "cor": "amarelo",
+    "rotulo": "SALVA ESSE"
+   }
+  }
+ ]
+}

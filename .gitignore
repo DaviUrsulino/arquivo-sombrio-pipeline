@@ -21,3 +21,10 @@ roteiro*.json
 
 # cache de narração (ElevenLabs) e saídas do canal Instagram
 .cache/
+
+# pack de venda: dependências baixadas pelo montar.py e saídas geradas
+produto/pack-pixel/node_modules/
+produto/pack-pixel/package.json
+produto/pack-pixel/package-lock.json
+produto/pack-pixel/saida/
+produto/pack-pixel/__pycache__/

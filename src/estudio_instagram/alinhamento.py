@@ -166,20 +166,17 @@ def alinhar(texto: str, pcm: bytes) -> list[PalavraNoTempo]:
     return saida
 
 
-def cortar_em_cenas(textos: list[str], pcm: bytes) -> list[tuple[bytes, list[PalavraNoTempo]]]:
-    """Divide uma narração única em uma fatia de áudio por cena, cortando no meio da pausa entre frases.
+def cortes_de_cena(textos: list[str], pcm: bytes) -> tuple[list[float], list[PalavraNoTempo]]:
+    """Segundos em que cada cena começa (mais o fim do áudio, no fim da lista) e as palavras com tempo.
 
-    `textos` são as falas de cada cena, na ordem em que foram faladas juntas. Devolve, para cada cena,
-    (áudio da cena, palavras com tempo contado do começo da fatia).
+    Corta no meio da pausa mais próxima do começo estimado de cada cena; sem pausa por perto, um pouco
+    antes da primeira palavra da cena.
     """
-    completo = " ".join(textos)
-    palavras = alinhar(completo, pcm)
-    contagens = [len(t.split()) for t in textos]
+    palavras = alinhar(" ".join(textos), pcm)
     a = analisar(pcm)
     total_s = len(pcm) / 2 / TAXA
-    # início estimado de cada cena (tempo da primeira palavra dela)
     inicios, i = [], 0
-    for n in contagens:
+    for n in (len(t.split()) for t in textos):
         inicios.append(palavras[i].t)
         i += n
     cortes = [0.0]
@@ -188,9 +185,17 @@ def cortar_em_cenas(textos: list[str], pcm: bytes) -> list[tuple[bytes, list[Pal
         perto = min(candidatas, default=None)
         cortes.append(perto[1] if perto and perto[0] <= 0.6 else max(0.0, estimado - 0.05))
     cortes.append(total_s)
+    return cortes, palavras
 
+
+def cortar_em_cenas(textos: list[str], pcm: bytes) -> list[tuple[bytes, list[PalavraNoTempo]]]:
+    """Divide uma narração única em uma fatia de áudio por cena, cortando no meio da pausa entre frases.
+
+    Devolve, para cada cena, (áudio da cena, palavras com tempo contado do começo da fatia).
+    """
+    cortes, palavras = cortes_de_cena(textos, pcm)
     saida, i = [], 0
-    for k, n in enumerate(contagens):
+    for k, n in enumerate(len(t.split()) for t in textos):
         ini, fim = cortes[k], cortes[k + 1]
         fatia = pcm[int(ini * TAXA) * 2: int(fim * TAXA) * 2]
         relativas = [PalavraNoTempo(round(max(0.0, w.t - ini), 3), w.palavra) for w in palavras[i:i + n]]

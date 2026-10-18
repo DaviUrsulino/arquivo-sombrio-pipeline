@@ -92,6 +92,7 @@
       const SVGNS = "http://www.w3.org/2000/svg";
       const cor = (nome) => `var(--${nome || "branco"})`;
       const HEX = { laranja: "#ff9d3c", azul: "#5fb4ff", verde: "#4ee06a", roxo: "#b48cff", vermelho: "#ff5c5c", amarelo: "#ffd84a", branco: "#f4f1ea", rosa: "#ff7ad9" };
+      const formatar = (n, formato) => (formato === "ano" ? String(n) : formato === "cheio" ? n.toLocaleString("pt-BR") : mil(n));
       const mil = (n) => (n >= 10000 ? Math.floor(n / 1000) + " mil" : n >= 1000 ? (n / 1000).toFixed(1).replace(".", ",") + " mil" : String(n));
 
       // ---------- cenário: biblioteca em pixel art (108x192, ampliada 10x) ----------
@@ -226,7 +227,7 @@
           e.itens.forEach((it, i) => {
             const h = 220 + it.altura * 150, x = x0 + i * (larg + gap);
             const col = div(palco, "el caixa", { left: x + "px", top: (base - h) + "px", width: larg + "px", height: h + "px", background: HEX[it.cor], borderColor: "#000", textAlign: "center", paddingTop: "24px", transformOrigin: "50% 100%" });
-            col.innerHTML = `<div style="font-size:46px;color:#0d0b1c">${it.rotulo}</div><div style="font-size:50px;color:#0d0b1c;margin-top:14px">${"★".repeat(it.altura)}</div>`;
+            col.innerHTML = `<div style="font-size:${it.rotulo.length > 8 ? 34 : 44}px;color:#0d0b1c">${it.rotulo}</div><div style="font-size:50px;color:#0d0b1c;margin-top:14px">${"★".repeat(it.altura)}</div>`;
             tl.fromTo(col, { opacity: 0, scaleY: 0.1 }, { opacity: 1, scaleY: 1, duration: 0.5, ease: "steps(6)" }, e.ts[i]);
           });
         },
@@ -255,11 +256,11 @@
           tl.fromTo(d, { opacity: 0, y: -80 }, { opacity: 1, y: 0, duration: 0.35, ease: "steps(5)" }, e.t);
         },
         contador(palco, e) {
-          const dados = D.repos[e.repo]; const bloco = div(palco, "el centro", { top: e.y + "px", gap: "10px" });
+          const valor = e.valor !== undefined ? e.valor : D.repos[e.repo].estrelas; const bloco = div(palco, "el centro", { top: e.y + "px", gap: "10px" });
           const ic = icone("star", "amarelo", 190); bloco.appendChild(ic);
           const num = div(bloco, "gigante"); const r = div(bloco, "rot", {}, ""); r.textContent = e.rotulo || "estrelas no GitHub";
           entrar(bloco, e.t); const est = { v: 0 }; num.textContent = "0";
-          tl.to(est, { v: dados.estrelas, duration: 1.4, ease: "power2.out", onUpdate: () => { num.textContent = mil(Math.round(est.v)); } }, e.t + 0.1);
+          tl.to(est, { v: valor, duration: 1.4, ease: "power2.out", onUpdate: () => { num.textContent = formatar(Math.round(est.v), e.formato); } }, e.t + 0.1);
         },
         lista(palco, e) {
           const bloco = div(palco, "el centro", { top: e.y + "px", opacity: 1 });

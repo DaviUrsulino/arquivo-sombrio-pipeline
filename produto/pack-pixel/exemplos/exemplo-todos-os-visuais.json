@@ -1,0 +1,191 @@
+{
+ "titulo": "Exemplo: todos os visuais (assunto: Git)",
+ "destaques": [
+  "git",
+  "commit",
+  "branch",
+  "merge"
+ ],
+ "cenas": [
+  {
+   "humor": "animado",
+   "narracao": "Você usa Git mas não sabe o que acontece por dentro?",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {
+      "texto": "O QUE O GIT",
+      "cor": "branco",
+      "tamanho": 120
+     },
+     {
+      "texto": "FAZ POR",
+      "cor": "laranja",
+      "tamanho": 130
+     },
+     {
+      "texto": "DENTRO",
+      "cor": "amarelo",
+      "tamanho": 150
+     }
+    ]
+   }
+  },
+  {
+   "humor": "feliz",
+   "narracao": "Ele foi criado em dois mil e cinco, e hoje roda em milhões de projetos.",
+   "visual": {
+    "tipo": "contador",
+    "valor": 2005,
+    "rotulo": "ANO DE CRIAÇÃO",
+    "formato": "ano"
+   }
+  },
+  {
+   "humor": "normal",
+   "narracao": "Você muda um arquivo, guarda a mudança num commit e depois junta tudo.",
+   "visual": {
+    "tipo": "cadeia",
+    "layout": "horizontal",
+    "nos": [
+     {
+      "icone": "file-text",
+      "rotulo": "Arquivo",
+      "cor": "azul"
+     },
+     {
+      "icone": "git-pull-request",
+      "rotulo": "Commit",
+      "cor": "amarelo"
+     },
+     {
+      "icone": "git-fork",
+      "rotulo": "Merge",
+      "cor": "verde"
+     }
+    ]
+   }
+  },
+  {
+   "humor": "feliz",
+   "narracao": "Cada commit é uma foto do projeto naquele momento.",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "clock",
+    "cor": "azul",
+    "rotulo": "FOTO DO PROJETO"
+   }
+  },
+  {
+   "humor": "pensando",
+   "narracao": "Para começar, basta um comando dentro da pasta do projeto.",
+   "visual": {
+    "tipo": "terminal",
+    "rotulo": "terminal",
+    "comando": "git init",
+    "texto": "cria o repositório na pasta atual"
+   }
+  },
+  {
+   "humor": "normal",
+   "narracao": "Branches deixam você testar ideias sem mexer na versão principal.",
+   "visual": {
+    "tipo": "comparar",
+    "esq": {
+     "titulo": "MAIN",
+     "icone": "shield-check",
+     "cor": "verde",
+     "linhas": [
+      {
+       "rotulo": "estável",
+       "valor": 8
+      },
+      {
+       "rotulo": "risco",
+       "valor": 1
+      }
+     ]
+    },
+    "dir": {
+     "titulo": "BRANCH",
+     "icone": "flask-conical",
+     "cor": "roxo",
+     "linhas": [
+      {
+       "rotulo": "estável",
+       "valor": 4
+      },
+      {
+       "rotulo": "risco",
+       "valor": 6
+      }
+     ]
+    }
+   }
+  },
+  {
+   "humor": "feliz",
+   "narracao": "Quanto mais você pratica, mais o Git faz sentido.",
+   "visual": {
+    "tipo": "niveis",
+    "itens": [
+     {
+      "rotulo": "INICIANTE",
+      "altura": 1,
+      "cor": "verde"
+     },
+     {
+      "rotulo": "MÉDIO",
+      "altura": 2,
+      "cor": "azul"
+     },
+     {
+      "rotulo": "AVANÇADO",
+      "altura": 3,
+      "cor": "amarelo"
+     }
+    ]
+   }
+  },
+  {
+   "humor": "feliz",
+   "narracao": "Funciona no terminal, no VS Code e em qualquer site de repositórios.",
+   "visual": {
+    "tipo": "lista",
+    "itens": [
+     "Terminal",
+     "VS Code",
+     "GitHub"
+    ]
+   }
+  },
+  {
+   "humor": "animado",
+   "narracao": "A documentação oficial é gratuita e fica em git-scm.com.",
+   "visual": {
+    "tipo": "banner_repo",
+    "rotulo": "documentação oficial",
+    "url": "git-scm.com"
+   }
+  },
+  {
+   "humor": "animado",
+   "narracao": "Salva esse vídeo e começa pelo git init hoje.",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {
+      "texto": "SALVA E",
+      "cor": "branco",
+      "tamanho": 130
+     },
+     {
+      "texto": "PRATICA",
+      "cor": "verde",
+      "tamanho": 150
+     }
+    ]
+   }
+  }
+ ]
+}
