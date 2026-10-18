@@ -1,0 +1,283 @@
+{
+  "titulo": "anti-slop: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "regras para impedir que agentes de ia criem interfaces e codigos genericos"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "miqdadbadjuber/anti-slop",
+      "nome": "anti-slop",
+      "cor": "azul",
+      "promessa": "Rules for an AI coding agent to filter out generic AI-generated UI designs, text",
+      "texto": "Rules for an AI coding agent to filter out generic AI-generated UI designs, text, and code."
+    }
+  ],
+  "destaques": [
+    "anti slop",
+    "regras",
+    "agentes",
+    "filtro",
+    "during",
+    "after",
+    "cursor",
+    "claude code",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Seus agentes de inteligência artificial sempre geram interfaces genéricas e cheias de clichês.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "CHEGA DE UI",
+            "cor": "branco",
+            "tamanho": 130
+          },
+          {
+            "texto": "GENÉRICA",
+            "cor": "laranja",
+            "tamanho": 140
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Esse projeto com {estrelas:miqdadbadjuber/anti-slop} estrelas no GitHub resolve exatamente esse vício comum.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "contador",
+        "repo": "miqdadbadjuber/anti-slop"
+      }
+    },
+    {
+      "narracao": "O Anti Slop funciona como um filtro de regras e não impõe estilos.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "shield-check",
+        "cor": "azul",
+        "rotulo": "FILTRO DE REGRAS"
+      }
+    },
+    {
+      "narracao": "Ele oferece dois modos de uso chamados durante a criação ou após ela.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "comparar",
+        "esq": {
+          "titulo": "DURING",
+          "icone": "zap",
+          "cor": "amarelo",
+          "linhas": [
+            {
+              "rotulo": "durante",
+              "valor": 8
+            }
+          ]
+        },
+        "dir": {
+          "titulo": "AFTER",
+          "icone": "list-checks",
+          "cor": "roxo",
+          "linhas": [
+            {
+              "rotulo": "auditoria",
+              "valor": 8
+            }
+          ]
+        }
+      }
+    },
+    {
+      "narracao": "São trinta e oito regras divididas em três níveis rígidos de checagem.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "niveis",
+        "itens": [
+          {
+            "rotulo": "HARD GATE",
+            "altura": 1,
+            "cor": "verde"
+          },
+          {
+            "rotulo": "PURPOSE",
+            "altura": 2,
+            "cor": "azul"
+          },
+          {
+            "rotulo": "QUALITY",
+            "altura": 3,
+            "cor": "amarelo"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O pacote traz seis habilidades cobrindo interface, textos, acessibilidade, comentários e responsividade.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "antislop-ui",
+          "antislop-copy",
+          "antislop-human",
+          "antislop-code"
+        ]
+      }
+    },
+    {
+      "narracao": "O agente gera o código, passa pelas regras e emite um relatório final.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "bot",
+            "rotulo": "Agente",
+            "cor": "azul"
+          },
+          {
+            "icone": "shield-check",
+            "rotulo": "38 Regras",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "file-text",
+            "rotulo": "Relatorio",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Para instalar no seu fluxo de trabalho, rode ene pêxis antislop traço aí.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "npx antislop-ai",
+        "texto": "instalador interativo de skills"
+      }
+    },
+    {
+      "narracao": "A ferramenta funciona com agentes como Cursor, Claude Code, Codex e Cline.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Cursor",
+          "Claude Code",
+          "Codex",
+          "Cline"
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto é código aberto sob licença emé-i-tê para uso livre em projetos.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "banner_repo",
+        "url": "github.com/miqdadbadjuber/anti-slop"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "CHEGA DE UI",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "GENÉRICA DE IA",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o anti-slop"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "FILTRO ANTI SLOP",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "anti-slop",
+      "texto": "Um conjunto de regras para agentes de código pararem de gerar interfaces e textos clichês. É um filtro de qualidade que mantém a sua direção de design."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "INSTALAÇÃO",
+          "cor": "verde"
+        }
+      ],
+      "comando": "npx antislop-ai",
+      "texto": "escolha as skills e onde salvar",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "COMO OPERA",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "modos",
+      "texto": "Funciona em dois modos: durante o build para guiar a IA ou depois para auditar e limpar código gerado."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "LICENÇA E REGRAS",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "detalhes",
+      "texto": "Possui 38 regras obrigatórias, licença MIT e integra com Cursor, Claude Code e outros agentes."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK"
+    }
+  ]
+}

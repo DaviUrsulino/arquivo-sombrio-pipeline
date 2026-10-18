@@ -42,6 +42,7 @@
     "jarrodwatts/claude-hud",
     "jnMetaCode/agency-agents-zh",
     "mattpocock/skills",
+    "miqdadbadjuber/anti-slop",
     "morluto/rea",
     "mukul975/Anthropic-Cybersecurity-Skills",
     "mvanhorn/last30days-skill",
@@ -65,5 +66,5 @@
     "zarazhangrui/frontend-slides",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 18
+  "pautas_geradas": 19
 }
