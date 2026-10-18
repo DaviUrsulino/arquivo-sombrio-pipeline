@@ -1,0 +1,293 @@
+{
+ "titulo": "Hyperframes: a IA cria vídeo escrevendo HTML",
+ "formato": "pixel2",
+ "palavra_chave": "HTML",
+ "perfil": "@robo.estagiario",
+ "voz": {
+  "id": "iP95p4xoKVk53GoZ742B",
+  "modelo": "eleven_multilingual_v2"
+ },
+ "capa": {
+  "subtitulo": "esse repositório faz a ia criar vídeo escrevendo html, grátis e open source"
+ },
+ "chamada": {
+  "pergunta": "quer o link do repositório?"
+ },
+ "itens": [
+  {
+   "repo": "heygen-com/hyperframes",
+   "nome": "Hyperframes",
+   "cor": "azul",
+   "promessa": "A IA cria vídeo escrevendo HTML.",
+   "texto": "Framework open source de HTML para vídeo."
+  }
+ ],
+ "destaques": [
+  "html",
+  "hyperframes",
+  "mp4",
+  "claude",
+  "codex",
+  "cursor",
+  "gemini",
+  "apache",
+  "grátis",
+  "gratis"
+ ],
+ "cenas_roteiro": [
+  {
+   "humor": "animado",
+   "narracao": "Esse repositório faz a IA criar vídeo escrevendo só HTML.",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {
+      "texto": "A IA CRIA",
+      "cor": "branco",
+      "tamanho": 120
+     },
+     {
+      "texto": "VÍDEO COM",
+      "cor": "laranja",
+      "tamanho": 120
+     },
+     {
+      "texto": "HTML",
+      "cor": "amarelo",
+      "tamanho": 190
+     }
+    ]
+   }
+  },
+  {
+   "humor": "feliz",
+   "narracao": "O nome é Hyperframes, e já tem mais de {estrelas:heygen-com/hyperframes} estrelas no GitHub.",
+   "visual": {
+    "tipo": "contador",
+    "repo": "heygen-com/hyperframes",
+    "ancora": "estrelas"
+   }
+  },
+  {
+   "humor": "normal",
+   "narracao": "É um framework open source que transforma HTML e CSS em vídeo MP4.",
+   "visual": {
+    "tipo": "cadeia",
+    "layout": "horizontal",
+    "ancoras": [
+     "html",
+     "transforma",
+     "mp4"
+    ],
+    "nos": [
+     {
+      "icone": "code-xml",
+      "rotulo": "HTML + CSS",
+      "cor": "azul"
+     },
+     {
+      "icone": "zap",
+      "rotulo": "Hyperframes",
+      "cor": "amarelo"
+     },
+     {
+      "icone": "clapperboard",
+      "rotulo": "Vídeo MP4",
+      "cor": "verde"
+     }
+    ]
+   }
+  },
+  {
+   "humor": "feliz",
+   "narracao": "O vídeo sai igual toda vez, porque a animação é determinística.",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "check",
+    "cor": "verde",
+    "rotulo": "SAI IGUAL TODA VEZ"
+   }
+  },
+  {
+   "humor": "pensando",
+   "narracao": "Você usa pelo terminal, ou direto de um agente de IA, como o Claude Code.",
+   "visual": {
+    "tipo": "cadeia",
+    "layout": "horizontal",
+    "ancoras": [
+     "terminal",
+     "agente"
+    ],
+    "nos": [
+     {
+      "icone": "terminal",
+      "rotulo": "Terminal",
+      "cor": "verde"
+     },
+     {
+      "icone": "bot",
+      "rotulo": "Agente de IA",
+      "cor": "laranja"
+     }
+    ]
+   }
+  },
+  {
+   "humor": "normal",
+   "narracao": "Pra instalar no Claude Code, são dois comandos.",
+   "visual": {
+    "tipo": "terminal",
+    "rotulo": "claude code",
+    "comando": "claude plugin marketplace add heygen-com/hyperframes",
+    "texto": "claude plugin install hyperframes@hyperframes",
+    "ancoras": [
+     "instalar",
+     "comandos"
+    ]
+   }
+  },
+  {
+   "humor": "normal",
+   "narracao": "Depois você só pede em linguagem natural: uma intro de dez segundos com título animado.",
+   "visual": {
+    "tipo": "terminal",
+    "rotulo": "você",
+    "comando": "> crie uma intro de 10 segundos com título animado",
+    "ancoras": [
+     "pede",
+     "intro"
+    ]
+   }
+  },
+  {
+   "humor": "feliz",
+   "narracao": "Ele vem com vinte e uma skills que o agente carrega quando precisa.",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "sparkles",
+    "cor": "amarelo",
+    "rotulo": "21 SKILLS"
+   }
+  },
+  {
+   "humor": "feliz",
+   "narracao": "Funciona com Claude Code, Codex, Cursor e Gemini CLI.",
+   "visual": {
+    "tipo": "lista",
+    "itens": [
+     "Claude Code",
+     "Codex",
+     "Cursor",
+     "Gemini CLI"
+    ],
+    "ancoras": [
+     "claude",
+     "codex",
+     "cursor",
+     "gemini"
+    ]
+   }
+  },
+  {
+   "humor": "feliz",
+   "narracao": "E é grátis, com licença Apache dois ponto zero.",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "shield-check",
+    "cor": "verde",
+    "rotulo": "GRÁTIS · APACHE 2.0"
+   }
+  }
+ ],
+ "slides": [
+  {
+   "tipo": "capa",
+   "linhas": [
+    {
+     "texto": "A IA CRIA",
+     "cor": "branco",
+     "tamanho": 108
+    },
+    {
+     "texto": "VÍDEO COM",
+     "cor": "laranja",
+     "tamanho": 88
+    },
+    {
+     "texto": "HTML",
+     "cor": "amarelo",
+     "tamanho": 150
+    }
+   ],
+   "subtitulo": "conheça o Hyperframes"
+  },
+  {
+   "tipo": "ponto",
+   "fase": "O QUE É",
+   "progresso": 0.25,
+   "linhas": [
+    {
+     "texto": "HTML VIRA VÍDEO",
+     "cor": "azul"
+    }
+   ],
+   "rotulo": "hyperframes",
+   "texto": "Framework open source que transforma HTML, CSS e animações em vídeos MP4 que saem iguais toda vez."
+  },
+  {
+   "tipo": "comando",
+   "fase": "INSTALAR",
+   "progresso": 0.5,
+   "linhas": [
+    {
+     "texto": "NO CLAUDE CODE",
+     "cor": "verde"
+    }
+   ],
+   "comando": "claude plugin install hyperframes@hyperframes",
+   "texto": "Antes: claude plugin marketplace add heygen-com/hyperframes",
+   "rotulo": "claude code"
+  },
+  {
+   "tipo": "ponto",
+   "fase": "COMO USAR",
+   "progresso": 0.75,
+   "linhas": [
+    {
+     "texto": "PEÇA AO AGENTE",
+     "cor": "laranja"
+    }
+   ],
+   "rotulo": "exemplo",
+   "texto": "\"Crie uma intro de 10 segundos com título animado e música de fundo.\""
+  },
+  {
+   "tipo": "ponto",
+   "fase": "BÔNUS",
+   "progresso": 1.0,
+   "linhas": [
+    {
+     "texto": "GRÁTIS",
+     "cor": "amarelo"
+    }
+   ],
+   "rotulo": "licença",
+   "texto": "Licença Apache 2.0. Funciona com Claude Code, Codex, Cursor e Gemini CLI."
+  },
+  {
+   "tipo": "cta",
+   "linhas": [
+    {
+     "texto": "QUER O LINK",
+     "cor": "branco"
+    },
+    {
+     "texto": "DO REPO?",
+     "cor": "verde"
+    }
+   ],
+   "subtitulo": "Mando o link do repositório no direct.",
+   "palavra": "HTML"
+  }
+ ]
+}

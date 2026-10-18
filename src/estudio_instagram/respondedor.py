@@ -25,6 +25,8 @@ from .sincronia import normalizar
 RAIZ = Path(__file__).resolve().parents[2]
 CONFIG = RAIZ / "pautas" / "bot_respostas.json"
 ENVIADAS = RAIZ / "pautas" / "respostas_enviadas.json"
+# Cada post de repositório registra aqui a palavra e a mensagem dele (chave = id da mídia no Instagram).
+LINKS_POR_POST = RAIZ / "pautas" / "links_por_post.json"
 JANELA = timedelta(days=7)  # limite da Meta para a resposta privada
 
 
@@ -56,7 +58,20 @@ def _avisar_no_comentario(config: dict, ig, comment_id: str, n: int):
         print(f"DM enviada, mas a resposta pública em {comment_id} falhou: HTTP {erro.code}")
 
 
-def responder_novos(config: dict, enviadas: dict, ig, agora: datetime | None = None, simular: bool = False) -> list[dict]:
+def _mensagem_para(comentario: dict, config: dict, por_post: dict) -> tuple[str, str] | None:
+    """(palavra, mensagem) para este comentário: primeiro as palavras globais, depois a do post."""
+    texto = comentario.get("text", "")
+    palavra = palavra_encontrada(texto, config["palavras"])
+    if palavra:
+        return palavra, config["palavras"][palavra]
+    do_post = por_post.get(comentario.get("midia_id", ""))
+    if do_post and palavra_encontrada(texto, {do_post["palavra"]: ""}):
+        return do_post["palavra"], do_post["mensagem"]
+    return None
+
+
+def responder_novos(config: dict, enviadas: dict, ig, agora: datetime | None = None, simular: bool = False,
+                    por_post: dict | None = None) -> list[dict]:
     """Responde cada comentário novo com palavra-chave. Devolve o que foi (ou seria) respondido.
 
     Marca o comentário como respondido logo depois de enviar. Se o envio falhar, registra o erro
@@ -69,10 +84,10 @@ def responder_novos(config: dict, enviadas: dict, ig, agora: datetime | None = N
             continue
         if agora - _hora(comentario["timestamp"]) > JANELA:
             continue
-        palavra = palavra_encontrada(comentario.get("text", ""), config["palavras"])
-        if not palavra:
+        achado = _mensagem_para(comentario, config, por_post or {})
+        if not achado:
             continue
-        texto = config["palavras"][palavra]
+        palavra, texto = achado
         # Só o id do comentário e a palavra: o arquivo vai pro repositório público (LGPD, RN-3), então
         # nada que identifique a pessoa (nome de usuário, texto do comentário).
         registro = {"comentario_id": comentario["id"], "palavra": palavra}
@@ -98,7 +113,8 @@ def main():
     ig = InstagramGraph(os.environ["INSTAGRAM_GRAPH_TOKEN"], os.environ["INSTAGRAM_USER_ID"])
     config = json.loads(CONFIG.read_text(encoding="utf-8"))
     enviadas = json.loads(ENVIADAS.read_text(encoding="utf-8")) if ENVIADAS.exists() else {}
-    feitos = responder_novos(config, enviadas, ig, simular=args.simular)
+    por_post = json.loads(LINKS_POR_POST.read_text(encoding="utf-8")) if LINKS_POR_POST.exists() else {}
+    feitos = responder_novos(config, enviadas, ig, simular=args.simular, por_post=por_post)
     if not args.simular:
         ENVIADAS.write_text(json.dumps(enviadas, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps(feitos, ensure_ascii=False, indent=2) if feitos else "nenhum comentário novo com palavra-chave")

@@ -13,12 +13,12 @@ Uso:
 import argparse
 import json
 import os
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 
 from dotenv import load_dotenv
 
-from . import concorrentes, github_dados, selecao
+from . import concorrentes, github_dados, montagem, roteirista, selecao
 from .historico import contar_pautas, registrar
 
 RAIZ = Path(__file__).resolve().parents[2]
@@ -49,14 +49,46 @@ def buscas_do_dia(buscas_padrao: list[str]) -> list[str]:
         return buscas_padrao
 
 
-def executar(buscas: list[str], quantidade: int, titulo: str | None, palavra_chave: str,
-             estilo: str | None = None, formato: str | None = None) -> dict:
+def _candidatos(buscas: list[str], **filtro) -> list:
     candidatos, vistos = [], set()
     for consulta in buscas:
-        for repo in github_dados.buscar_candidatos(consulta):
+        for repo in github_dados.buscar_candidatos(consulta, **filtro):
             if repo.repo not in vistos:
                 vistos.add(repo.repo)
                 candidatos.append(repo)
+    return candidatos
+
+
+def pauta_pixel2(buscas: list[str], palavra_chave: str, dias_novidade: int = 120, llm=None) -> dict | None:
+    """Notícia de ferramenta: um repositório novo e inédito, roteiro escrito pelo LLM a partir do README.
+
+    Devolve None se não achar candidato ou o LLM não passar na validação; quem chama cai no formato
+    antigo, para o cron nunca ficar sem post.
+    """
+    desde = (date.today() - timedelta(days=dias_novidade)).isoformat()
+    candidatos = _candidatos(buscas, minimo_estrelas=300, criado_apos=desde) or _candidatos(buscas)
+    icones = {p.stem for p in (montagem.MODELOS / "assets" / "icons").glob("*.svg")}
+    for dados in selecao.escolher_repos(candidatos, quantidade=5):
+        try:
+            readme = roteirista.buscar_readme(dados.repo)
+            if len(readme) < 400:
+                continue
+            kwargs = {"llm": llm} if llm else {}
+            return roteirista.gerar_pauta(dados, readme, palavra_chave, icones, **kwargs)
+        except Exception as erro:  # LLM fora, README estranho: tenta o próximo candidato
+            print(f"roteiro de {dados.repo} falhou ({str(erro)[:200]}); tentando o próximo")
+    return None
+
+
+def executar(buscas: list[str], quantidade: int, titulo: str | None, palavra_chave: str,
+             estilo: str | None = None, formato: str | None = None) -> dict:
+    if formato == "pixel2":
+        nova = pauta_pixel2(buscas, palavra_chave)
+        if nova:
+            return nova
+        print("pixel2 não saiu; caindo no formato antigo")
+        formato = None
+    candidatos = _candidatos(buscas)
 
     indice = contar_pautas()
     formato = formato or selecao.escolher_formato(indice)
@@ -82,10 +114,10 @@ def main():
     parser.add_argument("--buscas", nargs="+", default=None, help="padrão: olha tendência de hoje + termos fixos")
     parser.add_argument("--sem-tendencias", action="store_true", help="ignora o Apify, usa só os termos fixos")
     parser.add_argument("--quantidade", type=int, default=5, help="só vale pro formato 'curto'")
-    parser.add_argument("--palavra-chave", default="GITHUB")
+    parser.add_argument("--palavra-chave", default=None, help="padrão: LINK no pixel2, GITHUB nos outros")
     parser.add_argument("--titulo", default=None)
     parser.add_argument("--estilo", choices=selecao.ESTILOS, default=None, help="só vale pro formato 'curto'; padrão: alterna sozinho")
-    parser.add_argument("--formato", choices=selecao.FORMATOS, default=None, help="padrão: alterna sozinho (2 'curto' pra 1 'aprofundado')")
+    parser.add_argument("--formato", choices=selecao.FORMATOS + ("pixel2",), default=None, help="padrão: alterna sozinho (2 'curto' pra 1 'aprofundado')")
     parser.add_argument("--saida", type=Path, required=True)
     args = parser.parse_args()
     load_dotenv(RAIZ / ".env")
@@ -97,8 +129,9 @@ def main():
     else:
         buscas = buscas_do_dia(selecao.BUSCAS_PADRAO)
 
-    nova_pauta = executar(buscas, args.quantidade, args.titulo, args.palavra_chave, args.estilo, args.formato)
-    print(f"gancho: {nova_pauta['capa']['linha1']} {nova_pauta['capa']['linha2']}")
+    palavra = args.palavra_chave or ("LINK" if args.formato == "pixel2" else "GITHUB")
+    nova_pauta = executar(buscas, args.quantidade, args.titulo, palavra, args.estilo, args.formato)
+    print(f"gancho: {nova_pauta['capa'].get('linha1', nova_pauta['titulo'])} {nova_pauta['capa'].get('linha2', '')}")
     args.saida.write_text(json.dumps(nova_pauta, ensure_ascii=False, indent=2), encoding="utf-8")
     registrar([item["repo"] for item in nova_pauta["itens"]])
     print(f"pauta escrita em {args.saida}")

@@ -152,3 +152,10 @@ def test_cliente_responde_publico_no_endpoint_de_replies():
     InstagramGraph("tok", "user-9", abrir=abrir).responder_publico("c1", "oi")
     assert pedidos[0].full_url == "https://graph.instagram.com/v22.0/c1/replies"
     assert "message=oi" in pedidos[0].data.decode()
+
+
+def test_responde_com_o_link_do_post_quando_a_palavra_e_do_post():
+    ig = InstagramFalso([{**_c("c1", "link"), "midia_id": "m1"}, {**_c("c2", "link"), "midia_id": "outra"}])
+    por_post = {"m1": {"palavra": "LINK", "mensagem": "repo do post", "repo": "a/b"}}
+    feitos = responder_novos(CONFIG, {}, ig, AGORA, por_post=por_post)
+    assert ig.respostas == [("c1", "repo do post")] and len(feitos) == 1

@@ -106,7 +106,9 @@ def montar_reels(
         "destaques": pauta.get("destaques", []),
         "repos": {r: {"repo": d.repo, "estrelas": d.estrelas, "licenca": d.licenca, "descricao": d.descricao, "url": d.url}
                   for r, d in repos.items()},
-        "icones": {nome: _miolo_do_icone(nome) for nome in sorted(_icones_usados(cenas))},
+        "icones": {nome: _miolo_do_icone(nome) for nome in sorted(
+            {p.stem for p in (MODELOS / "assets" / "icons").glob("*.svg")} if modelo.startswith("pixel2") else _icones_usados(cenas)
+        )},
     })
     secoes = "\n".join(
         f'      <section id="cena-{c["id"]}" class="cena clip" data-start="{c["inicio"]}" '

@@ -1,0 +1,180 @@
+"""Escreve o roteiro de um Reels (molde pixel2) a partir do README de um repositório do GitHub.
+
+O LLM recebe os dados reais do repositório e o README, e devolve uma lista de frases, cada uma
+com o visual que aparece na tela. Tudo que ele devolve é conferido antes de gastar crédito de voz:
+
+- só visuais do vocabulário, com ícones e cores que existem;
+- todo número falado precisa existir no README (RN-1: nada de fato inventado);
+- se a resposta não passar, o erro volta para o modelo e ele tenta de novo (até `tentativas`).
+
+Se o LLM falhar de vez, quem chamou cai no formato antigo, de modelo de frase (selecao.py).
+"""
+
+import json
+import re
+import urllib.request
+
+from . import cenas_pixel, github_dados, pauta
+from .github_dados import DadosRepo
+from .llm import gerar_json
+
+VOZ_PADRAO = {"id": "iP95p4xoKVk53GoZ742B", "modelo": "eleven_multilingual_v2"}
+MAX_README = 9000
+CORES_VALIDAS = pauta.CORES
+HUMORES = cenas_pixel.HUMORES
+
+SISTEMA = """Você é roteirista de Reels de 45 a 60 segundos de um perfil brasileiro de Instagram sobre ferramentas de IA para quem programa (@robo.estagiario). Tom: informativo, direto e curioso, como quem conta uma descoberta útil para um amigo.
+
+Você recebe DADOS REAIS de um repositório do GitHub e o README dele. REGRAS DE FATO (inegociáveis):
+- Use SOMENTE o que está no README ou nos dados. Nada de número, benchmark, comparação, preço ou capacidade que não esteja lá. Se o README não diz, não diga.
+- Comando de instalação ou de uso: copie exatamente do README, nunca invente.
+- Não prometa resultado ("vai dobrar sua produtividade"). Descreva o que a ferramenta faz.
+- Número de estrelas: escreva o marcador {estrelas:DONO/REPO} (será trocado pelo valor real). Não escreva outro número em dígitos, exceto os que estão no README. Números pequenos, por extenso ("vinte e uma").
+
+ESTILO DA NARRAÇÃO (é lida em voz alta):
+- Português do Brasil, frases curtas de 8 a 14 palavras, uma ideia por frase, sem "galera", sem emoji, sem hashtag.
+- Escreva siglas e comandos do jeito que se fala ("barra plan", "ponto md"), sem símbolos como / @ # *.
+- Nunca peça para comentar nem cite palavra-chave: o fecho é adicionado depois.
+
+ESTRUTURA: de 9 a 11 cenas. Cada cena = UMA frase falada + UM visual diferente do anterior.
+1. Gancho (visual titulo_pixel): curiosidade honesta ligada ao que a ferramenta tem de mais surpreendente de verdade.
+2. Estrelas (visual contador, narração com o marcador {estrelas:DONO/REPO}).
+3 a 8. O que é, como funciona, o que dá para fazer, como instalar ou usar (com dados do README).
+9 a 11. Para quem serve, requisito ou limite que o README cita, licença.
+
+VISUAIS (campo "visual" da cena; só estes "tipo", cores: laranja azul verde roxo vermelho amarelo branco rosa):
+- titulo_pixel: {"tipo":"titulo_pixel","linhas":[{"texto":"A IA CRIA","cor":"branco","tamanho":120},{"texto":"VÍDEO","cor":"laranja","tamanho":150}]}  (2 a 3 linhas, MAIÚSCULAS, até 14 letras por linha, tamanhos 100 a 170)
+- icone_pixel: {"tipo":"icone_pixel","icone":"check","cor":"verde","rotulo":"SAI IGUAL TODA VEZ"}  (rotulo até 22 letras, MAIÚSCULAS)
+- cadeia: {"tipo":"cadeia","layout":"horizontal","nos":[{"icone":"code-xml","rotulo":"HTML","cor":"azul"},{"icone":"zap","rotulo":"Ferramenta","cor":"amarelo"},{"icone":"clapperboard","rotulo":"Vídeo","cor":"verde"}]}  (2 ou 3 nós; layout "horizontal" ou "vertical"; rotulo até 14 letras; mostra um fluxo A -> B -> C)
+- comparar: {"tipo":"comparar","esq":{"titulo":"RÁPIDO","icone":"zap","cor":"amarelo","linhas":[{"rotulo":"velocidade","valor":8}]},"dir":{"titulo":"AVANÇADO","icone":"brain","cor":"roxo","linhas":[{"rotulo":"controle","valor":8}]}}  (valor de 0 a 8; só use se o README realmente descreve dois modos ou duas opções)
+- niveis: {"tipo":"niveis","itens":[{"rotulo":"BÁSICO","altura":1,"cor":"verde"},{"rotulo":"MÉDIO","altura":2,"cor":"azul"},{"rotulo":"AVANÇADO","altura":3,"cor":"amarelo"}]}  (2 ou 3 colunas; altura 1 a 3)
+- lista: {"tipo":"lista","itens":["Claude Code","Codex","Cursor"]}  (2 a 4 itens de até 22 letras)
+- terminal: {"tipo":"terminal","rotulo":"terminal","comando":"npx exemplo init","texto":"o que esse comando faz"}  (comando COPIADO do README; texto opcional)
+- contador: {"tipo":"contador","repo":"DONO/REPO"}  (estrelas do GitHub contando; use na cena 2)
+- banner_repo: {"tipo":"banner_repo","url":"github.com/dono/repo"}  (mostra o endereço do repositório; use no máximo uma vez)
+Ícones disponíveis: __ICONES__.
+
+"humor" da cena (reação do robô): normal, feliz, animado ou pensando.
+
+SAÍDA: um único objeto JSON, sem texto fora dele:
+{"subtitulo":"frase de uma linha para a legenda do post, minúscula",
+ "destaques":["até 8 palavras da narração que valem destaque na legenda, minúsculas, sem acento se possível"],
+ "cenas":[{"narracao":"...","humor":"feliz","visual":{...}}],
+ "slides":[
+   {"tipo":"capa","linhas":[{"texto":"A IA CRIA","cor":"branco","tamanho":108},{"texto":"VÍDEO COM HTML","cor":"laranja","tamanho":80}],"subtitulo":"conheça o NOME"},
+   {"tipo":"ponto","fase":"O QUE É","progresso":0.25,"linhas":[{"texto":"TÍTULO CURTO","cor":"azul"}],"rotulo":"nome","texto":"2 frases do que é, só com fatos do README."},
+   {"tipo":"comando","fase":"INSTALAR","progresso":0.5,"linhas":[{"texto":"COMO USAR","cor":"verde"}],"comando":"comando do README","texto":"nota curta","rotulo":"terminal"},
+   {"tipo":"ponto","fase":"EXEMPLO","progresso":0.75,"linhas":[{"texto":"O QUE DÁ","cor":"laranja"}],"rotulo":"nota","texto":"o que dá para fazer, com fatos do README."},
+   {"tipo":"ponto","fase":"BÔNUS","progresso":1.0,"linhas":[{"texto":"LICENÇA","cor":"amarelo"}],"rotulo":"nota","texto":"licença e requisito do README."}
+ ]}
+Os slides do carrossel (5, exatamente nessa ordem de tipos) repetem o essencial do vídeo. Linhas de título dos slides: MAIÚSCULAS, até 18 letras."""
+
+
+def buscar_readme(repo: str, abrir=urllib.request.urlopen) -> str:
+    pedido = urllib.request.Request(
+        f"https://api.github.com/repos/{repo}/readme",
+        headers={**github_dados._cabecalhos(), "Accept": "application/vnd.github.raw+json"},
+    )
+    with abrir(pedido, timeout=30) as resposta:
+        texto = resposta.read().decode("utf-8", errors="replace")
+    texto = re.sub(r"<!--.*?-->", "", texto, flags=re.S)
+    texto = re.sub(r"<img[^>]*>|<picture>.*?</picture>|!\[[^\]]*\]\([^)]*\)", "", texto, flags=re.S)  # imagens e badges não ajudam
+    texto = re.sub(r"\n{3,}", "\n\n", texto).strip()
+    return texto[:MAX_README]
+
+
+def _usuario(dados: DadosRepo, readme: str) -> str:
+    return (
+        f"REPOSITÓRIO: {dados.repo}\nURL: {dados.url}\nESTRELAS (use o marcador, não o número): {dados.estrelas}\n"
+        f"LICENÇA: {dados.licenca}\nDESCRIÇÃO CURTA: {dados.descricao}\n\nREADME:\n\"\"\"\n{readme}\n\"\"\"\n\n"
+        f"Escreva o roteiro. O marcador de estrelas desta ferramenta é {{estrelas:{dados.repo}}} e o repo do contador é \"{dados.repo}\"."
+    )
+
+
+def _numeros(texto: str) -> set[str]:
+    return set(re.findall(r"\d+(?:[.,]\d+)?", texto))
+
+
+def _problemas_roteiro(resposta: dict, dados: DadosRepo, readme: str, icones: set[str]) -> list[str]:
+    erros = []
+    cenas = resposta.get("cenas")
+    if not isinstance(cenas, list) or not 8 <= len(cenas) <= 12:
+        return [f"preciso de 9 a 11 cenas em 'cenas', recebi {len(cenas) if isinstance(cenas, list) else 'nenhuma'}"]
+    permitidos = _numeros(readme) | _numeros(dados.licenca) | _numeros(dados.descricao)
+    for i, cena in enumerate(cenas, start=1):
+        if not isinstance(cena, dict) or not cena.get("narracao") or not isinstance(cena.get("visual"), dict):
+            erros.append(f"cena {i}: precisa de 'narracao' e 'visual'")
+            continue
+        tipo = cena["visual"].get("tipo")
+        if tipo not in cenas_pixel.TIPOS_VISUAIS - {"selo_pixel"}:
+            erros.append(f"cena {i}: visual desconhecido {tipo!r}")
+        if i == 1 and tipo != "titulo_pixel":
+            erros.append("a cena 1 tem que ser titulo_pixel")
+        if i > 1 and tipo == cenas[i - 2].get("visual", {}).get("tipo") and tipo not in ("terminal", "icone_pixel"):
+            erros.append(f"cena {i}: repete o visual da cena anterior ({tipo}); varie")
+        sem_marcador = re.sub(r"\{estrelas:[^}]*\}", "", cena["narracao"])
+        for numero in _numeros(sem_marcador):
+            if numero not in permitidos:
+                erros.append(f"cena {i}: o número {numero} não aparece no README. Tire ou use só números do README")
+        palavras = len(cena["narracao"].split())
+        if not 4 <= palavras <= 22:
+            erros.append(f"cena {i}: narração com {palavras} palavras (quero de 8 a 14)")
+        if re.search(r"coment[ae]", cena["narracao"], re.I):
+            erros.append(f"cena {i}: não peça para comentar; o fecho é adicionado depois")
+        v = cena["visual"]
+        for no in v.get("nos", []):
+            if no.get("icone") not in icones:
+                erros.append(f"cena {i}: ícone {no.get('icone')!r} não existe")
+        if v.get("icone") and v["icone"] not in icones:
+            erros.append(f"cena {i}: ícone {v['icone']!r} não existe")
+        if tipo == "contador" and v.get("repo") != dados.repo:
+            erros.append(f"cena {i}: contador.repo tem que ser {dados.repo}")
+    if cenas and "{estrelas:" not in " ".join(c.get("narracao", "") for c in cenas):
+        erros.append("falta o marcador {estrelas:...} em alguma narração")
+    slides = resposta.get("slides")
+    if not isinstance(slides, list) or len(slides) != 5 or [s.get("tipo") for s in slides][:1] != ["capa"]:
+        erros.append("'slides' precisa de exatamente 5 itens, o primeiro do tipo capa")
+    return erros
+
+
+def montar_pauta(resposta: dict, dados: DadosRepo, palavra_chave: str) -> dict:
+    nome = dados.repo.split("/", 1)[1]
+    slides = list(resposta["slides"]) + [{
+        "tipo": "cta", "linhas": [{"texto": "QUER O LINK", "cor": "branco"}, {"texto": "DO REPO?", "cor": "verde"}],
+        "subtitulo": "Mando o link do repositório no direct.", "palavra": palavra_chave,
+    }]
+    return {
+        "titulo": f"{nome}: roteiro automático", "formato": "pixel2", "palavra_chave": palavra_chave,
+        "perfil": "@robo.estagiario", "voz": VOZ_PADRAO,
+        "capa": {"subtitulo": resposta.get("subtitulo") or dados.descricao[:120].lower()},
+        "chamada": {"pergunta": "quer o link do repositório?"},
+        "itens": [{"repo": dados.repo, "nome": nome, "cor": "azul", "promessa": dados.descricao[:80], "texto": dados.descricao[:120]}],
+        "destaques": [d.lower() for d in resposta.get("destaques", [])][:10] + [palavra_chave.lower()],
+        "cenas_roteiro": [
+            {"narracao": c["narracao"], "humor": c.get("humor", "normal"), "visual": c["visual"]} for c in resposta["cenas"]
+        ],
+        "slides": slides,
+    }
+
+
+def gerar_pauta(dados: DadosRepo, readme: str, palavra_chave: str, icones: set[str],
+                llm=gerar_json, tentativas: int = 3) -> dict:
+    """Devolve a pauta pixel2 pronta e validada, ou levanta ValueError com os problemas da última tentativa."""
+    sistema = SISTEMA.replace("__ICONES__", ", ".join(sorted(icones)))
+    usuario = _usuario(dados, readme)
+    erros: list[str] = []
+    for _ in range(tentativas):
+        pedido = usuario if not erros else usuario + "\n\nSUA RESPOSTA ANTERIOR TEVE ESTES PROBLEMAS, corrija todos:\n- " + "\n- ".join(erros)
+        resposta = llm(sistema, pedido)
+        erros = _problemas_roteiro(resposta, dados, readme, icones)
+        if not erros:
+            nova = montar_pauta(resposta, dados, palavra_chave)
+            try:
+                final = cenas_pixel.normalizar_pauta(nova)
+            except (ValueError, KeyError) as erro:
+                erros = [f"estrutura inválida: {erro}"]
+                continue
+            erros = pauta.problemas(final, icones)
+            if not erros:
+                return nova
+    raise ValueError("roteiro não passou na validação: " + "; ".join(erros[:6]))

@@ -38,10 +38,15 @@ def buscar(repo: str, abrir=urllib.request.urlopen) -> DadosRepo:
     return DadosRepo(d["full_name"], d["stargazers_count"], licenca, d.get("description") or "", d["html_url"])
 
 
-def buscar_candidatos(consulta: str, minimo_estrelas: int = 50, limite: int = 15, abrir=urllib.request.urlopen) -> list[DadosRepo]:
-    """Repositórios que combinam com a busca, ordenados por estrela (mais relevante primeiro)."""
+def buscar_candidatos(consulta: str, minimo_estrelas: int = 50, limite: int = 15, abrir=urllib.request.urlopen,
+                      criado_apos: str | None = None) -> list[DadosRepo]:
+    """Repositórios que combinam com a busca, ordenados por estrela (mais relevante primeiro).
+
+    `criado_apos` ("2026-08-01") restringe a repositórios novos: é o que dá notícia de ferramenta.
+    """
+    filtro_data = f" created:>{criado_apos}" if criado_apos else ""
     url = "https://api.github.com/search/repositories?" + urllib.parse.urlencode({
-        "q": f"{consulta} stars:>={minimo_estrelas} license:mit,apache-2.0,bsd-3-clause",
+        "q": f"{consulta} stars:>={minimo_estrelas}{filtro_data} license:mit,apache-2.0,bsd-3-clause",
         "sort": "stars", "order": "desc", "per_page": limite,
     })
     with abrir(urllib.request.Request(url, headers=_cabecalhos()), timeout=30) as resposta:

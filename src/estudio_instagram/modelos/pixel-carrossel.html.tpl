@@ -40,7 +40,7 @@
       .janela .corpo { padding: 40px 44px 46px; }
       .janela .cmd { font-size: 104px; color: var(--verde); text-shadow: 4px 4px 0 #000; }
       .janela .cursor { display: inline-block; width: 48px; height: 94px; background: var(--verde); vertical-align: -12px; margin-left: 6px; }
-      .janela .desc { margin-top: 28px; font-size: 52px; line-height: 1.3; }
+      .janela .desc { margin-top: 28px; font-size: 46px; line-height: 1.3; overflow-wrap: anywhere; }
       .robo { position: absolute; image-rendering: pixelated; }
       .rodape { position: absolute; left: 60px; right: 60px; bottom: 28px; display: flex; justify-content: space-between; font-size: 30px; color: #9a96a8; text-shadow: 3px 3px 0 #000; }
       .selo { position: absolute; left: 0; width: 1080px; text-align: center; }
@@ -103,7 +103,7 @@
       }
       function janela(pai, y, comando, texto, rotulo) {
         const j = document.createElement("div"); j.className = "janela"; j.style.top = y + "px";
-        j.innerHTML = `<div class="barra"><b style="background:#ff5c5c"></b><b style="background:#ffd84a"></b><b style="background:#4ee06a"></b><em>${rotulo || "terminal"}</em></div><div class="corpo"><div class="cmd">${comando}<i class="cursor"></i></div><div class="desc">${texto}</div></div>`;
+        j.innerHTML = `<div class="barra"><b style="background:#ff5c5c"></b><b style="background:#ffd84a"></b><b style="background:#4ee06a"></b><em>${rotulo || "terminal"}</em></div><div class="corpo"><div class="cmd" style="font-size:${comando.length <= 12 ? 104 : comando.length <= 26 ? 66 : 46}px;overflow-wrap:anywhere;line-height:1.15">${comando}<i class="cursor"></i></div><div class="desc">${texto}</div></div>`;
         pai.appendChild(j);
       }
 
@@ -121,6 +121,13 @@
             el.appendChild(robo(380, 960, 1.6));
             const seta = document.createElement("div"); seta.className = "sub"; seta.style.top = "1210px"; seta.style.fontSize = "44px"; seta.style.color = "#ffd84a";
             seta.textContent = "ARRASTA PRO LADO >>>"; el.appendChild(seta);
+          } else if (s.tipo === "ponto") {
+            hud(el, s.fase, s.progresso);
+            titulo(el, 170, s.linhas, 76);
+            const cx = document.createElement("div"); cx.className = "janela"; cx.style.top = "430px";
+            cx.innerHTML = `<div class="barra"><b style="background:#ff5c5c"></b><b style="background:#ffd84a"></b><b style="background:#4ee06a"></b><em>${s.rotulo || "nota"}</em></div><div class="corpo"><div class="desc" style="font-size:56px;margin-top:0">${s.texto}</div></div>`;
+            el.appendChild(cx);
+            el.appendChild(robo(800, 1070, 1.0));
           } else if (s.tipo === "comando") {
             hud(el, s.fase, s.progresso);
             titulo(el, 170, s.linhas, 76);

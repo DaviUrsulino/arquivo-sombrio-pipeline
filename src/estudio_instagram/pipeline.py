@@ -16,7 +16,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from . import github_dados, hospedagem, montagem, pauta, render
+from . import cenas_pixel, github_dados, hospedagem, montagem, pauta, render
 from .graph_api import InstagramGraph
 from .voz import ElevenLabs
 
@@ -27,7 +27,7 @@ LIMITE_LEGENDA_INSTAGRAM = 2200
 MOLDES_SO_REELS = {"prompt": "prompt.html.tpl", "diagrama": "diagrama.html.tpl", "palito": "palito.html.tpl",
                    "repo": "repo.html.tpl"}
 # Formatos com Reels + carrossel próprio (os slides vêm da pauta, não de repositórios).
-MOLDES_COM_SLIDES = {"pixel": "pixel.html.tpl"}
+MOLDES_COM_SLIDES = {"pixel": "pixel.html.tpl", "pixel2": "pixel2.html.tpl"}
 
 
 def montar_legenda(dados_pauta: dict, repos: dict) -> str:
@@ -41,8 +41,23 @@ def montar_legenda(dados_pauta: dict, repos: dict) -> str:
     return texto[:LIMITE_LEGENDA_INSTAGRAM]
 
 
+def _registrar_links(dados_pauta: dict, repos: dict, registro: dict):
+    """Guarda, para cada mídia publicada, a palavra e a mensagem que o bot de comentários deve mandar."""
+    primeiro = next(iter(repos.values()))
+    mensagem = (f"Oi! Aqui está o repositório {primeiro.repo.split('/', 1)[1]}: {primeiro.url}\n"
+                f"Se curtir, segue o @robo.estagiario pra mais ferramentas de IA 🤖")
+    arquivo = RAIZ / "pautas" / "links_por_post.json"
+    atual = json.loads(arquivo.read_text(encoding="utf-8")) if arquivo.exists() else {}
+    for media_id in (registro["reels"].get("media_id"), registro.get("carrossel_media_id")):
+        if media_id:
+            atual[media_id] = {"palavra": dados_pauta["palavra_chave"], "mensagem": mensagem, "repo": primeiro.repo}
+    arquivo.write_text(json.dumps(atual, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
 def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) -> dict:
     dados_pauta = pauta.carregar(caminho_pauta)
+    if dados_pauta.get("formato") == "pixel2":
+        dados_pauta = cenas_pixel.normalizar_pauta(dados_pauta)
     erros = pauta.problemas(dados_pauta, ICONES)
     if erros:
         raise SystemExit("pauta inválida:\n- " + "\n- ".join(erros))
@@ -99,6 +114,9 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
             ]
             carrossel_publicado = ig.publicar_carrossel(urls_slides, legenda)
             registro["carrossel_media_id"] = carrossel_publicado.media_id
+
+    if publicar and repos and registro["publicado"]:
+        _registrar_links(dados_pauta, repos, registro)
 
     (pasta_saida / "registro.json").write_text(json.dumps(registro, ensure_ascii=False, indent=2), encoding="utf-8")
     return registro

@@ -17,6 +17,7 @@ TIPOS = {
     "destaque", "emoji", "card_prompt", "fluxo_icones", "selo", "personagem", "balao", "chips",
     "cartao_repo", "estrelas_gigante", "fluxo_linha",
     "hud", "titulo_pixel", "terminal", "selo_pixel",
+    "icone_pixel", "cadeia", "niveis", "comparar", "celular", "banner_repo", "contador", "lista",
 }
 MARCADOR = re.compile(r"\{(estrelas:[\w.-]+/[\w.-]+|total_estrelas)\}")
 MAX_CARACTERES_NARRACAO = 1500
@@ -32,9 +33,10 @@ def _palavras(texto: str) -> set[str]:
 
 def _icones_do_elemento(elemento: dict) -> list[str]:
     icones = [elemento["icone"]] if "icone" in elemento else []
-    for lado in ("esquerda", "direita"):
+    for lado in ("esquerda", "direita", "esq", "dir"):
         if lado in elemento and "icone" in elemento[lado]:
             icones.append(elemento[lado]["icone"])
+    icones += [no["icone"] for no in elemento.get("nos", []) if isinstance(no, dict) and "icone" in no]
     icones += [item["icone"] for item in elemento.get("itens", []) if isinstance(item, dict) and "icone" in item]
     return icones
 
