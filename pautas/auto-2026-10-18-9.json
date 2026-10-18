@@ -1,0 +1,275 @@
+{
+  "titulo": "artemis: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "automação de celulares android com instruções em linguagem natural"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "google/artemis",
+      "nome": "artemis",
+      "cor": "azul",
+      "promessa": "ARTEMIS turns natural-language instructions into reliable Android automation. It",
+      "texto": "ARTEMIS turns natural-language instructions into reliable Android automation. It automates end-to-end workflows, capture"
+    }
+  ],
+  "destaques": [
+    "artemis",
+    "android",
+    "mcp",
+    "logcat",
+    "automacao",
+    "benchmark",
+    "google",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Você já pensou em controlar um celular Android usando apenas comandos em texto?",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "IA CONTROLA",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "SEU ANDROID",
+            "cor": "laranja",
+            "tamanho": 120
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto Artemis do Google já passou de {estrelas:google/artemis} estrelas no GitHub.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "google/artemis"
+      }
+    },
+    {
+      "narracao": "Ele transforma instruções comuns em ações reais na tela do seu aparelho.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "message-circle",
+            "rotulo": "Prompt",
+            "cor": "azul"
+          },
+          {
+            "icone": "zap",
+            "rotulo": "Artemis",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "bot",
+            "rotulo": "Android",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "A ferramenta usa o protocolo MCP para conversar direto com a sua IDE.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Claude Code",
+          "Antigravity",
+          "Codex",
+          "Windsurf"
+        ]
+      }
+    },
+    {
+      "narracao": "O agente consegue navegar em aplicativos, capturar prints e ler logs do Logcat.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "file-text",
+        "cor": "verde",
+        "rotulo": "LOGS E CAPTURAS"
+      }
+    },
+    {
+      "narracao": "Você pode escolher respostas rápidas no modo flash ou testes profundos no pro.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "comparar",
+        "esq": {
+          "titulo": "FLASH",
+          "icone": "zap",
+          "cor": "amarelo",
+          "linhas": [
+            {
+              "rotulo": "velocidade",
+              "valor": 8
+            }
+          ]
+        },
+        "dir": {
+          "titulo": "PRO",
+          "icone": "brain",
+          "cor": "roxo",
+          "linhas": [
+            {
+              "rotulo": "raciocinio",
+              "valor": 8
+            }
+          ]
+        }
+      }
+    },
+    {
+      "narracao": "No benchmark AndroidWorld, o sistema completou mais de noventa e nove por cento das tarefas.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "check",
+        "cor": "verde",
+        "rotulo": "99% NO BENCHMARK"
+      }
+    },
+    {
+      "narracao": "Para iniciar no Mac ou Linux, basta clonar o repositório e rodar o script.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "git clone https://github.com/google/artemis.git && cd artemis",
+        "texto": "inicie com ./start.sh"
+      }
+    },
+    {
+      "narracao": "Ele abre um painel no navegador com espelhamento de tela e histórico de passos.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "banner_repo",
+        "url": "github.com/google/artemis"
+      }
+    },
+    {
+      "narracao": "Basta plugar um celular com depuração USB ativada ou usar um emulador.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "zap",
+        "cor": "azul",
+        "rotulo": "DEPURAÇÃO USB"
+      }
+    },
+    {
+      "narracao": "O projeto tem código aberto sob os termos da licença Apache dois ponto zero.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "shield-check",
+        "cor": "verde",
+        "rotulo": "APACHE 2.0"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "IA NO CELULAR",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "COM ARTEMIS",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o Artemis da Google"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "AUTOMAÇÃO",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "artemis",
+      "texto": "Transforma comandos em linguagem natural em passos reais no Android. Integra com IDEs pelo protocolo MCP."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "START RÁPIDO",
+          "cor": "verde"
+        }
+      ],
+      "comando": "./start.sh",
+      "texto": "inicia o painel local e instala dependências",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "DIAGNÓSTICO",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "recursos",
+      "texto": "Captura telas e coleta relatórios do Logcat direto no ambiente do seu assistente de código."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "BENCHMARK",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "licença",
+      "texto": "Mais de 99% de conclusão no AndroidWorld. Distribuído sob licença Apache 2.0."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK"
+    }
+  ]
+}

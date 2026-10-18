@@ -34,6 +34,7 @@
     "diegosouzapw/OmniRoute",
     "farion1231/cc-switch",
     "google/adk-python",
+    "google/artemis",
     "headroomlabs-ai/headroom",
     "heygen-com/hyperframes",
     "iOfficeAI/AionUi",
@@ -60,5 +61,5 @@
     "zarazhangrui/frontend-slides",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 13
+  "pautas_geradas": 14
 }
