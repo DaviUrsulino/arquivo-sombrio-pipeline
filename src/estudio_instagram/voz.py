@@ -180,3 +180,82 @@ class ComReserva:
         if not self.usando_reserva and texto in self._prontas:
             return self._prontas[texto]
         return (self.reserva if self.usando_reserva else self.principal).sintetizar(texto)
+
+
+class GeminiTTS:
+    """Voz do Gemini TTS (voz "Orus" por padrão, escolhida pelo Davi). Natural e fala bem os termos de tecnologia.
+
+    A API devolve só o áudio (PCM 24 kHz); o tempo por palavra vem de `alinhamento.alinhar`, que olha as
+    pausas do próprio áudio. Faz tentativas com espera quando a API pede calma (HTTP 429/503).
+    """
+
+    MODELO = "gemini-2.5-flash-preview-tts"
+    INSTRUCAO = "Fale em português do Brasil, de forma natural e animada, como uma pessoa contando uma descoberta para um amigo: "
+    ESPERAS_S = (12, 25, 45, 60)
+
+    def __init__(self, voz: str = "Orus", pasta_cache: Path | None = None, chave: str | None = None,
+                 abrir=urllib.request.urlopen, esperar=None):
+        import time
+        self.voz = voz
+        self.pasta_cache = Path(pasta_cache) if pasta_cache else None
+        self._chave = chave
+        self._abrir = abrir
+        self._esperar = esperar or time.sleep
+
+    def _chave_api(self) -> str:
+        chave = (self._chave or os.getenv("GEMINI_API_KEY", "")).strip()
+        if not chave:
+            raise RuntimeError("GEMINI_API_KEY não definida")
+        return chave
+
+    def _arquivo_cache(self, texto: str) -> Path | None:
+        if not self.pasta_cache:
+            return None
+        chave = hashlib.sha1(f"{self.MODELO}|{self.voz}|{texto}".encode()).hexdigest()[:16]
+        return self.pasta_cache / f"gemini-{chave}.pcm"
+
+    def _pedir_pcm(self, texto: str) -> bytes:
+        corpo = json.dumps({
+            "contents": [{"parts": [{"text": self.INSTRUCAO + texto}]}],
+            "generationConfig": {
+                "responseModalities": ["AUDIO"],
+                "speechConfig": {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": self.voz}}},
+            },
+        }).encode()
+        ultimo = None
+        for tentativa in range(len(self.ESPERAS_S) + 1):
+            pedido = urllib.request.Request(
+                f"https://generativelanguage.googleapis.com/v1beta/models/{self.MODELO}:generateContent", data=corpo,
+                headers={"Content-Type": "application/json", "x-goog-api-key": self._chave_api()}, method="POST",
+            )
+            try:
+                with self._abrir(pedido, timeout=120) as resposta:
+                    dados = json.load(resposta)
+                return base64.b64decode(dados["candidates"][0]["content"]["parts"][0]["inlineData"]["data"])
+            except urllib.error.HTTPError as erro:
+                detalhe = erro.read().decode(errors="replace")[:200]
+                ultimo = f"HTTP {erro.code} {detalhe}"
+                if erro.code not in (429, 500, 502, 503, 504) or tentativa == len(self.ESPERAS_S):
+                    break
+                self._esperar(self.ESPERAS_S[tentativa])
+            except (KeyError, IndexError, ValueError) as erro:  # resposta sem áudio (ex.: bloqueio de conteúdo)
+                ultimo = f"resposta sem áudio ({erro})"
+                if tentativa == len(self.ESPERAS_S):
+                    break
+                self._esperar(3)
+        raise RuntimeError(f"Gemini TTS recusou: {ultimo}")
+
+    def sintetizar(self, texto: str) -> Narracao:
+        from .alinhamento import alinhar, aparar
+
+        arquivo = self._arquivo_cache(texto)
+        if arquivo and arquivo.exists():
+            pcm = arquivo.read_bytes()
+        else:
+            pcm = self._pedir_pcm(texto)
+            if arquivo:
+                arquivo.parent.mkdir(parents=True, exist_ok=True)
+                arquivo.write_bytes(pcm)
+        pcm, _ = aparar(pcm)
+        palavras = alinhar(texto, pcm)
+        return Narracao(pcm, palavras)

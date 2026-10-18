@@ -122,3 +122,70 @@ def test_pronuncia_troca_termo_por_uma_palavra_e_guarda_o_original():
     assert falado == "Isso roda no Guitrab, com Clód Cóude."
     assert originais == ["Isso", "roda", "no", "GitHub,", "com", "Claude", "Code."]
     assert len(falado.split()) == len(originais)
+
+
+def _pcm_com_fala_e_pausas():
+    """1 s de silêncio, 1 s de 'fala', 0,3 s de pausa, 1 s de 'fala', 1 s de silêncio (24 kHz, 16 bits)."""
+    import math
+    import struct
+
+    def tom(seg):
+        return b"".join(struct.pack("<h", int(8000 * math.sin(i / 8))) for i in range(int(24000 * seg)))
+
+    def silencio(seg):
+        return bytes(int(24000 * seg) * 2)
+
+    return silencio(1.0) + tom(1.0) + silencio(0.3) + tom(1.0) + silencio(1.0)
+
+
+def test_alinhamento_acha_a_fala_e_a_pausa_da_virgula():
+    from src.estudio_instagram.alinhamento import alinhar, aparar
+
+    pcm, tirado = aparar(_pcm_com_fala_e_pausas())
+    assert 0.9 < tirado < 1.0 and len(pcm) / 2 / 24000 < 3.5  # cortou o silêncio das pontas
+    palavras = alinhar("um dois três, quatro cinco seis", pcm)
+    assert [p.palavra for p in palavras] == "um dois três, quatro cinco seis".split()
+    assert all(a.t <= b.t for a, b in zip(palavras, palavras[1:]))
+    assert palavras[3].t > 1.3  # "quatro" vem depois da pausa, na segunda metade
+
+
+def test_gemini_tts_tenta_de_novo_quando_a_api_pede_calma():
+    import base64
+    import io
+    import json as _json
+    import urllib.error
+
+    from src.estudio_instagram.voz import GeminiTTS
+
+    pcm = _pcm_com_fala_e_pausas()
+    resposta = _json.dumps({"candidates": [{"content": {"parts": [{"inlineData": {"data": base64.b64encode(pcm).decode()}}]}}]}).encode()
+    chamadas, esperas = [], []
+
+    class Resp(io.BytesIO):
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+
+    def abrir(pedido, timeout=None):
+        chamadas.append(1)
+        if len(chamadas) == 1:
+            raise urllib.error.HTTPError("u", 429, "calma", {}, io.BytesIO(b"{}"))
+        return Resp(resposta)
+
+    voz = GeminiTTS("Orus", chave="x", abrir=abrir, esperar=esperas.append)
+    narracao = voz.sintetizar("um dois três, quatro cinco seis")
+    assert len(chamadas) == 2 and esperas == [12] and len(narracao.palavras) == 6
+
+
+def test_gemini_tts_desiste_com_erro_claro_se_nao_for_limite():
+    import io
+    import urllib.error
+
+    import pytest as _pytest
+
+    from src.estudio_instagram.voz import GeminiTTS
+
+    def abrir(pedido, timeout=None):
+        raise urllib.error.HTTPError("u", 400, "ruim", {}, io.BytesIO(b'{"error":"chave"}'))
+
+    with _pytest.raises(RuntimeError, match="Gemini TTS recusou"):
+        GeminiTTS("Orus", chave="x", abrir=abrir, esperar=lambda s: None).sintetizar("oi")

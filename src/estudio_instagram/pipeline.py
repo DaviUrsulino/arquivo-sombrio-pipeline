@@ -18,7 +18,7 @@ from dotenv import load_dotenv
 
 from . import cenas_pixel, github_dados, hospedagem, montagem, pauta, render
 from .graph_api import InstagramGraph
-from .voz import EdgeTTS, ComReserva, ElevenLabs
+from .voz import ComReserva, EdgeTTS, ElevenLabs, GeminiTTS
 
 RAIZ = Path(__file__).resolve().parents[2]
 ICONES = {p.stem for p in (montagem.MODELOS / "assets" / "icons").glob("*.svg")}
@@ -39,6 +39,19 @@ def montar_legenda(dados_pauta: dict, repos: dict) -> str:
         f"Comenta {dados_pauta['palavra_chave']} que eu te mando no direct.\n\n{hashtags}"
     )
     return texto[:LIMITE_LEGENDA_INSTAGRAM]
+
+
+def criar_voz(dados_pauta: dict):
+    """Voz do vídeo. Padrão: Gemini "Orus" (a que o Davi escolheu), com a voz do Edge de reserva.
+
+    `VOZ=elevenlabs` no ambiente volta para o ElevenLabs (cota do plano grátis acabou em 2026-10-18).
+    """
+    cache = RAIZ / ".cache" / "voz"
+    if os.getenv("VOZ", "").lower() == "elevenlabs" or not os.getenv("GEMINI_API_KEY"):
+        principal = ElevenLabs(dados_pauta["voz"]["id"], dados_pauta["voz"]["modelo"], cache)
+    else:
+        principal = GeminiTTS("Orus", cache)
+    return ComReserva(principal, EdgeTTS())
 
 
 def _registrar_links(dados_pauta: dict, repos: dict, registro: dict):
@@ -74,7 +87,7 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
         r: github_dados.baixar_cartao(r, trabalho / "cartoes" / f"{r.replace('/', '_')}.png") for r in repos
     }
 
-    voz = ComReserva(ElevenLabs(dados_pauta["voz"]["id"], dados_pauta["voz"]["modelo"], RAIZ / ".cache" / "voz"), EdgeTTS())
+    voz = criar_voz(dados_pauta)
     modelo_reels = MOLDES_SO_REELS.get(formato) or MOLDES_COM_SLIDES.get(formato) or "reels.html.tpl"
     duracao = montagem.montar_reels(dados_pauta, repos, voz, trabalho / "reels", modelo=modelo_reels)
     video = render.renderizar_reels(trabalho / "reels", pasta_saida / "reels.mp4")
