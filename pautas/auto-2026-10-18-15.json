@@ -1,0 +1,250 @@
+{
+  "titulo": "open-seo-mcp-skills: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "servidor seo mcp open source para claude e cursor"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "Ryze-AI-Adgent/open-seo-mcp-skills",
+      "nome": "open-seo-mcp-skills",
+      "cor": "azul",
+      "promessa": "Free SEO MCP server + open-source SEO and GEO skills for Claude: keyword researc",
+      "texto": "Free SEO MCP server + open-source SEO and GEO skills for Claude: keyword research, rank tracking, audits, backlinks, AI "
+    }
+  ],
+  "destaques": [
+    "auditoria",
+    "seo",
+    "claude",
+    "search",
+    "console",
+    "analytics",
+    "backlinks",
+    "mit",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Você sabia que dá para fazer auditoria de SEO direto no Claude?",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "SEO REAL NO",
+            "cor": "branco",
+            "tamanho": 130
+          },
+          {
+            "texto": "CLAUDE",
+            "cor": "laranja",
+            "tamanho": 160
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Esse projeto open source já passou de {estrelas:Ryze-AI-Adgent/open-seo-mcp-skills} estrelas no GitHub.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "contador",
+        "repo": "Ryze-AI-Adgent/open-seo-mcp-skills"
+      }
+    },
+    {
+      "narracao": "Ele é um servidor de MCP focado em otimização de busca.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "search",
+        "cor": "azul",
+        "rotulo": "SERVIDOR SEO MCP"
+      }
+    },
+    {
+      "narracao": "Ele lê dados reais do seu Search Console e do Analytics.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "search",
+            "rotulo": "Google Console",
+            "cor": "azul"
+          },
+          {
+            "icone": "zap",
+            "rotulo": "Servidor MCP",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "bot",
+            "rotulo": "Claude",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Você descobre tráfego vindo de IAs como ChatGPT e Perplexity.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "ChatGPT",
+          "Perplexity",
+          "Claude",
+          "Gemini"
+        ]
+      }
+    },
+    {
+      "narracao": "Dá para analisar palavras de concorrentes e backlinks do seu site.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "list-checks",
+        "cor": "roxo",
+        "rotulo": "ANÁLISE DE LINKS"
+      }
+    },
+    {
+      "narracao": "Para adicionar no Claude use o comando claude mcp add ryze.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "claude mcp add ryze --transport http https://connector.get-ryze.ai/mcp",
+        "texto": "adicionar servidor mcp"
+      }
+    },
+    {
+      "narracao": "Instale as habilidades com o comando claude plugin marketplace add.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "claude plugin marketplace add Ryze-AI-Adgent/open-seo-mcp-skills",
+        "texto": "instalar habilidades no claude"
+      }
+    },
+    {
+      "narracao": "Funciona também no Cursor ChatGPT e no Claude Desktop.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Claude Code",
+          "Cursor",
+          "ChatGPT",
+          "Claude Desktop"
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto é totalmente gratuito e utiliza licença MIT.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "banner_repo",
+        "url": "github.com/Ryze-AI-Adgent/open-seo-mcp-skills"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "SEO REAL NO",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "CLAUDE CODE",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o open seo mcp skills"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "SERVIDOR SEO",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "mcp",
+      "texto": "Um servidor MCP gratuito que conecta o Claude aos seus dados do Google Search Console e GA4."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMO USAR",
+          "cor": "verde"
+        }
+      ],
+      "comando": "claude mcp add ryze --transport http https://connector.get-ryze.ai/mcp",
+      "texto": "adiciona o conector ao claude",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "RECURSOS",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "skills",
+      "texto": "Permite auditoria SEO, pesquisa de palavras, verificação de backlinks e tráfego vindo de IAs."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1,
+      "linhas": [
+        {
+          "texto": "LICENÇA",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "mit",
+      "texto": "Projeto código aberto com licença MIT. Funciona no Claude Code, Cursor, ChatGPT e Claude Desktop."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK"
+    }
+  ]
+}
