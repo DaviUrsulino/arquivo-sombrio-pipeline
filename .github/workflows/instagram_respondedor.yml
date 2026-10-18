@@ -5,14 +5,17 @@ name: Instagram respondedor - manda o kit por DM para quem comenta a palavra-cha
 #
 # O agendador (cron) do GitHub atrasa horas, e comentário respondido horas depois perde o
 # efeito (2026-10-18: cron das 11:13 UTC rodou às 14:33). Por isso cada execução fica em laço
-# por ~50 minutos, olhando a cada 90 s, e no fim dispara a próxima execução sozinha. O cron
-# continua só como rede de segurança, caso o laço morra.
+# por ~50 minutos, olhando a cada 90 s, e no fim dispara a próxima execução sozinha — essa
+# corrente é quem mantém o bot respondendo quase em tempo real.
+# O cron de hora em hora é só rede de segurança caso a corrente morra (ex.: run cancelada).
+# Antes rodava a cada 10 min igual à corrente, só empilhando execução na fila do
+# `concurrency` sem ganhar nada (a corrente já cobria esse intervalo sozinha).
 # O que já foi respondido fica em pautas/respostas_enviadas.json (a Meta só aceita uma
-# resposta privada por comentário, em até 7 dias). Minutos quebrados pelo mesmo motivo do
+# resposta privada por comentário, em até 7 dias). Minuto quebrado pelo mesmo motivo do
 # pipeline_dark.yml (evitar o pico do agendador).
 on:
   schedule:
-    - cron: '4,14,24,34,44,54 * * * *'
+    - cron: '7 * * * *'
   workflow_dispatch:
 
 concurrency:
