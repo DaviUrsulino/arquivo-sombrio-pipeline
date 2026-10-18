@@ -1,0 +1,26 @@
+name: Teste de voz - gera amostras de vozes do Gemini (manual)
+
+# Só roda quando alguém dispara à mão. Serve para escolher voz no ouvido: a chave do Gemini existe
+# só nos segredos do GitHub, então o teste precisa rodar aqui. Sem agendamento.
+on:
+  workflow_dispatch:
+
+jobs:
+  amostras:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Gera as amostras
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python scripts/teste_voz_gemini.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: vozes-gemini
+          path: vozes_gemini/*.wav
+          retention-days: 7

@@ -113,3 +113,12 @@ def test_com_reserva_troca_o_video_inteiro_se_a_cota_acaba_no_meio():
 
     voz = ComReserva(AcabaNaSegunda(), Reserva()); voz.preparar(["a", "b", "c"])
     assert [voz.sintetizar(t).audio_pcm for t in "abc"] == [b"reserva"] * 3
+
+
+def test_pronuncia_troca_termo_por_uma_palavra_e_guarda_o_original():
+    from src.estudio_instagram.voz import aplicar_pronuncia
+
+    falado, originais = aplicar_pronuncia("Isso roda no GitHub, com Claude Code.")
+    assert falado == "Isso roda no Guitrab, com Clód Cóude."
+    assert originais == ["Isso", "roda", "no", "GitHub,", "com", "Claude", "Code."]
+    assert len(falado.split()) == len(originais)

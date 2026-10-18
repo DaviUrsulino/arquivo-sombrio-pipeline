@@ -92,6 +92,33 @@ class ElevenLabs:
         return Narracao(mp3_para_pcm(base64.b64decode(dados["audio_base64"])), palavras)
 
 
+# Como o brasileiro fala termos de tecnologia. Cada termo vira UMA palavra só, para o número de palavras
+# não mudar: assim a legenda continua escrita certa ("GitHub") e só o áudio usa a grafia falada.
+PRONUNCIA = {
+    "github": "Guitrab", "claude": "Clód", "code": "Cóude", "codex": "Códex", "gemini": "Jêmini",
+    "cli": "cêeleai", "mcp": "emecepê", "html": "agatêemeéle", "css": "cêésseésse", "ia": "iá",
+    "readme": "ridmi", "api": "apeí", "cursor": "Cârsor", "npm": "enepeême", "json": "djêison",
+}
+
+
+def _limpa(token: str) -> str:
+    return "".join(c for c in token.lower() if c.isalnum())
+
+
+def aplicar_pronuncia(texto: str) -> tuple[str, list[str]]:
+    """Troca termos pelo jeito de falar. Devolve (texto falado, palavras originais na mesma ordem)."""
+    originais, falados = [], []
+    for token in texto.split():
+        originais.append(token)
+        chave = _limpa(token)
+        if chave in PRONUNCIA:
+            sufixo = token[len(token.rstrip(".,;:!?")):]  # mantém a pontuação final, que dá a pausa
+            falados.append(PRONUNCIA[chave] + sufixo)
+        else:
+            falados.append(token)
+    return " ".join(falados), originais
+
+
 class EdgeTTS:
     """Voz reserva gratuita (vozes neurais do Edge), com tempo por palavra. Sem chave e sem cota.
 
@@ -108,8 +135,10 @@ class EdgeTTS:
 
         import edge_tts  # só aqui: o job só instala quando precisa
 
+        falado, originais = aplicar_pronuncia(texto)
+
         async def _rodar():
-            comunicacao = edge_tts.Communicate(texto, self.voz, rate=self.ritmo, boundary="WordBoundary")
+            comunicacao = edge_tts.Communicate(falado, self.voz, rate=self.ritmo, boundary="WordBoundary")
             audio, palavras = bytearray(), []
             async for evento in comunicacao.stream():
                 if evento["type"] == "audio":
@@ -121,6 +150,8 @@ class EdgeTTS:
         mp3, palavras = asyncio.run(_rodar())
         if not mp3 or not palavras:
             raise RuntimeError("EdgeTTS não devolveu áudio ou tempos de palavra")
+        if len(palavras) == len(originais):  # volta a escrever "GitHub" na legenda, não "Guitrab"
+            palavras = [PalavraNoTempo(p.t, original.strip(".,;:!?") or p.palavra) for p, original in zip(palavras, originais)]
         return Narracao(mp3_para_pcm(mp3), palavras)
 
 
