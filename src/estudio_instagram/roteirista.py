@@ -148,6 +148,7 @@ def montar_pauta(resposta: dict, dados: DadosRepo, palavra_chave: str) -> dict:
     slides = list(resposta["slides"]) + [{
         "tipo": "cta", "linhas": [{"texto": "QUER O LINK", "cor": "branco"}, {"texto": "DO REPO?", "cor": "verde"}],
         "subtitulo": "Mando o link do repositório no direct.", "palavra": palavra_chave,
+        "extra": "Quer fazer vídeos assim? Link na bio.",
     }]
     return {
         "titulo": f"{nome}: roteiro automático", "formato": "pixel2", "palavra_chave": palavra_chave,

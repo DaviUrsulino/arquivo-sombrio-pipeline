@@ -98,8 +98,26 @@ def pauta_pixel2(buscas: list[str], palavra_chave: str, dias_novidade: int = 120
     return None
 
 
+VENDAS = RAIZ / "pautas" / "vendas"
+
+
+def pauta_de_venda(pasta: Path = VENDAS, hoje: date | None = None) -> dict | None:
+    """Vídeo de venda do dia: os roteiros em `pautas/vendas/` giram, um por dia, sem repetir dois dias seguidos."""
+    roteiros = sorted(pasta.glob("*.json")) if pasta.exists() else []
+    if not roteiros:
+        return None
+    escolhido = roteiros[(hoje or date.today()).toordinal() % len(roteiros)]
+    return json.loads(escolhido.read_text(encoding="utf-8"))
+
+
 def executar(buscas: list[str], quantidade: int, titulo: str | None, palavra_chave: str,
              estilo: str | None = None, formato: str | None = None) -> dict:
+    if formato == "venda":
+        venda = pauta_de_venda()
+        if venda:
+            return venda
+        print("sem roteiro de venda; seguindo com notícia de ferramenta")
+        formato = "pixel2"
     if formato == "pixel2":
         foco = ler_foco()
         nova = (pauta_pixel2(foco["buscas"], palavra_chave, minimo_estrelas=foco.get("minimo_estrelas", 200)) if foco else None) \
@@ -139,7 +157,7 @@ def main():
     parser.add_argument("--palavra-chave", default=None, help="padrão: LINK no pixel2, GITHUB nos outros")
     parser.add_argument("--titulo", default=None)
     parser.add_argument("--estilo", choices=selecao.ESTILOS, default=None, help="só vale pro formato 'curto'; padrão: alterna sozinho")
-    parser.add_argument("--formato", choices=selecao.FORMATOS + ("pixel2",), default=None, help="padrão: alterna sozinho (2 'curto' pra 1 'aprofundado')")
+    parser.add_argument("--formato", choices=selecao.FORMATOS + ("pixel2", "venda"), default=None, help="padrão: alterna sozinho (2 'curto' pra 1 'aprofundado')")
     parser.add_argument("--saida", type=Path, required=True)
     args = parser.parse_args()
     load_dotenv(RAIZ / ".env")
@@ -155,7 +173,8 @@ def main():
     nova_pauta = executar(buscas, args.quantidade, args.titulo, palavra, args.estilo, args.formato)
     print(f"gancho: {nova_pauta['capa'].get('linha1', nova_pauta['titulo'])} {nova_pauta['capa'].get('linha2', '')}")
     args.saida.write_text(json.dumps(nova_pauta, ensure_ascii=False, indent=2), encoding="utf-8")
-    registrar([item["repo"] for item in nova_pauta["itens"]])
+    if args.formato != "venda":  # vídeo de venda não gasta repositório nem o foco de tema
+        registrar([item["repo"] for item in nova_pauta["itens"]])
     print(f"pauta escrita em {args.saida}")
     for item in nova_pauta["itens"]:
         print(f"  - {item['repo']}")

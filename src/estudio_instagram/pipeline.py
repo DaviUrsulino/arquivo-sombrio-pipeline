@@ -31,12 +31,15 @@ MOLDES_COM_SLIDES = {"pixel": "pixel.html.tpl", "pixel2": "pixel2.html.tpl"}
 
 
 def montar_legenda(dados_pauta: dict, repos: dict) -> str:
-    """Legenda curta + chamada + hashtags, com link das fontes no primeiro comentário fica pro Publora."""
+    """Legenda curta + chamada + hashtags. Pauta com `legenda` própria (vídeo de venda) usa o texto dela."""
+    if dados_pauta.get("legenda"):
+        return dados_pauta["legenda"][:LIMITE_LEGENDA_INSTAGRAM]
     hashtags = " ".join(f"#{t.replace('/', '').replace('-', '')}" for t in ["claude", "claudecode", "github", "ia"])
     texto = (
         f"{dados_pauta['capa']['subtitulo'].capitalize()} 🤖\n\n"
         f"{dados_pauta['chamada']['pergunta'].capitalize()} "
-        f"Comenta {dados_pauta['palavra_chave']} que eu te mando no direct.\n\n{hashtags}"
+        f"Comenta {dados_pauta['palavra_chave']} que eu te mando no direct.\n\n"
+        f"Quer aprender a fazer vídeos assim? Link na bio.\n\n{hashtags}"
     )
     return texto[:LIMITE_LEGENDA_INSTAGRAM]
 

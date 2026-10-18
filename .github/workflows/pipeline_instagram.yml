@@ -23,7 +23,7 @@ on:
   workflow_dispatch:
     inputs:
       formato:
-        description: 'pixel2 (notícia de ferramenta, padrão) / curto (lista de 5) / aprofundado (1 repo)'
+        description: 'vazio: venda à noite (UTC 23 a 04) e notícia de ferramenta (pixel2) no resto. Ou: pixel2 / venda / curto / aprofundado'
         required: false
         default: ''
       publicar:
@@ -76,7 +76,14 @@ jobs:
         run: |
           NOME="pautas/auto-$(date -u +%F)-${{ github.run_number }}.json"
           FORMATO="${{ github.event.inputs.formato }}"
-          FORMATO_FLAG="--formato ${FORMATO:-pixel2}"
+          if [ -z "$FORMATO" ]; then
+            # O cron do GitHub atrasa horas, então decide pela hora UTC real: a rodada da noite
+            # (a das 23:13 UTC, 20h13 BRT) é o vídeo de venda; as outras duas são notícia de ferramenta.
+            HORA=$(date -u +%H)
+            if [ "$HORA" -ge 23 ] || [ "$HORA" -lt 5 ]; then FORMATO=venda; else FORMATO=pixel2; fi
+          fi
+          echo "formato escolhido: $FORMATO"
+          FORMATO_FLAG="--formato $FORMATO"
           python -m src.estudio_instagram.escolher_pauta --saida "$NOME" $FORMATO_FLAG
           echo "arquivo=$NOME" >> "$GITHUB_OUTPUT"
 

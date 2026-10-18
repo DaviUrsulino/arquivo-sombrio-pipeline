@@ -101,3 +101,27 @@ def test_foco_so_vale_enquanto_tem_restantes(tmp_path):
     gastar_foco(arq); gastar_foco(arq); gastar_foco(arq)
     assert _json.loads(arq.read_text())["restantes"] == 0 and ler_foco(arq) is None
     assert ler_foco(tmp_path / "nao_existe.json") is None
+
+
+def test_venda_gira_um_roteiro_por_dia_e_nao_repete_dois_dias_seguidos(tmp_path):
+    import json as _json
+    from datetime import date
+
+    from src.estudio_instagram.escolher_pauta import pauta_de_venda
+
+    for i in range(3):
+        (tmp_path / f"v{i}.json").write_text(_json.dumps({"titulo": f"v{i}"}))
+    dias = [date(2026, 10, 18 + k) for k in range(4)]
+    titulos = [pauta_de_venda(tmp_path, d)["titulo"] for d in dias]
+    assert all(a != b for a, b in zip(titulos, titulos[1:])) and set(titulos) == {"v0", "v1", "v2"}
+    assert pauta_de_venda(tmp_path / "nao_existe") is None
+
+
+def test_fecho_proprio_nao_acrescenta_o_comenta_e_o_fecho_padrao_chama_para_a_bio():
+    base = {"palavra_chave": "BIO", "cenas_roteiro": [{"narracao": "Quer fazer igual? O link está na bio.",
+            "visual": {"tipo": "titulo_pixel", "linhas": [{"texto": "A", "cor": "branco"}]}}]}
+    so_a_do_roteiro = cenas_pixel.normalizar_pauta({**base, "fecho_proprio": True})
+    assert len(so_a_do_roteiro["cenas"]) == 1
+    padrao = cenas_pixel.normalizar_pauta({**base, "palavra_chave": "LINK"})
+    ultima = padrao["cenas"][-1]
+    assert "link está na bio" in ultima["narracao"].lower() and ultima["elementos"][-1]["texto"] == "FAÇA IGUAL: LINK NA BIO"

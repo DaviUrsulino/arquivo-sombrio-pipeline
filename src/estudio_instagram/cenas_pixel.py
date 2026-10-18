@@ -88,7 +88,7 @@ def normalizar_cena(cena: dict, indice: int) -> dict:
 def cena_final(palavra_chave: str) -> dict:
     """Última cena, sempre igual: o 'comenta PALAVRA' que o bot responde."""
     return {
-        "narracao": f"Comenta {palavra_chave} que eu te mando o link do repositório.",
+        "narracao": f"Comenta {palavra_chave} que eu te mando o link do repositório. E quer aprender a fazer vídeos assim? O link está na bio.",
         "humor": "animado",
         "visual": {
             "tipo": "titulo_pixel", "y": 330,
@@ -101,13 +101,16 @@ def cena_final(palavra_chave: str) -> dict:
 def normalizar_pauta(pauta: dict) -> dict:
     """Pauta no formato `pixel2` (cenas com `visual`) -> pauta no formato que o pipeline monta."""
     palavra = pauta["palavra_chave"]
-    cenas = list(pauta["cenas_roteiro"]) + [cena_final(palavra)]
+    # `fecho_proprio`: o roteiro já traz a chamada final (ex.: vídeo de venda com "link na bio"),
+    # então não acrescenta o "comenta PALAVRA".
+    cenas = list(pauta["cenas_roteiro"]) + ([] if pauta.get("fecho_proprio") else [cena_final(palavra)])
     saida = dict(pauta)
     saida["cenas"] = [normalizar_cena(c, i) for i, c in enumerate(cenas, start=1)]
-    # A cena final também ganha o selo, depois da primeira (não precisa de âncora própria no roteiro).
-    saida["cenas"][-1]["elementos"].append({
-        "tipo": "selo_pixel", "texto": "LINK GRÁTIS", "y": 840, "t": 0.5,
-        "ancora": normalizar(re.sub(r"[^\w]", "", palavra)) or "comenta",
-    })
+    if not pauta.get("fecho_proprio"):
+        # A cena final também ganha o selo, depois da primeira (não precisa de âncora própria no roteiro).
+        saida["cenas"][-1]["elementos"].append({
+            "tipo": "selo_pixel", "texto": "FAÇA IGUAL: LINK NA BIO", "y": 840,
+            "ancora": "bio",
+        })
     saida.setdefault("destaques", [])
     return saida

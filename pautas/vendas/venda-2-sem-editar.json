@@ -1,0 +1,211 @@
+{
+ "titulo": "Venda 2: sem saber editar vídeo",
+ "formato": "pixel2",
+ "palavra_chave": "BIO",
+ "fecho_proprio": true,
+ "perfil": "@robo.estagiario",
+ "voz": {
+  "id": "iP95p4xoKVk53GoZ742B",
+  "modelo": "eleven_multilingual_v2"
+ },
+ "capa": {
+  "subtitulo": "faça Reels sem saber editar e sem aparecer"
+ },
+ "chamada": {
+  "pergunta": "quer aprender?"
+ },
+ "itens": [],
+ "destaques": [
+  "editar",
+  "roteiro",
+  "aparecer",
+  "pack"
+ ],
+ "legenda": "Quer fazer Reels sem aparecer e sem saber editar vídeo? O Pack Pixel (R$ 27) monta o vídeo por você a partir de um roteiro. Link na bio.\n\n#claudecode #ia #reels #automacao",
+ "cenas_roteiro": [
+  {
+   "humor": "animado",
+   "narracao": "Quer fazer Reels sem aparecer e sem saber editar vídeo?",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {
+      "texto": "REELS SEM",
+      "cor": "branco",
+      "tamanho": 120
+     },
+     {
+      "texto": "EDITAR NADA",
+      "cor": "laranja",
+      "tamanho": 120
+     }
+    ]
+   }
+  },
+  {
+   "humor": "normal",
+   "narracao": "Você só escreve o roteiro, uma frase por cena, e escolhe o visual de cada uma.",
+   "visual": {
+    "tipo": "terminal",
+    "rotulo": "roteiro.json",
+    "comando": "\"visual\": \"cadeia\"",
+    "texto": "uma frase, um visual"
+   }
+  },
+  {
+   "humor": "feliz",
+   "narracao": "Tem nove visuais prontos, como terminal, lista, comparação e contador.",
+   "visual": {
+    "tipo": "lista",
+    "itens": [
+     "Terminal",
+     "Lista",
+     "Comparação",
+     "Contador"
+    ]
+   }
+  },
+  {
+   "humor": "pensando",
+   "narracao": "O script calcula sozinho quando cada cena entra, olhando o áudio da sua narração.",
+   "visual": {
+    "tipo": "cadeia",
+    "layout": "horizontal",
+    "nos": [
+     {
+      "icone": "bot",
+      "rotulo": "Sua voz",
+      "cor": "amarelo"
+     },
+     {
+      "icone": "zap",
+      "rotulo": "Script",
+      "cor": "azul"
+     },
+     {
+      "icone": "clapperboard",
+      "rotulo": "Vídeo",
+      "cor": "verde"
+     }
+    ]
+   }
+  },
+  {
+   "humor": "feliz",
+   "narracao": "E se você não quiser gravar, ele gera um vídeo mudo para você pôr a voz depois.",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "check",
+    "cor": "verde",
+    "rotulo": "FUNCIONA SEM ÁUDIO"
+   }
+  },
+  {
+   "humor": "feliz",
+   "narracao": "É o Pack Pixel, por vinte e sete reais.",
+   "visual": {
+    "tipo": "contador",
+    "valor": 27,
+    "formato": "cheio",
+    "rotulo": "REAIS"
+   }
+  },
+  {
+   "humor": "animado",
+   "narracao": "Quer fazer igual? O link está na bio.",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {
+      "texto": "PEGA O",
+      "cor": "branco",
+      "tamanho": 130
+     },
+     {
+      "texto": "PACK",
+      "cor": "verde",
+      "tamanho": 140
+     }
+    ]
+   }
+  }
+ ],
+ "slides": [
+  {
+   "tipo": "capa",
+   "linhas": [
+    {
+     "texto": "REELS SEM",
+     "cor": "branco",
+     "tamanho": 112
+    },
+    {
+     "texto": "EDITAR",
+     "cor": "laranja",
+     "tamanho": 120
+    },
+    {
+     "texto": "NADA",
+     "cor": "amarelo",
+     "tamanho": 120
+    }
+   ],
+   "subtitulo": "pack pixel, R$ 27"
+  },
+  {
+   "tipo": "ponto",
+   "fase": "PASSO 1",
+   "progresso": 0.33,
+   "linhas": [
+    {
+     "texto": "O ROTEIRO",
+     "cor": "azul"
+    }
+   ],
+   "rotulo": "roteiro.json",
+   "texto": "Uma frase por cena e o visual de cada uma. O prompt do pack pede ao Claude para escrever isso por você."
+  },
+  {
+   "tipo": "ponto",
+   "fase": "PASSO 2",
+   "progresso": 0.66,
+   "linhas": [
+    {
+     "texto": "A VOZ",
+     "cor": "verde"
+    }
+   ],
+   "rotulo": "narração",
+   "texto": "Grave com a sua voz, ou use qualquer serviço de voz. Sem áudio, sai um vídeo mudo."
+  },
+  {
+   "tipo": "ponto",
+   "fase": "PASSO 3",
+   "progresso": 1.0,
+   "linhas": [
+    {
+     "texto": "O VÍDEO",
+     "cor": "amarelo"
+    }
+   ],
+   "rotulo": "terminal",
+   "texto": "python3 montar.py roteiro.json --audio voz.mp3 --renderizar"
+  },
+  {
+   "tipo": "cta",
+   "linhas": [
+    {
+     "texto": "QUER FAZER",
+     "cor": "branco"
+    },
+    {
+     "texto": "IGUAL?",
+     "cor": "verde"
+    }
+   ],
+   "subtitulo": "Pack Pixel R$ 27",
+   "selo": "LINK NA BIO",
+   "palavra": "BIO"
+  }
+ ]
+}
