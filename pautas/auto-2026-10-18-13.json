@@ -1,0 +1,244 @@
+{
+  "titulo": "fast-jev-compaction: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "limpe o contexto do claude code sem perder comandos do seu historico"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "tamaratran/fast-jev-compaction",
+      "nome": "fast-jev-compaction",
+      "cor": "azul",
+      "promessa": "Claude Code plugin that replaces the compaction summary with Jev decisions: ever",
+      "texto": "Claude Code plugin that replaces the compaction summary with Jev decisions: every tool call and result is scored in one "
+    }
+  ],
+  "destaques": [
+    "compactar",
+    "sem resumo",
+    "claude code",
+    "jev",
+    "historico",
+    "verbatim",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Resumir o histórico do seu código pode fazer detalhes importantes desaparecerem.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "COMPACTAR",
+            "cor": "laranja",
+            "tamanho": 130
+          },
+          {
+            "texto": "SEM RESUMO",
+            "cor": "branco",
+            "tamanho": 130
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Este projeto tem {estrelas:tamaratran/fast-jev-compaction} estrelas no GitHub.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "contador",
+        "repo": "tamaratran/fast-jev-compaction"
+      }
+    },
+    {
+      "narracao": "Ele substitui os resumos do Claude Code por decisões pontuais da IA Jev.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "zap",
+        "cor": "amarelo",
+        "rotulo": "MANTÉM O TEXTO"
+      }
+    },
+    {
+      "narracao": "Cada chamada de ferramenta é avaliada para saber se deve continuar no contexto.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "terminal",
+            "rotulo": "Histórico",
+            "cor": "azul"
+          },
+          {
+            "icone": "brain",
+            "rotulo": "Jev",
+            "cor": "roxo"
+          },
+          {
+            "icone": "file-text",
+            "rotulo": "Literal",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O texto original nunca é reescrito e as chamadas mantidas ficam exatamente iguais.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Textos do usuário",
+          "Respostas do chat",
+          "Comandos mantidos"
+        ]
+      }
+    },
+    {
+      "narracao": "Resultados desnecessários são removidos ou cortados para economizar espaço no prompt.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "search-x",
+        "cor": "vermelho",
+        "rotulo": "REMOVE O OBSOLETO"
+      }
+    },
+    {
+      "narracao": "Você pode instalar como pacote usando o comando npm install fast-jev-compaction.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "npm install fast-jev-compaction",
+        "texto": "instala a biblioteca no seu projeto"
+      }
+    },
+    {
+      "narracao": "Ou instalar como plugin oficial do Claude Code direto pelo seu terminal.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "claude plugin install fast-jev-compaction@fast-jev-compaction",
+        "texto": "instala o plugin no Claude Code"
+      }
+    },
+    {
+      "narracao": "Requer a versão dois ponto um do Claude Code com hooks de função ativos.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "triangle-alert",
+        "cor": "amarelo",
+        "rotulo": "HOOKS ATIVADOS"
+      }
+    },
+    {
+      "narracao": "O projeto é código aberto e possui a licença MIT no repositório.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "banner_repo",
+        "url": "github.com/tamaratran/fast-jev-compaction"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "SEM PERDER DADOS",
+          "cor": "branco",
+          "tamanho": 90
+        },
+        {
+          "texto": "COMPACTAÇÃO IA",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o fast-jev-compaction"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "MANTÉM INTEGRAL",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "conceito",
+      "texto": "Ele substitui os resumos do Claude Code por pontuações da IA Jev. O texto e os comandos do usuário continuam idênticos sem reescrita."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "INSTALACAO",
+          "cor": "verde"
+        }
+      ],
+      "comando": "npm install fast-jev-compaction",
+      "texto": "disponível também como plugin do Claude Code",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "CORTES PRECISOS",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "funcionamento",
+      "texto": "Apenas retornos e chamadas obsoletas são removidos. Informações recentes e o histórico de texto ficam totalmente intactos."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "REQUISITOS",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "licença",
+      "texto": "Projeto sob licença MIT. Exige uma chave API TypeSafe e versão recente do Claude Code com hooks habilitados."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK"
+    }
+  ]
+}
