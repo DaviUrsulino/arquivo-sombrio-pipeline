@@ -1,0 +1,267 @@
+{
+  "titulo": "magpie: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "gerencie todos os modelos de agentes em um unico gateway local com o magpie"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "yetone/magpie",
+      "nome": "magpie",
+      "cor": "azul",
+      "promessa": "Every agent's model. One place. Codex on DeepSeek, Claude Code on Kimi, from the",
+      "texto": "Every agent's model. One place. Codex on DeepSeek, Claude Code on Kimi, from the menu bar."
+    }
+  ],
+  "destaques": [
+    "gateway local",
+    "modelos de ia",
+    "troca de contas",
+    "roteamento",
+    "magpie",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Você usa vários agentes de inteligência artificial com modelos e chaves diferentes?",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "TODAS AS IAS",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "NUM SO LUGAR",
+            "cor": "laranja",
+            "tamanho": 140
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O Magpie já acumula {estrelas:yetone/magpie} estrelas no GitHub com essa proposta.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "contador",
+        "repo": "yetone/magpie"
+      }
+    },
+    {
+      "narracao": "Ele funciona como um gateway local unificado na sua máquina.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "bot",
+            "rotulo": "Agentes",
+            "cor": "azul"
+          },
+          {
+            "icone": "zap",
+            "rotulo": "Gateway",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "sparkles",
+            "rotulo": "Provedores",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Você altera o modelo de qualquer agente pela barra de menus.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "terminal",
+        "cor": "verde",
+        "rotulo": "TROQUE NA BARRA"
+      }
+    },
+    {
+      "narracao": "Se a cota de uma conta acabar ele passa para a próxima.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "niveis",
+        "itens": [
+          {
+            "rotulo": "CONTA A",
+            "altura": 1,
+            "cor": "verde"
+          },
+          {
+            "rotulo": "CONTA B",
+            "altura": 2,
+            "cor": "azul"
+          },
+          {
+            "rotulo": "CONTA C",
+            "altura": 3,
+            "cor": "amarelo"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Ele traduz formatos de mensagens da OpenAI Anthropic e Google Gemini.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "OpenAI Chat",
+          "Anthropic Messages",
+          "Google Gemini"
+        ]
+      }
+    },
+    {
+      "narracao": "Para instalar no Mac ou Linux basta executar este comando curl.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "curl -fsSL https://usemagpie.ai/install.sh | sh",
+        "texto": "instalação rápida"
+      }
+    },
+    {
+      "narracao": "Você pode adicionar provedores e definir modelos pelo próprio terminal.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "magpie provider add deepseek sk-…",
+        "texto": "adicionar provedor"
+      }
+    },
+    {
+      "narracao": "Ele atende quem utiliza múltiplos agentes ou várias contas e provedores.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "users",
+        "cor": "roxo",
+        "rotulo": "MULTIPLOS AGENTES"
+      }
+    },
+    {
+      "narracao": "Dá para desativar a descoberta automática de contas em suas configurações.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "shield-check",
+        "cor": "amarelo",
+        "rotulo": "PRIVACIDADE"
+      }
+    },
+    {
+      "narracao": "O projeto é totalmente código aberto sob a licença MIT.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "banner_repo",
+        "url": "github.com/yetone/magpie"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "TODOS OS AGENTES",
+          "cor": "branco",
+          "tamanho": 100
+        },
+        {
+          "texto": "UM SO LUGAR",
+          "cor": "laranja",
+          "tamanho": 110
+        }
+      ],
+      "subtitulo": "conheca o magpie"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "GATEWAY LOCAL",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "magpie",
+      "texto": "Um gateway local que unifica modelos e chaves para todos os seus agentes. Permite alternar modelos facilmente pela barra de menus."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMO INSTALAR",
+          "cor": "verde"
+        }
+      ],
+      "comando": "curl -fsSL https://usemagpie.ai/install.sh | sh",
+      "texto": "instalação via shell no mac e linux",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "ROTEAMENTO",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "recurso",
+      "texto": "Se a cota de uma conta esgota ele alterna automaticamente para outra. Traduz requisições entre OpenAI, Anthropic e Gemini."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "LICENÇA MIT",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "licenca",
+      "texto": "Código aberto sob licença MIT. Funciona em macOS, Windows, Linux e Docker."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK"
+    }
+  ]
+}
