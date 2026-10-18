@@ -17,6 +17,7 @@
     "OthmanAdi/planning-with-files",
     "Panniantong/Agent-Reach",
     "QwenLM/qwen-code",
+    "Vincentwei1021/video-shotcraft",
     "VoltAgent/awesome-agent-skills",
     "aaif-goose/goose",
     "addyosmani/agent-skills",
@@ -59,5 +60,5 @@
     "zarazhangrui/frontend-slides",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 12
+  "pautas_geradas": 13
 }

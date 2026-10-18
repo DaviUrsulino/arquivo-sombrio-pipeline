@@ -1,0 +1,247 @@
+{
+  "titulo": "video-shotcraft: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "crie vídeos promocionais de produto em código com claude code e remotion"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "Vincentwei1021/video-shotcraft",
+      "nome": "video-shotcraft",
+      "cor": "azul",
+      "promessa": "AI video skill for Claude Code & Codex — cinematic product videos with Remotion:",
+      "texto": "AI video skill for Claude Code & Codex — cinematic product videos with Remotion: 152 shot recipe cards, 209 motion previ"
+    }
+  ],
+  "destaques": [
+    "remotion",
+    "claude code",
+    "codex",
+    "video shotcraft",
+    "react",
+    "motion workbench",
+    "mp4",
+    "open source",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Você pode pedir para a inteligência artificial programar um vídeo promocional em código.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "VÍDEO PROMO",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "EM CÓDIGO",
+            "cor": "laranja",
+            "tamanho": 140
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O repositório vídeo shotcraft já alcançou {estrelas:Vincentwei1021/video-shotcraft} estrelas no GitHub.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "Vincentwei1021/video-shotcraft"
+      }
+    },
+    {
+      "narracao": "Ele funciona como uma habilidade para o Claude Code e para o Codex.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Claude Code",
+          "Codex",
+          "Remotion",
+          "React"
+        ]
+      }
+    },
+    {
+      "narracao": "Em vez de inventar imagens, o agente usa capturas reais do seu produto.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "code-xml",
+            "rotulo": "Captura",
+            "cor": "azul"
+          },
+          {
+            "icone": "zap",
+            "rotulo": "Remotion",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "clapperboard",
+            "rotulo": "Vídeo MP4",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O pacote conta com cento e cinquenta tomadas prontas em dez categorias.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "clapperboard",
+        "cor": "verde",
+        "rotulo": "150 SHOTS PRONTOS"
+      }
+    },
+    {
+      "narracao": "A instalação pode ser feita pelo comando ene pê xis skills add.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "npx skills add Vincentwei1021/video-shotcraft",
+        "texto": "instala a skill no agente"
+      }
+    },
+    {
+      "narracao": "Depois basta pedir para criar o anúncio usando o modelo padrão desejado.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "prompt",
+        "comando": "Use video-shotcraft to make a promo for my product.",
+        "texto": "o agente monta o roteiro e anima"
+      }
+    },
+    {
+      "narracao": "Após a renderização ele abre um editor no navegador para ajustes finos.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "palette",
+        "cor": "laranja",
+        "rotulo": "MOTION WORKBENCH"
+      }
+    },
+    {
+      "narracao": "O resultado final entrega um arquivo em formato MP4 e o projeto React.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "check",
+        "cor": "verde",
+        "rotulo": "MP4 1080P COM ÁUDIO"
+      }
+    },
+    {
+      "narracao": "Todo o projeto é de código aberto sob a licença Apache dois ponto zero.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "banner_repo",
+        "url": "github.com/Vincentwei1021/video-shotcraft"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "VÍDEOS PROMO",
+          "cor": "branco",
+          "tamanho": 95
+        },
+        {
+          "texto": "COM CÓDIGO",
+          "cor": "laranja",
+          "tamanho": 85
+        }
+      ],
+      "subtitulo": "conheça o video-shotcraft"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "SKILL DE VÍDEO",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "shotcraft",
+      "texto": "Skill para Claude Code e Codex que cria vídeos com Remotion. Usa capturas reais do seu produto desenhadas em código React."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "ADICIONAR SKILL",
+          "cor": "verde"
+        }
+      ],
+      "comando": "npx skills add Vincentwei1021/video-shotcraft",
+      "texto": "instalação direta pelo skills cli",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "EDITOR VISUAL",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "workbench",
+      "texto": "Biblioteca com 150 shots e editor no navegador para trocar textos, fontes e clipes antes de renderizar em MP4."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "CÓDIGO ABERTO",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "licença",
+      "texto": "Repositório open source sob licença Apache-2.0, incluindo componentes e faixas de áudio."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK"
+    }
+  ]
+}
