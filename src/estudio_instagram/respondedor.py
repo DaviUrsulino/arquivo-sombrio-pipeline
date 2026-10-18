@@ -13,6 +13,8 @@ Uso:
 import argparse
 import json
 import os
+import subprocess
+import time
 import urllib.error
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -105,19 +107,51 @@ def responder_novos(config: dict, enviadas: dict, ig, agora: datetime | None = N
     return feitos
 
 
+def _ler_json(arquivo: Path, padrao):
+    return json.loads(arquivo.read_text(encoding="utf-8")) if arquivo.exists() else padrao
+
+
+def _guardar_no_git():
+    """Commita e sobe o registro de quem já foi respondido. Falha aqui não derruba o laço."""
+    try:
+        subprocess.run(["git", "add", str(ENVIADAS)], cwd=RAIZ, check=True)
+        if subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=RAIZ).returncode == 0:
+            return
+        subprocess.run(["git", "commit", "-m", "chore: registra respostas enviadas pelo bot [skip ci]"], cwd=RAIZ, check=True)
+        subprocess.run(["git", "pull", "--rebase", "-q"], cwd=RAIZ, check=True)
+        subprocess.run(["git", "push", "-q"], cwd=RAIZ, check=True)
+    except subprocess.CalledProcessError as erro:
+        print(f"não consegui gravar no git ({erro}); sigo, o próximo ciclo tenta de novo")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--simular", action="store_true")
+    parser.add_argument("--minutos", type=float, default=0, help="fica em laço por tantos minutos (0 = uma passada só)")
+    parser.add_argument("--intervalo", type=int, default=120, help="segundos entre passadas no laço")
+    parser.add_argument("--commit", action="store_true", help="grava o registro no git depois de cada passada com resposta")
     args = parser.parse_args()
     load_dotenv(RAIZ / ".env")
     ig = InstagramGraph(os.environ["INSTAGRAM_GRAPH_TOKEN"], os.environ["INSTAGRAM_USER_ID"])
-    config = json.loads(CONFIG.read_text(encoding="utf-8"))
-    enviadas = json.loads(ENVIADAS.read_text(encoding="utf-8")) if ENVIADAS.exists() else {}
-    por_post = json.loads(LINKS_POR_POST.read_text(encoding="utf-8")) if LINKS_POR_POST.exists() else {}
-    feitos = responder_novos(config, enviadas, ig, simular=args.simular, por_post=por_post)
-    if not args.simular:
-        ENVIADAS.write_text(json.dumps(enviadas, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(json.dumps(feitos, ensure_ascii=False, indent=2) if feitos else "nenhum comentário novo com palavra-chave")
+    config = _ler_json(CONFIG, {})
+    fim = time.monotonic() + args.minutos * 60
+    while True:
+        # Recarrega a cada passada: o registro e os links por post mudam enquanto o laço roda.
+        enviadas = _ler_json(ENVIADAS, {})
+        por_post = _ler_json(LINKS_POR_POST, {})
+        try:
+            feitos = responder_novos(config, enviadas, ig, simular=args.simular, por_post=por_post)
+        except Exception as erro:  # API fora do ar, rede: não pode matar o laço inteiro
+            print(f"passada falhou ({str(erro)[:200]}); tento de novo")
+            feitos = []
+        if feitos and not args.simular:
+            ENVIADAS.write_text(json.dumps(enviadas, ensure_ascii=False, indent=2), encoding="utf-8")
+            if args.commit:
+                _guardar_no_git()
+        print(json.dumps(feitos, ensure_ascii=False) if feitos else "nenhum comentário novo com palavra-chave", flush=True)
+        if time.monotonic() + args.intervalo >= fim:
+            break
+        time.sleep(args.intervalo)
 
 
 if __name__ == "__main__":

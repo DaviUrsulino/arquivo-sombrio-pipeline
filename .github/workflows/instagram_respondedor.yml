@@ -1,7 +1,12 @@
 name: Instagram respondedor - manda o kit por DM para quem comenta a palavra-chave
 
-# Bot do "comenta PALAVRA": a cada ~10 minutos lê os comentários recentes e responde em DM
-# (resposta privada da Graph API) quem comentou uma palavra de pautas/bot_respostas.json.
+# Bot do "comenta PALAVRA": lê os comentários recentes e responde em DM (resposta privada da
+# Graph API) quem comentou uma palavra de pautas/bot_respostas.json ou a palavra do post.
+#
+# O agendador (cron) do GitHub atrasa horas, e comentário respondido horas depois perde o
+# efeito (2026-10-18: cron das 11:13 UTC rodou às 14:33). Por isso cada execução fica em laço
+# por ~50 minutos, olhando a cada 90 s, e no fim dispara a próxima execução sozinha. O cron
+# continua só como rede de segurança, caso o laço morra.
 # O que já foi respondido fica em pautas/respostas_enviadas.json (a Meta só aceita uma
 # resposta privada por comentário, em até 7 dias). Minutos quebrados pelo mesmo motivo do
 # pipeline_dark.yml (evitar o pico do agendador).
@@ -17,9 +22,10 @@ concurrency:
 jobs:
   responder:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 65
     permissions:
       contents: write
+      actions: write
     steps:
       - uses: actions/checkout@v4
 
@@ -36,16 +42,25 @@ jobs:
           INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
         run: printf 'INSTAGRAM_GRAPH_TOKEN=%s\nINSTAGRAM_USER_ID=%s\n' "$INSTAGRAM_GRAPH_TOKEN" "$INSTAGRAM_USER_ID" > .env
 
-      - name: Responde os comentários novos
-        run: python -m src.estudio_instagram.respondedor
+      - name: Configura o git do robô
+        run: |
+          git config user.name "estudio-automatico (bot)"
+          git config user.email "actions@github.com"
+
+      - name: Responde os comentários novos (laço de ~50 min)
+        run: python -m src.estudio_instagram.respondedor --minutos 50 --intervalo 90 --commit
 
       - name: Registra quem já recebeu
         if: always()
         run: |
-          git config user.name "estudio-automatico (bot)"
-          git config user.email "actions@github.com"
           git add pautas/respostas_enviadas.json
           git diff --cached --quiet && exit 0
           git commit -m "chore: registra respostas enviadas pelo bot [skip ci]"
           git pull --rebase
           git push
+
+      - name: Dispara a próxima execução do laço
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run instagram_respondedor.yml
