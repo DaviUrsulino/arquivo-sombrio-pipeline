@@ -174,7 +174,7 @@ class ComReserva:
                 self._prontas = self.principal.sintetizar_varios(textos)
             else:
                 self._prontas = {t: self.principal.sintetizar(t) for t in textos}
-        except RuntimeError as erro:
+        except Exception as erro:  # não só RuntimeError: falha de rede crua não pode matar o vídeo do dia
             print(f"voz principal indisponível ({str(erro)[:160]}); usando a voz reserva")
             self._prontas = {}
             self.usando_reserva = True
@@ -246,6 +246,11 @@ class GeminiTTS:
                 if tentativa == len(self.ESPERAS_S):
                     break
                 self._esperar(3)
+            except urllib.error.URLError as erro:  # falha de rede crua (timeout, DNS, conexão recusada)
+                ultimo = f"falha de rede ({erro.reason})"
+                if tentativa == len(self.ESPERAS_S):
+                    break
+                self._esperar(self.ESPERAS_S[tentativa])
         raise RuntimeError(f"Gemini TTS recusou: {ultimo}")
 
     def _pcm(self, texto: str) -> bytes:

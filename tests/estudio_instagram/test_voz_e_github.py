@@ -191,6 +191,48 @@ def test_gemini_tts_desiste_com_erro_claro_se_nao_for_limite():
         GeminiTTS("Orus", chave="x", abrir=abrir, esperar=lambda s: None).sintetizar("oi")
 
 
+def test_gemini_tts_tenta_de_novo_em_falha_de_rede_crua():
+    import base64
+    import io
+    import json as _json
+    import urllib.error
+
+    from src.estudio_instagram.voz import GeminiTTS
+
+    pcm = _pcm_com_fala_e_pausas()
+    resposta = _json.dumps({"candidates": [{"content": {"parts": [{"inlineData": {"data": base64.b64encode(pcm).decode()}}]}}]}).encode()
+    chamadas, esperas = [], []
+
+    class Resp(io.BytesIO):
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+
+    def abrir(pedido, timeout=None):
+        chamadas.append(1)
+        if len(chamadas) == 1:
+            raise urllib.error.URLError("falha de dns")
+        return Resp(resposta)
+
+    voz = GeminiTTS("Orus", chave="x", abrir=abrir, esperar=esperas.append)
+    narracao = voz.sintetizar("um dois três, quatro cinco seis")
+    assert len(chamadas) == 2 and esperas == [12] and len(narracao.palavras) == 6
+
+
+def test_com_reserva_cai_pra_reserva_mesmo_quando_o_erro_nao_e_runtime_error():
+    from src.estudio_instagram.voz import ComReserva, Narracao
+
+    class FalhaDeRede:
+        def sintetizar_varios(self, textos):
+            raise ConnectionError("timeout")
+
+    class Reserva:
+        def sintetizar(self, t): return Narracao(b"reserva", [])
+
+    voz = ComReserva(FalhaDeRede(), Reserva())
+    voz.preparar(["a", "b"])
+    assert voz.usando_reserva and voz.sintetizar("a").audio_pcm == b"reserva"
+
+
 def test_cortar_em_cenas_divide_a_narracao_unica_na_pausa_entre_frases():
     from src.estudio_instagram.alinhamento import aparar, cortar_em_cenas
 
