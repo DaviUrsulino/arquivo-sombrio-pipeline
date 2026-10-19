@@ -99,8 +99,14 @@ class InstagramGraph:
         with self._abrir(pedido, timeout=30) as resposta:
             return json.load(resposta)
 
-    def comentarios_recentes(self, quantas_midias: int = 10) -> list[dict]:
-        """Comentários das últimas mídias: id, texto, usuário e hora. Só olha mídia com comentário."""
+    def comentarios_recentes(self, quantas_midias: int = 80) -> list[dict]:
+        """Comentários das últimas mídias: id, texto, usuário e hora. Só olha mídia com comentário.
+
+        80 cobre a janela de 7 dias da resposta privada (JANELA em respondedor.py) mesmo na
+        cadência atual de 5 rodadas/dia (10 mídias/dia) — com 10 fixo, um post de ontem com
+        comentário já saía da lista assim que o dia seguinte publicava mais mídia nova.
+        Listar mídia é 1 chamada só (barato); só gasta chamada extra em mídia que tem comentário.
+        """
         midias = self._ler(f"{self.ig_user_id}/media", fields="id,comments_count", limit=quantas_midias)["data"]
         comentarios = []
         for midia in midias:
