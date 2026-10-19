@@ -14,15 +14,8 @@ name: Pipeline Instagram - robo.estagiario
 # carga do agendador do GitHub Actions no início de cada hora.
 
 on:
-  schedule:
-    # 5 rodadas por dia, cada uma com 1 Reels + 1 carrossel = 10 posts (2026-10-18, pedido do Davi).
-    # Quatro são notícia de ferramenta (formato "pixel2", roteiro escrito por LLM a partir do README, ver
-    # roteirista.py) e a das 19h BRT é o vídeo de venda (formato "venda", ver pautas/vendas/).
-    - cron: '13 10 * * *'  # ~07h13 BRT
-    - cron: '13 14 * * *'  # ~11h13 BRT
-    - cron: '13 18 * * *'  # ~15h13 BRT
-    - cron: '13 22 * * *'  # ~19h13 BRT  (venda)
-    - cron: '13 1 * * *'   # ~22h13 BRT (dia anterior)
+  # Sem `schedule`: quem dispara as 5 rodadas diárias é o instagram_maestro.yml, que vigia o relógio de Brasília
+  # (o cron do GitHub atrasa horas ou não dispara). Rodada de venda: a das 19h. Ver src/estudio_instagram/maestro.py.
   workflow_dispatch:
     inputs:
       formato:

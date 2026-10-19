@@ -1,0 +1,222 @@
+{
+ "titulo": "Venda 6: estudante aprendendo junto",
+ "formato": "pixel2",
+ "palavra_chave": "BIO",
+ "fecho_proprio": true,
+ "perfil": "@robo.estagiario",
+ "voz": {
+  "id": "iP95p4xoKVk53GoZ742B",
+  "modelo": "eleven_multilingual_v2"
+ },
+ "capa": {
+  "subtitulo": "estudante de engenharia de software aprendendo junto"
+ },
+ "chamada": {
+  "pergunta": "quer aprender?"
+ },
+ "itens": [],
+ "destaques": [
+  "estudante",
+  "começar",
+  "praticar",
+  "junto"
+ ],
+ "legenda": "Faz faculdade, está começando em tecnologia e não sabe por onde ir? Eu também sou estudante de engenharia de software. Vem aprender junto. Link na bio.\n\n#engenhariadesoftware #ia #claudecode #reels",
+ "cenas_roteiro": [
+  {
+   "humor": "pensando",
+   "narracao": "Você faz faculdade, está começando em tecnologia e não sabe por onde ir?",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {
+      "texto": "COMEÇANDO",
+      "cor": "branco",
+      "tamanho": 120
+     },
+     {
+      "texto": "EM TECNOLOGIA?",
+      "cor": "laranja",
+      "tamanho": 100
+     }
+    ]
+   }
+  },
+  {
+   "humor": "feliz",
+   "narracao": "Eu também sou estudante de engenharia de software, e já me senti assim.",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "brain",
+    "cor": "roxo",
+    "rotulo": "ESTUDANTE TAMBÉM"
+   }
+  },
+  {
+   "humor": "feliz",
+   "narracao": "O primeiro passo é sempre começar, depois praticar e depois mostrar o que você fez.",
+   "visual": {
+    "tipo": "niveis",
+    "itens": [
+     {
+      "rotulo": "COMEÇAR",
+      "altura": 1,
+      "cor": "verde"
+     },
+     {
+      "rotulo": "PRATICAR",
+      "altura": 2,
+      "cor": "azul"
+     },
+     {
+      "rotulo": "MOSTRAR",
+      "altura": 3,
+      "cor": "amarelo"
+     }
+    ]
+   }
+  },
+  {
+   "humor": "normal",
+   "narracao": "Eu comecei fazendo um projeto de verdade e transformando ele em vídeo.",
+   "visual": {
+    "tipo": "cadeia",
+    "layout": "horizontal",
+    "nos": [
+     {
+      "icone": "code-xml",
+      "rotulo": "Projeto",
+      "cor": "azul"
+     },
+     {
+      "icone": "clapperboard",
+      "rotulo": "Vídeo",
+      "cor": "amarelo"
+     },
+     {
+      "icone": "rocket",
+      "rotulo": "Portfólio",
+      "cor": "verde"
+     }
+    ]
+   }
+  },
+  {
+   "humor": "feliz",
+   "narracao": "O que eu uso eu ensino: o Pack Pixel, o Kit Claude Code e um kit grátis.",
+   "visual": {
+    "tipo": "lista",
+    "itens": [
+     "Pack Pixel",
+     "Kit Claude Code",
+     "Kit grátis"
+    ]
+   }
+  },
+  {
+   "humor": "animado",
+   "narracao": "Vem aprender junto comigo. O link está na bio.",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {
+      "texto": "VEM APRENDER",
+      "cor": "branco",
+      "tamanho": 130
+     },
+     {
+      "texto": "COMIGO",
+      "cor": "verde",
+      "tamanho": 140
+     }
+    ]
+   }
+  }
+ ],
+ "slides": [
+  {
+   "tipo": "capa",
+   "linhas": [
+    {
+     "texto": "COMEÇANDO",
+     "cor": "branco",
+     "tamanho": 112
+    },
+    {
+     "texto": "EM TECNOLOGIA?",
+     "cor": "laranja",
+     "tamanho": 84
+    }
+   ],
+   "subtitulo": "eu também sou estudante"
+  },
+  {
+   "tipo": "ponto",
+   "fase": "EU TAMBÉM",
+   "progresso": 0.25,
+   "linhas": [
+    {
+     "texto": "SOU ESTUDANTE",
+     "cor": "roxo"
+    }
+   ],
+   "rotulo": "engenharia de software",
+   "texto": "Também estou na faculdade e já não soube por onde começar. Aprendo fazendo e mostrando."
+  },
+  {
+   "tipo": "ponto",
+   "fase": "PASSO 1",
+   "progresso": 0.5,
+   "linhas": [
+    {
+     "texto": "COMEÇAR",
+     "cor": "verde"
+    }
+   ],
+   "rotulo": "o primeiro passo",
+   "texto": "Escolha um projeto pequeno e de verdade. Não espere estar pronto para começar."
+  },
+  {
+   "tipo": "ponto",
+   "fase": "PASSO 2",
+   "progresso": 0.75,
+   "linhas": [
+    {
+     "texto": "PRATICAR",
+     "cor": "azul"
+    }
+   ],
+   "rotulo": "todo dia",
+   "texto": "Pouco por dia, todo dia. Use IA como parceira, mas entenda o que ela escreve."
+  },
+  {
+   "tipo": "ponto",
+   "fase": "PASSO 3",
+   "progresso": 1.0,
+   "linhas": [
+    {
+     "texto": "MOSTRAR",
+     "cor": "amarelo"
+    }
+   ],
+   "rotulo": "portfólio",
+   "texto": "Transforme o que você fez em algo que dá para ver. Foi assim que eu cheguei nesses vídeos."
+  },
+  {
+   "tipo": "cta",
+   "linhas": [
+    {
+     "texto": "VEM APRENDER",
+     "cor": "branco"
+    },
+    {
+     "texto": "COMIGO",
+     "cor": "verde"
+    }
+   ],
+   "subtitulo": "Vem aprender junto · link na bio",
+   "selo": "LINK NA BIO",
+   "palavra": "BIO"
+  }
+ ]
+}

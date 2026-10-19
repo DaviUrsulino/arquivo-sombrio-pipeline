@@ -1,0 +1,45 @@
+name: Instagram maestro - dispara as 5 rodadas de post do dia na hora certa
+
+# O cron do GitHub atrasa horas ou nem dispara (2026-10-19: só 2 das 5 rodadas do dia rodaram). Este workflow
+# fica em laço por ~5h40, olhando o relógio de Brasília a cada 2 minutos, e dispara o pipeline_instagram.yml
+# quando chega a hora de cada rodada (ver src/estudio_instagram/maestro.py). No fim, dispara a próxima
+# execução dele mesmo, e essa corrente nunca para. O cron de hora em hora é só rede de segurança, caso a
+# corrente morra (o `concurrency` impede dois maestros ao mesmo tempo).
+on:
+  schedule:
+    - cron: '23 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: instagram-maestro
+  cancel-in-progress: false
+
+jobs:
+  maestro:
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    permissions:
+      contents: write
+      actions: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Configura o git do robô
+        run: |
+          git config user.name "estudio-automatico (bot)"
+          git config user.email "actions@github.com"
+
+      - name: Vigia o relógio e dispara as rodadas
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python -m src.estudio_instagram.maestro --minutos 340 --intervalo 120 --commit
+
+      - name: Dispara a próxima execução do maestro
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run instagram_maestro.yml
