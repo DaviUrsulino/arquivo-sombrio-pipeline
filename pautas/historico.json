@@ -42,6 +42,7 @@
     "iOfficeAI/AionUi",
     "jarrodwatts/claude-hud",
     "jnMetaCode/agency-agents-zh",
+    "lemomo-ai/lemo-opuscar",
     "mattpocock/skills",
     "miqdadbadjuber/anti-slop",
     "morluto/rea",
@@ -67,5 +68,5 @@
     "zarazhangrui/frontend-slides",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 20
+  "pautas_geradas": 21
 }

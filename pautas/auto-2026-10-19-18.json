@@ -1,0 +1,270 @@
+{
+  "titulo": "lemo-opuscar: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "crie curtas metragens com o claude code gerando renderização e áudio direto via código"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "lemomo-ai/lemo-opuscar",
+      "nome": "lemo-opuscar",
+      "cor": "azul",
+      "promessa": "Claude Code skill for short films with no video model: 51 film styles, each a st",
+      "texto": "Claude Code skill for short films with no video model: 51 film styles, each a style prompt plus a demo film made entirel"
+    }
+  ],
+  "destaques": [
+    "filme curto",
+    "modelo de video",
+    "claude code",
+    "estilos visuais",
+    "licenca mit",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Já pensou em criar um filme curto sem usar nenhum modelo de vídeo?",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "VÍDEO SEM MODELO",
+            "cor": "laranja",
+            "tamanho": 120
+          },
+          {
+            "texto": "SÓ COM CÓDIGO",
+            "cor": "branco",
+            "tamanho": 130
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O lemo opuscar já tem {estrelas:lemomo-ai/lemo-opuscar} estrelas no GitHub com essa proposta diferente.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "lemomo-ai/lemo-opuscar"
+      }
+    },
+    {
+      "narracao": "Ele é uma habilidade para o Claude Code gerar vídeos direto com código.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "code-xml",
+            "rotulo": "Claude",
+            "cor": "azul"
+          },
+          {
+            "icone": "palette",
+            "rotulo": "Canvas WebGL",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "clapperboard",
+            "rotulo": "Filme MP4",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O agente desenha os quadros em HTML e gera áudio com narração.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Render WebGL",
+          "Voz sintetizada",
+          "Trilha sonora"
+        ]
+      }
+    },
+    {
+      "narracao": "O repositório traz cinquenta e um estilos visuais de filmes prontos.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "niveis",
+        "itens": [
+          {
+            "rotulo": "ESTILOS",
+            "altura": 3,
+            "cor": "roxo"
+          },
+          {
+            "rotulo": "AULAS",
+            "altura": 2,
+            "cor": "azul"
+          },
+          {
+            "rotulo": "GUIAS",
+            "altura": 1,
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Para instalar no Claude Code você adiciona a loja no terminal.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "claude plugin marketplace add lemomo-ai/lemo-opuscar",
+        "texto": "adiciona a loja"
+      }
+    },
+    {
+      "narracao": "Depois você roda o comando de instalação do pacote lemo opuscar.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "claude plugin install lemo-opuscar@lemolab",
+        "texto": "instala a habilidade"
+      }
+    },
+    {
+      "narracao": "Você escolhe o estilo e descreve a sua história para o agente.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "sparkles",
+        "cor": "laranja",
+        "rotulo": "51 ESTILOS"
+      }
+    },
+    {
+      "narracao": "Para funcionar você precisa ter Node vinte, Python e ffmpeg instalados.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Node 20 mais",
+          "Python 3.11",
+          "ffmpeg instalado"
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto é totalmente aberto e usa a licença livre M I T.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "shield-check",
+        "cor": "verde",
+        "rotulo": "LICENÇA MIT"
+      }
+    },
+    {
+      "narracao": "O projeto foi ajustado especialmente para o modelo Claude Opus cinco ponto cinco.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "banner_repo",
+        "url": "github.com/lemomo-ai/lemo-opuscar"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "FILME EM CÓDIGO",
+          "cor": "laranja",
+          "tamanho": 108
+        },
+        {
+          "texto": "SEM IA DE VÍDEO",
+          "cor": "branco",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o lemo-opuscar"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "CÓDIGO PURO",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "sobre",
+      "texto": "Habilidade para Claude Code que cria curtas em código com renderização em canvas e WebGL."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "INSTALAÇÃO",
+          "cor": "verde"
+        }
+      ],
+      "comando": "claude plugin install lemo-opuscar@lemolab",
+      "texto": "instala a skill no Claude Code",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "51 ESTILOS",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "estilos",
+      "texto": "Possui 51 estilos visuais prontos com áudio, trilha sonora e narração por código."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "REQUISITOS",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "licença",
+      "texto": "Requer Node 20+, ffmpeg e Python 3.11+. Licença MIT."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ]
+}
