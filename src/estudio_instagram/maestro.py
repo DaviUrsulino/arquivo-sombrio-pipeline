@@ -32,7 +32,7 @@ BRASILIA = timezone(timedelta(hours=-3))
 # Modo seguro (2026-10-19): o Instagram devolveu "action is blocked" com 5 rodadas por dia, então são poucas e espaçadas.
 RODADAS = [("09:00", "pixel2"), ("14:00", "pixel2"), ("19:00", "venda")]
 # Pauta pronta e aprovada que substitui o formato de uma rodada: {"AAAA-MM-DD": {"HH:MM": "caminho"}}.
-PAUTAS_DO_DIA = {"2026-10-20": {"09:00": "pautas/viral/openfilm.json"}}
+PAUTAS_DO_DIA = {}
 TOLERANCIA_ATRASO = timedelta(hours=2)
 INTERVALO_MIN_MIN = 120  # nunca duas rodadas em menos de 2 horas
 
