@@ -1,0 +1,284 @@
+{
+  "titulo": "rea: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "rea engenharia reversa com agentes mcp"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "morluto/rea",
+      "nome": "rea",
+      "cor": "azul",
+      "promessa": "Reverse engineer anything with agents, from app behavior down to native binaries",
+      "texto": "Reverse engineer anything with agents, from app behavior down to native binaries."
+    }
+  ],
+  "destaques": [
+    "engenharia reversa",
+    "agentes",
+    "mcp",
+    "binarios",
+    "javascript",
+    "nodejs",
+    "mit",
+    "github",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Uma ferramenta que engenharia reversa qualquer coisa.",
+      "humor": "curioso",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "ENGENHARIA",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "REVERSA",
+            "cor": "laranja",
+            "tamanho": 150
+          },
+          {
+            "texto": "COM AGENTES",
+            "cor": "amarelo",
+            "tamanho": 100
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O repositório tem {estrelas:morluto/rea} estrelas no GitHub.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "contador",
+        "repo": "morluto/rea"
+      }
+    },
+    {
+      "narracao": "REA conecta seu agente a ferramentas de inspeção.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "bot",
+        "cor": "azul",
+        "rotulo": "MCP REVERSO"
+      }
+    },
+    {
+      "narracao": "O agente pede REA inspeciona devolve evidências.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "bot",
+            "rotulo": "Agente",
+            "cor": "azul"
+          },
+          {
+            "icone": "zap",
+            "rotulo": "REA MCP",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "search",
+            "rotulo": "Evidências",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Analisa binários nativos JavaScript Go Rust WASM.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "niveis",
+        "itens": [
+          {
+            "rotulo": "NATIVO",
+            "altura": 3,
+            "cor": "vermelho"
+          },
+          {
+            "rotulo": "JAVASCRIPT",
+            "altura": 2,
+            "cor": "amarelo"
+          },
+          {
+            "rotulo": "GO RUST",
+            "altura": 2,
+            "cor": "azul"
+          },
+          {
+            "rotulo": "WASM EVM",
+            "altura": 1,
+            "cor": "roxo"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Funciona com Claude Code Codex Cursor Gemini.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Claude Code",
+          "Codex",
+          "Cursor",
+          "Gemini CLI"
+        ]
+      }
+    },
+    {
+      "narracao": "Instala com npx rea-agents setup no terminal.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "npx rea-agents setup",
+        "texto": "registra mcp no seu agente"
+      }
+    },
+    {
+      "narracao": "Documentação completa e guias no site rea.tools.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "banner_repo",
+        "url": "github.com/morluto/rea"
+      }
+    },
+    {
+      "narracao": "Precisa Node.js vinte e dois ou superior instalado.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "check",
+        "cor": "verde",
+        "rotulo": "NODE 22 MAIS"
+      }
+    },
+    {
+      "narracao": "Licença MIT código aberto no GitHub morluto rea.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Licença MIT",
+          "Open Source",
+          "GitHub"
+        ]
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "ENGENHARIA",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "REVERSA COM",
+          "cor": "laranja",
+          "tamanho": 90
+        },
+        {
+          "texto": "AGENTES MCP",
+          "cor": "amarelo",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o REA",
+      "rotulo": "capa"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "MCP PARA",
+          "cor": "azul"
+        },
+        {
+          "texto": "REVERSO TOTAL",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "rea",
+      "texto": "REA conecta agentes a ferramentas que inspecionam binários nativos apps JavaScript Electron assemblies .NET e sites. Roda local e devolve evidências."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "SETUP RÁPIDO",
+          "cor": "verde"
+        }
+      ],
+      "comando": "npx rea-agents setup",
+      "texto": "escolhe agentes revisa mudanças aprova reinicia agente",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "ANALISA TUDO",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "nota",
+      "texto": "Binários com Hopper Ghidra IDA. JavaScript Electron sem engine nativo. Go Rust WASM EVM SQLite crashes. Tudo com evidências."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "LICENÇA MIT",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "nota",
+      "texto": "Código aberto no GitHub morluto rea. Precisa Node.js 22+ e npm. Site rea.tools tem guias e showcases."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ]
+}
