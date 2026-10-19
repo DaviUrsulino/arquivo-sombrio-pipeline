@@ -31,6 +31,8 @@ BRASILIA = timezone(timedelta(hours=-3))
 # (hora de Brasília, formato). Cada rodada posta 1 Reels + 1 carrossel: 3 rodadas = 6 posts por dia.
 # Modo seguro (2026-10-19): o Instagram devolveu "action is blocked" com 5 rodadas por dia, então são poucas e espaçadas.
 RODADAS = [("09:00", "pixel2"), ("14:00", "pixel2"), ("19:00", "venda")]
+# Pauta pronta e aprovada que substitui o formato de uma rodada: {"AAAA-MM-DD": {"HH:MM": "caminho"}}.
+PAUTAS_DO_DIA = {"2026-10-20": {"09:00": "pautas/viral/openfilm.json"}}
 TOLERANCIA_ATRASO = timedelta(hours=2)
 INTERVALO_MIN_MIN = 120  # nunca duas rodadas em menos de 2 horas
 
@@ -60,7 +62,8 @@ def decidir(agora: datetime, estado: dict) -> tuple[str | None, dict]:
             feitos[hhmm] = "perdida"
             continue
         if seguro and escolhido is None:
-            escolhido = (hhmm, formato)
+            pronta = PAUTAS_DO_DIA.get(dia, {}).get(hhmm)
+            escolhido = (hhmm, f"pauta:{pronta}" if pronta else formato)
             feitos[hhmm] = f"disparada {agora.strftime('%H:%M')}"
     novo = {"dia": dia, "feitos": feitos, "ultimo_disparo": estado.get("ultimo_disparo")}
     if escolhido:
@@ -88,8 +91,12 @@ def _gravar(estado: dict, commitar: bool):
 
 
 def disparar(formato: str):
+    if formato.startswith("pauta:"):
+        entrada = ["-f", f"pauta={formato.removeprefix('pauta:')}"]
+    else:
+        entrada = ["-f", f"formato={formato}"]
     subprocess.run(
-        ["gh", "workflow", "run", "pipeline_instagram.yml", "-f", f"formato={formato}", "-f", "publicar=true"],
+        ["gh", "workflow", "run", "pipeline_instagram.yml", *entrada, "-f", "publicar=true"],
         cwd=RAIZ, check=True,
     )
 
