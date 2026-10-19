@@ -1,0 +1,247 @@
+{
+  "titulo": "openfilm: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "o openfilm transforma agentes de código em criadores de vídeo usando apenas páginas web"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "openfilm/openfilm",
+      "nome": "openfilm",
+      "cor": "azul",
+      "promessa": "The open source AI video agent: turns any coding agent into a video agent, with ",
+      "texto": "The open source AI video agent: turns any coding agent into a video agent, with an editor to change anything it makes."
+    }
+  ],
+  "destaques": [
+    "openfilm",
+    "claude code",
+    "codex",
+    "html",
+    "studio",
+    "timeline",
+    "ffmpeg",
+    "mit",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Seu agente de código agora pode criar vídeos inteiros direto no navegador.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "VÍDEO COM",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "HTML E CSS",
+            "cor": "laranja",
+            "tamanho": 130
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O OpenFilm já passou de {estrelas:openfilm/openfilm} no GitHub com essa proposta.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "openfilm/openfilm"
+      }
+    },
+    {
+      "narracao": "Ele transforma agentes como o Claude Code ou Codex em editores de filme.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Claude Code",
+          "Codex",
+          "Qualquer agente"
+        ]
+      }
+    },
+    {
+      "narracao": "Toda a linha do tempo fica salva em um único arquivo ponto agá-tê-eme-éle.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "code-xml",
+        "cor": "azul",
+        "rotulo": "FILM PONTO HTML"
+      }
+    },
+    {
+      "narracao": "O editor Studio roda localmente no navegador Chromium para você alterar tudo.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "code-xml",
+            "rotulo": "HTML",
+            "cor": "azul"
+          },
+          {
+            "icone": "palette",
+            "rotulo": "Studio",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "clapperboard",
+            "rotulo": "Vídeo",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Dá para exportar em vídeo, gif ou mandar a timeline para o Premiere.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "clapperboard",
+        "cor": "roxo",
+        "rotulo": "TIMELINE E EXPORTS"
+      }
+    },
+    {
+      "narracao": "O comando openfilm look confere fontes e erros de texto quadro a quadro.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "openfilm look",
+        "texto": "verifica erros no filme"
+      }
+    },
+    {
+      "narracao": "Para instalar no agente, basta usar o comando de skills do repositório.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "npx skills add openfilm/openfilm",
+        "texto": "adiciona ao agente"
+      }
+    },
+    {
+      "narracao": "Criar e editar vídeos não exige nenhuma conta ou chave de serviço paga.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "shield-check",
+        "cor": "verde",
+        "rotulo": "NENHUMA CONTA"
+      }
+    },
+    {
+      "narracao": "O projeto exige Node vinte e dois, ffmpeg e tem licença aberta MIT.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "banner_repo",
+        "url": "github.com/openfilm/openfilm"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "VÍDEO COM IA",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "VIA HTML E CSS",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o OpenFilm"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "O QUE É",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "openfilm",
+      "texto": "Transforma agentes como Claude Code e Codex em criadores de vídeo. O filme inteiro é montado em páginas web e renderizado pelo navegador."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMO USAR",
+          "cor": "verde"
+        }
+      ],
+      "comando": "npx skills add openfilm/openfilm",
+      "texto": "adiciona a ferramenta ao seu agente de código",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "STUDIO LOCAL",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "editor",
+      "texto": "Inclui o editor Studio para ajustar textos, camadas e timeline. Permite exportar para MP4, GIF ou mandar para o Premiere e DaVinci."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "REQUISITOS",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "licença",
+      "texto": "Código sob licença MIT. Requer Node 22.2 ou superior e ffmpeg instalado no sistema para renderização local."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ]
+}

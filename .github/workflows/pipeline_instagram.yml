@@ -22,6 +22,10 @@ on:
         description: 'vazio: venda na rodada das 22h UTC e notícia de ferramenta (pixel2) nas outras. Ou: pixel2 / venda / curto / aprofundado'
         required: false
         default: ''
+      pauta:
+        description: 'Caminho de uma pauta pronta no repositório (ex.: pautas/viral/openfilm.json). Vazio: gera sozinho'
+        required: false
+        default: ''
       repo:
         description: 'Forçar um repositório no formato pixel2 (dono/nome). Vazio: escolhe sozinho'
         required: false
@@ -74,6 +78,12 @@ jobs:
       - name: Escolhe o assunto sozinho (nunca repete um repositório já publicado)
         id: pauta
         run: |
+          PAUTA_PRONTA="${{ github.event.inputs.pauta }}"
+          if [ -n "$PAUTA_PRONTA" ]; then
+            echo "usando a pauta pronta $PAUTA_PRONTA"
+            echo "arquivo=$PAUTA_PRONTA" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           NOME="pautas/auto-$(date -u +%F)-${{ github.run_number }}.json"
           FORMATO="${{ github.event.inputs.formato }}"
           if [ -z "$FORMATO" ]; then
