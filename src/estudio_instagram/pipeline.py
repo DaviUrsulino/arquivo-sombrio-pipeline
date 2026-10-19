@@ -11,18 +11,22 @@ Publicar exige INSTAGRAM_GRAPH_TOKEN e INSTAGRAM_USER_ID no .env (ver docs/estud
 import argparse
 import json
 import os
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
 from dotenv import load_dotenv
 
-from . import cenas_pixel, github_dados, hospedagem, montagem, pauta, render
+from . import cenas_pixel, github_dados, hospedagem, montagem, pauta, pausa, render
 from .graph_api import InstagramGraph
 from .voz import ComReserva, EdgeTTS, ElevenLabs, GeminiTTS
 
 RAIZ = Path(__file__).resolve().parents[2]
 ICONES = {p.stem for p in (montagem.MODELOS / "assets" / "icons").glob("*.svg")}
 LIMITE_LEGENDA_INSTAGRAM = 2200
+# Modo seguro: não publica se a conta já usou muito da cota de 24 h, e espera entre o Reels e o carrossel.
+LIMITE_SEGURO_POSTS_24H = 10
+ESPERA_ENTRE_REELS_E_CARROSSEL_S = 600
 # Formatos que geram só o Reels (sem carrossel) e o molde visual de cada um.
 MOLDES_SO_REELS = {"prompt": "prompt.html.tpl", "diagrama": "diagrama.html.tpl", "palito": "palito.html.tpl",
                    "repo": "repo.html.tpl"}
@@ -71,6 +75,8 @@ def _registrar_links(dados_pauta: dict, repos: dict, registro: dict):
 
 
 def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) -> dict:
+    if publicar and pausa.ativa():
+        raise SystemExit(f"pausa de segurança ativa ({pausa.motivo()}): não publico agora")
     dados_pauta = pauta.carregar(caminho_pauta)
     if dados_pauta.get("formato") == "pixel2":
         dados_pauta = cenas_pixel.normalizar_pauta(dados_pauta)
@@ -119,17 +125,31 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
         nome_base = pasta_saida.name
         url_video = hospedagem.publicar(video, f"{nome_base}-reels.mp4")
         ig = InstagramGraph(os.environ["INSTAGRAM_GRAPH_TOKEN"], os.environ["INSTAGRAM_USER_ID"])
-        reels_publicado = ig.publicar_reels(url_video, legenda)
-        registro["publicado"] = True
-        registro["legenda"] = legenda
-        registro["reels"]["media_id"] = reels_publicado.media_id
+        try:
+            usados = ig.publicados_nas_ultimas_24h()
+        except Exception:  # consultar a cota não pode impedir o post; só informa quando consegue
+            usados = 0
+        if usados >= LIMITE_SEGURO_POSTS_24H:
+            raise SystemExit(f"a conta já usou {usados} publicações nas últimas 24 h (limite seguro: {LIMITE_SEGURO_POSTS_24H}); não publico")
+        try:
+            reels_publicado = ig.publicar_reels(url_video, legenda)
+            registro["publicado"] = True
+            registro["legenda"] = legenda
+            registro["reels"]["media_id"] = reels_publicado.media_id
+            _registrar_links(dados_pauta, repos, registro) if repos else None  # o Reels já saiu: o bot já pode responder
 
-        if not eh_prompt:
-            urls_slides = [
-                hospedagem.publicar(s, f"{nome_base}-slide-{i:02d}.png") for i, s in enumerate(slides, start=1)
-            ]
-            carrossel_publicado = ig.publicar_carrossel(urls_slides, legenda)
-            registro["carrossel_media_id"] = carrossel_publicado.media_id
+            if not eh_prompt:
+                time.sleep(ESPERA_ENTRE_REELS_E_CARROSSEL_S)
+                urls_slides = [
+                    hospedagem.publicar(s, f"{nome_base}-slide-{i:02d}.png") for i, s in enumerate(slides, start=1)
+                ]
+                carrossel_publicado = ig.publicar_carrossel(urls_slides, legenda)
+                registro["carrossel_media_id"] = carrossel_publicado.media_id
+        except RuntimeError as erro:
+            if pausa.e_bloqueio(str(erro)):
+                pausa.ativar(str(erro))
+                print("O Instagram acusou excesso de atividade: PAUSA DE SEGURANÇA de 24 h ligada (pautas/pausa.json).")
+            raise
 
     if publicar and repos and registro["publicado"]:
         _registrar_links(dados_pauta, repos, registro)

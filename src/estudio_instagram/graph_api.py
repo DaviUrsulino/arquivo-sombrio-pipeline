@@ -131,3 +131,8 @@ class InstagramGraph:
     def responder_publico(self, comment_id: str, texto: str) -> dict:
         """Resposta pública embaixo do comentário (ex.: "te mandei no direct")."""
         return self._pedir(f"{comment_id}/replies", {"message": texto})
+
+    def publicados_nas_ultimas_24h(self) -> int:
+        """Quantos posts feitos pela API a conta já usou na janela de 24 h (limite oficial: 100)."""
+        dados = self._ler(f"{self.ig_user_id}/content_publishing_limit", fields="quota_usage")
+        return int(dados["data"][0]["quota_usage"])

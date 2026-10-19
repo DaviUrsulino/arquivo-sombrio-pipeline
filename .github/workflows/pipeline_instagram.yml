@@ -112,7 +112,7 @@ jobs:
         run: |
           git config user.name "estudio-automatico (bot)"
           git config user.email "actions@github.com"
-          git add pautas/historico.json pautas/links_por_post.json pautas/foco.json "${{ steps.pauta.outputs.arquivo }}"
+          git add -A pautas/
           git diff --cached --quiet || git commit -m "chore: registra pauta ${{ steps.pauta.outputs.arquivo }} [skip ci]"
           # Duas rodadas podem terminar juntas e disputar o push (2026-10-19 perdeu o registro de um post): tenta de novo.
           for tentativa in 1 2 3 4 5; do

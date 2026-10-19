@@ -9,6 +9,7 @@ Regras:
 - Cada rodada tem uma tolerância de atraso: se o maestro acordar muito depois da hora, a rodada é dada como
   perdida em vez de empilhar várias de uma vez (o Instagram bloqueia ações em rajada: "action is blocked").
 - Nunca dispara duas rodadas com menos de `INTERVALO_MIN_MIN` minutos de diferença.
+- Se a pausa de segurança (`pautas/pausa.json`) estiver ativa, não dispara nada.
 
 Uso:
     python -m src.estudio_instagram.maestro --minutos 340 --intervalo 120 --commit
@@ -22,13 +23,16 @@ import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+from . import pausa
+
 RAIZ = Path(__file__).resolve().parents[2]
 ARQUIVO = RAIZ / "pautas" / "maestro.json"
 BRASILIA = timezone(timedelta(hours=-3))
-# (hora de Brasília, formato). Cada rodada posta 1 Reels + 1 carrossel: 5 rodadas = 10 posts.
-RODADAS = [("07:30", "pixel2"), ("11:30", "pixel2"), ("15:30", "pixel2"), ("19:00", "venda"), ("22:00", "pixel2")]
+# (hora de Brasília, formato). Cada rodada posta 1 Reels + 1 carrossel: 3 rodadas = 6 posts por dia.
+# Modo seguro (2026-10-19): o Instagram devolveu "action is blocked" com 5 rodadas por dia, então são poucas e espaçadas.
+RODADAS = [("09:00", "pixel2"), ("14:00", "pixel2"), ("19:00", "venda")]
 TOLERANCIA_ATRASO = timedelta(hours=2)
-INTERVALO_MIN_MIN = 20
+INTERVALO_MIN_MIN = 120  # nunca duas rodadas em menos de 2 horas
 
 
 def _hora(dia: str, hhmm: str) -> datetime:
@@ -101,6 +105,10 @@ def main():
     while True:
         estado = _ler()
         formato, novo = decidir(datetime.now(BRASILIA), estado)
+        if formato and pausa.ativa():
+            print(f"pausa de segurança ativa ({pausa.motivo()}); não disparo a rodada {formato}", flush=True)
+            formato = None
+            novo = estado
         if formato:
             print(f"hora de uma rodada ({formato}); estado: {novo['feitos']}", flush=True)
             if not args.simular:
