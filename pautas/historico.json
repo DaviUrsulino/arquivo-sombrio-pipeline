@@ -52,6 +52,7 @@
     "obra/superpowers",
     "onlook-dev/onlook",
     "openai/codex-plugin-cc",
+    "openfilm/openfilm",
     "paperclipai/paperclip",
     "pbakaus/impeccable",
     "rehan-remade/universal-modder",
@@ -69,5 +70,5 @@
     "zarazhangrui/frontend-slides",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 23
+  "pautas_geradas": 24
 }
