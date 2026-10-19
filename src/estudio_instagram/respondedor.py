@@ -29,6 +29,8 @@ CONFIG = RAIZ / "pautas" / "bot_respostas.json"
 ENVIADAS = RAIZ / "pautas" / "respostas_enviadas.json"
 # Cada post de repositório registra aqui a palavra e a mensagem dele (chave = id da mídia no Instagram).
 LINKS_POR_POST = RAIZ / "pautas" / "links_por_post.json"
+# Em post de repositório, quem comenta uma destas palavras também recebe o link do repositório do post.
+SINONIMOS_DO_POST = ("REPO", "REPOSITORIO", "LINK", "QUERO", "EU QUERO")
 JANELA = timedelta(days=7)  # limite da Meta para a resposta privada
 
 
@@ -67,7 +69,7 @@ def _mensagem_para(comentario: dict, config: dict, por_post: dict) -> tuple[str,
     if palavra:
         return palavra, config["palavras"][palavra]
     do_post = por_post.get(comentario.get("midia_id", ""))
-    if do_post and palavra_encontrada(texto, {do_post["palavra"]: ""}):
+    if do_post and palavra_encontrada(texto, {p: "" for p in (do_post["palavra"], *SINONIMOS_DO_POST)}):
         return do_post["palavra"], do_post["mensagem"]
     return None
 
