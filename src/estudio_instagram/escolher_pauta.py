@@ -77,16 +77,20 @@ def gastar_foco(arquivo: Path = FOCO):
 
 
 def pauta_pixel2(buscas: list[str], palavra_chave: str, dias_novidade: int = 120, llm=None,
-                 minimo_estrelas: int = 300) -> dict | None:
+                 minimo_estrelas: int = 300, repo: str | None = None) -> dict | None:
     """Notícia de ferramenta: um repositório novo e inédito, roteiro escrito pelo LLM a partir do README.
 
     Devolve None se não achar candidato ou o LLM não passar na validação; quem chama cai no formato
     antigo, para o cron nunca ficar sem post.
     """
     desde = (date.today() - timedelta(days=dias_novidade)).isoformat()
-    candidatos = _candidatos(buscas, minimo_estrelas=minimo_estrelas, criado_apos=desde) or _candidatos(buscas)
     icones = {p.stem for p in (montagem.MODELOS / "assets" / "icons").glob("*.svg")}
-    for dados in selecao.escolher_repos(candidatos, quantidade=5):
+    if repo:  # repositório pedido de propósito: vale mesmo que já tenha virado post
+        escolhidos = [github_dados.buscar(repo)]
+    else:
+        candidatos = _candidatos(buscas, minimo_estrelas=minimo_estrelas, criado_apos=desde) or _candidatos(buscas)
+        escolhidos = selecao.escolher_repos(candidatos, quantidade=5)
+    for dados in escolhidos:
         try:
             readme = roteirista.buscar_readme(dados.repo)
             if len(readme) < 400:
@@ -111,7 +115,7 @@ def pauta_de_venda(pasta: Path = VENDAS, hoje: date | None = None) -> dict | Non
 
 
 def executar(buscas: list[str], quantidade: int, titulo: str | None, palavra_chave: str,
-             estilo: str | None = None, formato: str | None = None) -> dict:
+             estilo: str | None = None, formato: str | None = None, repo: str | None = None) -> dict:
     if formato == "venda":
         venda = pauta_de_venda()
         if venda:
@@ -119,9 +123,9 @@ def executar(buscas: list[str], quantidade: int, titulo: str | None, palavra_cha
         print("sem roteiro de venda; seguindo com notícia de ferramenta")
         formato = "pixel2"
     if formato == "pixel2":
-        foco = ler_foco()
+        foco = None if repo else ler_foco()
         nova = (pauta_pixel2(foco["buscas"], palavra_chave, minimo_estrelas=foco.get("minimo_estrelas", 200)) if foco else None) \
-            or pauta_pixel2(buscas, palavra_chave)
+            or pauta_pixel2(buscas, palavra_chave, repo=repo)
         if nova:
             if foco:
                 gastar_foco()
@@ -158,6 +162,7 @@ def main():
     parser.add_argument("--titulo", default=None)
     parser.add_argument("--estilo", choices=selecao.ESTILOS, default=None, help="só vale pro formato 'curto'; padrão: alterna sozinho")
     parser.add_argument("--formato", choices=selecao.FORMATOS + ("pixel2", "venda"), default=None, help="padrão: alterna sozinho (2 'curto' pra 1 'aprofundado')")
+    parser.add_argument("--repo", default=None, help="força o repositório (dono/nome) no formato pixel2")
     parser.add_argument("--saida", type=Path, required=True)
     args = parser.parse_args()
     load_dotenv(RAIZ / ".env")
@@ -170,7 +175,7 @@ def main():
         buscas = buscas_do_dia(selecao.BUSCAS_PADRAO)
 
     palavra = args.palavra_chave or ("LINK" if args.formato == "pixel2" else "GITHUB")
-    nova_pauta = executar(buscas, args.quantidade, args.titulo, palavra, args.estilo, args.formato)
+    nova_pauta = executar(buscas, args.quantidade, args.titulo, palavra, args.estilo, args.formato, args.repo)
     print(f"gancho: {nova_pauta['capa'].get('linha1', nova_pauta['titulo'])} {nova_pauta['capa'].get('linha2', '')}")
     args.saida.write_text(json.dumps(nova_pauta, ensure_ascii=False, indent=2), encoding="utf-8")
     if args.formato != "venda":  # vídeo de venda não gasta repositório nem o foco de tema
