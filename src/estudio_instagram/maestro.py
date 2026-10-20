@@ -133,6 +133,7 @@ def main():
             novo = estado
         if formato and not formato.startswith("pauta:"):
             nova_rodada = [h for h in novo["feitos"] if h not in (estado["feitos"] if estado.get("dia") == novo["dia"] else {})]
+            subprocess.run(["git", "pull", "--rebase", "-q"], cwd=RAIZ, check=False)  # pega pautas novas do banco
             usadas = novo.get("fila_usadas", estado.get("fila_usadas", []))
             da_fila = proxima_da_fila(usadas) if FILA_RODADA in nova_rodada else None
             if da_fila:
