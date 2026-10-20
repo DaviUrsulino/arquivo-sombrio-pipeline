@@ -5,7 +5,8 @@
     "14:00": "disparada 14:00",
     "19:00": "disparada 19:00",
     "08:00": "perdida",
-    "12:00": "perdida"
+    "12:00": "perdida",
+    "18:30": "pulada: o vídeo de venda já saiu às 19:00 (troca de horários no meio do dia)"
   },
   "ultimo_disparo": "2026-10-20T19:00:50-03:00",
   "fila_usadas": [
