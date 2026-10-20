@@ -1,0 +1,251 @@
+{
+  "titulo": "hyperframes: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "crie videos deterministas em mp4 direto do html com agentes de ia"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "heygen-com/hyperframes",
+      "nome": "hyperframes",
+      "cor": "azul",
+      "promessa": "Write HTML. Render video. Built for agents.",
+      "texto": "Write HTML. Render video. Built for agents."
+    }
+  ],
+  "destaques": [
+    "html",
+    "mp4",
+    "video",
+    "agentes",
+    "animacoes",
+    "skills",
+    "claude",
+    "apache",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Gere vídeos deterministas em MP4 direto de código HTML.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "HTML VIRA",
+            "cor": "branco",
+            "tamanho": 130
+          },
+          {
+            "texto": "VÍDEO MP4",
+            "cor": "laranja",
+            "tamanho": 140
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O HyperFrames já conquistou {estrelas:heygen-com/hyperframes} estrelas no GitHub.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "heygen-com/hyperframes"
+      }
+    },
+    {
+      "narracao": "Ele é um framework de código aberto criado pela HeyGen.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "banner_repo",
+        "url": "github.com/heygen-com/hyperframes"
+      }
+    },
+    {
+      "narracao": "A ferramenta transforma HTML, CSS e mídias em vídeo determinista.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "code-xml",
+            "rotulo": "HTML CSS",
+            "cor": "azul"
+          },
+          {
+            "icone": "zap",
+            "rotulo": "HyperFrames",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "clapperboard",
+            "rotulo": "Vídeo MP4",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Ele foi feito especialmente para trabalhar com agentes de código.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "bot",
+        "cor": "roxo",
+        "rotulo": "FEITO PRA AGENTES"
+      }
+    },
+    {
+      "narracao": "O projeto inclui vinte e uma habilidades prontas para uso.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "21 skills prontas",
+          "Claude Code",
+          "Cursor e Codex",
+          "Gemini CLI"
+        ]
+      }
+    },
+    {
+      "narracao": "Para adicionar no Claude Code, use o comando de plugin.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "claude plugin marketplace add heygen-com/hyperframes",
+        "texto": "adiciona o marketplace no claude"
+      }
+    },
+    {
+      "narracao": "Ou instale as habilidades avulsas usando o comando npx skills.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "npx skills add heygen-com/hyperframes",
+        "texto": "instala as skills avulsas"
+      }
+    },
+    {
+      "narracao": "Dá para gerar vídeos de lançamento e até motion graphics curtos.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Product launch",
+          "Faceless explainer",
+          "PR to video",
+          "Motion graphics"
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto é distribuído livremente sob a licença Apache dois ponto zero.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "shield-check",
+        "cor": "verde",
+        "rotulo": "LICENÇA APACHE 2.0"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "HTML VIRA VÍDEO",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "COM IA",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o hyperframes"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "FRAMEWORK DE VÍDEO",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "hyperframes",
+      "texto": "Transforma HTML, CSS e mídias em vídeos deterministas em MP4. Foi construído especificamente para agentes de codificação."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "INSTALAÇÃO",
+          "cor": "verde"
+        }
+      ],
+      "comando": "npx skills add heygen-com/hyperframes",
+      "texto": "instala as skills para agentes de ia",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "FLUXOS PRONTOS",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "workflows",
+      "texto": "Traz fluxos como product launch video, faceless explainer, pr to video e motion graphics sob demanda."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "CÓDIGO ABERTO",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "licença",
+      "texto": "Distribuído sob a licença Apache 2.0 e compatível com Claude Code, Cursor, Codex e Gemini CLI."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ]
+}

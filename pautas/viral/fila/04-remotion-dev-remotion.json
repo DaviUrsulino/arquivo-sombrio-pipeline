@@ -1,0 +1,249 @@
+{
+  "titulo": "remotion: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "crie vídeos direto com código react e automação"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "remotion-dev/remotion",
+      "nome": "remotion",
+      "cor": "azul",
+      "promessa": "🎥      Make videos programmatically with React",
+      "texto": "🎥      Make videos programmatically with React"
+    }
+  ],
+  "destaques": [
+    "videos",
+    "react",
+    "programatica",
+    "agentes",
+    "automacao",
+    "renderizacao",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Crie vídeos programáticos usando apenas código React.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "VÍDEOS COM",
+            "cor": "branco",
+            "tamanho": 130
+          },
+          {
+            "texto": "CÓDIGO REACT",
+            "cor": "laranja",
+            "tamanho": 120
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Esse é o Remotion, com {estrelas:remotion-dev/remotion} no GitHub.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "remotion-dev/remotion"
+      }
+    },
+    {
+      "narracao": "O projeto permite transformar código React na fonte da verdade para vídeos.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "code-xml",
+            "rotulo": "React",
+            "cor": "azul"
+          },
+          {
+            "icone": "zap",
+            "rotulo": "Remotion",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "clapperboard",
+            "rotulo": "Vídeo",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Você pode gerar animações com agentes, arrastar e soltar ou programando.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Com agentes",
+          "Arrastar e soltar",
+          "Programaticamente"
+        ]
+      }
+    },
+    {
+      "narracao": "Dá para conectar dados dinâmicos e criar bibliotecas de design system.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "sparkles",
+        "cor": "roxo",
+        "rotulo": "DESIGN SYSTEMS"
+      }
+    },
+    {
+      "narracao": "Para começar um projeto novo, basta rodar o comando no terminal.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "npx create-video@latest",
+        "texto": "inicia um novo projeto remotion"
+      }
+    },
+    {
+      "narracao": "A ferramenta suporta renderização em lote na sua própria infraestrutura.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "rocket",
+        "cor": "verde",
+        "rotulo": "BATCH RENDERING"
+      }
+    },
+    {
+      "narracao": "O processo roda via APIs do Node ponto js, Lambda ou Vercel.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Node.js SSR",
+          "AWS Lambda",
+          "Vercel Sandbox"
+        ]
+      }
+    },
+    {
+      "narracao": "O único pré requisito de ambiente é ter o Node instalado.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "terminal",
+        "cor": "azul",
+        "rotulo": "EXIGE NODE.JS"
+      }
+    },
+    {
+      "narracao": "Fique atento pois o projeto possui licença própria para empresas.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "shield-check",
+        "cor": "amarelo",
+        "rotulo": "LICENÇA PRÓPRIA"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "VÍDEOS COM",
+          "cor": "branco",
+          "tamanho": 110
+        },
+        {
+          "texto": "CÓDIGO REACT",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o Remotion"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "VÍDEO EM REACT",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "remotion",
+      "texto": "Crie vídeos programaticamente usando React como fonte de verdade. Suporta edição interativa e agentes."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "CRIAR PROJETO",
+          "cor": "verde"
+        }
+      ],
+      "comando": "npx create-video@latest",
+      "texto": "requer Node.js instalado",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "RENDERIZAÇÃO",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "infra",
+      "texto": "Renderize em lote na sua infraestrutura via Node.js, AWS Lambda ou Vercel."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "AVISO LICENÇA",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "licença",
+      "texto": "O repositório possui licença própria e requer contratação comercial para certos usos empresariais."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ]
+}
