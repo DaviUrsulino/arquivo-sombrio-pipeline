@@ -1,0 +1,249 @@
+{
+  "titulo": "jarvis: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "um assistente de voz e texto totalmente local no seu computador"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "isair/jarvis",
+      "nome": "jarvis",
+      "cor": "azul",
+      "promessa": "Private local AI assistant for your desktop. Voice and text chat, personal memor",
+      "texto": "Private local AI assistant for your desktop. Voice and text chat, personal memory, dictation and MCP tools. Runs offline"
+    }
+  ],
+  "destaques": [
+    "assistente",
+    "local",
+    "voz",
+    "ollama",
+    "whisper",
+    "mcp",
+    "privacidade",
+    "desktop",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Converse por voz com uma inteligência artificial totalmente no seu computador.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "IA POR VOZ",
+            "cor": "branco",
+            "tamanho": 130
+          },
+          {
+            "texto": "100% LOCAL",
+            "cor": "verde",
+            "tamanho": 140
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O Jarvis já passou de {estrelas:isair/jarvis} estrelas no GitHub.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "isair/jarvis"
+      }
+    },
+    {
+      "narracao": "Ele é um assistente desktop para Mac, Windows e Linux sem assinatura.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "macOS",
+          "Windows",
+          "Linux"
+        ]
+      }
+    },
+    {
+      "narracao": "O app ouve o ambiente e entra no assunto quando você chama.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "message-circle",
+            "rotulo": "Conversa",
+            "cor": "azul"
+          },
+          {
+            "icone": "bot",
+            "rotulo": "Jarvis",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "sparkles",
+            "rotulo": "Resposta",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Você pode rodar os modelos usando o Ollama ou outros servidores compatíveis.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "brain",
+        "cor": "laranja",
+        "rotulo": "OLLAMA OU LOCAL"
+      }
+    },
+    {
+      "narracao": "Ele guarda seu histórico e memórias em arquivos locais na sua máquina.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "shield-check",
+        "cor": "verde",
+        "rotulo": "MEMÓRIA LOCAL"
+      }
+    },
+    {
+      "narracao": "O projeto também suporta servidores MCP para conectar ferramentas e automação externa.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "zap",
+        "cor": "roxo",
+        "rotulo": "MCP TOOLS"
+      }
+    },
+    {
+      "narracao": "Dá para segurar um atalho do teclado para ditar em outros programas.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Ctrl + Win",
+          "Ctrl + Option",
+          "Ctrl + Alt"
+        ]
+      }
+    },
+    {
+      "narracao": "A velocidade e as respostas dependem da memória e do hardware disponível.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "triangle-alert",
+        "cor": "amarelo",
+        "rotulo": "DEPENDE DO HARDWARE"
+      }
+    },
+    {
+      "narracao": "Ele traz instaladores prontos na aba de releases do próprio repositório.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "banner_repo",
+        "url": "github.com/isair/jarvis"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "IA POR VOZ",
+          "cor": "branco",
+          "tamanho": 110
+        },
+        {
+          "texto": "TOTALMENTE LOCAL",
+          "cor": "laranja",
+          "tamanho": 78
+        }
+      ],
+      "subtitulo": "conheça o Jarvis"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "ASSISTENTE LOCAL",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "jarvis",
+      "texto": "Assistente desktop privado com chat de voz e texto. Funciona direto no hardware com Ollama ou servidores compatíveis."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "INSTALAÇÃO",
+          "cor": "verde"
+        }
+      ],
+      "comando": "Jarvis.exe",
+      "texto": "Baixe os pacotes prontos para macOS, Windows ou Linux no GitHub Releases.",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "RECURSOS",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "ferramentas",
+      "texto": "Mantém histórico recente da fala na sala, grava memória pessoal e aceita extensões com protocolo MCP."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "DETALHES",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "requisitos",
+      "texto": "Usa licença própria do autor e o desempenho varia conforme o tamanho do modelo e memória da máquina."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ]
+}

@@ -43,6 +43,7 @@
     "heygen-com/hyperframes",
     "iOfficeAI/AionUi",
     "iart-ai/motion-skills",
+    "isair/jarvis",
     "jarrodwatts/claude-hud",
     "jnMetaCode/agency-agents-zh",
     "kajisho5/ffmpeg-skill",
@@ -76,5 +77,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 31
+  "pautas_geradas": 32
 }
