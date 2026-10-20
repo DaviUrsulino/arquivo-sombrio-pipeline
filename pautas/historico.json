@@ -34,6 +34,7 @@
     "coreyhaines31/marketingskills",
     "czlonkowski/n8n-mcp",
     "diegosouzapw/OmniRoute",
+    "echris6/motion-video-kit",
     "farion1231/cc-switch",
     "genspark-ai/genoffice",
     "google/adk-python",
@@ -73,5 +74,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 27
+  "pautas_geradas": 28
 }

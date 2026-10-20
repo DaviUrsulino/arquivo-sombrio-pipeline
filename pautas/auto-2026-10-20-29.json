@@ -1,0 +1,259 @@
+{
+  "titulo": "motion-video-kit: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "um kit completo para criar vídeos comerciais com ia e código"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "echris6/motion-video-kit",
+      "nome": "motion-video-kit",
+      "cor": "azul",
+      "promessa": "Claude Code skill kit for premium AI-assisted business videos: independent criti",
+      "texto": "Claude Code skill kit for premium AI-assisted business videos: independent critic loop, motion principles from 28 launch"
+    }
+  ],
+  "destaques": [
+    "motion video kit",
+    "claude code",
+    "filmes",
+    "codigo",
+    "audio",
+    "scripts",
+    "ffmpeg",
+    "mit",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Dá para criar vídeos de lançamento comerciais usando código e inteligência artificial.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "VÍDEO COM",
+            "cor": "branco",
+            "tamanho": 130
+          },
+          {
+            "texto": "CÓDIGO E IA",
+            "cor": "laranja",
+            "tamanho": 130
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O repositório Motion Video Kit já passou de {estrelas:echris6/motion-video-kit} estrelas no GitHub.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "echris6/motion-video-kit"
+      }
+    },
+    {
+      "narracao": "Ele é uma skill para Claude Code focada em comerciais de produtos reais.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "bot",
+        "cor": "roxo",
+        "rotulo": "SKILL CLAUDE CODE"
+      }
+    },
+    {
+      "narracao": "O fluxo separa quem cria de quem avalia com críticas independentes.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "code-xml",
+            "rotulo": "Criação",
+            "cor": "azul"
+          },
+          {
+            "icone": "search",
+            "rotulo": "Crítica",
+            "cor": "laranja"
+          },
+          {
+            "icone": "clapperboard",
+            "rotulo": "Render",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O pacote traz regras extraídas de vinte e oito filmes de lançamento.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "flame",
+        "cor": "laranja",
+        "rotulo": "28 FILMES REAIS"
+      }
+    },
+    {
+      "narracao": "Ele inclui padrões em Three ponto js e regras de áudio detalhadas.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Three ponto js",
+          "Áudio e mix",
+          "16 mecanismos"
+        ]
+      }
+    },
+    {
+      "narracao": "Você também recebe scripts para medir volume sonoro e quadros travados.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "list-checks",
+        "cor": "verde",
+        "rotulo": "CHECKS DE QUALIDADE"
+      }
+    },
+    {
+      "narracao": "Para instalar no Claude Code, copie a pasta para o diretório de skills.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "comando": "cp -r motion-video-kit/business-motion-film ~/.claude/skills/",
+        "rotulo": "terminal",
+        "texto": "instala a skill no claude"
+      }
+    },
+    {
+      "narracao": "Para outros modelos de linguagem, basta colar o arquivo no contexto.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "file-text",
+        "cor": "azul",
+        "rotulo": "QUALQUER OUTRO LLM"
+      }
+    },
+    {
+      "narracao": "Para rodar os scripts auxiliares, você precisa do efe efe eme peg.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "ffmpeg",
+          "ffprobe",
+          "Node 22 opcional"
+        ]
+      }
+    },
+    {
+      "narracao": "Todo o repositório é gratuito e usa a licença livre em i te.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "banner_repo",
+        "url": "github.com/echris6/motion-video-kit"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "COMERCIAIS COM",
+          "cor": "branco",
+          "tamanho": 95
+        },
+        {
+          "texto": "CÓDIGO E IA",
+          "cor": "laranja",
+          "tamanho": 110
+        }
+      ],
+      "subtitulo": "conheça o motion video kit"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "MOTION VIDEO KIT",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "skill",
+      "texto": "Skill para Claude Code e LLMs criarem filmes comerciais com código. Analisou vinte e oito filmes de lançamento para criar regras de motion."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "INSTALAÇÃO",
+          "cor": "verde"
+        }
+      ],
+      "comando": "cp -r motion-video-kit/business-motion-film ~/.claude/skills/",
+      "texto": "instale a skill no diretório do claude",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "RECURSOS",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "vídeo",
+      "texto": "Traz loop de críticas independentes, padrões Three.js e scripts de medição. Ajuda a calibrar contraste, áudio e sincronia de cortes."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "REQUISITOS",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "licença",
+      "texto": "Os scripts exigem ffmpeg e ffprobe com filtro ebur128. O projeto é de código aberto sob licença MIT."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ]
+}
