@@ -59,6 +59,7 @@
     "paperclipai/paperclip",
     "pbakaus/impeccable",
     "rehan-remade/universal-modder",
+    "remotion-dev/remotion",
     "ruvnet/ruflo",
     "shareAI-lab/learn-claude-code",
     "stablyai/orca",
@@ -74,5 +75,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 29
+  "pautas_geradas": 30
 }
