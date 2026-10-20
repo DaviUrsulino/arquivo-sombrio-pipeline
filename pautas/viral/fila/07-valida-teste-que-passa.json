@@ -1,0 +1,178 @@
+{
+ "titulo": "Validação: teste que passa prova o quê?",
+ "formato": "pixel2",
+ "palavra_chave": "ENGENHARIA",
+ "fecho_proprio": true,
+ "perfil": "@robo.estagiario",
+ "voz": {
+  "id": "iP95p4xoKVk53GoZ742B",
+  "modelo": "eleven_multilingual_v2"
+ },
+ "capa": {
+  "subtitulo": "seu teste passa, mas ele prova alguma coisa?"
+ },
+ "chamada": {
+  "pergunta": "quer o kit?"
+ },
+ "itens": [],
+ "destaques": [
+  "teste",
+  "segurança",
+  "código",
+  "kit"
+ ],
+ "legenda": "Teste que nunca falha não prova nada. Dá pra checar: quebre o código de propósito e veja se algum teste falha. Foi assim que achei um teste que faltava num projeto feito com IA. Está no kit. Comenta ENGENHARIA que eu te mando o link.\n\n#claudecode #vibecoding #ia #programacao #engenhariadesoftware",
+ "cenas_roteiro": [
+  {
+   "humor": "pensando",
+   "narracao": "Seu teste passa, mas será que ele prova alguma coisa?",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {
+      "texto": "TESTE PASSOU",
+      "cor": "branco",
+      "tamanho": 110
+     },
+     {
+      "texto": "E DAÍ?",
+      "cor": "amarelo",
+      "tamanho": 130
+     }
+    ]
+   }
+  },
+  {
+   "humor": "normal",
+   "narracao": "Quebre o código de propósito e rode os testes de novo.",
+   "visual": {
+    "tipo": "terminal",
+    "rotulo": "terminal",
+    "comando": "if idade > 18:",
+    "texto": "era maior ou igual"
+   }
+  },
+  {
+   "humor": "animado",
+   "narracao": "Se nenhum teste falhar, falta teste.",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "search-x",
+    "cor": "vermelho",
+    "rotulo": "NENHUM FALHOU"
+   }
+  },
+  {
+   "humor": "feliz",
+   "narracao": "Foi assim que achei um teste que faltava num projeto feito com IA.",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "bug",
+    "cor": "verde",
+    "rotulo": "TESTE QUE FALTAVA"
+   }
+  },
+  {
+   "humor": "normal",
+   "narracao": "O kit tem um script que faz essa checagem para você.",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "terminal",
+    "cor": "azul",
+    "rotulo": "SCRIPT NO KIT"
+   }
+  },
+  {
+   "humor": "animado",
+   "narracao": "Quer o kit? Comenta ENGENHARIA que eu te mando o link no direct.",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {
+      "texto": "COMENTA",
+      "cor": "branco",
+      "tamanho": 120
+     },
+     {
+      "texto": "ENGENHARIA",
+      "cor": "verde",
+      "tamanho": 110
+     }
+    ]
+   }
+  }
+ ],
+ "slides": [
+  {
+   "tipo": "capa",
+   "linhas": [
+    {
+     "texto": "SEU TESTE",
+     "cor": "branco",
+     "tamanho": 112
+    },
+    {
+     "texto": "PASSA. E DAÍ?",
+     "cor": "amarelo",
+     "tamanho": 90
+    }
+   ],
+   "subtitulo": "como saber se ele prova algo"
+  },
+  {
+   "tipo": "ponto",
+   "fase": "PASSO 1",
+   "progresso": 0.33,
+   "linhas": [
+    {
+     "texto": "QUEBRE O CÓDIGO",
+     "cor": "vermelho"
+    }
+   ],
+   "rotulo": "de propósito",
+   "texto": "Troque um maior ou igual por maior. Mude um mais por menos."
+  },
+  {
+   "tipo": "ponto",
+   "fase": "PASSO 2",
+   "progresso": 0.66,
+   "linhas": [
+    {
+     "texto": "ROTE OS TESTES",
+     "cor": "azul"
+    }
+   ],
+   "rotulo": "de novo",
+   "texto": "Algum teste falhou? Ótimo. Nenhum falhou? Falta teste."
+  },
+  {
+   "tipo": "ponto",
+   "fase": "PASSO 3",
+   "progresso": 1.0,
+   "linhas": [
+    {
+     "texto": "ESCREVA O QUE FALTA",
+     "cor": "verde"
+    }
+   ],
+   "rotulo": "e repita",
+   "texto": "Cada defeito que sobrevive vira um teste novo."
+  },
+  {
+   "tipo": "cta",
+   "linhas": [
+    {
+     "texto": "QUER O KIT?",
+     "cor": "branco"
+    },
+    {
+     "texto": "ENGENHARIA",
+     "cor": "verde"
+    }
+   ],
+   "subtitulo": "Kit Engenharia com IA R$ 37",
+   "selo": "COMENTE ENGENHARIA",
+   "palavra": "ENGENHARIA"
+  }
+ ]
+}

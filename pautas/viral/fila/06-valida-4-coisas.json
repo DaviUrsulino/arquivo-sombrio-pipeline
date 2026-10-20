@@ -1,0 +1,186 @@
+{
+ "titulo": "Validação: 4 coisas antes de entregar",
+ "formato": "pixel2",
+ "palavra_chave": "ENGENHARIA",
+ "fecho_proprio": true,
+ "perfil": "@robo.estagiario",
+ "voz": {
+  "id": "iP95p4xoKVk53GoZ742B",
+  "modelo": "eleven_multilingual_v2"
+ },
+ "capa": {
+  "subtitulo": "4 coisas que o seu agente de código deveria fazer"
+ },
+ "chamada": {
+  "pergunta": "quer o kit?"
+ },
+ "itens": [],
+ "destaques": [
+  "teste",
+  "segurança",
+  "código",
+  "kit"
+ ],
+ "legenda": "Seu agente de código diz 'pronto' sem ter rodado nada? Estas 4 coisas mudam isso. Montei um kit com as regras para o Claude Code seguir sozinho. Comenta ENGENHARIA que eu te mando o link.\n\n#claudecode #vibecoding #ia #programacao #engenhariadesoftware",
+ "cenas_roteiro": [
+  {
+   "humor": "animado",
+   "narracao": "Quatro coisas que o seu agente de código deveria fazer antes de entregar.",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {
+      "texto": "4 COISAS ANTES",
+      "cor": "branco",
+      "tamanho": 100
+     },
+     {
+      "texto": "DE ENTREGAR",
+      "cor": "laranja",
+      "tamanho": 110
+     }
+    ]
+   }
+  },
+  {
+   "humor": "normal",
+   "narracao": "Escrever os requisitos, escolher a arquitetura, fazer o teste primeiro e revisar a segurança.",
+   "visual": {
+    "tipo": "lista",
+    "itens": [
+     "Requisitos",
+     "Arquitetura",
+     "Teste primeiro",
+     "Segurança"
+    ]
+   }
+  },
+  {
+   "humor": "pensando",
+   "narracao": "Se ele disser pronto sem rodar o código, desconfie.",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "x",
+    "cor": "vermelho",
+    "rotulo": "PRONTO SEM RODAR"
+   }
+  },
+  {
+   "humor": "normal",
+   "narracao": "Peça a saída real do teste, não um resumo.",
+   "visual": {
+    "tipo": "terminal",
+    "rotulo": "terminal",
+    "comando": "python3 -m unittest",
+    "texto": "saída real, não resumo"
+   }
+  },
+  {
+   "humor": "feliz",
+   "narracao": "Eu deixei essas regras escritas em um arquivo que o Claude Code lê sozinho.",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "file-text",
+    "cor": "azul",
+    "rotulo": "REGRAS ESCRITAS"
+   }
+  },
+  {
+   "humor": "animado",
+   "narracao": "Quer o kit? Comenta ENGENHARIA que eu te mando o link no direct.",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {
+      "texto": "COMENTA",
+      "cor": "branco",
+      "tamanho": 120
+     },
+     {
+      "texto": "ENGENHARIA",
+      "cor": "verde",
+      "tamanho": 110
+     }
+    ]
+   }
+  }
+ ],
+ "slides": [
+  {
+   "tipo": "capa",
+   "linhas": [
+    {
+     "texto": "4 COISAS",
+     "cor": "branco",
+     "tamanho": 120
+    },
+    {
+     "texto": "ANTES DE",
+     "cor": "laranja",
+     "tamanho": 100
+    },
+    {
+     "texto": "ENTREGAR",
+     "cor": "amarelo",
+     "tamanho": 110
+    }
+   ],
+   "subtitulo": "o que o seu agente deveria fazer"
+  },
+  {
+   "tipo": "ponto",
+   "fase": "1 e 2",
+   "progresso": 0.33,
+   "linhas": [
+    {
+     "texto": "REQUISITO",
+     "cor": "azul"
+    }
+   ],
+   "rotulo": "antes de codar",
+   "texto": "Escrever o que precisa ser feito e escolher a estrutura."
+  },
+  {
+   "tipo": "ponto",
+   "fase": "3 e 4",
+   "progresso": 0.66,
+   "linhas": [
+    {
+     "texto": "TESTE E SEGURANÇA",
+     "cor": "verde"
+    }
+   ],
+   "rotulo": "antes de entregar",
+   "texto": "Teste que falha primeiro e revisão de segurança do que foi escrito."
+  },
+  {
+   "tipo": "ponto",
+   "fase": "PROVA",
+   "progresso": 1.0,
+   "linhas": [
+    {
+     "texto": "SAÍDA REAL",
+     "cor": "amarelo"
+    }
+   ],
+   "rotulo": "regra de ouro",
+   "texto": "Pronto só vale com a saída real do teste. Resumo não conta."
+  },
+  {
+   "tipo": "cta",
+   "linhas": [
+    {
+     "texto": "QUER O KIT?",
+     "cor": "branco"
+    },
+    {
+     "texto": "ENGENHARIA",
+     "cor": "verde"
+    }
+   ],
+   "subtitulo": "Kit Engenharia com IA R$ 37",
+   "selo": "COMENTE ENGENHARIA",
+   "palavra": "ENGENHARIA"
+  }
+ ]
+}
