@@ -1,0 +1,202 @@
+{
+ "titulo": "Validação: e se o Claude Code fosse sênior",
+ "formato": "pixel2",
+ "palavra_chave": "ENGENHARIA",
+ "fecho_proprio": true,
+ "perfil": "@robo.estagiario",
+ "voz": {
+  "id": "iP95p4xoKVk53GoZ742B",
+  "modelo": "eleven_multilingual_v2"
+ },
+ "capa": {
+  "subtitulo": "já pensou se o Claude Code virasse um sênior de verdade?"
+ },
+ "chamada": {
+  "pergunta": "quer o kit?"
+ },
+ "itens": [],
+ "destaques": [
+  "sênior",
+  "teste",
+  "claude",
+  "estudante"
+ ],
+ "legenda": "Já pensou se o Claude Code virasse um engenheiro sênior de verdade? 🤯\n\nSou estudante de Engenharia de Software e estou montando um kit pra isso: o agente escreve o teste primeiro e prova que o teste funciona. Um estudo da Veracode (2025) achou falha de segurança em 45% das tarefas de código geradas por IA.\n\nComenta ENGENHARIA que eu te mando o link.\n\n#claudecode #vibecoding #ia #programacao #engenhariadesoftware",
+ "cenas_roteiro": [
+  {
+   "humor": "animado",
+   "narracao": "Já pensou se o Claude Code virasse um engenheiro sênior de verdade?",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {
+      "texto": "E SE O CLAUDE",
+      "cor": "branco",
+      "tamanho": 100
+     },
+     {
+      "texto": "FOSSE SÊNIOR?",
+      "cor": "laranja",
+      "tamanho": 110
+     }
+    ]
+   }
+  },
+  {
+   "humor": "feliz",
+   "narracao": "Eu sou estudante de engenharia de software e estou montando isso.",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {
+      "texto": "EU SOU",
+      "cor": "branco",
+      "tamanho": 120
+     },
+     {
+      "texto": "ESTUDANTE",
+      "cor": "verde",
+      "tamanho": 120
+     }
+    ]
+   }
+  },
+  {
+   "humor": "pensando",
+   "narracao": "Primeiro problema: a IA diz que está pronto sem ter testado nada.",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "x",
+    "cor": "vermelho",
+    "rotulo": "PRONTO SEM TESTAR"
+   }
+  },
+  {
+   "humor": "animado",
+   "narracao": "Um estudo da Veracode achou falha de segurança em quarenta e cinco por cento do código de IA.",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "triangle-alert",
+    "cor": "amarelo",
+    "rotulo": "45% COM FALHA"
+   }
+  },
+  {
+   "humor": "normal",
+   "narracao": "Um sênior escreve o teste antes de escrever o código.",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "flask-conical",
+    "cor": "azul",
+    "rotulo": "TESTE PRIMEIRO"
+   }
+  },
+  {
+   "humor": "animado",
+   "narracao": "Depois ele quebra o código de propósito e vê se algum teste falha.",
+   "visual": {
+    "tipo": "terminal",
+    "rotulo": "terminal",
+    "comando": "quebrar o código",
+    "texto": "algum teste falhou?"
+   }
+  },
+  {
+   "humor": "animado",
+   "narracao": "Se nenhum falhar, o teste não prova nada. O kit faz o Claude fazer isso sozinho. Comenta ENGENHARIA que eu te mando o link.",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {
+      "texto": "COMENTA",
+      "cor": "branco",
+      "tamanho": 120
+     },
+     {
+      "texto": "ENGENHARIA",
+      "cor": "verde",
+      "tamanho": 110
+     }
+    ]
+   }
+  }
+ ],
+ "slides": [
+  {
+   "tipo": "capa",
+   "linhas": [
+    {
+     "texto": "E SE O CLAUDE",
+     "cor": "branco",
+     "tamanho": 96
+    },
+    {
+     "texto": "FOSSE",
+     "cor": "laranja",
+     "tamanho": 120
+    },
+    {
+     "texto": "SÊNIOR?",
+     "cor": "amarelo",
+     "tamanho": 130
+    }
+   ],
+   "subtitulo": "teste primeiro, e prova que o teste funciona"
+  },
+  {
+   "tipo": "ponto",
+   "fase": "PROBLEMA",
+   "progresso": 0.33,
+   "linhas": [
+    {
+     "texto": "PRONTO SEM TESTAR",
+     "cor": "vermelho"
+    }
+   ],
+   "rotulo": "ia",
+   "texto": "A IA diz que terminou sem ter rodado nada. Veracode 2025: 45% das tarefas com falha de segurança."
+  },
+  {
+   "tipo": "ponto",
+   "fase": "O SÊNIOR",
+   "progresso": 0.66,
+   "linhas": [
+    {
+     "texto": "TESTE PRIMEIRO",
+     "cor": "azul"
+    }
+   ],
+   "rotulo": "método",
+   "texto": "Escreve o teste que falha, depois o código que o faz passar."
+  },
+  {
+   "tipo": "ponto",
+   "fase": "A PROVA",
+   "progresso": 1.0,
+   "linhas": [
+    {
+     "texto": "QUEBRE DE PROPÓSITO",
+     "cor": "verde"
+    }
+   ],
+   "rotulo": "regra de ouro",
+   "texto": "Se nenhum teste falhar quando o código quebra, o teste não prova nada."
+  },
+  {
+   "tipo": "cta",
+   "linhas": [
+    {
+     "texto": "QUER O KIT?",
+     "cor": "branco"
+    },
+    {
+     "texto": "ENGENHARIA",
+     "cor": "verde"
+    }
+   ],
+   "subtitulo": "Kit Engenharia com IA R$ 37",
+   "selo": "COMENTE ENGENHARIA",
+   "palavra": "ENGENHARIA"
+  }
+ ]
+}
