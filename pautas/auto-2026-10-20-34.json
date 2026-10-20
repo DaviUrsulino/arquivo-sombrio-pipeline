@@ -1,0 +1,272 @@
+{
+  "titulo": "OpenJarvis: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "framework de stanford para rodar agentes de ia direto no seu computador"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "open-jarvis/OpenJarvis",
+      "nome": "OpenJarvis",
+      "cor": "azul",
+      "promessa": "Personal AI, On Personal Devices",
+      "texto": "Personal AI, On Personal Devices"
+    }
+  ],
+  "destaques": [
+    "openjarvis",
+    "agentes",
+    "locais",
+    "nuvem",
+    "stanford",
+    "ollama",
+    "terminal",
+    "skills",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Crie agentes de inteligência artificial locais sem depender da nuvem.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "AGENTES DE IA",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "100% LOCAIS",
+            "cor": "laranja",
+            "tamanho": 130
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto OpenJarvis já conquistou mais de {estrelas:open-jarvis/OpenJarvis} estrelas no GitHub.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "open-jarvis/OpenJarvis"
+      }
+    },
+    {
+      "narracao": "Ele é um framework de código aberto criado por pesquisadores de Stanford.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "bot",
+        "cor": "azul",
+        "rotulo": "FRAMEWORK LOCAL"
+      }
+    },
+    {
+      "narracao": "A ferramenta roda modelos locais por padrão e só usa nuvem se necessário.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "bot",
+            "rotulo": "Ollama",
+            "cor": "laranja"
+          },
+          {
+            "icone": "shield-check",
+            "rotulo": "Jarvis",
+            "cor": "azul"
+          },
+          {
+            "icone": "terminal",
+            "rotulo": "Agente",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O instalador configura uv, ambiente Python, Ollama e um modelo inicial rapidamente.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Gerenciador uv",
+          "Ambiente Python",
+          "Ollama local",
+          "Modelo inicial"
+        ]
+      }
+    },
+    {
+      "narracao": "No terminal do Mac ou Linux, basta rodar o comando oficial de instalação.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "curl -fsSL https://open-jarvis.github.io/OpenJarvis/install.sh | bash",
+        "texto": "instalador oficial"
+      }
+    },
+    {
+      "narracao": "Você digita jarvis no terminal ou jarvis gui para abrir a interface gráfica.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "jarvis gui",
+        "texto": "abre interface web"
+      }
+    },
+    {
+      "narracao": "Ele vem com oito agentes prontos para programar, pesquisar e monitorar tarefas.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "niveis",
+        "itens": [
+          {
+            "rotulo": "ON-DEMAND",
+            "altura": 1,
+            "cor": "verde"
+          },
+          {
+            "rotulo": "SCHEDULED",
+            "altura": 2,
+            "cor": "azul"
+          },
+          {
+            "rotulo": "CONTINUOUS",
+            "altura": 3,
+            "cor": "amarelo"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Você pode importar milhares de habilidades abertas de repositórios como o OpenClaw.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "sparkles",
+        "cor": "roxo",
+        "rotulo": "MILHARES DE SKILLS"
+      }
+    },
+    {
+      "narracao": "A interface gráfica no navegador exige Node ponto js vinte e dois ou superior.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "triangle-alert",
+        "cor": "amarelo",
+        "rotulo": "NODE 22 OU SUPERIOR"
+      }
+    },
+    {
+      "narracao": "O código é totalmente aberto sob a licença Apache dois ponto zero.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "banner_repo",
+        "url": "github.com/open-jarvis/OpenJarvis"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "AGENTES DE IA",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "100% LOCAIS",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o OpenJarvis"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "IA NO DISPOSITIVO",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "openjarvis",
+      "texto": "Framework de Stanford para agentes locais. Roda tudo na sua máquina e chama a nuvem só se precisar."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "INSTALAÇÃO RÁPIDA",
+          "cor": "verde"
+        }
+      ],
+      "comando": "curl -fsSL https://open-jarvis.github.io/OpenJarvis/install.sh | bash",
+      "texto": "configura uv, python e ollama",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "OITO AGENTES",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "recursos",
+      "texto": "Traz oito agentes prontos para pesquisa profunda, automação e código. Suporta milhares de skills abertas."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "REQUISITOS",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "licença",
+      "texto": "Código aberto sob licença Apache 2.0. A interface gráfica no navegador requer Node.js 22 ou superior."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ]
+}

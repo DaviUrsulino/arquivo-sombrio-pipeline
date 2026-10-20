@@ -54,6 +54,7 @@
     "mvanhorn/last30days-skill",
     "obra/superpowers",
     "onlook-dev/onlook",
+    "open-jarvis/OpenJarvis",
     "openai/codex-plugin-cc",
     "openfilm/openfilm",
     "paperclipai/paperclip",
@@ -75,5 +76,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 30
+  "pautas_geradas": 31
 }
