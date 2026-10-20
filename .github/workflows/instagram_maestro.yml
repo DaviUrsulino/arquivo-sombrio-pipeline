@@ -1,4 +1,4 @@
-name: Instagram maestro - dispara as 5 rodadas de post do dia na hora certa
+name: Instagram maestro - dispara as rodadas de post do dia na hora certa
 
 # O cron do GitHub atrasa horas ou nem dispara (2026-10-19: só 2 das 5 rodadas do dia rodaram). Este workflow
 # fica em laço por ~5h40, olhando o relógio de Brasília a cada 2 minutos, e dispara o pipeline_instagram.yml

@@ -28,15 +28,16 @@ from . import pausa
 RAIZ = Path(__file__).resolve().parents[2]
 ARQUIVO = RAIZ / "pautas" / "maestro.json"
 BRASILIA = timezone(timedelta(hours=-3))
-# (hora de Brasília, formato). Cada rodada posta 1 Reels + 1 carrossel: 3 rodadas = 6 posts por dia.
+# (hora de Brasília, formato). Cada rodada posta 1 Reels + 1 carrossel: 4 rodadas = 8 posts por dia.
+# Horários nos picos de 07-09h, 12-13h e 18-21h (pesquisa de 2026); o freio de 10 posts/24 h segue valendo.
 # Modo seguro (2026-10-19): o Instagram devolveu "action is blocked" com 5 rodadas por dia, então são poucas e espaçadas.
-RODADAS = [("09:00", "pixel2"), ("14:00", "pixel2"), ("19:00", "venda")]
+RODADAS = [("08:00", "pixel2"), ("12:00", "pixel2"), ("18:30", "venda"), ("21:00", "pixel2")]
 # Pauta pronta e aprovada que substitui o formato de uma rodada: {"AAAA-MM-DD": {"HH:MM": "caminho"}}.
 PAUTAS_DO_DIA = {}
 # Banco de vídeos: pautas prontas e aprovadas em pautas/viral/fila/. A rodada FILA_RODADA de cada dia usa a próxima
 # que ainda não saiu (em ordem de nome); sem nada na fila, segue o formato normal da rodada.
 FILA = RAIZ / "pautas" / "viral" / "fila"
-FILA_RODADA = "09:00"
+FILA_RODADA = "12:00"  # horário de ouro: o vídeo mais forte do banco sai no pico do meio-dia
 TOLERANCIA_ATRASO = timedelta(hours=2)
 INTERVALO_MIN_MIN = 120  # nunca duas rodadas em menos de 2 horas
 
