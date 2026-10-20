@@ -7,6 +7,7 @@ que leva de 5 minutos a 24 horas); sem ela, é possível que a venda não libere
 |---|---|---|---|
 | Kit Claude Code | R$ 17,00 | https://pay.kiwify.com.br/7RZ7Yeh | https://pay.kiwify.com.br/7RZ7Yeh |
 | Pack Pixel: Reels em pixel art com IA | R$ 27,00 | https://pay.kiwify.com.br/jmiKAgE | https://pay.kiwify.com.br/jmiKAgE |
+| Kit Engenharia com IA (criado em 2026-10-20) | R$ 37,00 | https://kiwify.app/EJTyDgC (página, NÃO usar) | https://pay.kiwify.com.br/3Jm8P4j |
 
 Cada produto entrega o zip como anexo da aula "Baixe o ..." na área de membros da Kiwify.
 
