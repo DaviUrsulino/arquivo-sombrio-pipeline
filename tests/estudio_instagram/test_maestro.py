@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from src.estudio_instagram.maestro import BRASILIA, RODADAS, decidir
+from src.estudio_instagram import maestro
 
 
 def _t(hhmm, dia="2026-10-19"):
@@ -42,3 +43,20 @@ def test_dia_novo_zera_o_estado():
     velho = {"dia": "2026-10-18", "feitos": {"09:00": "x", "19:00": "x"}}
     formato, estado = decidir(_t("09:10", "2026-10-19"), velho)
     assert formato == "pixel2" and estado["dia"] == "2026-10-19" and list(estado["feitos"]) == ["09:00"]
+
+
+def test_proxima_da_fila_pula_as_ja_usadas(tmp_path, monkeypatch):
+    monkeypatch.setattr(maestro, "RAIZ", tmp_path)
+    fila = tmp_path / "pautas" / "viral" / "fila"
+    fila.mkdir(parents=True)
+    (fila / "01-a.json").write_text("{}")
+    (fila / "02-b.json").write_text("{}")
+    assert maestro.proxima_da_fila([], fila) == "pautas/viral/fila/01-a.json"
+    assert maestro.proxima_da_fila(["pautas/viral/fila/01-a.json"], fila) == "pautas/viral/fila/02-b.json"
+    assert maestro.proxima_da_fila(["pautas/viral/fila/01-a.json", "pautas/viral/fila/02-b.json"], fila) is None
+
+
+def test_decidir_guarda_a_fila_usada_ao_virar_o_dia():
+    ontem = {"dia": "2026-10-19", "feitos": {"09:00": "x"}, "fila_usadas": ["a.json"]}
+    _, novo = maestro.decidir(datetime(2026, 10, 20, 9, 5, tzinfo=maestro.BRASILIA), ontem)
+    assert novo["fila_usadas"] == ["a.json"]

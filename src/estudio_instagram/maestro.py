@@ -33,6 +33,10 @@ BRASILIA = timezone(timedelta(hours=-3))
 RODADAS = [("09:00", "pixel2"), ("14:00", "pixel2"), ("19:00", "venda")]
 # Pauta pronta e aprovada que substitui o formato de uma rodada: {"AAAA-MM-DD": {"HH:MM": "caminho"}}.
 PAUTAS_DO_DIA = {}
+# Banco de vídeos: pautas prontas e aprovadas em pautas/viral/fila/. A rodada FILA_RODADA de cada dia usa a próxima
+# que ainda não saiu (em ordem de nome); sem nada na fila, segue o formato normal da rodada.
+FILA = RAIZ / "pautas" / "viral" / "fila"
+FILA_RODADA = "09:00"
 TOLERANCIA_ATRASO = timedelta(hours=2)
 INTERVALO_MIN_MIN = 120  # nunca duas rodadas em menos de 2 horas
 
@@ -46,7 +50,8 @@ def decidir(agora: datetime, estado: dict) -> tuple[str | None, dict]:
     agora = agora.astimezone(BRASILIA)
     dia = agora.date().isoformat()
     if estado.get("dia") != dia:
-        estado = {"dia": dia, "feitos": {}}
+        estado = {"dia": dia, "feitos": {}, "fila_usadas": estado.get("fila_usadas", []),
+                  "ultimo_disparo": estado.get("ultimo_disparo")}
     feitos = dict(estado["feitos"])
     ultimo = estado.get("ultimo_disparo")
     seguro = not ultimo or agora - datetime.fromisoformat(ultimo) >= timedelta(minutes=INTERVALO_MIN_MIN)
@@ -65,10 +70,20 @@ def decidir(agora: datetime, estado: dict) -> tuple[str | None, dict]:
             pronta = PAUTAS_DO_DIA.get(dia, {}).get(hhmm)
             escolhido = (hhmm, f"pauta:{pronta}" if pronta else formato)
             feitos[hhmm] = f"disparada {agora.strftime('%H:%M')}"
-    novo = {"dia": dia, "feitos": feitos, "ultimo_disparo": estado.get("ultimo_disparo")}
+    novo = {"dia": dia, "feitos": feitos, "ultimo_disparo": estado.get("ultimo_disparo"),
+            "fila_usadas": estado.get("fila_usadas", [])}
     if escolhido:
         novo["ultimo_disparo"] = agora.isoformat(timespec="seconds")
     return (escolhido[1] if escolhido else None), novo
+
+
+def proxima_da_fila(usadas: list[str], pasta: Path = FILA) -> str | None:
+    """Caminho (relativo à raiz) da próxima pauta do banco que ainda não foi usada, ou None."""
+    for arquivo in sorted(pasta.glob("*.json")) if pasta.exists() else []:
+        relativo = arquivo.relative_to(RAIZ).as_posix()
+        if relativo not in usadas:
+            return relativo
+    return None
 
 
 def _ler() -> dict:
@@ -116,6 +131,15 @@ def main():
             print(f"pausa de segurança ativa ({pausa.motivo()}); não disparo a rodada {formato}", flush=True)
             formato = None
             novo = estado
+        if formato and not formato.startswith("pauta:"):
+            nova_rodada = [h for h in novo["feitos"] if h not in (estado["feitos"] if estado.get("dia") == novo["dia"] else {})]
+            usadas = novo.get("fila_usadas", estado.get("fila_usadas", []))
+            da_fila = proxima_da_fila(usadas) if FILA_RODADA in nova_rodada else None
+            if da_fila:
+                formato = f"pauta:{da_fila}"
+                novo["fila_usadas"] = [*usadas, da_fila]
+            elif usadas:
+                novo["fila_usadas"] = usadas
         if formato:
             print(f"hora de uma rodada ({formato}); estado: {novo['feitos']}", flush=True)
             if not args.simular:
