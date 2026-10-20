@@ -1,0 +1,137 @@
+{
+  "titulo": "open-saas — 2026-10-20",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "linha1": "A FERRAMENTA",
+    "linha2": "OPEN-SAAS",
+    "subtitulo": "que pouca gente conhece ainda",
+    "selo": "★ {estrelas:wasp-lang/open-saas} estrelas"
+  },
+  "chamada": {
+    "pergunta": "quer o link?",
+    "promessa": "que eu te mando no direct",
+    "rodape": "e segue pra mais ferramenta grátis de IA"
+  },
+  "itens": [
+    {
+      "repo": "wasp-lang/open-saas",
+      "nome": "open-saas",
+      "cor": "amarelo",
+      "promessa": "A ferramenta que pouca gente conhece ainda.",
+      "texto": "com {estrelas:wasp-lang/open-saas} estrelas no GitHub"
+    }
+  ],
+  "cenas": [
+    {
+      "id": "gancho",
+      "cor": "amarelo",
+      "narracao": "open-saas é a ferramenta que pouca gente conhece no Claude Code. Já são {estrelas:wasp-lang/open-saas} estrelas no GitHub.",
+      "elementos": [
+        {
+          "tipo": "icone",
+          "icone": "flask-conical",
+          "ancora": "open-saas",
+          "y": 540,
+          "tamanho": 240,
+          "cor": "amarelo"
+        },
+        {
+          "tipo": "texto",
+          "texto": "open-saas",
+          "ancora": "open-saas",
+          "y": 860,
+          "grande": true
+        },
+        {
+          "tipo": "etiqueta",
+          "texto": "★ {estrelas:wasp-lang/open-saas} estrelas",
+          "ancora": "estrelas",
+          "y": 1180,
+          "cor": "amarelo"
+        }
+      ]
+    },
+    {
+      "id": "oque",
+      "cor": "azul",
+      "narracao": "Ele resolve um problema real no seu dia a dia. Tem licença aberta, é mantido ativamente, e você instala em minutos.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "por que vale a pena",
+          "ancora": "resolve"
+        },
+        {
+          "tipo": "lista",
+          "itens": [
+            "licença aberta",
+            "mantido ativamente",
+            "instala rápido"
+          ],
+          "ancoras": [
+            "licença",
+            "mantido",
+            "instala"
+          ],
+          "y": 640
+        }
+      ]
+    },
+    {
+      "id": "prova",
+      "cor": "amarelo",
+      "narracao": "E quem usa, recomenda: {estrelas:wasp-lang/open-saas} estrelas no GitHub, sob licença MIT.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "a prova",
+          "ancora": "recomenda"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "open-saas",
+          "texto": "com {estrelas:wasp-lang/open-saas} estrelas no GitHub",
+          "icone": "github",
+          "repo": "wasp-lang/open-saas",
+          "ancora": "estrelas",
+          "y": 600,
+          "cor": "amarelo"
+        }
+      ]
+    },
+    {
+      "id": "cta",
+      "cor": "laranja",
+      "narracao": "Quer o link? Comenta LINK aqui embaixo, que eu te mando no direct.",
+      "elementos": [
+        {
+          "tipo": "icone",
+          "icone": "message-circle",
+          "ancora": "Quer",
+          "y": 520,
+          "tamanho": 240,
+          "cor": "azul"
+        },
+        {
+          "tipo": "texto",
+          "texto": "quer o link?",
+          "ancora": "link",
+          "y": 820,
+          "grande": true
+        },
+        {
+          "tipo": "destaque",
+          "texto": "comenta LINK",
+          "ancora": "Comenta",
+          "y": 1040,
+          "cor": "amarelo"
+        }
+      ]
+    }
+  ]
+}
