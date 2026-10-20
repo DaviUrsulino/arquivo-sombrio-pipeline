@@ -1,0 +1,247 @@
+{
+  "titulo": "drama-skills: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "onze habilidades para criar minidramas com ia no claude code e codex"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "zenstory-ai/drama-skills",
+      "nome": "drama-skills",
+      "cor": "azul",
+      "promessa": "开源 AI 短剧/漫剧创作 skill 合集：剧本、角色资产、分镜 storyboard、图片/视频提示词、审查，适配 Claude Code 与 Codex ",
+      "texto": "开源 AI 短剧/漫剧创作 skill 合集：剧本、角色资产、分镜 storyboard、图片/视频提示词、审查，适配 Claude Code 与 Codex | Open-source AI short drama / micro-dra"
+    }
+  ],
+  "destaques": [
+    "drama skills",
+    "claude code",
+    "codex",
+    "storyboard",
+    "ffmpeg",
+    "prompts",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Um conjunto de habilidades ensina agentes de inteligência artificial a produzir novelas inteiras.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "NOVELAS COM",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "AGENTES DE IA",
+            "cor": "laranja",
+            "tamanho": 130
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto drama skills já reúne mais de {estrelas:zenstory-ai/drama-skills} estrelas no GitHub.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "zenstory-ai/drama-skills"
+      }
+    },
+    {
+      "narracao": "Ele adiciona onze habilidades especializadas no Claude Code ou no Codex.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Claude Code",
+          "Codex",
+          "Agent Skills"
+        ]
+      }
+    },
+    {
+      "narracao": "O fluxo vai da análise do texto original até o roteiro e os prompts.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "file-text",
+            "rotulo": "Texto",
+            "cor": "azul"
+          },
+          {
+            "icone": "clapperboard",
+            "rotulo": "Roteiro",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "zap",
+            "rotulo": "Prompts",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "As decisões criativas ficam salvas em cinco arquivos com extensão ponto eme dê.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "file-text",
+        "cor": "azul",
+        "rotulo": "5 ARQUIVOS MARKDOWN"
+      }
+    },
+    {
+      "narracao": "O sistema cria travas visuais para manter personagens iguais em cada cena.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "shield-check",
+        "cor": "verde",
+        "rotulo": "TRAVA DE CONTINUIDADE"
+      }
+    },
+    {
+      "narracao": "O agente só gera imagens e vídeos depois que você aprova o resumo.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "list-checks",
+        "cor": "amarelo",
+        "rotulo": "CONFIRMAR ANTES"
+      }
+    },
+    {
+      "narracao": "Ele também organiza os cortes e monta a edição com efe efe eme pegue.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "clapperboard",
+        "cor": "roxo",
+        "rotulo": "EDICAO COM FFMPEG"
+      }
+    },
+    {
+      "narracao": "A instalação global acontece no terminal com o comando ene pxis skills add.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "npx skills add zenstory-ai/drama-skills -y -g",
+        "texto": "instalação global das skills"
+      }
+    },
+    {
+      "narracao": "O projeto exige Python três ponto nove e funciona com licença aberta eme i tê.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "code-xml",
+        "cor": "verde",
+        "rotulo": "LICENCA MIT E PYTHON"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "CRIE DRAMAS COM",
+          "cor": "branco",
+          "tamanho": 100
+        },
+        {
+          "texto": "DRAMA SKILLS",
+          "cor": "laranja",
+          "tamanho": 120
+        }
+      ],
+      "subtitulo": "conheça o zenstory-ai/drama-skills"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "ONZE SKILLS",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "drama-skills",
+      "texto": "Conjunto de habilidades para agentes como Claude Code e Codex criarem mininovelas. Cobre da análise de texto até prompts, consistência visual e corte final."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMO INSTALAR",
+          "cor": "verde"
+        }
+      ],
+      "comando": "npx skills add zenstory-ai/drama-skills -y -g",
+      "texto": "instalação global via terminal",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "PREVIA REAL",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "fluxo",
+      "texto": "Grava decisões em arquivos markdown com travas de continuidade entre cenas. Exige confirmação clara antes de chamar APIs externas pagas."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "REQUISITOS",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "licença",
+      "texto": "Distribuído sob licença aberta MIT. Requer Python três ponto nove ou superior e ffmpeg para renderizar os cortes."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ]
+}
