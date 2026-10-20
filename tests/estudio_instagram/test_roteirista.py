@@ -36,7 +36,7 @@ def test_roteiro_valido_vira_pauta_que_passa_na_validacao():
     nova = roteirista.gerar_pauta(DADOS, README, "LINK", ICONES, llm=lambda s, u: _resposta())
     final = cenas_pixel.normalizar_pauta(nova)
     assert pauta.problemas(final, ICONES) == []
-    assert final["cenas"][-1]["narracao"].startswith("Segue o robô estagiário e comenta LINK")
+    assert final["cenas"][-1]["narracao"].startswith("Manda pra um amigo dev, segue o robô estagiário e comenta LINK")
     assert len(nova["slides"]) == 6 and nova["slides"][-1]["tipo"] == "cta"
 
 

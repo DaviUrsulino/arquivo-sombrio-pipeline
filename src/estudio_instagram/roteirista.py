@@ -43,7 +43,7 @@ ESTILO DA NARRAÇÃO (é lida em voz alta):
 REGRAS DE RECUSA: se a ferramenta (a) faz rodízio ou compartilhamento de contas, assinaturas ou chaves para contornar limite de uso ou cota de provedores, (b) burla ou viola termos de serviço de algum provedor, (c) rouba, extrai ou expõe credenciais, (d) é de ataque ou invasão, golpe, cripto especulativa ou conteúdo adulto, ou (e) o README não deixa claro o que ela faz, NÃO escreva roteiro. Responda só {"recusar": true, "motivo": "uma frase"}.
 
 ESTRUTURA: de 9 a 11 cenas. Cada cena = UMA frase falada + UM visual diferente do anterior.
-1. Gancho (visual titulo_pixel): curiosidade honesta ligada ao que a ferramenta tem de mais surpreendente de verdade.
+1. Gancho (visual titulo_pixel): a promessa mais específica e surpreendente que o README sustenta, dita nas primeiras palavras. Até 10 palavras, comece pelo que a pessoa ganha ou pela ação concreta (de preferência com um número do README ou "sem" + algo que ela odeia fazer). Nunca comece com "Conheça", "Olha só" nem com o nome do projeto; o nome vem depois. Nada de exagero que o README não sustente.
 2. Estrelas (visual contador, narração com o marcador {estrelas:DONO/REPO}).
 3 a 8. O que é, como funciona, o que dá para fazer, como instalar ou usar (com dados do README).
 9 a 11. Para quem serve, requisito ou limite que o README cita, licença.
