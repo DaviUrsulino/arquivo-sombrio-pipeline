@@ -1,0 +1,182 @@
+{
+ "titulo": "Meme: commit fix às 3 da manhã",
+ "formato": "pixel2",
+ "palavra_chave": "SEGUE",
+ "fecho_proprio": true,
+ "perfil": "@robo.estagiario",
+ "voz": {
+  "id": "iP95p4xoKVk53GoZ742B",
+  "modelo": "eleven_multilingual_v2"
+ },
+ "capa": {
+  "subtitulo": "meme: commit fix às 3 da manhã"
+ },
+ "chamada": {
+  "pergunta": "já passou por isso?"
+ },
+ "itens": [],
+ "destaques": [
+  "fatura",
+  "claude",
+  "dormindo"
+ ],
+ "legenda": "Commit: 'fix'. Commit: 'fix 2'. Commit: 'fix agora vai' 😂 Marca o dev que você conhece.\n\nSegue o @robo.estagiario: todo dia tem IA, ferramenta e meme de dev.\n\n#claudecode #ia #programacao #dev #meme",
+ "cenas_roteiro": [
+  {
+   "humor": "normal",
+   "narracao": "Três da manhã e o bug ainda está lá.",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "clock",
+    "cor": "azul",
+    "rotulo": "3 DA MANHÃ"
+   }
+  },
+  {
+   "humor": "pensando",
+   "narracao": "Commit: fix.",
+   "visual": {
+    "tipo": "terminal",
+    "rotulo": "terminal",
+    "comando": "git commit -m \"fix\"",
+    "texto": "nada mudou"
+   }
+  },
+  {
+   "humor": "pensando",
+   "narracao": "Commit: fix dois.",
+   "visual": {
+    "tipo": "terminal",
+    "rotulo": "terminal",
+    "comando": "git commit -m \"fix 2\"",
+    "texto": "piorou"
+   }
+  },
+  {
+   "humor": "animado",
+   "narracao": "Commit: agora vai.",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {
+      "texto": "FIX",
+      "cor": "branco",
+      "tamanho": 120
+     },
+     {
+      "texto": "AGORA VAI",
+      "cor": "laranja",
+      "tamanho": 120
+     }
+    ]
+   }
+  },
+  {
+   "humor": "normal",
+   "narracao": "Não foi.",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "bug",
+    "cor": "vermelho",
+    "rotulo": "NÃO FOI"
+   }
+  },
+  {
+   "humor": "animado",
+   "narracao": "Segue o robô estagiário, ele erra pra você não errar.",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {
+      "texto": "SEGUE O",
+      "cor": "branco",
+      "tamanho": 120
+     },
+     {
+      "texto": "ESTAGIÁRIO",
+      "cor": "verde",
+      "tamanho": 120
+     }
+    ]
+   }
+  }
+ ],
+ "slides": [
+  {
+   "tipo": "capa",
+   "linhas": [
+    {
+     "texto": "FIX",
+     "cor": "branco",
+     "tamanho": 130
+    },
+    {
+     "texto": "FIX 2",
+     "cor": "amarelo",
+     "tamanho": 120
+    },
+    {
+     "texto": "AGORA VAI",
+     "cor": "laranja",
+     "tamanho": 100
+    }
+   ],
+   "subtitulo": "o histórico de commits às 3 da manhã"
+  },
+  {
+   "tipo": "ponto",
+   "fase": "COMMIT 1",
+   "progresso": 0.33,
+   "linhas": [
+    {
+     "texto": "FIX",
+     "cor": "branco"
+    }
+   ],
+   "rotulo": "git",
+   "texto": "Nada mudou."
+  },
+  {
+   "tipo": "ponto",
+   "fase": "COMMIT 2",
+   "progresso": 0.66,
+   "linhas": [
+    {
+     "texto": "FIX 2",
+     "cor": "amarelo"
+    }
+   ],
+   "rotulo": "git",
+   "texto": "Piorou."
+  },
+  {
+   "tipo": "ponto",
+   "fase": "COMMIT 3",
+   "progresso": 1.0,
+   "linhas": [
+    {
+     "texto": "AGORA VAI",
+     "cor": "laranja"
+    }
+   ],
+   "rotulo": "git",
+   "texto": "Não foi. Vai dormir que amanhã o bug é outro."
+  },
+  {
+   "tipo": "cta",
+   "linhas": [
+    {
+     "texto": "MARCA O DEV",
+     "cor": "branco"
+    },
+    {
+     "texto": "QUE FAZ ISSO",
+     "cor": "verde"
+    }
+   ],
+   "subtitulo": "e segue o @robo.estagiario",
+   "selo": "SIGA PRA MAIS",
+   "palavra": "SEGUE"
+  }
+ ]
+}

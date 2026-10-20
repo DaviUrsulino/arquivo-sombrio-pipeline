@@ -1,0 +1,191 @@
+{
+ "titulo": "Meme: funciona na minha máquina",
+ "formato": "pixel2",
+ "palavra_chave": "SEGUE",
+ "fecho_proprio": true,
+ "perfil": "@robo.estagiario",
+ "voz": {
+  "id": "iP95p4xoKVk53GoZ742B",
+  "modelo": "eleven_multilingual_v2"
+ },
+ "capa": {
+  "subtitulo": "meme: funciona na minha máquina"
+ },
+ "chamada": {
+  "pergunta": "já passou por isso?"
+ },
+ "itens": [],
+ "destaques": [
+  "fatura",
+  "claude",
+  "dormindo"
+ ],
+ "legenda": "Funciona na minha máquina 😭 Quem nunca? Marca o dev da sua vida.\n\nSegue o @robo.estagiario: todo dia tem IA, ferramenta e meme de dev.\n\n#claudecode #ia #programacao #dev #meme",
+ "cenas_roteiro": [
+  {
+   "humor": "feliz",
+   "narracao": "Terminei o projeto e funciona perfeitamente.",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {
+      "texto": "FUNCIONA",
+      "cor": "branco",
+      "tamanho": 120
+     },
+     {
+      "texto": "PERFEITAMENTE",
+      "cor": "verde",
+      "tamanho": 130
+     }
+    ]
+   }
+  },
+  {
+   "humor": "normal",
+   "narracao": "Aí mandei pra produção.",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "rocket",
+    "cor": "azul",
+    "rotulo": "PRODUÇÃO"
+   }
+  },
+  {
+   "humor": "pensando",
+   "narracao": "E tudo quebrou na hora.",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "server-crash",
+    "cor": "vermelho",
+    "rotulo": "TUDO QUEBROU"
+   }
+  },
+  {
+   "humor": "animado",
+   "narracao": "Mas na minha máquina funciona.",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {
+      "texto": "NA MINHA",
+      "cor": "branco",
+      "tamanho": 120
+     },
+     {
+      "texto": "MÁQUINA FUNCIONA",
+      "cor": "amarelo",
+      "tamanho": 100
+     }
+    ]
+   }
+  },
+  {
+   "humor": "normal",
+   "narracao": "Quem nunca falou essa frase?",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "users",
+    "cor": "laranja",
+    "rotulo": "QUEM NUNCA?"
+   }
+  },
+  {
+   "humor": "animado",
+   "narracao": "Segue o robô estagiário, ele erra pra você não errar.",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {
+      "texto": "SEGUE O",
+      "cor": "branco",
+      "tamanho": 120
+     },
+     {
+      "texto": "ESTAGIÁRIO",
+      "cor": "verde",
+      "tamanho": 120
+     }
+    ]
+   }
+  }
+ ],
+ "slides": [
+  {
+   "tipo": "capa",
+   "linhas": [
+    {
+     "texto": "FUNCIONA NA",
+     "cor": "branco",
+     "tamanho": 100
+    },
+    {
+     "texto": "MINHA",
+     "cor": "amarelo",
+     "tamanho": 120
+    },
+    {
+     "texto": "MÁQUINA",
+     "cor": "verde",
+     "tamanho": 120
+    }
+   ],
+   "subtitulo": "a desculpa mais antiga do dev"
+  },
+  {
+   "tipo": "ponto",
+   "fase": "LOCAL",
+   "progresso": 0.33,
+   "linhas": [
+    {
+     "texto": "FUNCIONA",
+     "cor": "verde"
+    }
+   ],
+   "rotulo": "minha máquina",
+   "texto": "Tudo certo, testado, perfeito."
+  },
+  {
+   "tipo": "ponto",
+   "fase": "PRODUÇÃO",
+   "progresso": 0.66,
+   "linhas": [
+    {
+     "texto": "QUEBROU",
+     "cor": "vermelho"
+    }
+   ],
+   "rotulo": "servidor",
+   "texto": "Mesmo código, outro ambiente, outro resultado."
+  },
+  {
+   "tipo": "ponto",
+   "fase": "MORAL",
+   "progresso": 1.0,
+   "linhas": [
+    {
+     "texto": "USE DOCKER",
+     "cor": "azul"
+    }
+   ],
+   "rotulo": "dica",
+   "texto": "Ambiente igual em todo lugar evita boa parte desse susto."
+  },
+  {
+   "tipo": "cta",
+   "linhas": [
+    {
+     "texto": "MARCA O DEV",
+     "cor": "branco"
+    },
+    {
+     "texto": "DA SUA VIDA",
+     "cor": "verde"
+    }
+   ],
+   "subtitulo": "e segue o @robo.estagiario",
+   "selo": "SIGA PRA MAIS",
+   "palavra": "SEGUE"
+  }
+ ]
+}
