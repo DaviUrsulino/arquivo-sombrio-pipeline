@@ -138,7 +138,7 @@
             titulo(el, 210, s.linhas, 100);
             const sub = document.createElement("div"); sub.className = "sub"; sub.style.top = "620px"; sub.textContent = s.subtitulo; el.appendChild(sub);
             const selo = document.createElement("div"); selo.className = "selo"; selo.style.top = "850px";
-            selo.innerHTML = `<div>${s.selo || "COMENTA " + s.palavra}</div>`; el.appendChild(selo);
+            selo.innerHTML = `<div>${s.selo || "SIGA E COMENTE " + s.palavra}</div>`; el.appendChild(selo);
             if (s.extra) { const ex = document.createElement("div"); ex.className = "sub"; ex.style.top = "1030px"; ex.style.fontSize = "42px"; ex.style.color = "#ffd84a"; ex.textContent = s.extra; el.appendChild(ex); }
             el.appendChild(robo(380, 1040, 1.3));
           }

@@ -42,7 +42,7 @@ def montar_legenda(dados_pauta: dict, repos: dict) -> str:
     texto = (
         f"{dados_pauta['capa']['subtitulo'].capitalize()} 🤖\n\n"
         f"{dados_pauta['chamada']['pergunta'].capitalize()} "
-        f"Comenta {dados_pauta['palavra_chave']} que eu te mando no direct.\n\n"
+        f"Siga @robo.estagiario e comente {dados_pauta['palavra_chave']} que eu te mando no direct.\n\n"
         f"Quer aprender a fazer vídeos assim? Link na bio.\n\n{hashtags}"
     )
     return texto[:LIMITE_LEGENDA_INSTAGRAM]
@@ -65,7 +65,7 @@ def _registrar_links(dados_pauta: dict, repos: dict, registro: dict):
     """Guarda, para cada mídia publicada, a palavra e a mensagem que o bot de comentários deve mandar."""
     primeiro = next(iter(repos.values()))
     mensagem = (f"Oi! Aqui está o repositório {primeiro.repo.split('/', 1)[1]}: {primeiro.url}\n"
-                f"Se curtir, segue o @robo.estagiario pra mais ferramentas de IA 🤖")
+                f"Gostou? Segue o @robo.estagiario: todo dia tem ferramenta nova de IA 🤖")
     arquivo = RAIZ / "pautas" / "links_por_post.json"
     atual = json.loads(arquivo.read_text(encoding="utf-8")) if arquivo.exists() else {}
     for media_id in (registro["reels"].get("media_id"), registro.get("carrossel_media_id")):

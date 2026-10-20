@@ -88,12 +88,12 @@ def normalizar_cena(cena: dict, indice: int) -> dict:
 def cena_final(palavra_chave: str) -> dict:
     """Última cena, sempre igual: o 'comenta PALAVRA' que o bot responde."""
     return {
-        "narracao": f"Comenta {palavra_chave} que eu te mando o link do repositório. E quer aprender a fazer vídeos assim? O link está na bio.",
+        "narracao": f"Segue o robô estagiário e comenta {palavra_chave} que eu te mando o link do repositório. E quer aprender a fazer vídeos assim? O link está na bio.",
         "humor": "animado",
         "visual": {
             "tipo": "titulo_pixel", "y": 330,
-            "linhas": [{"texto": "COMENTA", "cor": "branco", "tamanho": 130},
-                       {"texto": palavra_chave, "cor": "verde", "tamanho": 130}],
+            "linhas": [{"texto": "SIGA E COMENTE", "cor": "branco", "tamanho": 84},
+                       {"texto": palavra_chave, "cor": "verde", "tamanho": 150}],
         },
     }
 
