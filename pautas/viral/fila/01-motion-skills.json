@@ -1,0 +1,252 @@
+{
+  "titulo": "motion-skills: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "55 skills abertas para ensinar seu agente de código a criar animações e vídeos"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "iart-ai/motion-skills",
+      "nome": "motion-skills",
+      "cor": "azul",
+      "promessa": "50 open-source skills that teach your AI coding agent to make motion graphics, a",
+      "texto": "50 open-source skills that teach your AI coding agent to make motion graphics, animation & video — kinetic typography, d"
+    }
+  ],
+  "destaques": [
+    "motion",
+    "agentes",
+    "animacao",
+    "remotion",
+    "cursor",
+    "claude",
+    "video",
+    "skills",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Seu agente de código agora pode aprender a criar animações e vídeos complexos.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "MOTION COM",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "AGENTE IA",
+            "cor": "laranja",
+            "tamanho": 140
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O repositório motion skills já reúne {estrelas:iart-ai/motion-skills} no GitHub.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "iart-ai/motion-skills"
+      }
+    },
+    {
+      "narracao": "Ele reúne cinquenta e cinco habilidades abertas divididas em dezoito pacotes diferentes.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "55 skills abertas",
+          "18 pacotes",
+          "Sem fine-tuning"
+        ]
+      }
+    },
+    {
+      "narracao": "Cada habilidade inclui um ciclo para renderizar um quadro e inspecionar o resultado.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "clapperboard",
+            "rotulo": "Renderiza",
+            "cor": "azul"
+          },
+          {
+            "icone": "search",
+            "rotulo": "Inspeciona",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "check",
+            "rotulo": "Valida",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Dá para criar tipografia cinética, mapas editoriais e animações matemáticas com Manim.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Tipografia cinética",
+          "Mapas editoriais",
+          "Manim e WebGL"
+        ]
+      }
+    },
+    {
+      "narracao": "As habilidades de vídeo usam Remotion ou Manim, e as web geram HTML.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "code-xml",
+        "cor": "laranja",
+        "rotulo": "REMOTION E MANIM"
+      }
+    },
+    {
+      "narracao": "Você instala cada pacote direto pelo terminal com o comando npx skills add.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "npx skills add iart-ai/tiktok-video-skills",
+        "texto": "instala o pacote de tiktok e reels"
+      }
+    },
+    {
+      "narracao": "No Claude Code dá para adicionar como plugin direto pelo comando da marketplace.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "claude code",
+        "comando": "/plugin marketplace add iart-ai/web-animation-skills",
+        "texto": "instala como plugin no claude code"
+      }
+    },
+    {
+      "narracao": "As habilidades funcionam no Claude Code, Cursor, Codex e outros quarenta agentes.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Claude Code",
+          "Cursor",
+          "Codex",
+          "+40 agentes"
+        ]
+      }
+    },
+    {
+      "narracao": "Todo o projeto está disponível sob a licença MIT no GitHub.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "banner_repo",
+        "url": "github.com/iart-ai/motion-skills"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "ANIMAÇÕES COM",
+          "cor": "branco",
+          "tamanho": 100
+        },
+        {
+          "texto": "AGENTES DE IA",
+          "cor": "laranja",
+          "tamanho": 90
+        }
+      ],
+      "subtitulo": "conheça o motion-skills"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "55 SKILLS",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "motion",
+      "texto": "Ensina agentes de código a criar animações, vídeos e gráficos. Dividido em 18 pacotes abertos."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMO INSTALAR",
+          "cor": "verde"
+        }
+      ],
+      "comando": "npx skills add iart-ai/tiktok-video-skills",
+      "texto": "instala pacote individual via terminal",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "O QUE GERA",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "recursos",
+      "texto": "Gera tipografia cinética, mapas e WebGL via Remotion ou HTML. Inclui ciclo para inspecionar cada quadro."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "LICENÇA MIT",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "compatível",
+      "texto": "Compatível com Claude Code, Cursor, Codex e mais de 40 agentes. Código aberto sob licença MIT."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ]
+}
