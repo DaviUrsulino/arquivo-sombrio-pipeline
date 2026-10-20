@@ -11,6 +11,7 @@
     "Kilo-Org/kilocode",
     "Leonxlnx/taste-skill",
     "LibreChat-AI/LibreChat",
+    "MartinDelophy/ai-video-editor",
     "NVIDIA/SkillSpector",
     "NousResearch/hermes-agent",
     "Nutlope/hallmark",
@@ -72,5 +73,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 26
+  "pautas_geradas": 27
 }
