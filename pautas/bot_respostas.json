@@ -12,7 +12,7 @@
     "ENGENHARIA": "Oi! Esse é o Kit Engenharia com IA (R$ 37): regras, 6 skills e um script que provam que o seu Claude Code entrega com requisito, teste e segurança. Detalhes e compra aqui: https://pay.kiwify.com.br/3Jm8P4j",
     "TESTES": "Oi! Esse é o Kit Engenharia com IA (R$ 37): regras, 6 skills e um script que provam que o seu Claude Code entrega com requisito, teste e segurança. Detalhes e compra aqui: https://pay.kiwify.com.br/3Jm8P4j"
   },
-  "exigir_seguir": true,
+  "exigir_seguir": false,
   "sem_filtro": [
     "PACK",
     "ENGENHARIA",
