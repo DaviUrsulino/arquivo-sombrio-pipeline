@@ -1,0 +1,219 @@
+{
+  "titulo": "flatkey-cli: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "geração de imagem, vídeo, áudio e texto direto pelo terminal com o flatkey cli"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "flatkey-ai/flatkey-cli",
+      "nome": "flatkey-cli",
+      "cor": "azul",
+      "promessa": "Flatkey media generation CLI for images, videos, audio, text, credits, and model",
+      "texto": "Flatkey media generation CLI for images, videos, audio, text, credits, and model discovery."
+    }
+  ],
+  "destaques": [
+    "terminal",
+    "gerar",
+    "video",
+    "audio",
+    "agentes",
+    "imagem",
+    "modelos",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Gere imagem, vídeo, áudio e texto direto da linha de comando.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "MÍDIA POR",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "TERMINAL",
+            "cor": "laranja",
+            "tamanho": 140
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O Flatkey CLI já passou de {estrelas:flatkey-ai/flatkey-cli} estrelas no GitHub.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "flatkey-ai/flatkey-cli"
+      }
+    },
+    {
+      "narracao": "Ele unifica dezenas de modelos de inteligência artificial em uma única chave.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "terminal",
+            "rotulo": "Comando",
+            "cor": "azul"
+          },
+          {
+            "icone": "zap",
+            "rotulo": "Flatkey",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "clapperboard",
+            "rotulo": "Mídia",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Você cria vídeos completos informando prompt, proporção e resolução no terminal.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "flatkey video generate --prompt \"clip\" -o launch.mp4",
+        "texto": "gera vídeo direto no arquivo local"
+      }
+    },
+    {
+      "narracao": "A ferramenta também produz efeitos sonoros, músicas e vozes em áudio.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Imagem",
+          "Vídeo",
+          "Áudio e SFX",
+          "Texto"
+        ]
+      }
+    },
+    {
+      "narracao": "Um modo jason limpo facilita conectar comandos em agentes e scripts.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "bot",
+        "cor": "roxo",
+        "rotulo": "PRONTO PARA AGENTES"
+      }
+    },
+    {
+      "narracao": "Para instalar no computador, basta rodar o comando global do eme pê eme.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "npm install -g @flatkey-ai/cli",
+        "texto": "funciona no macOS, Linux e Windows"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "GERAÇÃO DE MÍDIA",
+          "cor": "branco",
+          "tamanho": 100
+        },
+        {
+          "texto": "PELO TERMINAL",
+          "cor": "laranja",
+          "tamanho": 110
+        }
+      ],
+      "subtitulo": "conheça o Flatkey CLI"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "ROUTER DE MÍDIA",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "flatkey cli",
+      "texto": "Interface de linha de comando para gerar imagens, vídeos, áudio e texto com um único saldo de créditos."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "INSTALAÇÃO",
+          "cor": "verde"
+        }
+      ],
+      "comando": "npm install -g @flatkey-ai/cli",
+      "texto": "pacote multiplataforma para macOS, Linux e Windows",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "MULTIMODAL",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "recursos",
+      "texto": "Permite criar vídeos com modelos Seedance e Veo, clonar referências de vídeo e gerar efeitos sonoros."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "AGENTS E JSON",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "licença mit",
+      "texto": "Possui modo JSON limpo para automação com agentes e código aberto sob a licença MIT."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ]
+}

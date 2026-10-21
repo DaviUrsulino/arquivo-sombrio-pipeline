@@ -36,6 +36,7 @@
     "diegosouzapw/OmniRoute",
     "echris6/motion-video-kit",
     "farion1231/cc-switch",
+    "flatkey-ai/flatkey-cli",
     "genspark-ai/genoffice",
     "google/adk-python",
     "google/artemis",
@@ -79,5 +80,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 34
+  "pautas_geradas": 35
 }
