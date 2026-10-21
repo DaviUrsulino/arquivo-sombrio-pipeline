@@ -31,7 +31,7 @@ BRASILIA = timezone(timedelta(hours=-3))
 # (hora de Brasília, formato). Cada rodada posta 1 Reels + 1 carrossel: 4 rodadas = 8 posts por dia.
 # Horários nos picos de 07-09h, 12-13h e 18-21h (pesquisa de 2026); o freio de 10 posts/24 h segue valendo.
 # Modo seguro (2026-10-19): o Instagram devolveu "action is blocked" com 5 rodadas por dia, então são poucas e espaçadas.
-RODADAS = [("08:00", "pixel2"), ("12:00", "pixel2"), ("18:30", "venda"), ("21:00", "pixel2")]
+RODADAS = [("08:00", "pixel2"), ("12:00", "pixel2"), ("18:30", "venda"), ("21:00", "lista")]
 # Pauta pronta e aprovada que substitui o formato de uma rodada: {"AAAA-MM-DD": {"HH:MM": "caminho"}}.
 PAUTAS_DO_DIA = {}
 # Banco de vídeos: pautas prontas e aprovadas em pautas/viral/fila/. A rodada FILA_RODADA de cada dia usa a próxima

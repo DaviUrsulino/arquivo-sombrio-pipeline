@@ -11,7 +11,7 @@ Estado em 2026-10-20: ~166 seguidores; Reels campeão = Hyperframes (30 mil view
 ## O que roda sozinho (GitHub Actions, 24 h)
 | Workflow | O que faz |
 |---|---|
-| `instagram_maestro.yml` | Laço de ~5h40 que dispara as rodadas do dia (`src/estudio_instagram/maestro.py`: 08:00, 12:00, 18:30 venda, 21:00; BRT). Reencadeia a si mesmo. |
+| `instagram_maestro.yml` | Laço de ~5h40 que dispara as rodadas do dia (`src/estudio_instagram/maestro.py`: 08:00 notícia, 12:00 notícia (ou o próximo do banco), 18:30 venda, 21:00 lista de 5 repositórios; BRT). Reencadeia a si mesmo. |
 | `pipeline_instagram.yml` | Gera e publica 1 Reels + 1 carrossel (inputs: `formato`, `repo`, `pauta`, `publicar`). `pauta=` usa uma pauta pronta. |
 | `instagram_respondedor.yml` | Bot de comentários e DM. Laço de ~50 min que reencadeia. Filtro de seguidor ligado. |
 | `instagram_analista.yml` | Diário: `docs/analise-desempenho.md` e `pautas/desempenho.json` (views, salvos, envios, tempo assistido, por tema/horário/formato). |
