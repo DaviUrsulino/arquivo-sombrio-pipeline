@@ -1,0 +1,209 @@
+{
+  "titulo": "xerj: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "motor de busca local e servidor mcp em rust para agentes de código"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "xerj-org/xerj",
+      "nome": "xerj",
+      "cor": "azul",
+      "promessa": "Local-first search engine and MCP server for AI agents. One Rust binary indexes ",
+      "texto": "Local-first search engine and MCP server for AI agents. One Rust binary indexes code, docs, logs, JSONL/CSV and PDFs for"
+    }
+  ],
+  "destaques": [
+    "tokens",
+    "busca",
+    "local",
+    "rust",
+    "pastas",
+    "agentes",
+    "terminal",
+    "cursor",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Pare de gastar tokens lendo arquivos um por um.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "BUSCA LOCAL",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "PARA AGENTES",
+            "cor": "laranja",
+            "tamanho": 130
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto já tem {estrelas:xerj-org/xerj} estrelas no GitHub.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "xerj-org/xerj"
+      }
+    },
+    {
+      "narracao": "O XERJ é um motor de busca local em Rust.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "brain",
+        "cor": "amarelo",
+        "rotulo": "MOTOR EM RUST"
+      }
+    },
+    {
+      "narracao": "Ele indexa pastas inteiras para seus agentes de código.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "code-xml",
+            "rotulo": "Pastas",
+            "cor": "azul"
+          },
+          {
+            "icone": "zap",
+            "rotulo": "XERJ",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "bot",
+            "rotulo": "Agente",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "A instalação roda pelo terminal com comando curle.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "curl -fsSL https://xerj.org/get | sh",
+        "texto": "baixa e instala o binário único"
+      }
+    },
+    {
+      "narracao": "A ferramenta conecta direto no Claude Code e no Cursor.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Claude Code",
+          "Cursor",
+          "Clientes MCP"
+        ]
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "BUSCA LOCAL",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "PARA AGENTES",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o XERJ"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "MOTOR EM RUST",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "xerj",
+      "texto": "Motor de busca local e servidor MCP em binário único. Indexa pastas de código, documentos e logs para agentes."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMO INSTALAR",
+          "cor": "verde"
+        }
+      ],
+      "comando": "curl -fsSL https://xerj.org/get | sh",
+      "texto": "baixa e instala o binário do XERJ no sistema",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "AUTOINDEX",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "busca",
+      "texto": "O comando xerj autoindex cataloga arquivos automaticamente. O agente recupera o trecho exato sem ler arquivos inteiros."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "INTEGRAÇÃO",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "licença",
+      "texto": "Compatível com Claude Code, Cursor e qualquer cliente MCP. Código sob licença Apache dois ponto zero."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ]
+}
