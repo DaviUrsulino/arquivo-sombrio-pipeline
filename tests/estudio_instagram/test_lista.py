@@ -79,3 +79,11 @@ def test_dm_da_lista_leva_o_link_de_todos_os_repositorios(tmp_path, monkeypatch)
     salvo = json.loads((tmp_path / "pautas" / "links_por_post.json").read_text(encoding="utf-8"))
     mensagem = salvo["m1"]["mensagem"]
     assert all(d.url in mensagem for d in DADOS) and "1. ferr1:" in mensagem and salvo["m2"]["palavra"] == "LINK"
+
+
+def test_frase_em_minuscula_do_modelo_sai_com_inicial_maiuscula():
+    itens = _resposta()["itens"]
+    itens[0]["frase"] = "cria vídeo direto do terminal."
+    nova = lista.gerar_pauta(DADOS, READMES, "LINK", ICONES, llm=lambda s, u: _resposta(itens=itens))
+    assert "Número um: ferramenta 1. Cria vídeo direto do terminal." in nova["cenas_roteiro"][1]["narracao"]
+    assert "1. Ferramenta 1: Cria vídeo direto do terminal." in nova["legenda"]

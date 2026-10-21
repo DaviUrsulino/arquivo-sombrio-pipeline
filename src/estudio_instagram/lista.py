@@ -27,19 +27,24 @@ Você recebe 5 repositórios com DADOS REAIS e o início do README. REGRAS DE FA
 - Não prometa resultado. Descreva o que a ferramenta faz.
 - Se uma ferramenta faz rodízio de contas ou chaves para contornar limite, viola termos de serviço, rouba credenciais, é de ataque, golpe, cripto especulativa ou conteúdo adulto, ou o README não deixa claro o que ela faz, NÃO a inclua: liste em "excluir" e escolha as outras (o objetivo é devolver os itens que sobraram, com no mínimo 3).
 
-ESTILO (é lido em voz alta): português do Brasil, frases completas com verbo, de 6 a 10 palavras, sem emoji, sem hashtag, sem símbolos como / @ #. Escreva siglas e comandos do jeito que se fala.
+ESTILO (é lido em voz alta): português do Brasil com ACENTOS corretos (código, memória, ação), frases completas que começam com letra MAIÚSCULA e têm verbo no presente, de 5 a 8 palavras, sem emoji, sem hashtag, sem símbolos como / @ #. Escreva siglas e comandos do jeito que se fala.
 
 SAÍDA: um único objeto JSON, sem texto fora dele:
 {"tema":"até 6 palavras em minúsculas que completam 'Cinco repositórios grátis para ...' (ex.: criar vídeo com IA)",
  "gancho":["LINHA 1 EM MAIÚSCULAS ATÉ 14 LETRAS","LINHA 2 EM MAIÚSCULAS ATÉ 14 LETRAS"],
  "subtitulo":"frase de uma linha para a legenda, minúscula",
- "itens":[{"repo":"dono/repo","rotulo":"NOME EM MAIÚSCULAS ATÉ 20 LETRAS","falado":"como se fala o nome","frase":"o que faz, de 6 a 10 palavras, só com fatos do README","icone":"um destes: __ICONES__"}],
+ "itens":[{"repo":"dono/repo","rotulo":"NOME EM MAIÚSCULAS ATÉ 20 LETRAS","falado":"como se fala o nome","frase":"o que faz, de 5 a 8 palavras, começa com maiúscula, só com fatos do README","icone":"um destes: __ICONES__"}],
  "excluir":[]}
 Ordene os itens do mais impressionante ao menos. O gancho é a promessa do vídeo (ex.: ["5 REPOS PARA","CRIAR VÍDEO"]), começando por número ou ação concreta."""
 
 
 def _numeros(texto: str) -> set[str]:
     return set(re.findall(r"\d+(?:[.,]\d+)?", texto))
+
+
+def _frase(texto: str) -> str:
+    texto = texto.strip().rstrip(".")
+    return texto[:1].upper() + texto[1:]
 
 
 def _usuario(dados: list[DadosRepo], readmes: dict[str, str]) -> str:
@@ -76,8 +81,8 @@ def problemas(resposta: dict, dados: list[DadosRepo], readmes: dict[str, str], i
             erros.append(f"item {i}: 'rotulo' em MAIÚSCULAS e até 22 letras")
         if not item.get("falado"):
             erros.append(f"item {i}: falta 'falado'")
-        if not 4 <= len(frase.split()) <= 14:
-            erros.append(f"item {i}: 'frase' com {len(frase.split())} palavras (quero de 6 a 10)")
+        if not 4 <= len(frase.split()) <= 12:
+            erros.append(f"item {i}: 'frase' com {len(frase.split())} palavras (quero de 5 a 8)")
         if re.search(r"coment[ae]", frase, re.I):
             erros.append(f"item {i}: não peça para comentar")
         if item.get("icone") not in icones:
@@ -110,7 +115,7 @@ def montar_pauta(resposta: dict, dados: list[DadosRepo], palavra_chave: str) -> 
     for i, item in enumerate(itens):
         cenas.append({
             "humor": "feliz" if i % 2 == 0 else "animado",
-            "narracao": f"Número {ORDINAIS[i]}: {item['falado']}. {item['frase'].strip().rstrip('.')}.",
+            "narracao": f"Número {ORDINAIS[i]}: {item['falado']}. {_frase(item['frase'])}.",
             "visual": {"tipo": "icone_pixel", "icone": item["icone"], "cor": CORES_ITENS[i % len(CORES_ITENS)],
                        "rotulo": item["rotulo"]},
         })
@@ -120,12 +125,12 @@ def montar_pauta(resposta: dict, dados: list[DadosRepo], palavra_chave: str) -> 
     for i, item in enumerate(itens):
         slides.append({"tipo": "ponto", "fase": f"Nº {i + 1}", "progresso": round((i + 1) / n, 2),
                        "linhas": [{"texto": item["rotulo"][:18], "cor": CORES_ITENS[i % len(CORES_ITENS)]}],
-                       "rotulo": item["repo"].split("/", 1)[1][:24], "texto": item["frase"].strip()})
+                       "rotulo": item["repo"].split("/", 1)[1][:24], "texto": _frase(item["frase"]) + "."})
     slides.append({"tipo": "cta", "linhas": [{"texto": "QUER OS LINKS", "cor": "branco"}, {"texto": "DOS REPOS?", "cor": "verde"}],
                    "subtitulo": "Mando os links no direct.", "palavra": palavra_chave, "extra": "Quer fazer vídeos assim? Link na bio."})
     itens_pauta = [{"repo": it["repo"], "nome": it["repo"].split("/", 1)[1], "cor": CORES_ITENS[i % len(CORES_ITENS)],
                     "promessa": por_repo[it["repo"]].descricao[:80], "texto": it["frase"][:120]} for i, it in enumerate(itens)]
-    lista_texto = "\n".join(f"{i}. {it['rotulo'].title()}: {it['frase'].strip().rstrip('.')}." for i, it in enumerate(itens, 1))
+    lista_texto = "\n".join(f"{i}. {it['rotulo'].title()}: {_frase(it['frase'])}." for i, it in enumerate(itens, 1))
     legenda = (f"{numero_por_extenso} repositórios grátis para {resposta['tema'].strip().rstrip('.')} 🤖\n\n"
                f"Salva este vídeo:\n{lista_texto}\n\n"
                f"Manda pra um amigo dev, segue o @robo.estagiario e comenta {palavra_chave} que eu te mando os links no direct.\n\n"
