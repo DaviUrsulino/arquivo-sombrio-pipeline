@@ -8,7 +8,7 @@
     "modelo": "eleven_multilingual_v2"
   },
   "capa": {
-    "subtitulo": "um assistente de voz e texto totalmente local no seu computador"
+    "subtitulo": "assistente de voz local e privado para seu computador"
   },
   "chamada": {
     "pergunta": "quer o link do repositório?"
@@ -23,38 +23,38 @@
     }
   ],
   "destaques": [
-    "assistente",
     "local",
+    "privado",
     "voz",
+    "memoria",
+    "offline",
     "ollama",
-    "whisper",
     "mcp",
-    "privacidade",
-    "desktop",
+    "ditacao",
     "link"
   ],
   "cenas_roteiro": [
     {
-      "narracao": "Converse por voz com uma inteligência artificial totalmente no seu computador.",
-      "humor": "animado",
+      "narracao": "Um assistente de voz que roda só no seu computador.",
+      "humor": "normal",
       "visual": {
         "tipo": "titulo_pixel",
         "linhas": [
           {
-            "texto": "IA POR VOZ",
+            "texto": "IA DE VERDADE",
             "cor": "branco",
-            "tamanho": 130
+            "tamanho": 120
           },
           {
-            "texto": "100% LOCAL",
-            "cor": "verde",
-            "tamanho": 140
+            "texto": "NO SEU PC",
+            "cor": "laranja",
+            "tamanho": 150
           }
         ]
       }
     },
     {
-      "narracao": "O Jarvis já passou de {estrelas:isair/jarvis} estrelas no GitHub.",
+      "narracao": "O projeto já tem {estrelas:isair/jarvis} estrelas no GitHub.",
       "humor": "feliz",
       "visual": {
         "tipo": "contador",
@@ -62,19 +62,7 @@
       }
     },
     {
-      "narracao": "Ele é um assistente desktop para Mac, Windows e Linux sem assinatura.",
-      "humor": "normal",
-      "visual": {
-        "tipo": "lista",
-        "itens": [
-          "macOS",
-          "Windows",
-          "Linux"
-        ]
-      }
-    },
-    {
-      "narracao": "O app ouve o ambiente e entra no assunto quando você chama.",
+      "narracao": "Ele ouve, fala e lembra tudo localmente sem nuvem.",
       "humor": "animado",
       "visual": {
         "tipo": "cadeia",
@@ -82,80 +70,53 @@
         "nos": [
           {
             "icone": "message-circle",
-            "rotulo": "Conversa",
+            "rotulo": "VOZ",
             "cor": "azul"
           },
           {
-            "icone": "bot",
-            "rotulo": "Jarvis",
+            "icone": "brain",
+            "rotulo": "MODELO LOCAL",
             "cor": "amarelo"
           },
           {
-            "icone": "sparkles",
-            "rotulo": "Resposta",
+            "icone": "shield-check",
+            "rotulo": "PRIVADO",
             "cor": "verde"
           }
         ]
       }
     },
     {
-      "narracao": "Você pode rodar os modelos usando o Ollama ou outros servidores compatíveis.",
-      "humor": "normal",
-      "visual": {
-        "tipo": "icone_pixel",
-        "icone": "brain",
-        "cor": "laranja",
-        "rotulo": "OLLAMA OU LOCAL"
-      }
-    },
-    {
-      "narracao": "Ele guarda seu histórico e memórias em arquivos locais na sua máquina.",
-      "humor": "normal",
-      "visual": {
-        "tipo": "icone_pixel",
-        "icone": "shield-check",
-        "cor": "verde",
-        "rotulo": "MEMÓRIA LOCAL"
-      }
-    },
-    {
-      "narracao": "O projeto também suporta servidores MCP para conectar ferramentas e automação externa.",
-      "humor": "animado",
-      "visual": {
-        "tipo": "icone_pixel",
-        "icone": "zap",
-        "cor": "roxo",
-        "rotulo": "MCP TOOLS"
-      }
-    },
-    {
-      "narracao": "Dá para segurar um atalho do teclado para ditar em outros programas.",
+      "narracao": "Tem memória pessoal, ferramentas MCP e ditado por tecla.",
       "humor": "normal",
       "visual": {
         "tipo": "lista",
         "itens": [
-          "Ctrl + Win",
-          "Ctrl + Option",
-          "Ctrl + Alt"
+          "Memória local",
+          "Busca web",
+          "MCP tools",
+          "Ditado quente"
         ]
       }
     },
     {
-      "narracao": "A velocidade e as respostas dependem da memória e do hardware disponível.",
+      "narracao": "Baixe o zip do seu sistema, extraia e rode o app.",
       "humor": "pensando",
       "visual": {
-        "tipo": "icone_pixel",
-        "icone": "triangle-alert",
-        "cor": "amarelo",
-        "rotulo": "DEPENDE DO HARDWARE"
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "./Jarvis/Jarvis",
+        "texto": "executa no linux após extrair"
       }
     },
     {
-      "narracao": "Ele traz instaladores prontos na aba de releases do próprio repositório.",
-      "humor": "feliz",
+      "narracao": "Precisa de Ollama ou servidor compatível e microfone liberado.",
+      "humor": "normal",
       "visual": {
-        "tipo": "banner_repo",
-        "url": "github.com/isair/jarvis"
+        "tipo": "icone_pixel",
+        "icone": "check",
+        "cor": "verde",
+        "rotulo": "RODA OFFLINE"
       }
     }
   ],
@@ -164,17 +125,17 @@
       "tipo": "capa",
       "linhas": [
         {
-          "texto": "IA POR VOZ",
+          "texto": "IA DE VERDADE",
           "cor": "branco",
-          "tamanho": 110
+          "tamanho": 108
         },
         {
-          "texto": "TOTALMENTE LOCAL",
+          "texto": "NO SEU PC",
           "cor": "laranja",
-          "tamanho": 78
+          "tamanho": 80
         }
       ],
-      "subtitulo": "conheça o Jarvis"
+      "subtitulo": "conheça o jarvis"
     },
     {
       "tipo": "ponto",
@@ -187,7 +148,7 @@
         }
       ],
       "rotulo": "jarvis",
-      "texto": "Assistente desktop privado com chat de voz e texto. Funciona direto no hardware com Ollama ou servidores compatíveis."
+      "texto": "Assistente de voz e texto que roda 100% no seu hardware. Usa Ollama ou servidores OpenAI-compatíveis. Sem assinatura, sem nuvem."
     },
     {
       "tipo": "comando",
@@ -195,17 +156,17 @@
       "progresso": 0.5,
       "linhas": [
         {
-          "texto": "INSTALAÇÃO",
+          "texto": "COMO INSTALAR",
           "cor": "verde"
         }
       ],
-      "comando": "Jarvis.exe",
-      "texto": "Baixe os pacotes prontos para macOS, Windows ou Linux no GitHub Releases.",
+      "comando": "./Jarvis/Jarvis",
+      "texto": "Baixe o zip do seu SO em releases, extraia e execute. No Linux rode o binário. O wizard configura modelos e microfone.",
       "rotulo": "terminal"
     },
     {
       "tipo": "ponto",
-      "fase": "EXEMPLO",
+      "fase": "O QUE DÁ",
       "progresso": 0.75,
       "linhas": [
         {
@@ -213,8 +174,8 @@
           "cor": "laranja"
         }
       ],
-      "rotulo": "ferramentas",
-      "texto": "Mantém histórico recente da fala na sala, grava memória pessoal e aceita extensões com protocolo MCP."
+      "rotulo": "nota",
+      "texto": "Memória pessoal entre sessões, ferramentas MCP (navegador, casa inteligente, GitHub), ditado por tecla de atalho, busca web e clima."
     },
     {
       "tipo": "ponto",
@@ -222,12 +183,12 @@
       "progresso": 1.0,
       "linhas": [
         {
-          "texto": "DETALHES",
+          "texto": "LICENÇA E REQUISITOS",
           "cor": "amarelo"
         }
       ],
-      "rotulo": "requisitos",
-      "texto": "Usa licença própria do autor e o desempenho varia conforme o tamanho do modelo e memória da máquina."
+      "rotulo": "nota",
+      "texto": "Licença própria. Roda em macOS, Windows e Linux. Ditado não funciona no macOS 26+. Linux precisa de X11. Sem app mobile."
     },
     {
       "tipo": "cta",
@@ -245,5 +206,11 @@
       "palavra": "LINK",
       "extra": "Quer fazer vídeos assim? Link na bio."
     }
+  ],
+  "passos": [
+    "baixe o instalador do seu sistema em github.com/isair/jarvis/releases",
+    "extraia e execute o app (no linux: ./Jarvis/Jarvis)",
+    "o assistente guia a escolha de modelos locais (ollama ou servidor openai-compatível)",
+    "permita o microfone e comece a falar com jarvis"
   ]
 }
