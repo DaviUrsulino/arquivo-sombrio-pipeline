@@ -1,0 +1,212 @@
+{
+  "titulo": "Venda 3: Kit Claude Code",
+  "formato": "pixel2",
+  "palavra_chave": "BIO",
+  "fecho_proprio": true,
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "o claude code esquece tudo; esse kit resolve"
+  },
+  "chamada": {
+    "pergunta": "quer aprender?"
+  },
+  "itens": [],
+  "destaques": [
+    "claude",
+    "code",
+    "kit",
+    "prompts"
+  ],
+  "legenda": "O Claude Code começa toda sessão sem lembrar do seu projeto. O Kit Claude Code (R$ 17) tem 5 modelos de CLAUDE.md, 20 prompts e checklists. Link na bio.\n\n#claudecode #ia #reels #automacao",
+  "cenas_roteiro": [
+    {
+      "humor": "pensando",
+      "narracao": "O Claude Code começa toda sessão sem lembrar do seu projeto.",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "ELE ESQUECE",
+            "cor": "vermelho",
+            "tamanho": 130
+          },
+          {
+            "texto": "TUDO",
+            "cor": "vermelho",
+            "tamanho": 160
+          }
+        ]
+      }
+    },
+    {
+      "humor": "normal",
+      "narracao": "A saída é um arquivo de regras na raiz do projeto, que ele lê em toda sessão.",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "file-text",
+            "rotulo": "CLAUDE.md",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "terminal",
+            "rotulo": "Sessão",
+            "cor": "azul"
+          },
+          {
+            "icone": "check",
+            "rotulo": "Já sabe",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "O Kit Claude Code traz cinco modelos desse arquivo, para site, API, script, dados e qualquer projeto.",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Site",
+          "API",
+          "Script",
+          "Dados e IA"
+        ]
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Vêm também vinte prompts prontos, checklists e um guia de comandos.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "sparkles",
+        "cor": "amarelo",
+        "rotulo": "20 PROMPTS PRONTOS"
+      }
+    },
+    {
+      "humor": "normal",
+      "narracao": "Tudo conferido na documentação oficial do Claude Code.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "shield-check",
+        "cor": "verde",
+        "rotulo": "CONFERIDO NA DOC"
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "O kit custa dezessete reais, pagamento único.",
+      "visual": {
+        "tipo": "contador",
+        "valor": 17,
+        "formato": "cheio",
+        "rotulo": "REAIS, PAGAMENTO ÚNICO"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Quer fazer igual? O link está na bio.",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "QUER O",
+            "cor": "branco",
+            "tamanho": 130
+          },
+          {
+            "texto": "KIT?",
+            "cor": "verde",
+            "tamanho": 140
+          }
+        ]
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "CLAUDE CODE",
+          "cor": "laranja",
+          "tamanho": 100
+        },
+        {
+          "texto": "ESQUECE",
+          "cor": "vermelho",
+          "tamanho": 120
+        },
+        {
+          "texto": "TUDO",
+          "cor": "vermelho",
+          "tamanho": 140
+        }
+      ],
+      "subtitulo": "e esse kit resolve"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O PROBLEMA",
+      "progresso": 0.33,
+      "linhas": [
+        {
+          "texto": "SEM MEMÓRIA",
+          "cor": "vermelho"
+        }
+      ],
+      "rotulo": "claude code",
+      "texto": "Cada sessão começa do zero. Sem regras escritas, você repete tudo e recebe código fora do seu padrão."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "A SAÍDA",
+      "progresso": 0.66,
+      "linhas": [
+        {
+          "texto": "CLAUDE.md",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "kit",
+      "texto": "5 modelos prontos, 20 prompts, checklists e guia de comandos conferido na documentação."
+    },
+    {
+      "tipo": "comando",
+      "fase": "COMEÇAR",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "EM 15 MIN",
+          "cor": "verde"
+        }
+      ],
+      "comando": "/init",
+      "texto": "Gera o primeiro CLAUDE.md. O modelo do kit completa o resto.",
+      "rotulo": "claude"
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER FAZER",
+          "cor": "branco"
+        },
+        {
+          "texto": "IGUAL?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Kit Claude Code R$ 17",
+      "selo": "LINK NA BIO",
+      "palavra": "BIO"
+    }
+  ]
+}
