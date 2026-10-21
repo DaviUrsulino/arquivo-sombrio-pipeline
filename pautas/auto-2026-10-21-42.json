@@ -1,0 +1,207 @@
+{
+  "titulo": "ai-video-editor: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "editor de vídeo com ia roda no navegador sem instalar nada"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "MartinDelophy/ai-video-editor",
+      "nome": "ai-video-editor",
+      "cor": "azul",
+      "promessa": "Open-source, local-first video editor where creators and AI agents edit the same",
+      "texto": "Open-source, local-first video editor where creators and AI agents edit the same real timeline."
+    }
+  ],
+  "destaques": [
+    "edita video",
+    "ia local",
+    "webgpu",
+    "voz multilíngue",
+    "remove marca",
+    "roda offline",
+    "mit license",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Edita vídeo com IA direto no navegador.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "EDIÇÃO COM IA",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "DIRETO NO NAVEGADOR",
+            "cor": "laranja",
+            "tamanho": 140
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto já tem {estrelas:MartinDelophy/ai-video-editor} estrelas no GitHub.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "MartinDelophy/ai-video-editor"
+      }
+    },
+    {
+      "narracao": "Une timeline multipista com modelos WebGPU locais.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "code-xml",
+            "rotulo": "TIMELINE",
+            "cor": "azul"
+          },
+          {
+            "icone": "brain",
+            "rotulo": "IA LOCAL",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "clapperboard",
+            "rotulo": "MP4",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Cria voz, legenda, música e remove marcas.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Voz Multilíngue",
+          "Legenda Auto",
+          "Música IA",
+          "Reparo Marca"
+        ]
+      }
+    },
+    {
+      "narracao": "Abre em video-editor.ai-creator.top e edita.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "banner_repo",
+        "url": "video-editor.ai-creator.top"
+      }
+    },
+    {
+      "narracao": "Baixa modelos sob demanda e roda offline.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "check",
+        "cor": "verde",
+        "rotulo": "RODA OFFLINE"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "EDIÇÃO COM IA",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "NO NAVEGADOR",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o TIMELINE STUDIO"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "TIMELINE MULTIPISTA",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "nome",
+      "texto": "Editor local-first com timeline estilo CapCut. Roda no navegador com WebGPU e exporta MP4 sem servidor."
+    },
+    {
+      "tipo": "comando",
+      "fase": "ACESSAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMO USAR",
+          "cor": "verde"
+        }
+      ],
+      "comando": "https://video-editor.ai-creator.top/",
+      "texto": "Abre direto no navegador. Não precisa instalar nem clonar repositório.",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "O QUE FAZ",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "nota",
+      "texto": "Gera voz em português, inglês, chinês e mais. Cria legenda com Whisper. Compõe música com Stable Audio. Remove marca d'água com MI-GAN e faz super-resolução 4x com NanoVSR."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "LICENÇA MIT",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "nota",
+      "texto": "Código aberto sob MIT. Modelos espelhados no Hugging Face e ModelScope com cache compartilhado. Versão Anna oferece nuvem para continuar projeto em outro navegador."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ]
+}
