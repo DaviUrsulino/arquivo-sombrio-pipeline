@@ -16,7 +16,7 @@ from .llm import gerar_json
 from .roteirista import Recusado, VOZ_PADRAO
 
 QUANTIDADE = 5
-ORDINAIS = ["um", "dois", "três", "quatro", "cinco"]
+ORDINAIS = ["Primeiro", "Segundo", "Terceiro", "Quarto", "Quinto"]
 CORES_ITENS = ["azul", "verde", "laranja", "roxo", "amarelo"]
 LETRAS_MAX_LINHA = 14
 
@@ -27,13 +27,13 @@ Você recebe 5 repositórios com DADOS REAIS e o início do README. REGRAS DE FA
 - Não prometa resultado. Descreva o que a ferramenta faz.
 - Se uma ferramenta faz rodízio de contas ou chaves para contornar limite, viola termos de serviço, rouba credenciais, é de ataque, golpe, cripto especulativa ou conteúdo adulto, ou o README não deixa claro o que ela faz, NÃO a inclua: liste em "excluir" e escolha as outras (o objetivo é devolver os itens que sobraram, com no mínimo 3).
 
-ESTILO (é lido em voz alta): português do Brasil com ACENTOS corretos (código, memória, ação), frases completas que começam com letra MAIÚSCULA e têm verbo no presente, de 5 a 8 palavras, sem emoji, sem hashtag, sem símbolos como / @ #. Escreva siglas e comandos do jeito que se fala.
+ESTILO (é lido em voz alta): português do Brasil com ACENTOS corretos (código, memória, ação), frases completas que começam com letra MAIÚSCULA e têm verbo no presente, de 4 a 7 palavras, sem emoji, sem hashtag, sem símbolos como / @ #. Escreva siglas e comandos do jeito que se fala.
 
 SAÍDA: um único objeto JSON, sem texto fora dele:
 {"tema":"até 6 palavras em minúsculas que completam 'Cinco repositórios grátis para ...' (ex.: criar vídeo com IA)",
  "gancho":["LINHA 1 EM MAIÚSCULAS ATÉ 14 LETRAS","LINHA 2 EM MAIÚSCULAS ATÉ 14 LETRAS"],
  "subtitulo":"frase de uma linha para a legenda, minúscula",
- "itens":[{"repo":"dono/repo","rotulo":"NOME EM MAIÚSCULAS ATÉ 20 LETRAS","falado":"como se fala o nome","frase":"o que faz, de 5 a 8 palavras, começa com maiúscula, só com fatos do README","icone":"um destes: __ICONES__"}],
+ "itens":[{"repo":"dono/repo","rotulo":"NOME EM MAIÚSCULAS ATÉ 20 LETRAS","falado":"o nome do projeto escrito normalmente, com as palavras separadas (ex.: open jarvis). NÃO escreva fonética inventada","frase":"o que faz, de 4 a 7 palavras, começa com maiúscula, só com fatos do README","icone":"um destes: __ICONES__"}],
  "excluir":[]}
 Ordene os itens do mais impressionante ao menos. O gancho é a promessa do vídeo (ex.: ["5 REPOS PARA","CRIAR VÍDEO"]), começando por número ou ação concreta."""
 
@@ -115,7 +115,7 @@ def montar_pauta(resposta: dict, dados: list[DadosRepo], palavra_chave: str) -> 
     for i, item in enumerate(itens):
         cenas.append({
             "humor": "feliz" if i % 2 == 0 else "animado",
-            "narracao": f"Número {ORDINAIS[i]}: {item['falado']}. {_frase(item['frase'])}.",
+            "narracao": f"{ORDINAIS[i]}: {item['falado']}. {_frase(item['frase'])}.",
             "visual": {"tipo": "icone_pixel", "icone": item["icone"], "cor": CORES_ITENS[i % len(CORES_ITENS)],
                        "rotulo": item["rotulo"]},
         })

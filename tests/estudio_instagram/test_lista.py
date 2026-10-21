@@ -27,7 +27,7 @@ def test_lista_valida_vira_pauta_pixel2_que_passa_na_validacao():
     final = cenas_pixel.normalizar_pauta(nova)
     assert pauta.problemas(final, ICONES) == []
     assert final["cenas"][0]["narracao"].startswith("Cinco repositórios grátis para criar vídeo com IA")
-    assert "Número um: ferramenta 1." in final["cenas"][1]["narracao"]
+    assert "Primeiro: ferramenta 1." in final["cenas"][1]["narracao"]
     assert final["cenas"][-1]["narracao"].startswith("Manda pra um amigo dev")
 
 
@@ -85,5 +85,5 @@ def test_frase_em_minuscula_do_modelo_sai_com_inicial_maiuscula():
     itens = _resposta()["itens"]
     itens[0]["frase"] = "cria vídeo direto do terminal."
     nova = lista.gerar_pauta(DADOS, READMES, "LINK", ICONES, llm=lambda s, u: _resposta(itens=itens))
-    assert "Número um: ferramenta 1. Cria vídeo direto do terminal." in nova["cenas_roteiro"][1]["narracao"]
+    assert "Primeiro: ferramenta 1. Cria vídeo direto do terminal." in nova["cenas_roteiro"][1]["narracao"]
     assert "1. Ferramenta 1: Cria vídeo direto do terminal." in nova["legenda"]
