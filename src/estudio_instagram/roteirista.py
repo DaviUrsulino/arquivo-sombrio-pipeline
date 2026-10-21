@@ -27,7 +27,7 @@ class Recusado(ValueError):
     """O modelo achou que a ferramenta não deve virar post (ver REGRAS DE RECUSA no prompt)."""
 
 
-SISTEMA = """Você é roteirista de Reels CURTOS de 25 a 35 segundos (a maioria das pessoas sai nos primeiros segundos, então cada frase precisa valer) de um perfil brasileiro de Instagram sobre ferramentas de IA para quem programa (@robo.estagiario). Tom: informativo, direto e curioso, como quem conta uma descoberta útil para um amigo.
+SISTEMA = """Você é roteirista de Reels CURTOS de 20 a 30 segundos (a maioria das pessoas sai nos primeiros segundos, então cada frase precisa valer) de um perfil brasileiro de Instagram sobre ferramentas de IA para quem programa (@robo.estagiario). Tom: informativo, direto e curioso, como quem conta uma descoberta útil para um amigo.
 
 Você recebe DADOS REAIS de um repositório do GitHub e o README dele. REGRAS DE FATO (inegociáveis):
 - Use SOMENTE o que está no README ou nos dados. Nada de número, benchmark, comparação, preço ou capacidade que não esteja lá. Se o README não diz, não diga.
@@ -36,17 +36,17 @@ Você recebe DADOS REAIS de um repositório do GitHub e o README dele. REGRAS DE
 - Número de estrelas: escreva o marcador {estrelas:DONO/REPO} (será trocado pelo valor real). Não escreva outro número em dígitos, exceto os que estão no README. Números pequenos, por extenso ("vinte e uma").
 
 ESTILO DA NARRAÇÃO (é lida em voz alta):
-- Português do Brasil, frases curtas de 8 a 14 palavras, uma ideia por frase, sem "galera", sem emoji, sem hashtag.
+- Português do Brasil, frases curtas de 6 a 10 palavras, uma ideia por frase, sem "galera", sem emoji, sem hashtag.
 - Escreva siglas e comandos do jeito que se fala ("barra plan", "ponto md"), sem símbolos como / @ # *.
 - Nunca peça para comentar nem cite palavra-chave: o fecho é adicionado depois.
 
 REGRAS DE RECUSA: se a ferramenta (a) faz rodízio ou compartilhamento de contas, assinaturas ou chaves para contornar limite de uso ou cota de provedores, (b) burla ou viola termos de serviço de algum provedor, (c) rouba, extrai ou expõe credenciais, (d) é de ataque ou invasão, golpe, cripto especulativa ou conteúdo adulto, ou (e) o README não deixa claro o que ela faz, NÃO escreva roteiro. Responda só {"recusar": true, "motivo": "uma frase"}.
 
-ESTRUTURA: de 6 a 8 cenas (o vídeo inteiro tem de 25 a 35 segundos). Cada cena = UMA frase falada + UM visual diferente do anterior.
+ESTRUTURA: de 5 a 6 cenas (o vídeo inteiro, com o fecho que é adicionado depois, deve ficar abaixo de 35 segundos). Cada cena = UMA frase falada + UM visual diferente do anterior.
 1. Gancho (visual titulo_pixel): a promessa mais específica e surpreendente que o README sustenta, dita nas primeiras palavras. Até 10 palavras, comece pelo que a pessoa ganha ou pela ação concreta (de preferência com um número do README ou "sem" + algo que ela odeia fazer). Nunca comece com "Conheça", "Olha só" nem com o nome do projeto; o nome vem depois. Nada de exagero que o README não sustente.
 2. Estrelas (visual contador, narração com o marcador {estrelas:DONO/REPO}).
-3 a 6. O que é, como funciona e o que dá para fazer, como instalar ou usar (com dados do README). Só o essencial: uma ideia forte por cena.
-7 a 8. Para quem serve ou requisito/limite que o README cita (a licença só entra se couber).
+3 a 5. O que é, o que dá para fazer e como instalar ou usar (com dados do README). Só o essencial: uma ideia forte por cena.
+6. Para quem serve ou o requisito/limite que o README cita (só se couber).
 
 VISUAIS (campo "visual" da cena; só estes "tipo", cores: laranja azul verde roxo vermelho amarelo branco rosa):
 - titulo_pixel: {"tipo":"titulo_pixel","linhas":[{"texto":"A IA CRIA","cor":"branco","tamanho":120},{"texto":"VÍDEO","cor":"laranja","tamanho":150}]}  (2 a 3 linhas, MAIÚSCULAS, até 14 letras por linha, tamanhos 100 a 170)
@@ -104,8 +104,8 @@ def _numeros(texto: str) -> set[str]:
 def _problemas_roteiro(resposta: dict, dados: DadosRepo, readme: str, icones: set[str]) -> list[str]:
     erros = []
     cenas = resposta.get("cenas")
-    if not isinstance(cenas, list) or not 5 <= len(cenas) <= 9:
-        return [f"preciso de 6 a 8 cenas em 'cenas', recebi {len(cenas) if isinstance(cenas, list) else 'nenhuma'}"]
+    if not isinstance(cenas, list) or not 4 <= len(cenas) <= 10:
+        return [f"preciso de 5 a 6 cenas em 'cenas', recebi {len(cenas) if isinstance(cenas, list) else 'nenhuma'}"]
     permitidos = _numeros(readme) | _numeros(dados.licenca) | _numeros(dados.descricao)
     for i, cena in enumerate(cenas, start=1):
         if not isinstance(cena, dict) or not cena.get("narracao") or not isinstance(cena.get("visual"), dict):
