@@ -8,7 +8,7 @@
     "modelo": "eleven_multilingual_v2"
   },
   "capa": {
-    "subtitulo": "editor de vídeo com ia roda no navegador"
+    "subtitulo": "editor de vídeo com ia roda no navegador sem instalar nada"
   },
   "chamada": {
     "pergunta": "quer o link do repositório?"
@@ -23,175 +23,97 @@
     }
   ],
   "destaques": [
-    "navegador",
-    "local-first",
+    "edita video",
+    "ia local",
     "webgpu",
-    "multi-track",
-    "voz",
-    "legenda",
-    "música",
-    "avatar",
+    "voz multilíngue",
+    "remove marca",
+    "roda offline",
+    "mit license",
     "link"
   ],
   "cenas_roteiro": [
     {
-      "narracao": "Um editor de vídeo completo roda só no navegador.",
+      "narracao": "Edita vídeo com IA direto no navegador.",
       "humor": "animado",
       "visual": {
         "tipo": "titulo_pixel",
         "linhas": [
           {
-            "texto": "EDITOR DE",
+            "texto": "EDIÇÃO COM IA",
             "cor": "branco",
             "tamanho": 120
           },
           {
-            "texto": "VÍDEO NO",
+            "texto": "DIRETO NO NAVEGADOR",
             "cor": "laranja",
             "tamanho": 140
-          },
-          {
-            "texto": "NAVEGADOR",
-            "cor": "branco",
-            "tamanho": 120
           }
         ]
       }
     },
     {
-      "narracao": "O repositório tem {estrelas:MartinDelophy/ai-video-editor} estrelas no GitHub.",
-      "humor": "normal",
+      "narracao": "O projeto já tem {estrelas:MartinDelophy/ai-video-editor} estrelas no GitHub.",
+      "humor": "feliz",
       "visual": {
         "tipo": "contador",
         "repo": "MartinDelophy/ai-video-editor"
       }
     },
     {
-      "narracao": "Timeline Studio é local-first e usa WebGPU para IA.",
-      "humor": "feliz",
+      "narracao": "Une timeline multipista com modelos WebGPU locais.",
+      "humor": "normal",
       "visual": {
         "tipo": "cadeia",
         "layout": "horizontal",
         "nos": [
           {
             "icone": "code-xml",
-            "rotulo": "HTML",
+            "rotulo": "TIMELINE",
             "cor": "azul"
           },
           {
-            "icone": "zap",
-            "rotulo": "WebGPU",
+            "icone": "brain",
+            "rotulo": "IA LOCAL",
             "cor": "amarelo"
           },
           {
             "icone": "clapperboard",
-            "rotulo": "Vídeo",
+            "rotulo": "MP4",
             "cor": "verde"
           }
         ]
       }
     },
     {
-      "narracao": "Linha do tempo multi-track estilo CapCut com trilhas visuais e áudio.",
-      "humor": "normal",
-      "visual": {
-        "tipo": "niveis",
-        "itens": [
-          {
-            "rotulo": "VISUAL",
-            "altura": 3,
-            "cor": "azul"
-          },
-          {
-            "rotulo": "ÁUDIO",
-            "altura": 2,
-            "cor": "verde"
-          },
-          {
-            "rotulo": "LEGENDA",
-            "altura": 1,
-            "cor": "amarelo"
-          }
-        ]
-      }
-    },
-    {
-      "narracao": "Gera voz em português, chinês, inglês e mais idiomas.",
+      "narracao": "Cria voz, legenda, música e remove marcas.",
       "humor": "feliz",
-      "visual": {
-        "tipo": "icone_pixel",
-        "icone": "message-circle",
-        "cor": "verde",
-        "rotulo": "VOZ MULTILÍNGUE"
-      }
-    },
-    {
-      "narracao": "Cria música local com Stable Audio e remove marca d'água com MI-GAN.",
-      "humor": "pensando",
-      "visual": {
-        "tipo": "comparar",
-        "esq": {
-          "titulo": "MÚSICA",
-          "icone": "flame",
-          "cor": "laranja",
-          "linhas": [
-            {
-              "rotulo": "Stable Audio",
-              "valor": 7
-            }
-          ]
-        },
-        "dir": {
-          "titulo": "REPARO",
-          "icone": "shield-check",
-          "cor": "roxo",
-          "linhas": [
-            {
-              "rotulo": "MI-GAN",
-              "valor": 7
-            }
-          ]
-        }
-      }
-    },
-    {
-      "narracao": "Separa vocal, faz avatar falante e legenda automática com Whisper.",
-      "humor": "animado",
       "visual": {
         "tipo": "lista",
         "itens": [
-          "Separar vocal",
-          "Avatar falante",
-          "Legenda Whisper"
+          "Voz Multilíngue",
+          "Legenda Auto",
+          "Música IA",
+          "Reparo Marca"
         ]
       }
     },
     {
-      "narracao": "Abre direto no navegador, sem instalar nada.",
+      "narracao": "Abre em video-editor.ai-creator.top e edita.",
       "humor": "normal",
       "visual": {
-        "tipo": "terminal",
-        "rotulo": "navegador",
-        "comando": "https://video-editor.ai-creator.top/",
-        "texto": "abre o editor online"
+        "tipo": "banner_repo",
+        "url": "video-editor.ai-creator.top"
       }
     },
     {
-      "narracao": "Precisa de navegador com WebGPU para rodar os modelos de IA.",
+      "narracao": "Baixa modelos sob demanda e roda offline.",
       "humor": "pensando",
       "visual": {
         "tipo": "icone_pixel",
-        "icone": "triangle-alert",
-        "cor": "amarelo",
-        "rotulo": "REQUER WEBGPU"
-      }
-    },
-    {
-      "narracao": "Licença MIT, código aberto para estudar e contribuir.",
-      "humor": "feliz",
-      "visual": {
-        "tipo": "banner_repo",
-        "url": "github.com/MartinDelophy/ai-video-editor"
+        "icone": "check",
+        "cor": "verde",
+        "rotulo": "RODA OFFLINE"
       }
     }
   ],
@@ -200,22 +122,17 @@
       "tipo": "capa",
       "linhas": [
         {
-          "texto": "EDITOR DE",
+          "texto": "EDIÇÃO COM IA",
           "cor": "branco",
           "tamanho": 108
         },
         {
-          "texto": "VÍDEO COM IA",
+          "texto": "NO NAVEGADOR",
           "cor": "laranja",
-          "tamanho": 108
-        },
-        {
-          "texto": "RODA NO NAVEGADOR",
-          "cor": "branco",
           "tamanho": 80
         }
       ],
-      "subtitulo": "conheça o Timeline Studio"
+      "subtitulo": "conheça o TIMELINE STUDIO"
     },
     {
       "tipo": "ponto",
@@ -223,25 +140,25 @@
       "progresso": 0.25,
       "linhas": [
         {
-          "texto": "LOCAL-FIRST",
+          "texto": "TIMELINE MULTIPISTA",
           "cor": "azul"
         }
       ],
       "rotulo": "nome",
-      "texto": "Timeline Studio é um editor de vídeo multi-track que roda inteiro no navegador. Usa WebGPU para inferência local de modelos de IA."
+      "texto": "Editor local-first com timeline estilo CapCut. Roda no navegador com WebGPU e exporta MP4 sem servidor."
     },
     {
       "tipo": "comando",
-      "fase": "USAR",
+      "fase": "ACESSAR",
       "progresso": 0.5,
       "linhas": [
         {
-          "texto": "COMO ACESSAR",
+          "texto": "COMO USAR",
           "cor": "verde"
         }
       ],
       "comando": "https://video-editor.ai-creator.top/",
-      "texto": "abre direto no navegador compatível",
+      "texto": "Abre direto no navegador. Não precisa instalar nem clonar repositório.",
       "rotulo": "terminal"
     },
     {
@@ -250,12 +167,12 @@
       "progresso": 0.75,
       "linhas": [
         {
-          "texto": "RECURSOS DE IA",
+          "texto": "O QUE FAZ",
           "cor": "laranja"
         }
       ],
       "rotulo": "nota",
-      "texto": "Voz multilíngue, música Stable Audio, legenda Whisper, remoção de marca d'água, separação vocal, avatar falante e exportação MP4."
+      "texto": "Gera voz em português, inglês, chinês e mais. Cria legenda com Whisper. Compõe música com Stable Audio. Remove marca d'água com MI-GAN e faz super-resolução 4x com NanoVSR."
     },
     {
       "tipo": "ponto",
@@ -268,7 +185,7 @@
         }
       ],
       "rotulo": "nota",
-      "texto": "Código aberto sob licença MIT. Requer navegador com suporte a WebGPU. Modelos espelhados no Hugging Face e ModelScope."
+      "texto": "Código aberto sob MIT. Modelos espelhados no Hugging Face e ModelScope com cache compartilhado. Versão Anna oferece nuvem para continuar projeto em outro navegador."
     },
     {
       "tipo": "cta",
