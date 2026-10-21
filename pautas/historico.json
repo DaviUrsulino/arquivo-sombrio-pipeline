@@ -64,6 +64,7 @@
     "remotion-dev/remotion",
     "ruvnet/ruflo",
     "shareAI-lab/learn-claude-code",
+    "sirioberati/Genjustsu-Open-Source-Workflow",
     "stablyai/orca",
     "tamaratran/fast-jev-compaction",
     "thedotmack/claude-mem",
@@ -78,5 +79,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 33
+  "pautas_geradas": 34
 }

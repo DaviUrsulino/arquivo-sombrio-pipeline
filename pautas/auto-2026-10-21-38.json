@@ -1,0 +1,278 @@
+{
+  "titulo": "Genjustsu-Open-Source-Workflow: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "workflow open source para trocar personagens em vídeos com ia"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "sirioberati/Genjustsu-Open-Source-Workflow",
+      "nome": "Genjustsu-Open-Source-Workflow",
+      "cor": "azul",
+      "promessa": "Open-source AI video replacement workflow by TEIN. Combine depth maps, SAM segme",
+      "texto": "Open-source AI video replacement workflow by TEIN. Combine depth maps, SAM segmentation, face meshes, and audio processi"
+    }
+  ],
+  "destaques": [
+    "genjustsu",
+    "video",
+    "seedance",
+    "sam",
+    "audio",
+    "python",
+    "mit",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Troque personagens em vídeos mantendo o áudio original completo.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "TROQUE SUJEITO",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "DO VÍDEO",
+            "cor": "laranja",
+            "tamanho": 140
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto soma {estrelas:sirioberati/Genjustsu-Open-Source-Workflow} no Github e roda com interface web local.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "sirioberati/Genjustsu-Open-Source-Workflow"
+      }
+    },
+    {
+      "narracao": "O Genjustsu combina mapas de profundidade, segmentação SAM e a API Seedance.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "clapperboard",
+            "rotulo": "Vídeo",
+            "cor": "azul"
+          },
+          {
+            "icone": "brain",
+            "rotulo": "Depth e SAM",
+            "cor": "laranja"
+          },
+          {
+            "icone": "sparkles",
+            "rotulo": "Seedance",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Ele isola vocais com Demucs e restaura a trilha original no final.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "check",
+        "cor": "verde",
+        "rotulo": "ÁUDIO PRESERVADO"
+      }
+    },
+    {
+      "narracao": "Você gera um rascunho rápido antes de aprovar em dez oitenta p.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "comparar",
+        "esq": {
+          "titulo": "RASCUNHO",
+          "icone": "zap",
+          "cor": "amarelo",
+          "linhas": [
+            {
+              "rotulo": "preview",
+              "valor": 4
+            }
+          ]
+        },
+        "dir": {
+          "titulo": "FINAL 1080P",
+          "icone": "sparkles",
+          "cor": "roxo",
+          "linhas": [
+            {
+              "rotulo": "qualidade",
+              "valor": 8
+            }
+          ]
+        }
+      }
+    },
+    {
+      "narracao": "A instalação roda no terminal com bash setup ponto sh.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "bash setup.sh",
+        "texto": "cria ambiente virtual e instala dependencias"
+      }
+    },
+    {
+      "narracao": "Depois execute ponto barra start ponto command para abrir o painel.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "bash start.command",
+        "texto": "inicia a interface em 127.0.0.1:8770"
+      }
+    },
+    {
+      "narracao": "O fluxo exige chaves de API da Enhancor e da Replicate configuradas.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "ENHANCOR_API_KEY",
+          "REPLICATE_API_TOKEN"
+        ]
+      }
+    },
+    {
+      "narracao": "O sistema roda em Python três ponto doze com Rubber Band instalado.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "niveis",
+        "itens": [
+          {
+            "rotulo": "PYTHON 3.12",
+            "altura": 2,
+            "cor": "azul"
+          },
+          {
+            "rotulo": "RUBBER BAND",
+            "altura": 2,
+            "cor": "verde"
+          },
+          {
+            "rotulo": "CLOUDFLARED",
+            "altura": 1,
+            "cor": "amarelo"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto tem código aberto sob licença MIT no Github.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "banner_repo",
+        "url": "github.com/sirioberati/Genjustsu-Open-Source-Workflow"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "TROQUE SUJEITOS",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "EM VÍDEOS COM IA",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o Genjustsu Workflow"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "TROCA DE VÍDEO",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "genjustsu",
+      "texto": "Workflow open source para substituir pessoas ou objetos em vídeos usando mapas de profundidade e SAM. O áudio original completo é restaurado na renderização final."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "SETUP LOCAL",
+          "cor": "verde"
+        }
+      ],
+      "comando": "bash setup.sh",
+      "texto": "cria a venv isolada e instala os requisitos",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "COMO FUNCIONA",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "workflow",
+      "texto": "Separa vocais com Demucs e gera máscaras de profundidade. Cria rascunhos com Seedance antes de autorizar a exportação final em 1080p."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "REQUISITOS E MIT",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "licenca",
+      "texto": "Distribuído sob licença MIT. Requer Python 3.12 ou superior, Rubber Band CLI e chaves das APIs da Enhancor e Replicate."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ]
+}
