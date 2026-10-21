@@ -18,6 +18,7 @@
     "NVIDIA/SkillSpector",
     "NousResearch/hermes-agent",
     "Nutlope/hallmark",
+    "Oldcircle/geo-sleuth",
     "OthmanAdi/planning-with-files",
     "Panniantong/Agent-Reach",
     "QingYunA/answer-me-with-html",
@@ -93,5 +94,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 45
+  "pautas_geradas": 46
 }

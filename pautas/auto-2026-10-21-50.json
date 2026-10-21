@@ -1,0 +1,221 @@
+{
+  "titulo": "geo-sleuth: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "skill de agente localiza foto sem gps usando openstreetmap e elevação"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "Oldcircle/geo-sleuth",
+      "nome": "geo-sleuth",
+      "cor": "azul",
+      "promessa": "An agent skill that finds where a photo was taken — OpenStreetMap geometry, elev",
+      "texto": "An agent skill that finds where a photo was taken — OpenStreetMap geometry, elevation skylines, satellite imagery and st"
+    }
+  ],
+  "destaques": [
+    "localiza",
+    "foto",
+    "sem",
+    "gps",
+    "openstreetmap",
+    "elevacao",
+    "instala",
+    "python",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Localiza onde a foto foi tirada sem GPS.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "LOCALIZA FOTO",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "SEM GPS",
+            "cor": "laranja",
+            "tamanho": 150
+          },
+          {
+            "texto": "COM PRECISÃO",
+            "cor": "verde",
+            "tamanho": 110
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto já tem {estrelas:Oldcircle/geo-sleuth} estrelas no GitHub.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "Oldcircle/geo-sleuth"
+      }
+    },
+    {
+      "narracao": "A skill usa geometria do OpenStreetMap e elevação.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "file-text",
+            "rotulo": "FOTO",
+            "cor": "azul"
+          },
+          {
+            "icone": "bot",
+            "rotulo": "SKILL",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "search",
+            "rotulo": "LOCAL",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Instala com enpx skills add Oldcircle barra geo-sleuth.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "npx skills add Oldcircle/geo-sleuth",
+        "texto": "escolha os agentes e pronto"
+      }
+    },
+    {
+      "narracao": "Roda no Claude Code Codex Cursor Gemini e Copilot.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Claude Code",
+          "Codex",
+          "Cursor",
+          "Gemini CLI"
+        ]
+      }
+    },
+    {
+      "narracao": "Precisa de Python e roda sob licença MIT.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "check",
+        "cor": "verde",
+        "rotulo": "LICENÇA MIT PYTHON"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "LOCALIZA FOTO",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "SEM GPS COM IA",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o geo-sleuth"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "SKILL DE LOCALIZAÇÃO",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "nome",
+      "texto": "Skill de agente que encontra onde a foto foi tirada usando OpenStreetMap e dados de elevação. Mostra o raio de erro e a imagem de evidência."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMO INSTALAR",
+          "cor": "verde"
+        }
+      ],
+      "comando": "npx skills add Oldcircle/geo-sleuth",
+      "texto": "Depois rode doctor.py da pasta scripts para checar requisitos.",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "O QUE FAZ",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "nota",
+      "texto": "Dá uma foto ao agente e diz: encontre onde foi tirada. Retorna posição, direção e imagem satélite."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "LICENÇA MIT",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "nota",
+      "texto": "Licença MIT. Funciona com Claude Code Codex Cursor Gemini CLI OpenCode e GitHub Copilot. Precisa Python instalado."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "passos": [
+    "Rode npx skills add Oldcircle/geo-sleuth",
+    "Escolha seus agentes quando perguntar",
+    "Mande o agente achar onde a foto foi tirada",
+    "Na primeira vez rode doctor.py da pasta scripts"
+  ]
+}
