@@ -11,5 +11,13 @@
     "PACK": "Oi! Esse é o Pack Pixel (R$ 27): o script, o template e os exemplos para fazer Reels em pixel art como os do perfil. Compra aqui: https://pay.kiwify.com.br/jmiKAgE",
     "ENGENHARIA": "Oi! Esse é o Kit Engenharia com IA (R$ 37): regras, 6 skills e um script que provam que o seu Claude Code entrega com requisito, teste e segurança. Detalhes e compra aqui: https://pay.kiwify.com.br/3Jm8P4j",
     "TESTES": "Oi! Esse é o Kit Engenharia com IA (R$ 37): regras, 6 skills e um script que provam que o seu Claude Code entrega com requisito, teste e segurança. Detalhes e compra aqui: https://pay.kiwify.com.br/3Jm8P4j"
-  }
+  },
+  "exigir_seguir": true,
+  "sem_filtro": [
+    "PACK",
+    "ENGENHARIA",
+    "TESTES"
+  ],
+  "mensagem_pedido": "Oi! Pra liberar o link, segue o @robo.estagiario e responde aqui com SIGO. Eu confiro e te mando na hora 🤖",
+  "mensagem_nao_segue": "Ainda não consegui confirmar o seu follow no @robo.estagiario 😅 Segue a conta e responde SIGO de novo que eu libero o link."
 }

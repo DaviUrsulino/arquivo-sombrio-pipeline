@@ -112,7 +112,7 @@ class InstagramGraph:
         for midia in midias:
             if not midia.get("comments_count"):
                 continue
-            achados = self._ler(f"{midia['id']}/comments", fields="id,text,username,timestamp", limit=50)
+            achados = self._ler(f"{midia['id']}/comments", fields="id,text,username,timestamp,from", limit=50)
             comentarios += [{**c, "midia_id": midia["id"]} for c in achados.get("data", [])]
         return comentarios
 
@@ -127,6 +127,48 @@ class InstagramGraph:
         )
         with self._abrir(pedido, timeout=60) as resposta:
             return json.load(resposta)
+
+    def enviar_mensagem(self, igsid: str, texto: str) -> dict:
+        """DM normal para quem já escreveu para a conta (janela de 24 h depois da última mensagem da pessoa)."""
+        corpo = json.dumps({"recipient": {"id": igsid}, "message": {"text": texto}}).encode()
+        pedido = urllib.request.Request(
+            f"{BASE}/{self.ig_user_id}/messages?access_token={urllib.parse.quote(self.token)}",
+            data=corpo,
+            headers={"User-Agent": "estudio-automatico/1.0", "Content-Type": "application/json"},
+            method="POST",
+        )
+        with self._abrir(pedido, timeout=60) as resposta:
+            return json.load(resposta)
+
+    def conversas_recentes(self, limite: int = 30) -> list[dict]:
+        """Conversas de DM mais recentes: [{"usuario_id", "mensagens": [{"de", "texto", "hora"}]}] (mais nova primeiro)."""
+        dados = self._ler(
+            f"{self.ig_user_id}/conversations", platform="instagram", limit=limite,
+            fields="participants,messages.limit(4){from,message,created_time}",
+        )
+        if not hasattr(self, "_meu_username"):
+            self._meu_username = self._ler("me", fields="username").get("username")
+        conversas = []
+        for conversa in dados.get("data", []):
+            outros = [p["id"] for p in conversa.get("participants", {}).get("data", [])
+                      if p.get("username") != self._meu_username]
+            if not outros:
+                continue
+            mensagens = [
+                {"de": (m.get("from") or {}).get("id"), "texto": m.get("message") or "", "hora": m.get("created_time")}
+                for m in conversa.get("messages", {}).get("data", [])
+            ]
+            conversas.append({"usuario_id": outros[0], "mensagens": mensagens})
+        return conversas
+
+    def segue_a_conta(self, igsid: str) -> bool | None:
+        """A pessoa segue a conta? None se a API não souber (ex.: ela ainda não escreveu, erro 230)."""
+        try:
+            dados = self._ler(igsid, fields="is_user_follow_business")
+        except urllib.error.HTTPError:
+            return None
+        valor = dados.get("is_user_follow_business")
+        return valor if isinstance(valor, bool) else None
 
     def responder_publico(self, comment_id: str, texto: str) -> dict:
         """Resposta pública embaixo do comentário (ex.: "te mandei no direct")."""

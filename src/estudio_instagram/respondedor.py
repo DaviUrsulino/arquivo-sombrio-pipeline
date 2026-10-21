@@ -11,6 +11,7 @@ Uso:
 """
 
 import argparse
+import hashlib
 import json
 import os
 import subprocess
@@ -29,6 +30,9 @@ CONFIG = RAIZ / "pautas" / "bot_respostas.json"
 ENVIADAS = RAIZ / "pautas" / "respostas_enviadas.json"
 # Cada post de repositório registra aqui a palavra e a mensagem dele (chave = id da mídia no Instagram).
 LINKS_POR_POST = RAIZ / "pautas" / "links_por_post.json"
+# Quem pediu um link grátis e ainda precisa seguir a conta: chave = hash do id da pessoa (nada que a identifique no repositório público).
+PENDENTES = RAIZ / "pautas" / "pendentes_seguir.json"
+MAX_CHECAGENS_COM_ERRO = 2  # se a API não consegue dizer se segue, depois de 2 tentativas manda o link mesmo assim
 # Em post de repositório, quem comenta uma destas palavras também recebe o link do repositório do post.
 SINONIMOS_DO_POST = ("REPO", "REPOSITORIO", "LINK", "QUERO", "EU QUERO")
 JANELA = timedelta(days=7)  # limite da Meta para a resposta privada
@@ -62,6 +66,62 @@ def _avisar_no_comentario(config: dict, ig, comment_id: str, n: int):
         print(f"DM enviada, mas a resposta pública em {comment_id} falhou: HTTP {erro.code}")
 
 
+def _chave(igsid: str) -> str:
+    return hashlib.sha256(igsid.encode()).hexdigest()[:16]
+
+
+def _exige_seguir(config: dict, palavra: str, comentario: dict) -> bool:
+    """Só filtra link grátis (repositório, kit). Link de produto pago sai direto. Sem id da pessoa, não dá para conferir."""
+    if not config.get("exigir_seguir"):
+        return False
+    if palavra in config.get("sem_filtro", []):
+        return False
+    return bool((comentario.get("from") or {}).get("id"))
+
+
+def liberar_pendentes(config: dict, pendentes: dict, ig, agora: datetime | None = None, simular: bool = False) -> list[dict]:
+    """Para cada pessoa que respondeu na DM: se segue a conta, manda o link; se não, pede de novo.
+
+    Só reage a mensagem nova da pessoa (guarda a hora da última já tratada) para não repetir o aviso.
+    """
+    agora = agora or datetime.now(timezone.utc)
+    feitos = []
+    for chave in [k for k, v in pendentes.items() if agora - _hora(v["desde"]) > JANELA]:
+        del pendentes[chave]  # passou da validade da resposta; a pessoa pode comentar de novo
+    if not pendentes:
+        return feitos
+    for conversa in ig.conversas_recentes():
+        chave = _chave(conversa["usuario_id"])
+        pendente = pendentes.get(chave)
+        if not pendente:
+            continue
+        dela = [m for m in conversa["mensagens"] if m["de"] == conversa["usuario_id"] and m["hora"]]
+        if not dela:
+            continue
+        ultima = max(dela, key=lambda m: _hora(m["hora"]))
+        if _hora(ultima["hora"]) <= _hora(pendente.get("tratada_ate", pendente["desde"])):
+            continue
+        segue = ig.segue_a_conta(conversa["usuario_id"])
+        if segue is None:
+            pendente["erros"] = pendente.get("erros", 0) + 1
+            segue = pendente["erros"] >= MAX_CHECAGENS_COM_ERRO
+        registro = {"palavra": pendente["palavra"], "segue": segue}
+        if simular:
+            feitos.append({**registro, "simulado": True})
+            continue
+        try:
+            if segue:
+                ig.enviar_mensagem(conversa["usuario_id"], pendente["mensagem"])
+                del pendentes[chave]
+            else:
+                ig.enviar_mensagem(conversa["usuario_id"], config["mensagem_nao_segue"])
+                pendente["tratada_ate"] = ultima["hora"]
+            feitos.append(registro)
+        except urllib.error.HTTPError as erro:
+            print(f"falhou ao responder na DM: HTTP {erro.code} {erro.read().decode(errors='replace')[:200]}")
+    return feitos
+
+
 def _mensagem_para(comentario: dict, config: dict, por_post: dict) -> tuple[str, str] | None:
     """(palavra, mensagem) para este comentário: primeiro as palavras globais, depois a do post."""
     texto = comentario.get("text", "")
@@ -75,7 +135,7 @@ def _mensagem_para(comentario: dict, config: dict, por_post: dict) -> tuple[str,
 
 
 def responder_novos(config: dict, enviadas: dict, ig, agora: datetime | None = None, simular: bool = False,
-                    por_post: dict | None = None) -> list[dict]:
+                    por_post: dict | None = None, pendentes: dict | None = None) -> list[dict]:
     """Responde cada comentário novo com palavra-chave. Devolve o que foi (ou seria) respondido.
 
     Marca o comentário como respondido logo depois de enviar. Se o envio falhar, registra o erro
@@ -83,6 +143,8 @@ def responder_novos(config: dict, enviadas: dict, ig, agora: datetime | None = N
     """
     agora = agora or datetime.now(timezone.utc)
     feitos = []
+    if pendentes is None:
+        pendentes = {}
     for comentario in ig.comentarios_recentes():
         if comentario["id"] in enviadas:
             continue
@@ -92,6 +154,7 @@ def responder_novos(config: dict, enviadas: dict, ig, agora: datetime | None = N
         if not achado:
             continue
         palavra, texto = achado
+        gate = _exige_seguir(config, palavra, comentario)
         # Só o id do comentário e a palavra: o arquivo vai pro repositório público (LGPD, RN-3), então
         # nada que identifique a pessoa (nome de usuário, texto do comentário).
         registro = {"comentario_id": comentario["id"], "palavra": palavra}
@@ -99,11 +162,19 @@ def responder_novos(config: dict, enviadas: dict, ig, agora: datetime | None = N
             feitos.append({**registro, "simulado": True})
             continue
         try:
-            ig.responder_comentario(comentario["id"], texto)
+            if gate:
+                # Passo 1: pede para seguir e responder. O link só sai depois de conferir que a pessoa segue.
+                pendentes[_chave(comentario["from"]["id"])] = {
+                    "palavra": palavra, "mensagem": texto, "desde": agora.isoformat(timespec="seconds")}
+                ig.responder_comentario(comentario["id"], config["mensagem_pedido"])
+            else:
+                ig.responder_comentario(comentario["id"], texto)
             enviadas[comentario["id"]] = {**registro, "enviado_em": agora.isoformat(timespec="seconds")}
             feitos.append(registro)
             _avisar_no_comentario(config, ig, comentario["id"], len(enviadas))
         except urllib.error.HTTPError as erro:
+            if gate:
+                pendentes.pop(_chave(comentario["from"]["id"]), None)  # o pedido não saiu: não deixa pendente órfão
             corpo = erro.read().decode(errors="replace")[:300]
             print(f"falhou ao responder {comentario['id']}: HTTP {erro.code} {corpo}")
     return feitos
@@ -116,7 +187,7 @@ def _ler_json(arquivo: Path, padrao):
 def _guardar_no_git():
     """Commita e sobe o registro de quem já foi respondido. Falha aqui não derruba o laço."""
     try:
-        subprocess.run(["git", "add", str(ENVIADAS)], cwd=RAIZ, check=True)
+        subprocess.run(["git", "add", str(ENVIADAS), str(PENDENTES)], cwd=RAIZ, check=True)
         if subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=RAIZ).returncode == 0:
             return
         subprocess.run(["git", "commit", "-m", "chore: registra respostas enviadas pelo bot [skip ci]"], cwd=RAIZ, check=True)
@@ -141,13 +212,16 @@ def main():
         # Recarrega a cada passada: o registro e os links por post mudam enquanto o laço roda.
         enviadas = _ler_json(ENVIADAS, {})
         por_post = _ler_json(LINKS_POR_POST, {})
+        pendentes = _ler_json(PENDENTES, {})
         try:
-            feitos = responder_novos(config, enviadas, ig, simular=args.simular, por_post=por_post)
+            feitos = responder_novos(config, enviadas, ig, simular=args.simular, por_post=por_post, pendentes=pendentes)
+            feitos += liberar_pendentes(config, pendentes, ig, simular=args.simular)
         except Exception as erro:  # API fora do ar, rede: não pode matar o laço inteiro
             print(f"passada falhou ({str(erro)[:200]}); tento de novo")
             feitos = []
         if feitos and not args.simular:
             ENVIADAS.write_text(json.dumps(enviadas, ensure_ascii=False, indent=2), encoding="utf-8")
+            PENDENTES.write_text(json.dumps(pendentes, ensure_ascii=False, indent=2), encoding="utf-8")
             if args.commit:
                 _guardar_no_git()
         print(json.dumps(feitos, ensure_ascii=False) if feitos else "nenhum comentário novo com palavra-chave", flush=True)

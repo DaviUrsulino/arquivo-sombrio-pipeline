@@ -4,7 +4,7 @@ import urllib.error
 from datetime import datetime, timezone
 
 from src.estudio_instagram.graph_api import InstagramGraph
-from src.estudio_instagram.respondedor import palavra_encontrada, responder_novos
+from src.estudio_instagram.respondedor import _chave, liberar_pendentes, palavra_encontrada, responder_novos
 
 CONFIG = {"palavras": {"CLAUDE": "kit do claude", "PLANO": "kit do plano"}}
 AGORA = datetime(2026, 10, 17, 18, 0, tzinfo=timezone.utc)
@@ -159,3 +159,91 @@ def test_responde_com_o_link_do_post_quando_a_palavra_e_do_post():
     por_post = {"m1": {"palavra": "LINK", "mensagem": "repo do post", "repo": "a/b"}}
     feitos = responder_novos(CONFIG, {}, ig, AGORA, por_post=por_post)
     assert ig.respostas == [("c1", "repo do post")] and len(feitos) == 1
+
+
+CONFIG_FILTRO = {
+    "palavras": {"CLAUDE": "link do kit", "PACK": "link pago do pack"},
+    "exigir_seguir": True, "sem_filtro": ["PACK"],
+    "mensagem_pedido": "segue e responde SIGO", "mensagem_nao_segue": "ainda não vi o follow",
+}
+
+
+class InstagramComConversa(InstagramFalso):
+    def __init__(self, comentarios, conversas=None, segue=True):
+        super().__init__(comentarios)
+        self._conversas, self._segue = conversas or [], segue
+        self.mensagens = []
+
+    def conversas_recentes(self):
+        return self._conversas
+
+    def segue_a_conta(self, igsid):
+        return self._segue
+
+    def enviar_mensagem(self, igsid, texto):
+        self.mensagens.append((igsid, texto))
+
+
+def _cd(id, texto, quem="u1"):
+    return {**_c(id, texto), "from": {"id": quem}}
+
+
+def test_link_gratis_pede_para_seguir_antes_de_mandar():
+    ig, pend = InstagramComConversa([_cd("c1", "CLAUDE")]), {}
+    responder_novos(CONFIG_FILTRO, {}, ig, agora=AGORA, pendentes=pend)
+    assert ig.respostas == [("c1", "segue e responde SIGO")]
+    assert pend[_chave("u1")]["mensagem"] == "link do kit"
+
+
+def test_link_de_produto_pago_sai_direto_sem_filtro():
+    ig, pend = InstagramComConversa([_cd("c1", "PACK")]), {}
+    responder_novos(CONFIG_FILTRO, {}, ig, agora=AGORA, pendentes=pend)
+    assert ig.respostas == [("c1", "link pago do pack")] and pend == {}
+
+
+def test_sem_id_da_pessoa_manda_o_link_como_antes():
+    ig, pend = InstagramComConversa([_c("c1", "CLAUDE")]), {}
+    responder_novos(CONFIG_FILTRO, {}, ig, agora=AGORA, pendentes=pend)
+    assert ig.respostas == [("c1", "link do kit")]
+
+
+def _pendente(**extra):
+    return {_chave("u1"): {"palavra": "CLAUDE", "mensagem": "link do kit", "desde": "2026-10-17T15:00:00+00:00", **extra}}
+
+
+def _resposta_da_pessoa(hora="2026-10-17T16:00:00+0000"):
+    return [{"usuario_id": "u1", "mensagens": [{"de": "u1", "texto": "SIGO", "hora": hora}]}]
+
+
+def test_quem_segue_e_responde_recebe_o_link_e_sai_da_lista():
+    ig, pend = InstagramComConversa([], _resposta_da_pessoa(), segue=True), _pendente()
+    feitos = liberar_pendentes(CONFIG_FILTRO, pend, ig, agora=AGORA)
+    assert ig.mensagens == [("u1", "link do kit")] and pend == {} and feitos[0]["segue"] is True
+
+
+def test_quem_nao_segue_recebe_aviso_uma_vez_so_por_mensagem():
+    ig, pend = InstagramComConversa([], _resposta_da_pessoa(), segue=False), _pendente()
+    liberar_pendentes(CONFIG_FILTRO, pend, ig, agora=AGORA)
+    liberar_pendentes(CONFIG_FILTRO, pend, ig, agora=AGORA)  # mesma mensagem da pessoa: não repete o aviso
+    assert ig.mensagens == [("u1", "ainda não vi o follow")] and _chave("u1") in pend
+
+
+def test_sem_resposta_da_pessoa_nada_acontece():
+    conversa = [{"usuario_id": "u1", "mensagens": [{"de": "eu", "texto": "segue", "hora": "2026-10-17T15:01:00+0000"}]}]
+    ig, pend = InstagramComConversa([], conversa), _pendente()
+    assert liberar_pendentes(CONFIG_FILTRO, pend, ig, agora=AGORA) == [] and ig.mensagens == []
+
+
+def test_se_a_api_nao_sabe_dizer_depois_de_2_tentativas_manda_o_link():
+    ig, pend = InstagramComConversa([], _resposta_da_pessoa("2026-10-17T16:00:00+0000"), segue=None), _pendente()
+    liberar_pendentes(CONFIG_FILTRO, pend, ig, agora=AGORA)
+    assert ig.mensagens == [("u1", "ainda não vi o follow")]
+    ig._conversas = _resposta_da_pessoa("2026-10-17T17:00:00+0000")
+    liberar_pendentes(CONFIG_FILTRO, pend, ig, agora=AGORA)
+    assert ("u1", "link do kit") in ig.mensagens
+
+
+def test_pendente_velho_demais_e_descartado():
+    ig, pend = InstagramComConversa([], _resposta_da_pessoa()), _pendente(desde="2026-10-01T15:00:00+00:00")
+    liberar_pendentes(CONFIG_FILTRO, pend, ig, agora=AGORA)
+    assert pend == {} and ig.mensagens == []
