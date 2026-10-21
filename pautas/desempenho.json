@@ -1,12 +1,12 @@
 {
-  "gerado_em": "2026-10-20 21:22",
-  "seguidores": 165,
+  "gerado_em": "2026-10-20 21:23",
+  "seguidores": 166,
   "geral": {
     "n": 24,
     "views_medianas": 151,
-    "views_media": 1555,
+    "views_media": 1556,
     "salvos_por_100_alcance": 3.9,
-    "envios_por_100_alcance": 0.9,
+    "envios_por_100_alcance": 0.93,
     "tempo_medio_s": 7.0
   },
   "por_faixa_horaria": {
@@ -28,10 +28,10 @@
     },
     "manhã (6-10h)": {
       "n": 2,
-      "views_medianas": 15479,
-      "views_media": 15479,
+      "views_medianas": 15488,
+      "views_media": 15488,
       "salvos_por_100_alcance": 4.14,
-      "envios_por_100_alcance": 0.9,
+      "envios_por_100_alcance": 0.93,
       "tempo_medio_s": 8.4
     },
     "meio-dia (10-14h)": {
@@ -54,34 +54,34 @@
   "por_tema": {
     "vídeo com IA": {
       "n": 12,
-      "views_medianas": 354,
-      "views_media": 2976,
+      "views_medianas": 355,
+      "views_media": 2978,
       "salvos_por_100_alcance": 4.03,
-      "envios_por_100_alcance": 0.91,
+      "envios_por_100_alcance": 0.94,
       "tempo_medio_s": 6.6
     },
     "Claude Code": {
       "n": 24,
       "views_medianas": 151,
-      "views_media": 1555,
+      "views_media": 1556,
       "salvos_por_100_alcance": 3.9,
-      "envios_por_100_alcance": 0.9,
+      "envios_por_100_alcance": 0.93,
       "tempo_medio_s": 7.0
     },
     "venda e kit": {
       "n": 10,
-      "views_medianas": 354,
+      "views_medianas": 355,
       "views_media": 515,
       "salvos_por_100_alcance": 3.31,
-      "envios_por_100_alcance": 1.0,
+      "envios_por_100_alcance": 1.02,
       "tempo_medio_s": 6.1
     },
     "agentes e skills": {
       "n": 5,
-      "views_medianas": 395,
+      "views_medianas": 396,
       "views_media": 578,
       "salvos_por_100_alcance": 3.68,
-      "envios_por_100_alcance": 1.16,
+      "envios_por_100_alcance": 1.2,
       "tempo_medio_s": 9.0
     },
     "assistente (Jarvis)": {
@@ -93,14 +93,15 @@
       "tempo_medio_s": 5.8
     }
   },
-  "melhor_faixa": "manhã (6-10h)",
+  "melhor_faixa": "tarde (14-18h)",
   "melhor_tema": "agentes e skills",
   "top": [
     {
       "id": "18027479654873301",
-      "views": 30538,
+      "views": 30556,
       "salvos": 1046,
-      "envios": 227,
+      "envios": 234,
+      "tempo_s": 11.2,
       "titulo": "Esse repositório faz a ia criar vídeo escrevendo html, grátis e open s",
       "hora": "18/10 08:45"
     },
@@ -109,6 +110,7 @@
       "views": 1744,
       "salvos": 56,
       "envios": 23,
+      "tempo_s": 9.5,
       "titulo": "Editor de vídeo local para agentes de código com 42 ferramentas ffmpeg",
       "hora": "19/10 13:40"
     },
@@ -117,6 +119,7 @@
       "views": 1325,
       "salvos": 35,
       "envios": 10,
+      "tempo_s": 9.1,
       "titulo": "Crie curtas metragens com o claude code gerando renderização e áudio d",
       "hora": "19/10 03:11"
     },
@@ -125,6 +128,7 @@
       "views": 487,
       "salvos": 6,
       "envios": 3,
+      "tempo_s": 6.4,
       "titulo": "Esse vídeo foi feito por código, sem nenhum editor de vídeo. O Pack Pi",
       "hora": "18/10 21:16"
     },
@@ -132,15 +136,17 @@
       "id": "18086283575333410",
       "views": 421,
       "salvos": 13,
-      "envios": 2,
+      "envios": 3,
+      "tempo_s": 5.5,
       "titulo": "55 skills abertas para ensinar seu agente de código a criar animações ",
       "hora": "20/10 09:10"
     },
     {
       "id": "17992667739058973",
-      "views": 395,
+      "views": 396,
       "salvos": 16,
       "envios": 1,
+      "tempo_s": 8.2,
       "titulo": "O openfilm transforma agentes de código em criadores de vídeo usando a",
       "hora": "19/10 20:25"
     },
@@ -149,6 +155,7 @@
       "views": 314,
       "salvos": 4,
       "envios": 1,
+      "tempo_s": 5.8,
       "titulo": "Do roteiro ao vídeo pronto em 3 passos, com o Pack Pixel (R$ 27): escr",
       "hora": "18/10 19:08"
     },
@@ -157,6 +164,7 @@
       "views": 203,
       "salvos": 2,
       "envios": 1,
+      "tempo_s": 7.3,
       "titulo": "Automação de celulares android com instruções em linguagem natural 🤖",
       "hora": "18/10 14:41"
     }
