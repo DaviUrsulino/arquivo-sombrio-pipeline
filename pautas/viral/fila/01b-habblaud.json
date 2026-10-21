@@ -8,7 +8,7 @@
     "modelo": "eleven_multilingual_v2"
   },
   "capa": {
-    "subtitulo": "veja seus agentes do claude code trabalhando em tempo real em um escritório virtual"
+    "subtitulo": "escritório virtual em pixel art para acompanhar agentes do claude code"
   },
   "chamada": {
     "pergunta": "quer o link do repositório?"
@@ -23,17 +23,17 @@
     }
   ],
   "destaques": [
-    "agentes",
     "escritorio virtual",
+    "agentes de codigo",
+    "habblaud",
     "pixel art",
-    "claude code",
-    "docker",
-    "local",
+    "tempo real",
+    "npm start",
     "link"
   ],
   "cenas_roteiro": [
     {
-      "narracao": "Acompanhe seus agentes de código trabalhando em um escritório virtual.",
+      "narracao": "Acompanhe seus agentes de código em um escritório virtual.",
       "humor": "animado",
       "visual": {
         "tipo": "titulo_pixel",
@@ -44,15 +44,20 @@
             "tamanho": 120
           },
           {
-            "texto": "DOS AGENTES",
+            "texto": "VIRTUAL",
             "cor": "laranja",
-            "tamanho": 130
+            "tamanho": 140
+          },
+          {
+            "texto": "DE AGENTES",
+            "cor": "azul",
+            "tamanho": 100
           }
         ]
       }
     },
     {
-      "narracao": "O projeto Habblaud já tem {estrelas:marmottajr/habblaud} estrelas no GitHub.",
+      "narracao": "O projeto já tem {estrelas:marmottajr/habblaud} estrelas no repositório do GitHub.",
       "humor": "feliz",
       "visual": {
         "tipo": "contador",
@@ -60,43 +65,48 @@
       }
     },
     {
-      "narracao": "Cada projeto vira uma sala em arte em pixel.",
+      "narracao": "O Habblaud transforma cada projeto em uma sala pixel art.",
       "humor": "normal",
       "visual": {
-        "tipo": "icone_pixel",
-        "icone": "bot",
-        "cor": "azul",
-        "rotulo": "SALA POR PROJETO"
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "bot",
+            "rotulo": "Agente",
+            "cor": "azul"
+          },
+          {
+            "icone": "sparkles",
+            "rotulo": "Habblaud",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "palette",
+            "rotulo": "Pixel Art",
+            "cor": "verde"
+          }
+        ]
       }
     },
     {
-      "narracao": "Você descobre na hora quem está esperando sua permissão.",
+      "narracao": "Cada agente mostra em tempo real o que está fazendo.",
       "humor": "pensando",
       "visual": {
         "tipo": "icone_pixel",
-        "icone": "hourglass",
-        "cor": "amarelo",
-        "rotulo": "ESPERANDO COMANDO"
+        "icone": "check",
+        "cor": "verde",
+        "rotulo": "TEMPO REAL"
       }
     },
     {
-      "narracao": "Basta rodar o comando ene pê éme run docker up.",
-      "humor": "normal",
+      "narracao": "Você pode rodar na sua máquina com o comando npm start.",
+      "humor": "feliz",
       "visual": {
         "tipo": "terminal",
         "rotulo": "terminal",
-        "comando": "npm run docker:up",
-        "texto": "inicia no docker"
-      }
-    },
-    {
-      "narracao": "Tudo roda no computador sem fazer chamadas externas.",
-      "humor": "feliz",
-      "visual": {
-        "tipo": "icone_pixel",
-        "icone": "shield-check",
-        "cor": "verde",
-        "rotulo": "CEM POR CENTO LOCAL"
+        "comando": "npm start",
+        "texto": "inicia o servidor local"
       }
     }
   ],
@@ -105,14 +115,14 @@
       "tipo": "capa",
       "linhas": [
         {
-          "texto": "ESCRITÓRIO PARA",
+          "texto": "ESCRITÓRIO",
           "cor": "branco",
-          "tamanho": 100
+          "tamanho": 108
         },
         {
-          "texto": "SEUS AGENTES",
+          "texto": "VIRTUAL",
           "cor": "laranja",
-          "tamanho": 110
+          "tamanho": 80
         }
       ],
       "subtitulo": "conheça o habblaud"
@@ -123,12 +133,12 @@
       "progresso": 0.25,
       "linhas": [
         {
-          "texto": "SALA VIRTUAL",
+          "texto": "SALA PIXEL ART",
           "cor": "azul"
         }
       ],
       "rotulo": "habblaud",
-      "texto": "O Habblaud transforma cada projeto do Claude Code em uma sala com personagens em pixel art. Cada agente mostra o que está fazendo em tempo real."
+      "texto": "Transforma cada projeto com Claude Code em uma sala virtual. Os agentes viram personagens em pixel art."
     },
     {
       "tipo": "comando",
@@ -136,12 +146,12 @@
       "progresso": 0.5,
       "linhas": [
         {
-          "texto": "INICIAR COM DOCKER",
+          "texto": "COMO RODAR",
           "cor": "verde"
         }
       ],
-      "comando": "npm run docker:up",
-      "texto": "Detecta contas do Claude Code e sobe na porta 4747.",
+      "comando": "npm start",
+      "texto": "inicia o servidor local na porta 4747",
       "rotulo": "terminal"
     },
     {
@@ -150,12 +160,12 @@
       "progresso": 0.75,
       "linhas": [
         {
-          "texto": "STATUS AO VIVO",
+          "texto": "MONITORE A IA",
           "cor": "laranja"
         }
       ],
-      "rotulo": "recursos",
-      "texto": "Mostra agentes digitando, subagentes entregando tarefas e avisos de permissão pendente. Com o mod, você responde perguntas direto pelo escritório."
+      "rotulo": "tempo real",
+      "texto": "Mostra o progresso dos agentes e avisa quando algum precisa de permissão no terminal."
     },
     {
       "tipo": "ponto",
@@ -167,8 +177,8 @@
           "cor": "amarelo"
         }
       ],
-      "rotulo": "licenca mit",
-      "texto": "O projeto é de código aberto sob licença MIT. Não lê credenciais e não faz chamadas externas."
+      "rotulo": "local",
+      "texto": "Roda 100% na sua máquina sem enviar credenciais para fora. Licença MIT."
     },
     {
       "tipo": "cta",
@@ -188,9 +198,9 @@
     }
   ],
   "passos": [
-    "Clone o repositório com git clone https://github.com/marmottajr/habblaud.git e acesse com cd habblaud",
-    "Instale as dependências de desenvolvimento com npm install",
-    "Inicie a aplicação no Docker com npm run docker:up e acesse localhost:4747",
-    "Instale o mod no Claude Code com npm run mod:install"
+    "git clone https://github.com/marmottajr/habblaud.git",
+    "cd habblaud",
+    "npm install",
+    "npm start"
   ]
 }
