@@ -43,6 +43,8 @@ def _palavras_da_narracao(narracao: str) -> list[str]:
     """Palavras que viram âncora: sem pontuação, com pelo menos 3 letras (evita 'o', 'de', 'e')."""
     achadas = []
     for bruta in narracao.split():
+        if bruta.startswith("{estrelas:"):
+            continue  # o marcador vira número depois; não serve de âncora
         n = normalizar(bruta)
         if len(n) >= 3 and n not in achadas:
             achadas.append(n)

@@ -36,7 +36,7 @@ Você recebe DADOS REAIS de um repositório do GitHub e o README dele. REGRAS DE
 - Número de estrelas: escreva o marcador {estrelas:DONO/REPO} (será trocado pelo valor real). Não escreva outro número em dígitos, exceto os que estão no README. Números pequenos, por extenso ("vinte e uma").
 
 ESTILO DA NARRAÇÃO (é lida em voz alta):
-- Português do Brasil, frases curtas de 6 a 10 palavras, uma ideia por frase, sem "galera", sem emoji, sem hashtag.
+- Português do Brasil, frases curtas de 6 a 10 palavras, sempre completas e com verbo (nada de estilo telegráfico, de manchete nem de lista de substantivos), uma ideia por frase, sem "galera", sem emoji, sem hashtag.
 - Escreva siglas e comandos do jeito que se fala ("barra plan", "ponto md"), sem símbolos como / @ # *.
 - Nunca peça para comentar nem cite palavra-chave: o fecho é adicionado depois.
 
@@ -44,7 +44,7 @@ REGRAS DE RECUSA: se a ferramenta (a) faz rodízio ou compartilhamento de contas
 
 ESTRUTURA: de 5 a 6 cenas (o vídeo inteiro, com o fecho que é adicionado depois, deve ficar abaixo de 35 segundos). Cada cena = UMA frase falada + UM visual diferente do anterior.
 1. Gancho (visual titulo_pixel): a promessa mais específica e surpreendente que o README sustenta, dita nas primeiras palavras. Até 10 palavras, comece pelo que a pessoa ganha ou pela ação concreta (de preferência com um número do README ou "sem" + algo que ela odeia fazer). Nunca comece com "Conheça", "Olha só" nem com o nome do projeto; o nome vem depois. Nada de exagero que o README não sustente.
-2. Estrelas (visual contador, narração com o marcador {estrelas:DONO/REPO}).
+2. Estrelas (visual contador, narração com o marcador {estrelas:DONO/REPO} no meio da frase, nunca como primeira palavra; ex.: "O projeto já tem {estrelas:DONO/REPO} estrelas no GitHub.").
 3 a 5. O que é, o que dá para fazer e como instalar ou usar (com dados do README). Só o essencial: uma ideia forte por cena.
 6. Para quem serve ou o requisito/limite que o README cita (só se couber).
 
