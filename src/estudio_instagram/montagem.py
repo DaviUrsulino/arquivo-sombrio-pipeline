@@ -21,7 +21,7 @@ RESPIRO_FINAL_S = 1.0
 
 
 def _copiar_assets(destino: Path):
-    for pasta in ("vendor", "fonts", "icons"):
+    for pasta in ("vendor", "fonts", "icons", "musica"):
         shutil.copytree(MODELOS / "assets" / pasta, destino / "assets" / pasta, dirs_exist_ok=True)
 
 

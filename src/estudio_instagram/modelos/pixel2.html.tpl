@@ -84,6 +84,7 @@
       <div id="robo" class="clip" data-start="0" data-duration="{{DURACAO}}" data-track-index="6"></div>
       <div id="scan" class="clip" data-start="0" data-duration="{{DURACAO}}" data-track-index="7"></div>
       <div id="legenda" class="clip" data-start="0" data-duration="{{DURACAO}}" data-track-index="8"></div>
+      <audio id="trilha" src="assets/musica/trilha-pixel.mp3" data-start="0" data-duration="{{DURACAO}}" data-track-index="10" data-volume="0.25"></audio>
       <audio id="narracao" src="assets/narracao.wav" data-start="0" data-duration="{{DURACAO}}" data-track-index="9" data-volume="1"></audio>
     </div>
     <script>
