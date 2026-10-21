@@ -1,0 +1,213 @@
+{
+  "titulo": "hyperframes: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "crie vídeos determinísticos em mp4 direto do seu html"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "heygen-com/hyperframes",
+      "nome": "hyperframes",
+      "cor": "azul",
+      "promessa": "Write HTML. Render video. Built for agents.",
+      "texto": "Write HTML. Render video. Built for agents."
+    }
+  ],
+  "destaques": [
+    "hyperframes",
+    "html",
+    "video",
+    "mp4",
+    "agentes",
+    "terminal",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Crie vídeos em MP4 escrevendo apenas código HTML.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "CRIE VÍDEO",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "COM HTML",
+            "cor": "laranja",
+            "tamanho": 150
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto já tem {estrelas:heygen-com/hyperframes} estrelas no GitHub.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "heygen-com/hyperframes"
+      }
+    },
+    {
+      "narracao": "O HyperFrames transforma HTML e animações em vídeo MP4.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "code-xml",
+            "rotulo": "HTML e CSS",
+            "cor": "azul"
+          },
+          {
+            "icone": "zap",
+            "rotulo": "HyperFrames",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "clapperboard",
+            "rotulo": "Vídeo MP4",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Ele ensina agentes de inteligência artificial a renderizar vídeos.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Claude Code",
+          "Codex",
+          "Cursor",
+          "Gemini CLI"
+        ]
+      }
+    },
+    {
+      "narracao": "Você pode adicionar as habilidades usando o seu terminal.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "npx skills add heygen-com/hyperframes",
+        "texto": "adiciona habilidades ao agente"
+      }
+    },
+    {
+      "narracao": "A ferramenta cria vídeos de lançamento a partir de sites.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "rocket",
+        "cor": "laranja",
+        "rotulo": "VÍDEO DE PRODUTO"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "CRIE VÍDEO",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "COM HTML",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o hyperframes"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "FRAMEWORK ABERTO",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "hyperframes",
+      "texto": "Ele transforma HTML, CSS e mídias em vídeos MP4 determinísticos. Foi feito para funcionar com agentes de código."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "ADICIONAR SKILLS",
+          "cor": "verde"
+        }
+      ],
+      "comando": "npx skills add heygen-com/hyperframes",
+      "texto": "instala o conjunto de habilidades do framework",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "FLUXOS PRONTOS",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "recursos",
+      "texto": "Ele inclui fluxos para vídeos de produto e legendas embutidas. Suporta Claude Code, Codex, Cursor e Gemini CLI."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "LICENÇA ABERTA",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "licença",
+      "texto": "O projeto tem código aberto sob a licença Apache dois ponto zero. Pode ser executado localmente pelo terminal."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "passos": [
+    "Adicione as habilidades com npx skills add heygen-com/hyperframes",
+    "Atualize o pacote com npx hyperframes skills update",
+    "Inicialize o ambiente com npx hyperframes init"
+  ]
+}
