@@ -49,6 +49,7 @@
     "jnMetaCode/agency-agents-zh",
     "kajisho5/ffmpeg-skill",
     "lemomo-ai/lemo-opuscar",
+    "marmottajr/habblaud",
     "mattpocock/skills",
     "miqdadbadjuber/anti-slop",
     "morluto/rea",
@@ -82,5 +83,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 39
+  "pautas_geradas": 40
 }

@@ -1,0 +1,196 @@
+{
+  "titulo": "habblaud: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "veja seus agentes do claude code trabalhando em tempo real em um escritório virtual"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "marmottajr/habblaud",
+      "nome": "habblaud",
+      "cor": "azul",
+      "promessa": "",
+      "texto": ""
+    }
+  ],
+  "destaques": [
+    "agentes",
+    "escritorio virtual",
+    "pixel art",
+    "claude code",
+    "docker",
+    "local",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Acompanhe seus agentes de código trabalhando em um escritório virtual.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "ESCRITÓRIO",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "DOS AGENTES",
+            "cor": "laranja",
+            "tamanho": 130
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto Habblaud já tem {estrelas:marmottajr/habblaud} estrelas no GitHub.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "marmottajr/habblaud"
+      }
+    },
+    {
+      "narracao": "Cada projeto vira uma sala em arte em pixel.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "bot",
+        "cor": "azul",
+        "rotulo": "SALA POR PROJETO"
+      }
+    },
+    {
+      "narracao": "Você descobre na hora quem está esperando sua permissão.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "hourglass",
+        "cor": "amarelo",
+        "rotulo": "ESPERANDO COMANDO"
+      }
+    },
+    {
+      "narracao": "Basta rodar o comando ene pê éme run docker up.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "npm run docker:up",
+        "texto": "inicia no docker"
+      }
+    },
+    {
+      "narracao": "Tudo roda no computador sem fazer chamadas externas.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "shield-check",
+        "cor": "verde",
+        "rotulo": "CEM POR CENTO LOCAL"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "ESCRITÓRIO PARA",
+          "cor": "branco",
+          "tamanho": 100
+        },
+        {
+          "texto": "SEUS AGENTES",
+          "cor": "laranja",
+          "tamanho": 110
+        }
+      ],
+      "subtitulo": "conheça o habblaud"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "SALA VIRTUAL",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "habblaud",
+      "texto": "O Habblaud transforma cada projeto do Claude Code em uma sala com personagens em pixel art. Cada agente mostra o que está fazendo em tempo real."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "INICIAR COM DOCKER",
+          "cor": "verde"
+        }
+      ],
+      "comando": "npm run docker:up",
+      "texto": "Detecta contas do Claude Code e sobe na porta 4747.",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "STATUS AO VIVO",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "recursos",
+      "texto": "Mostra agentes digitando, subagentes entregando tarefas e avisos de permissão pendente. Com o mod, você responde perguntas direto pelo escritório."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "PRIVACIDADE",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "licenca mit",
+      "texto": "O projeto é de código aberto sob licença MIT. Não lê credenciais e não faz chamadas externas."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "passos": [
+    "Clone o repositório com git clone https://github.com/marmottajr/habblaud.git e acesse com cd habblaud",
+    "Instale as dependências de desenvolvimento com npm install",
+    "Inicie a aplicação no Docker com npm run docker:up e acesse localhost:4747",
+    "Instale o mod no Claude Code com npm run mod:install"
+  ]
+}
