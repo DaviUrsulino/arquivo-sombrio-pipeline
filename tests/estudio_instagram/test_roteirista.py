@@ -36,7 +36,7 @@ def test_roteiro_valido_vira_pauta_que_passa_na_validacao():
     nova = roteirista.gerar_pauta(DADOS, README, "LINK", ICONES, llm=lambda s, u: _resposta())
     final = cenas_pixel.normalizar_pauta(nova)
     assert pauta.problemas(final, ICONES) == []
-    assert final["cenas"][-1]["narracao"].startswith("Manda pra um amigo dev, segue o robô estagiário e comenta LINK")
+    assert final["cenas"][-1]["narracao"].startswith("Manda pra um amigo dev, segue e comenta LINK")
     assert len(nova["slides"]) == 6 and nova["slides"][-1]["tipo"] == "cta"
 
 
@@ -124,7 +124,7 @@ def test_fecho_proprio_nao_acrescenta_o_comenta_e_o_fecho_padrao_chama_para_a_bi
     assert len(so_a_do_roteiro["cenas"]) == 1
     padrao = cenas_pixel.normalizar_pauta({**base, "palavra_chave": "LINK"})
     ultima = padrao["cenas"][-1]
-    assert "link está na bio" in ultima["narracao"].lower() and ultima["elementos"][-1]["texto"] == "FAÇA IGUAL: LINK NA BIO"
+    assert "link na bio" in ultima["narracao"].lower() and ultima["elementos"][-1]["texto"] == "FAÇA IGUAL: LINK NA BIO"
 
 
 def test_passos_vao_para_a_pauta_e_para_a_legenda():
@@ -144,3 +144,12 @@ def test_passo_com_numero_fora_do_readme_e_barrado():
 def test_mais_de_4_passos_e_barrado():
     erros = roteirista._problemas_roteiro({**_resposta(), "passos": ["a", "b", "c", "d", "e"]}, DADOS, README, ICONES)
     assert any("passos" in e for e in erros)
+
+
+def test_titulo_da_cena_1_com_palavras_que_a_voz_nao_diz_e_barrado():
+    resposta = _resposta()
+    resposta["cenas"][0]["narracao"] = "Esta ferramenta faz uma coisa bem útil pra quem programa."
+    resposta["cenas"][0]["visual"] = {"tipo": "titulo_pixel", "linhas": [
+        {"texto": "SUPER PRECISÃO TOTAL", "cor": "branco", "tamanho": 100}, {"texto": "ABSOLUTA", "cor": "laranja", "tamanho": 100}]}
+    erros = roteirista._problemas_roteiro(resposta, DADOS, README, ICONES)
+    assert any("a tela repete a narração" in e for e in erros)

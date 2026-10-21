@@ -36,17 +36,16 @@ Você recebe DADOS REAIS de um repositório do GitHub e o README dele. REGRAS DE
 - Número de estrelas: escreva o marcador {estrelas:DONO/REPO} (será trocado pelo valor real). Não escreva outro número em dígitos, exceto os que estão no README. Números pequenos, por extenso ("vinte e uma").
 
 ESTILO DA NARRAÇÃO (é lida em voz alta):
-- Português do Brasil, frases curtas de 6 a 10 palavras, sempre completas e com verbo (nada de estilo telegráfico, de manchete nem de lista de substantivos), uma ideia por frase, sem "galera", sem emoji, sem hashtag.
+- Português do Brasil, frases de 8 a 11 palavras (cada uma dura de 4 a 5 segundos), sempre completas e com verbo (nada de estilo telegráfico, de manchete nem de lista de substantivos), uma ideia por frase, sem "galera", sem emoji, sem hashtag.
 - Escreva siglas e comandos do jeito que se fala ("barra plan", "ponto md"), sem símbolos como / @ # *.
 - Nunca peça para comentar nem cite palavra-chave: o fecho é adicionado depois.
 
 REGRAS DE RECUSA: se a ferramenta (a) faz rodízio ou compartilhamento de contas, assinaturas ou chaves para contornar limite de uso ou cota de provedores, (b) burla ou viola termos de serviço de algum provedor, (c) rouba, extrai ou expõe credenciais, (d) é de ataque ou invasão, golpe, cripto especulativa ou conteúdo adulto, ou (e) o README não deixa claro o que ela faz, NÃO escreva roteiro. Responda só {"recusar": true, "motivo": "uma frase"}.
 
-ESTRUTURA: de 5 a 6 cenas (o vídeo inteiro, com o fecho que é adicionado depois, deve ficar abaixo de 35 segundos). Cada cena = UMA frase falada + UM visual diferente do anterior.
-1. Gancho (visual titulo_pixel): a promessa mais específica e surpreendente que o README sustenta, dita nas primeiras palavras. Até 10 palavras, comece pelo que a pessoa ganha ou pela ação concreta (de preferência com um número do README ou "sem" + algo que ela odeia fazer). Nunca comece com "Conheça", "Olha só" nem com o nome do projeto; o nome vem depois. Nada de exagero que o README não sustente.
+ESTRUTURA: 5 cenas (o vídeo inteiro, com o fecho de 6 s que é adicionado depois, deve ficar perto de 30 segundos). Cada cena precisa de tempo para o olho ler o visual: nada de cena que dure menos de 4 segundos. Cada cena = UMA frase falada + UM visual diferente do anterior.
+1. Gancho (visual titulo_pixel): a promessa mais específica e surpreendente que o README sustenta, dita nas primeiras palavras. Até 10 palavras e o texto do titulo_pixel da cena 1 só usa palavras que a própria narração diz (a tela repete o que a voz fala, sem acrescentar informação), comece pelo que a pessoa ganha ou pela ação concreta (de preferência com um número do README ou "sem" + algo que ela odeia fazer). Nunca comece com "Conheça", "Olha só" nem com o nome do projeto; o nome vem depois. Nada de exagero que o README não sustente.
 2. Estrelas (visual contador, narração com o marcador {estrelas:DONO/REPO} no meio da frase, nunca como primeira palavra; ex.: "O projeto já tem {estrelas:DONO/REPO} estrelas no GitHub.").
 3 a 5. O que é, o que dá para fazer e como instalar ou usar (com dados do README). Só o essencial: uma ideia forte por cena.
-6. Para quem serve ou o requisito/limite que o README cita (só se couber).
 
 VISUAIS (campo "visual" da cena; só estes "tipo", cores: laranja azul verde roxo vermelho amarelo branco rosa):
 - titulo_pixel: {"tipo":"titulo_pixel","linhas":[{"texto":"A IA CRIA","cor":"branco","tamanho":120},{"texto":"VÍDEO","cor":"laranja","tamanho":150}]}  (2 a 3 linhas, MAIÚSCULAS, até 14 letras por linha, tamanhos 100 a 170)
@@ -117,6 +116,12 @@ def _problemas_roteiro(resposta: dict, dados: DadosRepo, readme: str, icones: se
             erros.append(f"cena {i}: visual desconhecido {tipo!r}")
         if i == 1 and tipo != "titulo_pixel":
             erros.append("a cena 1 tem que ser titulo_pixel")
+        if i == 1 and tipo == "titulo_pixel":
+            falado = {cenas_pixel.normalizar(w) for w in cena["narracao"].split()}
+            na_tela = [cenas_pixel.normalizar(w) for l in cena["visual"].get("linhas", []) for w in str(l.get("texto", "")).split()]
+            fora = [w for w in na_tela if w and w not in falado and len(w) > 2]
+            if len(fora) > 1:
+                erros.append(f"cena 1: o título da tela tem palavras que a voz não diz ({', '.join(fora[:3])}); a tela repete a narração")
         if i > 1 and tipo == cenas[i - 2].get("visual", {}).get("tipo") and tipo not in ("terminal", "icone_pixel"):
             erros.append(f"cena {i}: repete o visual da cena anterior ({tipo}); varie")
         sem_marcador = re.sub(r"\{estrelas:[^}]*\}", "", cena["narracao"])
@@ -124,7 +129,7 @@ def _problemas_roteiro(resposta: dict, dados: DadosRepo, readme: str, icones: se
             if numero not in permitidos:
                 erros.append(f"cena {i}: o número {numero} não aparece no README. Tire ou use só números do README")
         palavras = len(cena["narracao"].split())
-        if not 4 <= palavras <= 22:
+        if not 5 <= palavras <= 22:
             erros.append(f"cena {i}: narração com {palavras} palavras (quero de 8 a 14)")
         if re.search(r"coment[ae]", cena["narracao"], re.I):
             erros.append(f"cena {i}: não peça para comentar; o fecho é adicionado depois")
