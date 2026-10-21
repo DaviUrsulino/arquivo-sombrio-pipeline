@@ -8,7 +8,7 @@
     "modelo": "eleven_multilingual_v2"
   },
   "capa": {
-    "subtitulo": "crie vídeos direto com código react e automação"
+    "subtitulo": "crie videos com codigo react"
   },
   "chamada": {
     "pergunta": "quer o link do repositório?"
@@ -23,45 +23,47 @@
     }
   ],
   "destaques": [
-    "videos",
+    "crie videos",
+    "programaticamente",
     "react",
-    "programatica",
-    "agentes",
-    "automacao",
-    "renderizacao",
+    "tres modos",
+    "agente",
+    "interativo",
+    "licenca especial",
+    "empresas",
     "link"
   ],
   "cenas_roteiro": [
     {
-      "narracao": "Crie vídeos programáticos usando apenas código React.",
+      "narracao": "Crie videos programaticamente usando React.",
       "humor": "animado",
       "visual": {
         "tipo": "titulo_pixel",
         "linhas": [
           {
-            "texto": "VÍDEOS COM",
+            "texto": "CRIE VÍDEOS",
             "cor": "branco",
-            "tamanho": 130
+            "tamanho": 120
           },
           {
-            "texto": "CÓDIGO REACT",
+            "texto": "COM REACT",
             "cor": "laranja",
-            "tamanho": 120
+            "tamanho": 150
           }
         ]
       }
     },
     {
-      "narracao": "Esse é o Remotion, com {estrelas:remotion-dev/remotion} no GitHub.",
-      "humor": "feliz",
+      "narracao": "O projeto tem {estrelas:remotion-dev/remotion} estrelas no GitHub.",
+      "humor": "normal",
       "visual": {
         "tipo": "contador",
         "repo": "remotion-dev/remotion"
       }
     },
     {
-      "narracao": "O projeto permite transformar código React na fonte da verdade para vídeos.",
-      "humor": "normal",
+      "narracao": "Transforma componentes React em videos renderizados.",
+      "humor": "feliz",
       "visual": {
         "tipo": "cadeia",
         "layout": "horizontal",
@@ -85,77 +87,35 @@
       }
     },
     {
-      "narracao": "Você pode gerar animações com agentes, arrastar e soltar ou programando.",
-      "humor": "feliz",
+      "narracao": "Oferece tres modos: agente, interativo, programatico.",
+      "humor": "pensando",
       "visual": {
         "tipo": "lista",
         "itens": [
-          "Com agentes",
-          "Arrastar e soltar",
-          "Programaticamente"
+          "Modo Agente",
+          "Modo Interativo",
+          "Modo Programatico"
         ]
       }
     },
     {
-      "narracao": "Dá para conectar dados dinâmicos e criar bibliotecas de design system.",
-      "humor": "animado",
-      "visual": {
-        "tipo": "icone_pixel",
-        "icone": "sparkles",
-        "cor": "roxo",
-        "rotulo": "DESIGN SYSTEMS"
-      }
-    },
-    {
-      "narracao": "Para começar um projeto novo, basta rodar o comando no terminal.",
+      "narracao": "Instale com ene peixe create-video arroba latest.",
       "humor": "normal",
       "visual": {
         "tipo": "terminal",
         "rotulo": "terminal",
         "comando": "npx create-video@latest",
-        "texto": "inicia um novo projeto remotion"
+        "texto": "cria projeto inicial"
       }
     },
     {
-      "narracao": "A ferramenta suporta renderização em lote na sua própria infraestrutura.",
-      "humor": "animado",
-      "visual": {
-        "tipo": "icone_pixel",
-        "icone": "rocket",
-        "cor": "verde",
-        "rotulo": "BATCH RENDERING"
-      }
-    },
-    {
-      "narracao": "O processo roda via APIs do Node ponto js, Lambda ou Vercel.",
-      "humor": "normal",
-      "visual": {
-        "tipo": "lista",
-        "itens": [
-          "Node.js SSR",
-          "AWS Lambda",
-          "Vercel Sandbox"
-        ]
-      }
-    },
-    {
-      "narracao": "O único pré requisito de ambiente é ter o Node instalado.",
+      "narracao": "Licenca propria exige licenca comercial para empresas.",
       "humor": "pensando",
       "visual": {
         "tipo": "icone_pixel",
-        "icone": "terminal",
-        "cor": "azul",
-        "rotulo": "EXIGE NODE.JS"
-      }
-    },
-    {
-      "narracao": "Fique atento pois o projeto possui licença própria para empresas.",
-      "humor": "normal",
-      "visual": {
-        "tipo": "icone_pixel",
-        "icone": "shield-check",
-        "cor": "amarelo",
-        "rotulo": "LICENÇA PRÓPRIA"
+        "icone": "triangle-alert",
+        "cor": "vermelho",
+        "rotulo": "LICENÇA ESPECIAL"
       }
     }
   ],
@@ -164,12 +124,12 @@
       "tipo": "capa",
       "linhas": [
         {
-          "texto": "VÍDEOS COM",
+          "texto": "CRIE VÍDEOS",
           "cor": "branco",
-          "tamanho": 110
+          "tamanho": 108
         },
         {
-          "texto": "CÓDIGO REACT",
+          "texto": "COM REACT",
           "cor": "laranja",
           "tamanho": 80
         }
@@ -182,12 +142,12 @@
       "progresso": 0.25,
       "linhas": [
         {
-          "texto": "VÍDEO EM REACT",
+          "texto": "TRANSFORMA REACT",
           "cor": "azul"
         }
       ],
-      "rotulo": "remotion",
-      "texto": "Crie vídeos programaticamente usando React como fonte de verdade. Suporta edição interativa e agentes."
+      "rotulo": "nome",
+      "texto": "Biblioteca que transforma componentes React em videos. Renderiza frames via Node.js ou nuvem."
     },
     {
       "tipo": "comando",
@@ -195,7 +155,7 @@
       "progresso": 0.5,
       "linhas": [
         {
-          "texto": "CRIAR PROJETO",
+          "texto": "COMO USAR",
           "cor": "verde"
         }
       ],
@@ -209,12 +169,12 @@
       "progresso": 0.75,
       "linhas": [
         {
-          "texto": "RENDERIZAÇÃO",
+          "texto": "TRÊS MODOS",
           "cor": "laranja"
         }
       ],
-      "rotulo": "infra",
-      "texto": "Renderize em lote na sua infraestrutura via Node.js, AWS Lambda ou Vercel."
+      "rotulo": "nota",
+      "texto": "Agente usa IA, interativo tem editor visual, programatico e puro codigo."
     },
     {
       "tipo": "ponto",
@@ -222,12 +182,12 @@
       "progresso": 1.0,
       "linhas": [
         {
-          "texto": "AVISO LICENÇA",
+          "texto": "LICENÇA",
           "cor": "amarelo"
         }
       ],
-      "rotulo": "licença",
-      "texto": "O repositório possui licença própria e requer contratação comercial para certos usos empresariais."
+      "rotulo": "nota",
+      "texto": "Licenca propria, exige licenca comercial para uso em empresas."
     },
     {
       "tipo": "cta",
@@ -245,5 +205,11 @@
       "palavra": "LINK",
       "extra": "Quer fazer vídeos assim? Link na bio."
     }
+  ],
+  "passos": [
+    "instale node.js se nao tiver",
+    "rode npx create-video@latest",
+    "edite componentes react na pasta src",
+    "renderize com npm run build"
   ]
 }
