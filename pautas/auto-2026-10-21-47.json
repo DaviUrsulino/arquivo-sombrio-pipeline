@@ -1,0 +1,215 @@
+{
+  "titulo": "remotion: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "crie videos com codigo react"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "remotion-dev/remotion",
+      "nome": "remotion",
+      "cor": "azul",
+      "promessa": "🎥      Make videos programmatically with React",
+      "texto": "🎥      Make videos programmatically with React"
+    }
+  ],
+  "destaques": [
+    "crie videos",
+    "programaticamente",
+    "react",
+    "tres modos",
+    "agente",
+    "interativo",
+    "licenca especial",
+    "empresas",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Crie videos programaticamente usando React.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "CRIE VÍDEOS",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "COM REACT",
+            "cor": "laranja",
+            "tamanho": 150
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto tem {estrelas:remotion-dev/remotion} estrelas no GitHub.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "contador",
+        "repo": "remotion-dev/remotion"
+      }
+    },
+    {
+      "narracao": "Transforma componentes React em videos renderizados.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "code-xml",
+            "rotulo": "React",
+            "cor": "azul"
+          },
+          {
+            "icone": "zap",
+            "rotulo": "Remotion",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "clapperboard",
+            "rotulo": "Vídeo",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Oferece tres modos: agente, interativo, programatico.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Modo Agente",
+          "Modo Interativo",
+          "Modo Programatico"
+        ]
+      }
+    },
+    {
+      "narracao": "Instale com ene peixe create-video arroba latest.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "npx create-video@latest",
+        "texto": "cria projeto inicial"
+      }
+    },
+    {
+      "narracao": "Licenca propria exige licenca comercial para empresas.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "triangle-alert",
+        "cor": "vermelho",
+        "rotulo": "LICENÇA ESPECIAL"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "CRIE VÍDEOS",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "COM REACT",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o Remotion"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "TRANSFORMA REACT",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "nome",
+      "texto": "Biblioteca que transforma componentes React em videos. Renderiza frames via Node.js ou nuvem."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMO USAR",
+          "cor": "verde"
+        }
+      ],
+      "comando": "npx create-video@latest",
+      "texto": "requer Node.js instalado",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "TRÊS MODOS",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "nota",
+      "texto": "Agente usa IA, interativo tem editor visual, programatico e puro codigo."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "LICENÇA",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "nota",
+      "texto": "Licenca propria, exige licenca comercial para uso em empresas."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "passos": [
+    "instale node.js se nao tiver",
+    "rode npx create-video@latest",
+    "edite componentes react na pasta src",
+    "renderize com npm run build"
+  ]
+}
