@@ -1,0 +1,209 @@
+{
+  "titulo": "geo-sleuth: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "localize onde qualquer foto foi tirada usando apenas relevo e mapas"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "Oldcircle/geo-sleuth",
+      "nome": "geo-sleuth",
+      "cor": "azul",
+      "promessa": "An agent skill that finds where a photo was taken — OpenStreetMap geometry, elev",
+      "texto": "An agent skill that finds where a photo was taken — OpenStreetMap geometry, elevation skylines, satellite imagery and st"
+    }
+  ],
+  "destaques": [
+    "foto",
+    "mapas",
+    "relevo",
+    "scripts",
+    "horizonte",
+    "posicao",
+    "agentes",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Descubra onde qualquer foto foi tirada sem usar placas.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "ONDE QUALQUER",
+            "cor": "branco",
+            "tamanho": 110
+          },
+          {
+            "texto": "FOTO FOI",
+            "cor": "laranja",
+            "tamanho": 130
+          },
+          {
+            "texto": "TIRADA",
+            "cor": "branco",
+            "tamanho": 140
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto já acumula {estrelas:Oldcircle/geo-sleuth} estrelas no repositório do GitHub.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "contador",
+        "repo": "Oldcircle/geo-sleuth"
+      }
+    },
+    {
+      "narracao": "A ferramenta conecta agentes de código a mapas e relevo.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Claude Code",
+          "Codex",
+          "Cursor",
+          "GitHub Copilot"
+        ]
+      }
+    },
+    {
+      "narracao": "Os scripts analisam o horizonte e calculam a posição exata.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "file-text",
+            "rotulo": "Foto",
+            "cor": "azul"
+          },
+          {
+            "icone": "brain",
+            "rotulo": "Relevo",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "check",
+            "rotulo": "Coordenadas",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Basta rodar o comando npx skills add no seu terminal.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "npx skills add Oldcircle/geo-sleuth",
+        "texto": "adiciona a skill no seu agente"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "ONDE A FOTO",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "FOI TIRADA",
+          "cor": "laranja",
+          "tamanho": 95
+        }
+      ],
+      "subtitulo": "conheça o geo-sleuth"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "AGENT SKILL",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "geo-sleuth",
+      "texto": "Skill para agentes de IA encontrarem onde fotos foram tiradas. Opera mesmo sem placas ou pontos turísticos visíveis."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "INSTALAÇÃO",
+          "cor": "verde"
+        }
+      ],
+      "comando": "npx skills add Oldcircle/geo-sleuth",
+      "texto": "instala a skill no agente escolhido",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "COMO BUSCA",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "método",
+      "texto": "Usa geometria do OpenStreetMap, linhas de relevo e satélite. Devolve coordenadas exatas com raio de erro calculado."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "COMPATÍVEL",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "licença mit",
+      "texto": "Funciona no Claude Code, Cursor, Codex e Copilot. Projeto sob licença MIT."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "passos": [
+    "Execute npx skills add Oldcircle/geo-sleuth no terminal",
+    "Escolha seus agentes compatíveis quando solicitado",
+    "Envie uma foto e peça find where this photo was taken"
+  ]
+}
