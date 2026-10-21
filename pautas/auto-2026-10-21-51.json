@@ -1,0 +1,206 @@
+{
+  "titulo": "habblaud: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "escritório virtual em pixel art para acompanhar agentes do claude code"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "marmottajr/habblaud",
+      "nome": "habblaud",
+      "cor": "azul",
+      "promessa": "",
+      "texto": ""
+    }
+  ],
+  "destaques": [
+    "escritorio virtual",
+    "agentes de codigo",
+    "habblaud",
+    "pixel art",
+    "tempo real",
+    "npm start",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Acompanhe seus agentes de código em um escritório virtual.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "ESCRITÓRIO",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "VIRTUAL",
+            "cor": "laranja",
+            "tamanho": 140
+          },
+          {
+            "texto": "DE AGENTES",
+            "cor": "azul",
+            "tamanho": 100
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto já tem {estrelas:marmottajr/habblaud} estrelas no repositório do GitHub.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "marmottajr/habblaud"
+      }
+    },
+    {
+      "narracao": "O Habblaud transforma cada projeto em uma sala pixel art.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "bot",
+            "rotulo": "Agente",
+            "cor": "azul"
+          },
+          {
+            "icone": "sparkles",
+            "rotulo": "Habblaud",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "palette",
+            "rotulo": "Pixel Art",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Cada agente mostra em tempo real o que está fazendo.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "check",
+        "cor": "verde",
+        "rotulo": "TEMPO REAL"
+      }
+    },
+    {
+      "narracao": "Você pode rodar na sua máquina com o comando npm start.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "npm start",
+        "texto": "inicia o servidor local"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "ESCRITÓRIO",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "VIRTUAL",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o habblaud"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "SALA PIXEL ART",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "habblaud",
+      "texto": "Transforma cada projeto com Claude Code em uma sala virtual. Os agentes viram personagens em pixel art."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMO RODAR",
+          "cor": "verde"
+        }
+      ],
+      "comando": "npm start",
+      "texto": "inicia o servidor local na porta 4747",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "MONITORE A IA",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "tempo real",
+      "texto": "Mostra o progresso dos agentes e avisa quando algum precisa de permissão no terminal."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "PRIVACIDADE",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "local",
+      "texto": "Roda 100% na sua máquina sem enviar credenciais para fora. Licença MIT."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "passos": [
+    "git clone https://github.com/marmottajr/habblaud.git",
+    "cd habblaud",
+    "npm install",
+    "npm start"
+  ]
+}
