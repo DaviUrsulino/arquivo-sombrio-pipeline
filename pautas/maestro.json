@@ -1,7 +1,9 @@
 {
   "dia": "2026-10-21",
-  "feitos": {},
-  "ultimo_disparo": "2026-10-20T21:02:49-03:00",
+  "feitos": {
+    "08:00": "disparada 08:01"
+  },
+  "ultimo_disparo": "2026-10-21T08:01:18-03:00",
   "fila_usadas": [
     "pautas/viral/fila/01-motion-skills.json"
   ]
