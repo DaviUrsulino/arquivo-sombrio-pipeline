@@ -1,0 +1,232 @@
+{
+  "titulo": "lista: agentes de codigo e memoria",
+  "formato": "pixel2",
+  "palavra_chave": "GITHUB",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "ferramentas abertas que rodam no seu computador sem chave de api"
+  },
+  "chamada": {
+    "pergunta": "quer os links dos repositórios?"
+  },
+  "itens": [
+    {
+      "repo": "Louis-CFM/coucou",
+      "nome": "coucou",
+      "cor": "azul",
+      "promessa": "A tiny friend in your Mac's notch and on your iPhone that keeps an eye on your A",
+      "texto": "monitora agentes de codigo no notch do mac"
+    },
+    {
+      "repo": "tigerless-labs/agent-memory",
+      "nome": "agent-memory",
+      "cor": "verde",
+      "promessa": "Long-term memory runtime for AI agents — plain Markdown as the source of truth, ",
+      "texto": "memoria de longo prazo em markdown local"
+    },
+    {
+      "repo": "QingYunA/answer-me-with-html",
+      "nome": "answer-me-with-html",
+      "cor": "laranja",
+      "promessa": "Answer me with HTML — an agent skill that answers hard questions with a one-page",
+      "texto": "responde perguntas com pagina html unica"
+    },
+    {
+      "repo": "danyuchn/asd-ste100-skill",
+      "nome": "asd-ste100-skill",
+      "cor": "roxo",
+      "promessa": "ASD-STE100 Simplified Technical English rules, repurposed as a Claude Code skill",
+      "texto": "reescreve saidas de agentes em ingles tecnico"
+    },
+    {
+      "repo": "eternityspring/shuohao-skills",
+      "nome": "shuohao-skills",
+      "cor": "amarelo",
+      "promessa": "AI 短剧制作的 skill 集合：拆角色、排大纲、出场景与道具设定、写剧本、切分镜 | Agent skills for AI short-drama pro",
+      "texto": "pipeline de producao de video curto com ia"
+    }
+  ],
+  "destaques": [
+    "cucú",
+    "agent memory",
+    "answer me with html",
+    "a s d s t e skill",
+    "shuóhao skills",
+    "github"
+  ],
+  "cenas_roteiro": [
+    {
+      "humor": "animado",
+      "narracao": "Cinco repositórios grátis para agentes de codigo e memoria.",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "5 REPOS PARA",
+            "cor": "branco",
+            "tamanho": 100
+          },
+          {
+            "texto": "AGENTES LOCAIS",
+            "cor": "laranja",
+            "tamanho": 110
+          }
+        ]
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Número um: cucú. monitora agentes de codigo no notch do mac.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "bot",
+        "cor": "azul",
+        "rotulo": "COUCOU"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Número dois: agent memory. memoria de longo prazo em markdown local.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "brain",
+        "cor": "verde",
+        "rotulo": "AGENT MEMORY"
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Número três: answer me with html. responde perguntas com pagina html unica.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "file-text",
+        "cor": "laranja",
+        "rotulo": "ANSWER ME HTML"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Número quatro: a s d s t e skill. reescreve saidas de agentes em ingles tecnico.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "message-circle",
+        "cor": "roxo",
+        "rotulo": "ASD STE SKILL"
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Número cinco: shuóhao skills. pipeline de producao de video curto com ia.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "clapperboard",
+        "cor": "amarelo",
+        "rotulo": "SHUOHAO SKILLS"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "5 REPOS PARA",
+          "cor": "branco",
+          "tamanho": 96
+        },
+        {
+          "texto": "AGENTES LOCAIS",
+          "cor": "laranja",
+          "tamanho": 96
+        }
+      ],
+      "subtitulo": "ferramentas abertas que rodam no seu computador sem chave de api"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 1",
+      "progresso": 0.2,
+      "linhas": [
+        {
+          "texto": "COUCOU",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "coucou",
+      "texto": "monitora agentes de codigo no notch do mac"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 2",
+      "progresso": 0.4,
+      "linhas": [
+        {
+          "texto": "AGENT MEMORY",
+          "cor": "verde"
+        }
+      ],
+      "rotulo": "agent-memory",
+      "texto": "memoria de longo prazo em markdown local"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 3",
+      "progresso": 0.6,
+      "linhas": [
+        {
+          "texto": "ANSWER ME HTML",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "answer-me-with-html",
+      "texto": "responde perguntas com pagina html unica"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 4",
+      "progresso": 0.8,
+      "linhas": [
+        {
+          "texto": "ASD STE SKILL",
+          "cor": "roxo"
+        }
+      ],
+      "rotulo": "asd-ste100-skill",
+      "texto": "reescreve saidas de agentes em ingles tecnico"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 5",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "SHUOHAO SKILLS",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "shuohao-skills",
+      "texto": "pipeline de producao de video curto com ia"
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER OS LINKS",
+          "cor": "branco"
+        },
+        {
+          "texto": "DOS REPOS?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando os links no direct.",
+      "palavra": "GITHUB",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "legenda": "Cinco repositórios grátis para agentes de codigo e memoria 🤖\n\nSalva este vídeo:\n1. Coucou: monitora agentes de codigo no notch do mac.\n2. Agent Memory: memoria de longo prazo em markdown local.\n3. Answer Me Html: responde perguntas com pagina html unica.\n4. Asd Ste Skill: reescreve saidas de agentes em ingles tecnico.\n5. Shuohao Skills: pipeline de producao de video curto com ia.\n\nManda pra um amigo dev, segue o @robo.estagiario e comenta GITHUB que eu te mando os links no direct.\n\nQuer aprender a fazer vídeos assim? Link na bio.\n\n#claudecode #github #ia #programacao #opensource"
+}
