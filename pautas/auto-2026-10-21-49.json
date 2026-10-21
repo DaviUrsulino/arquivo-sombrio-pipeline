@@ -1,0 +1,232 @@
+{
+  "titulo": "lista: turbinar agentes de código",
+  "formato": "pixel2",
+  "palavra_chave": "GITHUB",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "ferramentas de código aberto para turbinar seus agentes de desenvolvimento."
+  },
+  "chamada": {
+    "pergunta": "quer os links dos repositórios?"
+  },
+  "itens": [
+    {
+      "repo": "yetone/cumora",
+      "nome": "cumora",
+      "cor": "azul",
+      "promessa": "Where agent teams gather. Cross-platform team chat where AI agents are first-cla",
+      "texto": "Reúne agentes de inteligência artificial em equipe."
+    },
+    {
+      "repo": "Jakeschincariol/replica-skill",
+      "nome": "replica-skill",
+      "cor": "verde",
+      "promessa": "Eleven free Claude skills that clone any app: reverse-engineer it, rebuild it, t",
+      "texto": "Recria aplicativos analisando fluxos e componentes."
+    },
+    {
+      "repo": "nateherkai/scroll-craft",
+      "nome": "scroll-craft",
+      "cor": "laranja",
+      "promessa": "An agent skill for building premium, immersive, scroll-driven websites. Works wi",
+      "texto": "Constrói sites com animações de rolagem."
+    },
+    {
+      "repo": "Leonxlnx/unlazy",
+      "nome": "unlazy",
+      "cor": "roxo",
+      "promessa": "Anti-laziness skill for AI agents. Core: the Depth Tree method, which splits a t",
+      "texto": "Divide tarefas para evitar respostas incompletas."
+    },
+    {
+      "repo": "nykooi1/vibe-wise",
+      "nome": "vibe-wise",
+      "cor": "amarelo",
+      "promessa": "A Claude Code / Codex plugin that helps you learn how to build while AI writes t",
+      "texto": "Ensina desenvolvimento enquanto a ferramenta programa."
+    }
+  ],
+  "destaques": [
+    "cumóra",
+    "réplica skil",
+    "escrou cráft",
+    "anleizi",
+    "vaibi uáise",
+    "github"
+  ],
+  "cenas_roteiro": [
+    {
+      "humor": "animado",
+      "narracao": "Cinco repositórios grátis para turbinar agentes de código.",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "5 REPOS PARA",
+            "cor": "branco",
+            "tamanho": 100
+          },
+          {
+            "texto": "AGENTES DE IA",
+            "cor": "laranja",
+            "tamanho": 110
+          }
+        ]
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Número um: cumóra. Reúne agentes de inteligência artificial em equipe.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "message-circle",
+        "cor": "azul",
+        "rotulo": "CUMORA"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Número dois: réplica skil. Recria aplicativos analisando fluxos e componentes.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "code-xml",
+        "cor": "verde",
+        "rotulo": "REPLICA SKILL"
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Número três: escrou cráft. Constrói sites com animações de rolagem.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "palette",
+        "cor": "laranja",
+        "rotulo": "SCROLL CRAFT"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Número quatro: anleizi. Divide tarefas para evitar respostas incompletas.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "list-checks",
+        "cor": "roxo",
+        "rotulo": "UNLAZY"
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Número cinco: vaibi uáise. Ensina desenvolvimento enquanto a ferramenta programa.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "brain",
+        "cor": "amarelo",
+        "rotulo": "VIBEWISE"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "5 REPOS PARA",
+          "cor": "branco",
+          "tamanho": 96
+        },
+        {
+          "texto": "AGENTES DE IA",
+          "cor": "laranja",
+          "tamanho": 96
+        }
+      ],
+      "subtitulo": "ferramentas de código aberto para turbinar seus agentes de desenvolvimento."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 1",
+      "progresso": 0.2,
+      "linhas": [
+        {
+          "texto": "CUMORA",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "cumora",
+      "texto": "Reúne agentes de inteligência artificial em equipe."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 2",
+      "progresso": 0.4,
+      "linhas": [
+        {
+          "texto": "REPLICA SKILL",
+          "cor": "verde"
+        }
+      ],
+      "rotulo": "replica-skill",
+      "texto": "Recria aplicativos analisando fluxos e componentes."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 3",
+      "progresso": 0.6,
+      "linhas": [
+        {
+          "texto": "SCROLL CRAFT",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "scroll-craft",
+      "texto": "Constrói sites com animações de rolagem."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 4",
+      "progresso": 0.8,
+      "linhas": [
+        {
+          "texto": "UNLAZY",
+          "cor": "roxo"
+        }
+      ],
+      "rotulo": "unlazy",
+      "texto": "Divide tarefas para evitar respostas incompletas."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 5",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "VIBEWISE",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "vibe-wise",
+      "texto": "Ensina desenvolvimento enquanto a ferramenta programa."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER OS LINKS",
+          "cor": "branco"
+        },
+        {
+          "texto": "DOS REPOS?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando os links no direct.",
+      "palavra": "GITHUB",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "legenda": "Cinco repositórios grátis para turbinar agentes de código 🤖\n\nSalva este vídeo:\n1. Cumora: Reúne agentes de inteligência artificial em equipe.\n2. Replica Skill: Recria aplicativos analisando fluxos e componentes.\n3. Scroll Craft: Constrói sites com animações de rolagem.\n4. Unlazy: Divide tarefas para evitar respostas incompletas.\n5. Vibewise: Ensina desenvolvimento enquanto a ferramenta programa.\n\nManda pra um amigo dev, segue o @robo.estagiario e comenta GITHUB que eu te mando os links no direct.\n\nQuer aprender a fazer vídeos assim? Link na bio.\n\n#claudecode #github #ia #programacao #opensource"
+}

@@ -6,10 +6,12 @@
     "Donchitos/Claude-Code-Game-Studios",
     "EveryInc/compound-engineering-plugin",
     "Graphify-Labs/graphify",
+    "Jakeschincariol/replica-skill",
     "JuliusBrussee/caveman",
     "K-Dense-AI/scientific-agent-skills",
     "Kilo-Org/kilocode",
     "Leonxlnx/taste-skill",
+    "Leonxlnx/unlazy",
     "LibreChat-AI/LibreChat",
     "Louis-CFM/coucou",
     "MartinDelophy/ai-video-editor",
@@ -59,6 +61,8 @@
     "morluto/rea",
     "mukul975/Anthropic-Cybersecurity-Skills",
     "mvanhorn/last30days-skill",
+    "nateherkai/scroll-craft",
+    "nykooi1/vibe-wise",
     "obra/superpowers",
     "onlook-dev/onlook",
     "open-jarvis/OpenJarvis",
@@ -83,10 +87,11 @@
     "wasp-lang/open-saas",
     "wshobson/agents",
     "xerj-org/xerj",
+    "yetone/cumora",
     "yetone/magpie",
     "zarazhangrui/frontend-slides",
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 44
+  "pautas_geradas": 45
 }
