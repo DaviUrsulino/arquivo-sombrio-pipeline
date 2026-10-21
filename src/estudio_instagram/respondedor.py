@@ -32,7 +32,7 @@ ENVIADAS = RAIZ / "pautas" / "respostas_enviadas.json"
 LINKS_POR_POST = RAIZ / "pautas" / "links_por_post.json"
 # Quem pediu um link grátis e ainda precisa seguir a conta: chave = hash do id da pessoa (nada que a identifique no repositório público).
 PENDENTES = RAIZ / "pautas" / "pendentes_seguir.json"
-MAX_CHECAGENS_COM_ERRO = 2  # se a API não consegue dizer se segue, depois de 2 tentativas manda o link mesmo assim
+# Se a API não sabe dizer se a pessoa segue (erro 230: o app só tem acesso padrão, sem revisão da Meta), vale a palavra dela: manda o link.
 # Em post de repositório, quem comenta uma destas palavras também recebe o link do repositório do post.
 SINONIMOS_DO_POST = ("REPO", "REPOSITORIO", "LINK", "QUERO", "EU QUERO")
 JANELA = timedelta(days=7)  # limite da Meta para a resposta privada
@@ -99,13 +99,16 @@ def liberar_pendentes(config: dict, pendentes: dict, ig, agora: datetime | None 
         if not dela:
             continue
         ultima = max(dela, key=lambda m: _hora(m["hora"]))
-        if _hora(ultima["hora"]) <= _hora(pendente.get("tratada_ate", pendente["desde"])):
+        nova = _hora(ultima["hora"]) > _hora(pendente.get("tratada_ate", pendente["desde"]))
+        # Pendente antigo que já levou o aviso "não consegui confirmar" (versão anterior): libera agora, dentro da janela de 24 h.
+        legado = pendente.get("erros", 0) >= 1 and agora - _hora(ultima["hora"]) < timedelta(hours=23)
+        if not nova and not legado:
             continue
-        segue = ig.segue_a_conta(conversa["usuario_id"])
+        segue = ig.segue_a_conta(conversa["usuario_id"]) if nova else None
+        verificado = segue is not None
         if segue is None:
-            pendente["erros"] = pendente.get("erros", 0) + 1
-            segue = pendente["erros"] >= MAX_CHECAGENS_COM_ERRO
-        registro = {"palavra": pendente["palavra"], "segue": segue}
+            segue = True
+        registro = {"palavra": pendente["palavra"], "segue": segue, "verificado": verificado}
         if simular:
             feitos.append({**registro, "simulado": True})
             continue

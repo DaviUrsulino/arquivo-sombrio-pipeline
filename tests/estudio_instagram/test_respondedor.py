@@ -234,13 +234,24 @@ def test_sem_resposta_da_pessoa_nada_acontece():
     assert liberar_pendentes(CONFIG_FILTRO, pend, ig, agora=AGORA) == [] and ig.mensagens == []
 
 
-def test_se_a_api_nao_sabe_dizer_depois_de_2_tentativas_manda_o_link():
+def test_se_a_api_nao_sabe_dizer_vale_a_palavra_da_pessoa_e_manda_o_link():
     ig, pend = InstagramComConversa([], _resposta_da_pessoa("2026-10-17T16:00:00+0000"), segue=None), _pendente()
+    feitos = liberar_pendentes(CONFIG_FILTRO, pend, ig, agora=AGORA)
+    assert ig.mensagens == [("u1", "link do kit")] and pend == {} and feitos[0]["verificado"] is False
+
+
+def test_pendente_legado_que_ja_levou_o_aviso_e_liberado_dentro_da_janela_de_24h():
+    ig = InstagramComConversa([], _resposta_da_pessoa("2026-10-17T16:00:00+0000"), segue=None)
+    pend = _pendente(erros=1, tratada_ate="2026-10-17T16:00:00+0000")
     liberar_pendentes(CONFIG_FILTRO, pend, ig, agora=AGORA)
-    assert ig.mensagens == [("u1", "ainda não vi o follow")]
-    ig._conversas = _resposta_da_pessoa("2026-10-17T17:00:00+0000")
+    assert ig.mensagens == [("u1", "link do kit")] and pend == {}
+
+
+def test_pendente_legado_fora_da_janela_de_24h_nao_recebe_mensagem():
+    ig = InstagramComConversa([], _resposta_da_pessoa("2026-10-15T16:00:00+0000"), segue=None)
+    pend = _pendente(erros=1, tratada_ate="2026-10-15T16:00:00+0000")
     liberar_pendentes(CONFIG_FILTRO, pend, ig, agora=AGORA)
-    assert ("u1", "link do kit") in ig.mensagens
+    assert ig.mensagens == [] and _chave("u1") in pend
 
 
 def test_pendente_velho_demais_e_descartado():
