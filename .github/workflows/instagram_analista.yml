@@ -1,0 +1,42 @@
+name: Instagram analista - mede o desempenho dos Reels e diz o que repetir
+
+# Uma vez por dia: lê as métricas dos Reels pela Graph API (views, alcance, salvos, envios, tempo assistido) e grava
+# docs/analise-desempenho.md e pautas/desempenho.json. O cron do GitHub atrasa, mas aqui não faz diferença.
+on:
+  schedule:
+    - cron: '17 10 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: instagram-analista
+  cancel-in-progress: false
+
+jobs:
+  analisar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instala dependências
+        run: pip install "python-dotenv>=1.0.0"
+
+      - name: Escreve os segredos no .env
+        env:
+          INSTAGRAM_GRAPH_TOKEN: ${{ secrets.INSTAGRAM_GRAPH_TOKEN }}
+          INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+        run: printf 'INSTAGRAM_GRAPH_TOKEN=%s\nINSTAGRAM_USER_ID=%s\n' "$INSTAGRAM_GRAPH_TOKEN" "$INSTAGRAM_USER_ID" > .env
+
+      - name: Configura o git do robô
+        run: |
+          git config user.name "estudio-automatico (bot)"
+          git config user.email "actions@github.com"
+
+      - name: Analisa e grava o relatório
+        run: python -m src.estudio_instagram.analista --commit

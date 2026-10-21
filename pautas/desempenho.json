@@ -1,0 +1,164 @@
+{
+  "gerado_em": "2026-10-20 21:22",
+  "seguidores": 165,
+  "geral": {
+    "n": 24,
+    "views_medianas": 151,
+    "views_media": 1555,
+    "salvos_por_100_alcance": 3.9,
+    "envios_por_100_alcance": 0.9,
+    "tempo_medio_s": 7.0
+  },
+  "por_faixa_horaria": {
+    "noite (18-22h)": {
+      "n": 8,
+      "views_medianas": 146,
+      "views_media": 207,
+      "salvos_por_100_alcance": 2.59,
+      "envios_por_100_alcance": 0.52,
+      "tempo_medio_s": 5.3
+    },
+    "tarde (14-18h)": {
+      "n": 6,
+      "views_medianas": 152,
+      "views_media": 155,
+      "salvos_por_100_alcance": 1.38,
+      "envios_por_100_alcance": 0.5,
+      "tempo_medio_s": 8.0
+    },
+    "manhã (6-10h)": {
+      "n": 2,
+      "views_medianas": 15479,
+      "views_media": 15479,
+      "salvos_por_100_alcance": 4.14,
+      "envios_por_100_alcance": 0.9,
+      "tempo_medio_s": 8.4
+    },
+    "meio-dia (10-14h)": {
+      "n": 7,
+      "views_medianas": 134,
+      "views_media": 351,
+      "salvos_por_100_alcance": 3.24,
+      "envios_por_100_alcance": 1.4,
+      "tempo_medio_s": 7.3
+    },
+    "madrugada (0-6h)": {
+      "n": 1,
+      "views_medianas": 1325,
+      "views_media": 1325,
+      "salvos_por_100_alcance": 3.09,
+      "envios_por_100_alcance": 0.88,
+      "tempo_medio_s": 9.1
+    }
+  },
+  "por_tema": {
+    "vídeo com IA": {
+      "n": 12,
+      "views_medianas": 354,
+      "views_media": 2976,
+      "salvos_por_100_alcance": 4.03,
+      "envios_por_100_alcance": 0.91,
+      "tempo_medio_s": 6.6
+    },
+    "Claude Code": {
+      "n": 24,
+      "views_medianas": 151,
+      "views_media": 1555,
+      "salvos_por_100_alcance": 3.9,
+      "envios_por_100_alcance": 0.9,
+      "tempo_medio_s": 7.0
+    },
+    "venda e kit": {
+      "n": 10,
+      "views_medianas": 354,
+      "views_media": 515,
+      "salvos_por_100_alcance": 3.31,
+      "envios_por_100_alcance": 1.0,
+      "tempo_medio_s": 6.1
+    },
+    "agentes e skills": {
+      "n": 5,
+      "views_medianas": 395,
+      "views_media": 578,
+      "salvos_por_100_alcance": 3.68,
+      "envios_por_100_alcance": 1.16,
+      "tempo_medio_s": 9.0
+    },
+    "assistente (Jarvis)": {
+      "n": 1,
+      "views_medianas": 314,
+      "views_media": 314,
+      "salvos_por_100_alcance": 1.53,
+      "envios_por_100_alcance": 0.38,
+      "tempo_medio_s": 5.8
+    }
+  },
+  "melhor_faixa": "manhã (6-10h)",
+  "melhor_tema": "agentes e skills",
+  "top": [
+    {
+      "id": "18027479654873301",
+      "views": 30538,
+      "salvos": 1046,
+      "envios": 227,
+      "titulo": "Esse repositório faz a ia criar vídeo escrevendo html, grátis e open s",
+      "hora": "18/10 08:45"
+    },
+    {
+      "id": "18413224864081335",
+      "views": 1744,
+      "salvos": 56,
+      "envios": 23,
+      "titulo": "Editor de vídeo local para agentes de código com 42 ferramentas ffmpeg",
+      "hora": "19/10 13:40"
+    },
+    {
+      "id": "17886619920622218",
+      "views": 1325,
+      "salvos": 35,
+      "envios": 10,
+      "titulo": "Crie curtas metragens com o claude code gerando renderização e áudio d",
+      "hora": "19/10 03:11"
+    },
+    {
+      "id": "18134987677737452",
+      "views": 487,
+      "salvos": 6,
+      "envios": 3,
+      "titulo": "Esse vídeo foi feito por código, sem nenhum editor de vídeo. O Pack Pi",
+      "hora": "18/10 21:16"
+    },
+    {
+      "id": "18086283575333410",
+      "views": 421,
+      "salvos": 13,
+      "envios": 2,
+      "titulo": "55 skills abertas para ensinar seu agente de código a criar animações ",
+      "hora": "20/10 09:10"
+    },
+    {
+      "id": "17992667739058973",
+      "views": 395,
+      "salvos": 16,
+      "envios": 1,
+      "titulo": "O openfilm transforma agentes de código em criadores de vídeo usando a",
+      "hora": "19/10 20:25"
+    },
+    {
+      "id": "17942948967367331",
+      "views": 314,
+      "salvos": 4,
+      "envios": 1,
+      "titulo": "Do roteiro ao vídeo pronto em 3 passos, com o Pack Pixel (R$ 27): escr",
+      "hora": "18/10 19:08"
+    },
+    {
+      "id": "18171124504461670",
+      "views": 203,
+      "salvos": 2,
+      "envios": 1,
+      "titulo": "Automação de celulares android com instruções em linguagem natural 🤖",
+      "hora": "18/10 14:41"
+    }
+  ]
+}
