@@ -29,11 +29,11 @@ RAIZ = Path(__file__).resolve().parents[2]
 ARQUIVO = RAIZ / "pautas" / "maestro.json"
 BRASILIA = timezone(timedelta(hours=-3))
 # (hora de Brasília, formato). Cada rodada posta 1 Reels + 1 carrossel: 4 rodadas = 8 posts por dia.
-# Horários nos picos de 07-09h, 12-13h e 18-21h (pesquisa de 2026); o freio de 10 posts/24 h segue valendo.
+# Horários: 08:00 e 12:00 (picos da manhã), 18:30 (horário nobre) e 23:30 (dev acorda até tarde; o único Reels da madrugada foi o 3º melhor). O freio de 10 posts/24 h segue valendo.
 # Modo seguro (2026-10-19): o Instagram devolveu "action is blocked" com 5 rodadas por dia, então são poucas e espaçadas.
-RODADAS = [("08:00", "pixel2"), ("12:00", "pixel2"), ("18:30", "venda"), ("21:00", "lista")]
+RODADAS = [("08:00", "pixel2"), ("12:00", "pixel2"), ("18:30", "venda"), ("23:30", "lista")]
 # Pauta pronta e aprovada que substitui o formato de uma rodada: {"AAAA-MM-DD": {"HH:MM": "caminho"}}.
-PAUTAS_DO_DIA = {}
+PAUTAS_DO_DIA = {"2026-10-21": {"23:30": "pautas/viral/geo-sleuth-novo.json"}}  # reposta do geo-sleuth no ritmo novo (cota de hoje não comporta antes)
 # Banco de vídeos: pautas prontas e aprovadas em pautas/viral/fila/. A rodada FILA_RODADA de cada dia usa a próxima
 # que ainda não saiu (em ordem de nome); sem nada na fila, segue o formato normal da rodada.
 FILA = RAIZ / "pautas" / "viral" / "fila"

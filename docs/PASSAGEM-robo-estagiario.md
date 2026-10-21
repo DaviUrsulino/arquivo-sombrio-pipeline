@@ -11,7 +11,7 @@ Estado em 2026-10-20: ~166 seguidores; Reels campeão = Hyperframes (30 mil view
 ## O que roda sozinho (GitHub Actions, 24 h)
 | Workflow | O que faz |
 |---|---|
-| `instagram_maestro.yml` | Laço de ~5h40 que dispara as rodadas do dia (`src/estudio_instagram/maestro.py`: 08:00 notícia, 12:00 notícia (ou o próximo do banco), 18:30 venda, 21:00 lista de 5 repositórios; BRT). Reencadeia a si mesmo. |
+| `instagram_maestro.yml` | Laço de ~5h40 que dispara as rodadas do dia (`src/estudio_instagram/maestro.py`: 08:00 notícia, 12:00 notícia (ou o próximo do banco), 18:30 venda, 23:30 lista de 5 repositórios; BRT). Reencadeia a si mesmo. |
 | `pipeline_instagram.yml` | Gera e publica 1 Reels + 1 carrossel (inputs: `formato`, `repo`, `pauta`, `publicar`). `pauta=` usa uma pauta pronta. |
 | `instagram_respondedor.yml` | Bot de comentários e DM. Laço de ~50 min que reencadeia. Filtro de seguidor ligado. |
 | `instagram_analista.yml` | Diário: `docs/analise-desempenho.md` e `pautas/desempenho.json` (views, salvos, envios, tempo assistido, por tema/horário/formato). |
@@ -65,3 +65,13 @@ O analista compara curto × longo em `docs/analise-desempenho.md`. Decidir quand
 - `.pyc` em cache dava falso "sobreviveu" no `mutar.py` (corrigido com `PYTHONDONTWRITEBYTECODE`).
 - Marcador `{estrelas:...}` como primeira palavra quebrava as âncoras (corrigido).
 - Pipe com `| tail` esconde o código de saída: conferir testes pelo `exit code`.
+
+## Se o Claude e o PC forem desligados: o que continua e até quando
+Tudo roda na nuvem (GitHub Actions, repositório público = minutos grátis). Sem o PC e sem o Claude, continuam: 4 rodadas por dia, bot de comentários e DM, análise diária e o banco de vídeos (1 por dia ao meio-dia, 10 vídeos na fila = ~10 dias; depois disso as rodadas seguem com repositório novo escolhido sozinho).
+Limites reais, por ordem de prazo:
+1. **Token do Instagram (`INSTAGRAM_GRAPH_TOKEN`)**: token de longa duração, vale ~60 dias a partir de quando foi gerado (colado em 17–18/10 → renovar até ~10/12/2026). Quando vence, tudo de Instagram para (post e bot). Renovar: `curl "https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=<TOKEN>"` devolve um token novo (precisa ter 24 h+), e depois atualizar o segredo: `gh secret set INSTAGRAM_GRAPH_TOKEN`.
+2. **Cota grátis das APIs de IA** (Gemini voz e roteiro, OpenRouter, Mistral): se acabar, a voz cai no Edge TTS e o roteiro tenta o próximo provedor; se todos falharem, a rodada falha e tenta de novo na seguinte (sem postar lixo).
+3. **Bloqueio do Instagram (erro 2207051)**: liga a pausa de 24 h sozinha e volta sozinho.
+4. **GitHub**: desliga workflows agendados depois de 60 dias sem atividade no repositório; os commits de bookkeeping do próprio robô contam como atividade.
+5. **Corrente do maestro/bot**: cada execução dispara a próxima; se morrer, o cron de hora em hora religa (no máximo 1 h parado).
+Sem o Claude **não** acontece: ajuste de estratégia, abastecer o banco depois dos 10 vídeos com roteiro curado, trocar bio/fixar post, conferir a análise. Dá para abrir um Claude novo e mandar ler este arquivo.
