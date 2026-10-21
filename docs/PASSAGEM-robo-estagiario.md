@@ -21,7 +21,7 @@ Reiniciar maestro ou bot: cancelar os runs em andamento **duas vezes** (cada run
 ## Peças principais (src/estudio_instagram/)
 - `maestro.py` rodadas e **banco de vídeos** (`pautas/viral/fila/*.json`, um por dia na rodada de 12:00, ordem do nome; usadas ficam em `pautas/maestro.json`).
 - `pipeline.py` / `cenas_pixel.py` / `roteirista.py` (LLM a partir do README do repositório; Gemini, OpenRouter, Mistral em cascata).
-- `respondedor.py` + `graph_api.py` bot. Fluxo do filtro: comentário com palavra → DM pede "segue e responde SIGO" → ao responder, confere `is_user_follow_business` → manda o link. Se a API não souber dizer, depois de 2 tentativas manda o link. Produtos pagos (PACK, ENGENHARIA, TESTES) saem direto. Config em `pautas/bot_respostas.json`.
+- `respondedor.py` + `graph_api.py` bot. Fluxo do filtro: comentário com palavra → DM pede "segue e responde SIGO" → ao responder, tenta conferir `is_user_follow_business` → manda o link. **A API devolve erro 230 ("consentimento necessário") mesmo depois da resposta, porque o app só tem acesso padrão**; sem a revisão da Meta (acesso avançado de `instagram_business_manage_messages`) não dá para verificar de verdade. Por isso vale a palavra da pessoa (honor system): o link sai na 1ª resposta. Se a Meta aprovar o acesso avançado, o código já verifica e avisa quem não segue. Produtos pagos (PACK, ENGENHARIA, TESTES) saem direto. Dia 1 do filtro: 3 de 14 pessoas responderam SIGO (~21%). Config em `pautas/bot_respostas.json`.
 - `analista.py` análise de desempenho. `pausa.py` freio de 24 h se o Instagram acusar bloqueio.
 - Voz: Gemini TTS "Orus" (reserva Edge). Vídeo: Hyperframes 0.8.154 via npx.
 
@@ -35,6 +35,13 @@ Reiniciar maestro ou bot: cancelar os runs em andamento **duas vezes** (cada run
 Kit Claude Code R$ 17 (`pay.kiwify.com.br/7RZ7Yeh`), Pack Pixel R$ 27 (`jmiKAgE`), **Kit Engenharia com IA R$ 37** (`3Jm8P4j`).
 Use sempre o link `pay.kiwify.com.br/...` (o `kiwify.app/...` leva ao perfil). Fontes em `produto/`. O kit de engenharia
 (`produto/kit-engenharia/`) tem CLAUDE.md, 6 skills, `ferramentas/mutar.py`, templates e um exemplo testado.
+
+## Novidades de 2026-10-20/21
+- **Formato lista** (`--formato lista`, `lista.py`): 5 repositórios num Reels de ~35-40 s + carrossel; DM com os 5 links. Roda às 21:00 (cai no pixel2 se não sair).
+- **Legenda salvável**: roteiros trazem "passos" do README e a legenda abre com "Salva este vídeo pra usar com calma".
+- **Trilha original** (`gerar_trilha.py`, arpejo chiptune sintetizado, sem direito autoral) 14 dB abaixo da voz em `pixel2.html.tpl`. Para desligar, tirar a linha `<audio id="trilha" ...>`.
+- **Banco** (`pautas/viral/fila/`): tudo regenerado no formato curto (5-6 cenas). Ordem de saída às 12:00: habblaud, xerj... (ver `ls`).
+- **Referências lidas pelo Chrome** (andrevale.dev, lowcodepedro, igao.ia): ver `docs/estrategia-crescimento.md`.
 
 ## Aposta em curso: formato curto
 Descoberta (analista): as pessoas assistem 5–11 s de cada Reels. Desde 2026-10-21 os roteiros saem com 20–35 s (5–6 cenas, frases completas).
