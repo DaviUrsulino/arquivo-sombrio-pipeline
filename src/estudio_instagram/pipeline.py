@@ -68,9 +68,15 @@ def criar_voz(dados_pauta: dict):
 
 def _registrar_links(dados_pauta: dict, repos: dict, registro: dict):
     """Guarda, para cada mídia publicada, a palavra e a mensagem que o bot de comentários deve mandar."""
-    primeiro = next(iter(repos.values()))
-    mensagem = (f"Oi! Aqui está o repositório {primeiro.repo.split('/', 1)[1]}: {primeiro.url}\n"
-                f"Gostou? Segue o @robo.estagiario: todo dia tem ferramenta nova de IA 🤖")
+    lista = list(repos.values())
+    if len(lista) == 1:
+        primeiro = lista[0]
+        mensagem = (f"Oi! Aqui está o repositório {primeiro.repo.split('/', 1)[1]}: {primeiro.url}\n"
+                    f"Se curtir, segue o @robo.estagiario pra mais ferramentas de IA 🤖")
+    else:  # formato lista: um link por repositório, na ordem do vídeo
+        linhas = "\n".join(f"{i}. {d.repo.split('/', 1)[1]}: {d.url}" for i, d in enumerate(lista, 1))
+        mensagem = f"Oi! Aqui estão os repositórios do vídeo:\n{linhas}\nSe curtir, segue o @robo.estagiario pra mais ferramentas de IA 🤖"
+    primeiro = lista[0]
     arquivo = RAIZ / "pautas" / "links_por_post.json"
     atual = json.loads(arquivo.read_text(encoding="utf-8")) if arquivo.exists() else {}
     for media_id in (registro["reels"].get("media_id"), registro.get("carrossel_media_id")):

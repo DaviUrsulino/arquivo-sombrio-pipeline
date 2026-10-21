@@ -18,7 +18,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from . import concorrentes, github_dados, montagem, roteirista, selecao
+from . import concorrentes, github_dados, lista, montagem, roteirista, selecao
 from .historico import contar_pautas, registrar
 
 RAIZ = Path(__file__).resolve().parents[2]
@@ -102,6 +102,33 @@ def pauta_pixel2(buscas: list[str], palavra_chave: str, dias_novidade: int = 120
     return None
 
 
+def pauta_lista(buscas: list[str], palavra_chave: str, dias_novidade: int = 120, llm=None, minimo_estrelas: int = 200) -> dict | None:
+    """Lista de 5 repositórios inéditos com README de verdade. None se não houver 5 ou se o LLM não passar na validação."""
+    desde = (date.today() - timedelta(days=dias_novidade)).isoformat()
+    icones = {p.stem for p in (montagem.MODELOS / "assets" / "icons").glob("*.svg")}
+    candidatos = _candidatos(buscas, minimo_estrelas=minimo_estrelas, criado_apos=desde) or _candidatos(buscas)
+    readmes, escolhidos = {}, []
+    for dados in selecao.escolher_repos(candidatos, quantidade=12):
+        try:
+            readme = roteirista.buscar_readme(dados.repo)
+        except Exception:
+            continue
+        if len(readme) < 400:
+            continue
+        readmes[dados.repo] = readme
+        escolhidos.append(dados)
+        if len(escolhidos) == lista.QUANTIDADE:
+            break
+    if len(escolhidos) < 3:
+        return None
+    try:
+        kwargs = {"llm": llm} if llm else {}
+        return lista.gerar_pauta(escolhidos, readmes, palavra_chave, icones, **kwargs)
+    except Exception as erro:
+        print(f"lista falhou ({str(erro)[:200]})")
+        return None
+
+
 VENDAS = RAIZ / "pautas" / "vendas"
 
 
@@ -121,6 +148,12 @@ def executar(buscas: list[str], quantidade: int, titulo: str | None, palavra_cha
         if venda:
             return venda
         print("sem roteiro de venda; seguindo com notícia de ferramenta")
+        formato = "pixel2"
+    if formato == "lista":
+        nova = pauta_lista(buscas, palavra_chave)
+        if nova:
+            return nova
+        print("lista não saiu; caindo no pixel2")
         formato = "pixel2"
     if formato == "pixel2":
         foco = None if repo else ler_foco()
@@ -161,7 +194,7 @@ def main():
     parser.add_argument("--palavra-chave", default=None, help="padrão: LINK no pixel2, GITHUB nos outros")
     parser.add_argument("--titulo", default=None)
     parser.add_argument("--estilo", choices=selecao.ESTILOS, default=None, help="só vale pro formato 'curto'; padrão: alterna sozinho")
-    parser.add_argument("--formato", choices=selecao.FORMATOS + ("pixel2", "venda"), default=None, help="padrão: alterna sozinho (2 'curto' pra 1 'aprofundado')")
+    parser.add_argument("--formato", choices=selecao.FORMATOS + ("pixel2", "venda", "lista"), default=None, help="padrão: alterna sozinho (2 'curto' pra 1 'aprofundado')")
     parser.add_argument("--repo", default=None, help="força o repositório (dono/nome) no formato pixel2")
     parser.add_argument("--saida", type=Path, required=True)
     args = parser.parse_args()
