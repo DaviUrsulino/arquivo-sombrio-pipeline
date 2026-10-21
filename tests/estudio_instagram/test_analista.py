@@ -37,3 +37,10 @@ def test_relatorio_menciona_retencao_e_melhores_posts():
     reels = [_r(f"2026-10-20T1{i}:00:00+0000", 100 * (i + 1)) for i in range(4)]
     texto = analista.relatorio(analista.analisar(reels), 165, "2026-10-20 21:00")
     assert "Retenção" in texto and "Melhores posts" in texto and "165" in texto
+
+
+def test_formato_curto_e_separado_pela_data_do_experimento():
+    assert analista.formato_de("2026-10-20T12:00:00+0000").startswith("longo")
+    assert analista.formato_de("2026-10-21T13:00:00+0000").startswith("curto")
+    por = analista.analisar([_r("2026-10-20T12:00:00+0000", 100), _r("2026-10-21T13:00:00+0000", 300)])["por_formato"]
+    assert por["curto (20-35 s)"]["n"] == 1 and por["longo (45-60 s)"]["n"] == 1

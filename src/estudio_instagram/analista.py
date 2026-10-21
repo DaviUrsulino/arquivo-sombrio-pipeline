@@ -38,6 +38,9 @@ TEMAS = {
     "segurança e teste": ["segurança", "teste", "seguranca"],
     "venda e kit": ["pack", "kit", "link na bio"],
 }
+# Experimento "formato curto" (decidido em 2026-10-20): Reels publicados depois desta data usam roteiros de 20-35 s.
+# Antes disso os vídeos tinham 45-60 s. O relatório compara os dois grupos.
+INICIO_FORMATO_CURTO = datetime(2026, 10, 21, 1, 0, tzinfo=timezone.utc)
 MIN_AMOSTRA = 3  # quantos Reels precisa ter num grupo para ele entrar nas recomendações
 
 
@@ -113,6 +116,10 @@ def agrupar(reels: list[dict], chave) -> dict[str, dict]:
     return {nome: resumo(itens) for nome, itens in grupos.items()}
 
 
+def formato_de(hora: str) -> str:
+    return "curto (20-35 s)" if datetime.strptime(hora, "%Y-%m-%dT%H:%M:%S%z") >= INICIO_FORMATO_CURTO else "longo (45-60 s)"
+
+
 def analisar(reels: list[dict]) -> dict:
     por_hora = agrupar(reels, lambda r: faixa_horaria(r["hora"]))
     por_tema = agrupar(reels, lambda r: temas_de(r["legenda"]))
@@ -121,7 +128,7 @@ def analisar(reels: list[dict]) -> dict:
     melhor_hora = max(elegiveis(por_hora).items(), key=lambda kv: kv[1]["views_medianas"], default=None)
     melhor_tema = max(elegiveis(por_tema).items(), key=lambda kv: kv[1]["views_medianas"], default=None)
     return {
-        "geral": resumo(reels), "por_faixa_horaria": por_hora, "por_tema": por_tema,
+        "geral": resumo(reels), "por_formato": agrupar(reels, lambda r: formato_de(r["hora"])), "por_faixa_horaria": por_hora, "por_tema": por_tema,
         "melhor_faixa": melhor_hora[0] if melhor_hora else None, "melhor_tema": melhor_tema[0] if melhor_tema else None,
         "top": [{"id": r["id"], "views": r.get("views", 0), "salvos": r.get("saved", 0), "envios": r.get("shares", 0),
                  "tempo_s": round(r.get("ig_reels_avg_watch_time", 0) / 1000, 1), "titulo": r["legenda"].split("\n")[0][:70], "hora": _parse(r["hora"]).strftime("%d/%m %H:%M")} for r in ordenados[:8]],
@@ -146,6 +153,11 @@ Mediana de views: {g['views_medianas']} · média: {g['views_media']} (a média 
 
 ## Melhores posts
 {top}
+
+## Experimento: formato curto contra longo
+{_tabela(analise['por_formato'])}
+O formato curto vale a aposta se o tempo médio assistido e os salvos/envios por 100 de alcance subirem. Com poucos Reels
+no grupo curto, a comparação ainda não é confiável (compare de novo quando houver 8 ou mais).
 
 ## Por tema
 {_tabela(analise['por_tema'])}
