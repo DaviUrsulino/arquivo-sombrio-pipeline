@@ -140,7 +140,7 @@
             const selo = document.createElement("div"); selo.className = "selo"; selo.style.top = "850px";
             selo.innerHTML = `<div>${s.selo || "SIGA E COMENTE " + s.palavra}</div>`; el.appendChild(selo);
             if (s.extra) { const ex = document.createElement("div"); ex.className = "sub"; ex.style.top = "1030px"; ex.style.fontSize = "42px"; ex.style.color = "#ffd84a"; ex.textContent = s.extra; el.appendChild(ex); }
-            el.appendChild(robo(380, 1040, 1.3));
+            el.appendChild(robo(800, 1140, 1.0));
           }
           const rod = document.createElement("div"); rod.className = "rodape";
           rod.innerHTML = `<span>@robo.estagiario</span><span>${i + 1}/${total}</span>`; el.appendChild(rod);
