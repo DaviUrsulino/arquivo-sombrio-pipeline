@@ -1,0 +1,208 @@
+{
+  "titulo": "OpenJarvis: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "agentes de ia locais direto no seu computador com openjarvis"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "open-jarvis/OpenJarvis",
+      "nome": "OpenJarvis",
+      "cor": "azul",
+      "promessa": "Personal AI, On Personal Devices",
+      "texto": "Personal AI, On Personal Devices"
+    }
+  ],
+  "destaques": [
+    "agentes",
+    "inteligencia",
+    "computador",
+    "modelos",
+    "locais",
+    "nuvem",
+    "jarvis",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Rode agentes de inteligência artificial direto no seu computador.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "IA PESSOAL",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "NO SEU PC",
+            "cor": "laranja",
+            "tamanho": 140
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O OpenJarvis já acumula {estrelas:open-jarvis/OpenJarvis} estrelas no GitHub.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "open-jarvis/OpenJarvis"
+      }
+    },
+    {
+      "narracao": "Ele prioriza modelos locais e evita usar servidores na nuvem.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "bot",
+            "rotulo": "PC Local",
+            "cor": "verde"
+          },
+          {
+            "icone": "zap",
+            "rotulo": "OpenJarvis",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "brain",
+            "rotulo": "Nuvem",
+            "cor": "azul"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O sistema traz agentes para código, pesquisa e tarefas diárias.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "morning-digest",
+          "deep-research",
+          "code-assistant"
+        ]
+      }
+    },
+    {
+      "narracao": "Você inicia a conversa no terminal digitando apenas jarvis.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "jarvis",
+        "texto": "inicia o chat padrao"
+      }
+    },
+    {
+      "narracao": "O projeto tem código aberto sob licença Apache.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "shield-check",
+        "cor": "verde",
+        "rotulo": "APACHE 2.0"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "IA NO SEU PC",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "SEM NUVEM",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o openjarvis"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "LOCAL PRIMEIRO",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "openjarvis",
+      "texto": "Framework para agentes de IA que rodam localmente por padrão. Chamam a nuvem apenas quando estritamente necessário."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "INICIAR CHAT",
+          "cor": "verde"
+        }
+      ],
+      "comando": "jarvis",
+      "texto": "inicia a conversa no terminal",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "AGENTES PRONTOS",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "agentes",
+      "texto": "Vem com oito agentes nativos para rotinas diárias, pesquisa profunda com citações e execução de código."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "LICENÇA LIVRE",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "licenca",
+      "texto": "Código aberto sob licença Apache 2.0 e desenvolvido em parceria com pesquisadores de Stanford."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ]
+}
