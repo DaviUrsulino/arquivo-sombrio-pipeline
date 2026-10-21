@@ -1,0 +1,208 @@
+{
+  "titulo": "FableCut: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "editor de vídeo no navegador controlado por ia via json"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "ronak-create/FableCut",
+      "nome": "FableCut",
+      "cor": "azul",
+      "promessa": "Zero-dependency browser video editor that AI agents can drive — JSON timeline, M",
+      "texto": "Zero-dependency browser video editor that AI agents can drive — JSON timeline, MCP + REST, live-reloading UI"
+    }
+  ],
+  "destaques": [
+    "ia",
+    "edita",
+    "video",
+    "json",
+    "navegador",
+    "mcp",
+    "node",
+    "mit",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "IA edita vídeo só escrevendo JSON",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "IA EDITA",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "VÍDEO COM JSON",
+            "cor": "laranja",
+            "tamanho": 150
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "{estrelas:ronak-create/FableCut} estrelas no GitHub",
+      "humor": "normal",
+      "visual": {
+        "tipo": "contador",
+        "repo": "ronak-create/FableCut"
+      }
+    },
+    {
+      "narracao": "Editor roda no navegador sem dependências",
+      "humor": "normal",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "code-xml",
+            "rotulo": "JSON",
+            "cor": "azul"
+          },
+          {
+            "icone": "zap",
+            "rotulo": "FableCut",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "clapperboard",
+            "rotulo": "Vídeo",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Cortes mixagem efeitos tudo via M C P",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Cortes e trims",
+          "Mixagem de áudio",
+          "Efeitos e automação",
+          "MCP para agentes"
+        ]
+      }
+    },
+    {
+      "narracao": "Inicia com node server ponto js apenas",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "node server.js",
+        "texto": "inicia o editor no navegador"
+      }
+    },
+    {
+      "narracao": "Ideal para devs automatizando edição de vídeo",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "banner_repo",
+        "url": "github.com/ronak-create/FableCut"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "IA EDITA",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "VÍDEO COM JSON",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o FableCut"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "EDITOR NO NAVEGADOR",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "nome",
+      "texto": "Editor de vídeo zero-dependência que roda no browser. A timeline é um JSON que IA edita via MCP ou REST."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMO RODAR",
+          "cor": "verde"
+        }
+      ],
+      "comando": "node server.js",
+      "texto": "Inicia o servidor e abre o editor no navegador.",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "O QUE FAZ",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "nota",
+      "texto": "Cortes, trilhas, mixagem, efeitos, auto-duck, redução de ruído, proxies, versões e sequências."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "LICENÇA MIT",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "nota",
+      "texto": "Licença MIT. Requer Node.js. Projeto open source no GitHub."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ]
+}
