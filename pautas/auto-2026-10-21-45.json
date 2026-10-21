@@ -1,0 +1,216 @@
+{
+  "titulo": "jarvis: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "assistente de voz local e privado para seu computador"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "isair/jarvis",
+      "nome": "jarvis",
+      "cor": "azul",
+      "promessa": "Private local AI assistant for your desktop. Voice and text chat, personal memor",
+      "texto": "Private local AI assistant for your desktop. Voice and text chat, personal memory, dictation and MCP tools. Runs offline"
+    }
+  ],
+  "destaques": [
+    "local",
+    "privado",
+    "voz",
+    "memoria",
+    "offline",
+    "ollama",
+    "mcp",
+    "ditacao",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Um assistente de voz que roda só no seu computador.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "IA DE VERDADE",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "NO SEU PC",
+            "cor": "laranja",
+            "tamanho": 150
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto já tem {estrelas:isair/jarvis} estrelas no GitHub.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "isair/jarvis"
+      }
+    },
+    {
+      "narracao": "Ele ouve, fala e lembra tudo localmente sem nuvem.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "message-circle",
+            "rotulo": "VOZ",
+            "cor": "azul"
+          },
+          {
+            "icone": "brain",
+            "rotulo": "MODELO LOCAL",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "shield-check",
+            "rotulo": "PRIVADO",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Tem memória pessoal, ferramentas MCP e ditado por tecla.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Memória local",
+          "Busca web",
+          "MCP tools",
+          "Ditado quente"
+        ]
+      }
+    },
+    {
+      "narracao": "Baixe o zip do seu sistema, extraia e rode o app.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "./Jarvis/Jarvis",
+        "texto": "executa no linux após extrair"
+      }
+    },
+    {
+      "narracao": "Precisa de Ollama ou servidor compatível e microfone liberado.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "check",
+        "cor": "verde",
+        "rotulo": "RODA OFFLINE"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "IA DE VERDADE",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "NO SEU PC",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o jarvis"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "ASSISTENTE LOCAL",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "jarvis",
+      "texto": "Assistente de voz e texto que roda 100% no seu hardware. Usa Ollama ou servidores OpenAI-compatíveis. Sem assinatura, sem nuvem."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMO INSTALAR",
+          "cor": "verde"
+        }
+      ],
+      "comando": "./Jarvis/Jarvis",
+      "texto": "Baixe o zip do seu SO em releases, extraia e execute. No Linux rode o binário. O wizard configura modelos e microfone.",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE DÁ",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "RECURSOS",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "nota",
+      "texto": "Memória pessoal entre sessões, ferramentas MCP (navegador, casa inteligente, GitHub), ditado por tecla de atalho, busca web e clima."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "LICENÇA E REQUISITOS",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "nota",
+      "texto": "Licença própria. Roda em macOS, Windows e Linux. Ditado não funciona no macOS 26+. Linux precisa de X11. Sem app mobile."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "passos": [
+    "baixe o instalador do seu sistema em github.com/isair/jarvis/releases",
+    "extraia e execute o app (no linux: ./Jarvis/Jarvis)",
+    "o assistente guia a escolha de modelos locais (ollama ou servidor openai-compatível)",
+    "permita o microfone e comece a falar com jarvis"
+  ]
+}
