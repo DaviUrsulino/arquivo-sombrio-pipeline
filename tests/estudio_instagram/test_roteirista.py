@@ -125,3 +125,22 @@ def test_fecho_proprio_nao_acrescenta_o_comenta_e_o_fecho_padrao_chama_para_a_bi
     padrao = cenas_pixel.normalizar_pauta({**base, "palavra_chave": "LINK"})
     ultima = padrao["cenas"][-1]
     assert "link está na bio" in ultima["narracao"].lower() and ultima["elementos"][-1]["texto"] == "FAÇA IGUAL: LINK NA BIO"
+
+
+def test_passos_vao_para_a_pauta_e_para_a_legenda():
+    resposta = {**_resposta(), "passos": ["Rode npx ferramenta init", "Requer Node 22"]}
+    nova = roteirista.gerar_pauta(DADOS, README, "LINK", ICONES, llm=lambda s, u: resposta)
+    assert nova["passos"] == ["Rode npx ferramenta init", "Requer Node 22"]
+    from src.estudio_instagram.pipeline import montar_legenda
+    legenda = montar_legenda(nova, {})
+    assert "Salva este vídeo" in legenda and "1. Rode npx ferramenta init" in legenda and "2. Requer Node 22" in legenda
+
+
+def test_passo_com_numero_fora_do_readme_e_barrado():
+    erros = roteirista._problemas_roteiro({**_resposta(), "passos": ["Dá 300% mais velocidade"]}, DADOS, README, ICONES)
+    assert any("300" in e for e in erros)
+
+
+def test_mais_de_4_passos_e_barrado():
+    erros = roteirista._problemas_roteiro({**_resposta(), "passos": ["a", "b", "c", "d", "e"]}, DADOS, README, ICONES)
+    assert any("passos" in e for e in erros)

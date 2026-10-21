@@ -39,8 +39,13 @@ def montar_legenda(dados_pauta: dict, repos: dict) -> str:
     if dados_pauta.get("legenda"):
         return dados_pauta["legenda"][:LIMITE_LEGENDA_INSTAGRAM]
     hashtags = " ".join(f"#{t.replace('/', '').replace('-', '')}" for t in ["claude", "claudecode", "github", "ia"])
+    passos = dados_pauta.get("passos") or []
+    bloco_passos = ""
+    if passos:
+        bloco_passos = "Salva este vídeo pra usar com calma:\n" + "\n".join(f"{i}. {p}" for i, p in enumerate(passos, 1)) + "\n\n"
     texto = (
         f"{dados_pauta['capa']['subtitulo'].capitalize()} 🤖\n\n"
+        f"{bloco_passos}"
         f"{dados_pauta['chamada']['pergunta'].capitalize()} "
         f"Siga @robo.estagiario e comente {dados_pauta['palavra_chave']} que eu te mando no direct.\n\n"
         f"Quer aprender a fazer vídeos assim? Link na bio.\n\n{hashtags}"

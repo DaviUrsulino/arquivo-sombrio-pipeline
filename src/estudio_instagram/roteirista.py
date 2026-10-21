@@ -64,6 +64,7 @@ VISUAIS (campo "visual" da cena; só estes "tipo", cores: laranja azul verde rox
 
 SAÍDA: um único objeto JSON, sem texto fora dele:
 {"subtitulo":"frase de uma linha para a legenda do post, minúscula",
+ "passos":["de 3 a 4 passos curtos e numeráveis para usar ou instalar a ferramenta, só com o que o README diz (comando copiado do README); vão na legenda para a pessoa salvar o post. Se o README não tem como usar, devolva lista vazia"],
  "destaques":["até 8 palavras da narração que valem destaque na legenda, minúsculas, sem acento se possível"],
  "cenas":[{"narracao":"...","humor":"feliz","visual":{...}}],
  "slides":[
@@ -137,6 +138,14 @@ def _problemas_roteiro(resposta: dict, dados: DadosRepo, readme: str, icones: se
             erros.append(f"cena {i}: contador.repo tem que ser {dados.repo}")
     if cenas and "{estrelas:" not in " ".join(c.get("narracao", "") for c in cenas):
         erros.append("falta o marcador {estrelas:...} em alguma narração")
+    passos = resposta.get("passos", [])
+    if not isinstance(passos, list) or len(passos) > 4 or any(not isinstance(p, str) or len(p) > 120 for p in passos):
+        erros.append("'passos' precisa ser uma lista de até 4 textos de até 120 letras")
+    else:
+        for passo in passos:
+            for numero in _numeros(passo):
+                if numero not in permitidos:
+                    erros.append(f"passo '{passo[:30]}': o número {numero} não aparece no README")
     slides = resposta.get("slides")
     if not isinstance(slides, list) or len(slides) != 5 or [s.get("tipo") for s in slides][:1] != ["capa"]:
         erros.append("'slides' precisa de exatamente 5 itens, o primeiro do tipo capa")
@@ -161,6 +170,7 @@ def montar_pauta(resposta: dict, dados: DadosRepo, palavra_chave: str) -> dict:
             {"narracao": c["narracao"], "humor": c.get("humor", "normal"), "visual": c["visual"]} for c in resposta["cenas"]
         ],
         "slides": slides,
+        "passos": [p.strip() for p in resposta.get("passos", []) if p.strip()],
     }
 
 
