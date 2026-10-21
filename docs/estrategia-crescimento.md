@@ -65,3 +65,27 @@ Métricas (GQM): objetivo = seguidores; pergunta = qual formato ganha mais segui
 - **Produto próprio** (o que já fazemos): Kit Claude Code (R$ 17), Pack Pixel (R$ 27) e Kit Engenharia com IA (R$ 37). É a
   receita mais rápida com pouca audiência, porque não depende do programa do Instagram.
 - Fonte: https://metricool.com/pt/como-monetizar-instagram/ · https://lojaintegrada.com.br/hub/ativar-monetizacao-instagram/
+
+## Perfis de referência lidos pelo Chrome (2026-10-20, só leitura)
+Dados do perfil e das legendas dos posts campeões de cada conta.
+
+| Conta | Seguidores | Views típicas | Campeões | O que repete nos campeões |
+|---|---|---|---|---|
+| andrevale.dev | 1.013 | 400 a 3 mil | 53,6 mil · 42,1 mil · 23,6 mil | Projeto visual novo (escritório em pixel art com agentes), tutorial em 4 passos, "Salva este vídeo", palavra-chave nos comentários |
+| lowcodepedro | 9.251 | 2 a 6 mil | 436 mil · 111 mil · 38 mil | "A maioria usa X do jeito cansativo..." + repositório grátis + "Comenta LINKEDIN e me segue pra receber a mensagem" |
+| igao.ia | 141 mil | 4 a 8 mil | 248 mil · 81 mil · 67 mil | Título com seta ("5 plugins para turbinar o Claude Code ↓"), lista com nome de cada item, "Comenta SKILL e me segue" |
+
+Leituras:
+- **A cauda é pesada em todas as contas**: mesmo com 141 mil seguidores a mediana é ~5 mil e poucos posts passam de 80 mil. Viral é loteria com
+  muitas tentativas; vale subir a qualidade do gancho e testar vários temas, não repetir um.
+- **Conta pequena também estoura**: andrevale.dev com 1 mil seguidores teve 53 mil views. O que decidiu foi o tema (novidade visual) e o formato (passo a passo salvável).
+- **Formatos que repetem**: lista de N ferramentas com nome de cada uma, tutorial em N passos, contraste "a maioria faz X do jeito cansativo", e fecho "Comenta PALAVRA e me segue".
+- **Legenda longa e salvável**: os campeões trazem o passo a passo ou a lista dentro da legenda ("Salva este vídeo...").
+- **Tema da semana** nessas contas: skills de Instagram/LinkedIn dentro do Claude (achar Reels virais e virar roteiro), plugins e MCPs para Claude Code,
+  escritório de agentes em pixel art (Habblaud, repositório `marmottajr/habblaud`, 754 estrelas).
+
+### Decisões tiradas daí (implementadas em 2026-10-20)
+1. Legenda salvável: os roteiros trazem "passos" de 3 a 4 itens do README e a legenda começa com "Salva este vídeo pra usar com calma".
+2. Formato **lista** (`--formato lista`, `src/estudio_instagram/lista.py`): 5 repositórios reais num Reels curto + carrossel, com DM de todos os links.
+3. Vídeo sobre o Habblaud (pixel art é a nossa marca) entra no banco como prioridade.
+4. Bio sugerida (a API não edita a bio; o Davi cola): "1 ferramenta de IA grátis por dia 🤖 | Garimpo o GitHub pra você | Estudante de Eng. de Software (UnB) | Kits abaixo".
