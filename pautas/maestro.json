@@ -1,14 +1,6 @@
 {
-  "dia": "2026-10-20",
-  "feitos": {
-    "09:00": "disparada 09:00",
-    "14:00": "disparada 14:00",
-    "19:00": "disparada 19:00",
-    "08:00": "perdida",
-    "12:00": "perdida",
-    "18:30": "pulada: o vídeo de venda já saiu às 19:00 (troca de horários no meio do dia)",
-    "21:00": "disparada 21:02"
-  },
+  "dia": "2026-10-21",
+  "feitos": {},
   "ultimo_disparo": "2026-10-20T21:02:49-03:00",
   "fila_usadas": [
     "pautas/viral/fila/01-motion-skills.json"
