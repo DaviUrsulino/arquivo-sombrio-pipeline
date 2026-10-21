@@ -68,3 +68,14 @@ def test_recusa_do_modelo_levanta_recusado():
 def test_desiste_depois_de_3_tentativas_com_problemas():
     with pytest.raises(ValueError, match="lista não passou"):
         lista.gerar_pauta(DADOS, READMES, "LINK", ICONES, llm=lambda s, u: _resposta(gancho=["a", "b"]))
+
+
+def test_dm_da_lista_leva_o_link_de_todos_os_repositorios(tmp_path, monkeypatch):
+    from src.estudio_instagram import pipeline
+    monkeypatch.setattr(pipeline, "RAIZ", tmp_path)
+    (tmp_path / "pautas").mkdir()
+    repos = {d.repo: d for d in DADOS}
+    pipeline._registrar_links({"palavra_chave": "LINK"}, repos, {"reels": {"media_id": "m1"}, "carrossel_media_id": "m2"})
+    salvo = json.loads((tmp_path / "pautas" / "links_por_post.json").read_text(encoding="utf-8"))
+    mensagem = salvo["m1"]["mensagem"]
+    assert all(d.url in mensagem for d in DADOS) and "1. ferr1:" in mensagem and salvo["m2"]["palavra"] == "LINK"
