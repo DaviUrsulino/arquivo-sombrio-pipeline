@@ -1,114 +1,122 @@
 {
-  "gerado_em": "2026-10-21 12:18",
-  "seguidores": 213,
+  "gerado_em": "2026-10-22 12:19",
+  "seguidores": 255,
   "geral": {
-    "n": 26,
-    "views_medianas": 158,
-    "views_media": 1742,
-    "salvos_por_100_alcance": 4.19,
-    "envios_por_100_alcance": 1.07,
-    "tempo_medio_s": 7.1
+    "n": 30,
+    "views_medianas": 162,
+    "views_media": 1744,
+    "salvos_por_100_alcance": 4.26,
+    "envios_por_100_alcance": 1.14,
+    "tempo_medio_s": 7.0
   },
   "por_formato": {
     "curto (20-35 s)": {
-      "n": 2,
-      "views_medianas": 66,
-      "views_media": 66,
-      "salvos_por_100_alcance": 0.89,
-      "envios_por_100_alcance": 0.0,
-      "tempo_medio_s": 2.3
+      "n": 6,
+      "views_medianas": 140,
+      "views_media": 165,
+      "salvos_por_100_alcance": 1.98,
+      "envios_por_100_alcance": 0.62,
+      "tempo_medio_s": 4.7
     },
     "longo (45-60 s)": {
       "n": 24,
-      "views_medianas": 159,
-      "views_media": 1882,
-      "salvos_por_100_alcance": 4.2,
-      "envios_por_100_alcance": 1.07,
+      "views_medianas": 169,
+      "views_media": 2138,
+      "salvos_por_100_alcance": 4.31,
+      "envios_por_100_alcance": 1.15,
       "tempo_medio_s": 7.5
     }
   },
   "por_faixa_horaria": {
     "meio-dia (10-14h)": {
-      "n": 8,
-      "views_medianas": 132,
-      "views_media": 319,
-      "salvos_por_100_alcance": 3.19,
-      "envios_por_100_alcance": 1.36,
-      "tempo_medio_s": 6.5
+      "n": 9,
+      "views_medianas": 139,
+      "views_media": 327,
+      "salvos_por_100_alcance": 3.23,
+      "envios_por_100_alcance": 1.39,
+      "tempo_medio_s": 6.7
     },
     "manhã (6-10h)": {
-      "n": 3,
-      "views_medianas": 537,
-      "views_media": 12716,
-      "salvos_por_100_alcance": 4.44,
-      "envios_por_100_alcance": 1.07,
-      "tempo_medio_s": 7.6
+      "n": 4,
+      "views_medianas": 352,
+      "views_media": 11079,
+      "salvos_por_100_alcance": 4.53,
+      "envios_por_100_alcance": 1.15,
+      "tempo_medio_s": 6.9
+    },
+    "tarde da noite (22-24h)": {
+      "n": 1,
+      "views_medianas": 221,
+      "views_media": 221,
+      "salvos_por_100_alcance": 1.73,
+      "envios_por_100_alcance": 0.0,
+      "tempo_medio_s": 6.5
     },
     "noite (18-22h)": {
-      "n": 8,
-      "views_medianas": 163,
-      "views_media": 285,
-      "salvos_por_100_alcance": 3.22,
-      "envios_por_100_alcance": 1.16,
-      "tempo_medio_s": 6.6
+      "n": 9,
+      "views_medianas": 175,
+      "views_media": 275,
+      "salvos_por_100_alcance": 3.02,
+      "envios_por_100_alcance": 1.07,
+      "tempo_medio_s": 6.4
     },
     "tarde (14-18h)": {
       "n": 6,
-      "views_medianas": 159,
-      "views_media": 163,
-      "salvos_por_100_alcance": 1.3,
-      "envios_por_100_alcance": 0.47,
-      "tempo_medio_s": 8.1
+      "views_medianas": 162,
+      "views_media": 169,
+      "salvos_por_100_alcance": 1.27,
+      "envios_por_100_alcance": 0.58,
+      "tempo_medio_s": 8.2
     },
     "madrugada (0-6h)": {
       "n": 1,
-      "views_medianas": 1337,
-      "views_media": 1337,
-      "salvos_por_100_alcance": 3.05,
+      "views_medianas": 1343,
+      "views_media": 1343,
+      "salvos_por_100_alcance": 3.03,
       "envios_por_100_alcance": 0.87,
       "tempo_medio_s": 9.1
     }
   },
   "por_tema": {
     "vídeo com IA": {
-      "n": 14,
-      "views_medianas": 253,
-      "views_media": 3117,
-      "salvos_por_100_alcance": 4.31,
-      "envios_por_100_alcance": 1.09,
+      "n": 17,
+      "views_medianas": 221,
+      "views_media": 2971,
+      "salvos_por_100_alcance": 4.38,
+      "envios_por_100_alcance": 1.16,
       "tempo_medio_s": 6.9
     },
     "Claude Code": {
-      "n": 26,
-      "views_medianas": 158,
-      "views_media": 1742,
-      "salvos_por_100_alcance": 4.19,
-      "envios_por_100_alcance": 1.07,
-      "tempo_medio_s": 7.1
-    },
-    "agentes e skills": {
-      "n": 7,
-      "views_medianas": 189,
-      "views_media": 518,
-      "salvos_por_100_alcance": 3.88,
-      "envios_por_100_alcance": 1.42,
-      "tempo_medio_s": 7.5
+      "n": 30,
+      "views_medianas": 162,
+      "views_media": 1744,
+      "salvos_por_100_alcance": 4.26,
+      "envios_por_100_alcance": 1.14,
+      "tempo_medio_s": 7.0
     },
     "venda e kit": {
-      "n": 12,
-      "views_medianas": 253,
-      "views_media": 510,
-      "salvos_por_100_alcance": 3.36,
-      "envios_por_100_alcance": 1.15,
+      "n": 16,
+      "views_medianas": 208,
+      "views_media": 444,
+      "salvos_por_100_alcance": 3.18,
+      "envios_por_100_alcance": 1.13,
       "tempo_medio_s": 6.4
     },
     "assistente (Jarvis)": {
-      "n": 1,
-      "views_medianas": 318,
-      "views_media": 318,
-      "salvos_por_100_alcance": 1.49,
-      "envios_por_100_alcance": 0.37,
-      "tempo_medio_s": 5.8
+      "n": 2,
+      "views_medianas": 225,
+      "views_media": 225,
+      "salvos_por_100_alcance": 1.31,
+      "envios_por_100_alcance": 0.52,
+      "tempo_medio_s": 5.3
+    },
+    "agentes e skills": {
+      "n": 9,
+      "views_medianas": 221,
+      "views_media": 491,
+      "salvos_por_100_alcance": 3.61,
+      "envios_por_100_alcance": 1.37,
+      "tempo_medio_s": 8.0
     }
   },
   "melhor_faixa": "manhã (6-10h)",
@@ -116,25 +124,25 @@
   "top": [
     {
       "id": "18027479654873301",
-      "views": 37484,
-      "salvos": 1346,
-      "envios": 325,
+      "views": 43481,
+      "salvos": 1580,
+      "envios": 401,
       "tempo_s": 11.8,
       "titulo": "Esse repositório faz a ia criar vídeo escrevendo html, grátis e open s",
       "hora": "18/10 08:45"
     },
     {
       "id": "18413224864081335",
-      "views": 1803,
+      "views": 1827,
       "salvos": 56,
-      "envios": 23,
+      "envios": 24,
       "tempo_s": 9.4,
       "titulo": "Editor de vídeo local para agentes de código com 42 ferramentas ffmpeg",
       "hora": "19/10 13:40"
     },
     {
       "id": "17886619920622218",
-      "views": 1337,
+      "views": 1343,
       "salvos": 35,
       "envios": 10,
       "tempo_s": 9.1,
@@ -143,7 +151,7 @@
     },
     {
       "id": "17992667739058973",
-      "views": 812,
+      "views": 831,
       "salvos": 40,
       "envios": 15,
       "tempo_s": 11.3,
@@ -152,39 +160,39 @@
     },
     {
       "id": "18086283575333410",
-      "views": 537,
+      "views": 557,
       "salvos": 15,
-      "envios": 3,
+      "envios": 4,
       "tempo_s": 6.2,
       "titulo": "55 skills abertas para ensinar seu agente de código a criar animações ",
       "hora": "20/10 09:10"
     },
     {
       "id": "18134987677737452",
-      "views": 494,
+      "views": 499,
       "salvos": 6,
       "envios": 3,
-      "tempo_s": 6.5,
+      "tempo_s": 6.4,
       "titulo": "Esse vídeo foi feito por código, sem nenhum editor de vídeo. O Pack Pi",
       "hora": "18/10 21:16"
     },
     {
+      "id": "18160811710499604",
+      "views": 359,
+      "salvos": 11,
+      "envios": 4,
+      "tempo_s": 7.8,
+      "titulo": "Escritório virtual em pixel art para acompanhar agentes do claude code",
+      "hora": "21/10 12:04"
+    },
+    {
       "id": "17942948967367331",
-      "views": 318,
+      "views": 320,
       "salvos": 4,
       "envios": 1,
       "tempo_s": 5.8,
       "titulo": "Do roteiro ao vídeo pronto em 3 passos, com o Pack Pixel (R$ 27): escr",
       "hora": "18/10 19:08"
-    },
-    {
-      "id": "18171124504461670",
-      "views": 206,
-      "salvos": 2,
-      "envios": 1,
-      "tempo_s": 7.3,
-      "titulo": "Automação de celulares android com instruções em linguagem natural 🤖",
-      "hora": "18/10 14:41"
     }
   ]
 }
