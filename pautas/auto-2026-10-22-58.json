@@ -1,0 +1,191 @@
+{
+  "titulo": "sepia: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "skill portável que repara arquitetura narrativa e padroniza textos profissionais"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "Nanako0129/sepia",
+      "nome": "sepia",
+      "cor": "azul",
+      "promessa": "De-AI writing skill for any Agent Skills-compatible agent (77+ via the Skills CL",
+      "texto": "De-AI writing skill for any Agent Skills-compatible agent (77+ via the Skills CLI), with native plugins for Claude Code,"
+    }
+  ],
+  "destaques": [
+    "arquitetura",
+    "narrativa",
+    "skill",
+    "portavel",
+    "escreve",
+    "revisa",
+    "refatora",
+    "recria",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Repare a arquitetura narrativa antes de mexer nas palavras.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "REPARE A NARRATIVA",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "ANTES DE PALAVRAS",
+            "cor": "laranja",
+            "tamanho": 150
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto já tem {estrelas:Nanako0129/sepia} estrelas no GitHub.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "Nanako0129/sepia"
+      }
+    },
+    {
+      "narracao": "Uma skill portável para setenta e sete agentes compatíveis.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "check",
+        "cor": "verde",
+        "rotulo": "SKILL PORTÁVEL AGENTES"
+      }
+    },
+    {
+      "narracao": "Quatro operações: escrever, revisar, refatorar e recriar textos.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "ESCREVER",
+          "REVISAR",
+          "REFATORAR",
+          "RECRIAR"
+        ]
+      }
+    },
+    {
+      "narracao": "Use barra sepia write no Claude Code para começar.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "/sepia-write",
+        "texto": "Cria novo texto sem marcas de IA"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "REPARE A NARRATIVA",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "ANTES DE PALAVRAS",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o SEPIA"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "SKILL PORTÁVEL",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "nome",
+      "texto": "Habilidade portável para agentes Skills CLI. Repara arquitetura narrativa em ficção e regras por tipo de documento profissional."
+    },
+    {
+      "tipo": "comando",
+      "fase": "COMO USAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMANDOS NATIVOS",
+          "cor": "verde"
+        }
+      ],
+      "comando": "/sepia-write",
+      "texto": "Roteador geral também disponível como barra sepia",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "OPERAÇÕES",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "nota",
+      "texto": "Quatro operações principais: write, review, refactor, recreate. Mais hemingway para ficção com voz integrada."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "LICENÇA MIT",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "nota",
+      "texto": "Licença MIT. Requer Skills CLI para instalação. Plugins nativos para Claude Code, Codex, Grok Build, Antigravity, QwenPaw."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "passos": [
+    "Use /sepia-write no Claude Code para criar textos",
+    "Use $sepia-write no Codex para mesmo efeito",
+    "Use /sepia-review para diagnosticar sem editar",
+    "Use /sepia-hemingway para ficção com voz Hemingway"
+  ]
+}
