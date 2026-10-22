@@ -67,12 +67,13 @@
       .lista-item { display: flex; align-items: center; gap: 26px; width: 940px; padding: 26px 30px; margin-bottom: 26px; opacity: 0; font-size: 58px; line-height: 1.15; }
       .selo-pixel { position: absolute; left: 0; width: 1080px; text-align: center; opacity: 0; }
       .selo-pixel div { display: inline-block; font-size: 62px; padding: 14px 40px; background: var(--amarelo); color: #0d0b1c; border: 8px solid #000; box-shadow: 10px 10px 0 #000; }
-      .sala { position: absolute; left: 0; width: 1080px; opacity: 0; text-align: center; }
-      .sala-linha { display: flex; justify-content: center; align-items: flex-end; gap: 44px; }
-      .mesa { display: flex; flex-direction: column; align-items: center; opacity: 0; }
-      .tela-mesa { width: 170px; height: 120px; margin-top: -10px; background: #0d0b1c; border: 6px solid #000; box-shadow: 8px 8px 0 #000; position: relative; overflow: hidden; }
-      .tela-mesa .brilho { position: absolute; inset: 10px; }
-      .sala .rot { margin-top: 40px; }
+      .sala { position: absolute; left: 0; width: 1080px; opacity: 0; }
+      .posto { position: absolute; top: 0; width: 220px; opacity: 0; text-align: center; }
+      .posto-bicho { position: absolute; top: 0; left: 50%; width: 126px; margin-left: -63px; }
+      .tela-mesa { position: absolute; top: 106px; left: 25px; width: 170px; height: 120px; background: #0d0b1c; border: 6px solid #000; box-shadow: 8px 8px 0 #000; overflow: hidden; padding: 16px 14px; box-sizing: border-box; }
+      .tela-mesa .linha-codigo { position: absolute; left: 14px; height: 10px; border-radius: 2px; }
+      .superficie { position: absolute; top: 226px; left: 13px; width: 194px; height: 18px; background: #3a2a1c; border: 4px solid #1c130c; box-shadow: 6px 6px 0 #000; }
+      .sala .rot { position: absolute; top: 300px; left: 0; width: 1080px; }
       #robo { position: absolute; left: 0; top: 1290px; width: 210px; height: 225px; }
       #robo svg { position: absolute; left: 0; top: 0; opacity: 0; }
       #legenda { position: absolute; left: 0; top: 1590px; width: 1080px; height: 190px; }
@@ -305,17 +306,33 @@
         sala_pixel(palco, e) {
           const n = Math.min(4, Math.max(2, e.personagens || 3));
           const paleta = ["laranja", "azul", "verde", "roxo", "amarelo"];
+          // larguras de "linha de código" pré-definidas (determinístico: nada de Math.random, o
+          // render precisa dar o mesmo frame sempre que buscado de novo).
+          const PADROES = [0.92, 0.48, 0.78, 0.34, 0.68, 0.9, 0.42, 0.82, 0.58, 0.95];
+          const LARG_POSTO = 220, GAP = 24;
+          const total = n * LARG_POSTO + (n - 1) * GAP, x0 = (1080 - total) / 2;
           const caixa = div(palco, "el sala", { top: e.y + "px" });
-          const linha = div(caixa, "sala-linha");
           for (let i = 0; i < n; i++) {
             const corHex = HEX[paleta[i % paleta.length]];
-            const mesa = div(linha, "mesa");
-            mesa.appendChild(bichoSvg(corHex));
-            const telaMesa = div(mesa, "tela-mesa");
-            const brilho = div(telaMesa, "brilho", { background: corHex });
-            tl.fromTo(mesa, { opacity: 0, y: 30, scale: 0.85 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "steps(5)" }, e.t + i * 0.08);
-            tl.to(mesa.firstChild, { y: -10, duration: 0.5 + i * 0.07, ease: "steps(2)", yoyo: true, repeat: 20 }, e.t + 0.5 + i * 0.1);
-            tl.to(brilho, { opacity: 0.15, duration: 0.4 + i * 0.05, ease: "steps(2)", yoyo: true, repeat: 20 }, e.t + 0.3);
+            const posto = div(caixa, "posto", { left: (x0 + i * (LARG_POSTO + GAP)) + "px" });
+            // o bichinho fica num wrapper próprio, posicionado absoluto (igual aos outros visuais
+            // já testados do molde) -- svg solto dentro de flex não se mexia no render de verdade.
+            const bichoWrap = div(posto, "posto-bicho");
+            const bicho = bichoSvg(corHex);
+            bichoWrap.appendChild(bicho);
+            const telaMesa = div(posto, "tela-mesa");
+            [0, 1, 2].forEach((j) => {
+              const largura = PADROES[(i * 3 + j) % PADROES.length];
+              div(telaMesa, "linha-codigo", {
+                top: (12 + j * 20) + "px", width: Math.round(largura * 142) + "px",
+                background: corHex, opacity: 0.85 - j * 0.15,
+              });
+            });
+            div(posto, "superficie");
+            // Só a entrada anima (confirmado que aparece no render final). Tween de movimento num
+            // elemento criado em runtime, com os 3 personagens juntos, não apareceu em várias
+            // tentativas isoladas -- fica estático por ora; ver ADR/nota pra investigar depois.
+            tl.fromTo(posto, { opacity: 0, y: 30, scale: 0.85 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "steps(5)" }, e.t + i * 0.08);
           }
           tl.set(caixa, { opacity: 1 }, e.t);
           if (e.rotulo) { const r = div(caixa, "rot", { color: cor(e.cor) }); r.textContent = e.rotulo; }
