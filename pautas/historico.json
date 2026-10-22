@@ -6,6 +6,7 @@
     "Donchitos/Claude-Code-Game-Studios",
     "EveryInc/compound-engineering-plugin",
     "Graphify-Labs/graphify",
+    "InsForge/InsForge",
     "Jakeschincariol/replica-skill",
     "JuliusBrussee/caveman",
     "K-Dense-AI/scientific-agent-skills",
@@ -20,6 +21,7 @@
     "NousResearch/hermes-agent",
     "Nutlope/hallmark",
     "Oldcircle/geo-sleuth",
+    "Orchestra-Research/AI-Research-SKILLs",
     "OthmanAdi/planning-with-files",
     "Panniantong/Agent-Reach",
     "QingYunA/answer-me-with-html",
@@ -27,6 +29,7 @@
     "Ryze-AI-Adgent/open-seo-mcp-skills",
     "Vincentwei1021/video-shotcraft",
     "VoltAgent/awesome-agent-skills",
+    "YishenTu/claudian",
     "aaif-goose/goose",
     "addyosmani/agent-skills",
     "affaan-m/ECC",
@@ -36,6 +39,7 @@
     "bytedance/deer-flow",
     "can1357/oh-my-pi",
     "career-ops-hq/career-ops",
+    "cheaper-inference/OmniRoute",
     "continuedev/continue",
     "coreyhaines31/marketingskills",
     "czlonkowski/n8n-mcp",
@@ -72,6 +76,7 @@
     "openfilm/openfilm",
     "paperclipai/paperclip",
     "pbakaus/impeccable",
+    "plandex-ai/plandex",
     "rehan-remade/universal-modder",
     "remotion-dev/remotion",
     "ronak-create/FableCut",
@@ -95,5 +100,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 49
+  "pautas_geradas": 50
 }

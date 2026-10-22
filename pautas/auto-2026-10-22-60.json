@@ -1,0 +1,230 @@
+{
+  "titulo": "5 repositórios grátis — 2026-10-22",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "linha1": "QUASE NINGUÉM",
+    "linha2": "SABE DISSO",
+    "subtitulo": "5 repositórios grátis que ninguém te contou",
+    "selo": "★ {total_estrelas} estrelas"
+  },
+  "chamada": {
+    "pergunta": "quer os 5 links?",
+    "promessa": "que eu te mando no direct",
+    "rodape": "e segue pra mais ferramenta grátis de IA"
+  },
+  "itens": [
+    {
+      "repo": "cheaper-inference/OmniRoute",
+      "nome": "OmniRoute",
+      "cor": "laranja",
+      "promessa": "Um projeto open source que vale testar agora.",
+      "texto": "com {estrelas:cheaper-inference/OmniRoute} estrelas no GitHub"
+    },
+    {
+      "repo": "plandex-ai/plandex",
+      "nome": "plandex",
+      "cor": "azul",
+      "promessa": "Resolve um problema real, e é de graça.",
+      "texto": "com {estrelas:plandex-ai/plandex} estrelas no GitHub"
+    },
+    {
+      "repo": "YishenTu/claudian",
+      "nome": "claudian",
+      "cor": "roxo",
+      "promessa": "Tá bombando no GitHub essa semana.",
+      "texto": "com {estrelas:YishenTu/claudian} estrelas no GitHub"
+    },
+    {
+      "repo": "Orchestra-Research/AI-Research-SKILLs",
+      "nome": "AI-Research-SKILLs",
+      "cor": "verde",
+      "promessa": "Pouca gente usa, mas devia.",
+      "texto": "com {estrelas:Orchestra-Research/AI-Research-SKILLs} estrelas no GitHub"
+    },
+    {
+      "repo": "InsForge/InsForge",
+      "nome": "InsForge",
+      "cor": "amarelo",
+      "promessa": "Instala em minutos e já ajuda no seu fluxo.",
+      "texto": "com {estrelas:InsForge/InsForge} estrelas no GitHub"
+    }
+  ],
+  "cenas": [
+    {
+      "id": "gancho",
+      "cor": "laranja",
+      "narracao": "Isso aqui quase ninguém usa no Claude Code, e devia. São 5 repositórios grátis que somam {total_estrelas} estrelas, e ninguém te contou.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "quase ninguém sabe disso",
+          "ancora": "ninguém"
+        },
+        {
+          "tipo": "numero",
+          "texto": "5",
+          "ancora": "5",
+          "y": 640
+        },
+        {
+          "tipo": "texto",
+          "texto": "repositórios grátis",
+          "ancora": "repositórios",
+          "y": 960,
+          "grande": true
+        },
+        {
+          "tipo": "etiqueta",
+          "texto": "★ {total_estrelas} estrelas",
+          "ancora": "estrelas",
+          "y": 1180,
+          "cor": "amarelo"
+        }
+      ]
+    },
+    {
+      "id": "r1",
+      "cor": "laranja",
+      "narracao": "O primeiro é o OmniRoute. Um projeto open source que vale testar agora.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#1",
+          "ancora": "primeiro"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "OmniRoute",
+          "texto": "com {estrelas:cheaper-inference/OmniRoute} estrelas no GitHub",
+          "icone": "github",
+          "repo": "cheaper-inference/OmniRoute",
+          "ancora": "OmniRoute",
+          "y": 600,
+          "cor": "laranja"
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "cor": "azul",
+      "narracao": "O segundo é o plandex. Resolve um problema real, e é de graça.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#2",
+          "ancora": "segundo"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "plandex",
+          "texto": "com {estrelas:plandex-ai/plandex} estrelas no GitHub",
+          "icone": "github",
+          "repo": "plandex-ai/plandex",
+          "ancora": "plandex",
+          "y": 600,
+          "cor": "azul"
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "cor": "roxo",
+      "narracao": "O terceiro é o claudian. Tá bombando no GitHub essa semana.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#3",
+          "ancora": "terceiro"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "claudian",
+          "texto": "com {estrelas:YishenTu/claudian} estrelas no GitHub",
+          "icone": "github",
+          "repo": "YishenTu/claudian",
+          "ancora": "claudian",
+          "y": 600,
+          "cor": "roxo"
+        }
+      ]
+    },
+    {
+      "id": "r4",
+      "cor": "verde",
+      "narracao": "O quarto é o AI-Research-SKILLs. Pouca gente usa, mas devia.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#4",
+          "ancora": "quarto"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "AI-Research-SKILLs",
+          "texto": "com {estrelas:Orchestra-Research/AI-Research-SKILLs} estrelas no GitHub",
+          "icone": "github",
+          "repo": "Orchestra-Research/AI-Research-SKILLs",
+          "ancora": "AI-Research-SKILLs",
+          "y": 600,
+          "cor": "verde"
+        }
+      ]
+    },
+    {
+      "id": "r5",
+      "cor": "amarelo",
+      "narracao": "O quinto é o InsForge. Instala em minutos e já ajuda no seu fluxo.",
+      "elementos": [
+        {
+          "tipo": "cabecalho",
+          "texto": "#5",
+          "ancora": "quinto"
+        },
+        {
+          "tipo": "cartao",
+          "numero": "InsForge",
+          "texto": "com {estrelas:InsForge/InsForge} estrelas no GitHub",
+          "icone": "github",
+          "repo": "InsForge/InsForge",
+          "ancora": "InsForge",
+          "y": 600,
+          "cor": "amarelo"
+        }
+      ]
+    },
+    {
+      "id": "cta",
+      "cor": "laranja",
+      "narracao": "Quer o link de todos? Comenta LINK aqui embaixo, que eu te mando no direct.",
+      "elementos": [
+        {
+          "tipo": "icone",
+          "icone": "message-circle",
+          "ancora": "Quer",
+          "y": 520,
+          "tamanho": 240,
+          "cor": "azul"
+        },
+        {
+          "tipo": "texto",
+          "texto": "quer os 5 links?",
+          "ancora": "link",
+          "y": 820,
+          "grande": true
+        },
+        {
+          "tipo": "destaque",
+          "texto": "comenta LINK",
+          "ancora": "Comenta",
+          "y": 1040,
+          "cor": "amarelo"
+        }
+      ]
+    }
+  ]
+}
