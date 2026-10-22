@@ -67,6 +67,12 @@
       .lista-item { display: flex; align-items: center; gap: 26px; width: 940px; padding: 26px 30px; margin-bottom: 26px; opacity: 0; font-size: 58px; line-height: 1.15; }
       .selo-pixel { position: absolute; left: 0; width: 1080px; text-align: center; opacity: 0; }
       .selo-pixel div { display: inline-block; font-size: 62px; padding: 14px 40px; background: var(--amarelo); color: #0d0b1c; border: 8px solid #000; box-shadow: 10px 10px 0 #000; }
+      .sala { position: absolute; left: 0; width: 1080px; opacity: 0; text-align: center; }
+      .sala-linha { display: flex; justify-content: center; align-items: flex-end; gap: 44px; }
+      .mesa { display: flex; flex-direction: column; align-items: center; opacity: 0; }
+      .tela-mesa { width: 170px; height: 120px; margin-top: -10px; background: #0d0b1c; border: 6px solid #000; box-shadow: 8px 8px 0 #000; position: relative; overflow: hidden; }
+      .tela-mesa .brilho { position: absolute; inset: 10px; }
+      .sala .rot { margin-top: 40px; }
       #robo { position: absolute; left: 0; top: 1290px; width: 210px; height: 225px; }
       #robo svg { position: absolute; left: 0; top: 0; opacity: 0; }
       #legenda { position: absolute; left: 0; top: 1590px; width: 1080px; height: 190px; }
@@ -185,6 +191,22 @@
         return s;
       }
 
+      // bichinho de mesa: mesmo grid do robô principal, só troca a cor do corpo (cada colega um tom).
+      function bichoSvg(corHexCorpo) {
+        const PXB = 9;
+        const s = document.createElementNS(SVGNS, "svg");
+        s.setAttribute("width", 14 * PXB); s.setAttribute("height", BASE.length * PXB);
+        s.setAttribute("viewBox", `0 0 14 ${BASE.length}`); s.setAttribute("shape-rendering", "crispEdges");
+        BASE.forEach((l, y) => [...l].forEach((ch, x) => {
+          if (ch === ".") return;
+          const r = document.createElementNS(SVGNS, "rect");
+          r.setAttribute("x", x); r.setAttribute("y", y); r.setAttribute("width", 1); r.setAttribute("height", 1);
+          r.setAttribute("fill", ch === "O" ? corHexCorpo : (CORES[ch] || "#f0f"));
+          s.appendChild(r);
+        }));
+        return s;
+      }
+
       function porLetra(pai, texto) { for (const ch of texto) { const s = document.createElement("span"); s.textContent = ch; pai.appendChild(s); } }
       function digitar(letras, t, passo) { tl.fromTo(letras, { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: passo, ease: "none" }, t); }
       function div(pai, classe, estilo = {}, html = "") { const d = document.createElement("div"); d.className = classe; Object.assign(d.style, estilo); d.innerHTML = html; pai.appendChild(d); return d; }
@@ -279,6 +301,24 @@
           digitar([...cmd.querySelectorAll("span")], e.ts[0] + 0.2, 0.06);
           tl.to(cur, { opacity: 0, duration: 0.01, yoyo: true, repeat: 30, repeatDelay: 0.35 }, e.ts[0] + 0.6);
           if (e.texto) digitar([...desc.querySelectorAll("span")], e.ts[1] || e.ts[0] + 1, 0.026);
+        },
+        sala_pixel(palco, e) {
+          const n = Math.min(4, Math.max(2, e.personagens || 3));
+          const paleta = ["laranja", "azul", "verde", "roxo", "amarelo"];
+          const caixa = div(palco, "el sala", { top: e.y + "px" });
+          const linha = div(caixa, "sala-linha");
+          for (let i = 0; i < n; i++) {
+            const corHex = HEX[paleta[i % paleta.length]];
+            const mesa = div(linha, "mesa");
+            mesa.appendChild(bichoSvg(corHex));
+            const telaMesa = div(mesa, "tela-mesa");
+            const brilho = div(telaMesa, "brilho", { background: corHex });
+            tl.fromTo(mesa, { opacity: 0, y: 30, scale: 0.85 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "steps(5)" }, e.t + i * 0.08);
+            tl.to(mesa.firstChild, { y: -10, duration: 0.5 + i * 0.07, ease: "steps(2)", yoyo: true, repeat: 20 }, e.t + 0.5 + i * 0.1);
+            tl.to(brilho, { opacity: 0.15, duration: 0.4 + i * 0.05, ease: "steps(2)", yoyo: true, repeat: 20 }, e.t + 0.3);
+          }
+          tl.set(caixa, { opacity: 1 }, e.t);
+          if (e.rotulo) { const r = div(caixa, "rot", { color: cor(e.cor) }); r.textContent = e.rotulo; }
         },
         selo_pixel(palco, e) {
           const b = div(palco, "selo-pixel", { top: e.y + "px" }, `<div>${e.texto}</div>`);

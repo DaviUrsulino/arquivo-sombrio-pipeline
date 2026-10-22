@@ -34,6 +34,7 @@ def _quantas_ancoras(visual: dict) -> tuple[int, bool]:
 Y_PADRAO = {
     "titulo_pixel": 300, "icone_pixel": 380, "cadeia": 520, "niveis": 460, "comparar": 320,
     "celular": 200, "banner_repo": 300, "contador": 340, "lista": 380, "terminal": 420, "selo_pixel": 900,
+    "sala_pixel": 420,
 }
 HUMORES = {"normal", "feliz", "animado", "pensando"}
 TIPOS_VISUAIS = set(Y_PADRAO)

@@ -1,0 +1,137 @@
+{
+  "titulo": "teste sala_pixel",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "teste"
+  },
+  "chamada": {
+    "pergunta": "quer o link?"
+  },
+  "itens": [
+    {
+      "repo": "marmottajr/habblaud",
+      "nome": "habblaud",
+      "cor": "azul",
+      "promessa": "",
+      "texto": ""
+    }
+  ],
+  "destaques": [
+    "agentes",
+    "escritorio"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Acompanhe seus agentes trabalhando ao mesmo tempo num escritorio virtual.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "ESCRITORIO",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "VIRTUAL",
+            "cor": "azul",
+            "tamanho": 140
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Tres agentes rodando ao mesmo tempo, cada um numa tarefa.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "sala_pixel",
+        "personagens": 3,
+        "rotulo": "3 AGENTES AO VIVO",
+        "cor": "verde"
+      }
+    }
+  ],
+  "cenas": [
+    {
+      "id": "1",
+      "cor": "laranja",
+      "narracao": "Acompanhe seus agentes trabalhando ao mesmo tempo num escritorio virtual.",
+      "humor": "animado",
+      "elementos": [
+        {
+          "tipo": "titulo_pixel",
+          "linhas": [
+            {
+              "texto": "ESCRITORIO",
+              "cor": "branco",
+              "tamanho": 120
+            },
+            {
+              "texto": "VIRTUAL",
+              "cor": "azul",
+              "tamanho": 140
+            }
+          ],
+          "y": 300,
+          "ancora": "acompanhe",
+          "t": 0.1
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "cor": "laranja",
+      "narracao": "Tres agentes rodando ao mesmo tempo, cada um numa tarefa.",
+      "humor": "feliz",
+      "elementos": [
+        {
+          "tipo": "sala_pixel",
+          "personagens": 3,
+          "rotulo": "3 AGENTES AO VIVO",
+          "cor": "verde",
+          "y": 420,
+          "ancora": "tres",
+          "t": 0.1
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "cor": "laranja",
+      "narracao": "Manda pra um amigo dev, segue e comenta LINK pra receber o link. Quer fazer igual? Link na bio.",
+      "humor": "animado",
+      "elementos": [
+        {
+          "tipo": "titulo_pixel",
+          "y": 330,
+          "linhas": [
+            {
+              "texto": "SIGA E COMENTE",
+              "cor": "branco",
+              "tamanho": 84
+            },
+            {
+              "texto": "LINK",
+              "cor": "verde",
+              "tamanho": 150
+            }
+          ],
+          "ancora": "manda",
+          "t": 0.1
+        },
+        {
+          "tipo": "selo_pixel",
+          "texto": "FAÇA IGUAL: LINK NA BIO",
+          "y": 840,
+          "ancora": "bio"
+        }
+      ]
+    }
+  ]
+}

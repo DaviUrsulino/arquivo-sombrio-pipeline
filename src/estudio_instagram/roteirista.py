@@ -57,6 +57,7 @@ VISUAIS (campo "visual" da cena; só estes "tipo", cores: laranja azul verde rox
 - terminal: {"tipo":"terminal","rotulo":"terminal","comando":"npx exemplo init","texto":"o que esse comando faz"}  (comando COPIADO do README; texto opcional)
 - contador: {"tipo":"contador","repo":"DONO/REPO"}  (estrelas do GitHub contando; use na cena 2)
 - banner_repo: {"tipo":"banner_repo","url":"github.com/dono/repo"}  (mostra o endereço do repositório; use no máximo uma vez)
+- sala_pixel: {"tipo":"sala_pixel","personagens":3,"rotulo":"3 AGENTES AO VIVO","cor":"azul"}  (2 a 4 bichinhos pixel numa mesa, cada um trabalhando; use SÓ quando o README descreve vários agentes, bots, workers ou processos rodando ao mesmo tempo/em paralelo — não use pra ferramenta de um processo só)
 Ícones disponíveis: __ICONES__.
 
 "humor" da cena (reação do robô): normal, feliz, animado ou pensando.
