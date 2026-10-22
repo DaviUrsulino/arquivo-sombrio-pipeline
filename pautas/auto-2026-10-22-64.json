@@ -1,0 +1,209 @@
+{
+  "titulo": "Venda 5: esses vídeos são automáticos",
+  "formato": "pixel2",
+  "palavra_chave": "BIO",
+  "fecho_proprio": true,
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "como esses vídeos são feitos, por cima"
+  },
+  "chamada": {
+    "pergunta": "quer aprender?"
+  },
+  "itens": [],
+  "destaques": [
+    "automáticos",
+    "gratuitas",
+    "github",
+    "pack"
+  ],
+  "legenda": "Esses vídeos são automáticos: um robô acha o projeto, a IA escreve o roteiro e o código monta o vídeo. O Pack Pixel ensina a parte do vídeo. Link na bio.\n\n#engenhariadesoftware #ia #claudecode #reels",
+  "cenas_roteiro": [
+    {
+      "humor": "animado",
+      "narracao": "Esses vídeos são todos automáticos, e dá para fazer com ferramentas gratuitas.",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "VÍDEOS",
+            "cor": "branco",
+            "tamanho": 130
+          },
+          {
+            "texto": "AUTOMÁTICOS",
+            "cor": "laranja",
+            "tamanho": 110
+          }
+        ]
+      }
+    },
+    {
+      "humor": "normal",
+      "narracao": "Um robô acha um projeto no GitHub, a IA escreve o roteiro e o código monta o vídeo.",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "github",
+            "rotulo": "Projeto",
+            "cor": "branco"
+          },
+          {
+            "icone": "bot",
+            "rotulo": "IA",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "clapperboard",
+            "rotulo": "Vídeo",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "No fim, ele publica sozinho no Instagram, várias vezes por dia.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "rocket",
+        "cor": "laranja",
+        "rotulo": "PUBLICA SOZINHO"
+      }
+    },
+    {
+      "humor": "pensando",
+      "narracao": "São quatro peças: roteiro por IA, voz por IA, vídeo por código e post automático.",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Roteiro por IA",
+          "Voz por IA",
+          "Vídeo por código",
+          "Post automático"
+        ]
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "O Pack Pixel ensina a parte do vídeo, que é a que mais chama atenção.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "clapperboard",
+        "cor": "verde",
+        "rotulo": "A PARTE DO VÍDEO"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Quer aprender a fazer igual? O link está na bio.",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "QUER",
+            "cor": "branco",
+            "tamanho": 130
+          },
+          {
+            "texto": "APRENDER?",
+            "cor": "verde",
+            "tamanho": 140
+          }
+        ]
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "VÍDEOS",
+          "cor": "branco",
+          "tamanho": 120
+        },
+        {
+          "texto": "AUTOMÁTICOS",
+          "cor": "laranja",
+          "tamanho": 100
+        }
+      ],
+      "subtitulo": "como funciona, por cima"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "PASSO 1",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "ACHA O PROJETO",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "github",
+      "texto": "Um robô procura um projeto novo no GitHub e lê o README dele."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "PASSO 2",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "A IA ESCREVE",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "roteiro",
+      "texto": "Uma IA escreve o roteiro só com o que está no README, uma frase por cena."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "PASSO 3",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "CÓDIGO MONTA",
+          "cor": "verde"
+        }
+      ],
+      "rotulo": "vídeo",
+      "texto": "A voz é gerada e um template em HTML vira o vídeo vertical. É a parte que o Pack Pixel ensina."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "PASSO 4",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "POSTA SOZINHO",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "instagram",
+      "texto": "A publicação sai pela API do Instagram, várias vezes por dia, sem ninguém apertar nada."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER",
+          "cor": "branco"
+        },
+        {
+          "texto": "APRENDER?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Pack Pixel R$ 27 · link na bio",
+      "selo": "LINK NA BIO",
+      "palavra": "BIO"
+    }
+  ]
+}
