@@ -1,0 +1,191 @@
+{
+  "titulo": "knowledge-work-plugins: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "11 plugins tornam o claude especialista no seu trabalho"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "anthropics/knowledge-work-plugins",
+      "nome": "knowledge-work-plugins",
+      "cor": "azul",
+      "promessa": "Open source repository of plugins primarily intended for knowledge workers to us",
+      "texto": "Open source repository of plugins primarily intended for knowledge workers to use in Claude Cowork"
+    }
+  ],
+  "destaques": [
+    "especialista",
+    "funcao",
+    "plugins",
+    "habilidades",
+    "conectores",
+    "slack",
+    "notion",
+    "instale",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Claude vira especialista na sua funcao",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "CLAUDE VIRA",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "ESPECIALISTA",
+            "cor": "laranja",
+            "tamanho": 150
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto ja tem {estrelas:anthropics/knowledge-work-plugins} estrelas no GitHub",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "anthropics/knowledge-work-plugins"
+      }
+    },
+    {
+      "narracao": "Plugins trazem habilidades comandos e conectores prontos",
+      "humor": "normal",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "produtividade vendas",
+          "suporte produto",
+          "marketing juridico",
+          "financas dados"
+        ]
+      }
+    },
+    {
+      "narracao": "Conecta Slack Notion Jira e suas ferramentas",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "check",
+        "cor": "verde",
+        "rotulo": "CONECTORES PRONTOS"
+      }
+    },
+    {
+      "narracao": "Instale pelo Cowork ou com claude plugin install",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "claude plugin install sales@knowledge-work-plugins",
+        "texto": "instala plugin de vendas"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "CLAUDE VIRA",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "ESPECIALISTA NO SEU TRABALHO",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o knowledge-work-plugins"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "11 PLUGINS PRONTOS",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "nome",
+      "texto": "Plugins empacotam skills comandos conectores e sub-agentes para funcoes como vendas suporte produto marketing juridico financas dados e pesquisa."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "DUAS FORMAS DE USAR",
+          "cor": "verde"
+        }
+      ],
+      "comando": "claude plugin marketplace add anthropics/knowledge-work-plugins",
+      "texto": "depois instale o plugin desejado com claude plugin install",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "COMANDOS BARRA SLASH",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "nota",
+      "texto": "Cada plugin expõe comandos como barra sales dois pontos call-prep ou barra finance dois pontos reconciliation que ativam fluxos completos."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "LICENÇA APACHE DOIS PONTO ZERO",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "nota",
+      "texto": "Código aberto sem build sem infraestrutura apenas markdown e json para você personalizar conectores e fluxos da sua empresa."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "passos": [
+    "acesse claude.com/plugins no cowork",
+    "claude plugin marketplace add anthropics/knowledge-work-plugins",
+    "claude plugin install sales@knowledge-work-plugins",
+    "use comandos como barra sales dois pontos call-prep"
+  ]
+}

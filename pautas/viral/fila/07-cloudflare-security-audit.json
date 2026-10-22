@@ -1,0 +1,209 @@
+{
+  "titulo": "security-audit-skill: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "a coding-agent skill for multi-phase security audits with independently verified, machine-readable findings"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "cloudflare/security-audit-skill",
+      "nome": "security-audit-skill",
+      "cor": "azul",
+      "promessa": "A coding-agent skill for multi-phase security audits with independently verified",
+      "texto": "A coding-agent skill for multi-phase security audits with independently verified, machine-readable findings"
+    }
+  ],
+  "destaques": [
+    "seis fases",
+    "agentes isolados",
+    "achados verificados",
+    "relatórios independentes",
+    "mit license",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Seu agente faz auditoria em seis fases",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "SEU AGENTE",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "FAZ AUDITORIA",
+            "cor": "laranja",
+            "tamanho": 140
+          },
+          {
+            "texto": "EM SEIS FASES",
+            "cor": "verde",
+            "tamanho": 110
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto já tem {estrelas:cloudflare/security-audit-skill} estrelas no GitHub",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "cloudflare/security-audit-skill"
+      }
+    },
+    {
+      "narracao": "A habilidade orquestra agentes isolados em seis fases",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "search",
+            "rotulo": "RECONHECIMENTO",
+            "cor": "azul"
+          },
+          {
+            "icone": "zap",
+            "rotulo": "CAÇA VALIDAÇÃO",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "check",
+            "rotulo": "RELATÓRIO",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Produz achados confirmados necessários validação ou rejeitados",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "list-checks",
+        "cor": "roxo",
+        "rotulo": "TRES VERDITOS FINAIS"
+      }
+    },
+    {
+      "narracao": "Instala via npx skills add security-audit",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "npx skills add https://github.com/cloudflare/security-audit-skill --skill security-audit",
+        "texto": "instala a habilidade no seu agente"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "SEU AGENTE",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "VIRA AUDITOR",
+          "cor": "laranja",
+          "tamanho": 108
+        },
+        {
+          "texto": "EM SEIS FASES",
+          "cor": "verde",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o security-audit"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "HABILIDADE DE AUDITORIA",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "nome",
+      "texto": "Skill para agentes de código que executa auditorias de segurança em seis fases isoladas com validação independente."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMANDO DE INSTALAÇÃO",
+          "cor": "verde"
+        }
+      ],
+      "comando": "npx skills add https://github.com/cloudflare/security-audit-skill --skill security-audit",
+      "texto": "use --global para instalação no nível de usuário",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "O QUE DÁ PRA FAZER",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "nota",
+      "texto": "Peça security audit this codebase e receba relatórios com achados confirmados, needs_validation ou rejected."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "LICENÇA E REQUISITOS",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "nota",
+      "texto": "MIT. Precisa de agente com tool use, sub-agentes paralelos, Node.js e sandbox OS-enforced."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "passos": [
+    "npx skills add https://github.com/cloudflare/security-audit-skill --skill security-audit",
+    "inicie seu agente de código no repositório alvo",
+    "peça security audit this codebase"
+  ]
+}
