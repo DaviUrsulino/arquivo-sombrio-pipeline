@@ -1,0 +1,94 @@
+{
+ "titulo": "Venda 7: sai feio se só pedir",
+ "formato": "pixel2",
+ "palavra_chave": "PACK",
+ "fecho_proprio": true,
+ "perfil": "@robo.estagiario",
+ "voz": {
+  "id": "iP95p4xoKVk53GoZ742B",
+  "modelo": "eleven_multilingual_v2"
+ },
+ "capa": {
+  "subtitulo": "por que o vídeo da IA sai feio (e como corrigir)"
+ },
+ "chamada": {
+  "pergunta": "quer o pack?"
+ },
+ "itens": [],
+ "destaques": [
+  "código",
+  "ritmo",
+  "referência",
+  "pack",
+  "nove",
+  "visuais"
+ ],
+ "legenda": "Esse vídeo foi feito 100% por código, sem After Effects. Mas se você só pedir pra IA fazer um vídeo, sai sem ritmo. O Pack Pixel (R$ 27) tem a referência pronta: 9 visuais, cores certas e um prompt que já monta o roteiro sozinho. Link na bio.\n\n#claudecode #motiondesign #ia #reels",
+ "cenas_roteiro": [
+  {
+   "humor": "animado",
+   "narracao": "Esse vídeo inteiro foi feito por código, sem After Effects, sem editor.",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {"texto": "VÍDEO FEITO", "cor": "branco", "tamanho": 110},
+     {"texto": "POR CÓDIGO", "cor": "laranja", "tamanho": 130}
+    ]
+   }
+  },
+  {
+   "humor": "pensando",
+   "narracao": "Mas se você só pedir pra IA fazer um vídeo assim, sai sem ritmo, com visual repetido.",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "triangle-alert",
+    "cor": "vermelho",
+    "rotulo": "SEM RITMO, REPETIDO"
+   }
+  },
+  {
+   "humor": "normal",
+   "narracao": "O que funciona de verdade é ter a referência pronta: cor certa, ícone certo, visual diferente em cada cena.",
+   "visual": {
+    "tipo": "cadeia",
+    "layout": "horizontal",
+    "nos": [
+     {"icone": "palette", "rotulo": "Cor certa", "cor": "roxo"},
+     {"icone": "sparkles", "rotulo": "Visual novo", "cor": "azul"},
+     {"icone": "clapperboard", "rotulo": "Vídeo", "cor": "verde"}
+    ]
+   }
+  },
+  {
+   "humor": "feliz",
+   "narracao": "Tem nove visuais prontos e um prompt que já escreve o roteiro sozinho pra você.",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "sparkles",
+    "cor": "amarelo",
+    "rotulo": "NOVE VISUAIS PRONTOS"
+   }
+  },
+  {
+   "humor": "normal",
+   "narracao": "É o Pack Pixel, por vinte e sete reais: o script, a referência e o prompt pronto.",
+   "visual": {
+    "tipo": "terminal",
+    "rotulo": "pack-pixel",
+    "comando": "python montar.py roteiro.json",
+    "texto": "gera o vídeo pronto, no ritmo certo"
+   }
+  },
+  {
+   "humor": "animado",
+   "narracao": "Comenta PACK que eu te mando o link. Ou acessa direto na bio.",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {"texto": "COMENTA", "cor": "branco", "tamanho": 100},
+     {"texto": "PACK", "cor": "verde", "tamanho": 150}
+    ]
+   }
+  }
+ ]
+}
