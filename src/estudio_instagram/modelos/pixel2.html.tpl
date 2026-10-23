@@ -293,15 +293,19 @@
             tl.fromTo(li, { opacity: 0, x: -120 }, { opacity: 1, x: 0, duration: 0.35, ease: "steps(5)" }, e.ts[i]);
           });
         },
-        terminal(palco, e) {
+        terminal(palco, e, duracaoCena) {
           const j = div(palco, "janela", { top: e.y + "px" });
           j.innerHTML = `<div class="barra"><b style="background:#ff5c5c"></b><b style="background:#ffd84a"></b><b style="background:#4ee06a"></b><em>${e.rotulo || "terminal"}</em></div><div class="corpo"><div class="cmd"></div><div class="desc"></div></div>`;
           const cmd = j.querySelector(".cmd"), desc = j.querySelector(".desc"); porLetra(cmd, e.comando);
           const cur = document.createElement("i"); cur.className = "cursor"; cmd.appendChild(cur); if (e.texto) porLetra(desc, e.texto);
           tl.fromTo(j, { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.3, ease: "steps(4)" }, e.ts[0]);
-          digitar([...cmd.querySelectorAll("span")], e.ts[0] + 0.2, 0.06);
+          // velocidade da digitação se ajusta ao tempo que sobra na cena, senão comando longo
+          // corta no meio (bug visto: "npx skills add ... secur|" com a cena já acabando).
+          const sobra = Math.max(0.6, (duracaoCena || 4.5) - (e.ts[0] + 0.2) - 0.3);
+          const porLetraCmd = Math.min(0.06, sobra / Math.max(1, e.comando.length));
+          const fimCmd = digitar([...cmd.querySelectorAll("span")], e.ts[0] + 0.2, porLetraCmd);
           tl.to(cur, { opacity: 0, duration: 0.01, yoyo: true, repeat: 30, repeatDelay: 0.35 }, e.ts[0] + 0.6);
-          if (e.texto) digitar([...desc.querySelectorAll("span")], e.ts[1] || e.ts[0] + 1, 0.026);
+          if (e.texto) digitar([...desc.querySelectorAll("span")], e.ts[1] || fimCmd, 0.026);
         },
         sala_pixel(palco, e) {
           const n = Math.min(4, Math.max(2, e.personagens || 3));
@@ -359,7 +363,7 @@
         tl.set(robo, { x: 120 }, 0);
         D.cenas.forEach((c, i) => {
           const palco = document.getElementById("cena-" + c.id).firstElementChild;
-          c.elementos.forEach((e) => { if (construtores[e.tipo]) construtores[e.tipo](palco, e); });
+          c.elementos.forEach((e) => { if (construtores[e.tipo]) construtores[e.tipo](palco, e, c.duracao); });
           tl.set(palco, { opacity: 1 }, c.inicio);
           tl.to(palco, { opacity: 0, duration: 0.18, ease: "steps(3)" }, c.inicio + c.duracao - 0.18);
           const pose = c.humor && poses[c.humor] ? c.humor : "normal"; const alvoX = [120, 430, 760, 560, 240][i % 5];
