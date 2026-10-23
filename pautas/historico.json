@@ -36,6 +36,7 @@
     "alirezarezvani/claude-skills",
     "anthropics/claude-plugins-official",
     "anthropics/knowledge-work-plugins",
+    "bangtutorial/bang-motion",
     "browser-use/browser-harness",
     "bytedance/deer-flow",
     "can1357/oh-my-pi",
@@ -106,5 +107,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 53
+  "pautas_geradas": 54
 }

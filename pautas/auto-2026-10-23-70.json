@@ -1,0 +1,223 @@
+{
+  "titulo": "bang-motion: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "agente de IA que transforma código em vídeo que parece real"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "bangtutorial/bang-motion",
+      "nome": "bang-motion",
+      "cor": "azul",
+      "promessa": "Agent skill for browser motion graphics — openers, promos, bumpers, kinetic typo",
+      "texto": "Agent skill for browser motion graphics — openers, promos, bumpers, kinetic typography, and five explainer styles that m"
+    }
+  ],
+  "destaques": [
+    "código",
+    "vídeo",
+    "sem",
+    "slides",
+    "html",
+    "agente",
+    "cinemático",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Seu agente de IA cria vídeo que parece real, não slides.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "AGENTE CRIA",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "VÍDEO REAL",
+            "cor": "laranja",
+            "tamanho": 150
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Sem cortes artificiais, sem texto flutuante: tudo se move como em filme.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "code-xml",
+            "rotulo": "CÓDIGO",
+            "cor": "azul"
+          },
+          {
+            "icone": "clapperboard",
+            "rotulo": "MOVIMENTO",
+            "cor": "verde"
+          },
+          {
+            "icone": "sparkles",
+            "rotulo": "VÍDEO",
+            "cor": "amarelo"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Escolha entre dez estilos visuais e dezenove conceitos narrativos pré-definidos.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "niveis",
+        "itens": [
+          {
+            "rotulo": "ESTILO",
+            "altura": 2,
+            "cor": "azul"
+          },
+          {
+            "rotulo": "CONCEITO",
+            "altura": 3,
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Do opener de produto ao explainer corporativo, tudo sai como um único arquivo HTML.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "vertical",
+        "nos": [
+          {
+            "icone": "file-text",
+            "rotulo": "HTML",
+            "cor": "azul"
+          },
+          {
+            "icone": "clapperboard",
+            "rotulo": "AUTOJOGAR",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Basta rodar: npm create bangtutorial@latest e pronto — {estrelas:bangtutorial/bang-motion}.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "npm create bangtutorial@latest",
+        "texto": "gerador de vídeo em HTML"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "AGENTE CRIA VÍDEO",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "COM HTML SÓ",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça bang motion"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "AGENTE DE MOVIMENTO",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "bang motion",
+      "texto": "transforma código em vídeo que parece real, sem slides. Doze estilos visuais e dezenove conceitos narrativos para escolher."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "INSTALE EM 1 COMANDO",
+          "cor": "verde"
+        }
+      ],
+      "comando": "npm create bangtutorial@latest",
+      "texto": "gerador de vídeo cinemático em HTML",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "USO: BRIEF + ESTILO",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "exemplo",
+      "texto": "forneça produto, logo, público e duração. O agente gera um arquivo HTML pronto para autoplay."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "MIT, FÁCIL DE USAR",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "licença",
+      "texto": "licença MIT e compatível com Claude Code, Codex e Gemini CLI."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "passos": [
+    "1. Instale com: npm create bangtutorial@latest",
+    "2. Escolha um estilo e conceito na documentação",
+    "3. Forneça brief: produto, logo, público e duração",
+    "4. Gere o HTML com: npx bang-motion build"
+  ]
+}
