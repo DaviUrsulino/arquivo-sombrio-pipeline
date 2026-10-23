@@ -1,0 +1,201 @@
+{
+  "titulo": "lista: programar com agentes de ia",
+  "formato": "pixel2",
+  "palavra_chave": "GITHUB",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "quatro ferramentas open source para desenvolvedores usarem com claude code e codex"
+  },
+  "chamada": {
+    "pergunta": "quer os links dos repositórios?"
+  },
+  "itens": [
+    {
+      "repo": "duty1g/x64dbg-mcp-server",
+      "nome": "x64dbg-mcp-server",
+      "cor": "azul",
+      "promessa": "x64dbg-MCP Server is a native MCP (Model Context Protocol) plugin for x64dbg tha",
+      "texto": "Controla x64dbg via HTTP com 84 ferramentas"
+    },
+    {
+      "repo": "simonlin1212/Vibe-Research",
+      "nome": "Vibe-Research",
+      "cor": "verde",
+      "promessa": "Vibe-Research：A 股、美股、港股的投研工作台 · 自选与持仓、每日复盘、产业资讯、产业研究、个股深挖、回测、研报库，168 个数据端点。支持 Cl",
+      "texto": "Bancada de investimento com 168 endpoints de dados"
+    },
+    {
+      "repo": "oil-oil/oil-motion",
+      "nome": "oil-motion",
+      "cor": "laranja",
+      "promessa": "Web animation skill for Claude Code & Codex. 帮你做跟着滚动和鼠标动的网页动画。",
+      "texto": "Cria animações web controladas por rolagem e mouse"
+    },
+    {
+      "repo": "threerocks/hand-drawn-styles",
+      "nome": "hand-drawn-styles",
+      "cor": "roxo",
+      "promessa": "Claude Code skill：把内容套进内置手绘画风配方,产出可直接复制的生图提示词。内置儿童涂色/极简线条/蜡笔童涂/吉卜力/小豆人涂鸦 5 种已验证画",
+      "texto": "Oferece 21 receitas de estilo manual"
+    }
+  ],
+  "destaques": [
+    "x64dbg mcp server",
+    "vibe research",
+    "oil motion",
+    "hand drawn styles",
+    "github"
+  ],
+  "cenas_roteiro": [
+    {
+      "humor": "animado",
+      "narracao": "Quatro repositórios grátis para programar com agentes de ia.",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "4 REPOS PARA",
+            "cor": "branco",
+            "tamanho": 100
+          },
+          {
+            "texto": "AGENTES DE IA",
+            "cor": "laranja",
+            "tamanho": 110
+          }
+        ]
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Primeiro: x64dbg mcp server. Controla x64dbg via HTTP com 84 ferramentas.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "bug",
+        "cor": "azul",
+        "rotulo": "X64DBG MCP SERVER"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Segundo: vibe research. Bancada de investimento com 168 endpoints de dados.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "search",
+        "cor": "verde",
+        "rotulo": "VIBE RESEARCH"
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Terceiro: oil motion. Cria animações web controladas por rolagem e mouse.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "clapperboard",
+        "cor": "laranja",
+        "rotulo": "OIL MOTION"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Quarto: hand drawn styles. Oferece 21 receitas de estilo manual.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "palette",
+        "cor": "roxo",
+        "rotulo": "HAND DRAWN STYLES"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "4 REPOS PARA",
+          "cor": "branco",
+          "tamanho": 96
+        },
+        {
+          "texto": "AGENTES DE IA",
+          "cor": "laranja",
+          "tamanho": 96
+        }
+      ],
+      "subtitulo": "quatro ferramentas open source para desenvolvedores usarem com claude code e codex"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 1",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "X64DBG MCP SERVER",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "x64dbg-mcp-server",
+      "texto": "Controla x64dbg via HTTP com 84 ferramentas."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 2",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "VIBE RESEARCH",
+          "cor": "verde"
+        }
+      ],
+      "rotulo": "Vibe-Research",
+      "texto": "Bancada de investimento com 168 endpoints de dados."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 3",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "OIL MOTION",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "oil-motion",
+      "texto": "Cria animações web controladas por rolagem e mouse."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 4",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "HAND DRAWN STYLES",
+          "cor": "roxo"
+        }
+      ],
+      "rotulo": "hand-drawn-styles",
+      "texto": "Oferece 21 receitas de estilo manual."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER OS LINKS",
+          "cor": "branco"
+        },
+        {
+          "texto": "DOS REPOS?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando os links no direct.",
+      "palavra": "GITHUB",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "legenda": "Quatro repositórios grátis para programar com agentes de ia 🤖\n\nSalva este vídeo:\n1. X64Dbg Mcp Server: Controla x64dbg via HTTP com 84 ferramentas.\n2. Vibe Research: Bancada de investimento com 168 endpoints de dados.\n3. Oil Motion: Cria animações web controladas por rolagem e mouse.\n4. Hand Drawn Styles: Oferece 21 receitas de estilo manual.\n\nManda pra um amigo dev, segue o @robo.estagiario e comenta GITHUB que eu te mando os links no direct.\n\nQuer aprender a fazer vídeos assim? Link na bio.\n\n#claudecode #github #ia #programacao #opensource"
+}

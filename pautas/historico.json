@@ -47,6 +47,7 @@
     "czlonkowski/n8n-mcp",
     "danyuchn/asd-ste100-skill",
     "diegosouzapw/OmniRoute",
+    "duty1g/x64dbg-mcp-server",
     "echris6/motion-video-kit",
     "eternityspring/shuohao-skills",
     "farion1231/cc-switch",
@@ -72,6 +73,7 @@
     "nateherkai/scroll-craft",
     "nykooi1/vibe-wise",
     "obra/superpowers",
+    "oil-oil/oil-motion",
     "onlook-dev/onlook",
     "open-jarvis/OpenJarvis",
     "openai/codex-plugin-cc",
@@ -84,10 +86,12 @@
     "ronak-create/FableCut",
     "ruvnet/ruflo",
     "shareAI-lab/learn-claude-code",
+    "simonlin1212/Vibe-Research",
     "sirioberati/Genjustsu-Open-Source-Workflow",
     "stablyai/orca",
     "tamaratran/fast-jev-compaction",
     "thedotmack/claude-mem",
+    "threerocks/hand-drawn-styles",
     "tigerless-labs/agent-memory",
     "tirth8205/code-review-graph",
     "trailhq/Trail-Code",
@@ -102,5 +106,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 52
+  "pautas_geradas": 53
 }
