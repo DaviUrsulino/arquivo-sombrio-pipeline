@@ -10,13 +10,15 @@
     "COMANDOS": "Oi! Aqui está o robo-estagiario.zip com o guia de comandos do Claude Code, o modelo de CLAUDE.md e o prompt de planejamento: https://tinyurl.com/2bgkh263",
     "PACK": "Oi! Esse é o Pack Pixel (R$ 27): o script, o template e os exemplos para fazer Reels em pixel art como os do perfil. Compra aqui: https://pay.kiwify.com.br/jmiKAgE",
     "ENGENHARIA": "Oi! Esse é o Kit Engenharia com IA (R$ 37): regras, 6 skills e um script que provam que o seu Claude Code entrega com requisito, teste e segurança. Detalhes e compra aqui: https://pay.kiwify.com.br/3Jm8P4j",
-    "TESTES": "Oi! Esse é o Kit Engenharia com IA (R$ 37): regras, 6 skills e um script que provam que o seu Claude Code entrega com requisito, teste e segurança. Detalhes e compra aqui: https://pay.kiwify.com.br/3Jm8P4j"
+    "TESTES": "Oi! Esse é o Kit Engenharia com IA (R$ 37): regras, 6 skills e um script que provam que o seu Claude Code entrega com requisito, teste e segurança. Detalhes e compra aqui: https://pay.kiwify.com.br/3Jm8P4j",
+    "PIXEL": "Oi! É o Pixel Guerra: grade de 10 mil espaços, entrada R$ 1, pra tomar um espaço ocupado é só pagar R$ 0,50 a mais que o dono atual. Garante o seu: https://pixelguerra.com.br"
   },
   "exigir_seguir": false,
   "sem_filtro": [
     "PACK",
     "ENGENHARIA",
-    "TESTES"
+    "TESTES",
+    "PIXEL"
   ],
   "mensagem_pedido": "Oi! Pra liberar o link, segue o @robo.estagiario e responde aqui com SIGO. Eu confiro e te mando na hora 🤖",
   "mensagem_nao_segue": "Ainda não vi o seu follow no @robo.estagiario 😅 Segue a conta e responde SIGO de novo que eu libero o link."

@@ -1,0 +1,86 @@
+{
+ "titulo": "Venda 8: Pixel Guerra",
+ "formato": "pixel2",
+ "palavra_chave": "PIXEL",
+ "fecho_proprio": true,
+ "perfil": "@robo.estagiario",
+ "voz": {
+  "id": "iP95p4xoKVk53GoZ742B",
+  "modelo": "eleven_multilingual_v2"
+ },
+ "capa": {
+  "subtitulo": "o site onde seu espaço pode ser roubado por 50 centavos"
+ },
+ "chamada": {
+  "pergunta": "quer garantir o seu?"
+ },
+ "itens": [],
+ "destaques": [
+  "roubado",
+  "dez mil",
+  "cinquenta centavos",
+  "pixel guerra",
+  "link"
+ ],
+ "legenda": "Seu espaço pode ser roubado por cinquenta centavos a mais. É o Million Dollar Homepage de 2005, só que agora dá pra tomar o espaço de volta — nenhum concorrente no Brasil faz isso. 10 mil espaços, grade real, PIX. Link na bio.\n\n#pixelguerra #milliondollarhomepage #startup #brasil",
+ "cenas_roteiro": [
+  {
+   "humor": "pensando",
+   "narracao": "Seu espaço pode ser roubado por cinquenta centavos a mais.",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {"texto": "SEU ESPAÇO", "cor": "branco", "tamanho": 110},
+     {"texto": "PODE SER", "cor": "vermelho", "tamanho": 110},
+     {"texto": "ROUBADO", "cor": "vermelho", "tamanho": 130}
+    ]
+   }
+  },
+  {
+   "humor": "normal",
+   "narracao": "É uma grade de dez mil espaços, e quem paga mais assume o seu.",
+   "visual": {
+    "tipo": "contador",
+    "valor": 10000,
+    "formato": "cheio",
+    "rotulo": "ESPAÇOS NA GRADE"
+   }
+  },
+  {
+   "humor": "feliz",
+   "narracao": "A entrada custa um real. Pra tomar um espaço ocupado, paga cinquenta centavos a mais que o dono atual.",
+   "visual": {
+    "tipo": "comparar",
+    "esq": {
+     "titulo": "ENTRAR", "icone": "zap", "cor": "verde",
+     "linhas": [{"rotulo": "preço", "valor": 1}]
+    },
+    "dir": {
+     "titulo": "TOMAR", "icone": "flame", "cor": "vermelho",
+     "linhas": [{"rotulo": "a mais", "valor": 1}]
+    }
+   }
+  },
+  {
+   "humor": "animado",
+   "narracao": "É o Million Dollar Homepage de 2005, só que agora o espaço pode ser roubado de volta.",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "flame",
+    "cor": "amarelo",
+    "rotulo": "NINGUÉM NO BRASIL FAZ ISSO"
+   }
+  },
+  {
+   "humor": "animado",
+   "narracao": "Garante seu espaço ou rouba o de alguém. Comenta PIXEL que eu te mando o link.",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {"texto": "COMENTA", "cor": "branco", "tamanho": 100},
+     {"texto": "PIXEL", "cor": "verde", "tamanho": 150}
+    ]
+   }
+  }
+ ]
+}
