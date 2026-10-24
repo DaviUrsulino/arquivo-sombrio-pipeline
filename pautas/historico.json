@@ -61,6 +61,7 @@
     "google/artemis",
     "headroomlabs-ai/headroom",
     "heygen-com/hyperframes",
+    "howseen-ai/claude-motion-design",
     "iOfficeAI/AionUi",
     "iart-ai/motion-skills",
     "isair/jarvis",
@@ -111,5 +112,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 55
+  "pautas_geradas": 56
 }

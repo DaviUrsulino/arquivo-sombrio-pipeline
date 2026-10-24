@@ -1,0 +1,219 @@
+{
+  "titulo": "claude-motion-design: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "crie vídeos de animação profissional com html e claude code"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "howseen-ai/claude-motion-design",
+      "nome": "claude-motion-design",
+      "cor": "azul",
+      "promessa": "A Claude Code skill to make motion design videos in pure code: HTML + Playwright",
+      "texto": "A Claude Code skill to make motion design videos in pure code: HTML + Playwright + ffmpeg. No After Effects, no Remotion"
+    }
+  ],
+  "destaques": [
+    "animacao",
+    "html",
+    "playwright",
+    "ffmpeg",
+    "claude code",
+    "motion design",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Criar vídeos de animação profissional sem usar o After Effects.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "SEM USAR",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "AFTER EFFECTS",
+            "cor": "laranja",
+            "tamanho": 110
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Essa habilidade do Claude Code gera filmes usando puro código.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "code-xml",
+            "rotulo": "HTML",
+            "cor": "azul"
+          },
+          {
+            "icone": "bot",
+            "rotulo": "Claude Code",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "clapperboard",
+            "rotulo": "Vídeo",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Cada quadro é calculado por tempo e sincronizado na música.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "zap",
+        "cor": "verde",
+        "rotulo": "BEAT SYNC PERFEITO"
+      }
+    },
+    {
+      "narracao": "Ela inclui um modo para recriar vídeos de lançamento existentes.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "comparar",
+        "esq": {
+          "titulo": "ORIGINAL",
+          "icone": "clapperboard",
+          "cor": "azul",
+          "linhas": [
+            {
+              "rotulo": "referencia",
+              "valor": 8
+            }
+          ]
+        },
+        "dir": {
+          "titulo": "CÓPIA IA",
+          "icone": "bot",
+          "cor": "roxo",
+          "linhas": [
+            {
+              "rotulo": "precisao",
+              "valor": 8
+            }
+          ]
+        }
+      }
+    },
+    {
+      "narracao": "Com {estrelas:howseen-ai/claude-motion-design} estrelas no GitHub, basta copiar a habilidade e usar.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "howseen-ai/claude-motion-design"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "VÍDEOS COM CÓDIGO",
+          "cor": "branco",
+          "tamanho": 100
+        },
+        {
+          "texto": "SEM AFTER EFFECTS",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o claude-motion-design"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "PURE CODE MOTION",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "claude-motion-design",
+      "texto": "Uma habilidade para Claude Code que gera vídeos com HTML, Playwright e ffmpeg. Sem licenças pagas nem editores tradicionais."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMO INSTALAR",
+          "cor": "verde"
+        }
+      ],
+      "comando": "mkdir -p ~/.claude/skills && cp -r skill/motion-design ~/.claude/skills/",
+      "texto": "Copie a habilidade para a pasta de habilidades do Claude Code.",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "RECURSOS",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "REMOÇÃO E SYNC",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "recursos",
+      "texto": "Animações sincronizadas no beat da música e um modo para recriar vídeos de lançamento existentes quadro a quadro."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "GRATUITO E MIT",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "licença",
+      "texto": "Código sob licença MIT. Funciona com Chromium, Python e ffmpeg sem custos de licença."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "passos": [
+    "mkdir -p ~/.claude/skills && cp -r skill/motion-design ~/.claude/skills/",
+    "pip install playwright imageio-ffmpeg numpy pillow && python -m playwright install chromium",
+    "digite /motion-design no claude code"
+  ]
+}
