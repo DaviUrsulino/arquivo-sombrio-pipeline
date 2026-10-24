@@ -1,0 +1,201 @@
+{
+  "titulo": "lista: potencializar seus agentes de inteligência artificial",
+  "formato": "pixel2",
+  "palavra_chave": "GITHUB",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "quatro repositórios para turbinar seus agentes de inteligência artificial."
+  },
+  "chamada": {
+    "pergunta": "quer os links dos repositórios?"
+  },
+  "itens": [
+    {
+      "repo": "Leonxlnx/earshot",
+      "nome": "earshot",
+      "cor": "azul",
+      "promessa": "Ears for coding agents: let AI hear, review and make sound. CPU-only, open sourc",
+      "texto": "Ele analisa e gera áudio para agentes."
+    },
+    {
+      "repo": "MemTensor/memmy-agent",
+      "nome": "memmy-agent",
+      "cor": "verde",
+      "promessa": "🍙  A personal AI agent & local memory hub for all AI agents, gives every AI one ",
+      "texto": "Ele compartilha memória entre seus agentes virtuais."
+    },
+    {
+      "repo": "cbrock84/headcount",
+      "nome": "headcount",
+      "cor": "laranja",
+      "promessa": "An agent organization structured as a company — 15+ departments, 125+ skills, ea",
+      "texto": "Ele estrutura seus agentes em departamentos corporativos."
+    },
+    {
+      "repo": "oil-oil/oil-ui",
+      "nome": "oil-ui",
+      "cor": "roxo",
+      "promessa": "UI design skill for Claude Code, Codex and other AI agents: explore distinct dir",
+      "texto": "Ele cria interfaces visuais para seus agentes."
+    }
+  ],
+  "destaques": [
+    "earshot",
+    "memmy agent",
+    "headcount",
+    "oil u i",
+    "github"
+  ],
+  "cenas_roteiro": [
+    {
+      "humor": "animado",
+      "narracao": "Quatro repositórios grátis para potencializar seus agentes de inteligência artificial.",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "4 REPOS PARA",
+            "cor": "branco",
+            "tamanho": 100
+          },
+          {
+            "texto": "SEUS AGENTES",
+            "cor": "laranja",
+            "tamanho": 110
+          }
+        ]
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Primeiro: earshot. Ele analisa e gera áudio para agentes.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "clapperboard",
+        "cor": "azul",
+        "rotulo": "EARSHOT"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Segundo: memmy agent. Ele compartilha memória entre seus agentes virtuais.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "brain",
+        "cor": "verde",
+        "rotulo": "MEMMY AGENT"
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Terceiro: headcount. Ele estrutura seus agentes em departamentos corporativos.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "users",
+        "cor": "laranja",
+        "rotulo": "HEADCOUNT"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Quarto: oil u i. Ele cria interfaces visuais para seus agentes.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "palette",
+        "cor": "roxo",
+        "rotulo": "OIL UI"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "4 REPOS PARA",
+          "cor": "branco",
+          "tamanho": 96
+        },
+        {
+          "texto": "SEUS AGENTES",
+          "cor": "laranja",
+          "tamanho": 96
+        }
+      ],
+      "subtitulo": "quatro repositórios para turbinar seus agentes de inteligência artificial."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 1",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "EARSHOT",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "earshot",
+      "texto": "Ele analisa e gera áudio para agentes."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 2",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "MEMMY AGENT",
+          "cor": "verde"
+        }
+      ],
+      "rotulo": "memmy-agent",
+      "texto": "Ele compartilha memória entre seus agentes virtuais."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 3",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "HEADCOUNT",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "headcount",
+      "texto": "Ele estrutura seus agentes em departamentos corporativos."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 4",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "OIL UI",
+          "cor": "roxo"
+        }
+      ],
+      "rotulo": "oil-ui",
+      "texto": "Ele cria interfaces visuais para seus agentes."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER OS LINKS",
+          "cor": "branco"
+        },
+        {
+          "texto": "DOS REPOS?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando os links no direct.",
+      "palavra": "GITHUB",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "legenda": "Quatro repositórios grátis para potencializar seus agentes de inteligência artificial 🤖\n\nSalva este vídeo:\n1. Earshot: Ele analisa e gera áudio para agentes.\n2. Memmy Agent: Ele compartilha memória entre seus agentes virtuais.\n3. Headcount: Ele estrutura seus agentes em departamentos corporativos.\n4. Oil Ui: Ele cria interfaces visuais para seus agentes.\n\nManda pra um amigo dev, segue o @robo.estagiario e comenta GITHUB que eu te mando os links no direct.\n\nQuer aprender a fazer vídeos assim? Link na bio.\n\n#claudecode #github #ia #programacao #opensource"
+}

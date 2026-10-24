@@ -11,11 +11,13 @@
     "JuliusBrussee/caveman",
     "K-Dense-AI/scientific-agent-skills",
     "Kilo-Org/kilocode",
+    "Leonxlnx/earshot",
     "Leonxlnx/taste-skill",
     "Leonxlnx/unlazy",
     "LibreChat-AI/LibreChat",
     "Louis-CFM/coucou",
     "MartinDelophy/ai-video-editor",
+    "MemTensor/memmy-agent",
     "NVIDIA/SkillSpector",
     "Nanako0129/sepia",
     "NousResearch/hermes-agent",
@@ -41,6 +43,7 @@
     "bytedance/deer-flow",
     "can1357/oh-my-pi",
     "career-ops-hq/career-ops",
+    "cbrock84/headcount",
     "cheaper-inference/OmniRoute",
     "cloudflare/security-audit-skill",
     "continuedev/continue",
@@ -75,6 +78,7 @@
     "nykooi1/vibe-wise",
     "obra/superpowers",
     "oil-oil/oil-motion",
+    "oil-oil/oil-ui",
     "onlook-dev/onlook",
     "open-jarvis/OpenJarvis",
     "openai/codex-plugin-cc",
@@ -107,5 +111,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 54
+  "pautas_geradas": 55
 }
