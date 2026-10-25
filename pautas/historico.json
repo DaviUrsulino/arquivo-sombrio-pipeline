@@ -1,6 +1,7 @@
 {
   "repositorios_usados": [
     "1jehuang/jcode",
+    "AMAP-ML/LongHorizon-Harness",
     "DayuanJiang/next-ai-draw-io",
     "DietrichGebert/ponytail",
     "Donchitos/Claude-Code-Game-Studios",
@@ -26,6 +27,7 @@
     "Orchestra-Research/AI-Research-SKILLs",
     "OthmanAdi/planning-with-files",
     "Panniantong/Agent-Reach",
+    "Paritok-official/paritok-4b-v1",
     "QingYunA/answer-me-with-html",
     "QwenLM/qwen-code",
     "Ryze-AI-Adgent/open-seo-mcp-skills",
@@ -69,6 +71,7 @@
     "jnMetaCode/agency-agents-zh",
     "kajisho5/ffmpeg-skill",
     "lemomo-ai/lemo-opuscar",
+    "makecindy/cindy",
     "marmottajr/habblaud",
     "mattpocock/skills",
     "miqdadbadjuber/anti-slop",
@@ -94,6 +97,7 @@
     "shareAI-lab/learn-claude-code",
     "simonlin1212/Vibe-Research",
     "sirioberati/Genjustsu-Open-Source-Workflow",
+    "soumatheusgomes/vibe-coding-toolkit",
     "stablyai/orca",
     "tamaratran/fast-jev-compaction",
     "thedotmack/claude-mem",
@@ -112,5 +116,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 56
+  "pautas_geradas": 57
 }

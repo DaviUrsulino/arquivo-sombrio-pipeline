@@ -1,0 +1,201 @@
+{
+  "titulo": "lista: turbinar seus agentes de código",
+  "formato": "pixel2",
+  "palavra_chave": "GITHUB",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "ferramentas de código aberto para melhorar fluxos com agentes de inteligência artificial"
+  },
+  "chamada": {
+    "pergunta": "quer os links dos repositórios?"
+  },
+  "itens": [
+    {
+      "repo": "AMAP-ML/LongHorizon-Harness",
+      "nome": "LongHorizon-Harness",
+      "cor": "azul",
+      "promessa": "The long-horizon computer-use harness. Run AI agents across desktop apps and the",
+      "texto": "Mantém agentes executando tarefas longas."
+    },
+    {
+      "repo": "Paritok-official/paritok-4b-v1",
+      "nome": "paritok-4b-v1",
+      "cor": "verde",
+      "promessa": "Non-destructive compression gateway for AI coding agents. Cuts token bills 25% o",
+      "texto": "Comprime contexto para gastar menos."
+    },
+    {
+      "repo": "makecindy/cindy",
+      "nome": "cindy",
+      "cor": "laranja",
+      "promessa": "Consider it done. The open-source AI agent that works out of the box · 想到，就能做到。开",
+      "texto": "Executa tarefas locais no computador."
+    },
+    {
+      "repo": "soumatheusgomes/vibe-coding-toolkit",
+      "nome": "vibe-coding-toolkit",
+      "cor": "roxo",
+      "promessa": "A curated, battle-tested AI-coding toolkit: Claude Code plugins, subagent orches",
+      "texto": "Traz receitas para guiar agentes."
+    }
+  ],
+  "destaques": [
+    "long horizon harness",
+    "paritok",
+    "cindy",
+    "vibe coding toolkit",
+    "github"
+  ],
+  "cenas_roteiro": [
+    {
+      "humor": "animado",
+      "narracao": "Quatro repositórios grátis para turbinar seus agentes de código.",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "4 REPOS PARA",
+            "cor": "branco",
+            "tamanho": 100
+          },
+          {
+            "texto": "TURBINAR IA",
+            "cor": "laranja",
+            "tamanho": 110
+          }
+        ]
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Primeiro: Long Horizon Harness. Mantém agentes executando tarefas longas.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "clock",
+        "cor": "azul",
+        "rotulo": "LONGHORIZON"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Segundo: Paritok. Comprime contexto para gastar menos.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "zap",
+        "cor": "verde",
+        "rotulo": "PARITOK"
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Terceiro: Cindy. Executa tarefas locais no computador.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "bot",
+        "cor": "laranja",
+        "rotulo": "CINDY"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Quarto: Vibe Coding Toolkit. Traz receitas para guiar agentes.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "file-text",
+        "cor": "roxo",
+        "rotulo": "VIBE CODING TOOLKIT"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "4 REPOS PARA",
+          "cor": "branco",
+          "tamanho": 96
+        },
+        {
+          "texto": "TURBINAR IA",
+          "cor": "laranja",
+          "tamanho": 96
+        }
+      ],
+      "subtitulo": "ferramentas de código aberto para melhorar fluxos com agentes de inteligência artificial"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 1",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "LONGHORIZON",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "LongHorizon-Harness",
+      "texto": "Mantém agentes executando tarefas longas."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 2",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "PARITOK",
+          "cor": "verde"
+        }
+      ],
+      "rotulo": "paritok-4b-v1",
+      "texto": "Comprime contexto para gastar menos."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 3",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "CINDY",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "cindy",
+      "texto": "Executa tarefas locais no computador."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 4",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "VIBE CODING TOOLKI",
+          "cor": "roxo"
+        }
+      ],
+      "rotulo": "vibe-coding-toolkit",
+      "texto": "Traz receitas para guiar agentes."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER OS LINKS",
+          "cor": "branco"
+        },
+        {
+          "texto": "DOS REPOS?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando os links no direct.",
+      "palavra": "GITHUB",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "legenda": "Quatro repositórios grátis para turbinar seus agentes de código 🤖\n\nSalva este vídeo:\n1. Longhorizon: Mantém agentes executando tarefas longas.\n2. Paritok: Comprime contexto para gastar menos.\n3. Cindy: Executa tarefas locais no computador.\n4. Vibe Coding Toolkit: Traz receitas para guiar agentes.\n\nManda pra um amigo dev, segue o @robo.estagiario e comenta GITHUB que eu te mando os links no direct.\n\nQuer aprender a fazer vídeos assim? Link na bio.\n\n#claudecode #github #ia #programacao #opensource"
+}
