@@ -70,6 +70,7 @@
     "jarrodwatts/claude-hud",
     "jnMetaCode/agency-agents-zh",
     "kajisho5/ffmpeg-skill",
+    "kaomei/stickman-video-director",
     "lemomo-ai/lemo-opuscar",
     "makecindy/cindy",
     "marmottajr/habblaud",
@@ -116,5 +117,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 57
+  "pautas_geradas": 58
 }

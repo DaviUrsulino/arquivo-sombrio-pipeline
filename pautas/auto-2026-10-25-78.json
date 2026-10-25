@@ -1,0 +1,230 @@
+{
+  "titulo": "stickman-video-director: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "crie vídeos stickman sem aparecer com dois modos de ia"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "kaomei/stickman-video-director",
+      "nome": "stickman-video-director",
+      "cor": "azul",
+      "promessa": "Open-source AI stickman video generator for faceless YouTube channels. Automate ",
+      "texto": "Open-source AI stickman video generator for faceless YouTube channels. Automate visuals, voiceover, captions, and sound "
+    }
+  ],
+  "destaques": [
+    "diretor",
+    "prompts",
+    "autopiloto",
+    "video",
+    "pronto",
+    "estilos",
+    "codex",
+    "instale",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Modo diretor só entrega prompts; você ainda gera e edita",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "MODO DIRETOR",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "SÓ PROMPTS",
+            "cor": "laranja",
+            "tamanho": 150
+          },
+          {
+            "texto": "VOCÊ EDITA",
+            "cor": "branco",
+            "tamanho": 120
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O modo autopiloto já entrega o vídeo pronto com narração",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "comparar",
+        "esq": {
+          "titulo": "DIRETOR",
+          "icone": "zap",
+          "cor": "amarelo",
+          "linhas": [
+            {
+              "rotulo": "CONTROLE",
+              "valor": 8
+            }
+          ]
+        },
+        "dir": {
+          "titulo": "AUTOPILOTO",
+          "icone": "brain",
+          "cor": "roxo",
+          "linhas": [
+            {
+              "rotulo": "PRONTO",
+              "valor": 8
+            }
+          ]
+        }
+      }
+    },
+    {
+      "narracao": "Seis estilos visuais diferentes cobrem ciência, história e motivação",
+      "humor": "animado",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Clássico P&B",
+          "Moderno Pop",
+          "Pré-Histórico",
+          "Mão Livre"
+        ]
+      }
+    },
+    {
+      "narracao": "O autopiloto roda no Codex ou Claude Code localmente",
+      "humor": "normal",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "code-xml",
+            "rotulo": "TÓPICO",
+            "cor": "azul"
+          },
+          {
+            "icone": "zap",
+            "rotulo": "ROTEIRO",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "clapperboard",
+            "rotulo": "VÍDEO",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Instale mandando o link do repositório com {estrelas:kaomei/stickman-video-director} estrelas para seu assistente",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "kaomei/stickman-video-director"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "CRIE VÍDEOS",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "STICKMAN COM IA",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o stickman video director"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "DOIS MODOS",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "nome",
+      "texto": "Gera vídeos stickman para canais sem rosto. Dois modos: diretor com prompts ou autopiloto com vídeo pronto."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMO USAR",
+          "cor": "verde"
+        }
+      ],
+      "comando": "Install this Skill for me: https://github.com/kaomei/stickman-video-director",
+      "texto": "Envie para seu assistente de IA que suporte Skills.",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "ESTILOS VARIADOS",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "nota",
+      "texto": "Seis estilos visuais: clássico, moderno, pré-histórico, aconchegante, histórico e minimalista."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "LICENÇA MIT",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "nota",
+      "texto": "Código aberto sob licença MIT. Requer serviços de imagem, voz e renderização local."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "passos": [
+    "Envie o texto de instalação para seu assistente de IA compatível com Skills",
+    "O assistente lerá o SKILL.md e explicará os dois modos",
+    "Escolha o modo A (Diretor) ou B (Autopiloto) e descreva seu tema",
+    "No modo B, aprove o roteiro e a prévia de 20 segundos antes do vídeo final"
+  ]
+}
