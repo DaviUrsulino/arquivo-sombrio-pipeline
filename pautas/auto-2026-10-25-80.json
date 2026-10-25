@@ -1,0 +1,211 @@
+{
+  "titulo": "Venda 1: como eu faço esses vídeos",
+  "formato": "pixel2",
+  "palavra_chave": "BIO",
+  "fecho_proprio": true,
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "esse vídeo foi feito por código, sem editor de vídeo"
+  },
+  "chamada": {
+    "pergunta": "quer aprender?"
+  },
+  "itens": [],
+  "destaques": [
+    "código",
+    "pack",
+    "pixel",
+    "vídeo"
+  ],
+  "legenda": "Esse vídeo foi feito por código, sem nenhum editor de vídeo. O Pack Pixel (R$ 27) tem o script, o template e os exemplos para você fazer igual. Link na bio.\n\n#claudecode #ia #reels #automacao",
+  "cenas_roteiro": [
+    {
+      "humor": "animado",
+      "narracao": "Esse vídeo inteiro foi feito por código, sem nenhum editor de vídeo.",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "VÍDEO FEITO",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "POR CÓDIGO",
+            "cor": "laranja",
+            "tamanho": 130
+          }
+        ]
+      }
+    },
+    {
+      "humor": "normal",
+      "narracao": "A IA escreve o roteiro, uma voz narra, e o código monta o vídeo.",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "file-text",
+            "rotulo": "Roteiro",
+            "cor": "azul"
+          },
+          {
+            "icone": "message-circle",
+            "rotulo": "Voz",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "clapperboard",
+            "rotulo": "Vídeo",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Cada vídeo sai pronto em poucos minutos, sempre no mesmo estilo.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "clock",
+        "cor": "azul",
+        "rotulo": "POUCOS MINUTOS"
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "No Pack Pixel vem o script, o template, exemplos e um prompt para escrever o roteiro.",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Script que monta o vídeo",
+          "Template em pixel art",
+          "Exemplos prontos",
+          "Prompt do roteiro"
+        ]
+      }
+    },
+    {
+      "humor": "pensando",
+      "narracao": "Você roda um comando e o vídeo aparece pronto.",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "python3 montar.py roteiro.json --renderizar",
+        "texto": "gera o MP4 vertical"
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "O pack custa vinte e sete reais, pagamento único.",
+      "visual": {
+        "tipo": "contador",
+        "valor": 27,
+        "formato": "cheio",
+        "rotulo": "REAIS, PAGAMENTO ÚNICO"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Quer fazer igual? O link está na bio.",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "QUER FAZER",
+            "cor": "branco",
+            "tamanho": 130
+          },
+          {
+            "texto": "IGUAL?",
+            "cor": "verde",
+            "tamanho": 140
+          }
+        ]
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "ESSE VÍDEO",
+          "cor": "branco",
+          "tamanho": 112
+        },
+        {
+          "texto": "FOI FEITO",
+          "cor": "laranja",
+          "tamanho": 90
+        },
+        {
+          "texto": "POR CÓDIGO",
+          "cor": "amarelo",
+          "tamanho": 112
+        }
+      ],
+      "subtitulo": "e você pode fazer igual"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "COMO",
+      "progresso": 0.33,
+      "linhas": [
+        {
+          "texto": "3 PASSOS",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "pack pixel",
+      "texto": "1. Escreva o roteiro (ou peça ao Claude). 2. Grave a narração. 3. Rode o script e o vídeo sai pronto."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE VEM",
+      "progresso": 0.66,
+      "linhas": [
+        {
+          "texto": "NO PACK",
+          "cor": "verde"
+        }
+      ],
+      "rotulo": "pack pixel",
+      "texto": "Script que monta o vídeo, template em pixel art, 2 exemplos, referência dos visuais e prompt para o roteiro."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "PRECISA",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "DE ISSO",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "requisitos",
+      "texto": "Python 3.9+, Node 22+ e ffmpeg. É um template: não é curso e não tem suporte individual."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER FAZER",
+          "cor": "branco"
+        },
+        {
+          "texto": "IGUAL?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Pack Pixel R$ 27",
+      "selo": "LINK NA BIO",
+      "palavra": "BIO"
+    }
+  ]
+}
