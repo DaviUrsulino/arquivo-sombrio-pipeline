@@ -1,122 +1,122 @@
 {
-  "gerado_em": "2026-10-25 11:24",
-  "seguidores": 312,
+  "gerado_em": "2026-10-26 13:49",
+  "seguidores": 314,
   "geral": {
     "n": 30,
     "views_medianas": 188,
-    "views_media": 2165,
-    "salvos_por_100_alcance": 4.28,
-    "envios_por_100_alcance": 1.21,
-    "tempo_medio_s": 13.1
+    "views_media": 380,
+    "salvos_por_100_alcance": 2.47,
+    "envios_por_100_alcance": 0.85,
+    "tempo_medio_s": 12.5
   },
   "por_formato": {
     "curto (20-35 s)": {
-      "n": 15,
+      "n": 19,
       "views_medianas": 156,
-      "views_media": 256,
-      "salvos_por_100_alcance": 1.19,
-      "envios_por_100_alcance": 0.34,
-      "tempo_medio_s": 18.1
+      "views_media": 264,
+      "salvos_por_100_alcance": 1.4,
+      "envios_por_100_alcance": 0.43,
+      "tempo_medio_s": 15.5
     },
     "longo (45-60 s)": {
-      "n": 15,
-      "views_medianas": 212,
-      "views_media": 4073,
-      "salvos_por_100_alcance": 4.48,
-      "envios_por_100_alcance": 1.27,
-      "tempo_medio_s": 8.0
+      "n": 11,
+      "views_medianas": 322,
+      "views_media": 579,
+      "salvos_por_100_alcance": 3.32,
+      "envios_por_100_alcance": 1.17,
+      "tempo_medio_s": 7.2
     }
   },
   "por_faixa_horaria": {
     "manhã (6-10h)": {
       "n": 8,
-      "views_medianas": 221,
-      "views_media": 7126,
-      "salvos_por_100_alcance": 4.49,
-      "envios_por_100_alcance": 1.24,
-      "tempo_medio_s": 30.7
+      "views_medianas": 178,
+      "views_media": 365,
+      "salvos_por_100_alcance": 1.22,
+      "envios_por_100_alcance": 0.24,
+      "tempo_medio_s": 29.5
     },
     "tarde da noite (22-24h)": {
-      "n": 4,
-      "views_medianas": 158,
-      "views_media": 191,
-      "salvos_por_100_alcance": 1.6,
-      "envios_por_100_alcance": 0.64,
-      "tempo_medio_s": 5.3
+      "n": 5,
+      "views_medianas": 199,
+      "views_media": 290,
+      "salvos_por_100_alcance": 2.29,
+      "envios_por_100_alcance": 0.85,
+      "tempo_medio_s": 6.7
     },
     "noite (18-22h)": {
-      "n": 7,
-      "views_medianas": 191,
-      "views_media": 332,
-      "salvos_por_100_alcance": 2.98,
-      "envios_por_100_alcance": 1.05,
-      "tempo_medio_s": 6.1
+      "n": 8,
+      "views_medianas": 188,
+      "views_media": 306,
+      "salvos_por_100_alcance": 2.88,
+      "envios_por_100_alcance": 0.99,
+      "tempo_medio_s": 5.8
     },
     "meio-dia (10-14h)": {
       "n": 6,
       "views_medianas": 176,
-      "views_media": 459,
-      "salvos_por_100_alcance": 3.35,
+      "views_media": 476,
+      "salvos_por_100_alcance": 3.23,
       "envios_por_100_alcance": 1.34,
-      "tempo_medio_s": 6.5
+      "tempo_medio_s": 6.0
     },
     "tarde (14-18h)": {
-      "n": 4,
+      "n": 2,
       "views_medianas": 184,
       "views_media": 184,
-      "salvos_por_100_alcance": 1.6,
-      "envios_por_100_alcance": 0.8,
-      "tempo_medio_s": 8.6
+      "salvos_por_100_alcance": 2.59,
+      "envios_por_100_alcance": 0.97,
+      "tempo_medio_s": 6.2
     },
     "madrugada (0-6h)": {
       "n": 1,
-      "views_medianas": 1350,
-      "views_media": 1350,
+      "views_medianas": 1353,
+      "views_media": 1353,
       "salvos_por_100_alcance": 3.1,
       "envios_por_100_alcance": 0.86,
-      "tempo_medio_s": 9.1
+      "tempo_medio_s": 9.2
     }
   },
   "por_tema": {
     "vídeo com IA": {
-      "n": 24,
-      "views_medianas": 193,
-      "views_media": 2620,
-      "salvos_por_100_alcance": 4.41,
-      "envios_por_100_alcance": 1.25,
-      "tempo_medio_s": 14.5
-    },
-    "assistente (Jarvis)": {
-      "n": 3,
-      "views_medianas": 171,
-      "views_media": 211,
-      "salvos_por_100_alcance": 1.54,
-      "envios_por_100_alcance": 0.38,
-      "tempo_medio_s": 69.1
+      "n": 26,
+      "views_medianas": 194,
+      "views_media": 372,
+      "salvos_por_100_alcance": 2.85,
+      "envios_por_100_alcance": 0.99,
+      "tempo_medio_s": 13.5
     },
     "Claude Code": {
       "n": 29,
       "views_medianas": 185,
-      "views_media": 2197,
-      "salvos_por_100_alcance": 4.36,
-      "envios_por_100_alcance": 1.24,
-      "tempo_medio_s": 13.2
+      "views_media": 349,
+      "salvos_por_100_alcance": 2.75,
+      "envios_por_100_alcance": 0.94,
+      "tempo_medio_s": 12.5
+    },
+    "venda e kit": {
+      "n": 29,
+      "views_medianas": 191,
+      "views_media": 387,
+      "salvos_por_100_alcance": 2.5,
+      "envios_por_100_alcance": 0.86,
+      "tempo_medio_s": 12.7
     },
     "agentes e skills": {
       "n": 16,
-      "views_medianas": 167,
-      "views_media": 361,
-      "salvos_por_100_alcance": 3.06,
+      "views_medianas": 198,
+      "views_media": 398,
+      "salvos_por_100_alcance": 3.16,
       "envios_por_100_alcance": 1.13,
-      "tempo_medio_s": 18.6
+      "tempo_medio_s": 18.4
     },
-    "venda e kit": {
-      "n": 25,
-      "views_medianas": 191,
-      "views_media": 402,
-      "salvos_por_100_alcance": 2.54,
-      "envios_por_100_alcance": 0.87,
-      "tempo_medio_s": 13.8
+    "assistente (Jarvis)": {
+      "n": 4,
+      "views_medianas": 178,
+      "views_media": 206,
+      "salvos_por_100_alcance": 1.34,
+      "envios_por_100_alcance": 0.45,
+      "tempo_medio_s": 52.7
     },
     "segurança e teste": {
       "n": 1,
@@ -127,22 +127,13 @@
       "tempo_medio_s": 5.2
     }
   },
-  "melhor_faixa": "manhã (6-10h)",
-  "melhor_tema": "vídeo com IA",
+  "melhor_faixa": "tarde da noite (22-24h)",
+  "melhor_tema": "agentes e skills",
   "top": [
     {
-      "id": "18027479654873301",
-      "views": 54317,
-      "salvos": 2019,
-      "envios": 559,
-      "tempo_s": 11.9,
-      "titulo": "Esse repositório faz a ia criar vídeo escrevendo html, grátis e open s",
-      "hora": "18/10 08:45"
-    },
-    {
       "id": "18413224864081335",
-      "views": 1845,
-      "salvos": 55,
+      "views": 1847,
+      "salvos": 56,
       "envios": 24,
       "tempo_s": 9.4,
       "titulo": "Editor de vídeo local para agentes de código com 42 ferramentas ffmpeg",
@@ -150,16 +141,16 @@
     },
     {
       "id": "17886619920622218",
-      "views": 1350,
+      "views": 1353,
       "salvos": 36,
       "envios": 10,
-      "tempo_s": 9.1,
+      "tempo_s": 9.2,
       "titulo": "Crie curtas metragens com o claude code gerando renderização e áudio d",
       "hora": "19/10 03:11"
     },
     {
       "id": "18031314608687509",
-      "views": 1235,
+      "views": 1267,
       "salvos": 4,
       "envios": 1,
       "tempo_s": 9.8,
@@ -168,12 +159,21 @@
     },
     {
       "id": "17992667739058973",
-      "views": 846,
+      "views": 850,
       "salvos": 40,
       "envios": 15,
-      "tempo_s": 11.2,
+      "tempo_s": 11.1,
       "titulo": "O openfilm transforma agentes de código em criadores de vídeo usando a",
       "hora": "19/10 20:25"
+    },
+    {
+      "id": "18125688970698349",
+      "views": 645,
+      "salvos": 16,
+      "envios": 6,
+      "tempo_s": 11.6,
+      "titulo": "Quatro repositórios grátis para turbinar seus agentes de código 🤖",
+      "hora": "25/10 23:35"
     },
     {
       "id": "18086283575333410",
