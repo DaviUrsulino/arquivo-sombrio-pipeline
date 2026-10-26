@@ -97,6 +97,7 @@
     "ronak-create/FableCut",
     "ruc-datalab/EvoOntology",
     "ruvnet/ruflo",
+    "shadcn-labs/snapcn",
     "shareAI-lab/learn-claude-code",
     "simonlin1212/Vibe-Research",
     "sirioberati/Genjustsu-Open-Source-Workflow",
@@ -121,5 +122,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 59
+  "pautas_geradas": 60
 }

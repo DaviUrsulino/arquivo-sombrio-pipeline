@@ -1,0 +1,197 @@
+{
+  "titulo": "snapcn: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "LINK",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "componentes de vídeo para demo de produto instalados via shadcn cli"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "shadcn-labs/snapcn",
+      "nome": "snapcn",
+      "cor": "azul",
+      "promessa": "A shadcn registry of Remotion components for product demo videos. Install a text",
+      "texto": "A shadcn registry of Remotion components for product demo videos. Install a text reveal, device frame, terminal session,"
+    }
+  ],
+  "destaques": [
+    "vinte",
+    "um",
+    "componentes",
+    "demo",
+    "instalados",
+    "comando",
+    "shadcn",
+    "agente",
+    "link"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Vinte e um componentes de demo instalados com um comando",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "VINTE E UM",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "COMPONENTES DEMO",
+            "cor": "laranja",
+            "tamanho": 130
+          },
+          {
+            "texto": "UM COMANDO",
+            "cor": "verde",
+            "tamanho": 110
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Você roda o CLI shadcn e o código cai no seu repositório",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "npx shadcn@latest add @snapcn/text-reveal",
+        "texto": "copia o componente para seu projeto"
+      }
+    },
+    {
+      "narracao": "Tem chat de IA terminal telefone legendas e cenas completas",
+      "humor": "normal",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Chat IA",
+          "Terminal",
+          "Telefone",
+          "Legendas",
+          "Cenas"
+        ]
+      }
+    },
+    {
+      "narracao": "Seu agente monta o vídeo inteiro seguindo regras de movimento",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "bot",
+        "cor": "azul",
+        "rotulo": "AGENTE MONTA VIDEO"
+      }
+    },
+    {
+      "narracao": "Instala com npx shadcn add aroba snapcn {estrelas:shadcn-labs/snapcn} estrelas no GitHub",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "shadcn-labs/snapcn"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "VINTE E UM",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "COMPONENTES DEMO",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o snapcn"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "REGISTRY SHADCN",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "nome",
+      "texto": "Registry de componentes Remotion para vídeos de demo de produto. Vinte e um componentes prontos: chat de IA, terminal, frames de dispositivo, legendas e cenas completas. Instala via CLI shadcn e o código fica no seu projeto."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMO USAR",
+          "cor": "verde"
+        }
+      ],
+      "comando": "npx shadcn@latest add @snapcn/text-reveal",
+      "texto": "não precisa de registries extra; o fonte vai para seu repo",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "O QUE DÁ",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "nota",
+      "texto": "Cria vídeos de lançamento, demos de produto, motion graphics, tipografia cinética, animações de logo e explainers narrados. Tem editor no navegador em snapcn.dev/docs/video-editor sem instalar nada."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "LICENÇA MIT",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "nota",
+      "texto": "Licença MIT. Requer Remotion; use npx create-video@latest para iniciar. Inclui skills para agentes de IA montarem vídeos beat a beat. Roadmap aberto a pedidos via issues."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "LINK",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "passos": [
+    "acesse snapcn.dev/docs/video-editor para usar no navegador",
+    "rode npx create-video@latest se não tem projeto remotion",
+    "rode npx shadcn@latest add aroba snapcn texto reveal",
+    "importe o componente e adicione na composition remotion"
+  ]
+}
