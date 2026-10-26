@@ -1,0 +1,201 @@
+{
+  "titulo": "lista: turbinar seus agentes de código",
+  "formato": "pixel2",
+  "palavra_chave": "GITHUB",
+  "perfil": "@robo.estagiario",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "ferramentas gratuitas para melhorar seus agentes de inteligência artificial"
+  },
+  "chamada": {
+    "pergunta": "quer os links dos repositórios?"
+  },
+  "itens": [
+    {
+      "repo": "vshulcz/deja-vu",
+      "nome": "deja-vu",
+      "cor": "azul",
+      "promessa": "Coding agent memory for Claude Code, Codex, Cursor and 40 more, built from the s",
+      "texto": "Guarda memória local dos seus agentes."
+    },
+    {
+      "repo": "undefined-ui/second-brain-os",
+      "nome": "second-brain-os",
+      "cor": "verde",
+      "promessa": "An AI second brain that maintains itself. Full guide, starter vault, agent skill",
+      "texto": "Cria base de conhecimento em markdown."
+    },
+    {
+      "repo": "ruc-datalab/EvoOntology",
+      "nome": "EvoOntology",
+      "cor": "laranja",
+      "promessa": "EvoOntology: A Self-Evolving Ontology Layer for Data Agents ⚙️ EvoOntology插件为Cla",
+      "texto": "Organiza dados para agentes de código."
+    },
+    {
+      "repo": "oil-oil/beautify-github-readme",
+      "nome": "beautify-github-readme",
+      "cor": "roxo",
+      "promessa": "README design skill for Claude Code & Codex. 帮你把 GitHub README 做得好看又好懂。",
+      "texto": "Melhora o visual de arquivos readme."
+    }
+  ],
+  "destaques": [
+    "deja vu",
+    "second brain os",
+    "evo ontology",
+    "beautify github readme",
+    "github"
+  ],
+  "cenas_roteiro": [
+    {
+      "humor": "animado",
+      "narracao": "Quatro repositórios grátis para turbinar seus agentes de código.",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "4 REPOS PARA",
+            "cor": "branco",
+            "tamanho": 100
+          },
+          {
+            "texto": "SEUS AGENTES",
+            "cor": "laranja",
+            "tamanho": 110
+          }
+        ]
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Primeiro: deja vu. Guarda memória local dos seus agentes.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "brain",
+        "cor": "azul",
+        "rotulo": "DEJA VU"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Segundo: second brain os. Cria base de conhecimento em markdown.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "file-text",
+        "cor": "verde",
+        "rotulo": "SECOND BRAIN OS"
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Terceiro: evo ontology. Organiza dados para agentes de código.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "sparkles",
+        "cor": "laranja",
+        "rotulo": "EVO ONTOLOGY"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Quarto: beautify github readme. Melhora o visual de arquivos readme.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "palette",
+        "cor": "roxo",
+        "rotulo": "BEAUTIFY README"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "4 REPOS PARA",
+          "cor": "branco",
+          "tamanho": 96
+        },
+        {
+          "texto": "SEUS AGENTES",
+          "cor": "laranja",
+          "tamanho": 96
+        }
+      ],
+      "subtitulo": "ferramentas gratuitas para melhorar seus agentes de inteligência artificial"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 1",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "DEJA VU",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "deja-vu",
+      "texto": "Guarda memória local dos seus agentes."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 2",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "SECOND BRAIN OS",
+          "cor": "verde"
+        }
+      ],
+      "rotulo": "second-brain-os",
+      "texto": "Cria base de conhecimento em markdown."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 3",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "EVO ONTOLOGY",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "EvoOntology",
+      "texto": "Organiza dados para agentes de código."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 4",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "BEAUTIFY README",
+          "cor": "roxo"
+        }
+      ],
+      "rotulo": "beautify-github-readme",
+      "texto": "Melhora o visual de arquivos readme."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER OS LINKS",
+          "cor": "branco"
+        },
+        {
+          "texto": "DOS REPOS?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando os links no direct.",
+      "palavra": "GITHUB",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "legenda": "Quatro repositórios grátis para turbinar seus agentes de código 🤖\n\nSalva este vídeo:\n1. Deja Vu: Guarda memória local dos seus agentes.\n2. Second Brain Os: Cria base de conhecimento em markdown.\n3. Evo Ontology: Organiza dados para agentes de código.\n4. Beautify Readme: Melhora o visual de arquivos readme.\n\nManda pra um amigo dev, segue o @robo.estagiario e comenta GITHUB que eu te mando os links no direct.\n\nQuer aprender a fazer vídeos assim? Link na bio.\n\n#claudecode #github #ia #programacao #opensource"
+}

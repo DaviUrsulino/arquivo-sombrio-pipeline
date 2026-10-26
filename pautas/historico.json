@@ -82,6 +82,7 @@
     "nateherkai/scroll-craft",
     "nykooi1/vibe-wise",
     "obra/superpowers",
+    "oil-oil/beautify-github-readme",
     "oil-oil/oil-motion",
     "oil-oil/oil-ui",
     "onlook-dev/onlook",
@@ -94,6 +95,7 @@
     "rehan-remade/universal-modder",
     "remotion-dev/remotion",
     "ronak-create/FableCut",
+    "ruc-datalab/EvoOntology",
     "ruvnet/ruflo",
     "shareAI-lab/learn-claude-code",
     "simonlin1212/Vibe-Research",
@@ -107,7 +109,9 @@
     "tirth8205/code-review-graph",
     "trailhq/Trail-Code",
     "tt-a1i/archify",
+    "undefined-ui/second-brain-os",
     "virgiliojr94/book-to-skill",
+    "vshulcz/deja-vu",
     "wasp-lang/open-saas",
     "wshobson/agents",
     "xerj-org/xerj",
@@ -117,5 +121,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 58
+  "pautas_geradas": 59
 }
