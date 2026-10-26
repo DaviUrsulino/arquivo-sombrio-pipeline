@@ -1,15 +1,17 @@
 {
   "dia": "2026-10-26",
   "feitos": {
-    "08:00": "disparada 08:00"
+    "08:00": "disparada 08:00",
+    "12:00": "disparada 12:00"
   },
-  "ultimo_disparo": "2026-10-26T08:00:08-03:00",
+  "ultimo_disparo": "2026-10-26T12:00:16-03:00",
   "fila_usadas": [
     "pautas/viral/fila/01-motion-skills.json",
     "pautas/viral/fila/01b-habblaud.json",
     "pautas/viral/fila/02-ai-video-editor.json",
     "pautas/viral/fila/02a-xerj.json",
     "pautas/viral/fila/02b-jarvis-open-jarvis-OpenJarvis.json",
-    "pautas/viral/fila/02c-jarvis-isair-jarvis.json"
+    "pautas/viral/fila/02c-jarvis-isair-jarvis.json",
+    "pautas/viral/fila/03-heygen-com-hyperframes.json"
   ]
 }
