@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>Esquete low-poly</title>
+<script src="assets/three.min.js"></script>
+<script src="assets/gsap.min.js"></script>
+<script src="assets/falas.js"></script>
+<style>
+  @font-face { font-family: "Mont"; src: url("assets/Montserrat.ttf"); font-weight: 100 900; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0d0718; }
+  #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: "Mont", sans-serif; }
+  #gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+  #leg { position: absolute; left: 90px; right: 90px; top: 1330px; text-align: center; color: #fff; font-weight: 700; font-size: 50px; line-height: 1.2; text-shadow: 0 3px 14px rgba(0,0,0,.85), 0 0 2px #000; }
+  #card { position: absolute; left: 140px; right: 140px; top: 300px; padding: 30px 36px; border-radius: 26px; background: rgba(13,17,23,.92); border: 2px solid #30363d; color: #e6edf3; opacity: 0; box-shadow: 0 30px 80px rgba(0,0,0,.6); }
+  #card .r { font-size: 32px; font-weight: 700; } #card .s { margin-top: 12px; font-size: 34px; color: #f5c518; font-weight: 800; }
+  #chips { position: absolute; left: 0; right: 0; top: 330px; display: flex; justify-content: center; gap: 18px; }
+  .chip { padding: 16px 28px; border-radius: 999px; background: rgba(255,255,255,.92); color: #1a1030; font-weight: 800; font-size: 40px; opacity: 0; }
+  #com { position: absolute; left: 70px; right: 70px; bottom: 210px; display: flex; align-items: center; gap: 20px; padding: 22px 30px; border-radius: 999px; background: rgba(20,14,34,.92); border: 2px solid rgba(255,255,255,.18); color: #fff; font-size: 40px; font-weight: 700; opacity: 0; }
+  #com .av { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg,#feda75,#fa7e1e,#d62976,#962fbf); flex: none; }
+  #com .p { margin-left: auto; color: #6aa8ff; font-size: 34px; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="24.349">
+  <canvas id="gl" class="clip" width="1080" height="1920" data-start="0" data-duration="24.349" data-track-index="0"></canvas>
+  <div id="card" class="clip" data-start="0" data-duration="24.349" data-track-index="2"><div class="r">github.com/kaankiziltug/logo-design-skill</div><div class="s">★ 4,8 mil estrelas</div></div>
+  <div id="chips" class="clip" data-start="0" data-duration="24.349" data-track-index="2"><div class="chip">1.400 logos</div><div class="chip">teste 16 px</div><div class="chip">SVG</div></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 42%, transparent 50%, rgba(5,2,12,.7) 100%);pointer-events:none"></div>
+  <div id="leg" class="clip" data-start="0" data-duration="24.349" data-track-index="3"></div>
+  <div id="com" class="clip" data-start="0" data-duration="24.349" data-track-index="3"><div class="av"></div><span id="comtx"></span><span class="p">Publicar</span></div>
+  <audio id="voz" src="assets/voz.wav" data-start="0" data-duration="24.349" data-track-index="9" data-volume="1"></audio>
+</div>
+<script>
+// Esquete em 3D low-poly: o Robô Estagiário e um dev conversando sobre um repositório real.
+// Tudo é função do tempo t (desenhar(t)); a boca de quem fala segue a energia real do áudio (ESQ.boca).
+const E = window.ESQ, W = 1080, H = 1920;
+const r = new THREE.WebGLRenderer({ canvas: document.getElementById("gl"), antialias: true, preserveDrawingBuffer: true });
+r.setPixelRatio(1); r.setSize(W, H, false); r.shadowMap.enabled = true; r.shadowMap.type = THREE.PCFSoftShadowMap;
+const cena = new THREE.Scene();
+const cam = new THREE.PerspectiveCamera(32, W / H, 0.1, 100);
+const flat = (cor, extra = {}) => new THREE.MeshStandardMaterial({ color: cor, flatShading: true, roughness: 0.75, metalness: 0.05, ...extra });
+const caixa = (w, h, d, m) => new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m);
+const ico = (raio, det, m) => new THREE.Mesh(new THREE.IcosahedronGeometry(raio, det), m);
+
+// ---- palco: fundo roxo em degradê, chão escuro, luz de recorte ----
+(() => {
+  const c = document.createElement("canvas"); c.width = 16; c.height = 512; const x = c.getContext("2d");
+  const g = x.createLinearGradient(0, 0, 0, 512); g.addColorStop(0, "#120c26"); g.addColorStop(0.5, "#2c1d58"); g.addColorStop(1, "#0b0716");
+  x.fillStyle = g; x.fillRect(0, 0, 16, 512);
+  const t = new THREE.CanvasTexture(c);
+  const fundo = new THREE.Mesh(new THREE.PlaneGeometry(60, 40), new THREE.MeshBasicMaterial({ map: t }));
+  fundo.position.set(0, 4, -14); cena.add(fundo);
+  const chao = new THREE.Mesh(new THREE.PlaneGeometry(60, 30), flat(0x221640)); chao.rotation.x = -Math.PI / 2; chao.position.y = -3.2; chao.receiveShadow = true; cena.add(chao);
+  cena.fog = new THREE.Fog(0x140d2a, 16, 34);
+  // faixas de luz neon atrás
+  // luzes desfocadas de estúdio ao fundo (bokeh), em vez de faixas de neon
+  const bc = document.createElement("canvas"); bc.width = bc.height = 128; const bx = bc.getContext("2d");
+  const rg = bx.createRadialGradient(64, 64, 0, 64, 64, 64); rg.addColorStop(0, "rgba(255,255,255,0.9)"); rg.addColorStop(0.5, "rgba(255,255,255,0.35)"); rg.addColorStop(1, "rgba(255,255,255,0)");
+  bx.fillStyle = rg; bx.fillRect(0, 0, 128, 128); const bt = new THREE.CanvasTexture(bc);
+  const cores = [0x8f7bff, 0x5aa7ff, 0xffb27a, 0xc58bff, 0x7ad7ff];
+  window.BOKEH = [];
+  for (let k = 0; k < 22; k++) {
+    const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: bt, color: cores[k % 5], transparent: true, opacity: 0.18 + (k % 4) * 0.06, depthWrite: false }));
+    const tam = 0.8 + ((k * 37) % 10) / 4; sp.scale.set(tam, tam, 1);
+    sp.position.set(((k * 53) % 22) - 11, ((k * 29) % 12) - 2, -9 - (k % 3)); cena.add(sp); window.BOKEH.push(sp);
+  }
+  const brilhoChao = new THREE.Sprite(new THREE.SpriteMaterial({ map: bt, color: 0x9d86ff, transparent: true, opacity: 0.35, depthWrite: false }));
+  brilhoChao.scale.set(14, 5, 1); brilhoChao.position.set(0, -3.1, -1); cena.add(brilhoChao);
+})();
+cena.add(new THREE.HemisphereLight(0xc9b8ff, 0x1a0a30, 0.55));
+const chave = new THREE.DirectionalLight(0xfff0e0, 1.3); chave.position.set(3, 7, 6); chave.castShadow = true; chave.shadow.mapSize.set(1024, 1024); chave.shadow.radius = 6;
+Object.assign(chave.shadow.camera, { left: -8, right: 8, top: 8, bottom: -8 }); cena.add(chave);
+const preench = new THREE.DirectionalLight(0xe8e0ff, 0.6); preench.position.set(0, 1.5, 12); cena.add(preench);
+const recorte = new THREE.PointLight(0x9a7bff, 2.2, 20); recorte.position.set(-4, 3, -3); cena.add(recorte);
+const recorte2 = new THREE.PointLight(0xff7ae0, 1.4, 20); recorte2.position.set(4, 2, -3); cena.add(recorte2);
+
+// ---- Robô Estagiário low-poly ----
+function robo() {
+  const g = new THREE.Group(), laranja = flat(0xff8a2a), escuro = flat(0xd9661a);
+  const corpo = caixa(2.2, 2.2, 1.6, laranja); corpo.position.y = -2.1; g.add(corpo);
+  const cracha = caixa(1.0, 0.6, 0.05, flat(0xffffff)); cracha.position.set(0, -1.9, 0.83); g.add(cracha);
+  const faixa = caixa(1.0, 0.16, 0.06, flat(0x2f5bff)); faixa.position.set(0, -1.66, 0.84); g.add(faixa);
+  const cabeca = new THREE.Group(); cabeca.position.y = 0.4; g.add(cabeca);
+  cabeca.add(caixa(2.6, 2.2, 2.0, laranja));
+  const visor = caixa(2.1, 1.45, 0.1, flat(0x14151f, { roughness: 0.3 })); visor.position.set(0, 0, 1.02); cabeca.add(visor);
+  [-1.36, 1.36].forEach((x) => { const o = caixa(0.2, 0.7, 0.7, escuro); o.position.x = x; cabeca.add(o); });
+  const haste = caixa(0.1, 0.6, 0.1, flat(0x2a1608)); haste.position.y = 1.4; cabeca.add(haste);
+  const bola = ico(0.26, 0, flat(0xffd84a, { emissive: 0x664400 })); bola.position.y = 1.8; cabeca.add(bola);
+  const olhoM = new THREE.MeshBasicMaterial({ color: 0x5ff3ff });
+  const olhos = [-0.48, 0.48].map((x) => { const o = caixa(0.36, 0.5, 0.05, olhoM); o.position.set(x, 0.15, 1.09); cabeca.add(o); return o; });
+  const boca = caixa(0.5, 0.1, 0.05, olhoM); boca.position.set(0, -0.42, 1.09); cabeca.add(boca);
+  const bracos = [-1.3, 1.3].map((x) => { const b = new THREE.Group(); b.position.set(x, -1.3, 0); const seg = caixa(0.45, 1.6, 0.45, laranja); seg.position.y = -0.8; const mao = ico(0.32, 0, escuro); mao.position.y = -1.75; b.add(seg, mao); g.add(b); return b; });
+  return { g, cabeca, olhos, boca, bracos, bola };
+}
+// ---- Dev low-poly: cabeça facetada, boné vermelho, moletom amarelo ----
+function dev() {
+  const g = new THREE.Group(), pele = flat(0xf0cdb8), moletom = flat(0xd9a63a), azul = flat(0x2f4fb0);
+  const corpo = caixa(2.6, 2.4, 1.6, moletom); corpo.position.y = -2.3; g.add(corpo);
+  const capuz = caixa(2.0, 0.5, 1.2, moletom); capuz.position.set(0, -1.05, -0.3); g.add(capuz);
+  [-0.35, 0.35].forEach((x) => { const c = caixa(0.07, 0.9, 0.05, azul); c.position.set(x, -1.6, 0.83); g.add(c); });
+  const pescoco = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.5, 0.9, 6), pele); pescoco.position.y = -0.85; g.add(pescoco);
+  const cabeca = new THREE.Group(); cabeca.position.y = 0.3; g.add(cabeca);
+  const cranio = ico(1.15, 1, pele); cranio.scale.set(1, 1.08, 0.95); cabeca.add(cranio);
+  const bone = new THREE.Mesh(new THREE.SphereGeometry(1.2, 7, 4, 0, Math.PI * 2, 0, Math.PI / 2), flat(0xd2333a)); bone.position.y = 0.35; bone.rotation.x = -0.12; cabeca.add(bone);
+  const aba = caixa(1.6, 0.12, 0.9, flat(0xb02a30)); aba.position.set(0, 0.42, 1.1); aba.rotation.x = 0.15; cabeca.add(aba);
+  const branco = flat(0xffffff), preto = flat(0x111111);
+  const olhos = [-0.42, 0.42].map((x) => { const o = new THREE.Group(); o.position.set(x, 0.05, 1.0); const b = ico(0.22, 1, branco); b.scale.z = 0.5; const p = ico(0.1, 1, preto); p.position.z = 0.1; o.add(b, p); cabeca.add(o); return o; });
+  const sobr = [-0.42, 0.42].map((x) => { const s = caixa(0.42, 0.09, 0.08, flat(0x3a2418)); s.position.set(x, 0.38, 1.02); cabeca.add(s); return s; });
+  const boca = caixa(0.5, 0.12, 0.08, flat(0x3a1414)); boca.position.set(0, -0.48, 1.03); cabeca.add(boca);
+  const nariz = ico(0.16, 0, pele); nariz.position.set(0, -0.15, 1.12); cabeca.add(nariz);
+  [-1.02, 1.02].forEach((x) => { const c = caixa(0.22, 0.5, 0.5, flat(0x2a1a12)); c.position.set(x, 0.05, 0.1); cabeca.add(c); });
+  const bracos = [-1.55, 1.55].map((x) => { const b = new THREE.Group(); b.position.set(x, -1.3, 0); const manga = caixa(0.6, 1.8, 0.6, moletom); manga.position.y = -0.9; const mao = ico(0.3, 1, pele); mao.position.y = -1.9; b.add(manga, mao); g.add(b); return b; });
+  return { g, cabeca, olhos, boca, sobr, bracos };
+}
+const R = robo(), D = dev();
+R.g.position.set(-1.75, 0, 0); R.g.rotation.y = 0.35; D.g.position.set(1.75, 0, 0); D.g.rotation.y = -0.35;
+cena.add(R.g, D.g);
+[R.g, D.g].forEach((g) => g.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } }));
+
+// ---- quem fala quando, e planos de câmera ----
+const falando = (t) => E.falas.find((f) => t >= f.t - 0.05 && t < f.t + f.d + 0.2);
+const energia = (t) => E.boca[Math.max(0, Math.min(E.boca.length - 1, Math.floor(t * E.fps)))] || 0;
+const PLANOS = { robo: [new THREE.Vector3(-0.8, 0.2, 11.0), new THREE.Vector3(-1.75, -0.4, 0)], dev: [new THREE.Vector3(0.8, 0.1, 11.0), new THREE.Vector3(1.75, -0.5, 0)], dois: [new THREE.Vector3(0, 0.4, 23.5), new THREE.Vector3(0, -0.9, 0)] };
+const ease = (x) => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 3);
+
+function desenhar(t) {
+  const f = falando(t), i = f ? E.falas.indexOf(f) : -1;
+  // plano: abertura e fala 4 em plano conjunto, resto em close de quem fala
+  const nome = !f || i === 0 && t < 1.2 || i === 3 ? "dois" : f.quem;
+  const [pos, alvo] = PLANOS[nome];
+  const desde = f ? t - f.t : t;
+  const push = ease(desde / 3) * 0.6;
+  cam.position.set(pos.x + Math.sin(t * 0.7) * 0.08, pos.y + Math.sin(t * 0.9) * 0.05, pos.z - push);
+  cam.lookAt(alvo);
+  // bocas e cabeças
+  const e = energia(t);
+  [[R, "robo"], [D, "dev"]].forEach(([P, q]) => {
+    const fala = f && f.quem === q;
+    P.boca.scale.y = fala ? 1 + e * 2.6 : 1;
+    P.cabeca.rotation.z = Math.sin(t * (fala ? 5 : 1.5)) * (fala ? 0.05 : 0.015);
+    P.cabeca.rotation.x = fala ? -e * 0.12 : 0;
+    P.g.position.y = Math.sin(t * 2 + (q === "dev" ? 1 : 0)) * 0.04;
+    const piscar = ((t + (q === "dev" ? 1.3 : 0)) % 3.3) < 0.12;
+    P.olhos.forEach((o) => (o.scale.y = piscar ? 0.12 : 1));
+  });
+  // reações: dev surpreso na fala 2 e 4 (sobrancelha sobe), robô levanta o braço ao citar o repo e no final
+  D.sobr.forEach((s) => (s.position.y = 0.38 + (i === 1 || i === 3 || i === 5 ? 0.12 : 0)));
+  const bracoAlto = i === 3 || i === 7 ? ease((t - E.falas[i].t) / 0.4) : 0;
+  R.bracos[1].rotation.z = bracoAlto * 2.6;
+  const reclama = i === 0 ? ease((t - E.falas[0].t) / 0.5) : 0, anima = i === 6 ? ease((t - E.falas[6].t) / 0.3) : 0;
+  D.bracos[0].rotation.z = -(reclama * 2.7 + anima * 2.9) + Math.sin(t * 9) * anima * 0.2;
+  D.bracos[1].rotation.z = Math.sin(t * 3) * 0.05;
+  (window.BOKEH || []).forEach((b, k) => { b.position.x += Math.sin(t * 0.3 + k) * 0.002; b.material.opacity = 0.16 + 0.1 * Math.abs(Math.sin(t * 0.5 + k)); });
+  R.bola.scale.setScalar(1 + Math.abs(Math.sin(t * 4)) * 0.2);
+  r.render(cena, cam);
+}
+
+// ---- camada HTML: legenda por fala, cartão do repositório, chips e comentário final ----
+const tl = gsap.timeline({ paused: true });
+const leg = document.getElementById("leg");
+E.falas.forEach((f) => { tl.call(() => (leg.textContent = f.texto), null, f.t); tl.fromTo(leg, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.15 }, f.t); });
+tl.set(leg, { opacity: 0 }, E.duracao - 0.2);
+const f3 = E.falas[3], f5 = E.falas[5], f7 = E.falas[7];
+tl.fromTo("#card", { opacity: 0, scale: 0.8, y: 40 }, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "back.out(2)" }, f3.t + 0.6);
+tl.to("#card", { opacity: 0, duration: 0.2 }, f3.t + f3.d + 0.2);
+document.querySelectorAll(".chip").forEach((c, k) => { tl.fromTo(c, { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(3)" }, f5.t + 0.1 + k * 0.45); tl.to(c, { opacity: 0, duration: 0.2 }, f5.t + f5.d + 0.2); });
+tl.fromTo("#com", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, f7.t + 0.6);
+const tx = document.getElementById("comtx"), palavra = "LOGO";
+const st = { n: 0 }; tl.to(st, { n: palavra.length, duration: 0.8, ease: "none", onUpdate: () => (tx.textContent = palavra.slice(0, Math.round(st.n))) }, f7.t + 1.0);
+const relogio = { t: 0 }; tl.to(relogio, { t: E.duracao, duration: E.duracao, ease: "none", onUpdate: () => desenhar(tl.time()) }, 0);
+window.__timelines = window.__timelines || {}; window.__timelines["main"] = tl;
+window.addEventListener("hf-seek", (ev) => desenhar(ev.detail.time));
+desenhar(0);
+</script>
+</body>
+</html>
