@@ -35,20 +35,34 @@ PERFIS_CONCORRENTES = [
 ]
 
 
-def buscas_do_dia(buscas_padrao: list[str]) -> list[str]:
+# Plano grátis do Apify = US$ 5/mês (~1.200 resultados). Por isso: só os 8 perfis que mais viralizam, 5 posts
+# de cada, e no máximo UMA leitura por dia (a 2ª rodada reaproveita o resultado salvo em TENDENCIAS).
+PERFIS_TENDENCIA = ["gab.gouvea", "brusantanna.ai", "brunoptrevisan", "tiagolemosx", "yan.gsouza",
+                    "99hud", "igao.ia", "macelista"]
+TENDENCIAS = RAIZ / "pautas" / "tendencias_do_dia.json"
+
+
+def buscas_do_dia(buscas_padrao: list[str], hoje: str | None = None, arquivo: Path = TENDENCIAS) -> list[str]:
     """Tenta priorizar pelo que está bombando hoje; sem token ou com falha de rede,
     devolve `buscas_padrao` sem mais delongas — nunca propaga o erro pra cima."""
+    hoje = hoje or date.today().isoformat()
+    if arquivo.exists():
+        salvo = json.loads(arquivo.read_text(encoding="utf-8"))
+        if salvo.get("dia") == hoje:
+            print(f"tendências de hoje já lidas: {salvo.get('temas')}")
+            return salvo["buscas"]
     token = os.getenv("APIFY_TOKEN", "").strip()
     if not token:
         print("sem APIFY_TOKEN — usando as buscas padrão, sem olhar tendência de hoje")
         return buscas_padrao
     try:
-        posts = concorrentes.coletar(token, PERFIS_CONCORRENTES, limite_por_perfil=15)
+        posts = concorrentes.coletar(token, PERFIS_TENDENCIA, limite_por_perfil=5)
         quentes = concorrentes.temas_em_alta(posts)
         buscas = concorrentes.buscas_do_dia(posts, buscas_padrao)
         print(f"temas em alta hoje: {quentes or '(nenhum claro)'}")
+        arquivo.write_text(json.dumps({"dia": hoje, "temas": quentes, "buscas": buscas}, ensure_ascii=False, indent=1), encoding="utf-8")
         return buscas
-    except Exception as erro:  # Apify fora do ar, timeout, etc. — não é motivo pra falhar o cron.
+    except Exception as erro:  # Apify fora do ar, sem crédito, timeout — não é motivo pra falhar o cron.
         print(f"não deu pra puxar tendência hoje ({erro}) — usando as buscas padrão")
         return buscas_padrao
 
