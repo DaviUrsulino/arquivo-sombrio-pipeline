@@ -1,0 +1,20 @@
+{
+  "repo": {"nome": "isair/jarvis", "estrelas": 2140, "descricao": "Assistente de IA local e privado para o seu computador"},
+  "destaques": ["offline", "local", "privado"],
+  "cenas": [
+    {"narracao": "Um assistente de voz que roda só no seu computador.", "humor": "animado",
+     "visual": {"tipo": "titulo_pixel", "linhas": [{"texto": "IA DE VERDADE", "cor": "branco"}, {"texto": "NO SEU PC", "cor": "laranja"}]}},
+    {"narracao": "O projeto já tem duas mil estrelas no GitHub.", "humor": "feliz",
+     "visual": {"tipo": "contador"}},
+    {"narracao": "Ele ouve, fala e lembra tudo localmente, sem nuvem.",
+     "visual": {"tipo": "cadeia", "nos": [{"icone": "message-circle", "rotulo": "VOZ", "cor": "azul"}, {"icone": "brain", "rotulo": "MODELO LOCAL", "cor": "amarelo"}, {"icone": "shield-check", "rotulo": "PRIVADO", "cor": "verde"}]}},
+    {"narracao": "Tem memória pessoal, busca na web e ferramentas MCP.",
+     "visual": {"tipo": "lista", "itens": ["Memória local", "Busca web", "MCP tools"]}},
+    {"narracao": "Baixe o zip do seu sistema, extraia e rode o app.", "humor": "pensando",
+     "visual": {"tipo": "terminal", "comando": "./Jarvis/Jarvis", "texto": "executa no linux após extrair"}},
+    {"narracao": "E o melhor: roda offline, sem pagar nada.", "humor": "feliz",
+     "visual": {"tipo": "icone_pixel", "icone": "check", "cor": "verde", "rotulo": "RODA OFFLINE"}},
+    {"narracao": "Quer o link? Comenta LINK que eu te mando no direct.", "humor": "animado",
+     "visual": {"tipo": "titulo_pixel", "linhas": [{"texto": "COMENTA", "cor": "branco"}, {"texto": "LINK", "cor": "verde"}]}}
+  ]
+}

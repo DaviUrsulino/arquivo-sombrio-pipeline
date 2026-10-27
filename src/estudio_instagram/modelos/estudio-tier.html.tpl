@@ -39,7 +39,7 @@
       .linha-t { display: flex; gap: 14px; height: 150px; }
       .letra { width: 150px; flex: none; display: grid; place-items: center; font-family: "Anton"; font-size: 96px; color: #111; border-radius: 10px; }
       .slot { flex: 1; border-radius: 10px; background: rgba(255,255,255,.04); border: 2px solid rgba(255,255,255,.08); display: flex; align-items: center; padding: 0 26px; font-family: "Anton"; font-size: 54px; text-transform: uppercase; }
-      .carimbo { align-self: flex-end; border: 5px solid #2fe36b; color: #2fe36b; font-family: "Anton"; font-size: 54px; padding: 6px 24px; transform: rotate(-6deg); box-shadow: 0 0 30px rgba(47,227,107,.35); }
+      .carimbo { align-self: center; border: 5px solid #2fe36b; color: #2fe36b; font-family: "Anton"; font-size: 46px; padding: 6px 24px; transform: rotate(-6deg); box-shadow: 0 0 30px rgba(47,227,107,.35); }
       .cards { display: flex; flex-direction: column; gap: 20px; width: 960px; }
       .card { display: flex; align-items: center; gap: 26px; background: #fff; border-radius: 18px; padding: 26px 30px; box-shadow: 0 16px 40px rgba(0,0,0,.12); color: #111; }
       .card .ic-c { width: 100px; height: 100px; border-radius: 18px; flex: none; display: grid; place-items: center; }

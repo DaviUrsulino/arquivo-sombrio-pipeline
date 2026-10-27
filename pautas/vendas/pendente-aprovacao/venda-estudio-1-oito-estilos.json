@@ -1,0 +1,98 @@
+{
+ "formato": "pixel2",
+ "palavra_chave": "ESTUDIO",
+ "perfil": "@robo.estagiario",
+ "voz": {
+  "id": "iP95p4xoKVk53GoZ742B",
+  "modelo": "eleven_multilingual_v2"
+ },
+ "chamada": {
+  "pergunta": "quer o pack?"
+ },
+ "itens": [],
+ "titulo": "Venda Estúdio 1: este vídeo foi feito com código",
+ "capa": {
+  "subtitulo": "8 estilos de reels animados gerados por código"
+ },
+ "destaques": [
+  "código",
+  "estilos",
+  "comando",
+  "estudio"
+ ],
+ "legenda": "Este vídeo não passou por editor nenhum: foi gerado por código, a partir de um roteiro e da narração. O Pack Estúdio traz os 8 estilos que você vê no perfil.\n\nComenta ESTUDIO que eu te mando o link no direct 👇\n\n#claudecode #ia #reels #motiondesign",
+ "cenas_roteiro": [
+  {
+   "humor": "animado",
+   "narracao": "Esse vídeo não passou por nenhum editor de vídeo.",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {
+      "texto": "ZERO",
+      "cor": "branco"
+     },
+     {
+      "texto": "EDITOR",
+      "cor": "laranja"
+     }
+    ]
+   }
+  },
+  {
+   "narracao": "Ele foi gerado por código, a partir de um roteiro e da minha voz.",
+   "visual": {
+    "tipo": "cadeia",
+    "nos": [
+     {
+      "icone": "file-text",
+      "rotulo": "ROTEIRO",
+      "cor": "azul"
+     },
+     {
+      "icone": "message-circle",
+      "rotulo": "VOZ",
+      "cor": "amarelo"
+     },
+     {
+      "icone": "clapperboard",
+      "rotulo": "VÍDEO",
+      "cor": "verde"
+     }
+    ]
+   }
+  },
+  {
+   "humor": "feliz",
+   "narracao": "E o mesmo roteiro sai em oito estilos diferentes, com um comando só.",
+   "visual": {
+    "tipo": "lista",
+    "itens": [
+     "Cinema 3D",
+     "Rabisco",
+     "Telão",
+     "Papel 3D"
+    ]
+   }
+  },
+  {
+   "narracao": "A legenda sincroniza sozinha com a voz, palavra por palavra.",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "zap",
+    "cor": "amarelo",
+    "rotulo": "SINCRONIA"
+   }
+  },
+  {
+   "humor": "pensando",
+   "narracao": "Você roda isso no seu computador, sem mensalidade e sem After Effects.",
+   "visual": {
+    "tipo": "terminal",
+    "comando": "python3 montar.py roteiro.json --todos",
+    "texto": "gera os oito estilos"
+   }
+  }
+ ],
+ "molde": "estudio-3d.html.tpl"
+}

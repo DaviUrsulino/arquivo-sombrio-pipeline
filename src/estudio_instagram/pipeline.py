@@ -131,7 +131,8 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
     voz = criar_voz(dados_pauta)
     modelo_reels = MOLDES_SO_REELS.get(formato) or MOLDES_COM_SLIDES.get(formato) or "reels.html.tpl"
     if formato == "pixel2" and os.getenv("MOLDE_PIXEL2") != "1":
-        modelo_reels = molde_estudio(dados_pauta.get("titulo", ""))
+        # a pauta pode fixar o estilo (ex.: vídeo de venda sempre no estilo mais vistoso)
+        modelo_reels = dados_pauta.get("molde") or molde_estudio(dados_pauta.get("titulo", ""))
     duracao = montagem.montar_reels(dados_pauta, repos, voz, trabalho / "reels", modelo=modelo_reels)
     if modelo_reels.startswith("estudio-") and repos:
         # o molde tier mostra o print real do repositório; os outros ignoram o arquivo

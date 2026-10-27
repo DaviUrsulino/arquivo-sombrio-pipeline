@@ -293,7 +293,7 @@
           else if (e.tipo === "contador") { l1 = "ESTRELAS"; l2 = "NO GITHUB"; }
           else if (e.tipo === "cadeia") { l1 = "COMO"; l2 = "FUNCIONA"; }
           else if (e.tipo === "lista") { l1 = "TUDO"; l2 = "INCLUSO"; }
-          else if (e.tipo === "terminal") { l1 = "COMO"; l2 = "RODAR"; l3 = "três passos, sem nuvem"; }
+          else if (e.tipo === "terminal") { l1 = "COMO"; l2 = "RODAR"; }
           else { l1 = e.rotulo || ""; }
           [["l1", l1], ["l2", l2], ["l3", l3]].forEach(([cl, txt]) => {
             if (!txt) return; const d = document.createElement("div"); d.className = cl; tit.appendChild(d);

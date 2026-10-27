@@ -1,0 +1,82 @@
+{
+ "formato": "pixel2",
+ "palavra_chave": "ESTUDIO",
+ "perfil": "@robo.estagiario",
+ "voz": {
+  "id": "iP95p4xoKVk53GoZ742B",
+  "modelo": "eleven_multilingual_v2"
+ },
+ "chamada": {
+  "pergunta": "quer o pack?"
+ },
+ "itens": [],
+ "titulo": "Venda Estúdio 2: reels animados sem aparecer",
+ "capa": {
+  "subtitulo": "reels animados sem aparecer e sem editar"
+ },
+ "destaques": [
+  "aparecer",
+  "animado",
+  "roteiro",
+  "estudio"
+ ],
+ "legenda": "Quer postar vídeo animado sem aparecer e sem passar horas editando? O Pack Estúdio monta o vídeo a partir do seu roteiro e da sua narração, em 8 estilos.\n\nComenta ESTUDIO que eu te mando o link no direct 👇\n\n#reels #ia #conteudo #claudecode",
+ "cenas_roteiro": [
+  {
+   "humor": "animado",
+   "narracao": "Quer postar vídeo animado sem aparecer e sem editar nada?",
+   "visual": {
+    "tipo": "titulo_pixel",
+    "linhas": [
+     {
+      "texto": "SEM APARECER",
+      "cor": "branco"
+     },
+     {
+      "texto": "SEM EDITAR",
+      "cor": "laranja"
+     }
+    ]
+   }
+  },
+  {
+   "narracao": "Você escreve o roteiro com o Claude, uma frase por cena.",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "file-text",
+    "cor": "azul",
+    "rotulo": "ROTEIRO"
+   }
+  },
+  {
+   "narracao": "Grava a narração no celular, ou usa uma voz de inteligência artificial.",
+   "visual": {
+    "tipo": "icone_pixel",
+    "icone": "message-circle",
+    "cor": "amarelo",
+    "rotulo": "SUA VOZ"
+   }
+  },
+  {
+   "humor": "feliz",
+   "narracao": "E um comando transforma tudo em vídeo, com cena e legenda no tempo certo.",
+   "visual": {
+    "tipo": "terminal",
+    "comando": "python3 montar.py roteiro.json --renderizar",
+    "texto": "sai o MP4 pronto"
+   }
+  },
+  {
+   "narracao": "São oito estilos, e um mascote que reage a cada cena.",
+   "visual": {
+    "tipo": "lista",
+    "itens": [
+     "8 estilos",
+     "Mascote com 11 reações",
+     "Legenda sincronizada"
+    ]
+   }
+  }
+ ],
+ "molde": "estudio-papel.html.tpl"
+}
