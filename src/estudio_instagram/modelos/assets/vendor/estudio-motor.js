@@ -5,7 +5,8 @@
 (function () {
   const D = window.DADOS;
   const T = window.TEMA;
-  const tl = gsap.timeline({ paused: true });
+  const principal = gsap.timeline({ paused: true });
+  let tl = principal;
   let semente = 7;
   const rnd = () => ((semente = (semente * 9301 + 49297) % 233280) / 233280);
   const COR = (n) => T.cores[n] || T.cores.branco;
@@ -57,8 +58,14 @@
         const linha = el(caixa, "div", "titulo-linha", { fontSize: tam + "px", color: i === e.linhas.length - 1 ? COR(T.destaqueTitulo || l.cor) : COR(l.cor === "laranja" ? T.acento : l.cor) });
         todas.push(...palavras(linha, l.texto, "pal"));
       });
-      if (T.sublinhado) T.sublinhado(API, caixa, e.t + 0.25 + todas.length * 0.1);
-      todas.forEach((p, i) => entrar(p, e.t + i * 0.1, i));
+      // Cena 1: o primeiro quadro é a capa no feed e a 1ª impressão de quem rola a tela. O gancho inteiro precisa
+      // estar legível já em t=0 (retenção medida em 2026-10-27: 3,5 s; a pessoa sai antes do título terminar de entrar).
+      const primeira = c && c.inicio < 0.01;
+      const inicio = primeira ? 0 : e.t, passo = primeira ? 0 : 0.1;
+      if (primeira) todas.forEach((p) => tl.set(p, { opacity: 1 }, 0));
+      if (T.sublinhado) T.sublinhado(API, caixa, primeira ? 0 : e.t + 0.25 + todas.length * 0.1);
+      if (primeira) todas.forEach((p, i) => tl.fromTo(p, { scale: 1.15 }, { scale: 1, duration: 0.4, ease: "back.out(2)" }, 0));
+      else todas.forEach((p, i) => entrar(p, inicio + i * passo, i));
     },
     contador(palco, e) {
       const r = D.repos[e.repo] || { estrelas: 0, repo: e.repo };
@@ -264,9 +271,13 @@
     D.cenas.forEach((c, i) => {
       const secao = document.getElementById("cena-" + c.id);
       const palco = secao.firstElementChild;
+      // cena 1: as entradas vão numa linha do tempo à parte que entra no vídeo já adiantada (ver abaixo)
+      if (i === 0) { tl = gsap.timeline({ paused: true }); API.tl = tl; }
       c.elementos.forEach((e) => {
         // cenas com várias âncoras (cadeia, lista, terminal) só trazem `ts`; o começo da cena é a primeira
         if (e.t === undefined) e.t = e.ts && e.ts.length ? e.ts[0] : c.inicio + 0.1;
+        // cena 1 começa a desenhar no quadro zero: o gancho não pode esperar a primeira palavra falada
+        if (i === 0) e.t = 0;
         // a identidade pode trocar a cena inteira de um tipo (ex.: cadeia vira diagrama hub no pixel UI)
         const ehCta = e.tipo === "titulo_pixel" && e.linhas && e.linhas[0] && e.linhas[0].texto === "COMENTA";
         const proprio = T.visuais && (ehCta ? T.visuais.cta : T.visuais[e.tipo]);
@@ -274,6 +285,12 @@
         (V[e.tipo] || generico)(palco, e, c);
       });
       if (T.aoEntrarCena) T.aoEntrarCena(API, secao, palco, c, i);
+      if (i === 0) {
+        // adianta as entradas da cena 1 em 1,6 s: no quadro zero o gancho já está montado e legível
+        const pre = tl;
+        tl = principal; API.tl = principal;
+        principal.add(pre.tweenFromTo(1.6, Math.max(1.7, pre.duration()), { ease: "none" }), 0);
+      }
       tl.set(secao, { opacity: 1 }, c.inicio);
       T.transicao(API, palco, c, i);
       // câmera: empurrão lento, nunca parada; margem do layout garante que nada corta.
@@ -285,6 +302,6 @@
     const barra = document.getElementById("progresso");
     if (barra) tl.fromTo(barra, { scaleX: 0 }, { scaleX: 1, duration: D.duracao, ease: "none", transformOrigin: "left" }, 0);
     window.__timelines = window.__timelines || {};
-    window.__timelines["main"] = tl;
+    window.__timelines["main"] = principal;
   });
 })();

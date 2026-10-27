@@ -301,8 +301,10 @@
             [...txt].forEach((ch) => { const s = document.createElement("span"); s.className = "ch"; s.textContent = ch === " " ? " " : ch; d.appendChild(s); });
           });
           const t0 = c.inicio + 0.05;
-          tl.set(tit, { opacity: 1 }, t0);
-          tl.fromTo(tit.querySelectorAll(".ch"), { opacity: 0, y: 60, rotateX: -90 }, { opacity: 1, y: 0, rotateX: 0, duration: 0.5, stagger: 0.025, ease: "back.out(2)" }, t0);
+          tl.set(tit, { opacity: 1 }, i === 0 ? 0 : t0);
+          // cena 1: gancho inteiro já no primeiro quadro (capa do feed); as outras entram letra por letra
+          if (i === 0) tl.fromTo(tit, { scale: 1.12 }, { scale: 1, duration: 0.45, ease: "back.out(2)" }, 0);
+          else tl.fromTo(tit.querySelectorAll(".ch"), { opacity: 0, y: 60, rotateX: -90 }, { opacity: 1, y: 0, rotateX: 0, duration: 0.5, stagger: 0.025, ease: "back.out(2)" }, t0);
           const l3el = tit.querySelector(".l3"); if (l3el) tl.fromTo(l3el, { opacity: 0 }, { opacity: 1, duration: 0.3 }, t0 + 0.4);
           tl.to(tit, { opacity: 0, y: -30, duration: 0.15 }, c.inicio + c.duracao - 0.15);
           if (p.numero) { tl.fromTo(numero, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" }, e.t + 0.15); tl.to(numero, { opacity: 0, duration: 0.15 }, c.inicio + c.duracao - 0.15); }
