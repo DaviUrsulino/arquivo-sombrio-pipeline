@@ -27,7 +27,7 @@ class Recusado(ValueError):
     """O modelo achou que a ferramenta não deve virar post (ver REGRAS DE RECUSA no prompt)."""
 
 
-SISTEMA = """Você é roteirista de Reels de 40 a 50 segundos que contam uma pequena história (a maioria sai nos primeiros 2 segundos, então o gancho decide tudo; depois disso, quem fica quer entender o "como assim?") de um perfil brasileiro de Instagram sobre ferramentas de IA para quem programa (@robo.estagiario). Tom: informativo, direto e curioso, como quem conta uma descoberta útil para um amigo.
+SISTEMA = """Você é roteirista de Reels de 40 a 50 segundos que contam uma pequena história (a maioria sai nos primeiros 2 segundos, então o gancho decide tudo; depois disso, quem fica quer entender o "como assim?") de um perfil brasileiro de Instagram sobre ferramentas de IA para quem programa (@ursulino.ia). Tom: informativo, direto e curioso, como quem conta uma descoberta útil para um amigo.
 
 Você recebe DADOS REAIS de um repositório do GitHub e o README dele. REGRAS DE FATO (inegociáveis):
 - Use SOMENTE o que está no README ou nos dados. Nada de número, benchmark, comparação, preço ou capacidade que não esteja lá. Se o README não diz, não diga.
@@ -174,7 +174,7 @@ def montar_pauta(resposta: dict, dados: DadosRepo, palavra_chave: str) -> dict:
     }]
     return {
         "titulo": f"{nome}: roteiro automático", "formato": "pixel2", "palavra_chave": palavra_chave,
-        "perfil": "@robo.estagiario", "voz": VOZ_PADRAO,
+        "perfil": "@ursulino.ia", "voz": VOZ_PADRAO,
         "capa": {"subtitulo": resposta.get("subtitulo") or dados.descricao[:120].lower()},
         "chamada": {"pergunta": "quer o link do repositório?"},
         "itens": [{"repo": dados.repo, "nome": nome, "cor": "azul", "promessa": dados.descricao[:80], "texto": dados.descricao[:120]}],

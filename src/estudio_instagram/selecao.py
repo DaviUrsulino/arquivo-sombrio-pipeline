@@ -128,7 +128,7 @@ def montar_pauta(repos: list[DadosRepo], titulo: str, palavra_chave: str = "GITH
     })
 
     return {
-        "titulo": titulo, "palavra_chave": palavra_chave, "perfil": "@robo.estagiario", "voz": voz,
+        "titulo": titulo, "palavra_chave": palavra_chave, "perfil": "@ursulino.ia", "voz": voz,
         "capa": {**gancho["capa"], "selo": "★ {total_estrelas} estrelas"},
         "chamada": {"pergunta": f"quer os {n} links?", "promessa": "que eu te mando no direct",
                     "rodape": "e segue pra mais ferramenta grátis de IA"},
@@ -191,7 +191,7 @@ def montar_pauta_aprofundada(repo: DadosRepo, titulo: str, palavra_chave: str = 
     ]
 
     return {
-        "titulo": titulo, "palavra_chave": palavra_chave, "perfil": "@robo.estagiario", "voz": voz,
+        "titulo": titulo, "palavra_chave": palavra_chave, "perfil": "@ursulino.ia", "voz": voz,
         "capa": {"linha1": "A FERRAMENTA", "linha2": nome.upper()[:20], "subtitulo": "que pouca gente conhece ainda",
                  "selo": "★ {estrelas:" + repo.repo + "} estrelas"},
         "chamada": {"pergunta": "quer o link?", "promessa": "que eu te mando no direct",

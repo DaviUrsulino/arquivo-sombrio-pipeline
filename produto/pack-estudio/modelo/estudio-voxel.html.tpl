@@ -49,7 +49,7 @@
     <div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURACAO}}">
       <div id="fundo" class="clip" data-start="0" data-duration="{{DURACAO}}" data-track-index="0"></div>
       <div id="grao" class="clip" data-start="0" data-duration="{{DURACAO}}" data-track-index="0"></div>
-      <div id="assinatura" class="clip" data-start="0" data-duration="{{DURACAO}}" data-track-index="1">@robo.estagiario</div>
+      <div id="assinatura" class="clip" data-start="0" data-duration="{{DURACAO}}" data-track-index="1">@ursulino.ia</div>
 {{CENAS}}
       <canvas id="gl" class="clip" width="1080" height="1920" data-start="0" data-duration="{{DURACAO}}" data-track-index="6"></canvas>
       <div id="etiquetas" class="clip" data-start="0" data-duration="{{DURACAO}}" data-track-index="8"><div id="legenda" style="position:absolute;inset:0"></div></div>

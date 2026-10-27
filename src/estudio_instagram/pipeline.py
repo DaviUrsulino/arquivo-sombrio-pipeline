@@ -69,7 +69,7 @@ def montar_legenda(dados_pauta: dict, repos: dict) -> str:
         f"{dados_pauta['capa']['subtitulo'].capitalize()} 🤖\n\n"
         f"{bloco_passos}"
         f"Comenta {dados_pauta['palavra_chave']} que eu te mando o link no direct 👇\n"
-        f"Segue o @robo.estagiario pra não perder a próxima ferramenta de IA.\n\n{hashtags}"
+        f"Segue o @ursulino.ia pra não perder a próxima ferramenta de IA.\n\n{hashtags}"
     )
     return texto[:LIMITE_LEGENDA_INSTAGRAM]
 
@@ -93,10 +93,10 @@ def _registrar_links(dados_pauta: dict, repos: dict, registro: dict):
     if len(lista) == 1:
         primeiro = lista[0]
         mensagem = (f"Oi! Aqui está o repositório {primeiro.repo.split('/', 1)[1]}: {primeiro.url}\n"
-                    f"Se curtir, segue o @robo.estagiario pra mais ferramentas de IA 🤖")
+                    f"Se curtir, segue o @ursulino.ia pra mais ferramentas de IA 🤖")
     else:  # formato lista: um link por repositório, na ordem do vídeo
         linhas = "\n".join(f"{i}. {d.repo.split('/', 1)[1]}: {d.url}" for i, d in enumerate(lista, 1))
-        mensagem = f"Oi! Aqui estão os repositórios do vídeo:\n{linhas}\nSe curtir, segue o @robo.estagiario pra mais ferramentas de IA 🤖"
+        mensagem = f"Oi! Aqui estão os repositórios do vídeo:\n{linhas}\nSe curtir, segue o @ursulino.ia pra mais ferramentas de IA 🤖"
     primeiro = lista[0]
     arquivo = RAIZ / "pautas" / "links_por_post.json"
     atual = json.loads(arquivo.read_text(encoding="utf-8")) if arquivo.exists() else {}

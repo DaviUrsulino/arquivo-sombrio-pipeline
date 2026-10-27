@@ -1,6 +1,6 @@
 # Kit Claude Code
 
-Do perfil [@robo.estagiario](https://www.instagram.com/robo.estagiario/). Versão 1.0, outubro de 2026.
+Do perfil [@ursulino.ia](https://www.instagram.com/ursulino.ia/). Versão 1.0, outubro de 2026.
 
 Este kit existe para resolver uma coisa: **o Claude Code começa toda sessão sem lembrar do seu
 projeto**. Se você não escreve as regras em lugar nenhum, repete tudo toda vez e recebe código fora do

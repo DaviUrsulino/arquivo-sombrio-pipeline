@@ -143,7 +143,7 @@
             el.appendChild(robo(800, 1140, 1.0));
           }
           const rod = document.createElement("div"); rod.className = "rodape";
-          rod.innerHTML = `<span>@robo.estagiario</span><span>${i + 1}/${total}</span>`; el.appendChild(rod);
+          rod.innerHTML = `<span>@ursulino.ia</span><span>${i + 1}/${total}</span>`; el.appendChild(rod);
           const scan = document.createElement("div"); scan.className = "scan"; el.appendChild(scan);
           tl.set(el, { opacity: 1 }, i);
         });

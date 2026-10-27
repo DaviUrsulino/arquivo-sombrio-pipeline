@@ -20,7 +20,7 @@ ORDINAIS = ["Primeiro", "Segundo", "Terceiro", "Quarto", "Quinto"]
 CORES_ITENS = ["azul", "verde", "laranja", "roxo", "amarelo"]
 LETRAS_MAX_LINHA = 14
 
-SISTEMA = """Você é roteirista de Reels CURTOS (25 a 35 segundos) do perfil brasileiro @robo.estagiario, sobre ferramentas de IA para quem programa. Formato LISTA: 5 repositórios do GitHub num mesmo vídeo.
+SISTEMA = """Você é roteirista de Reels CURTOS (25 a 35 segundos) do perfil brasileiro @ursulino.ia, sobre ferramentas de IA para quem programa. Formato LISTA: 5 repositórios do GitHub num mesmo vídeo.
 
 Você recebe 5 repositórios com DADOS REAIS e o início do README. REGRAS DE FATO (inegociáveis):
 - Use SOMENTE o que está no README ou nos dados. Nada de número, benchmark, comparação, preço ou capacidade que o README não diga.
@@ -133,11 +133,11 @@ def montar_pauta(resposta: dict, dados: list[DadosRepo], palavra_chave: str) -> 
     lista_texto = "\n".join(f"{i}. {it['rotulo'].title()}: {_frase(it['frase'])}." for i, it in enumerate(itens, 1))
     legenda = (f"{numero_por_extenso} repositórios grátis para {resposta['tema'].strip().rstrip('.')} 🤖\n\n"
                f"Salva este vídeo:\n{lista_texto}\n\n"
-               f"Manda pra um amigo dev, segue o @robo.estagiario e comenta {palavra_chave} que eu te mando os links no direct.\n\n"
+               f"Manda pra um amigo dev, segue o @ursulino.ia e comenta {palavra_chave} que eu te mando os links no direct.\n\n"
                "Quer aprender a fazer vídeos assim? Link na bio.\n\n#claudecode #github #ia #programacao #opensource")
     return {
         "titulo": f"lista: {resposta['tema'].strip()}", "formato": "pixel2", "palavra_chave": palavra_chave,
-        "perfil": "@robo.estagiario", "voz": VOZ_PADRAO,
+        "perfil": "@ursulino.ia", "voz": VOZ_PADRAO,
         "capa": {"subtitulo": resposta.get("subtitulo") or resposta["tema"]},
         "chamada": {"pergunta": "quer os links dos repositórios?"},
         "itens": itens_pauta, "destaques": [it["falado"].lower() for it in itens][:8] + [palavra_chave.lower()],
