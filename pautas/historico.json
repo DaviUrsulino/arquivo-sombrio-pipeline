@@ -1,6 +1,7 @@
 {
   "repositorios_usados": [
     "1jehuang/jcode",
+    "20000419/fauxnix",
     "AMAP-ML/LongHorizon-Harness",
     "DayuanJiang/next-ai-draw-io",
     "DietrichGebert/ponytail",
@@ -40,6 +41,7 @@
     "alirezarezvani/claude-skills",
     "anthropics/claude-plugins-official",
     "anthropics/knowledge-work-plugins",
+    "arjun988/blender-skills",
     "bangtutorial/bang-motion",
     "browser-use/browser-harness",
     "bytedance/deer-flow",
@@ -100,6 +102,7 @@
     "shadcn-labs/snapcn",
     "shareAI-lab/learn-claude-code",
     "simonlin1212/Vibe-Research",
+    "simonlin1212/vibe-astock",
     "sirioberati/Genjustsu-Open-Source-Workflow",
     "soumatheusgomes/vibe-coding-toolkit",
     "stablyai/orca",
@@ -111,6 +114,7 @@
     "trailhq/Trail-Code",
     "tt-a1i/archify",
     "undefined-ui/second-brain-os",
+    "viettranx/3dviz-pro-max",
     "virgiliojr94/book-to-skill",
     "vshulcz/deja-vu",
     "wasp-lang/open-saas",
@@ -122,5 +126,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 60
+  "pautas_geradas": 61
 }

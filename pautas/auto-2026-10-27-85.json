@@ -1,0 +1,201 @@
+{
+  "titulo": "lista: desenvolver com inteligencia artificial",
+  "formato": "pixel2",
+  "palavra_chave": "GITHUB",
+  "perfil": "@ursulino.ia",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "ferramentas de codigo aberto para programadores"
+  },
+  "chamada": {
+    "pergunta": "quer os links dos repositórios?"
+  },
+  "itens": [
+    {
+      "repo": "20000419/fauxnix",
+      "nome": "fauxnix",
+      "cor": "azul",
+      "promessa": "Run Linux-style commands on Windows via deterministic bash→PowerShell translatio",
+      "texto": "Traduz comandos do Linux para Windows."
+    },
+    {
+      "repo": "arjun988/blender-skills",
+      "nome": "blender-skills",
+      "cor": "verde",
+      "promessa": "94 specialist Blender skills for Cursor, Claude Code, Kiro & Codex -> MCP-powere",
+      "texto": "Conecta assistentes de IA ao Blender."
+    },
+    {
+      "repo": "viettranx/3dviz-pro-max",
+      "nome": "3dviz-pro-max",
+      "cor": "laranja",
+      "promessa": "Agent skill for creative 3D visualization: turn an idea into a Three.js/Blender ",
+      "texto": "Cria cenários tridimensionais interativos com código."
+    },
+    {
+      "repo": "simonlin1212/vibe-astock",
+      "nome": "vibe-astock",
+      "cor": "roxo",
+      "promessa": "Vibe AStock：A 股短线复盘与跟踪工作台 · 盯盘异动、情绪复盘（连板天梯、题材轮动、明日验证）、AI 复盘与周报、交易日志、盘前提醒，182 个数据",
+      "texto": "Analisa dados do mercado de ações."
+    }
+  ],
+  "destaques": [
+    "faux nix",
+    "blender skills",
+    "tres d viz pro max",
+    "vibe a stock",
+    "github"
+  ],
+  "cenas_roteiro": [
+    {
+      "humor": "animado",
+      "narracao": "Quatro repositórios grátis para desenvolver com inteligencia artificial.",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "REPOS GRATIS",
+            "cor": "branco",
+            "tamanho": 100
+          },
+          {
+            "texto": "PARA DEVS IA",
+            "cor": "laranja",
+            "tamanho": 110
+          }
+        ]
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Primeiro: faux nix. Traduz comandos do Linux para Windows.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "terminal",
+        "cor": "azul",
+        "rotulo": "FAUXNIX"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Segundo: blender skills. Conecta assistentes de IA ao Blender.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "palette",
+        "cor": "verde",
+        "rotulo": "BLENDER SKILLS"
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Terceiro: tres d viz pro max. Cria cenários tridimensionais interativos com código.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "sparkles",
+        "cor": "laranja",
+        "rotulo": "3DVIZ PRO MAX"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Quarto: vibe a stock. Analisa dados do mercado de ações.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "search",
+        "cor": "roxo",
+        "rotulo": "VIBE ASTOCK"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "REPOS GRATIS",
+          "cor": "branco",
+          "tamanho": 96
+        },
+        {
+          "texto": "PARA DEVS IA",
+          "cor": "laranja",
+          "tamanho": 96
+        }
+      ],
+      "subtitulo": "ferramentas de codigo aberto para programadores"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 1",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "FAUXNIX",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "fauxnix",
+      "texto": "Traduz comandos do Linux para Windows."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 2",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "BLENDER SKILLS",
+          "cor": "verde"
+        }
+      ],
+      "rotulo": "blender-skills",
+      "texto": "Conecta assistentes de IA ao Blender."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 3",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "3DVIZ PRO MAX",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "3dviz-pro-max",
+      "texto": "Cria cenários tridimensionais interativos com código."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 4",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "VIBE ASTOCK",
+          "cor": "roxo"
+        }
+      ],
+      "rotulo": "vibe-astock",
+      "texto": "Analisa dados do mercado de ações."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER OS LINKS",
+          "cor": "branco"
+        },
+        {
+          "texto": "DOS REPOS?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando os links no direct.",
+      "palavra": "GITHUB",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "legenda": "Quatro repositórios grátis para desenvolver com inteligencia artificial 🤖\n\nSalva este vídeo:\n1. Fauxnix: Traduz comandos do Linux para Windows.\n2. Blender Skills: Conecta assistentes de IA ao Blender.\n3. 3Dviz Pro Max: Cria cenários tridimensionais interativos com código.\n4. Vibe Astock: Analisa dados do mercado de ações.\n\nManda pra um amigo dev, segue o @ursulino.ia e comenta GITHUB que eu te mando os links no direct.\n\nQuer aprender a fazer vídeos assim? Link na bio.\n\n#claudecode #github #ia #programacao #opensource"
+}
