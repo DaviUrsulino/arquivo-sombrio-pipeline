@@ -32,12 +32,14 @@ BRASILIA = timezone(timedelta(hours=-3))
 # Qualidade antes de volume (2026-10-26): com 6-8 posts por dia a conta ficava presa em ~150 views por vídeo,
 # enquanto o @gab.gouvea (mesmo nicho) faz 40-170 mil com uns 3 vídeos por semana. Agora são 2 rodadas por dia,
 # no pico do meio-dia e no horário nobre.
-RODADAS = [("12:00", "pixel2"), ("19:00", "pixel2"), ("22:00", "loop")]
+# 2026-10-27: lista de 4 repositórios fez 769-998 views e 7-9 s assistidos, contra ~150 views e 3,5 s do vídeo de
+# repositório único: lista vira o vídeo fixo do meio-dia, todo dia.
+RODADAS = [("12:00", "lista"), ("19:00", "pixel2"), ("22:00", "loop")]
 # 22:00: loop de 8-10 s do Google Flow (estilo @pixosly), só se houver vídeo em loops/fila/ (ver loop.py).
 FILA_LOOPS = RAIZ / "loops" / "fila"
 # Formato da rodada das 19:00 por dia da semana (0 = segunda). Venda só 2x por semana pra não cansar o público;
 # lista (vários repositórios num vídeo) 2x, que é o formato dos 2º e 3º vídeos mais vistos do @gab.gouvea.
-FORMATO_NOBRE_POR_DIA = {0: "pixel2", 1: "venda", 2: "lista", 3: "pixel2", 4: "venda", 5: "lista", 6: "pixel2"}
+FORMATO_NOBRE_POR_DIA = {0: "pixel2", 1: "venda", 2: "pixel2", 3: "pixel2", 4: "venda", 5: "pixel2", 6: "pixel2"}
 
 
 def rodadas_do_dia(dia: str) -> list[tuple[str, str]]:
@@ -50,7 +52,7 @@ PAUTAS_DO_DIA = {"2026-10-21": {"23:30": "pautas/viral/geo-sleuth-novo.json"}}  
 # Banco de vídeos: pautas prontas e aprovadas em pautas/viral/fila/. A rodada FILA_RODADA de cada dia usa a próxima
 # que ainda não saiu (em ordem de nome); sem nada na fila, segue o formato normal da rodada.
 FILA = RAIZ / "pautas" / "viral" / "fila"
-FILA_RODADA = "12:00"  # horário de ouro: o vídeo mais forte do banco sai no pico do meio-dia
+FILA_RODADA = "19:00"  # o meio-dia ficou fixo pra lista (formato campeão); o banco de vídeos prontos sai à noite
 TOLERANCIA_ATRASO = timedelta(hours=2)
 INTERVALO_MIN_MIN = 120  # nunca duas rodadas em menos de 2 horas
 
