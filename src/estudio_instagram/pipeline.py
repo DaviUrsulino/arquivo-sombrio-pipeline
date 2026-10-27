@@ -106,6 +106,14 @@ def _registrar_links(dados_pauta: dict, repos: dict, registro: dict):
     arquivo.write_text(json.dumps(atual, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
+def _registrar_estilo(media_id: str, molde: str):
+    """Guarda qual identidade visual saiu em cada post, pro analista comparar os estilos."""
+    arquivo = RAIZ / "pautas" / "estilo_por_post.json"
+    atual = json.loads(arquivo.read_text(encoding="utf-8")) if arquivo.exists() else {}
+    atual[media_id] = molde.removeprefix("estudio-").removesuffix(".html.tpl")
+    arquivo.write_text(json.dumps(atual, ensure_ascii=False, indent=1), encoding="utf-8")
+
+
 def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) -> dict:
     if publicar and pausa.ativa():
         raise SystemExit(f"pausa de segurança ativa ({pausa.motivo()}): não publico agora")
@@ -180,6 +188,7 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
             registro["legenda"] = legenda
             registro["reels"]["media_id"] = reels_publicado.media_id
             _registrar_links(dados_pauta, repos, registro) if repos else None  # o Reels já saiu: o bot já pode responder
+            _registrar_estilo(reels_publicado.media_id, modelo_reels)
 
             if slides:
                 time.sleep(ESPERA_ENTRE_REELS_E_CARROSSEL_S)

@@ -44,3 +44,11 @@ def test_formato_curto_e_separado_pela_data_do_experimento():
     assert analista.formato_de("2026-10-21T13:00:00+0000").startswith("curto")
     por = analista.analisar([_r("2026-10-20T12:00:00+0000", 100), _r("2026-10-21T13:00:00+0000", 300)])["por_formato"]
     assert por["curto (20-35 s)"]["n"] == 1 and por["longo (45-60 s)"]["n"] == 1
+
+
+def test_agrupa_por_estilo_visual():
+    from src.estudio_instagram import analista
+    reels = [{"id": "a", "hora": "2026-10-28T15:00:00+0000", "legenda": "x", "views": 900},
+             {"id": "b", "hora": "2026-10-28T22:00:00+0000", "legenda": "y", "views": 100}]
+    por_estilo = analista.analisar(reels, estilos={"a": "papel"})["por_estilo"]
+    assert por_estilo["papel"]["views_medianas"] == 900 and "pixel antigo / manual" in por_estilo
