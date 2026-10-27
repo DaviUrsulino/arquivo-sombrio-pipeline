@@ -1,8 +1,8 @@
 {
   "resposta_publica": [
-    "Te mandei no direct! 📩",
-    "Mandei no seu direct 🚀",
-    "Enviei no direct, dá uma olhada! 📩"
+    "Te mandei no direct!",
+    "Mandei no seu direct",
+    "Enviei no direct, dá uma olhada!"
   ],
   "palavras": {
     "CLAUDE": "Oi! Aqui está o robo-estagiario.zip com o modelo de CLAUDE.md e o prompt de planejamento (plan mode): https://tinyurl.com/2bgkh263",
@@ -22,6 +22,6 @@
     "TESTES",
     "PIXEL"
   ],
-  "mensagem_pedido": "Oi! Pra liberar o link, segue o @ursulino.ia e responde aqui com SIGO. Eu confiro e te mando na hora 🤖",
-  "mensagem_nao_segue": "Ainda não vi o seu follow no @ursulino.ia 😅 Segue a conta e responde SIGO de novo que eu libero o link."
+  "mensagem_pedido": "Oi! Pra liberar o link, segue o @ursulino.ia e responde aqui com SIGO. Eu confiro e te mando na hora",
+  "mensagem_nao_segue": "Ainda não vi o seu follow no @ursulino.ia Segue a conta e responde SIGO de novo que eu libero o link."
 }

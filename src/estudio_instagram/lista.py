@@ -131,7 +131,7 @@ def montar_pauta(resposta: dict, dados: list[DadosRepo], palavra_chave: str) -> 
     itens_pauta = [{"repo": it["repo"], "nome": it["repo"].split("/", 1)[1], "cor": CORES_ITENS[i % len(CORES_ITENS)],
                     "promessa": por_repo[it["repo"]].descricao[:80], "texto": it["frase"][:120]} for i, it in enumerate(itens)]
     lista_texto = "\n".join(f"{i}. {it['rotulo'].title()}: {_frase(it['frase'])}." for i, it in enumerate(itens, 1))
-    legenda = (f"{numero_por_extenso} repositórios grátis para {resposta['tema'].strip().rstrip('.')} 🤖\n\n"
+    legenda = (f"{numero_por_extenso} repositórios grátis para {resposta['tema'].strip().rstrip('.')}\n\n"
                f"Salva este vídeo:\n{lista_texto}\n\n"
                f"Manda pra um amigo dev, segue o @ursulino.ia e comenta {palavra_chave} que eu te mando os links no direct.\n\n"
                "Quer aprender a fazer vídeos assim? Link na bio.\n\n#claudecode #github #ia #programacao #opensource")
