@@ -32,6 +32,28 @@ MOLDES_SO_REELS = {"prompt": "prompt.html.tpl", "diagrama": "diagrama.html.tpl",
                    "repo": "repo.html.tpl"}
 # Formatos com Reels + carrossel próprio (os slides vêm da pauta, não de repositórios).
 MOLDES_COM_SLIDES = {"pixel": "pixel.html.tpl", "pixel2": "pixel2.html.tpl"}
+# Moldes "estúdio" (2026-10-26) substituem o pixel2 no Reels: mesmos dados de cena, visual de motion design
+# (escuro/laranja, rabisco à mão, neon). Cada pauta cai num deles, fixo pelo título, pra o feed variar.
+# `MOLDE_PIXEL2=1` no ambiente volta pro molde antigo.
+MOLDES_ESTUDIO = [
+    "estudio-3d.html.tpl",       # @yan.gsouza: cenas 3D cinematográficas
+    "estudio-rabisco.html.tpl",  # @oguiadaia: desenho à mão em papel
+    "estudio-pixelui.html.tpl",  # @99hud: fonte pixel, janelas retrô, personagem
+    "estudio-tier.html.tpl",     # @daniel.esantos: ranking S/A/B + print real do repo
+    "estudio-telao.html.tpl",    # @jako.frames: tipografia cinética num monitor
+    "estudio-papel.html.tpl",    # @nodir.ai_: tipografia 3D extrudada em papel creme
+    "estudio-vidro.html.tpl",    # @igao.ia: interface de app em vidro escuro
+    "estudio-voxel.html.tpl",    # @macelista: letreiro neon, fita crepe, mascote voxel 3D
+]  # escuro e neon foram reprovados pelo Davi (2026-10-26)
+
+
+def molde_estudio(titulo: str) -> str:
+    return MOLDES_ESTUDIO[sum(ord(c) for c in titulo) % len(MOLDES_ESTUDIO)]
+
+
+# Carrossel desligado (2026-10-26): cada post saía duplicado (Reels + carrossel com a mesma legenda), o que
+# dividia o alcance e cansava quem segue. Volta a ligar só com `PUBLICAR_CARROSSEL=1` no ambiente.
+PUBLICAR_CARROSSEL = os.getenv("PUBLICAR_CARROSSEL") == "1"
 
 
 def montar_legenda(dados_pauta: dict, repos: dict) -> str:
@@ -46,9 +68,8 @@ def montar_legenda(dados_pauta: dict, repos: dict) -> str:
     texto = (
         f"{dados_pauta['capa']['subtitulo'].capitalize()} 🤖\n\n"
         f"{bloco_passos}"
-        f"{dados_pauta['chamada']['pergunta'].capitalize()} "
-        f"Siga @robo.estagiario e comente {dados_pauta['palavra_chave']} que eu te mando no direct.\n\n"
-        f"Quer aprender a fazer vídeos assim? Link na bio.\n\n{hashtags}"
+        f"Comenta {dados_pauta['palavra_chave']} que eu te mando o link no direct 👇\n"
+        f"Segue o @robo.estagiario pra não perder a próxima ferramenta de IA.\n\n{hashtags}"
     )
     return texto[:LIMITE_LEGENDA_INSTAGRAM]
 
@@ -109,10 +130,20 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
 
     voz = criar_voz(dados_pauta)
     modelo_reels = MOLDES_SO_REELS.get(formato) or MOLDES_COM_SLIDES.get(formato) or "reels.html.tpl"
+    if formato == "pixel2" and os.getenv("MOLDE_PIXEL2") != "1":
+        modelo_reels = molde_estudio(dados_pauta.get("titulo", ""))
     duracao = montagem.montar_reels(dados_pauta, repos, voz, trabalho / "reels", modelo=modelo_reels)
+    if modelo_reels.startswith("estudio-") and repos:
+        # o molde tier mostra o print real do repositório; os outros ignoram o arquivo
+        try:
+            github_dados.baixar_cartao(next(iter(repos)), trabalho / "reels" / "assets" / "cartao.png")
+        except Exception as erro:  # sem print o molde mostra um quadro vazio, não vale travar o post
+            print(f"não baixei o cartão do repositório ({erro})")
     video = render.renderizar_reels(trabalho / "reels", pasta_saida / "reels.mp4")
 
-    if formato in MOLDES_COM_SLIDES:
+    if not PUBLICAR_CARROSSEL:
+        slides = []
+    elif formato in MOLDES_COM_SLIDES:
         n_slides = montagem.montar_carrossel_pixel(dados_pauta, trabalho / "carrossel")
         slides = render.renderizar_carrossel(trabalho / "carrossel", n_slides, pasta_saida / "carrossel")
     elif not eh_prompt:
@@ -149,7 +180,7 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
             registro["reels"]["media_id"] = reels_publicado.media_id
             _registrar_links(dados_pauta, repos, registro) if repos else None  # o Reels já saiu: o bot já pode responder
 
-            if not eh_prompt:
+            if slides:
                 time.sleep(ESPERA_ENTRE_REELS_E_CARROSSEL_S)
                 urls_slides = [
                     hospedagem.publicar(s, f"{nome_base}-slide-{i:02d}.png") for i, s in enumerate(slides, start=1)

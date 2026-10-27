@@ -53,10 +53,18 @@ def tempo_da_ancora(ancora: str, palavras: list[PalavraNoTempo], deslocamento: f
 
 
 def blocos_de_legenda(palavras: list[PalavraNoTempo], fim: float, tamanho: int = PALAVRAS_POR_LEGENDA) -> list[dict]:
-    """Agrupa as palavras em blocos curtos; cada bloco fica na tela até o próximo começar."""
+    """Agrupa as palavras em blocos curtos; cada bloco fica na tela até o próximo começar.
+
+    Um resto de 1 palavra sozinha no fim (ex.: "...de volta" -> "de" "volta") pisca rápido
+    e solto na tela; gruda esse resto no bloco anterior em vez de criar um bloco à parte.
+    """
+    indices = list(range(0, len(palavras), tamanho))
+    if len(indices) >= 2 and len(palavras) - indices[-1] == 1:
+        indices.pop()
     blocos = []
-    for i in range(0, len(palavras), tamanho):
-        grupo = palavras[i:i + tamanho]
-        seguinte = palavras[i + tamanho].t if i + tamanho < len(palavras) else fim
+    for pos, i in enumerate(indices):
+        fim_grupo = indices[pos + 1] if pos + 1 < len(indices) else len(palavras)
+        grupo = palavras[i:fim_grupo]
+        seguinte = palavras[fim_grupo].t if fim_grupo < len(palavras) else fim
         blocos.append({"t": grupo[0].t, "fim": seguinte, "texto": " ".join(p.palavra for p in grupo)})
     return blocos

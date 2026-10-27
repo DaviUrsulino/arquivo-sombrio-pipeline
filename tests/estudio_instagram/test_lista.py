@@ -28,7 +28,7 @@ def test_lista_valida_vira_pauta_pixel2_que_passa_na_validacao():
     assert pauta.problemas(final, ICONES) == []
     assert final["cenas"][0]["narracao"].startswith("Cinco repositórios grátis para criar vídeo com IA")
     assert "Primeiro: ferramenta 1." in final["cenas"][1]["narracao"]
-    assert final["cenas"][-1]["narracao"].startswith("Manda pra um amigo dev")
+    assert final["cenas"][-1]["narracao"].startswith("Quer o link? Comenta")
 
 
 def test_legenda_lista_os_itens_e_pede_para_salvar():

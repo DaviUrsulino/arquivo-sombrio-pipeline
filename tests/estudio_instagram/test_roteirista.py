@@ -36,7 +36,7 @@ def test_roteiro_valido_vira_pauta_que_passa_na_validacao():
     nova = roteirista.gerar_pauta(DADOS, README, "LINK", ICONES, llm=lambda s, u: _resposta())
     final = cenas_pixel.normalizar_pauta(nova)
     assert pauta.problemas(final, ICONES) == []
-    assert final["cenas"][-1]["narracao"].startswith("Manda pra um amigo dev, segue e comenta LINK")
+    assert final["cenas"][-1]["narracao"].startswith("Quer o link? Comenta LINK")
     assert len(nova["slides"]) == 6 and nova["slides"][-1]["tipo"] == "cta"
 
 
@@ -117,14 +117,22 @@ def test_venda_gira_um_roteiro_por_dia_e_nao_repete_dois_dias_seguidos(tmp_path)
     assert pauta_de_venda(tmp_path / "nao_existe") is None
 
 
-def test_fecho_proprio_nao_acrescenta_o_comenta_e_o_fecho_padrao_chama_para_a_bio():
+def test_fecho_proprio_nao_acrescenta_o_comenta_e_o_fecho_padrao_pede_so_o_comentario():
     base = {"palavra_chave": "BIO", "cenas_roteiro": [{"narracao": "Quer fazer igual? O link está na bio.",
             "visual": {"tipo": "titulo_pixel", "linhas": [{"texto": "A", "cor": "branco"}]}}]}
     so_a_do_roteiro = cenas_pixel.normalizar_pauta({**base, "fecho_proprio": True})
     assert len(so_a_do_roteiro["cenas"]) == 1
     padrao = cenas_pixel.normalizar_pauta({**base, "palavra_chave": "LINK"})
     ultima = padrao["cenas"][-1]
-    assert "link na bio" in ultima["narracao"].lower() and ultima["elementos"][-1]["texto"] == "FAÇA IGUAL: LINK NA BIO"
+    assert "comenta link" in ultima["narracao"].lower() and "bio" not in ultima["narracao"].lower()
+    assert len(ultima["elementos"]) == 1  # um pedido só: sem selo de "link na bio" disputando a atenção
+
+
+def test_palavra_do_roteiro_substitui_o_link_generico():
+    nova = roteirista.gerar_pauta(DADOS, README, "LINK", ICONES, llm=lambda s, u: {**_resposta(), "palavra": "corte"})
+    assert nova["palavra_chave"] == "CORTE"
+    invalida = roteirista.gerar_pauta(DADOS, README, "LINK", ICONES, llm=lambda s, u: {**_resposta(), "palavra": "com espaço"})
+    assert invalida["palavra_chave"] == "LINK"
 
 
 def test_passos_vao_para_a_pauta_e_para_a_legenda():

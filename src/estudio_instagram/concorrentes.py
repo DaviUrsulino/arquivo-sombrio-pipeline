@@ -45,6 +45,8 @@ def coletar(token: str, perfis: list[str], limite_por_perfil: int = 25, abrir=ur
 
 
 PALAVRAS_CHAVE_TEMA = {
+    # "clonar app pago" / "acabou pro X": tema dos vídeos de 170-450 mil views do gab.gouvea e do brunoptrevisan.
+    "alternativa": ["clonar", "clone", "acabou pro", "alternativa", "de graça", "gratuito", "pago"],
     "repositorio": ["repositório", "repositórios", "github", "repo", "biblioteca", "open source"],
     "skill": ["skill", "skills", "plugin", "plugins"],
     "site": ["site", "landing page", "construir site", "app"],
@@ -65,6 +67,7 @@ def classificar_tema(legenda: str) -> str | None:
 # Cada tema vira uma busca diferente no GitHub — é a ponte entre "o que tá bombando
 # no Instagram hoje" e "quais repositórios buscar", sem precisar de LLM.
 BUSCA_GITHUB_POR_TEMA = {
+    "alternativa": ["open source alternative", "self-hosted alternative ai"],
     "repositorio": ["claude code skill", "claude-code agent"],
     "skill": ["claude code skill", "claude code plugin"],
     "site": ["claude code website builder", "ai website generator open source"],

@@ -18,7 +18,7 @@ TIPOS = {
     "cartao_repo", "estrelas_gigante", "fluxo_linha",
     "hud", "titulo_pixel", "terminal", "selo_pixel",
     "icone_pixel", "cadeia", "niveis", "comparar", "celular", "banner_repo", "contador", "lista",
-    "sala_pixel",
+    "sala_pixel", "grade_pixel", "preco_pixel",
 }
 MARCADOR = re.compile(r"\{(estrelas:[\w.-]+/[\w.-]+|total_estrelas)\}")
 MAX_CARACTERES_NARRACAO = 1500

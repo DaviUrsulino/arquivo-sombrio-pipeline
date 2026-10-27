@@ -85,3 +85,18 @@ def test_montar_legenda_tem_palavra_chave_e_hashtags():
     assert PAUTA["palavra_chave"] in legenda
     assert "#claudecode" in legenda
     assert len(legenda) <= 2200
+
+
+def test_cenarios_do_pixel2_sao_dois_diferentes_e_variam_entre_videos():
+    from src.estudio_instagram.montagem import CENARIOS_PIXEL, escolher_cenarios
+    pares = {tuple(escolher_cenarios(f"video {i}")) for i in range(40)}
+    assert all(a != b and a in CENARIOS_PIXEL and b in CENARIOS_PIXEL for a, b in pares)
+    assert len({a for a, _ in pares}) == len(CENARIOS_PIXEL)  # todos os fundos aparecem
+    assert escolher_cenarios("mesmo") == escolher_cenarios("mesmo")
+
+
+def test_pixel2_roda_entre_os_tres_moldes_estudio():
+    from src.estudio_instagram.pipeline import MOLDES_ESTUDIO, molde_estudio
+    from src.estudio_instagram.montagem import MODELOS
+    assert {molde_estudio(f"pauta {i}") for i in range(30)} == set(MOLDES_ESTUDIO)
+    assert all((MODELOS / m).exists() for m in MOLDES_ESTUDIO)

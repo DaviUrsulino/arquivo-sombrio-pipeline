@@ -46,5 +46,6 @@ def test_ancora_ausente_e_erro_explicito():
 def test_legenda_agrupa_e_cada_bloco_vai_ate_o_proximo():
     palavras = [PalavraNoTempo(float(i), f"p{i}") for i in range(5)]
     blocos = blocos_de_legenda(palavras, fim=9.0, tamanho=2)
-    assert [b["texto"] for b in blocos] == ["p0 p1", "p2 p3", "p4"]
-    assert [(b["t"], b["fim"]) for b in blocos] == [(0.0, 2.0), (2.0, 4.0), (4.0, 9.0)]
+    # a palavra que sobraria sozinha ("p4") gruda no bloco anterior em vez de piscar solta na tela
+    assert [b["texto"] for b in blocos] == ["p0 p1", "p2 p3 p4"]
+    assert [(b["t"], b["fim"]) for b in blocos] == [(0.0, 2.0), (2.0, 9.0)]

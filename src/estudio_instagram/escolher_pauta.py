@@ -28,6 +28,10 @@ RAIZ = Path(__file__).resolve().parents[2]
 PERFIS_CONCORRENTES = [
     "fabianocarvalhojr", "brunoptrevisan", "tiagolemosx", "gurudoprompt",
     "rodrigotadewald", "brusantanna.ai", "oguiadaia", "ssupernova.studio",
+    # 2026-10-26: os que mais viralizaram num scraping de 30 perfis de tecnologia (40 mil a 4,7 mi de views).
+    "gab.gouvea", "claudedrop", "evolving.ai", "airesearches",
+    # 2026-10-26: referências de animação que o Davi mandou.
+    "ismjeff.ia", "_aighostlab", "jako.frames", "ckubedasskills", "pixosly", "thiagomendesmed",
 ]
 
 

@@ -23,6 +23,8 @@ def _quantas_ancoras(visual: dict) -> tuple[int, bool]:
         return len(visual["itens"]), True
     if tipo == "comparar":
         return 2, True
+    if tipo == "preco_pixel":
+        return 2, True
     if tipo == "celular":
         return 2, True
     if tipo == "terminal":
@@ -34,7 +36,7 @@ def _quantas_ancoras(visual: dict) -> tuple[int, bool]:
 Y_PADRAO = {
     "titulo_pixel": 300, "icone_pixel": 380, "cadeia": 520, "niveis": 460, "comparar": 320,
     "celular": 200, "banner_repo": 300, "contador": 340, "lista": 380, "terminal": 420, "selo_pixel": 900,
-    "sala_pixel": 420,
+    "sala_pixel": 420, "grade_pixel": 260, "preco_pixel": 420, "video_pixel": 1440,
 }
 HUMORES = {"normal", "feliz", "animado", "pensando"}
 TIPOS_VISUAIS = set(Y_PADRAO)
@@ -91,11 +93,13 @@ def normalizar_cena(cena: dict, indice: int) -> dict:
 def cena_final(palavra_chave: str) -> dict:
     """Última cena, sempre igual: o 'comenta PALAVRA' que o bot responde."""
     return {
-        "narracao": f"Manda pra um amigo dev, segue e comenta {palavra_chave} pra receber o link. Quer fazer igual? Link na bio.",
+        # Um pedido só (2026-10-26): "manda pra amigo + segue + comenta + link na bio" dividia a atenção; quem viraliza
+        # no nicho pede só o comentário com a palavra.
+        "narracao": f"Quer o link? Comenta {palavra_chave} que eu te mando no direct.",
         "humor": "animado",
         "visual": {
             "tipo": "titulo_pixel", "y": 330,
-            "linhas": [{"texto": "SIGA E COMENTE", "cor": "branco", "tamanho": 84},
+            "linhas": [{"texto": "COMENTA", "cor": "branco", "tamanho": 100},
                        {"texto": palavra_chave, "cor": "verde", "tamanho": 150}],
         },
     }
@@ -109,11 +113,5 @@ def normalizar_pauta(pauta: dict) -> dict:
     cenas = list(pauta["cenas_roteiro"]) + ([] if pauta.get("fecho_proprio") else [cena_final(palavra)])
     saida = dict(pauta)
     saida["cenas"] = [normalizar_cena(c, i) for i, c in enumerate(cenas, start=1)]
-    if not pauta.get("fecho_proprio"):
-        # A cena final também ganha o selo, depois da primeira (não precisa de âncora própria no roteiro).
-        saida["cenas"][-1]["elementos"].append({
-            "tipo": "selo_pixel", "texto": "FAÇA IGUAL: LINK NA BIO", "y": 840,
-            "ancora": "bio",
-        })
     saida.setdefault("destaques", [])
     return saida

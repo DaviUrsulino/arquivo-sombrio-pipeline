@@ -26,13 +26,13 @@
  "cenas_roteiro": [
   {
    "humor": "pensando",
-   "narracao": "Seu espaço pode ser roubado por cinquenta centavos a mais.",
+   "narracao": "Tem gente pagando pra roubar o espaço dos outros, de propósito.",
    "visual": {
     "tipo": "titulo_pixel",
     "linhas": [
-     {"texto": "SEU ESPAÇO", "cor": "branco", "tamanho": 110},
-     {"texto": "PODE SER", "cor": "vermelho", "tamanho": 110},
-     {"texto": "ROUBADO", "cor": "vermelho", "tamanho": 130}
+     {"texto": "TEM GENTE PAGANDO", "cor": "branco", "tamanho": 92},
+     {"texto": "PRA ROUBAR", "cor": "branco", "tamanho": 100},
+     {"texto": "DE PROPÓSITO", "cor": "vermelho", "tamanho": 110}
     ]
    }
   },
@@ -40,9 +40,10 @@
    "humor": "normal",
    "narracao": "É uma grade de dez mil espaços, e quem paga mais assume o seu.",
    "visual": {
-    "tipo": "contador",
+    "tipo": "grade_pixel",
     "valor": 10000,
     "formato": "cheio",
+    "cor": "laranja",
     "rotulo": "ESPAÇOS NA GRADE"
    }
   },
@@ -50,20 +51,27 @@
    "humor": "feliz",
    "narracao": "A entrada custa um real. Pra tomar um espaço ocupado, paga cinquenta centavos a mais que o dono atual.",
    "visual": {
-    "tipo": "comparar",
+    "tipo": "preco_pixel",
     "esq": {
-     "titulo": "ENTRAR", "icone": "zap", "cor": "verde",
-     "linhas": [{"rotulo": "preço", "valor": 1}]
+     "titulo": "ENTRAR", "cor": "verde", "preco": "R$ 1", "legenda": "pixel livre"
     },
     "dir": {
-     "titulo": "TOMAR", "icone": "flame", "cor": "vermelho",
-     "linhas": [{"rotulo": "a mais", "valor": 1}]
+     "titulo": "TOMAR", "cor": "vermelho", "preco": "+R$ 0,50", "legenda": "sobre o valor atual"
     }
    }
   },
   {
+   "humor": "feliz",
+   "narracao": "Eu já garanti os meus. Vinte e cinco pixels.",
+   "visual": {
+    "tipo": "selo_pixel",
+    "texto": "25 PIXELS GARANTIDOS",
+    "y": 1440
+   }
+  },
+  {
    "humor": "animado",
-   "narracao": "É o Million Dollar Homepage de 2005, só que agora o espaço pode ser roubado de volta.",
+   "narracao": "É o Pixel Guerra ponto com ponto br, a versão brasileira do Million Dollar Homepage de 2005 — só que aqui dá pra roubar o espaço de volta.",
    "visual": {
     "tipo": "icone_pixel",
     "icone": "flame",
@@ -81,6 +89,48 @@
      {"texto": "PIXEL", "cor": "verde", "tamanho": 150}
     ]
    }
+  }
+ ],
+ "slides": [
+  {
+   "tipo": "capa",
+   "linhas": [
+    {"texto": "PIXEL GUERRA", "cor": "vermelho"}
+   ],
+   "subtitulo": "10 mil pixels, R$1 cada — e pode ser roubado"
+  },
+  {
+   "tipo": "ponto",
+   "fase": "O JOGO",
+   "progresso": 0.33,
+   "linhas": [{"texto": "10 MIL ESPAÇOS", "cor": "laranja"}],
+   "rotulo": "regra",
+   "texto": "Cada pixel custa R$1. Pra tomar um ocupado, paga R$0,50 a mais que o dono atual."
+  },
+  {
+   "tipo": "ponto",
+   "fase": "A DISPUTA",
+   "progresso": 0.66,
+   "linhas": [{"texto": "NADA É SEU", "cor": "vermelho"}, {"texto": "PRA SEMPRE", "cor": "branco"}],
+   "rotulo": "aviso",
+   "texto": "Seu pixel fica até alguém pagar mais. Aí ele passa pra essa pessoa — e você pode retomar."
+  },
+  {
+   "tipo": "comando",
+   "fase": "NO AR AGORA",
+   "progresso": 0.9,
+   "linhas": [{"texto": "JÁ TEM GENTE", "cor": "amarelo"}],
+   "comando": "95 ocupados",
+   "texto": "R$95 em lances. A disputa já começou.",
+   "rotulo": "ao vivo"
+  },
+  {
+   "tipo": "final",
+   "linhas": [{"texto": "PIXEL GUERRA", "cor": "amarelo"}],
+   "subtitulo": "a versão brasileira do Million Dollar Homepage de 2005",
+   "selo": "COMENTA PIXEL",
+   "palavra": "PIXEL",
+   "extra": "pixelguerra.com.br"
   }
  ]
 }

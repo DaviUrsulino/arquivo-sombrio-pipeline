@@ -28,10 +28,21 @@ from . import pausa
 RAIZ = Path(__file__).resolve().parents[2]
 ARQUIVO = RAIZ / "pautas" / "maestro.json"
 BRASILIA = timezone(timedelta(hours=-3))
-# (hora de Brasília, formato). Cada rodada posta 1 Reels + 1 carrossel: 4 rodadas = 8 posts por dia.
-# Horários: 08:00 e 12:00 (picos da manhã), 18:30 (horário nobre) e 23:30 (dev acorda até tarde; o único Reels da madrugada foi o 3º melhor). O freio de 10 posts/24 h segue valendo.
-# Modo seguro (2026-10-19): o Instagram devolveu "action is blocked" com 5 rodadas por dia, então são poucas e espaçadas.
-RODADAS = [("08:00", "pixel2"), ("12:00", "pixel2"), ("18:30", "venda"), ("23:30", "lista")]
+# (hora de Brasília, formato). Cada rodada posta só 1 Reels (sem carrossel).
+# Qualidade antes de volume (2026-10-26): com 6-8 posts por dia a conta ficava presa em ~150 views por vídeo,
+# enquanto o @gab.gouvea (mesmo nicho) faz 40-170 mil com uns 3 vídeos por semana. Agora são 2 rodadas por dia,
+# no pico do meio-dia e no horário nobre.
+RODADAS = [("12:00", "pixel2"), ("19:00", "pixel2")]
+# Formato da rodada das 19:00 por dia da semana (0 = segunda). Venda só 2x por semana pra não cansar o público;
+# lista (vários repositórios num vídeo) 2x, que é o formato dos 2º e 3º vídeos mais vistos do @gab.gouvea.
+FORMATO_NOBRE_POR_DIA = {0: "pixel2", 1: "venda", 2: "lista", 3: "pixel2", 4: "venda", 5: "lista", 6: "pixel2"}
+
+
+def rodadas_do_dia(dia: str) -> list[tuple[str, str]]:
+    semana = datetime.fromisoformat(dia).weekday()
+    return [(h, FORMATO_NOBRE_POR_DIA[semana] if h == "19:00" else f) for h, f in RODADAS]
+
+
 # Pauta pronta e aprovada que substitui o formato de uma rodada: {"AAAA-MM-DD": {"HH:MM": "caminho"}}.
 PAUTAS_DO_DIA = {"2026-10-21": {"23:30": "pautas/viral/geo-sleuth-novo.json"}}  # reposta do geo-sleuth no ritmo novo (cota de hoje não comporta antes)
 # Banco de vídeos: pautas prontas e aprovadas em pautas/viral/fila/. A rodada FILA_RODADA de cada dia usa a próxima
@@ -58,7 +69,7 @@ def decidir(agora: datetime, estado: dict) -> tuple[str | None, dict]:
     seguro = not ultimo or agora - datetime.fromisoformat(ultimo) >= timedelta(minutes=INTERVALO_MIN_MIN)
 
     escolhido = None
-    for hhmm, formato in RODADAS:
+    for hhmm, formato in rodadas_do_dia(dia):
         if hhmm in feitos:
             continue
         previsto = _hora(dia, hhmm)

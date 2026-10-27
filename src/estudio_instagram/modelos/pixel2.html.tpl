@@ -20,7 +20,7 @@
       html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0b0814; }
       #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Space Mono", monospace; font-weight: 700; color: var(--branco); }
       canvas.pix { image-rendering: pixelated; image-rendering: crisp-edges; }
-      #cenario { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+      #cenario, #cenario2 { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
       #sombra { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8,6,16,.78) 0%, rgba(8,6,16,.62) 55%, rgba(8,6,16,.7) 100%); }
       .tocha { position: absolute; width: 360px; height: 360px; border-radius: 50%; background: radial-gradient(circle, rgba(255,160,60,.42) 0%, rgba(255,120,30,.14) 45%, transparent 70%); mix-blend-mode: screen; }
       #scan { position: absolute; inset: 0; pointer-events: none; opacity: .16; background: repeating-linear-gradient(0deg, rgba(0,0,0,.6) 0 3px, transparent 3px 6px); }
@@ -83,8 +83,9 @@
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURACAO}}">
+    <div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURACAO}}" data-motion-blur="on">
       <canvas id="cenario" class="pix clip" width="108" height="192" data-start="0" data-duration="{{DURACAO}}" data-track-index="0"></canvas>
+      <canvas id="cenario2" class="pix clip" width="108" height="192" data-start="0" data-duration="{{DURACAO}}" data-track-index="0" style="opacity:0"></canvas>
       <div id="sombra" class="clip" data-start="0" data-duration="{{DURACAO}}" data-track-index="1"></div>
       <div id="tochas" class="clip" data-start="0" data-duration="{{DURACAO}}" data-track-index="2"></div>
 {{CENAS}}
@@ -103,36 +104,101 @@
       const formatar = (n, formato) => (formato === "ano" ? String(n) : formato === "cheio" ? n.toLocaleString("pt-BR") : mil(n));
       const mil = (n) => (n >= 10000 ? Math.floor(n / 1000) + " mil" : n >= 1000 ? (n / 1000).toFixed(1).replace(".", ",") + " mil" : String(n));
 
-      // ---------- cenário: biblioteca em pixel art (108x192, ampliada 10x) ----------
-      (function cenario() {
-        const c = document.getElementById("cenario"); const x = c.getContext("2d");
+      // ---------- cenários em pixel art (108x192, ampliados 10x) ----------
+      // Cada vídeo usa 2 cenários (D.cenarios, escolhidos na montagem) e troca de um pro outro no meio,
+      // pra o fundo não ser sempre a mesma biblioteca em todo post.
+      const CENARIOS = {
+        biblioteca(x) {
         let semente = 21; const rnd = () => ((semente = (semente * 9301 + 49297) % 233280) / 233280);
-        for (let y = 0; y < 192; y++) { const t = y / 192; x.fillStyle = `rgb(${Math.round(18 + 10 * t)},${Math.round(13 + 6 * t)},${Math.round(36 + 10 * t)})`; x.fillRect(0, y, 108, 1); }
-        const lombadas = ["#7a3b3b", "#3b5a7a", "#4a6b3f", "#8a6a2f", "#5a3b7a", "#2f6b6b", "#7a4a2f", "#4b4b6b"];
-        for (let estante = 0; estante < 5; estante++) {
-          const topo = 8 + estante * 26, base = topo + 22;
-          let px = 1;
-          while (px < 107) {
-            const w = 2 + Math.floor(rnd() * 3), h = 12 + Math.floor(rnd() * 9);
-            x.fillStyle = lombadas[Math.floor(rnd() * lombadas.length)]; x.fillRect(px, base - h, w, h);
-            x.fillStyle = "rgba(0,0,0,.28)"; x.fillRect(px + w - 1, base - h, 1, h);
-            if (rnd() > 0.7) { x.fillStyle = "rgba(255,216,74,.55)"; x.fillRect(px, base - h + 2, w, 1); }
-            px += w + (rnd() > 0.85 ? 2 : 0);
+          for (let y = 0; y < 192; y++) { const t = y / 192; x.fillStyle = `rgb(${Math.round(18 + 10 * t)},${Math.round(13 + 6 * t)},${Math.round(36 + 10 * t)})`; x.fillRect(0, y, 108, 1); }
+          const lombadas = ["#7a3b3b", "#3b5a7a", "#4a6b3f", "#8a6a2f", "#5a3b7a", "#2f6b6b", "#7a4a2f", "#4b4b6b"];
+          for (let estante = 0; estante < 5; estante++) {
+            const topo = 8 + estante * 26, base = topo + 22;
+            let px = 1;
+            while (px < 107) {
+              const w = 2 + Math.floor(rnd() * 3), h = 12 + Math.floor(rnd() * 9);
+              x.fillStyle = lombadas[Math.floor(rnd() * lombadas.length)]; x.fillRect(px, base - h, w, h);
+              x.fillStyle = "rgba(0,0,0,.28)"; x.fillRect(px + w - 1, base - h, 1, h);
+              if (rnd() > 0.7) { x.fillStyle = "rgba(255,216,74,.55)"; x.fillRect(px, base - h + 2, w, 1); }
+              px += w + (rnd() > 0.85 ? 2 : 0);
+            }
+            x.fillStyle = "#3a2a1c"; x.fillRect(0, base, 108, 3);
+            x.fillStyle = "#1c130c"; x.fillRect(0, base + 3, 108, 1);
           }
-          x.fillStyle = "#3a2a1c"; x.fillRect(0, base, 108, 3);
-          x.fillStyle = "#1c130c"; x.fillRect(0, base + 3, 108, 1);
-        }
-        // chão de madeira
-        x.fillStyle = "#1d1428"; x.fillRect(0, 142, 108, 50);
-        x.fillStyle = "#3b2c52"; x.fillRect(0, 142, 108, 1);
-        for (let y = 148; y < 192; y += 8) { x.fillStyle = "rgba(0,0,0,.35)"; x.fillRect(0, y, 108, 1); }
-        for (let y = 143; y < 192; y += 8) for (let px = Math.floor(rnd() * 20); px < 108; px += 18 + Math.floor(rnd() * 10)) { x.fillStyle = "rgba(0,0,0,.3)"; x.fillRect(px, y, 1, 8); }
-        // chamas das tochas (pixels)
-        [[7, 118], [100, 118]].forEach(([px, py]) => {
-          x.fillStyle = "#4a3320"; x.fillRect(px, py + 5, 2, 8);
-          x.fillStyle = "#ff7a1a"; x.fillRect(px - 1, py + 1, 4, 5); x.fillStyle = "#ffd84a"; x.fillRect(px, py + 2, 2, 3);
-        });
-      })();
+          // chão de madeira
+          x.fillStyle = "#1d1428"; x.fillRect(0, 142, 108, 50);
+          x.fillStyle = "#3b2c52"; x.fillRect(0, 142, 108, 1);
+          for (let y = 148; y < 192; y += 8) { x.fillStyle = "rgba(0,0,0,.35)"; x.fillRect(0, y, 108, 1); }
+          for (let y = 143; y < 192; y += 8) for (let px = Math.floor(rnd() * 20); px < 108; px += 18 + Math.floor(rnd() * 10)) { x.fillStyle = "rgba(0,0,0,.3)"; x.fillRect(px, y, 1, 8); }
+          // chamas das tochas (pixels)
+          [[7, 118], [100, 118]].forEach(([px, py]) => {
+            x.fillStyle = "#4a3320"; x.fillRect(px, py + 5, 2, 8);
+            x.fillStyle = "#ff7a1a"; x.fillRect(px - 1, py + 1, 4, 5); x.fillStyle = "#ffd84a"; x.fillRect(px, py + 2, 2, 3);
+          });
+        },
+        servidores(x) {
+          let semente = 7; const rnd = () => ((semente = (semente * 9301 + 49297) % 233280) / 233280);
+          for (let y = 0; y < 192; y++) { const t = y / 192; x.fillStyle = `rgb(${Math.round(8 + 6 * t)},${Math.round(16 + 8 * t)},${Math.round(30 + 12 * t)})`; x.fillRect(0, y, 108, 1); }
+          for (let r = 0; r < 4; r++) {
+            const px = 3 + r * 27; x.fillStyle = "#1a2433"; x.fillRect(px, 10, 22, 132); x.fillStyle = "#0c121b"; x.fillRect(px + 21, 10, 1, 132);
+            for (let u = 0; u < 16; u++) {
+              const py = 13 + u * 8; x.fillStyle = "#26344a"; x.fillRect(px + 2, py, 18, 6); x.fillStyle = "#0e1622"; x.fillRect(px + 2, py + 5, 18, 1);
+              const led = rnd(); x.fillStyle = led > 0.6 ? "#4ee06a" : led > 0.35 ? "#5fb4ff" : led > 0.25 ? "#ffd84a" : "#2a3a50"; x.fillRect(px + 4, py + 2, 1, 1);
+              if (rnd() > 0.5) { x.fillStyle = "#4ee06a"; x.fillRect(px + 6, py + 2, 1, 1); }
+              x.fillStyle = "#3a4d68"; x.fillRect(px + 11, py + 2, 7, 1);
+            }
+          }
+          x.fillStyle = "#101826"; x.fillRect(0, 142, 108, 50);
+          for (let y = 142; y < 192; y += 6) for (let px = 0; px < 108; px += 6) { x.fillStyle = (px + y) % 12 ? "#141e2e" : "#0d1520"; x.fillRect(px, y, 6, 6); }
+          x.fillStyle = "rgba(95,180,255,.35)"; x.fillRect(0, 142, 108, 1);
+        },
+        cidade(x) {
+          let semente = 33; const rnd = () => ((semente = (semente * 9301 + 49297) % 233280) / 233280);
+          for (let y = 0; y < 192; y++) { const t = y / 192; x.fillStyle = `rgb(${Math.round(30 + 40 * t)},${Math.round(12 + 10 * t)},${Math.round(52 + 10 * t)})`; x.fillRect(0, y, 108, 1); }
+          for (let i = 0; i < 40; i++) { x.fillStyle = rnd() > 0.7 ? "#ffd84a" : "#f4f1ea"; x.fillRect(Math.floor(rnd() * 108), Math.floor(rnd() * 70), 1, 1); }
+          x.fillStyle = "#ffe9b0"; x.fillRect(80, 16, 10, 10); x.fillStyle = "#2a1640"; x.fillRect(84, 15, 7, 8);
+          let px = 0;
+          while (px < 108) {
+            const w = 8 + Math.floor(rnd() * 12), h = 40 + Math.floor(rnd() * 80), topo = 150 - h;
+            x.fillStyle = rnd() > 0.5 ? "#1b1030" : "#22143a"; x.fillRect(px, topo, w, h);
+            for (let wy = topo + 3; wy < 146; wy += 4) for (let wx = px + 2; wx < px + w - 2; wx += 3) if (rnd() > 0.55) { x.fillStyle = rnd() > 0.8 ? "#ff7ad9" : "#ffd84a"; x.fillRect(wx, wy, 1, 2); }
+            px += w + 1;
+          }
+          x.fillStyle = "#120a1e"; x.fillRect(0, 150, 108, 42);
+          x.fillStyle = "#ff7ad9"; x.fillRect(0, 150, 108, 1);
+          for (let y = 160; y < 192; y += 10) { x.fillStyle = "rgba(255,122,217,.25)"; x.fillRect(0, y, 108, 1); }
+        },
+        espaco(x) {
+          let semente = 51; const rnd = () => ((semente = (semente * 9301 + 49297) % 233280) / 233280);
+          for (let y = 0; y < 192; y++) { const t = y / 192; x.fillStyle = `rgb(${Math.round(6 + 10 * t)},${Math.round(6 + 4 * t)},${Math.round(20 + 18 * t)})`; x.fillRect(0, y, 108, 1); }
+          for (let i = 0; i < 90; i++) { const b = rnd(); x.fillStyle = b > 0.9 ? "#5fb4ff" : b > 0.8 ? "#b48cff" : "#f4f1ea"; x.fillRect(Math.floor(rnd() * 108), Math.floor(rnd() * 192), 1, 1); }
+          const planeta = (cx, cy, r, c1, c2) => { for (let y = -r; y <= r; y++) for (let xx = -r; xx <= r; xx++) if (xx * xx + y * y <= r * r) { x.fillStyle = xx + y < 0 ? c1 : c2; x.fillRect(cx + xx, cy + y, 1, 1); } };
+          planeta(78, 34, 13, "#ff9d3c", "#b4562a"); x.fillStyle = "#ffd84a"; x.fillRect(60, 34, 36, 1);
+          planeta(18, 70, 5, "#b48cff", "#6a4aa8");
+          x.fillStyle = "#2a2440"; x.fillRect(0, 150, 108, 42);
+          for (let i = 0; i < 30; i++) { x.fillStyle = "#1c1830"; x.fillRect(Math.floor(rnd() * 104), 152 + Math.floor(rnd() * 36), 3, 2); }
+          x.fillStyle = "#4a4270"; x.fillRect(0, 150, 108, 1);
+        },
+        laboratorio(x) {
+          let semente = 77; const rnd = () => ((semente = (semente * 9301 + 49297) % 233280) / 233280);
+          for (let y = 0; y < 192; y++) { const t = y / 192; x.fillStyle = `rgb(${Math.round(10 + 8 * t)},${Math.round(26 + 10 * t)},${Math.round(24 + 8 * t)})`; x.fillRect(0, y, 108, 1); }
+          for (let gx = 0; gx < 108; gx += 9) { x.fillStyle = "rgba(78,224,106,.08)"; x.fillRect(gx, 0, 1, 142); }
+          for (let gy = 0; gy < 142; gy += 9) { x.fillStyle = "rgba(78,224,106,.08)"; x.fillRect(0, gy, 108, 1); }
+          [[6, 30], [56, 30], [6, 78], [56, 78]].forEach(([mx, my]) => {
+            x.fillStyle = "#0a1410"; x.fillRect(mx, my, 46, 34); x.fillStyle = "#1f3a2c"; x.fillRect(mx, my, 46, 1);
+            for (let l = 0; l < 6; l++) { x.fillStyle = rnd() > 0.3 ? "#4ee06a" : "#ffd84a"; x.fillRect(mx + 3, my + 4 + l * 5, 6 + Math.floor(rnd() * 30), 1); }
+          });
+          x.fillStyle = "#16261f"; x.fillRect(0, 142, 108, 50); x.fillStyle = "#2f5a44"; x.fillRect(0, 142, 108, 2);
+          for (let px = 4; px < 108; px += 20) { x.fillStyle = "#24402f"; x.fillRect(px, 150, 12, 3); }
+        },
+      };
+      function desenharCenario(id, nome) {
+        const x = document.getElementById(id).getContext("2d");
+        (CENARIOS[nome] || CENARIOS.biblioteca)(x);
+      }
+      const [CEN_A, CEN_B] = (D.cenarios && D.cenarios.length) ? D.cenarios : ["biblioteca", "biblioteca"];
+      desenharCenario("cenario", CEN_A);
+      desenharCenario("cenario2", CEN_B || CEN_A);
       (function tochas() {
         const caixa = document.getElementById("tochas");
         [[75, 1130], [1005, 1130]].forEach(([cx, cy], i) => {
@@ -140,6 +206,15 @@
           caixa.appendChild(t);
           tl.to(t, { opacity: 0.55, scale: 1.08, duration: 0.7 + i * 0.13, ease: "steps(3)", yoyo: true, repeat: 60 }, 0);
         });
+      })();
+      // troca de cenário no meio do vídeo (no começo da cena do meio), com um "apagão" curto de pixel.
+      (function trocaDeCenario() {
+        const tochas = document.getElementById("tochas");
+        tl.set(tochas, { opacity: CEN_A === "biblioteca" ? 1 : 0 }, 0);
+        if (!CEN_B || CEN_B === CEN_A || D.cenas.length < 4) return;
+        const t = D.cenas[Math.floor(D.cenas.length / 2)].inicio;
+        tl.fromTo("#cenario2", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "steps(4)" }, t);
+        tl.to(tochas, { opacity: CEN_B === "biblioteca" ? 1 : 0, duration: 0.3, ease: "steps(4)" }, t);
       })();
 
       // ---------- ícones lucide viram pixel art (rasteriza pequeno, corta o alfa, amplia sem suavizar) ----------
@@ -274,6 +349,37 @@
           const ini = e.ts[Math.min(1, e.ts.length - 1)];
           tl.fromTo(alvos, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.3, stagger: 0.18, ease: "steps(3)" }, ini);
         },
+        grade_pixel(palco, e) {
+          const bloco = div(palco, "el centro", { top: e.y + "px", gap: "22px" });
+          const grade = div(bloco, "", { display: "grid", gridTemplateColumns: "repeat(10, 46px)", gap: "8px" });
+          const OCUPADOS = new Set([3, 7, 12, 18, 25, 31, 38, 44]);
+          const celulas = [];
+          for (let i = 0; i < 50; i++) {
+            const ocupado = OCUPADOS.has(i);
+            const c = div(grade, "", {
+              width: "46px", height: "46px",
+              background: ocupado ? HEX[e.cor || "laranja"] : "transparent",
+              border: "4px solid " + (ocupado ? "#000" : "rgba(244,241,234,.35)"),
+              boxShadow: ocupado ? "4px 4px 0 #000" : "none", opacity: "0",
+            });
+            celulas.push(c);
+          }
+          const num = div(bloco, "gigante", { fontSize: "150px" });
+          const r = div(bloco, "rot", {}, ""); r.textContent = e.rotulo || "";
+          tl.set(bloco, { opacity: 1 }, e.t);
+          tl.fromTo(celulas, { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 0.3, stagger: 0.012, ease: "steps(3)" }, e.t);
+          const est = { v: 0 }; num.textContent = "0";
+          tl.to(est, { v: e.valor, duration: 1.1, ease: "power2.out", onUpdate: () => { num.textContent = formatar(Math.round(est.v), e.formato); } }, e.t + 0.3);
+        },
+        preco_pixel(palco, e) {
+          [[e.esq, 50, 0], [e.dir, 590, 1]].forEach(([lado, x, i]) => {
+            const c = div(palco, "cartao", { left: x + "px", top: e.y + "px", textAlign: "center", padding: "0 0 24px" });
+            c.innerHTML = `<div class="topo" style="background:${HEX[lado.cor]}">${lado.titulo}</div>`
+              + `<div style="font-size:84px;color:${cor(lado.cor)};text-shadow:4px 4px 0 #000;padding:30px 0 6px">${lado.preco}</div>`
+              + `<div style="font-size:28px;color:#cfc9e0;padding:0 20px">${lado.legenda || ""}</div>`;
+            entrar(c, e.ts[i]);
+          });
+        },
         banner_repo(palco, e) {
           const d = div(palco, "banner", { top: e.y + "px" });
           d.appendChild(icone("github", "preto", 100)); const tx = div(d, "", {}, `<small>${e.rotulo || "repositório gratuito"}</small><b>${e.url}</b>`);
@@ -362,10 +468,33 @@
         Object.keys(POSES).forEach((p) => { const s = roboSvg(p); robo.appendChild(s); poses[p] = s; });
         tl.set(robo, { x: 120 }, 0);
         D.cenas.forEach((c, i) => {
-          const palco = document.getElementById("cena-" + c.id).firstElementChild;
+          const secao = document.getElementById("cena-" + c.id);
+          const palco = secao.firstElementChild;
           c.elementos.forEach((e) => { if (construtores[e.tipo]) construtores[e.tipo](palco, e, c.duracao); });
-          tl.set(palco, { opacity: 1 }, c.inicio);
-          tl.to(palco, { opacity: 0, duration: 0.18, ease: "steps(3)" }, c.inicio + c.duracao - 0.18);
+
+          // câmera: avanço constante por cena (nunca parada, nunca igual à anterior) — uma
+          // tween de scale só, em sequência com o pop de entrada, nunca simultânea com ele.
+          tl.set(secao, { opacity: 1 }, c.inicio);
+          const alvoZoom = 1.16 + (i % 3) * 0.04;
+          const entradaViva = i > 0 && i % 2 === 0;
+          const entradaWhip = i > 0 && !entradaViva;
+          const popDur = entradaViva ? 0.42 : 0;
+
+          if (i === 0) {
+            tl.set(palco, { opacity: 1, scale: 1.0 }, c.inicio);
+          } else if (entradaViva) {
+            // slam: estoura grande e quica até assentar — bem visível, não sutil.
+            tl.fromTo(palco, { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1.0, duration: popDur, ease: "back.out(2.2)" }, c.inicio);
+          } else if (entradaWhip) {
+            tl.set(palco, { scale: 1.0 }, c.inicio);
+            tl.fromTo(palco, { opacity: 0, x: 110, filter: "blur(26px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.22, ease: "power2.out" }, c.inicio);
+          }
+          // câmera lenta, sempre depois que a entrada já assentou.
+          tl.fromTo(palco, { scale: 1.0 }, { scale: alvoZoom, duration: Math.max(0.3, c.duracao - popDur), ease: "power1.inOut" }, c.inicio + popDur);
+
+          // saída sempre mais curta que a entrada (40-50%), nunca mais que 0.14s.
+          tl.to(palco, { opacity: 0, duration: 0.12, ease: "power2.in" }, c.inicio + c.duracao - 0.12);
+
           const pose = c.humor && poses[c.humor] ? c.humor : "normal"; const alvoX = [120, 430, 760, 560, 240][i % 5];
           Object.entries(poses).forEach(([nome, s]) => tl.set(s, { opacity: nome === pose ? 1 : 0 }, c.inicio));
           tl.to(robo, { x: alvoX, duration: Math.min(1.1, c.duracao * 0.5), ease: "steps(8)" }, c.inicio + 0.1);

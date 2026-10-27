@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" width="400" height="520">
+  
+  <path d="M200 96 L200 50" stroke="#2a1608" stroke-width="10" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+  <circle cx="200" cy="40" r="20" fill="#ffd84a" stroke="#2a1608" stroke-width="10" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M112 370 Q70 380 60 340" fill="none" stroke="#2a1608" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/><path d="M112 370 Q70 380 60 340" fill="none" stroke="#ff8a2a" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/><path d="M288 370 Q330 380 340 340" fill="none" stroke="#2a1608" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/><path d="M288 370 Q330 380 340 340" fill="none" stroke="#ff8a2a" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="120" y="330" width="160" height="150" rx="34" fill="#ff8a2a" stroke="#2a1608" stroke-width="10" stroke-linejoin="round" stroke-linecap="round"/>
+  <rect x="150" y="372" width="100" height="62" rx="8" fill="#ffffff" stroke="#2a1608" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+  <rect x="150" y="372" width="100" height="18" rx="6" fill="#2f5bff"/>
+  <text x="200" y="420" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="15" fill="#2a1608">ESTAGIÁRIO</text>
+  <rect x="150" y="480" width="40" height="30" rx="10" fill="#d9661a" stroke="#2a1608" stroke-width="10" stroke-linejoin="round" stroke-linecap="round"/>
+  <rect x="210" y="480" width="40" height="30" rx="10" fill="#d9661a" stroke="#2a1608" stroke-width="10" stroke-linejoin="round" stroke-linecap="round"/>
+  <rect x="70" y="96" width="260" height="236" rx="64" fill="#ff8a2a" stroke="#2a1608" stroke-width="10" stroke-linejoin="round" stroke-linecap="round"/>
+  <rect x="64" y="180" width="22" height="64" rx="10" fill="#d9661a" stroke="#2a1608" stroke-width="10" stroke-linejoin="round" stroke-linecap="round"/>
+  <rect x="314" y="180" width="22" height="64" rx="10" fill="#d9661a" stroke="#2a1608" stroke-width="10" stroke-linejoin="round" stroke-linecap="round"/>
+  <rect x="100" y="146" width="200" height="150" rx="44" fill="#1b1d2b" stroke="#2a1608" stroke-width="10" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M118 166 Q140 152 170 154" stroke="#ffffff" stroke-opacity=".25" stroke-width="10" stroke-linecap="round" fill="none"/>
+  <rect x="125" y="180" width="46" height="56" rx="20" fill="#5ff3ff"/><rect x="229" y="180" width="46" height="56" rx="20" fill="#5ff3ff"/>
+  <rect x="180" y="254" width="40" height="16" rx="8" fill="#5ff3ff"/>
+</svg>

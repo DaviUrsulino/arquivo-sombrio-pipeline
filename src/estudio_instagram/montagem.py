@@ -17,11 +17,21 @@ from .voz import TAXA_AMOSTRA, ProvedorDeVoz
 
 MODELOS = Path(__file__).parent / "modelos"
 PAUSA_ENTRE_CENAS_S = 0.35
+# Fundos em pixel art do molde pixel2 (ver CENARIOS em modelos/pixel2.html.tpl). Cada vídeo usa 2 e troca no meio.
+CENARIOS_PIXEL = ["biblioteca", "servidores", "cidade", "espaco", "laboratorio"]
+
+
+def escolher_cenarios(titulo: str) -> list[str]:
+    """Par de cenários diferentes, fixo para o mesmo título (determinístico: dá pra testar e reproduzir)."""
+    semente = sum(ord(c) for c in titulo)
+    primeiro = semente % len(CENARIOS_PIXEL)
+    segundo = (primeiro + 1 + semente // len(CENARIOS_PIXEL) % (len(CENARIOS_PIXEL) - 1)) % len(CENARIOS_PIXEL)
+    return [CENARIOS_PIXEL[primeiro], CENARIOS_PIXEL[segundo]]
 RESPIRO_FINAL_S = 1.0
 
 
 def _copiar_assets(destino: Path):
-    for pasta in ("vendor", "fonts", "icons", "musica"):
+    for pasta in ("vendor", "fonts", "icons", "musica", "robo"):
         shutil.copytree(MODELOS / "assets" / pasta, destino / "assets" / pasta, dirs_exist_ok=True)
 
 
@@ -78,7 +88,7 @@ def montar_reels(
     pcm_total = bytearray()
     silencio = bytes(int(TAXA_AMOSTRA * PAUSA_ENTRE_CENAS_S) * 2)
     cursor = 0.0
-    todas: list[PalavraNoTempo] = []
+    legenda: list[dict] = []
     for cena in cenas:
         narracao = voz.sintetizar(cena["narracao"])
         for elemento in cena["elementos"]:
@@ -86,7 +96,10 @@ def montar_reels(
                 elemento["t"] = tempo_da_ancora(elemento["ancora"], narracao.palavras, cursor)
             if "ancoras" in elemento:
                 elemento["ts"] = [tempo_da_ancora(a, narracao.palavras, cursor) for a in elemento["ancoras"]]
-        todas += [PalavraNoTempo(round(cursor + p.t, 3), p.palavra) for p in narracao.palavras]
+        # Legenda por cena, não pelo texto inteiro: um bloco nunca pode juntar o fim de uma fala
+        # com o começo da próxima (ex.: "de propósito. É" grudando duas cenas diferentes).
+        palavras_cena = [PalavraNoTempo(round(cursor + p.t, 3), p.palavra) for p in narracao.palavras]
+        legenda += blocos_de_legenda(palavras_cena, round(cursor + narracao.duracao(), 3))
         cena["inicio"] = round(cursor, 3)
         cena["duracao"] = round(narracao.duracao() + PAUSA_ENTRE_CENAS_S, 3)
         pcm_total += narracao.audio_pcm + silencio
@@ -105,12 +118,13 @@ def montar_reels(
     _escrever_dados(destino, {
         "duracao": total,
         "cenas": cenas,
-        "legenda": blocos_de_legenda(todas, cursor),
+        "legenda": legenda,
         "destaques": pauta.get("destaques", []),
+        "cenarios": pauta.get("cenarios") or escolher_cenarios(pauta.get("titulo", "")),
         "repos": {r: {"repo": d.repo, "estrelas": d.estrelas, "licenca": d.licenca, "descricao": d.descricao, "url": d.url}
                   for r, d in repos.items()},
         "icones": {nome: _miolo_do_icone(nome) for nome in sorted(
-            {p.stem for p in (MODELOS / "assets" / "icons").glob("*.svg")} if modelo.startswith("pixel2") else _icones_usados(cenas)
+            {p.stem for p in (MODELOS / "assets" / "icons").glob("*.svg")} if modelo.startswith(("pixel2", "estudio")) else _icones_usados(cenas)
         )},
     })
     secoes = "\n".join(
