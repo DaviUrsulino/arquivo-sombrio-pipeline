@@ -8,10 +8,12 @@
     "CLAUDE": "Oi! Aqui está o robo-estagiario.zip com o modelo de CLAUDE.md e o prompt de planejamento (plan mode): https://tinyurl.com/2bgkh263",
     "PLANO": "Oi! Aqui está o robo-estagiario.zip com o prompt de planejamento (plan mode) e o modelo de CLAUDE.md: https://tinyurl.com/2bgkh263",
     "COMANDOS": "Oi! Aqui está o robo-estagiario.zip com o guia de comandos do Claude Code, o modelo de CLAUDE.md e o prompt de planejamento: https://tinyurl.com/2bgkh263",
-    "PACK": "Oi! Esse é o Pack Pixel (R$ 27): o script, o template e os exemplos para fazer Reels em pixel art como os do perfil. Compra aqui: https://pay.kiwify.com.br/jmiKAgE",
-    "ENGENHARIA": "Oi! Esse é o Kit Engenharia com IA (R$ 37): regras, 6 skills e um script que provam que o seu Claude Code entrega com requisito, teste e segurança. Detalhes e compra aqui: https://pay.kiwify.com.br/3Jm8P4j",
-    "TESTES": "Oi! Esse é o Kit Engenharia com IA (R$ 37): regras, 6 skills e um script que provam que o seu Claude Code entrega com requisito, teste e segurança. Detalhes e compra aqui: https://pay.kiwify.com.br/3Jm8P4j",
-    "PIXEL": "Oi! É o Pixel Guerra: grade de 10 mil espaços, entrada R$ 1, pra tomar um espaço ocupado é só pagar R$ 0,50 a mais que o dono atual. Garante o seu: https://pixelguerra.com.br"
+    "PACK": "Oi! Aqui está o Pack Estúdio (R$ 47): os 8 estilos de Reels animados que você vê no perfil, gerados por código a partir do seu roteiro e da sua voz. Com Kit Claude Code e Kit Engenharia de bônus. Link: https://pay.kiwify.com.br/lfbxkKI",
+    "ENGENHARIA": "Oi! Aqui está o Pack Estúdio (R$ 47): os 8 estilos de Reels animados que você vê no perfil, gerados por código a partir do seu roteiro e da sua voz. Com Kit Claude Code e Kit Engenharia de bônus. Link: https://pay.kiwify.com.br/lfbxkKI",
+    "TESTES": "Oi! Aqui está o Pack Estúdio (R$ 47): os 8 estilos de Reels animados que você vê no perfil, gerados por código a partir do seu roteiro e da sua voz. Com Kit Claude Code e Kit Engenharia de bônus. Link: https://pay.kiwify.com.br/lfbxkKI",
+    "PIXEL": "Oi! É o Pixel Guerra: grade de 10 mil espaços, entrada R$ 1, pra tomar um espaço ocupado é só pagar R$ 0,50 a mais que o dono atual. Garante o seu: https://pixelguerra.com.br",
+    "ESTUDIO": "Oi! Aqui está o Pack Estúdio (R$ 47): os 8 estilos de Reels animados que você vê no perfil, gerados por código a partir do seu roteiro e da sua voz. Com Kit Claude Code e Kit Engenharia de bônus. Link: https://pay.kiwify.com.br/lfbxkKI",
+    "ESTÚDIO": "Oi! Aqui está o Pack Estúdio (R$ 47): os 8 estilos de Reels animados que você vê no perfil, gerados por código a partir do seu roteiro e da sua voz. Com Kit Claude Code e Kit Engenharia de bônus. Link: https://pay.kiwify.com.br/lfbxkKI"
   },
   "exigir_seguir": false,
   "sem_filtro": [
@@ -21,10 +23,5 @@
     "PIXEL"
   ],
   "mensagem_pedido": "Oi! Pra liberar o link, segue o @ursulino.ia e responde aqui com SIGO. Eu confiro e te mando na hora 🤖",
-  "mensagem_nao_segue": "Ainda não vi o seu follow no @ursulino.ia 😅 Segue a conta e responde SIGO de novo que eu libero o link.",
-  "ESTUDIO": "Oi! Aqui está o Pack Estúdio (R$ 47): os 8 estilos de Reels animados que você vê no perfil, gerados por código a partir do seu roteiro e da sua voz. Com Kit Claude Code e Kit Engenharia de bônus. Link: https://pay.kiwify.com.br/lfbxkKI",
-  "ESTÚDIO": "Oi! Aqui está o Pack Estúdio (R$ 47): os 8 estilos de Reels animados que você vê no perfil, gerados por código a partir do seu roteiro e da sua voz. Com Kit Claude Code e Kit Engenharia de bônus. Link: https://pay.kiwify.com.br/lfbxkKI",
-  "PACK": "Oi! Aqui está o Pack Estúdio (R$ 47): os 8 estilos de Reels animados que você vê no perfil, gerados por código a partir do seu roteiro e da sua voz. Com Kit Claude Code e Kit Engenharia de bônus. Link: https://pay.kiwify.com.br/lfbxkKI",
-  "ENGENHARIA": "Oi! Aqui está o Pack Estúdio (R$ 47): os 8 estilos de Reels animados que você vê no perfil, gerados por código a partir do seu roteiro e da sua voz. Com Kit Claude Code e Kit Engenharia de bônus. Link: https://pay.kiwify.com.br/lfbxkKI",
-  "TESTES": "Oi! Aqui está o Pack Estúdio (R$ 47): os 8 estilos de Reels animados que você vê no perfil, gerados por código a partir do seu roteiro e da sua voz. Com Kit Claude Code e Kit Engenharia de bônus. Link: https://pay.kiwify.com.br/lfbxkKI"
+  "mensagem_nao_segue": "Ainda não vi o seu follow no @ursulino.ia 😅 Segue a conta e responde SIGO de novo que eu libero o link."
 }
