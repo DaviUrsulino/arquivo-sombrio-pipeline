@@ -39,7 +39,9 @@ RODADAS = [("12:00", "lista"), ("19:00", "pixel2"), ("22:00", "loop")]
 FILA_LOOPS = RAIZ / "loops" / "fila"
 # Formato da rodada das 19:00 por dia da semana (0 = segunda). Venda só 2x por semana pra não cansar o público;
 # lista (vários repositórios num vídeo) 2x, que é o formato dos 2º e 3º vídeos mais vistos do @gab.gouvea.
-FORMATO_NOBRE_POR_DIA = {0: "pixel2", 1: "venda", 2: "pixel2", 3: "pixel2", 4: "venda", 5: "pixel2", 6: "pixel2"}
+# Lista é o campeão (900+ views, 7-9 s assistidos) contra ~100 views e 3 s dos vídeos de repo único: 19:00 vira lista
+# 3x por semana; estilos novos (pixel2) ficam 2x por semana só pra seguir testando identidade; venda 2x.
+FORMATO_NOBRE_POR_DIA = {0: "lista", 1: "venda", 2: "lista", 3: "pixel2", 4: "venda", 5: "lista", 6: "pixel2"}
 
 
 def rodadas_do_dia(dia: str) -> list[tuple[str, str]]:
