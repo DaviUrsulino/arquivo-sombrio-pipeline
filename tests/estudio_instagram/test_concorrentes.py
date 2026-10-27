@@ -34,3 +34,16 @@ def test_buscas_do_dia_prioriza_tema_quente_e_mantem_padrao_no_fim():
 
 def test_buscas_do_dia_sem_tema_quente_devolve_so_o_padrao():
     assert buscas_do_dia([], ["a", "b"]) == ["a", "b"]
+
+
+def test_rodizio_de_perfis_cobre_todos_e_respeita_o_orcamento():
+    from src.estudio_instagram import escolher_pauta as e
+    unicos = list(dict.fromkeys(e.PERFIS_CONCORRENTES))
+    vistos = set()
+    for dia in range(738800, 738800 + 3):
+        hoje = e.perfis_do_dia(dia)
+        assert len(hoje) == e.PERFIS_POR_DIA
+        vistos.update(hoje)
+    assert vistos == set(unicos)
+    # ~US$ 0,0027 por post: a leitura do dia cabe em US$ 0,15
+    assert e.PERFIS_POR_DIA * e.POSTS_POR_PERFIL * 0.0027 * 30 <= 4.5

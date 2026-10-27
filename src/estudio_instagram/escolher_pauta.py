@@ -26,19 +26,33 @@ RAIZ = Path(__file__).resolve().parents[2]
 # Perfis do nicho mapeados em 2026-10-14/16 (ver docs/estudio-instagram.md) — os que mais
 # engajam com conteúdo de Claude Code / IA pra devs no Brasil.
 PERFIS_CONCORRENTES = [
-    "fabianocarvalhojr", "brunoptrevisan", "tiagolemosx", "gurudoprompt",
-    "rodrigotadewald", "brusantanna.ai", "oguiadaia", "ssupernova.studio",
-    # 2026-10-26: os que mais viralizaram num scraping de 30 perfis de tecnologia (40 mil a 4,7 mi de views).
-    "gab.gouvea", "claudedrop", "evolving.ai", "airesearches",
-    # 2026-10-26: referências de animação que o Davi mandou.
-    "ismjeff.ia", "_aighostlab", "jako.frames", "ckubedasskills", "pixosly", "thiagomendesmed",
+    # Perfis brasileiros do nicho (IA, Claude Code, GitHub) que mais engajam: é daqui que sai o tema do dia.
+    # Revisado em 2026-10-27: saiu o gurudoprompt (posts sem views públicas).
+    "gab.gouvea", "brusantanna.ai", "brunoptrevisan", "tiagolemosx", "yan.gsouza", "99hud", "igao.ia",
+    "macelista", "daniel.esantos", "fabianocarvalhojr", "rodrigotadewald", "oguiadaia", "ssupernova.studio",
+    "claudedrop",
 ]
+# Referências só de visual/animação: não entram no scraping diário (não ajudam a escolher tema) e ficam
+# anotadas aqui pra estudo manual quando for criar estilo novo.
+REFERENCIAS_VISUAIS = ["ismjeff.ia", "_aighostlab", "jako.frames", "ckubedasskills", "pixosly", "thiagomendesmed",
+                       "nodir.ai_", "evolving.ai", "airesearches"]
 
 
-# Plano grátis do Apify = US$ 5/mês (~1.200 resultados). Por isso: só os 8 perfis que mais viralizam, 5 posts
-# de cada, e no máximo UMA leitura por dia (a 2ª rodada reaproveita o resultado salvo em TENDENCIAS).
-PERFIS_TENDENCIA = ["gab.gouvea", "brusantanna.ai", "brunoptrevisan", "tiagolemosx", "yan.gsouza",
-                    "99hud", "igao.ia", "macelista"]
+# Orçamento do Apify: plano grátis de US$ 5/mês. O instagram-scraper cobra ~US$ 0,0027 por post (medido em
+# 2026-10-26: 359 posts = US$ 0,97). Reservando US$ 0,50 pra análises manuais, sobram ~US$ 0,15/dia = ~55 posts.
+# Em vez de cortar perfis, faz rodízio: PERFIS_POR_DIA perfis por dia, POSTS_POR_PERFIL posts recentes de cada,
+# e em poucos dias todos os perfis de PERFIS_CONCORRENTES são lidos. Uma leitura só por dia (cache em TENDENCIAS).
+PERFIS_POR_DIA = 10
+POSTS_POR_PERFIL = 5
+
+
+def perfis_do_dia(dia_ordinal: int, perfis: list[str] = PERFIS_CONCORRENTES, por_dia: int = PERFIS_POR_DIA) -> list[str]:
+    """Fatia do rodízio pro dia: dias seguidos pegam fatias seguidas, dando a volta na lista."""
+    unicos = list(dict.fromkeys(perfis))
+    inicio = (dia_ordinal * por_dia) % len(unicos)
+    return [unicos[(inicio + k) % len(unicos)] for k in range(min(por_dia, len(unicos)))]
+
+
 TENDENCIAS = RAIZ / "pautas" / "tendencias_do_dia.json"
 
 
@@ -56,7 +70,8 @@ def buscas_do_dia(buscas_padrao: list[str], hoje: str | None = None, arquivo: Pa
         print("sem APIFY_TOKEN — usando as buscas padrão, sem olhar tendência de hoje")
         return buscas_padrao
     try:
-        posts = concorrentes.coletar(token, PERFIS_TENDENCIA, limite_por_perfil=5)
+        perfis = perfis_do_dia(date.fromisoformat(hoje).toordinal())
+        posts = concorrentes.coletar(token, perfis, limite_por_perfil=POSTS_POR_PERFIL)
         quentes = concorrentes.temas_em_alta(posts)
         buscas = concorrentes.buscas_do_dia(posts, buscas_padrao)
         print(f"temas em alta hoje: {quentes or '(nenhum claro)'}")
