@@ -53,6 +53,7 @@ def molde_estudio(titulo: str) -> str:
 
 # Carrossel desligado (2026-10-26): cada post saía duplicado (Reels + carrossel com a mesma legenda), o que
 # dividia o alcance e cansava quem segue. Volta a ligar só com `PUBLICAR_CARROSSEL=1` no ambiente.
+MIN_SEGUIDORES_TRIAL = 1000  # Trial Reels só liberam a partir daqui
 PUBLICAR_CARROSSEL = os.getenv("PUBLICAR_CARROSSEL") == "1"
 
 
@@ -183,7 +184,15 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
         if usados >= LIMITE_SEGURO_POSTS_24H:
             raise SystemExit(f"a conta já usou {usados} publicações nas últimas 24 h (limite seguro: {LIMITE_SEGURO_POSTS_24H}); não publico")
         try:
-            reels_publicado = ig.publicar_reels(url_video, legenda)
+            # Trial Reel (só pra quem não segue) no vídeo experimental da noite, quando a conta já tem acesso (1.000+):
+            # testa estilos e ganchos sem cansar os seguidores; o Instagram promove sozinho o que performar.
+            try:
+                experimental = formato == "pixel2" and len(dados_pauta.get("itens", [])) == 1 and dados_pauta.get("palavra_chave") != "ESTUDIO"
+                teste = experimental and ig.seguidores() >= MIN_SEGUIDORES_TRIAL
+            except Exception:
+                teste = False
+            reels_publicado = ig.publicar_reels(url_video, legenda, teste=teste)
+            registro["trial_reel"] = teste
             registro["publicado"] = True
             registro["legenda"] = legenda
             registro["reels"]["media_id"] = reels_publicado.media_id

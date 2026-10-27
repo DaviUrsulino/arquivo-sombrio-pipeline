@@ -68,10 +68,13 @@ class InstagramGraph:
             self._esperar(INTERVALO_STATUS_S)
         raise RuntimeError(f"mídia {creation_id} não ficou pronta a tempo (status ainda {status})")
 
-    def publicar_reels(self, video_url: str, legenda: str) -> PostPublicado:
-        criado = self._pedir(f"{self.ig_user_id}/media", {
-            "media_type": "REELS", "video_url": video_url, "caption": legenda,
-        })
+    def publicar_reels(self, video_url: str, legenda: str, teste: bool = False) -> PostPublicado:
+        """`teste=True` publica como Trial Reel: vai primeiro só pra quem não segue e o Instagram promove pros
+        seguidores sozinho se performar (SS_PERFORMANCE). Só existe pra conta com 1.000+ seguidores."""
+        corpo = {"media_type": "REELS", "video_url": video_url, "caption": legenda}
+        if teste:
+            corpo["trial_params"] = json.dumps({"graduation_strategy": "SS_PERFORMANCE"})
+        criado = self._pedir(f"{self.ig_user_id}/media", corpo)
         self._esperar_pronto(criado["id"])
         publicado = self._pedir(f"{self.ig_user_id}/media_publish", {"creation_id": criado["id"]})
         return PostPublicado(publicado["id"])
@@ -173,6 +176,9 @@ class InstagramGraph:
     def responder_publico(self, comment_id: str, texto: str) -> dict:
         """Resposta pública embaixo do comentário (ex.: "te mandei no direct")."""
         return self._pedir(f"{comment_id}/replies", {"message": texto})
+
+    def seguidores(self) -> int:
+        return int(self._ler(self.ig_user_id, fields="followers_count").get("followers_count", 0))
 
     def publicados_nas_ultimas_24h(self) -> int:
         """Quantos posts feitos pela API a conta já usou na janela de 24 h (limite oficial: 100)."""

@@ -96,3 +96,16 @@ def test_carrossel_recusa_fora_do_limite_do_instagram(n):
     ig = InstagramGraph("token", "user", abrir=AbridorFalso([]), esperar=lambda s: None)
     with pytest.raises(ValueError, match="2 a 10"):
         ig.publicar_carrossel([f"https://cdn/{i}.png" for i in range(n)], "legenda")
+
+
+def test_trial_reel_manda_trial_params_so_quando_pedido():
+    import json
+    from src.estudio_instagram import graph_api
+    enviados = []
+    ig = graph_api.InstagramGraph("tok", "123")
+    ig._pedir = lambda caminho, corpo: enviados.append((caminho, corpo)) or {"id": "c1"}
+    ig._esperar_pronto = lambda _id: None
+    ig.publicar_reels("http://v", "leg", teste=True)
+    ig.publicar_reels("http://v", "leg")
+    assert json.loads(enviados[0][1]["trial_params"]) == {"graduation_strategy": "SS_PERFORMANCE"}
+    assert "trial_params" not in enviados[2][1]
