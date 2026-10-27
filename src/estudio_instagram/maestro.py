@@ -32,7 +32,9 @@ BRASILIA = timezone(timedelta(hours=-3))
 # Qualidade antes de volume (2026-10-26): com 6-8 posts por dia a conta ficava presa em ~150 views por vídeo,
 # enquanto o @gab.gouvea (mesmo nicho) faz 40-170 mil com uns 3 vídeos por semana. Agora são 2 rodadas por dia,
 # no pico do meio-dia e no horário nobre.
-RODADAS = [("12:00", "pixel2"), ("19:00", "pixel2")]
+RODADAS = [("12:00", "pixel2"), ("19:00", "pixel2"), ("22:00", "loop")]
+# 22:00: loop de 8-10 s do Google Flow (estilo @pixosly), só se houver vídeo em loops/fila/ (ver loop.py).
+FILA_LOOPS = RAIZ / "loops" / "fila"
 # Formato da rodada das 19:00 por dia da semana (0 = segunda). Venda só 2x por semana pra não cansar o público;
 # lista (vários repositórios num vídeo) 2x, que é o formato dos 2º e 3º vídeos mais vistos do @gab.gouvea.
 FORMATO_NOBRE_POR_DIA = {0: "pixel2", 1: "venda", 2: "lista", 3: "pixel2", 4: "venda", 5: "lista", 6: "pixel2"}
@@ -118,6 +120,9 @@ def _gravar(estado: dict, commitar: bool):
 
 
 def disparar(formato: str):
+    if formato == "loop":
+        subprocess.run(["gh", "workflow", "run", "instagram_loop.yml"], cwd=RAIZ, check=True)
+        return
     if formato.startswith("pauta:"):
         entrada = ["-f", f"pauta={formato.removeprefix('pauta:')}"]
     else:
@@ -139,6 +144,9 @@ def main():
     while True:
         estado = _ler()
         formato, novo = decidir(datetime.now(BRASILIA), estado)
+        if formato == "loop" and not any(FILA_LOOPS.glob("*.mp4")):
+            print("rodada de loop sem vídeo na fila; pulo", flush=True)
+            formato = None
         if formato and pausa.ativa():
             print(f"pausa de segurança ativa ({pausa.motivo()}); não disparo a rodada {formato}", flush=True)
             formato = None

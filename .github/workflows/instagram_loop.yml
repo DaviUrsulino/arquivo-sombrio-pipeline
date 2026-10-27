@@ -1,0 +1,47 @@
+name: Instagram - loop do Flow (1 por noite)
+
+# Disparado pelo maestro (rodada das 22:00) quando há vídeo em loops/fila/. Ver src/estudio_instagram/loop.py.
+on:
+  workflow_dispatch: {}
+
+concurrency:
+  group: instagram-pipeline
+  cancel-in-progress: false
+
+jobs:
+  loop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Instala ffmpeg e dependências
+        run: |
+          sudo apt-get update || true
+          sudo apt-get install -y ffmpeg
+          pip install "python-dotenv>=1.0.0" numpy
+      - name: Escreve os segredos no .env
+        env:
+          INSTAGRAM_GRAPH_TOKEN: ${{ secrets.INSTAGRAM_GRAPH_TOKEN }}
+          INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+        run: printf 'INSTAGRAM_GRAPH_TOKEN=%s\nINSTAGRAM_USER_ID=%s\n' "$INSTAGRAM_GRAPH_TOKEN" "$INSTAGRAM_USER_ID" > .env
+      - name: Prepara e publica o próximo loop da fila
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python -m src.estudio_instagram.loop --publicar
+      - name: Registra que o loop saiu da fila
+        if: always()
+        run: |
+          git config user.name "estudio-automatico (bot)"
+          git config user.email "actions@github.com"
+          git add -A loops/
+          git diff --cached --quiet || git commit -m "chore: loop publicado [skip ci]"
+          for tentativa in 1 2 3 4 5; do
+            git pull --rebase && git push && exit 0
+            sleep $((tentativa * 4))
+          done
+          exit 1

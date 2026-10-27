@@ -14,9 +14,9 @@ def _mais(hhmm, minutos):
     return f"{total // 60:02d}:{total % 60:02d}"
 
 
-def test_duas_rodadas_por_dia_espacadas():
+def test_duas_rodadas_de_reels_e_uma_de_loop_espacadas():
     horas = [h for h, _ in RODADAS]
-    assert horas == sorted(horas) and len(horas) == 2
+    assert horas == sorted(horas) and len(horas) == 3 and RODADAS[-1][1] == "loop"
     gaps = [int(b[:2]) * 60 + int(b[3:]) - int(a[:2]) * 60 - int(a[3:]) for a, b in zip(horas, horas[1:])]
     assert min(gaps) >= maestro.INTERVALO_MIN_MIN  # nunca duas rodadas em menos de 2 h
 

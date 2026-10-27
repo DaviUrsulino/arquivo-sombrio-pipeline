@@ -18,3 +18,4 @@ av<19
 gradio_client>=1.0.0
 Pillow>=10.0.0
 modal>=0.70.0
+numpy>=1.26
