@@ -1,13 +1,69 @@
 {
   "_sobre": "Collabs do @ursulino.ia. Davi manda a mensagem; quando alguém topar, status = 'topou' e o @ entra no campo 'colaboradores' da pauta do vídeo da collab.",
   "perfis": [
-    {"perfil": "evandro_ia", "seguidores": 747, "nicho": "IA que vende: anúncios e sistemas com IA, gestor de tráfego e dev", "status": "mensagem pronta", "desde": "2026-10-28"},
-    {"perfil": "davicintra.fx", "seguidores": 2230, "nicho": "diretor criativo e motion, vídeos com IA, lançando @edithub.ai", "status": "mensagem pronta", "desde": "2026-10-28"},
-    {"perfil": "fhenrique.dev", "seguidores": 399, "nicho": "engenheiro de software, processo real, projetos CandleCli e GitHub MCP", "status": "mensagem pronta", "desde": "2026-10-28"},
-    {"perfil": "ayrtonsena.stg", "seguidores": 2316, "nicho": "motion e vídeos com IA para empresas, curso", "status": "mensagem pronta", "desde": "2026-10-28"},
-    {"perfil": "itsbrenopires", "seguidores": 3356, "nicho": "Velyra: páginas temáticas automáticas", "status": "mensagem pronta", "desde": "2026-10-28"},
-    {"perfil": "joao.escala1p1", "seguidores": 438, "nicho": "empreendedorismo e IA, constrói apps em público (JáLavô, AprovaCV)", "status": "mensagem pronta", "desde": "2026-10-28"},
-    {"perfil": "eurezendegui", "seguidores": 802, "nicho": "fundador da startup PortPet, engenheiro", "status": "mensagem pronta", "desde": "2026-10-28"},
-    {"perfil": "gabosa_cajado", "seguidores": 505, "nicho": "sites (Bergamota Sites)", "status": "mensagem pronta", "desde": "2026-10-28"}
+    {
+      "perfil": "evandro_ia",
+      "seguidores": 747,
+      "nicho": "IA que vende: anúncios e sistemas com IA, gestor de tráfego e dev",
+      "status": "enviar 28/10",
+      "desde": "2026-10-28",
+      "mensagem": "Fala, Evandro! Sou o Davi, estudante de Engenharia de Software na UnB. Curti muito tua pegada de IA aplicada a venda. Criei o @ursulino.ia, um perfil que um sistema que eu mesmo programei posta sozinho, com ferramentas de IA. Tô buscando network com quem tá construindo nesse nicho. Topa um Reels em collab? Eu monto o vídeo inteiro sobre uma ferramenta de IA pra anúncio ou venda, a gente posta junto e ele aparece pros seguidores dos dois. Zero trabalho pra você e alcance dobrado pra nós dois."
+    },
+    {
+      "perfil": "davicintra.fx",
+      "seguidores": 2230,
+      "nicho": "diretor criativo e motion, vídeos com IA, lançando @edithub.ai",
+      "status": "enviar 28/10",
+      "desde": "2026-10-28",
+      "mensagem": "Fala, Davi! Também sou Davi, estudante de Engenharia de Software na UnB. Teu trabalho de motion com IA é muito bom. Tenho o @ursulino.ia, onde um sistema que eu programei cria e posta os vídeos sozinho, com animação feita só com código. Meu Reels que mais estourou (54 mil views) foi justamente sobre IA criando vídeo. Bora fazer um collab? Eu monto um vídeo mostrando uma ferramenta de vídeo com IA, a gente posta junto e cada um apresenta o outro pro seu público. Também curto trocar ideia sobre o @edithub.ai quando sair."
+    },
+    {
+      "perfil": "ayrtonsena.stg",
+      "seguidores": 2316,
+      "nicho": "motion e vídeos com IA para empresas, curso",
+      "status": "enviar 28/10",
+      "desde": "2026-10-28",
+      "mensagem": "Fala, Ayrton! Sou o Davi, estudante de Engenharia de Software na UnB. Teu trabalho de motion com IA pra empresa é muito bom. Construí o @ursulino.ia, um perfil que se anima e posta sozinho, com vídeo feito só com código. Tô buscando network com quem é referência em vídeo com IA. Topa um Reels em collab? Eu monto um vídeo sobre uma ferramenta de motion com IA, postamos juntos e cada um aparece pro público do outro. Sem custo e sem trabalho pra você."
+    },
+    {
+      "perfil": "itsbrenopires",
+      "seguidores": 3356,
+      "nicho": "Velyra: páginas temáticas automáticas",
+      "status": "enviar 28/10",
+      "desde": "2026-10-28",
+      "mensagem": "Fala, Breno! Sou o Davi, estudante de Engenharia de Software na UnB. Vi o Velyra e a gente pensa parecido: o meu @ursulino.ia também é 100% automático, um sistema que eu programei escolhe o assunto, anima e posta sozinho. Bora fazer network? Ideia: um Reels em collab mostrando como perfil automático com IA funciona por dentro. Eu monto o vídeo, a gente posta junto e os dois públicos se conhecem."
+    },
+    {
+      "perfil": "fhenrique.dev",
+      "seguidores": 399,
+      "nicho": "engenheiro de software, processo real, projetos CandleCli e GitHub MCP",
+      "status": "enviar 29/10",
+      "desde": "2026-10-28",
+      "mensagem": "Fala, Fábio! Sou o Davi, estudante de Engenharia de Software na UnB. Curti demais o \"processo real de quem constrói software\". Tô nessa também: fiz um sistema que posta sozinho no @ursulino.ia (roteiro, animação, voz e bot de direct). Bora fazer network de dev pra dev? Ideia de collab: eu monto um Reels mostrando um projeto teu, tipo o CandleCli ou o de GitHub MCP, a gente posta junto e os dois perfis crescem."
+    },
+    {
+      "perfil": "joao.escala1p1",
+      "seguidores": 438,
+      "nicho": "empreendedorismo e IA, constrói apps em público (JáLavô, AprovaCV)",
+      "status": "enviar 29/10",
+      "desde": "2026-10-28",
+      "mensagem": "Fala, João! Sou o Davi, estudante de Engenharia de Software na UnB. Curti muito você construir em público com o faturamento aberto, isso é raro. Tô construindo o @ursulino.ia, um perfil que posta sozinho com um sistema que eu programei. Bora trocar network e fazer um collab? Eu monto um Reels mostrando como você usa IA pra tirar um app do zero, a gente posta junto e os dois crescem."
+    },
+    {
+      "perfil": "eurezendegui",
+      "seguidores": 802,
+      "nicho": "fundador da startup PortPet, engenheiro",
+      "status": "enviar 29/10",
+      "desde": "2026-10-28",
+      "mensagem": "Fala, Guilherme! Sou o Davi, estudante de Engenharia de Software na UnB. Curti acompanhar a construção da PortPet. Tenho o @ursulino.ia, um perfil de ferramentas de IA que um sistema que eu programei posta sozinho. Tô buscando network com quem está empreendendo com tecnologia. Topa um collab? Eu monto um Reels sobre ferramentas de IA que ajudam startup a andar mais rápido, a gente posta junto e cada um aparece pro público do outro."
+    },
+    {
+      "perfil": "gabosa_cajado",
+      "seguidores": 505,
+      "nicho": "sites (Bergamota Sites)",
+      "status": "enviar 29/10",
+      "desde": "2026-10-28",
+      "mensagem": "Fala, Gabriel! Sou o Davi, estudante de Engenharia de Software na UnB. Vi a Bergamota Sites, massa demais. Tenho o @ursulino.ia, onde um sistema que eu programei posta ferramentas de IA sozinho. Bora fazer network e um collab? Eu monto um Reels mostrando ferramentas de IA pra criar site, a gente posta junto e os dois perfis ganham alcance. Zero trabalho do teu lado."
+    }
   ]
 }
