@@ -11,14 +11,14 @@ def _cena(tipo, **extra):
 
 
 def test_plano_valido_ganha_cena_final_de_comentario():
-    resp = {"cenas": [_cena(t) for t in ["time", "folha", "celular", "conversor", "grade", "chat", "cracha"]]}
+    resp = {"cenas": [_cena(t) for t in ["time", "folha", "conversor", "chat", "cracha"]]}
     plano = identidade.planejar("escritorio", REPO, "", "gancho", "TEXTO", llm=lambda s, u: resp)
     assert plano["cenas"][-1]["tipo"] == "comenta" and "TEXTO" in plano["cenas"][-1]["fala"]
     assert plano["repo"]["estrelas"] == 192000
 
 
 def test_campos_aninhados_sao_achatados():
-    resp = {"cenas": [_cena("chat", chat={"pergunta": "p", "resposta": "r"})] * 6}
+    resp = {"cenas": [_cena("chat", chat={"pergunta": "p", "resposta": "r"})] * 5}
     assert identidade.problemas("escritorio", resp) == []
     assert resp["cenas"][0]["pergunta"] == "p"
 
@@ -27,12 +27,12 @@ def test_tipo_fora_do_acervo_e_recusado_e_pede_correcao():
     chamadas = []
     def llm(s, u):
         chamadas.append(u)
-        return {"cenas": [_cena("inventado")] * 6}
+        return {"cenas": [_cena("inventado")] * 5}
     with pytest.raises(RuntimeError):
         identidade.planejar("escritorio", REPO, "", "g", "TEXTO", llm=llm)
     assert len(chamadas) == 3 and "CORRIJA" in chamadas[-1]
 
 
 def test_vila_exige_predio_contador_objeto():
-    resp = {"cenas": [_cena(t) for t in ["aerea", "entrega", "passos", "resultado", "plateia", "placa", "notebook"]]}
+    resp = {"cenas": [_cena(t) for t in ["aerea", "passos", "resultado", "plateia", "placa"]]}
     assert "faltam predio/contador/objeto" in identidade.problemas("vila", resp)

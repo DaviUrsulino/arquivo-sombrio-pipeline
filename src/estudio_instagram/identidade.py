@@ -27,11 +27,11 @@ ASSETS_COMUNS = Path(__file__).resolve().parent / "modelos" / "assets"
 PAUSA_S, INICIO_S, FIM_S = 0.25, 0.4, 1.2
 
 REGRAS = """REGRAS GERAIS (valem para toda identidade):
-- 7 frases faladas + a frase final de comentário (que você NÃO escreve, ela é adicionada depois). Cada frase com 6 a 11
+- 5 frases faladas + a frase final de comentário (que você NÃO escreve, ela é adicionada depois). Cada frase com 6 a 11
   palavras, português do Brasil, verbo no presente, sem emoji, sem hashtag, sem símbolos.
 - A 1ª frase é o GANCHO recebido, sem mudar o sentido (pode encurtar). Ele fala da dor ou do ganho de quem assiste.
-- Sequência: gancho -> o problema na vida real -> como a ferramenta resolve (2 ou 3 frases concretas) -> prova
-  (estrelas, empresa, número real do README) -> grátis/código aberto se for verdade.
+- Vídeo curto (~20 s), como o Reel de 54 mil views do perfil: gancho -> o que a ferramenta faz de concreto (2 frases)
+  -> prova (estrelas, empresa, número real do README) -> grátis/código aberto se for verdade.
 - Use só fatos do README e dos dados. Não invente número, empresa nem recurso.
 - Fale com quem NÃO é programador: nada de jargão (DOM, XPath, seletor, SDK) nas telas nem nas falas.
 - titulo_b com no máximo 12 letras.
@@ -62,7 +62,7 @@ ARQUIVOS, BUGS), "objeto" (o que o robô carrega: "rolo", "caixa" ou "pasta"). C
 - "plateia": a vila chega pra ver; tela igual à anterior
 - "placa": placa gigante com o repositório e estrelas (dados reais); tela igual à anterior
 - "notebook": robô com notebook e confete; tela {"titulo": "GRÁTIS", "texto": "até 18 letras"}
-Use as 7 cenas nessa ordem. Responda {"predio": ..., "contador": ..., "objeto": ..., "cenas": [...]}""",
+Use 5 cenas, nesta ordem: aerea, passos, resultado, plateia, placa. Responda {"predio": ..., "contador": ..., "objeto": ..., "cenas": [...]}""",
 }
 
 TIPOS = {"escritorio": {"time", "folha", "celular", "conversor", "grade", "chat", "cracha"},
@@ -81,8 +81,8 @@ def _usuario(dados: DadosRepo, readme: str, gancho: str) -> str:
 def problemas(nome: str, resposta: dict) -> list[str]:
     erros = []
     cenas = resposta.get("cenas")
-    if not isinstance(cenas, list) or not 5 <= len(cenas) <= 8:
-        return ["'cenas' precisa ter de 5 a 8 itens"]
+    if not isinstance(cenas, list) or not 4 <= len(cenas) <= 6:
+        return ["'cenas' precisa ter de 4 a 6 itens"]
     for i, c in enumerate(cenas):
         if isinstance(c.get(c.get("tipo")), dict):  # o LLM às vezes aninha os campos sob o nome do tipo
             c.update(c.pop(c["tipo"]))
