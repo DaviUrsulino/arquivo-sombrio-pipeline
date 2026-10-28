@@ -28,3 +28,7 @@ produto/pack-pixel/package.json
 produto/pack-pixel/package-lock.json
 produto/pack-pixel/saida/
 produto/pack-pixel/__pycache__/
+
+# gerados localmente em testes de voz
+cache_voz/
+amostra_*.mp3
