@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>Holofote</title>
+<script src="assets/gsap.min.js"></script>
+<script src="assets/falas.js"></script>
+<style>
+  @font-face { font-family: "Mont"; src: url("assets/Montserrat.ttf"); font-weight: 100 900; }
+  @font-face { font-family: "Serif"; src: url("assets/InstrumentSerif-Italic.ttf"); }
+  @font-face { font-family: "Mono"; src: url("assets/JetBrainsMono.ttf"); font-weight: 100 900; }
+  @font-face { font-family: "Black"; src: url("assets/ArchivoBlack.ttf"); }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #111; }
+  #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: "Mont", sans-serif; }
+
+  /* fundos: papel quadriculado claro, palco escuro com holofote, cor cheia com brilho */
+  .fundo { position: absolute; inset: 0; opacity: 0; }
+  .claro { background: radial-gradient(ellipse at 50% 40%, #fff 0%, #ececea 70%, #dcdcd8 100%); }
+  .claro::before { content: ""; position: absolute; inset: 0; opacity: .55;
+    background-image: linear-gradient(#d6d6d2 2px, transparent 2px), linear-gradient(90deg, #d6d6d2 2px, transparent 2px);
+    background-size: 90px 90px; background-position: -10px 30px; }
+  .escuro { background: radial-gradient(ellipse at 50% 60%, #1c1c1c 0%, #070707 70%); }
+  .escuro::before { content: ""; position: absolute; left: 50%; top: -100px; width: 900px; height: 1500px; transform: translateX(-50%);
+    background: linear-gradient(180deg, rgba(255,255,240,.32), rgba(255,255,240,.06) 70%, transparent);
+    clip-path: polygon(44% 0, 56% 0, 100% 100%, 0 100%); filter: blur(18px); }
+  .escuro::after { content: ""; position: absolute; left: 50%; top: 1060px; width: 640px; height: 120px; transform: translateX(-50%);
+    background: radial-gradient(ellipse, rgba(255,255,230,.28), transparent 70%); }
+  .azul { background: radial-gradient(ellipse at 50% 40%, #2f6ff0 0%, #123a9a 65%, #0a1f5c 100%); }
+  .laranja { background: radial-gradient(ellipse at 50% 40%, #e2703d 0%, #b9481f 65%, #8a3214 100%); }
+  .raios { position: absolute; left: 50%; top: 720px; width: 2400px; height: 2400px; margin: -1200px 0 0 -1200px;
+    background: repeating-conic-gradient(rgba(255,255,255,.09) 0 6deg, transparent 6deg 18deg);
+    -webkit-mask: radial-gradient(circle, #000 0, transparent 55%); mask: radial-gradient(circle, #000 0, transparent 55%); }
+
+  .cena { position: absolute; inset: 0; opacity: 0; }
+  .palco { position: absolute; left: 0; right: 0; top: 0; height: 1240px; transform-origin: 50% 560px; }
+  .pill { position: absolute; left: 50%; top: 300px; transform: translateX(-50%); padding: 12px 24px; border-radius: 999px;
+    background: #111; color: #fff; font: 700 26px "Mono"; letter-spacing: 3px; white-space: nowrap; }
+  .escuro-cena .pill, .cor-cena .pill { background: #fff; color: #111; }
+  .obj { position: absolute; left: 50%; top: 700px; }
+  .sombra { position: absolute; left: 50%; top: 1130px; width: 560px; height: 70px; margin-left: -280px; border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(0,0,0,.28), transparent 70%); }
+
+  /* legenda: frase pequena, palavra-chave em itálico serifado */
+  .leg { position: absolute; left: 110px; right: 110px; top: 1280px; text-align: center; font: 600 54px/1.25 "Mont"; color: #1a1a1a; }
+  .escuro-cena .leg, .cor-cena .leg { color: #fff; }
+  .leg .p { display: inline-block; opacity: 0; margin: 0 6px; }
+  .leg .k { font: 92px/1 "Serif"; letter-spacing: -1px; }
+
+  /* objetos */
+  .janela { width: 760px; margin-left: -380px; background: #fff; border-radius: 22px; box-shadow: 0 40px 80px rgba(0,0,0,.18), 0 2px 0 #ddd;
+    overflow: hidden; font-family: "Mont"; }
+  .barra { display: flex; align-items: center; gap: 10px; padding: 16px 22px; background: #f3f3f1; border-bottom: 2px solid #e4e4e0; font: 600 24px "Mono"; color: #555; }
+  .barra i { width: 16px; height: 16px; border-radius: 50%; display: inline-block; }
+  .grade { display: grid; grid-template-columns: 1.4fr 1fr 1fr; }
+  .grade div { padding: 16px 18px; border-right: 2px solid #eee; border-bottom: 2px solid #eee; font: 600 26px "Mono"; color: #333; }
+  .grade .h { background: #e9f4ec; color: #1d7a3e; }
+  .lixo { color: #c22 !important; }
+  .balao { position: absolute; padding: 22px 30px; border-radius: 26px 26px 26px 6px; background: #111; color: #fff; font: 600 32px "Mont";
+    box-shadow: 0 20px 40px rgba(0,0,0,.25); white-space: nowrap; }
+  .foto { position: absolute; width: 270px; height: 330px; margin: -165px 0 0 -135px; background: #fffdf6; border-radius: 10px; padding: 18px 18px 0;
+    box-shadow: 0 30px 50px rgba(0,0,0,.5); }
+  .foto .img { height: 220px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font: 400 76px "Black"; color: #fff; }
+  .foto .n { margin-top: 18px; font: 700 21px "Mono"; color: #222; text-align: center; }
+  .xis { position: absolute; left: 20px; top: 40px; width: 230px; height: 180px; }
+  .xis::before, .xis::after { content: ""; position: absolute; left: -10px; top: 80px; width: 250px; height: 20px; border-radius: 10px; background: #e3262f; }
+  .xis::before { transform: rotate(38deg); } .xis::after { transform: rotate(-38deg); }
+  .linha { height: 26px; margin: 18px 30px; border-radius: 8px; background: #e7e7e3; }
+  .linha.on { background: #ffe066; }
+  .cont { position: absolute; padding: 14px 22px; border-radius: 14px; background: #e3262f; color: #fff; font: 700 30px "Mono"; white-space: nowrap; }
+  .repo { width: 780px; margin-left: -390px; padding: 44px; border-radius: 28px; background: #0d1117; border: 2px solid #30363d; color: #e6edf3;
+    box-shadow: 0 50px 100px rgba(0,0,0,.45); }
+  .repo .dono { font: 600 34px "Mono"; color: #8b949e; } .repo .nome { font: 800 64px "Mont"; margin-top: 8px; }
+  .repo .desc { font: 500 32px/1.35 "Mont"; color: #c9d1d9; margin-top: 22px; }
+  .repo .est { margin-top: 30px; font: 800 44px "Mont"; color: #f5c518; }
+  .carimbo { position: absolute; padding: 12px 30px; border: 8px solid #2fd16b; border-radius: 16px; color: #2fd16b; font: 400 64px "Black";
+    background: rgba(13,17,23,.85); transform: rotate(-12deg); }
+  .pasta { width: 520px; height: 640px; margin-left: -260px; border-radius: 22px; background: linear-gradient(160deg, #f4c531, #d79a12);
+    box-shadow: 0 50px 90px rgba(0,0,0,.6), inset -18px 0 0 rgba(0,0,0,.12); }
+  .pasta .eti { position: absolute; left: 70px; right: 70px; top: 220px; padding: 26px 0; background: #fffbe9; border: 5px solid #6b4a00; border-radius: 10px;
+    text-align: center; font: 400 54px "Black"; color: #2b1d00; letter-spacing: 1px; }
+  .aba { position: absolute; right: -36px; width: 46px; height: 80px; border-radius: 0 12px 12px 0; }
+  .funil { width: 560px; height: 300px; margin-left: -280px; background: linear-gradient(180deg, #2a2a2a, #111); border-radius: 30px 30px 120px 120px;
+    box-shadow: 0 40px 80px rgba(0,0,0,.25); color: #fff; text-align: center; font: 400 52px "Black"; padding-top: 110px; }
+  .mini { position: absolute; width: 150px; height: 190px; margin-left: -75px; border-radius: 12px; background: #fff; box-shadow: 0 16px 30px rgba(0,0,0,.2);
+    display: flex; align-items: flex-end; justify-content: center; padding-bottom: 20px; font: 800 30px "Mono"; color: #fff; }
+  .doc { width: 720px; margin-left: -360px; padding: 46px 50px; border-radius: 24px; background: #fffaf2; box-shadow: 0 50px 90px rgba(0,0,0,.35);
+    font: 600 34px/1.6 "Mono"; color: #2a2a2a; }
+  .doc .t { font-size: 48px; color: #b9481f; } .doc .ok { color: #1d9a4b; }
+  .etq { position: absolute; padding: 16px 26px; border-radius: 12px; background: #2fd16b; color: #062; font: 800 36px "Mont"; box-shadow: 0 16px 30px rgba(0,0,0,.25); }
+  .com { width: 820px; margin-left: -410px; padding: 34px; border-radius: 28px; background: #fff; box-shadow: 0 40px 80px rgba(0,0,0,.18); }
+  .com .cab { font: 800 34px "Mont"; color: #111; margin-bottom: 22px; }
+  .com .lin { display: flex; align-items: center; gap: 20px; padding: 18px 22px; border-radius: 999px; border: 3px solid #e7e7e3; }
+  .com .av { width: 66px; height: 66px; border-radius: 50%; background: linear-gradient(135deg,#feda75,#fa7e1e,#d62976,#962fbf); flex: none; }
+  .com .tx { font: 700 42px "Mont"; color: #111; } .com .cur { display: inline-block; width: 4px; height: 44px; background: #111; vertical-align: middle; margin-left: 4px; }
+  .com .pub { margin-left: auto; padding: 14px 26px; border-radius: 999px; background: #3d8bff; color: #fff; font: 800 30px "Mont"; }
+  .dm { position: absolute; width: 780px; margin-left: -390px; padding: 26px 30px; border-radius: 24px; background: #111; color: #fff; display: flex; gap: 22px; align-items: center;
+    box-shadow: 0 30px 60px rgba(0,0,0,.3); }
+  .dm .av { width: 74px; height: 74px; border-radius: 50%; background: #f5c518; flex: none; display: flex; align-items: center; justify-content: center; font: 400 34px "Black"; color: #111; }
+  .dm b { font: 800 30px "Mont"; } .dm span { display: block; font: 500 30px "Mont"; color: #ccc; margin-top: 4px; }
+  .marca { position: absolute; left: 0; right: 0; bottom: 120px; text-align: center; font: 700 26px "Mono"; letter-spacing: 4px; color: rgba(120,120,120,.8); }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="23.93">
+  <div class="fundo claro clip" id="f-claro" data-start="0" data-duration="23.93" data-track-index="0"></div>
+  <div class="fundo escuro clip" id="f-escuro" data-start="0" data-duration="23.93" data-track-index="0"></div>
+  <div class="fundo azul clip" id="f-azul" data-start="0" data-duration="23.93" data-track-index="0"><div class="raios"></div></div>
+  <div class="fundo laranja clip" id="f-laranja" data-start="0" data-duration="23.93" data-track-index="0"><div class="raios"></div></div>
+
+  <!-- 0: planilha que a IA não lê -->
+  <div class="cena clip" id="c0" data-start="0" data-duration="23.93" data-track-index="1"><div class="palco">
+    <div class="pill">ERRO DE LEITURA</div>
+    <div class="sombra"></div>
+    <div class="obj janela" style="top:420px"><div class="barra"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i>&nbsp;vendas_2026.xlsx</div>
+      <div class="grade"><div class="h">cliente</div><div class="h">mês</div><div class="h">valor</div>
+        <div>Padaria Sol</div><div class="lixo">#VALOR!</div><div>R$ 840</div>
+        <div class="lixo">�?�ç�o</div><div>mar</div><div class="lixo">###</div>
+        <div>Loja Azul</div><div class="lixo">#REF!</div><div class="lixo">�??</div>
+        <div class="lixo">ÃƒÂ§</div><div>mai</div><div>R$ 1.2k</div></div></div>
+    <div class="balao" id="b0" style="left:300px;top:930px">Não consegui ler esse arquivo.</div>
+  </div><div class="leg"></div></div>
+
+  <!-- 1: PDF, Word, Excel riscados -->
+  <div class="cena escuro-cena clip" id="c1" data-start="0" data-duration="23.93" data-track-index="1"><div class="palco">
+    <div class="pill">3 FORMATOS</div>
+    <div class="foto" style="left:300px;top:720px;transform:rotate(-9deg)"><div class="img" style="background:#d93a2b">PDF</div><div class="n">relatorio.pdf</div><div class="xis"></div></div>
+    <div class="foto" style="left:540px;top:670px;transform:rotate(2deg)"><div class="img" style="background:#2b5bd9">DOC</div><div class="n">contrato.docx</div><div class="xis"></div></div>
+    <div class="foto" style="left:780px;top:720px;transform:rotate(10deg)"><div class="img" style="background:#1d8a46">XLS</div><div class="n">vendas.xlsx</div><div class="xis"></div></div>
+  </div><div class="leg"></div></div>
+
+  <!-- 2: copiando na mão -->
+  <div class="cena clip" id="c2" data-start="0" data-duration="23.93" data-track-index="1"><div class="palco">
+    <div class="pill">CTRL+C · CTRL+V</div>
+    <div class="sombra"></div>
+    <div class="obj janela" style="top:420px;padding-bottom:20px"><div class="barra"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i>&nbsp;relatorio.pdf</div>
+      <div class="linha"></div><div class="linha" style="width:80%"></div><div class="linha"></div><div class="linha" style="width:60%"></div>
+      <div class="linha"></div><div class="linha" style="width:75%"></div><div class="linha"></div><div class="linha" style="width:55%"></div></div>
+    <div class="cont" style="left:640px;top:360px">linha <span id="n2">1</span> de 340</div>
+  </div><div class="leg"></div></div>
+
+  <!-- 3: Microsoft liberou grátis -->
+  <div class="cena cor-cena clip" id="c3" data-start="0" data-duration="23.93" data-track-index="1"><div class="palco">
+    <div class="pill">CÓDIGO ABERTO</div>
+    <div class="obj repo" style="top:470px"><div class="dono">microsoft /</div><div class="nome">markitdown</div>
+      <div class="desc">Converte PDF, Word, Excel, PowerPoint e imagem em texto que a IA entende.</div>
+      <div class="est">★ <span id="n3">0</span> mil estrelas</div></div>
+    <div class="carimbo" id="s3" style="left:600px;top:930px">GRÁTIS</div>
+  </div><div class="leg"></div></div>
+
+  <!-- 4: o nome, como objeto no holofote -->
+  <div class="cena escuro-cena clip" id="c4" data-start="0" data-duration="23.93" data-track-index="1"><div class="palco">
+    <div class="obj pasta" style="top:420px"><div class="eti">MARKITDOWN</div>
+      <div class="aba" style="top:80px;background:#e3262f"></div><div class="aba" style="top:180px;background:#2fd16b"></div>
+      <div class="aba" style="top:280px;background:#3d8bff"></div><div class="aba" style="top:380px;background:#f08a24"></div></div>
+  </div><div class="leg"></div></div>
+
+  <!-- 5: qualquer arquivo entra -->
+  <div class="cena clip" id="c5" data-start="0" data-duration="23.93" data-track-index="1"><div class="palco">
+    <div class="pill">ENTRA DE TUDO</div>
+    <div class="mini m5" style="left:330px;top:380px;background:#d93a2b">PDF</div>
+    <div class="mini m5" style="left:540px;top:330px;background:#2b5bd9">DOCX</div>
+    <div class="mini m5" style="left:750px;top:380px;background:#1d8a46">XLSX</div>
+    <div class="mini m5" style="left:440px;top:300px;background:#d9692b">PPTX</div>
+    <div class="mini m5" style="left:650px;top:290px;background:#7a4bd9">JPG</div>
+    <div class="sombra"></div>
+    <div class="obj funil" style="top:800px">MARKITDOWN</div>
+  </div><div class="leg"></div></div>
+
+  <!-- 6: sai texto limpo -->
+  <div class="cena cor-cena clip" id="c6" data-start="0" data-duration="23.93" data-track-index="1"><div class="palco">
+    <div class="pill">vendas.md</div>
+    <div class="obj doc" style="top:420px"><div class="t"># Vendas 2026</div>
+      <div class="l6">| cliente | mês | valor |</div><div class="l6">| Padaria Sol | fev | 840 |</div>
+      <div class="l6">| Loja Azul | abr | 1.200 |</div><div class="l6 ok">✓ pronto pra colar na IA</div></div>
+    <div class="etq" id="e6" style="left:640px;top:330px">PRONTO PRA IA</div>
+  </div><div class="leg"></div></div>
+
+  <!-- 7: comenta TEXTO -->
+  <div class="cena clip" id="c7" data-start="0" data-duration="23.93" data-track-index="1"><div class="palco">
+    <div class="pill">O PRÓXIMO PASSO</div>
+    <div class="obj com" style="top:480px"><div class="cab">Comentários</div>
+      <div class="lin"><div class="av"></div><span class="tx" id="tx7"></span><span class="cur"></span><span class="pub">Publicar</span></div></div>
+    <div class="dm" id="dm7" style="left:540px;top:800px"><div class="av">U</div><div><b>ursulino.ia</b><span>aqui o link do MarkItDown →</span></div></div>
+  </div><div class="leg"></div><div class="marca">@URSULINO.IA</div></div>
+
+  <audio src="assets/voz.wav" data-start="0" data-duration="23.93" data-track-index="9" data-volume="1"></audio>
+  <audio src="assets/lofi.wav" data-start="0" data-duration="8" data-track-index="8" data-volume="0.16"></audio>
+  <audio src="assets/lofi.wav" data-start="8" data-duration="8" data-track-index="8" data-volume="0.16"></audio>
+  <audio src="assets/lofi.wav" data-start="16" data-duration="7.93" data-track-index="8" data-volume="0.16"></audio>
+</div>
+<script>
+// Identidade "holofote": um objeto por frase, no centro, com fundo que alterna entre papel claro,
+// palco escuro com holofote e cor cheia. Corte seco entre cenas; legenda com a palavra-chave em itálico serifado.
+const E = window.ESQ, F = E.falas, FIM = 23.93;
+const FUNDO = ["f-claro", "f-escuro", "f-claro", "f-azul", "f-escuro", "f-claro", "f-laranja", "f-claro"];
+const CHAVE = ["planilha", "perde.", "mão,", "graça.", "MarkItDown.", "arquivo", "limpo,", "TEXTO"];
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const tl = gsap.timeline({ paused: true });
+
+F.forEach((f, i) => {
+  const ini = i === 0 ? 0 : f.t - 0.12, fim = i + 1 < F.length ? F[i + 1].t - 0.12 : FIM;
+  const cena = $("#c" + i), palco = $(".palco", cena), fundo = $("#" + FUNDO[i]);
+  // legenda palavra por palavra, no ritmo da fala
+  const leg = $(".leg", cena);
+  const palavras = f.texto.split(" ");
+  leg.innerHTML = palavras.map(p => `<span class="p${p === CHAVE[i] ? " k" : ""}">${p}</span>`).join(" ");
+  if (i === 0) { tl.set($$(".p", leg), { opacity: 1 }, 0); } else $$(".p", leg).forEach((el, j) => tl.fromTo(el, { opacity: 0, y: 16, filter: "blur(6px)" },
+    { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.22, ease: "power2.out" }, i === 0 ? 0 : f.t + f.d * j / palavras.length));
+  // corte seco: cena e fundo aparecem juntos
+  tl.set([cena, fundo], { opacity: 1 }, ini).set([cena, fundo], { opacity: 0 }, fim);
+  // câmera: entra de leve e respira
+  tl.fromTo(palco, { scale: i === 0 ? 1.28 : 1.16, y: i === 0 ? 0 : 40 }, { scale: 1.28, y: 0, duration: 0.45, ease: "back.out(1.6)" }, ini)
+    .to(palco, { scale: 1.33, duration: Math.max(0.1, fim - ini - 0.45), ease: "none" }, ini + 0.45);
+  if (i > 0) tl.fromTo($(".pill", cena) || {}, { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.3 }, ini + 0.05);
+});
+
+// detalhes de cada cena
+tl.fromTo("#b0", { opacity: 0, scale: .6, transformOrigin: "0% 100%" }, { opacity: 1, scale: 1, duration: .35, ease: "back.out(2)" }, F[0].t + 1.2);
+$$("#c1 .foto").forEach((el, j) => {
+  tl.fromTo(el, { y: -500, opacity: 0 }, { y: 0, opacity: 1, duration: .45, ease: "back.out(1.4)" }, F[1].t - .1 + j * .3);
+  tl.fromTo($(".xis", el), { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: .2, ease: "back.out(3)" }, F[1].t + 1.8 + j * .25);
+});
+$$("#c2 .linha").forEach((el, j) => tl.set(el, { className: "linha on" }, F[2].t + .2 + j * .32).set(el, { className: "linha" }, F[2].t + .52 + j * .32));
+const n2 = { v: 1 }; tl.to(n2, { v: 340, duration: F[2].d, ease: "power2.in", onUpdate: () => $("#n2").textContent = Math.round(n2.v) }, F[2].t);
+const n3 = { v: 0 }; tl.to(n3, { v: 192, duration: 1.2, ease: "power3.out", onUpdate: () => $("#n3").textContent = Math.round(n3.v) }, F[3].t + .3);
+tl.fromTo("#s3", { scale: 3, opacity: 0 }, { scale: 1, opacity: 1, duration: .25, ease: "power4.in" }, F[3].t + 2.1);
+tl.fromTo("#c4 .pasta", { rotateY: -70, transformPerspective: 1400 }, { rotateY: 0, duration: .6, ease: "power3.out" }, F[4].t - .1);
+$$("#c5 .m5").forEach((el, j) => tl.fromTo(el, { y: -420, rotation: (j - 2) * 14, opacity: 0 },
+  { keyframes: [{ y: 0, opacity: 1, duration: .35, ease: "power2.out" }, { y: 520, x: 540 - parseFloat(el.style.left), scale: .3, opacity: 0, duration: .45, ease: "power2.in" }] },
+  F[5].t - .05 + j * .22));
+tl.fromTo("#c5 .funil", { scaleX: 1 }, { scaleX: 1.06, scaleY: .94, yoyo: true, repeat: 5, duration: .14 }, F[5].t + .4);
+$$("#c6 .l6").forEach((el, j) => tl.fromTo(el, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: .25 }, F[6].t + .2 + j * .45));
+tl.fromTo("#e6", { scale: 0, rotation: -20 }, { scale: 1, rotation: 8, duration: .35, ease: "back.out(2.5)" }, F[6].t + 2.1);
+const txt = "TEXTO", tx7 = { n: 0 };
+tl.to(tx7, { n: txt.length, duration: .9, ease: "none", onUpdate: () => $("#tx7").textContent = txt.slice(0, Math.round(tx7.n)) }, F[7].t + .5);
+tl.to("#c7 .pub", { scale: .9, yoyo: true, repeat: 1, duration: .1 }, F[7].t + 1.6);
+tl.fromTo("#dm7", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: .4, ease: "back.out(1.8)" }, F[7].t + 1.8);
+tl.to({}, { duration: FIM }, 0);
+
+window.__timelines = window.__timelines || {}; window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

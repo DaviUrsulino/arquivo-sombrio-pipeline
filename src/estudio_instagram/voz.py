@@ -97,7 +97,7 @@ class ElevenLabs:
 PRONUNCIA = {
     "github": "Guitrab", "claude": "Clód", "code": "Cóude", "codex": "Códex", "gemini": "Jêmini",
     "cli": "cêeleai", "mcp": "emecepê", "html": "agatêemeéle", "css": "cêésseésse", "ia": "iá",
-    "readme": "ridmi", "chatgpt": "Tchatdjipití", "markitdown": "Márquitdáun", "pdf": "pedeéfe", "word": "Uórd", "excel": "Éksel", "api": "apeí", "cursor": "Cârsor", "npm": "enepeême", "json": "djêison",
+    "readme": "ridmi", "powerpoint": "Páuerpóint", "chatgpt": "Tchatdjipití", "markitdown": "Márquitdáun", "pdf": "pedeéfe", "word": "Uórd", "excel": "Éksel", "api": "apeí", "cursor": "Cârsor", "npm": "enepeême", "json": "djêison",
 }
 
 
