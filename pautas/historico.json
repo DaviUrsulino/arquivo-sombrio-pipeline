@@ -39,6 +39,7 @@
     "addyosmani/agent-skills",
     "affaan-m/ECC",
     "alirezarezvani/claude-skills",
+    "andyhuo520/digital-human-koubo",
     "anthropics/claude-plugins-official",
     "anthropics/knowledge-work-plugins",
     "arjun988/blender-skills",
@@ -63,6 +64,7 @@
     "genspark-ai/genoffice",
     "google/adk-python",
     "google/artemis",
+    "google/elephant-goldfish-model",
     "headroomlabs-ai/headroom",
     "heygen-com/hyperframes",
     "howseen-ai/claude-motion-design",
@@ -92,6 +94,7 @@
     "open-jarvis/OpenJarvis",
     "openai/codex-plugin-cc",
     "openfilm/openfilm",
+    "openqodex/openqodex",
     "paperclipai/paperclip",
     "pbakaus/impeccable",
     "plandex-ai/plandex",
@@ -107,6 +110,7 @@
     "sirioberati/Genjustsu-Open-Source-Workflow",
     "soumatheusgomes/vibe-coding-toolkit",
     "stablyai/orca",
+    "t3dotgg/tstack",
     "tamaratran/fast-jev-compaction",
     "thedotmack/claude-mem",
     "threerocks/hand-drawn-styles",
@@ -127,5 +131,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 61
+  "pautas_geradas": 62
 }

@@ -1,0 +1,201 @@
+{
+  "titulo": "lista: programar com agentes de ia",
+  "formato": "pixel2",
+  "palavra_chave": "GITHUB",
+  "perfil": "@ursulino.ia",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "quatro ferramentas que agentes de codigo usam"
+  },
+  "chamada": {
+    "pergunta": "quer os links dos repositórios?"
+  },
+  "itens": [
+    {
+      "repo": "google/elephant-goldfish-model",
+      "nome": "elephant-goldfish-model",
+      "cor": "azul",
+      "promessa": "Open-source skills for designing and reviewing software with AI agents",
+      "texto": "Plugin para design e revisao com agentes"
+    },
+    {
+      "repo": "openqodex/openqodex",
+      "nome": "openqodex",
+      "cor": "verde",
+      "promessa": "Open source AI code review for coding agents. A separate reviewer checks every c",
+      "texto": "Revisa codigo antes do push com ia"
+    },
+    {
+      "repo": "t3dotgg/tstack",
+      "nome": "tstack",
+      "cor": "laranja",
+      "promessa": "The agent skills I use every day. Works with Claude Code and Codex.",
+      "texto": "Habilidades de agente para fluxo diario"
+    },
+    {
+      "repo": "andyhuo520/digital-human-koubo",
+      "nome": "digital-human-koubo",
+      "cor": "roxo",
+      "promessa": "AI digital-human talking-head videos from one photo: Renoise MCP generation + 5 ",
+      "texto": "Cria videos de cabeca falante com ia"
+    }
+  ],
+  "destaques": [
+    "elephant goldfish model",
+    "openqodex",
+    "t stack",
+    "digital human koubo",
+    "github"
+  ],
+  "cenas_roteiro": [
+    {
+      "humor": "animado",
+      "narracao": "Quatro repositórios grátis para programar com agentes de ia.",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "4 REPOS PARA",
+            "cor": "branco",
+            "tamanho": 100
+          },
+          {
+            "texto": "CODAR COM IA",
+            "cor": "laranja",
+            "tamanho": 110
+          }
+        ]
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Primeiro: elephant goldfish model. Plugin para design e revisao com agentes.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "brain",
+        "cor": "azul",
+        "rotulo": "ELEPHANT GOLDFISH"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Segundo: openqodex. Revisa codigo antes do push com ia.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "shield-check",
+        "cor": "verde",
+        "rotulo": "OPENQODEX"
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Terceiro: t stack. Habilidades de agente para fluxo diario.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "zap",
+        "cor": "laranja",
+        "rotulo": "TSTACK"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Quarto: digital human koubo. Cria videos de cabeca falante com ia.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "clapperboard",
+        "cor": "roxo",
+        "rotulo": "DIGITAL HUMAN KOUBO"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "4 REPOS PARA",
+          "cor": "branco",
+          "tamanho": 96
+        },
+        {
+          "texto": "CODAR COM IA",
+          "cor": "laranja",
+          "tamanho": 96
+        }
+      ],
+      "subtitulo": "quatro ferramentas que agentes de codigo usam"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 1",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "ELEPHANT GOLDFISH",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "elephant-goldfish-model",
+      "texto": "Plugin para design e revisao com agentes."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 2",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "OPENQODEX",
+          "cor": "verde"
+        }
+      ],
+      "rotulo": "openqodex",
+      "texto": "Revisa codigo antes do push com ia."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 3",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "TSTACK",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "tstack",
+      "texto": "Habilidades de agente para fluxo diario."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 4",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "DIGITAL HUMAN KOUB",
+          "cor": "roxo"
+        }
+      ],
+      "rotulo": "digital-human-koubo",
+      "texto": "Cria videos de cabeca falante com ia."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER OS LINKS",
+          "cor": "branco"
+        },
+        {
+          "texto": "DOS REPOS?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando os links no direct.",
+      "palavra": "GITHUB",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "legenda": "Quatro repositórios grátis para programar com agentes de ia\n\nSalva este vídeo:\n1. Elephant Goldfish: Plugin para design e revisao com agentes.\n2. Openqodex: Revisa codigo antes do push com ia.\n3. Tstack: Habilidades de agente para fluxo diario.\n4. Digital Human Koubo: Cria videos de cabeca falante com ia.\n\nManda pra um amigo dev, segue o @ursulino.ia e comenta GITHUB que eu te mando os links no direct.\n\nQuer aprender a fazer vídeos assim? Link na bio.\n\n#claudecode #github #ia #programacao #opensource"
+}
