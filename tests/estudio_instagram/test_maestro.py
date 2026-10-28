@@ -16,7 +16,7 @@ def _mais(hhmm, minutos):
 
 def test_duas_rodadas_de_reels_e_uma_de_loop_espacadas():
     horas = [h for h, _ in RODADAS]
-    assert horas == sorted(horas) and len(horas) == 3 and RODADAS[-1][1] == "loop"
+    assert horas == sorted(horas) and len(horas) == 3 and "loop" in [f for _, f in RODADAS]
     gaps = [int(b[:2]) * 60 + int(b[3:]) - int(a[:2]) * 60 - int(a[3:]) for a, b in zip(horas, horas[1:])]
     assert min(gaps) >= maestro.INTERVALO_MIN_MIN  # nunca duas rodadas em menos de 2 h
 
@@ -24,7 +24,7 @@ def test_duas_rodadas_de_reels_e_uma_de_loop_espacadas():
 def test_venda_so_duas_vezes_por_semana_no_horario_nobre():
     semana = [maestro.rodadas_do_dia(f"2026-10-{d}") for d in range(19, 26)]  # segunda a domingo
     vendas = [r for dia in semana for r in dia if r[1] == "venda"]
-    assert len(vendas) == 2 and all(h == "19:00" for h, _ in vendas)
+    assert len(vendas) == 2 and all(h == maestro.RODADA_NOBRE for h, _ in vendas)
 
 
 def test_dispara_a_rodada_quando_chega_a_hora():
@@ -43,16 +43,16 @@ def test_nao_dispara_antes_da_hora_nem_repete():
 def test_rodada_de_venda_dispara_no_horario_dela():
     dia = "2026-10-20"  # terça
     hora_venda = next(h for h, f in maestro.rodadas_do_dia(dia) if f == "venda")
-    estado = {"dia": dia, "feitos": {"12:00": "x"}}
+    estado = {"dia": dia, "feitos": {}}
     assert decidir(_t(_mais(hora_venda, 5), dia), estado)[0] == "venda"
 
 
 def test_acordar_muito_depois_da_hora_perde_a_rodada_em_vez_de_empilhar():
-    hora = RODADAS[1][0]
+    hora = RODADAS[0][0]
     agora = _mais(hora, int(maestro.TOLERANCIA_ATRASO.total_seconds() // 60) + 30)
     formato, estado = decidir(_t(agora), {})
     assert formato is None
-    assert estado["feitos"][RODADAS[0][0]] == "perdida" and estado["feitos"][hora] == "perdida"
+    assert estado["feitos"][hora] == "perdida"
 
 
 def test_nunca_dispara_duas_rodadas_em_menos_de_2_horas():

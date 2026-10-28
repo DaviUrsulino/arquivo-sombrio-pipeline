@@ -34,19 +34,20 @@ BRASILIA = timezone(timedelta(hours=-3))
 # no pico do meio-dia e no horário nobre.
 # 2026-10-27: lista de 4 repositórios fez 769-998 views e 7-9 s assistidos, contra ~150 views e 3,5 s do vídeo de
 # repositório único: lista vira o vídeo fixo do meio-dia, todo dia.
-RODADAS = [("12:00", "lista"), ("19:00", "pixel2"), ("22:00", "loop")]
-# 22:00: loop de 8-10 s do Google Flow (estilo @pixosly), só se houver vídeo em loops/fila/ (ver loop.py).
+# 2026-10-28: as duas listas que passaram de 1.000 views saíram às 23:30 (25/10 e 26/10); a lista das 12:00 de
+# hoje fez 111. Lista volta pra noite (22:30, todo dia) e o meio-dia fica com o vídeo de uma ferramenta nas
+# identidades (escritório, vila 3D) ou venda.
+RODADAS = [("12:00", "pixel2"), ("20:00", "loop"), ("22:30", "lista")]
+# 20:00: loop de 8-10 s do Google Flow (estilo @pixosly), só se houver vídeo em loops/fila/ (ver loop.py).
 FILA_LOOPS = RAIZ / "loops" / "fila"
-# Formato da rodada das 19:00 por dia da semana (0 = segunda). Venda só 2x por semana pra não cansar o público;
-# lista (vários repositórios num vídeo) 2x, que é o formato dos 2º e 3º vídeos mais vistos do @gab.gouvea.
-# Lista é o campeão (900+ views, 7-9 s assistidos) contra ~100 views e 3 s dos vídeos de repo único: 19:00 vira lista
-# 3x por semana; estilos novos (pixel2) ficam 2x por semana só pra seguir testando identidade; venda 2x.
-FORMATO_NOBRE_POR_DIA = {0: "lista", 1: "venda", 2: "lista", 3: "pixel2", 4: "venda", 5: "lista", 6: "pixel2"}
+# Formato da rodada das 12:00 por dia da semana (0 = segunda): venda 2x por semana, identidades nos outros dias.
+FORMATO_NOBRE_POR_DIA = {0: "pixel2", 1: "venda", 2: "pixel2", 3: "pixel2", 4: "venda", 5: "pixel2", 6: "pixel2"}
+RODADA_NOBRE = "12:00"
 
 
 def rodadas_do_dia(dia: str) -> list[tuple[str, str]]:
     semana = datetime.fromisoformat(dia).weekday()
-    return [(h, FORMATO_NOBRE_POR_DIA[semana] if h == "19:00" else f) for h, f in RODADAS]
+    return [(h, FORMATO_NOBRE_POR_DIA[semana] if h == RODADA_NOBRE else f) for h, f in RODADAS]
 
 
 # Pauta pronta e aprovada que substitui o formato de uma rodada: {"AAAA-MM-DD": {"HH:MM": "caminho"}}.
@@ -54,7 +55,7 @@ PAUTAS_DO_DIA = {"2026-10-21": {"23:30": "pautas/viral/geo-sleuth-novo.json"}}  
 # Banco de vídeos: pautas prontas e aprovadas em pautas/viral/fila/. A rodada FILA_RODADA de cada dia usa a próxima
 # que ainda não saiu (em ordem de nome); sem nada na fila, segue o formato normal da rodada.
 FILA = RAIZ / "pautas" / "viral" / "fila"
-FILA_RODADA = "19:00"  # o meio-dia ficou fixo pra lista (formato campeão); o banco de vídeos prontos sai à noite
+FILA_RODADA = "12:00"  # o banco de vídeos prontos sai no lugar do vídeo de ferramenta do meio-dia
 TOLERANCIA_ATRASO = timedelta(hours=2)
 INTERVALO_MIN_MIN = 120  # nunca duas rodadas em menos de 2 horas
 

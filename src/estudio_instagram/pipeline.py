@@ -154,7 +154,9 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
 
     voz = criar_voz(dados_pauta)
     modelo_reels = MOLDES_SO_REELS.get(formato) or MOLDES_COM_SLIDES.get(formato) or "reels.html.tpl"
-    if formato == "pixel2" and os.getenv("MOLDE_PIXEL2") != "1":
+    # lista (vários repositórios) fica no visual pixel original: as 2 listas de 1.000+ views saíram nele, e a de
+    # 28/10 no estilo "tier" fez 111. Os estilos de estúdio valem só pro vídeo de uma ferramenta e pra venda.
+    if formato == "pixel2" and os.getenv("MOLDE_PIXEL2") != "1" and (len(repos) == 1 or dados_pauta.get("molde")):
         # a pauta pode fixar o estilo (ex.: vídeo de venda sempre no estilo mais vistoso)
         modelo_reels = dados_pauta.get("molde") or molde_estudio(dados_pauta.get("titulo", ""))
     if formato == "pixel2" and len(repos) == 1 and not dados_pauta.get("molde") and os.getenv("MOLDE_PIXEL2") != "1":
