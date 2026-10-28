@@ -14,3 +14,5 @@ resultado antes de assumir que uma mudança é melhoria):
 
 Este é um projeto pessoal do Davi (estudante de Engenharia de Software, UnB Gama), separado do
 segundo cérebro dele em Obsidian — não misturar contexto dos dois.
+
+Instagram (@ursulino.ia): ler `docs/INSTAGRAM-ESTADO.md` antes de mexer no pipeline do Instagram.
