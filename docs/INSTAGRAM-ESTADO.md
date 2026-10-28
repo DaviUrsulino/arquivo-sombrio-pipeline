@@ -17,6 +17,7 @@ Documento de passagem: qualquer sessão nova do Claude deve ler isto antes de me
 - Identidades automáticas: src/estudio_instagram/identidade.py e modelos/identidades/ (acervo de cenas escolhido pelo LLM).
 - Protótipos ainda manuais: prototipos/pixel, holofote, esquete.
 - Direct: guia_dm.py manda um mini-guia (o que faz, 3 passos e o link).
+- Assunto quente (assunto_quente.py): GitHub Trending + Hacker News + repos novos do GitHub, sem Apify (o Reddit bloqueia robô). Os repositórios quentes e inéditos entram primeiro: até 3 candidatos no vídeo de ferramenta e até 2 itens na lista.
 - Referências do Davi: referencias/referencias.json. Estudo semanal automático em referencias/estudos/.
 - Produto: Pack Estúdio, R$ 47 na Kiwify (https://pay.kiwify.com.br/lfbxkKI).
 
