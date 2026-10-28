@@ -24,14 +24,14 @@
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="24.349">
-  <canvas id="gl" class="clip" width="1080" height="1920" data-start="0" data-duration="24.349" data-track-index="0"></canvas>
-  <div id="card" class="clip" data-start="0" data-duration="24.349" data-track-index="2"><div class="r">github.com/kaankiziltug/logo-design-skill</div><div class="s">★ 4,8 mil estrelas</div></div>
-  <div id="chips" class="clip" data-start="0" data-duration="24.349" data-track-index="2"><div class="chip">1.400 logos</div><div class="chip">teste 16 px</div><div class="chip">SVG</div></div>
+<div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="23.36">
+  <canvas id="gl" class="clip" width="1080" height="1920" data-start="0" data-duration="23.36" data-track-index="0"></canvas>
+  <div id="card" class="clip" data-start="0" data-duration="23.36" data-track-index="2"><div class="r">github.com/microsoft/markitdown</div><div class="s">★ 192 mil estrelas</div></div>
+  <div id="chips" class="clip" data-start="0" data-duration="23.36" data-track-index="2"><div class="chip">PDF</div><div class="chip">Word</div><div class="chip">Excel</div></div>
   <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 42%, transparent 50%, rgba(5,2,12,.7) 100%);pointer-events:none"></div>
-  <div id="leg" class="clip" data-start="0" data-duration="24.349" data-track-index="3"></div>
-  <div id="com" class="clip" data-start="0" data-duration="24.349" data-track-index="3"><div class="av"></div><span id="comtx"></span><span class="p">Publicar</span></div>
-  <audio id="voz" src="assets/voz.wav" data-start="0" data-duration="24.349" data-track-index="9" data-volume="1"></audio>
+  <div id="leg" class="clip" data-start="0" data-duration="23.36" data-track-index="3"></div>
+  <div id="com" class="clip" data-start="0" data-duration="23.36" data-track-index="3"><div class="av"></div><span id="comtx"></span><span class="p">Publicar</span></div>
+  <audio id="voz" src="assets/voz.wav" data-start="0" data-duration="23.36" data-track-index="9" data-volume="1"></audio>
 </div>
 <script>
 // Esquete em 3D low-poly: o Robô Estagiário e um dev conversando sobre um repositório real.
@@ -168,7 +168,7 @@ tl.fromTo("#card", { opacity: 0, scale: 0.8, y: 40 }, { opacity: 1, scale: 1, y:
 tl.to("#card", { opacity: 0, duration: 0.2 }, f3.t + f3.d + 0.2);
 document.querySelectorAll(".chip").forEach((c, k) => { tl.fromTo(c, { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(3)" }, f5.t + 0.1 + k * 0.45); tl.to(c, { opacity: 0, duration: 0.2 }, f5.t + f5.d + 0.2); });
 tl.fromTo("#com", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, f7.t + 0.6);
-const tx = document.getElementById("comtx"), palavra = "LOGO";
+const tx = document.getElementById("comtx"), palavra = "TEXTO";
 const st = { n: 0 }; tl.to(st, { n: palavra.length, duration: 0.8, ease: "none", onUpdate: () => (tx.textContent = palavra.slice(0, Math.round(st.n))) }, f7.t + 1.0);
 const relogio = { t: 0 }; tl.to(relogio, { t: E.duracao, duration: E.duracao, ease: "none", onUpdate: () => desenhar(tl.time()) }, 0);
 window.__timelines = window.__timelines || {}; window.__timelines["main"] = tl;
