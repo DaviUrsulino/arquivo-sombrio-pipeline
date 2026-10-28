@@ -68,10 +68,14 @@ class InstagramGraph:
             self._esperar(INTERVALO_STATUS_S)
         raise RuntimeError(f"mídia {creation_id} não ficou pronta a tempo (status ainda {status})")
 
-    def publicar_reels(self, video_url: str, legenda: str, teste: bool = False) -> PostPublicado:
+    def publicar_reels(self, video_url: str, legenda: str, teste: bool = False, colaboradores: list[str] | None = None) -> PostPublicado:
         """`teste=True` publica como Trial Reel: vai primeiro só pra quem não segue e o Instagram promove pros
-        seguidores sozinho se performar (SS_PERFORMANCE). Só existe pra conta com 1.000+ seguidores."""
+        seguidores sozinho se performar (SS_PERFORMANCE). Só existe pra conta com 1.000+ seguidores.
+
+        `colaboradores`: até 3 @ (sem o @) convidados pra collab; o post aparece no perfil deles quando aceitam."""
         corpo = {"media_type": "REELS", "video_url": video_url, "caption": legenda}
+        if colaboradores:
+            corpo["collaborators"] = json.dumps([c.lstrip("@") for c in colaboradores[:3]])
         if teste:
             corpo["trial_params"] = json.dumps({"graduation_strategy": "SS_PERFORMANCE"})
         criado = self._pedir(f"{self.ig_user_id}/media", corpo)

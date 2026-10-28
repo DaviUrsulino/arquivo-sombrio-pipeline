@@ -185,6 +185,10 @@ class ComReserva:
         return (self.reserva if self.usando_reserva else self.principal).sintetizar(texto)
 
 
+class CotaEsgotada(RuntimeError):
+    """O modelo de voz do Gemini já usou a cota grátis do dia."""
+
+
 class GeminiTTS:
     """Voz do Gemini TTS (voz "Orus" por padrão, escolhida pelo Davi). Natural e fala bem os termos de tecnologia.
 
@@ -192,7 +196,10 @@ class GeminiTTS:
     pausas do próprio áudio. Faz tentativas com espera quando a API pede calma (HTTP 429/503).
     """
 
-    MODELO = "gemini-2.5-flash-preview-tts"
+    # Mesma voz (Orus) em 4 modelos; cada modelo tem a própria cota grátis diária. Quando um esgota (429 de cota),
+    # passa pro próximo na hora, sem esperar. Só cai na voz reserva (Edge) se os 4 esgotarem no dia.
+    MODELOS = ("gemini-2.5-flash-preview-tts", "gemini-3.8-flash-tts", "gemini-3.1-flash-tts-preview", "gemini-3.8-flash-lite-tts")
+    MODELO = MODELOS[0]
     INSTRUCAO = "Fale em português do Brasil, de forma natural e animada, como uma pessoa contando uma descoberta para um amigo: "
     ESPERAS_S = (12, 25, 45, 60)
 
@@ -214,10 +221,20 @@ class GeminiTTS:
     def _arquivo_cache(self, texto: str) -> Path | None:
         if not self.pasta_cache:
             return None
-        chave = hashlib.sha1(f"{self.MODELO}|{self.voz}|{texto}".encode()).hexdigest()[:16]
+        chave = hashlib.sha1(f"{self.voz}|{texto}".encode()).hexdigest()[:16]
         return self.pasta_cache / f"gemini-{chave}.pcm"
 
     def _pedir_pcm(self, texto: str) -> bytes:
+        erros = []
+        for modelo in self.MODELOS:
+            try:
+                return self._pedir_pcm_modelo(texto, modelo)
+            except CotaEsgotada as erro:
+                print(f"  {modelo} sem cota hoje; tentando o próximo modelo de voz")
+                erros.append(str(erro))
+        raise RuntimeError("Gemini TTS sem cota em todos os modelos: " + " | ".join(erros)[:300])
+
+    def _pedir_pcm_modelo(self, texto: str, modelo: str) -> bytes:
         corpo = json.dumps({
             "contents": [{"parts": [{"text": self.INSTRUCAO + texto}]}],
             "generationConfig": {
@@ -228,7 +245,7 @@ class GeminiTTS:
         ultimo = None
         for tentativa in range(len(self.ESPERAS_S) + 1):
             pedido = urllib.request.Request(
-                f"https://generativelanguage.googleapis.com/v1beta/models/{self.MODELO}:generateContent", data=corpo,
+                f"https://generativelanguage.googleapis.com/v1beta/models/{modelo}:generateContent", data=corpo,
                 headers={"Content-Type": "application/json", "x-goog-api-key": self._chave_api()}, method="POST",
             )
             try:
@@ -238,6 +255,8 @@ class GeminiTTS:
             except urllib.error.HTTPError as erro:
                 detalhe = erro.read().decode(errors="replace")[:200]
                 ultimo = f"HTTP {erro.code} {detalhe}"
+                if erro.code == 429 and "quota" in detalhe.lower():  # cota do dia acabou: esperar não adianta
+                    raise CotaEsgotada(ultimo)
                 if erro.code not in (429, 500, 502, 503, 504) or tentativa == len(self.ESPERAS_S):
                     break
                 self._esperar(self.ESPERAS_S[tentativa])

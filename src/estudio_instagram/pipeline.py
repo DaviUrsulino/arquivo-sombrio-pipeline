@@ -217,7 +217,7 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
                 teste = experimental and ig.seguidores() >= MIN_SEGUIDORES_TRIAL
             except Exception:
                 teste = False
-            reels_publicado = ig.publicar_reels(url_video, legenda, teste=teste)
+            reels_publicado = ig.publicar_reels(url_video, legenda, teste=teste, colaboradores=dados_pauta.get("colaboradores"))
             registro["trial_reel"] = teste
             registro["publicado"] = True
             registro["legenda"] = legenda
