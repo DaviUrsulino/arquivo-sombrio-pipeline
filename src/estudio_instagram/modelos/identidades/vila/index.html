@@ -23,6 +23,8 @@
   #placa { position: absolute; left: 50%; top: 330px; transform: translateX(-50%); padding: 22px 36px; background: #fffbe9; border: 8px solid #3a2a10;
     font: 64px "PixB"; color: #2a1a08; white-space: nowrap; opacity: 0; box-shadow: 0 16px 0 rgba(0,0,0,.3); }
   #placa small { display: block; font: 40px "PixB"; color: #c27a00; text-align: center; margin-top: 8px; }
+  #gancho { position: absolute; left: 70px; right: 70px; top: 230px; padding: 26px 30px; background: #fffbe9; border: 8px solid #2a1a08; text-align: center;
+    font: 58px/1.2 "PixB"; color: #2a1a08; box-shadow: 0 16px 0 rgba(0,0,0,.3); }
   #com { position: absolute; left: 90px; right: 90px; top: 360px; padding: 26px 30px; background: #fff; border: 6px solid #2a1a08; display: flex; align-items: center; gap: 20px;
     font: 52px "PixB"; color: #2a1a08; opacity: 0; box-shadow: 0 14px 0 rgba(0,0,0,.3); }
   #com .bt { margin-left: auto; padding: 10px 18px; background: #3d8bff; color: #fff; font-size: 30px; }
@@ -36,6 +38,7 @@
   <div class="hud" style="right:40px;top:122px">PÚBLICO <b id="pub">0</b></div>
   <div id="placa" class="clip" data-start="0" data-duration="__DURACAO__" data-track-index="2"><span id="placa-nome"></span><small id="placa-est"></small></div>
   <div id="com" class="clip" data-start="0" data-duration="__DURACAO__" data-track-index="2"><span id="tx"></span><span class="bt">PUBLICAR</span></div>
+  <div id="gancho" class="clip" data-start="0" data-duration="__DURACAO__" data-track-index="2"></div>
   <div id="pal" class="clip" data-start="0" data-duration="__DURACAO__" data-track-index="3"></div>
   <audio src="assets/voz.wav" data-start="0" data-duration="__DURACAO__" data-track-index="9" data-volume="1"></audio>
   <audio src="assets/lofi.wav" data-start="0" data-duration="__DURACAO__" data-track-index="8" data-volume="0.15"></audio>
@@ -93,7 +96,9 @@ const texTela = new THREE.CanvasTexture(tc);
 const tela = new THREE.Mesh(new THREE.PlaneGeometry(13, 8.1), new THREE.MeshBasicMaterial({ map: texTela })); tela.position.set(0, 5.6, 1.05); cine.add(tela);
 for (let i = 0; i < 8; i++) malha(new THREE.SphereGeometry(.22, 6, 4), "#ffd23f", -7 + i * 2, 10.4, 1.2, cine);
 const letreiro = document.createElement("canvas"); letreiro.width = 512; letreiro.height = 96; const lt = letreiro.getContext("2d");
-lt.fillStyle = "#2a1a08"; lt.fillRect(0, 0, 512, 96); lt.fillStyle = "#ffd23f"; lt.font = "60px PixB"; lt.textAlign = "center"; lt.fillText(window.ROT.predio || "CINEMA IA", 256, 70);
+lt.fillStyle = "#2a1a08"; lt.fillRect(0, 0, 512, 96); lt.fillStyle = "#ffd23f"; lt.textAlign = "center";
+{ const nome = (window.ROT.predio || "CINEMA IA").toUpperCase(); let tam = 60; lt.font = `${tam}px PixB`;
+  while (lt.measureText(nome).width > 480 && tam > 24) lt.font = `${--tam}px PixB`; lt.fillText(nome, 256, 70); }
 const texLet = new THREE.CanvasTexture(letreiro);
 const placaCine = new THREE.Mesh(new THREE.PlaneGeometry(8, 1.5), new THREE.MeshBasicMaterial({ map: texLet })); placaCine.position.set(0, 12.6, 1.4); cine.add(placaCine);
 
@@ -155,12 +160,13 @@ function pintarTela(t, i) {
     const k = Math.min(tela.passos.length, Math.floor(lt / .7) + 1);
     tela.passos.slice(0, 3).forEach((s, n) => { const on = n < k, y = 70 + n * 105;
       tx.fillStyle = on ? "#ffd23f" : "rgba(255,255,255,.18)"; tx.fillRect(80, y, 480, 80);
-      tx.fillStyle = on ? "#2a1a08" : "rgba(255,255,255,.5)"; tx.font = "36px PixB"; tx.fillText(`${n + 1}. ${String(s).toUpperCase().slice(0, 14)}`, 320, y + 52); });
+      tx.fillStyle = on ? "#2a1a08" : "rgba(255,255,255,.5)"; const rot = `${n + 1}. ${String(s).toUpperCase().slice(0, 16)}`; let tm = 36; tx.font = `${tm}px PixB`; while (tx.measureText(rot).width > 450 && tm > 20) tx.font = `${--tm}px PixB`; tx.fillText(rot, 320, y + 52); });
   } else {
     const verde = (tela.titulo || "").toUpperCase() !== "ANTES";
     tx.fillStyle = verde ? "#2fb36b" : "#e2683c"; tx.fillRect(220, 40, 200, 56); tx.fillStyle = "#fff"; tx.font = "34px PixB"; tx.fillText((tela.titulo || "").toUpperCase().slice(0, 9), 320, 80);
     const ls = quebra(tela.texto, 14), vis = Math.min(1, lt / .5);
-    tx.globalAlpha = vis; tx.fillStyle = "#fff"; tx.font = "50px PixB"; ls.forEach((l, n) => tx.fillText(l, 320, 180 + n * 70)); tx.globalAlpha = 1;
+    let tam = 50; tx.font = `${tam}px PixB`; while (Math.max(...ls.map((l) => tx.measureText(l).width)) > 580 && tam > 22) tx.font = `${--tam}px PixB`;
+    tx.globalAlpha = vis; tx.fillStyle = "#fff"; ls.forEach((l, n) => tx.fillText(l, 320, 180 + n * (tam + 20))); tx.globalAlpha = 1;
     if (Math.floor(t * 2) % 2) { tx.fillStyle = "#ffd23f"; tx.fillRect(300, 360, 40, 8); }
   }
   texTela.needsUpdate = true;
@@ -171,7 +177,7 @@ const PLANO = {
   aerea: [V(0, 60, 70), V(0, 34, 46), V(0, 0, 0), V(0, 3, 0)],
   entrega: [V(7, 9, 38), V(4, 7.5, 28), V(0, 3, 12), V(0, 4.5, 2)],
   passos: [V(-9, 8, 19), V(-5, 7, 15.5), V(0, 5.5, -5), V(0, 5.6, -5)],
-  resultado: [V(0, 5.6, 13), V(0, 5.6, 10.5), V(0, 5.6, -5), V(0, 5.6, -5)],
+  resultado: [V(0, 6, 16), V(0, 5.8, 13), V(0, 5.6, -5), V(0, 5.6, -5)],
   plateia: [V(14, 18, 34), V(-12, 22, 30), V(0, 2, 10), V(0, 2, 8)],
   placa: [V(0, 9, 38), V(0, 8, 31), V(0, 6, 0), V(0, 7, 0)],
   notebook: [V(9, 7, 10), V(-9, 7, 10), V(0, 3.5, 1), V(0, 3.5, 1)],
@@ -219,6 +225,9 @@ F.forEach((f, i) => { const ps = f.texto.replace(/[.,:;!?]/g, "").split(" ");
   ps.forEach((p, j) => { const tt = i === 0 && j === 0 ? 0 : f.t + f.d * j / ps.length;
     tl.set(pal, { textContent: p.toUpperCase() }, tt).fromTo(pal, { scale: 1.25 }, { scale: 1, duration: .12, ease: "back.out(3)", immediateRender: false }, tt); }); });
 tl.set(pal, { textContent: "" }, FIM - .4);
+// gancho inteiro legível desde o 1º quadro, sai quando começa a 2ª frase
+document.getElementById("gancho").textContent = F[0].texto.toUpperCase();
+tl.to("#gancho", { opacity: 0, y: -40, duration: .25 }, ini[1] || FIM);
 const tPlaca = primeira("placa");
 if (tPlaca !== null) tl.fromTo("#placa", { opacity: 0, y: -200 }, { opacity: 1, y: 0, duration: .45, ease: "bounce.out" }, tPlaca + .1).to("#placa", { opacity: 0, duration: .15 }, (ini[CEN.findIndex((c) => c.tipo === "placa") + 1] || FIM));
 const PAL = ROT.palavra, e = { n: 0 }, fc = F[F.length - 1];
