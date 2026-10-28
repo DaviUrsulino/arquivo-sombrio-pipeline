@@ -13,13 +13,14 @@ Uso:
 import argparse
 import json
 import os
+import re
 from datetime import date, timedelta
 from pathlib import Path
 
 from dotenv import load_dotenv
 
-from . import concorrentes, github_dados, lista, montagem, roteirista, selecao
-from .historico import contar_pautas, registrar
+from . import assunto_quente, concorrentes, github_dados, lista, montagem, roteirista, selecao
+from .historico import contar_pautas, inedito, registrar
 
 RAIZ = Path(__file__).resolve().parents[2]
 
@@ -109,6 +110,28 @@ def gastar_foco(arquivo: Path = FOCO):
     arquivo.write_text(json.dumps(foco, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
+def quentes_ineditos(limite: int = 6, minimo_estrelas: int = 100, fonte=assunto_quente.do_dia) -> list:
+    """Repositórios que estão bombando hoje (GitHub Trending, Hacker News, GitHub novos) e ainda não viraram post,
+    do mais quente pro menos. Qualquer falha devolve [] e o pipeline segue com a busca normal."""
+    try:
+        nomes = inedito(fonte())[: limite * 2]
+    except Exception as erro:
+        print(f"assunto quente indisponível ({str(erro)[:120]})")
+        return []
+    dados = []
+    for nome in nomes:
+        try:
+            d = github_dados.buscar(nome)
+        except Exception:
+            continue
+        # repositório só em chinês/japonês/coreano não serve pro público brasileiro (README ilegível pra ele)
+        if d.estrelas >= minimo_estrelas and not re.search(r"[\u3040-\u30ff\u4e00-\u9fff\uac00-\ud7af]", d.descricao):
+            dados.append(d)
+        if len(dados) == limite:
+            break
+    return dados
+
+
 def pauta_pixel2(buscas: list[str], palavra_chave: str, dias_novidade: int = 120, llm=None,
                  minimo_estrelas: int = 300, repo: str | None = None) -> dict | None:
     """Notícia de ferramenta: um repositório novo e inédito, roteiro escrito pelo LLM a partir do README.
@@ -121,8 +144,9 @@ def pauta_pixel2(buscas: list[str], palavra_chave: str, dias_novidade: int = 120
     if repo:  # repositório pedido de propósito: vale mesmo que já tenha virado post
         escolhidos = [github_dados.buscar(repo)]
     else:
+        # o que está bombando hoje vem primeiro (é o que estoura); depois a busca por tema de sempre
         candidatos = _candidatos(buscas, minimo_estrelas=minimo_estrelas, criado_apos=desde) or _candidatos(buscas)
-        escolhidos = selecao.escolher_repos(candidatos, quantidade=5)
+        escolhidos = quentes_ineditos(limite=3) + selecao.escolher_repos(candidatos, quantidade=5)
     for dados in escolhidos:
         try:
             readme = roteirista.buscar_readme(dados.repo)
@@ -141,7 +165,9 @@ def pauta_lista(buscas: list[str], palavra_chave: str, dias_novidade: int = 120,
     icones = {p.stem for p in (montagem.MODELOS / "assets" / "icons").glob("*.svg")}
     candidatos = _candidatos(buscas, minimo_estrelas=minimo_estrelas, criado_apos=desde) or _candidatos(buscas)
     readmes, escolhidos = {}, []
-    for dados in selecao.escolher_repos(candidatos, quantidade=12):
+    quentes = quentes_ineditos(limite=2)  # até 2 dos 4-5 itens da lista são assunto do dia
+    ja = {d.repo for d in quentes}
+    for dados in quentes + [d for d in selecao.escolher_repos(candidatos, quantidade=12) if d.repo not in ja]:
         try:
             readme = roteirista.buscar_readme(dados.repo)
         except Exception:
