@@ -1,0 +1,38 @@
+name: Estudo semanal de animação
+
+# Toda segunda 09:00 (Brasília): puxa os Reels dos perfis de referência, escolhe os que mais renderam e
+# salva folhas quadro a quadro + relatório em referencias/estudos/. Ver src/estudio_instagram/estudo_animacao.py.
+on:
+  schedule:
+    - cron: '0 12 * * 1'
+  workflow_dispatch: {}
+
+jobs:
+  estudo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Instala ffmpeg e dependências
+        run: |
+          sudo apt-get update || true
+          sudo apt-get install -y ffmpeg
+          pip install "python-dotenv>=1.0.0"
+      - name: Escreve o token do Apify no .env
+        env:
+          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+        run: printf 'APIFY_TOKEN=%s\n' "$APIFY_TOKEN" > .env
+      - name: Faz o estudo
+        run: python -m src.estudio_instagram.estudo_animacao
+      - name: Salva o estudo no repositório
+        run: |
+          git config user.name "estudio-automatico (bot)"
+          git config user.email "actions@github.com"
+          git add referencias/estudos
+          git commit -m "chore: estudo semanal de animação [skip ci]" || exit 0
+          git pull --rebase && git push
