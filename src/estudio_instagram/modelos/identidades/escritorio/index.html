@@ -125,7 +125,8 @@ const CENA = {
   cracha: (c, i) => `<div class="papel"><div style="font-size:24px;color:#8a7a7a">CRACHÁ // FUNCIONÁRIO 01</div><div class="r">${esc(R.repo.nome)}</div>
     <div class="s">${esc((R.repo.descricao || "").slice(0, 110))}</div><div class="est">★ <span class="n">0</span> estrelas</div></div>
     <div class="selo" style="left:560px;top:980px">GRÁTIS</div>` + max(i),
-  comenta: (c, i) => `<div class="comp" style="top:620px"><div class="q"></div><span class="tx"></span><span class="bt">PUBLICAR</span></div>`
+  comenta: (c, i) => `<div class="comp" style="top:470px"><div class="q" style="background:var(--v)"></div><b>ursulino.ia</b><span class="bt seg">SEGUIR</span></div>`
+    + `<div class="comp" style="top:620px"><div class="q"></div><span class="tx"></span><span class="bt pub">PUBLICAR</span></div>`
     + jan("DIRECT // NOVA MENSAGEM", `<div class="chat"><b style="color:var(--v)">@ursulino.ia</b><br>Te mandei o link e o passo a passo →</div>`, "left:110px;top:800px;width:860px").replace('class="jan"', 'class="jan dm"')
     + `<div class="cursor" style="left:860px;top:700px"></div>` + fig("close", "left:260px;top:1250px", "#e8314f", "bone", "cel"),
 };
@@ -173,7 +174,10 @@ F.forEach((f, i) => {
   if (tipo === "comenta") {
     const t = { n: 0 }, P = R.palavra;
     tl.to(t, { n: P.length, duration: .7, ease: "none", onUpdate: () => $(".tx", c).textContent = P.slice(0, Math.round(t.n)) }, f.t + .3)
-      .to($(".bt", c), { scale: .85, yoyo: true, repeat: 1, duration: .08 }, f.t + 1.15)
+      .to($(".pub", c), { scale: .85, yoyo: true, repeat: 1, duration: .08 }, f.t + 1.15)
+      // e segue: o botão vira SEGUINDO (o pedido de seguir aparece na tela, não só na fala)
+      .to($(".seg", c), { scale: .85, yoyo: true, repeat: 1, duration: .08 }, f.t + 1.9)
+      .set($(".seg", c), { textContent: "SEGUINDO ✓", backgroundColor: "#2a1a1c" }, f.t + 2.0)
       .fromTo($(".dm", c), { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: .35, ease: "back.out(2)" }, f.t + 1.4);
   }
 });

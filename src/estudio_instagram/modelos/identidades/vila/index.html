@@ -25,6 +25,9 @@
   #placa small { display: block; font: 40px "PixB"; color: #c27a00; text-align: center; margin-top: 8px; }
   #gancho { position: absolute; left: 70px; right: 70px; top: 230px; padding: 26px 30px; background: #fffbe9; border: 8px solid #2a1a08; text-align: center;
     font: 58px/1.2 "PixB"; color: #2a1a08; box-shadow: 0 16px 0 rgba(0,0,0,.3); }
+  #seg { position: absolute; left: 90px; right: 90px; top: 220px; padding: 20px 30px; background: #fff; border: 6px solid #2a1a08; display: flex; align-items: center;
+    font: 44px "PixB"; color: #2a1a08; opacity: 0; box-shadow: 0 14px 0 rgba(0,0,0,.3); }
+  #seg .bt { margin-left: auto; padding: 10px 18px; background: #3d8bff; color: #fff; font-size: 30px; }
   #com { position: absolute; left: 90px; right: 90px; top: 360px; padding: 26px 30px; background: #fff; border: 6px solid #2a1a08; display: flex; align-items: center; gap: 20px;
     font: 52px "PixB"; color: #2a1a08; opacity: 0; box-shadow: 0 14px 0 rgba(0,0,0,.3); }
   #com .bt { margin-left: auto; padding: 10px 18px; background: #3d8bff; color: #fff; font-size: 30px; }
@@ -37,6 +40,7 @@
   <div class="hud" style="right:40px;top:60px"><span id="rot">FEITOS</span> <b id="dub">0</b></div>
   <div class="hud" style="right:40px;top:122px">PÚBLICO <b id="pub">0</b></div>
   <div id="placa" class="clip" data-start="0" data-duration="__DURACAO__" data-track-index="2"><span id="placa-nome"></span><small id="placa-est"></small></div>
+  <div id="seg" class="clip" data-start="0" data-duration="__DURACAO__" data-track-index="2">URSULINO.IA<span class="bt" id="segbt">SEGUIR</span></div>
   <div id="com" class="clip" data-start="0" data-duration="__DURACAO__" data-track-index="2"><span id="tx"></span><span class="bt">PUBLICAR</span></div>
   <div id="gancho" class="clip" data-start="0" data-duration="__DURACAO__" data-track-index="2"></div>
   <div id="pal" class="clip" data-start="0" data-duration="__DURACAO__" data-track-index="3"></div>
@@ -231,6 +235,8 @@ tl.to("#gancho", { opacity: 0, y: -40, duration: .25 }, ini[1] || FIM);
 const tPlaca = primeira("placa");
 if (tPlaca !== null) tl.fromTo("#placa", { opacity: 0, y: -200 }, { opacity: 1, y: 0, duration: .45, ease: "bounce.out" }, tPlaca + .1).to("#placa", { opacity: 0, duration: .15 }, (ini[CEN.findIndex((c) => c.tipo === "placa") + 1] || FIM));
 const PAL = ROT.palavra, e = { n: 0 }, fc = F[F.length - 1];
+tl.to("#seg", { opacity: 1, duration: .2 }, fc.t).to("#segbt", { scale: .85, yoyo: true, repeat: 1, duration: .08 }, fc.t + 1.6)
+  .set("#segbt", { textContent: "SEGUINDO ✓", backgroundColor: "#2a1a08" }, fc.t + 1.7);
 tl.to("#com", { opacity: 1, duration: .2 }, fc.t).to(e, { n: PAL.length, duration: .8, ease: "none", onUpdate: () => document.getElementById("tx").textContent = PAL.slice(0, Math.round(e.n)) }, fc.t + .2);
 const est = { t: 0 }; tl.to(est, { t: FIM, duration: FIM, ease: "none", onUpdate: () => desenhar(est.t) }, 0);
 desenhar(0);

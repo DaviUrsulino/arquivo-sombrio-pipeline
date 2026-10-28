@@ -20,7 +20,7 @@ ORDINAIS = ["Primeiro", "Segundo", "Terceiro", "Quarto", "Quinto"]
 CORES_ITENS = ["azul", "verde", "laranja", "roxo", "amarelo"]
 LETRAS_MAX_LINHA = 14
 
-SISTEMA = """Você é roteirista de Reels CURTOS (25 a 35 segundos) do perfil brasileiro @ursulino.ia, sobre ferramentas de IA para quem programa. Formato LISTA: 5 repositórios do GitHub num mesmo vídeo.
+SISTEMA = """Você é roteirista de Reels CURTOS (25 a 35 segundos) do perfil brasileiro @ursulino.ia, sobre ferramentas de IA para quem cria conteúdo, quem programa e quem nunca programou mas quer começar (com o Claude, qualquer um programa). Tema e frases em linguagem que um leigo entende, focando no que facilita a vida. Formato LISTA: 5 repositórios do GitHub num mesmo vídeo.
 
 Você recebe 5 repositórios com DADOS REAIS e o início do README. REGRAS DE FATO (inegociáveis):
 - Use SOMENTE o que está no README ou nos dados. Nada de número, benchmark, comparação, preço ou capacidade que o README não diga.

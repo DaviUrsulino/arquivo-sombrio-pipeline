@@ -33,6 +33,8 @@ REGRAS = """REGRAS GERAIS (valem para toda identidade):
 - Vídeo curto (~20 s), como o Reel de 54 mil views do perfil: gancho -> o que a ferramenta faz de concreto (2 frases)
   -> prova (estrelas, empresa, número real do README) -> grátis/código aberto se for verdade.
 - Use só fatos do README e dos dados. Não invente número, empresa nem recurso.
+- Público: quem cria conteúdo, quem programa e quem nunca programou (com o Claude qualquer um programa). Mostre como a
+  ferramenta facilita a vida dessa pessoa.
 - Fale com quem NÃO é programador: nada de jargão (DOM, XPath, seletor, SDK) nas telas nem nas falas.
 - titulo_b com no máximo 12 letras.
 - Títulos falam do conteúdo (ex.: NÃO COBRA / SALÁRIO), nunca rótulos de roteiro como PROVA SOCIAL, GANCHO, CTA.
