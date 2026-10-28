@@ -60,7 +60,7 @@ jobs:
         run: |
           sudo apt-get update || true
           sudo apt-get install -y ffmpeg
-          pip install "python-dotenv>=1.0.0" edge-tts
+          pip install "python-dotenv>=1.0.0" edge-tts numpy
 
       - name: Escreve os segredos no .env
         env:

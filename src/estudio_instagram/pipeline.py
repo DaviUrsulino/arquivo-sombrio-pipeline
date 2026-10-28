@@ -17,7 +17,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from . import cenas_pixel, github_dados, guia_dm, hospedagem, montagem, pauta, pausa, render
+from . import cenas_pixel, github_dados, guia_dm, identidade, hospedagem, montagem, pauta, pausa, render
 from .graph_api import InstagramGraph
 from .roteirista import buscar_readme
 from .voz import ComReserva, EdgeTTS, ElevenLabs, GeminiTTS
@@ -46,6 +46,12 @@ MOLDES_ESTUDIO = [
     "estudio-vidro.html.tpl",    # @igao.ia: interface de app em vidro escuro
     "estudio-voxel.html.tpl",    # @macelista: letreiro neon, fita crepe, mascote voxel 3D
 ]  # escuro e neon foram reprovados pelo Davi (2026-10-26)
+
+
+def identidade_do(titulo: str) -> str:
+    """Identidade do vídeo de uma ferramenta, em rodízio pelo título (escritório, vila 3D, ...)."""
+    nomes = identidade.identidades()
+    return nomes[sum(ord(c) for c in titulo) % len(nomes)]
 
 
 def molde_estudio(titulo: str) -> str:
@@ -120,7 +126,7 @@ def _registrar_estilo(media_id: str, molde: str):
     """Guarda qual identidade visual saiu em cada post, pro analista comparar os estilos."""
     arquivo = RAIZ / "pautas" / "estilo_por_post.json"
     atual = json.loads(arquivo.read_text(encoding="utf-8")) if arquivo.exists() else {}
-    atual[media_id] = molde.removeprefix("estudio-").removesuffix(".html.tpl")
+    atual[media_id] = molde.removeprefix("estudio-").removeprefix("ident-").removesuffix(".html.tpl")
     arquivo.write_text(json.dumps(atual, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
@@ -151,7 +157,16 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
     if formato == "pixel2" and os.getenv("MOLDE_PIXEL2") != "1":
         # a pauta pode fixar o estilo (ex.: vídeo de venda sempre no estilo mais vistoso)
         modelo_reels = dados_pauta.get("molde") or molde_estudio(dados_pauta.get("titulo", ""))
-    duracao = montagem.montar_reels(dados_pauta, repos, voz, trabalho / "reels", modelo=modelo_reels)
+    if formato == "pixel2" and len(repos) == 1 and not dados_pauta.get("molde") and os.getenv("MOLDE_PIXEL2") != "1":
+        # vídeo de uma ferramenta: identidade com acervo de cenas (cada vídeo monta cenas próprias do assunto)
+        modelo_reels = "ident-" + identidade_do(dados_pauta.get("titulo", ""))
+        dados = next(iter(repos.values()))
+        cenas_pauta = dados_pauta.get("cenas") or [{}]
+        plano = identidade.planejar(modelo_reels.removeprefix("ident-"), dados, buscar_readme(dados.repo),
+                                    cenas_pauta[0].get("narracao") or dados.descricao, dados_pauta["palavra_chave"])
+        duracao = identidade.montar(modelo_reels.removeprefix("ident-"), plano, voz, trabalho / "reels")
+    else:
+        duracao = montagem.montar_reels(dados_pauta, repos, voz, trabalho / "reels", modelo=modelo_reels)
     if modelo_reels.startswith("estudio-") and repos:
         # o molde tier mostra o print real do repositório; os outros ignoram o arquivo
         try:

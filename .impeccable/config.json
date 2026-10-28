@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          "src/estudio_instagram/modelos/identidades/escritorio/index.html"
+        ],
+        "createdAt": "2026-10-28T02:15:44.213Z",
+        "reason": "Claude: neon title glow copies the @omagodoalgoritmo reference that Davi asked to match; he approved escritorio v2 visuals"
+      }
+    ]
+  }
+}

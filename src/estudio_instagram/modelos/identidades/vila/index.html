@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>Vila 3D</title>
+<script src="assets/three.min.js"></script>
+<script src="assets/gsap.min.js"></script>
+<script src="assets/falas.js"></script>
+<script src="assets/roteiro.js"></script>
+<style>
+  @font-face { font-family: "PixB"; src: url("assets/Silkscreen-Bold.ttf"); }
+  @font-face { font-family: "Mono"; src: url("assets/JetBrainsMono.ttf"); font-weight: 100 900; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #8fc7ee; }
+  #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
+  #gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+  /* legenda: uma palavra por vez, amarela com contorno escuro, como letreiro de jogo */
+  #pal { position: absolute; left: 0; right: 0; top: 1250px; text-align: center; font: 112px "PixB"; color: #ffd23f; letter-spacing: 2px;
+    -webkit-text-stroke: 10px #2a1a08; paint-order: stroke fill; text-shadow: 0 10px 0 rgba(0,0,0,.35); }
+  .hud { position: absolute; padding: 10px 18px; background: rgba(20,24,32,.82); color: #fff; font: 28px "PixB"; border: 3px solid rgba(255,255,255,.25); }
+  .hud b { color: #ffd23f; font-weight: normal; }
+  #placa { position: absolute; left: 50%; top: 330px; transform: translateX(-50%); padding: 22px 36px; background: #fffbe9; border: 8px solid #3a2a10;
+    font: 64px "PixB"; color: #2a1a08; white-space: nowrap; opacity: 0; box-shadow: 0 16px 0 rgba(0,0,0,.3); }
+  #placa small { display: block; font: 40px "PixB"; color: #c27a00; text-align: center; margin-top: 8px; }
+  #com { position: absolute; left: 90px; right: 90px; top: 360px; padding: 26px 30px; background: #fff; border: 6px solid #2a1a08; display: flex; align-items: center; gap: 20px;
+    font: 52px "PixB"; color: #2a1a08; opacity: 0; box-shadow: 0 14px 0 rgba(0,0,0,.3); }
+  #com .bt { margin-left: auto; padding: 10px 18px; background: #3d8bff; color: #fff; font-size: 30px; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="__DURACAO__">
+  <canvas id="gl" class="clip" width="1080" height="1920" data-start="0" data-duration="__DURACAO__" data-track-index="0"></canvas>
+  <div class="hud" style="left:40px;top:60px">DIA <b>1</b>/1</div>
+  <div class="hud" style="right:40px;top:60px"><span id="rot">FEITOS</span> <b id="dub">0</b></div>
+  <div class="hud" style="right:40px;top:122px">PÚBLICO <b id="pub">0</b></div>
+  <div id="placa" class="clip" data-start="0" data-duration="__DURACAO__" data-track-index="2"><span id="placa-nome"></span><small id="placa-est"></small></div>
+  <div id="com" class="clip" data-start="0" data-duration="__DURACAO__" data-track-index="2"><span id="tx"></span><span class="bt">PUBLICAR</span></div>
+  <div id="pal" class="clip" data-start="0" data-duration="__DURACAO__" data-track-index="3"></div>
+  <audio src="assets/voz.wav" data-start="0" data-duration="__DURACAO__" data-track-index="9" data-volume="1"></audio>
+  <audio src="assets/lofi.wav" data-start="0" data-duration="__DURACAO__" data-track-index="8" data-volume="0.15"></audio>
+</div>
+<script>
+// Identidade "vila 3D": um mundo low-poly estilo jogo (vila, montanhas, aldeões) onde o Robô Estagiário resolve a
+// tarefa do vídeo. Cada frase tem um plano de câmera diferente; legenda de uma palavra por vez e placar de jogo.
+// O roteiro (window.ROT) define prédio, placar, objeto e o que o telão mostra em cada frase; a semente muda
+// casas, árvores e a luz do dia. Tudo é função do tempo t (desenhar(t)), então qualquer quadro renderiza igual.
+const E = window.ESQ, F = E.falas, FIM = E.duracao, W = 1080, H = 1920;
+const r = new THREE.WebGLRenderer({ canvas: document.getElementById("gl"), antialias: true, preserveDrawingBuffer: true });
+r.setSize(W, H, false); r.shadowMap.enabled = true; r.shadowMap.type = THREE.PCFSoftShadowMap;
+const cena = new THREE.Scene(); cena.background = new THREE.Color("#8fc7ee"); cena.fog = new THREE.Fog("#a9d6f2", 60, 160);
+const cam = new THREE.PerspectiveCamera(45, W / H, .1, 400);
+cena.add(new THREE.HemisphereLight("#dff1ff", "#5b7a3a", .75));
+const sol = new THREE.DirectionalLight("#fff4dc", 1.05); sol.position.set(30, 50, 20); sol.castShadow = true;
+sol.shadow.mapSize.set(2048, 2048); Object.assign(sol.shadow.camera, { left: -40, right: 40, top: 40, bottom: -40, far: 150 }); cena.add(sol);
+
+const mat = (c) => new THREE.MeshLambertMaterial({ color: c, flatShading: true });
+const malha = (geo, c, x = 0, y = 0, z = 0, pai = cena) => { const m = new THREE.Mesh(geo, mat(c)); m.position.set(x, y, z); m.castShadow = m.receiveShadow = true; pai.add(m); return m; };
+let semente = (window.ROT && window.ROT.semente) || 7; const rnd = () => (semente = (semente * 16807) % 2147483647) / 2147483647;
+
+// chão com relevo leve, praça de terra no meio
+const gChao = new THREE.PlaneGeometry(260, 260, 60, 60); gChao.rotateX(-Math.PI / 2);
+const pos = gChao.attributes.position, cores = [];
+for (let i = 0; i < pos.count; i++) {
+  const x = pos.getX(i), z = pos.getZ(i), d = Math.hypot(x, z - 4);
+  pos.setY(i, d > 30 ? Math.sin(x * .15) * Math.cos(z * .12) * 1.2 : 0);
+  const terra = d < 13 || (Math.abs(x) < 2.6 && z > 0);
+  const c = new THREE.Color(terra ? "#c89a5c" : (rnd() > .5 ? "#6fae3e" : "#64a338")); cores.push(c.r, c.g, c.b);
+}
+gChao.setAttribute("color", new THREE.Float32BufferAttribute(cores, 3)); gChao.computeVertexNormals();
+const chao = new THREE.Mesh(gChao, new THREE.MeshLambertMaterial({ vertexColors: true, flatShading: true })); chao.receiveShadow = true; cena.add(chao);
+// montanhas ao fundo
+for (let i = 0; i < 14; i++) { const a = Math.PI * (.15 + .7 * i / 13) + Math.PI, R = 110 + rnd() * 20, h = 30 + rnd() * 30;
+  const m = malha(new THREE.ConeGeometry(18 + rnd() * 10, h, 5), i % 2 ? "#8e98a6" : "#7f8a99", Math.cos(a) * R, h / 2 - 2, Math.sin(a) * R - 20);
+  malha(new THREE.ConeGeometry(6, 8, 5), "#f4f6f8", 0, h / 2 - 4, 0, m); }
+// árvores
+const arvore = (x, z, s = 1) => { malha(new THREE.CylinderGeometry(.3 * s, .4 * s, 2 * s, 5), "#6b4423", x, s, z);
+  malha(new THREE.ConeGeometry(1.6 * s, 3.6 * s, 6), "#2f7a3b", x, 3.4 * s, z); malha(new THREE.ConeGeometry(1.2 * s, 2.6 * s, 6), "#3a8f46", x, 4.8 * s, z); };
+for (let i = 0; i < 70; i++) { const a = rnd() * Math.PI * 2, R = 20 + rnd() * 50; const x = Math.cos(a) * R, z = Math.sin(a) * R; if (Math.abs(x) > 4 || z < 0) arvore(x, z, .8 + rnd() * .6); }
+// casas com telhado colorido
+const casa = (x, z, rot, telha) => { const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = rot; cena.add(g);
+  malha(new THREE.BoxGeometry(5, 3.6, 4.4), "#efe3c8", 0, 1.8, 0, g);
+  const tel = malha(new THREE.CylinderGeometry(0, 3.9, 2.4, 4, 1), telha, 0, 4.8, 0, g); tel.rotation.y = Math.PI / 4; tel.scale.set(1, 1, .82);
+  malha(new THREE.BoxGeometry(1.1, 2, .2), "#6b4423", 0, 1, 2.25, g); malha(new THREE.BoxGeometry(.9, .9, .2), "#9cd1f0", 1.6, 2.2, 2.25, g); malha(new THREE.BoxGeometry(.9, .9, .2), "#9cd1f0", -1.6, 2.2, 2.25, g); };
+[[-17, 4, .9, "#e2683c"], [17, 6, -.9, "#3f7fd1"], [-14, -9, .5, "#3fa35a"], [14, -10, -.5, "#e2683c"], [-22, 16, 1.3, "#3f7fd1"], [21, 18, -1.2, "#3fa35a"], [-8, 22, 3, "#e2683c"]]
+  .forEach(([x, z, r, c]) => casa(x, z, r, c));
+
+// cinema: prédio com telão (textura de canvas redesenhada por quadro)
+const cine = new THREE.Group(); cine.position.set(0, 0, -6); cena.add(cine);
+malha(new THREE.BoxGeometry(16, 11, 4), "#7a4b8c", 0, 5.5, -1, cine); malha(new THREE.BoxGeometry(17, .8, 5), "#4f2d5c", 0, 11.2, -1, cine);
+const tc = document.createElement("canvas"); tc.width = 640; tc.height = 400; const tx = tc.getContext("2d");
+const texTela = new THREE.CanvasTexture(tc);
+const tela = new THREE.Mesh(new THREE.PlaneGeometry(13, 8.1), new THREE.MeshBasicMaterial({ map: texTela })); tela.position.set(0, 5.6, 1.05); cine.add(tela);
+for (let i = 0; i < 8; i++) malha(new THREE.SphereGeometry(.22, 6, 4), "#ffd23f", -7 + i * 2, 10.4, 1.2, cine);
+const letreiro = document.createElement("canvas"); letreiro.width = 512; letreiro.height = 96; const lt = letreiro.getContext("2d");
+lt.fillStyle = "#2a1a08"; lt.fillRect(0, 0, 512, 96); lt.fillStyle = "#ffd23f"; lt.font = "60px PixB"; lt.textAlign = "center"; lt.fillText(window.ROT.predio || "CINEMA IA", 256, 70);
+const texLet = new THREE.CanvasTexture(letreiro);
+const placaCine = new THREE.Mesh(new THREE.PlaneGeometry(8, 1.5), new THREE.MeshBasicMaterial({ map: texLet })); placaCine.position.set(0, 12.6, 1.4); cine.add(placaCine);
+
+// personagens
+const aldeao = (x, z, camisa, chapeu) => { const g = new THREE.Group(); g.position.set(x, 0, z); cena.add(g);
+  malha(new THREE.BoxGeometry(.5, 1.2, .5), "#3b3b5c", -.3, .6, 0, g); malha(new THREE.BoxGeometry(.5, 1.2, .5), "#3b3b5c", .3, .6, 0, g);
+  malha(new THREE.BoxGeometry(1.4, 1.6, .8), camisa, 0, 2, 0, g); malha(new THREE.BoxGeometry(.9, .9, .9), "#e9b48a", 0, 3.3, 0, g);
+  malha(new THREE.CylinderGeometry(.8, .8, .15, 8), chapeu, 0, 3.8, 0, g); malha(new THREE.CylinderGeometry(.45, .5, .5, 8), chapeu, 0, 4.05, 0, g);
+  g.userData.base = { x, z }; return g; };
+const CAMISAS = ["#c0392b", "#2e86de", "#27ae60", "#d35400", "#8e44ad", "#16a085"], CHAPEUS = ["#6b4423", "#e2683c", "#3f7fd1", "#2a2a2a"];
+const plateia = [];
+for (let i = 0; i < 40; i++) { const fila = Math.floor(i / 8), col = i % 8; const x = (col - 3.5) * 2.2 + (fila % 2) * 1.1, z = 6 + fila * 2.4;
+  const a = aldeao(x, z, CAMISAS[i % 6], CHAPEUS[i % 4]); a.rotation.y = Math.PI; a.userData.chega = 0.2 + rnd() * 1.4; a.userData.ang = rnd() * 6.28; plateia.push(a); }
+
+// Robô Estagiário em 3D: cabeça de tela com olhos, antena, corpo coral
+const robo = new THREE.Group(); cena.add(robo);
+malha(new THREE.BoxGeometry(1.8, 2, 1.2), "#e0765a", 0, 1.9, 0, robo);
+const cabeca = new THREE.Group(); cabeca.position.y = 4; robo.add(cabeca);
+malha(new THREE.BoxGeometry(2.4, 1.9, 1.7), "#f4efe6", 0, 0, 0, cabeca); malha(new THREE.BoxGeometry(2, 1.4, .1), "#1f2a33", 0, 0, .86, cabeca);
+const olhoE = malha(new THREE.BoxGeometry(.38, .5, .05), "#4ff0a0", -.45, .05, .93, cabeca), olhoD = malha(new THREE.BoxGeometry(.38, .5, .05), "#4ff0a0", .45, .05, .93, cabeca);
+olhoE.material = olhoD.material = new THREE.MeshBasicMaterial({ color: "#4ff0a0" });
+malha(new THREE.CylinderGeometry(.06, .06, .8, 5), "#9aa0a6", 0, 1.3, 0, cabeca); const luz = malha(new THREE.SphereGeometry(.2, 8, 6), "#ff5a5a", 0, 1.75, 0, cabeca);
+const pernaE = malha(new THREE.BoxGeometry(.5, 1, .5), "#3a3f47", -.45, .5, 0, robo), pernaD = malha(new THREE.BoxGeometry(.5, 1, .5), "#3a3f47", .45, .5, 0, robo);
+const bracoE = new THREE.Group(), bracoD = new THREE.Group(); bracoE.position.set(-1.15, 2.7, 0); bracoD.position.set(1.15, 2.7, 0); robo.add(bracoE, bracoD);
+malha(new THREE.BoxGeometry(.4, 1.5, .4), "#e0765a", 0, -.7, 0, bracoE); malha(new THREE.BoxGeometry(.4, 1.5, .4), "#e0765a", 0, -.7, 0, bracoD);
+// rolo de filme que ele entrega (cena 1) e notebook (cena 6)
+const OBJ = { rolo: () => { const m = malha(new THREE.CylinderGeometry(.7, .7, .3, 12), "#2a2a2a", 0, -1.5, .4, bracoD); m.rotation.x = Math.PI / 2; return m; },
+  caixa: () => malha(new THREE.BoxGeometry(1.2, 1, 1), "#c48a3a", 0, -1.6, .4, bracoD),
+  pasta: () => malha(new THREE.BoxGeometry(1.3, 1, .25), "#f2c14e", 0, -1.6, .4, bracoD) };
+const rolo = (OBJ[window.ROT.objeto] || OBJ.caixa)();
+const note = new THREE.Group(); note.position.set(0, 2.4, 1.2); robo.add(note);
+malha(new THREE.BoxGeometry(1.8, .1, 1.2), "#bfc5cc", 0, 0, 0, note); const notTela = malha(new THREE.BoxGeometry(1.8, 1.2, .08), "#2b3440", 0, .6, -.6, note);
+// moedas que caem (cena 6) e o letreiro gigante (cena 5) ficam no HTML; aqui só o brilho de festa
+const confete = []; for (let i = 0; i < 60; i++) confete.push(malha(new THREE.BoxGeometry(.3, .3, .05), ["#ffd23f", "#e2683c", "#3f7fd1", "#3fa35a"][i % 4], 0, -10, 0));
+
+
+// ---- roteiro: telão, câmera e posição do robô vêm do tipo de cada cena ----
+const ROT = window.ROT, CEN = ROT.cenas;
+const ini = F.map((f, i) => i === 0 ? 0 : f.t - .1);
+const suave = (x) => x * x * (3 - 2 * x);
+const tipo = (i) => (CEN[i] || {}).tipo;
+const primeira = (t) => { const k = CEN.findIndex((c) => c.tipo === t); return k < 0 ? null : ini[k]; };
+const T_PLATEIA = primeira("plateia") ?? primeira("placa") ?? primeira("notebook") ?? FIM;
+const T_RESULT = primeira("resultado") ?? primeira("plateia") ?? FIM;
+const PALETA = semente % 3 === 0 ? ["#f4b183", "#f7d1a8", "#ffd9a8"] : ["#8fc7ee", "#a9d6f2", "#fff4dc"]; // fim de tarde ou dia
+cena.background = new THREE.Color(PALETA[0]); cena.fog.color = new THREE.Color(PALETA[1]); sol.color = new THREE.Color(PALETA[2]);
+document.getElementById("rot").textContent = (ROT.contador || "FEITOS").toUpperCase().slice(0, 10);
+document.getElementById("placa-nome").textContent = ROT.repo.nome.split("/")[1].toUpperCase();
+document.getElementById("placa-est").textContent = "★ " + (ROT.repo.estrelas >= 1000 ? (ROT.repo.estrelas / 1000).toLocaleString("pt-BR", { maximumFractionDigits: 1 }) + " MIL" : ROT.repo.estrelas) + " ESTRELAS";
+
+function telaDe(i) { for (let k = i; k >= 0; k--) if (CEN[k] && CEN[k].tela && Object.keys(CEN[k].tela).length) return CEN[k].tela; return { titulo: "", texto: "" }; }
+function quebra(txt, max) { const ps = String(txt || "").toUpperCase().split(" "), ls = [""]; ps.forEach((p) => { if ((ls[ls.length - 1] + " " + p).trim().length > max) ls.push(p); else ls[ls.length - 1] = (ls[ls.length - 1] + " " + p).trim(); }); return ls.slice(0, 3); }
+function pintarTela(t, i) {
+  const tela = telaDe(i), lt = t - ini[i];
+  const g = tx.createLinearGradient(0, 0, 0, 400); g.addColorStop(0, "#2b3a67"); g.addColorStop(1, "#141b33"); tx.fillStyle = g; tx.fillRect(0, 0, 640, 400);
+  for (let y = 0; y < 400; y += 6) { tx.fillStyle = "rgba(255,255,255,.03)"; tx.fillRect(0, y, 640, 2); }
+  tx.textAlign = "center";
+  if (tela.passos) {
+    const k = Math.min(tela.passos.length, Math.floor(lt / .7) + 1);
+    tela.passos.slice(0, 3).forEach((s, n) => { const on = n < k, y = 70 + n * 105;
+      tx.fillStyle = on ? "#ffd23f" : "rgba(255,255,255,.18)"; tx.fillRect(80, y, 480, 80);
+      tx.fillStyle = on ? "#2a1a08" : "rgba(255,255,255,.5)"; tx.font = "36px PixB"; tx.fillText(`${n + 1}. ${String(s).toUpperCase().slice(0, 14)}`, 320, y + 52); });
+  } else {
+    const verde = (tela.titulo || "").toUpperCase() !== "ANTES";
+    tx.fillStyle = verde ? "#2fb36b" : "#e2683c"; tx.fillRect(220, 40, 200, 56); tx.fillStyle = "#fff"; tx.font = "34px PixB"; tx.fillText((tela.titulo || "").toUpperCase().slice(0, 9), 320, 80);
+    const ls = quebra(tela.texto, 14), vis = Math.min(1, lt / .5);
+    tx.globalAlpha = vis; tx.fillStyle = "#fff"; tx.font = "50px PixB"; ls.forEach((l, n) => tx.fillText(l, 320, 180 + n * 70)); tx.globalAlpha = 1;
+    if (Math.floor(t * 2) % 2) { tx.fillStyle = "#ffd23f"; tx.fillRect(300, 360, 40, 8); }
+  }
+  texTela.needsUpdate = true;
+}
+
+const V = (x, y, z) => new THREE.Vector3(x, y, z);
+const PLANO = {
+  aerea: [V(0, 60, 70), V(0, 34, 46), V(0, 0, 0), V(0, 3, 0)],
+  entrega: [V(7, 9, 38), V(4, 7.5, 28), V(0, 3, 12), V(0, 4.5, 2)],
+  passos: [V(-9, 8, 19), V(-5, 7, 15.5), V(0, 5.5, -5), V(0, 5.6, -5)],
+  resultado: [V(0, 5.6, 13), V(0, 5.6, 10.5), V(0, 5.6, -5), V(0, 5.6, -5)],
+  plateia: [V(14, 18, 34), V(-12, 22, 30), V(0, 2, 10), V(0, 2, 8)],
+  placa: [V(0, 9, 38), V(0, 8, 31), V(0, 6, 0), V(0, 7, 0)],
+  notebook: [V(9, 7, 10), V(-9, 7, 10), V(0, 3.5, 1), V(0, 3.5, 1)],
+  comenta: [V(0, 7, 12), V(0, 6, 9), V(0, 4, 1), V(0, 4.2, 1)],
+};
+
+function desenhar(t) {
+  let i = 0; while (i + 1 < ini.length && t >= ini[i + 1]) i++;
+  const lt = t - ini[i], dur = (ini[i + 1] || FIM) - ini[i], k = suave(Math.min(1, lt / dur)), tp = tipo(i) || "comenta";
+  const [p0, p1, a0, a1] = PLANO[tp] || PLANO.resultado;
+  cam.position.lerpVectors(p0, p1, k); cam.lookAt(new THREE.Vector3().lerpVectors(a0, a1, k));
+
+  const andando = tp === "aerea" || tp === "entrega";
+  const fimAndar = (CEN.findIndex((c) => !["aerea", "entrega"].includes(c.tipo)) + 0) || 2;
+  let rx = 0, rz = 1;
+  if (andando) { const u = Math.min(1, t / Math.max(.1, ini[fimAndar] || 5)); rz = 22 - 16 * u; }
+  else if (["passos", "resultado", "plateia", "placa"].includes(tp)) { rx = 6.5; rz = 0; }
+  robo.position.set(rx, Math.abs(Math.sin(t * 9)) * (andando ? .25 : .06), rz);
+  robo.rotation.y = andando ? Math.PI : tp === "notebook" ? Math.sin(t * 2) * .2 : rx ? -.5 : 0;
+  const passo = andando ? Math.sin(t * 9) * .6 : 0;
+  pernaE.rotation.x = passo; pernaD.rotation.x = -passo; bracoE.rotation.x = tp === "notebook" ? -1.1 : -passo;
+  bracoD.rotation.x = tp === "entrega" ? -1.2 : tp === "notebook" ? -1.1 : passo;
+  bracoD.rotation.z = tp === "comenta" ? 2.4 + Math.sin(t * 10) * .4 : tp === "passos" ? .3 : 0;
+  rolo.visible = andando; note.visible = tp === "notebook";
+  cabeca.rotation.z = Math.sin(t * 2) * .05; luz.material.color.set(Math.floor(t * 3) % 2 ? "#ff5a5a" : "#ffb3b3");
+  olhoE.scale.y = olhoD.scale.y = (tp === "comenta" || tp === "plateia") ? .35 : (t % 2.8) < .1 ? .1 : 1;
+
+  const tpl = t - T_PLATEIA;
+  plateia.forEach((a, n) => { const u = Math.max(0, Math.min(1, (tpl - a.userData.chega * .6) / .8)), b = a.userData.base, fora = 30 + n % 5 * 3, ang = a.userData.ang;
+    a.visible = t > T_PLATEIA - .1;
+    a.position.set(b.x + Math.cos(ang) * fora * (1 - u), Math.abs(Math.sin(t * 8 + n)) * (u < 1 ? .3 : .12), b.z + Math.sin(ang) * fora * (1 - u) * .5); });
+  document.getElementById("pub").textContent = t < T_PLATEIA ? 0 : plateia.filter((a) => Math.abs(a.position.x - a.userData.base.x) < .3).length;
+  document.getElementById("dub").textContent = t < T_RESULT ? 0 : Math.min(99, 1 + Math.floor((t - T_RESULT) * 1.5));
+
+  const tc0 = primeira("notebook") ?? FIM;
+  confete.forEach((c, n) => { const tc = t - tc0; if (tc < 0) { c.position.y = -10; return; }
+    const ph = (tc * .5 + n / 60) % 1; c.position.set(Math.sin(n * 7.3) * 8, 14 - ph * 14, 3 + Math.cos(n * 3.1) * 5); c.rotation.set(t * 4 + n, t * 3, 0); });
+  pintarTela(t, i);
+  r.render(cena, cam);
+}
+
+const tl = gsap.timeline({ paused: true });
+const pal = document.getElementById("pal");
+F.forEach((f, i) => { const ps = f.texto.replace(/[.,:;!?]/g, "").split(" ");
+  ps.forEach((p, j) => { const tt = i === 0 && j === 0 ? 0 : f.t + f.d * j / ps.length;
+    tl.set(pal, { textContent: p.toUpperCase() }, tt).fromTo(pal, { scale: 1.25 }, { scale: 1, duration: .12, ease: "back.out(3)", immediateRender: false }, tt); }); });
+tl.set(pal, { textContent: "" }, FIM - .4);
+const tPlaca = primeira("placa");
+if (tPlaca !== null) tl.fromTo("#placa", { opacity: 0, y: -200 }, { opacity: 1, y: 0, duration: .45, ease: "bounce.out" }, tPlaca + .1).to("#placa", { opacity: 0, duration: .15 }, (ini[CEN.findIndex((c) => c.tipo === "placa") + 1] || FIM));
+const PAL = ROT.palavra, e = { n: 0 }, fc = F[F.length - 1];
+tl.to("#com", { opacity: 1, duration: .2 }, fc.t).to(e, { n: PAL.length, duration: .8, ease: "none", onUpdate: () => document.getElementById("tx").textContent = PAL.slice(0, Math.round(e.n)) }, fc.t + .2);
+const est = { t: 0 }; tl.to(est, { t: FIM, duration: FIM, ease: "none", onUpdate: () => desenhar(est.t) }, 0);
+desenhar(0);
+window.__timelines = window.__timelines || {}; window.__timelines["main"] = tl;
+window.addEventListener("hf-seek", (ev) => desenhar(ev.detail.time));
+</script>
+</body>
+</html>
