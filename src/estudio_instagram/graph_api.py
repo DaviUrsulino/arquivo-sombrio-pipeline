@@ -83,6 +83,13 @@ class InstagramGraph:
         publicado = self._pedir(f"{self.ig_user_id}/media_publish", {"creation_id": criado["id"]})
         return PostPublicado(publicado["id"])
 
+    def publicar_story(self, video_url: str) -> PostPublicado:
+        """Story de vídeo (9:16, até 60 s). A API não aceita figurinha de link nem enquete; só a mídia."""
+        criado = self._pedir(f"{self.ig_user_id}/media", {"media_type": "STORIES", "video_url": video_url})
+        self._esperar_pronto(criado["id"])
+        publicado = self._pedir(f"{self.ig_user_id}/media_publish", {"creation_id": criado["id"]})
+        return PostPublicado(publicado["id"])
+
     def publicar_carrossel(self, image_urls: list[str], legenda: str) -> PostPublicado:
         if not 2 <= len(image_urls) <= 10:
             raise ValueError(f"carrossel precisa de 2 a 10 imagens, recebeu {len(image_urls)}")

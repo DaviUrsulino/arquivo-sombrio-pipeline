@@ -17,7 +17,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from . import cenas_pixel, github_dados, guia_dm, identidade, hospedagem, montagem, pauta, pausa, render
+from . import cenas_pixel, github_dados, guia_dm, identidade, story, hospedagem, montagem, pauta, pausa, render
 from .graph_api import InstagramGraph
 from .roteirista import buscar_readme
 from .voz import ComReserva, EdgeTTS, ElevenLabs, GeminiTTS
@@ -224,6 +224,11 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
             registro["reels"]["media_id"] = reels_publicado.media_id
             _registrar_links(dados_pauta, repos, registro) if repos else None  # o Reels já saiu: o bot já pode responder
             _registrar_estilo(reels_publicado.media_id, modelo_reels)
+            try:  # Story avisando quem segue; se falhar, o Reels já saiu e segue a vida
+                arq_story = story.preparar(video, pasta_saida / "story.mp4")
+                registro["story_media_id"] = ig.publicar_story(hospedagem.publicar(arq_story, f"{nome_base}-story.mp4")).media_id
+            except Exception as erro:
+                print(f"story não saiu ({str(erro)[:160]})")
 
             if slides:
                 time.sleep(ESPERA_ENTRE_REELS_E_CARROSSEL_S)
