@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>Pixel</title>
+<script src="assets/gsap.min.js"></script>
+<script src="assets/falas.js"></script>
+<style>
+  @font-face { font-family: "Pix"; src: url("assets/Silkscreen-Regular.ttf"); }
+  @font-face { font-family: "PixB"; src: url("assets/Silkscreen-Bold.ttf"); }
+  @font-face { font-family: "Mono"; src: url("assets/JetBrainsMono.ttf"); font-weight: 100 900; }
+  @font-face { font-family: "Serif"; src: url("assets/InstrumentSerif-Italic.ttf"); }
+  @font-face { font-family: "Mont"; src: url("assets/Montserrat.ttf"); font-weight: 100 900; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #efede8; }
+  #root { position: relative; width: 1080px; height: 1920px; overflow: hidden;
+    background: #efede8; background-image: linear-gradient(#e2dfd8 2px, transparent 2px), linear-gradient(90deg, #e2dfd8 2px, transparent 2px);
+    background-size: 108px 108px; background-position: 0 40px; }
+  #painel { position: absolute; left: 60px; top: 260px; width: 960px; height: 1088px; border-radius: 34px; overflow: hidden;
+    box-shadow: 0 30px 70px rgba(60,50,30,.22), 0 0 0 8px rgba(255,255,255,.6); background: #000; }
+  #tela { width: 960px; height: 1088px; image-rendering: pixelated; display: block; }
+  .chip { position: absolute; left: 50%; top: 1440px; transform: translateX(-50%); padding: 20px 34px; background: #222120; color: #f4f1ea;
+    font: 700 46px "Mono"; letter-spacing: 6px; white-space: nowrap; border-radius: 6px; opacity: 0; }
+  .ui { position: absolute; left: 50%; opacity: 0; font-family: "Mont"; }
+  /* janela de chat clara */
+  .chat { top: 330px; width: 840px; margin-left: -420px; border-radius: 26px; background: #faf8f3; box-shadow: 0 30px 60px rgba(0,0,0,.25); }
+  .chat .top { display: flex; gap: 12px; align-items: center; padding: 22px 28px; font: 600 28px "Mont"; color: #333; border-bottom: 2px solid #ebe6db; }
+  .chat .top i { width: 18px; height: 18px; border-radius: 50%; display: inline-block; }
+  .chat .corpo { padding: 30px 32px; font: 400 40px/1.35 "Serif"; color: #2b2a28; min-height: 300px; }
+  .chat .caixa { margin: 0 26px 26px; padding: 22px 26px; border: 2px solid #e1dbcd; border-radius: 20px; font: 500 30px "Mont"; color: #2b2a28; background: #fff; }
+  .chat .cur { display: inline-block; width: 3px; height: 34px; background: #2b2a28; vertical-align: middle; }
+  .chat .env { float: right; width: 52px; height: 52px; margin-top: -10px; border-radius: 14px; background: #d9774a; }
+  /* painel escuro */
+  .esc { top: 330px; width: 840px; margin-left: -420px; border-radius: 26px; background: #161616; color: #eee; box-shadow: 0 30px 60px rgba(0,0,0,.35); padding: 34px 38px; }
+  .esc .t { font: 700 36px "Mont"; } .esc .s { font: 500 28px "Mono"; color: #999; margin-top: 8px; }
+  .esc .est { margin-top: 30px; font: 800 96px "Mont"; color: #f2c14e; } .esc .l { font: 500 30px "Mono"; color: #bbb; margin-top: 6px; }
+  .esc .bar { display: flex; gap: 14px; margin-top: 30px; align-items: flex-end; height: 200px; }
+  .esc .bar div { flex: 1; background: #3a3a3a; border-radius: 6px 6px 0 0; }
+  .esc .bar div.on { background: #f2c14e; }
+  /* comentário */
+  .com { top: 420px; width: 860px; margin-left: -430px; border-radius: 26px; background: #fff; box-shadow: 0 30px 60px rgba(0,0,0,.2); padding: 30px 34px; }
+  .com .lin { display: flex; align-items: center; gap: 20px; margin-top: 22px; font: 600 32px "Mont"; color: #222; }
+  .com .av { width: 76px; height: 76px; border-radius: 50%; background: #d9774a; flex: none; }
+  .com .bt { margin-left: auto; padding: 14px 28px; border-radius: 12px; background: #3d8bff; color: #fff; font: 700 28px "Mont"; }
+  .com .in { flex: 1; padding: 18px 22px; border: 3px solid #222; border-radius: 14px; font: 800 38px "Mont"; }
+  #prog { position: absolute; left: 0; right: 0; top: 1620px; display: flex; justify-content: center; gap: 18px; }
+  #prog i { width: 26px; height: 26px; background: #d6d1c6; } #prog i.on { background: #e0765a; }
+  .marca { position: absolute; left: 0; right: 0; bottom: 140px; text-align: center; font: 700 28px "Mono"; letter-spacing: 6px; color: #9a958a; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="24.15">
+  <div id="painel" class="clip" data-start="0" data-duration="24.15" data-track-index="1"><canvas id="tela" width="960" height="1088"></canvas><div id="cont" style="position:absolute;left:0;right:0;top:940px;text-align:center;font:64px PixB;color:#fff"></div></div>
+
+  <div class="ui chat clip" id="u2" data-start="0" data-duration="24.15" data-track-index="2">
+    <div class="top"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i>&nbsp; Nova tarefa</div>
+    <div class="corpo" id="resp2"></div>
+    <div class="caixa"><span id="tx2"></span><span class="cur"></span><span class="env"></span></div></div>
+
+  <div class="ui esc clip" id="u5" data-start="0" data-duration="24.15" data-track-index="2">
+    <div class="t">Skyvern-AI / skyvern</div><div class="s">Automatiza qualquer site com IA</div>
+    <div class="est">★ <span id="n5">0</span></div><div class="l">estrelas no GitHub</div>
+    <div class="bar"><div style="height:10%"></div><div style="height:16%"></div><div style="height:25%"></div><div style="height:34%"></div><div style="height:48%"></div><div style="height:63%"></div><div class="on" style="height:100%"></div></div></div>
+
+  <div class="ui com clip" id="u7" data-start="0" data-duration="24.15" data-track-index="2">
+    <div style="font:800 34px Mont;color:#222">Comentários</div>
+    <div class="lin"><div class="av"></div><div class="in"><span id="tx7"></span></div><span class="bt">Publicar</span></div>
+    <div class="lin" id="dm7" style="opacity:0"><div class="av" style="background:#222"></div><div><b>ursulino.ia</b><br><span style="font-weight:500;color:#666">te mandei no direct!</span></div></div></div>
+
+  <div class="chip clip" id="chip" data-start="0" data-duration="24.15" data-track-index="3"></div>
+  <div id="prog"></div>
+  <div class="marca">@URSULINO.IA</div>
+
+  <audio data-voz src="assets/voz.wav" data-start="0" data-duration="24.15" data-track-index="9" data-volume="1"></audio>
+  <audio src="assets/lofi.wav" data-start="0" data-duration="8" data-track-index="8" data-volume="0.15"></audio>
+  <audio src="assets/lofi.wav" data-start="8" data-duration="8" data-track-index="8" data-volume="0.15"></audio>
+  <audio src="assets/lofi.wav" data-start="16" data-duration="8.15" data-track-index="8" data-volume="0.15"></audio>
+</div>
+<script>
+// Identidade "pixel": fundo de papel quadriculado, um quadro de pixel art com cantos redondos e uma etiqueta preta
+// em letra mono espaçada. O mascote é o Robô Estagiário em pixel. Janelas de app limpas entram por cima quando a
+// frase fala de tela. Tudo é desenhado em função do tempo (desenhar(t)), então qualquer quadro sai igual.
+const E = window.ESQ, F = E.falas, FIM = E.duracao, P = 8, GW = 120, GH = 136;
+const cv = document.getElementById("tela"), ctx = cv.getContext("2d");
+const $ = (s) => document.querySelector(s);
+const px = (x, y, w, h, c) => { ctx.fillStyle = c; ctx.fillRect(Math.round(x) * P, Math.round(y) * P, Math.round(w) * P, Math.round(h) * P); };
+const sprite = (linhas, cores, x, y, flip = false, e = 1) => linhas.forEach((l, j) => [...l].forEach((ch, i) => {
+  if (ch !== ".") px(x + (flip ? l.length - 1 - i : i) * e, y + j * e, e, e, cores[ch]); }));
+const ruido = (n) => { const s = Math.sin(n * 127.1) * 43758.5453; return s - Math.floor(s); };
+const CHIPS = ["NO SEU LUGAR", "SOZINHA", "UMA FRASE", "TODAS AS NOTAS", "VOCÊ NO CAFÉ", "SKYVERN", "DE GRAÇA", "COMENTA NAVEGADOR"];
+
+// Robô Estagiário em pixel (coral, olhos brancos, antena)
+const ROBO = [
+  ".....a......", ".....a......", "..rrrrrrrr..", ".rrrrrrrrrr.", ".rwwkrrwwkr.", ".rwwkrrwwkr.", ".rrrrrrrrrr.",
+  ".rrrmmmmrrr.", "..rrrrrrrr..", ".ddrrrrrrdd.", ".d.rrrrrr.d.", "...rr..rr...", "...kk..kk..."];
+const ROBO_PISCA = ROBO.map((l, j) => j === 4 ? ".rrrrrrrrrr." : j === 5 ? ".rkkkrrkkkr." : l);
+const CR = { a: "#9aa0a6", r: "#e0765a", w: "#fff", k: "#3a2a2a", m: "#b04a35", d: "#c25a40" };
+const robo = (x, y, t, flip) => sprite((t % 2.6) < 0.12 ? ROBO_PISCA : ROBO, CR, x - 6, y - 13 + (Math.floor(t * 3) % 2), flip, 2);
+const passo = (t) => (Math.floor(t * 6) % 2);
+
+function chao(y, c1, c2) { for (let x = 0; x < GW; x += 4) px(x, y, 4, GH - y, (x / 4) % 2 ? c1 : c2); }
+function estrelas(t) { for (let i = 0; i < 40; i++) if ((ruido(i) + t * .3) % 1 > .25) px(ruido(i + 1) * GW, ruido(i + 2) * 50, 1, 1, "#fff8"); }
+
+const CENAS = [
+  // 0: cidade à noite, robô atravessa até a janela do navegador gigante no prédio
+  (t) => {
+    for (let y = 0; y < 100; y++) px(0, y, GW, 1, y < 30 ? "#17213d" : y < 60 ? "#1d2c52" : "#243766");
+    estrelas(t);
+    [[2, 40, 18, "#2e3f72"], [22, 30, 16, "#36498a"], [40, 46, 14, "#2a3a6a"], [82, 36, 18, "#334786"], [102, 44, 18, "#2b3c70"]].forEach(([x, y, w, c], k) => {
+      px(x, y, w, 100, c);
+      for (let wy = y + 4; wy < 96; wy += 6) for (let wx = x + 2; wx < x + w - 2; wx += 5) px(wx, wy, 3, 3, ruido(wx * 7 + wy + k) > .45 ? "#f2c14e" : "#1a2648");
+    });
+    // navegador gigante no prédio central
+    px(56, 24, 46, 40, "#e9e4d8"); px(56, 24, 46, 5, "#cfc8b8"); px(58, 26, 2, 2, "#ff5f57"); px(61, 26, 2, 2, "#febc2e"); px(64, 26, 2, 2, "#28c840");
+    px(59, 32, 40, 3, "#fff"); for (let i = 0; i < 4; i++) px(59, 38 + i * 6, 20 + (i % 2) * 12, 3, "#b9b2a2");
+    const cur = Math.min(1, t / 1.6); px(80 + 10 * Math.sin(t * 3), 42 + 8 * cur, 2, 3, "#222");
+    px(0, 100, GW, 36, "#2b3a5e"); for (let x = (t * 30) % 12 - 12; x < GW; x += 12) px(x, 116, 6, 1, "#f2c14e");
+    robo(8 + t * 14, 87, t);
+  },
+  // 1: quarto com mesa; o robô digita e o formulário do monitor se preenche sozinho
+  (t) => {
+    for (let x = 0; x < GW; x += 6) px(x, 0, 6, 92, (x / 6) % 2 ? "#f3e2bf" : "#ecd6ab");
+    px(10, 18, 18, 22, "#7a5a3a"); px(12, 20, 14, 18, "#9cc9e8"); px(18, 20, 2, 18, "#7a5a3a"); px(12, 28, 14, 2, "#7a5a3a");
+    chao(92, "#c98a4b", "#bd7f42");
+    px(40, 62, 64, 4, "#6e4425"); px(44, 66, 4, 26, "#5a361c"); px(96, 66, 4, 26, "#5a361c");
+    px(50, 26, 46, 34, "#222"); px(52, 28, 42, 28, "#f6f3ec"); px(70, 60, 6, 3, "#333");
+    const campos = ["NOME", "CPF", "MÊS", "OK"];
+    campos.forEach((c, i) => { px(55, 31 + i * 6, 12, 3, "#c9c1b0"); const prog = Math.max(0, Math.min(1, (t - .4 - i * .6) / .5)); px(69, 31 + i * 6, 22 * prog, 3, i === 3 ? "#28c840" : "#d9774a"); });
+    px(104, 44, 6, 18, "#8bb04a"); px(102, 56, 10, 6, "#b9653a");
+    robo(30, 79, t); if (passo(t)) px(40, 74, 3, 1, "#fff");
+  },
+  // 2: (janela de chat por cima) fundo de céu calmo com nuvens
+  (t) => {
+    px(0, 0, GW, GH, "#a9d3e9"); for (let i = 0; i < 5; i++) { const x = (ruido(i) * GW + t * (3 + i)) % (GW + 20) - 20; px(x, 10 + i * 22, 18, 4, "#fff"); px(x + 4, 7 + i * 22, 10, 3, "#fff"); }
+    chao(120, "#7cb342", "#73a83b"); robo(54, 107, t);
+  },
+  // 3: escritório; as notas fiscais caem na pasta e o contador sobe
+  (t) => {
+    px(0, 0, GW, 96, "#2f3b6b"); for (let y = 0; y < 96; y += 8) px(0, y, GW, 1, "#283461");
+    chao(96, "#4a5a96", "#43528a");
+    px(36, 70, 48, 30, "#d9a441"); px(36, 66, 20, 6, "#c48f2f"); px(40, 76, 40, 2, "#b98327");
+    const n = Math.min(42, Math.floor(t * 16));
+    for (let i = 0; i < 10; i++) { const tt = (t * 1.6 + i * .1) % 1; const y = -10 + tt * 80; if (y < 72) { px(44 + (i % 4) * 8, y, 8, 10, "#fff"); px(45 + (i % 4) * 8, y + 2, 6, 1, "#999"); px(45 + (i % 4) * 8, y + 5, 4, 1, "#999"); } }
+    document.getElementById("cont").textContent = `${n}/42 NOTAS`;
+    robo(92, 92, t, true);
+  },
+  // 4: cozinha; café fumegando, relógio girando, robô trabalhando ao fundo
+  (t) => {
+    for (let x = 0; x < GW; x += 8) for (let y = 0; y < 92; y += 8) px(x, y, 8, 8, ((x + y) / 8) % 2 ? "#f6efe0" : "#ece2cc");
+    chao(92, "#8c5a3c", "#7f5034");
+    px(14, 14, 18, 18, "#fff"); px(14, 14, 18, 1, "#333"); px(14, 31, 18, 1, "#333"); px(14, 14, 1, 18, "#333"); px(31, 14, 1, 18, "#333");
+    const ang = t * 2; px(23, 23, 1, 1, "#333"); for (let r = 1; r < 7; r++) px(23 + Math.cos(ang) * r, 23 + Math.sin(ang) * r, 1, 1, "#d9774a");
+    px(30, 70, 30, 4, "#6e4425"); px(40, 56, 12, 14, "#fff"); px(52, 59, 3, 7, "#fff"); px(41, 58, 10, 3, "#6b3a1f");
+    for (let i = 0; i < 3; i++) { const y = 52 - ((t * 10 + i * 4) % 12); px(42 + i * 3 + Math.sin(t * 4 + i) * 1.2, y, 1, 2, "#fff9"); }
+    px(76, 46, 34, 24, "#222"); px(78, 48, 30, 18, "#9cc9e8"); for (let i = 0; i < 4; i++) px(80, 50 + i * 4, 6 + ((t * 8 + i * 5) % 20), 2, "#fff");
+    robo(86, 79, t);
+  },
+  // 5: (painel escuro por cima) céu estrelado
+  (t) => { px(0, 0, GW, GH, "#14182b"); estrelas(t * 2); for (let i = 0; i < 30; i++) if ((ruido(i * 3) + t * .5) % 1 > .4) px(ruido(i * 5) * GW, 90 + ruido(i * 7) * 40, 1, 1, "#f2c14e"); robo(54, 118, t); },
+  // 6: cofrinho; moedas caem e o robô comemora
+  (t) => {
+    px(0, 0, GW, GH, "#2f3b6b"); chao(104, "#3a4880", "#34417a");
+    sprite(["....pppppppp....", "..pppppppppppp..", ".pppkppppppppppp.", "pppppppppppppppps", ".pppppppppppppps.", "..pppppppppppps..", "..pp..pp..pp..p..", "..pp..pp..pp..p.."],
+      { p: "#f08fb0", k: "#3a2a2a", s: "#d76d93" }, 44, 88);
+    for (let i = 0; i < 6; i++) { const tt = (t * 1.2 + i / 6) % 1; px(54 + (i % 3) * 3, 20 + tt * 66, 4, 4, "#f2c14e"); px(55 + (i % 3) * 3, 21 + tt * 66, 1, 2, "#fff6"); }
+    robo(16, 91 - Math.abs(Math.sin(t * 6)) * 4, t); robo(92, 91 - Math.abs(Math.sin(t * 6 + 1)) * 4, t, true);
+  },
+  // 7: (comentário por cima) sala clara com robô acenando
+  (t) => { px(0, 0, GW, GH, "#f3e2bf"); for (let x = 0; x < GW; x += 6) px(x, 0, 3, 100, "#ecd6ab"); chao(100, "#c98a4b", "#bd7f42"); robo(54, 87, t); if (passo(t)) px(66, 86, 2, 3, "#e0765a"); },
+];
+
+let cenaAtual = 0, tCena = 0;
+const tl = gsap.timeline({ paused: true });
+const inicio = F.map((f, i) => i === 0 ? 0 : f.t - .1);
+const estado = { t: 0 };
+function desenhar(t) {
+  let i = 0; while (i + 1 < inicio.length && t >= inicio[i + 1]) i++;
+  ctx.clearRect(0, 0, cv.width, cv.height); document.getElementById("cont").textContent = ""; CENAS[i](t - inicio[i]);
+  document.getElementById("prog").innerHTML = F.map((_, k) => `<i class="${k <= i ? 'on' : ''}"></i>`).join("");
+}
+tl.to(estado, { t: FIM, duration: FIM, ease: "none", onUpdate: () => desenhar(estado.t) }, 0);
+// quadro: troca de cena com um "pulo" de escala
+F.forEach((f, i) => {
+  if (i > 0) tl.fromTo("#painel", { scale: .94, rotation: (i % 2 ? 1 : -1) * 1.2 }, { scale: 1, rotation: 0, duration: .35, ease: "back.out(2.2)", immediateRender: false }, inicio[i]);
+  tl.set("#chip", { textContent: CHIPS[i] }, inicio[i]);
+  if (i === 0) tl.set("#chip", { opacity: 1 }, 0);
+  else tl.fromTo("#chip", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .2 }, f.t + .2);
+});
+// janelas por cima
+const janela = (sel, i) => tl.fromTo(sel, { opacity: 0, y: 60, scale: .9 }, { opacity: 1, y: 0, scale: 1, duration: .35, ease: "back.out(1.8)" }, inicio[i] + .1)
+  .to(sel, { opacity: 0, duration: .1 }, (inicio[i + 1] || FIM) - .1);
+janela("#u2", 2); janela("#u5", 5); janela("#u7", 7);
+const PED = "Baixa as notas fiscais de outubro do portal.", e2 = { n: 0 };
+tl.to(e2, { n: PED.length, duration: 1.6, ease: "none", onUpdate: () => $("#tx2").textContent = PED.slice(0, Math.round(e2.n)) }, F[2].t);
+tl.set("#tx2", { textContent: "" }, F[3].t - .4).set("#resp2", { textContent: "" }, 0);
+tl.call(() => {}, null, 0);
+tl.to({}, { duration: .01, onComplete: () => {} }, F[2].t + 1.7);
+tl.fromTo("#resp2", { opacity: 0 }, { opacity: 1, duration: .2, onStart: () => $("#resp2").textContent = "Pode deixar. Vou abrir o portal e baixar as 42 notas." }, F[2].t + 1.75);
+const n5 = { v: 0 }; tl.to(n5, { v: 23287, duration: 1.4, ease: "power3.out", onUpdate: () => $("#n5").textContent = Math.round(n5.v).toLocaleString("pt-BR") }, F[5].t + .3);
+const PAL = "NAVEGADOR", e7 = { n: 0 };
+tl.to(e7, { n: PAL.length, duration: .9, ease: "none", onUpdate: () => $("#tx7").textContent = PAL.slice(0, Math.round(e7.n)) }, F[7].t + .3);
+tl.to("#u7 .bt", { scale: .88, yoyo: true, repeat: 1, duration: .08 }, F[7].t + 1.3).to("#dm7", { opacity: 1, duration: .25 }, F[7].t + 1.5);
+
+desenhar(0);
+window.__timelines = window.__timelines || {}; window.__timelines["main"] = tl;
+window.addEventListener("hf-seek", (ev) => desenhar(ev.detail.time));
+</script>
+</body>
+</html>

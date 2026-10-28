@@ -17,8 +17,9 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from . import cenas_pixel, github_dados, hospedagem, montagem, pauta, pausa, render
+from . import cenas_pixel, github_dados, guia_dm, hospedagem, montagem, pauta, pausa, render
 from .graph_api import InstagramGraph
+from .roteirista import buscar_readme
 from .voz import ComReserva, EdgeTTS, ElevenLabs, GeminiTTS
 
 RAIZ = Path(__file__).resolve().parents[2]
@@ -66,8 +67,13 @@ def montar_legenda(dados_pauta: dict, repos: dict) -> str:
     bloco_passos = ""
     if passos:
         bloco_passos = "Salva este vídeo pra usar com calma:\n" + "\n".join(f"{i}. {p}" for i, p in enumerate(passos, 1)) + "\n\n"
+    # 1ª linha da legenda = o gancho falado (problema/benefício pra quem assiste), que é o que segura o "ver mais";
+    # a descrição da ferramenta sozinha ("Componentes de vídeo para...") foi o padrão dos posts que menos renderam.
+    cenas = dados_pauta.get("cenas") or []
+    gancho = (cenas[0].get("narracao") or "").strip() if cenas else ""
+    primeira = gancho or dados_pauta['capa']['subtitulo'].capitalize()
     texto = (
-        f"{dados_pauta['capa']['subtitulo'].capitalize()}\n\n"
+        f"{primeira}\n\n"
         f"{bloco_passos}"
         f"Comenta {dados_pauta['palavra_chave']} que eu te mando o link no direct.\n"
         f"Segue o @ursulino.ia pra não perder a próxima ferramenta de IA.\n\n{hashtags}"
@@ -91,10 +97,13 @@ def criar_voz(dados_pauta: dict):
 def _registrar_links(dados_pauta: dict, repos: dict, registro: dict):
     """Guarda, para cada mídia publicada, a palavra e a mensagem que o bot de comentários deve mandar."""
     lista = list(repos.values())
-    if len(lista) == 1:
+    if len(lista) == 1:  # vídeo de uma ferramenta: o direct leva um mini-guia, não só o link
         primeiro = lista[0]
-        mensagem = (f"Oi! Aqui está o repositório {primeiro.repo.split('/', 1)[1]}: {primeiro.url}\n"
-                    f"Se curtir, segue o @ursulino.ia pra mais ferramentas de IA.")
+        try:
+            readme = buscar_readme(primeiro.repo)
+        except Exception:
+            readme = ""
+        mensagem = guia_dm.gerar(primeiro, readme)
     else:  # formato lista: um link por repositório, na ordem do vídeo
         linhas = "\n".join(f"{i}. {d.repo.split('/', 1)[1]}: {d.url}" for i, d in enumerate(lista, 1))
         mensagem = f"Oi! Aqui estão os repositórios do vídeo:\n{linhas}\nSe curtir, segue o @ursulino.ia pra mais ferramentas de IA."
