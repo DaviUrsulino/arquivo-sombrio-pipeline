@@ -126,7 +126,7 @@ def _gravar(estado: dict, commitar: bool):
 
 def disparar(formato: str):
     if formato == "loop":
-        subprocess.run(["gh", "workflow", "run", "instagram_loop.yml"], cwd=RAIZ, check=True)
+        subprocess.run(["gh", "workflow", "run", "instagram_loop.yml", "--ref", "master"], cwd=RAIZ, check=True)
         return
     if formato.startswith("pauta:"):
         entrada = ["-f", f"pauta={formato.removeprefix('pauta:')}"]

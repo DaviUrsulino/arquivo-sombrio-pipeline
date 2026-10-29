@@ -5,7 +5,7 @@ on:
   workflow_dispatch: {}
 
 concurrency:
-  group: instagram-pipeline
+  group: instagram-loop
   cancel-in-progress: false
 
 jobs:
