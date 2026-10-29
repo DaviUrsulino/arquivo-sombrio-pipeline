@@ -2,6 +2,16 @@
   "_sobre": "Referências de animação e conteúdo que o Davi mandou. Fonte do estudo semanal (src/estudio_instagram/estudo_animacao.py). Adicione aqui toda referência nova.",
   "perfis": [
     {
+      "perfil": "mateus.curta.ia",
+      "motivo": "Davi pediu como nova identidade (2026-10-29). Fundo preto com glow vermelho, círculos de ícone com anel neon, número gigante com barra de progresso, diagrama de nós conectados (modelo A -> troca -> modelo B), sem personagem nenhum. Banner de título compacto no topo esquerdo (categoria + contador 'xx:xx'). Final 'comenta LIMITE'.",
+      "desde": "2026-10-29"
+    },
+    {
+      "perfil": "motionia.br",
+      "motivo": "Davi pediu como nova identidade (2026-10-29): 'ta na cara que é claude' (o próprio roteiro do reel brinca citando Claude/Codex). Banner amarelo tipo bandeirola no topo (igual referências do @oandrenuneu), personagem num escritório + robozinho mascote laranja ao lado, monitor mostrando UI falsa (ex. app 'Remotion', editor de cena). Contador 'ETAPAS x/3' fixo. Final 'comenta ESTÚDIO'.",
+      "desde": "2026-10-29"
+    },
+    {
       "perfil": "omagodoalgoritmo",
       "motivo": "identidade escritório (preto e vermelho) e vila 3D estilo jogo",
       "desde": "2026-10-27"
@@ -19,11 +29,6 @@
     {
       "perfil": "lowstack.app",
       "motivo": "identidade holofote (objeto sob luz, fundo que muda)",
-      "desde": "2026-10-27"
-    },
-    {
-      "perfil": "motionia.br",
-      "motivo": "personagem 2D na sala com contador 0/4",
       "desde": "2026-10-27"
     },
     {
