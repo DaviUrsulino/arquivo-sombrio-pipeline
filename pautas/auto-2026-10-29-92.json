@@ -1,0 +1,225 @@
+{
+  "titulo": "BeautifulRust: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "RUST",
+  "perfil": "@ursulino.ia",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "ensine sua ia a escrever codigo idiomatico em rust"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "morganlinton/BeautifulRust",
+      "nome": "BeautifulRust",
+      "cor": "azul",
+      "promessa": "Agent Skills that teach coding agents to write, review, and port idiomatic Rust,",
+      "texto": "Agent Skills that teach coding agents to write, review, and port idiomatic Rust, plus a tested clippy config. Works with"
+    }
+  ],
+  "destaques": [
+    "rust",
+    "skills",
+    "revisar",
+    "converter",
+    "claude",
+    "cursor",
+    "rust"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Sua inteligência artificial gera código em Rust com erros bobos.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "IA GERA CÓDIGO",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "EM RUST COM",
+            "cor": "laranja",
+            "tamanho": 120
+          },
+          {
+            "texto": "ERROS BOBOS",
+            "cor": "vermelho",
+            "tamanho": 120
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Essas regras de instrução ensinam o agente a escrever direito.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "check",
+        "cor": "verde",
+        "rotulo": "RUST IDIOMÁTICO"
+      }
+    },
+    {
+      "narracao": "Elas unem manuais de empresas como Google e Microsoft.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Google Style",
+          "API Guidelines",
+          "Microsoft Guidelines"
+        ]
+      }
+    },
+    {
+      "narracao": "Ela revisa arquivos e converte códigos de Python para Rust.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "code-xml",
+            "rotulo": "Python",
+            "cor": "azul"
+          },
+          {
+            "icone": "zap",
+            "rotulo": "Skill",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "code-xml",
+            "rotulo": "Rust",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto já possui {estrelas:morganlinton/BeautifulRust} estrelas salvas no repositório do GitHub.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "morganlinton/BeautifulRust"
+      }
+    },
+    {
+      "narracao": "Você instala o pacote rodando enepexis skills add no terminal.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "npx skills add morganlinton/BeautifulRust",
+        "texto": "instala todas as skills"
+      }
+    },
+    {
+      "narracao": "Funciona no Claude Code Cursor e outros assistentes de código.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "banner_repo",
+        "url": "github.com/morganlinton/BeautifulRust"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "CÓDIGO RUST",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "SEM ERROS",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o BeautifulRust"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "AGENT SKILLS",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "beautiful-rust",
+      "texto": "Conjunto de regras de instrução que ensinam IAs a escrever código em Rust com alta qualidade."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMO USAR",
+          "cor": "verde"
+        }
+      ],
+      "comando": "npx skills add morganlinton/BeautifulRust",
+      "texto": "Instala nos agentes suportados",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "RECURSOS",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "O QUE FAZ",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "funcoes",
+      "texto": "Revisa arquivos, aplica boas práticas e converte código de outras linguagens para Rust."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "DETALHES",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "licenca",
+      "texto": "Licença MIT. Suporta Claude Code, Cursor, Copilot, Codex e Gemini CLI."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "RUST",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "passos": [
+    "Execute o comando no terminal: npx skills add morganlinton/BeautifulRust",
+    "No Claude Code use: claude plugin install beautiful-rust --marketplace morganlinton/BeautifulRust",
+    "Peça para o seu agente revisar ou converter código para Rust"
+  ]
+}

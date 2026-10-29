@@ -84,6 +84,7 @@
     "mattpocock/skills",
     "milind-soni/OpenMausBot",
     "miqdadbadjuber/anti-slop",
+    "morganlinton/BeautifulRust",
     "morluto/rea",
     "mukul975/Anthropic-Cybersecurity-Skills",
     "mvanhorn/last30days-skill",
@@ -136,5 +137,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 64
+  "pautas_geradas": 65
 }

@@ -293,5 +293,10 @@
     "palavra": "GITHUB",
     "mensagem": "Oi! Aqui estão os repositórios do vídeo:\n1. openbot: https://github.com/nightly-labs/openbot\n2. rakazo: https://github.com/elie222/rakazo\n3. OpenMausBot: https://github.com/milind-soni/OpenMausBot\n4. ai-design-skills: https://github.com/elayadesign/ai-design-skills\nSe curtir, segue o @ursulino.ia pra mais ferramentas de IA.",
     "repo": "nightly-labs/openbot"
+  },
+  "17909127030568704": {
+    "palavra": "RUST",
+    "mensagem": "Oi! Aqui está o BeautifulRust.\n\nEnsina agentes de código a escrever, revisar e portar Rust idiomático com boas práticas, revisão automatizada e configuração de lints testada.\n\nComo começar:\n1. Instale com npx skills add morganlinton/BeautifulRust para a maioria dos agentes\n2. Ou use claude plugin install beautiful-rust --marketplace morganlinton/BeautifulRust no Claude Code\n3. Ou instale via gh skill install morganlinton/BeautifulRust rust-best-practices rust-review rust-port no GitHub Copilot\n\nPra testar hoje: Rode npx skills add morganlinton/BeautifulRust e peça ao agente para criar uma struct com campos públicos; veja ele tornar privados e adicionar getters e docs de erro.\n\nLink: https://github.com/morganlinton/BeautifulRust\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
+    "repo": "morganlinton/BeautifulRust"
   }
 }
