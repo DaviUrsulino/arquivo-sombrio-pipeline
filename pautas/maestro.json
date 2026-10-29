@@ -3,9 +3,10 @@
   "feitos": {
     "12:00": "disparada 12:00",
     "19:00": "disparada 19:00",
-    "20:00": "disparada 21:00"
+    "20:00": "disparada 21:00",
+    "22:30": "disparada 23:00"
   },
-  "ultimo_disparo": "2026-10-28T21:00:51-03:00",
+  "ultimo_disparo": "2026-10-28T23:00:53-03:00",
   "fila_usadas": [
     "pautas/viral/fila/01-motion-skills.json",
     "pautas/viral/fila/01b-habblaud.json",
