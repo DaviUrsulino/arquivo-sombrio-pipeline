@@ -117,6 +117,7 @@
     "t3dotgg/tstack",
     "tamaratran/fast-jev-compaction",
     "thedotmack/claude-mem",
+    "thomasunise/casecite",
     "threerocks/hand-drawn-styles",
     "tigerless-labs/agent-memory",
     "tirth8205/code-review-graph",
@@ -135,5 +136,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 63
+  "pautas_geradas": 64
 }

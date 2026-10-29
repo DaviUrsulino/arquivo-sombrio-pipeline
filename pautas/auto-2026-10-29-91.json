@@ -1,0 +1,234 @@
+{
+  "titulo": "casecite: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "CONTRATO",
+  "perfil": "@ursulino.ia",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "plataforma open source para pesquisa juridica e analise de contratos no seu servidor"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "thomasunise/casecite",
+      "nome": "casecite",
+      "cor": "azul",
+      "promessa": "CaseCite is an open-source, self-hosted legal RAG caselaw research & document an",
+      "texto": "CaseCite is an open-source, self-hosted legal RAG caselaw research & document analysis platform."
+    }
+  ],
+  "destaques": [
+    "contratos",
+    "juridicos",
+    "servidor",
+    "clausulas",
+    "tabelas",
+    "juizes",
+    "chaves",
+    "docker",
+    "contrato"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Analise centenas de contratos jurídicos sem vazar nenhum dado.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "ANALISE",
+            "cor": "branco",
+            "tamanho": 130
+          },
+          {
+            "texto": "CONTRATOS",
+            "cor": "laranja",
+            "tamanho": 140
+          },
+          {
+            "texto": "SEM VAZAR",
+            "cor": "amarelo",
+            "tamanho": 130
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O CaseCite roda no seu servidor e pesquisa documentos internos.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "file-text",
+            "rotulo": "Documentos",
+            "cor": "azul"
+          },
+          {
+            "icone": "server-crash",
+            "rotulo": "Servidor",
+            "cor": "roxo"
+          },
+          {
+            "icone": "search",
+            "rotulo": "Busca RAG",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Você compara cláusulas e extrai tabelas de vários arquivos.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Compara clausulas",
+          "Extrai tabelas",
+          "Exporta relatorios"
+        ]
+      }
+    },
+    {
+      "narracao": "Ele gera minutas longas e investiga histórico de juízes.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "niveis",
+        "itens": [
+          {
+            "rotulo": "MINUTAS",
+            "altura": 1,
+            "cor": "verde"
+          },
+          {
+            "rotulo": "PESQUISA",
+            "altura": 2,
+            "cor": "azul"
+          },
+          {
+            "rotulo": "JUÍZES",
+            "altura": 3,
+            "cor": "roxo"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Este projeto com {estrelas:thomasunise/casecite} estrelas usa chaves próprias de inteligência.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "thomasunise/casecite"
+      }
+    },
+    {
+      "narracao": "Você instala clonando o repositório e subindo o Docker.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "git clone https://github.com/thomasunise/casecite.git && cd casecite",
+        "texto": "clonar o repositório"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "ANALISE LEGAL",
+          "cor": "branco",
+          "tamanho": 100
+        },
+        {
+          "texto": "SEM VAZAR DADOS",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheca o casecite"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "PLATAFORMA RAG",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "casecite",
+      "texto": "Plataforma de pesquisa jurídica e análise de documentos auto-hospedada. Armazena buscas e documentos no seu próprio servidor."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMO INICIAR",
+          "cor": "verde"
+        }
+      ],
+      "comando": "git clone https://github.com/thomasunise/casecite.git && cd casecite",
+      "texto": "Requer Docker, Docker Compose e OpenSSL.",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "RECURSOS",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "funcoes",
+      "texto": "Analisa contratos, extrai tabelas de centenas de arquivos e consulta dados sobre juízes."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "LICENÇA",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "detalhes",
+      "texto": "Código aberto sob licença Apache 2.0. Permite uso interno, modificação e comercialização."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "CONTRATO",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "passos": [
+    "1. Git clone https://github.com/thomasunise/casecite.git && cd casecite",
+    "2. Copie as configuracoes com cp .env.example .env",
+    "3. Gere as chaves com openssl rand -hex 32",
+    "4. Configure as variaveis no .env e suba o Docker Compose"
+  ]
+}
