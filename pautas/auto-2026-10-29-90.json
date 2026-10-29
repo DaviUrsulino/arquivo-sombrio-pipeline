@@ -1,0 +1,201 @@
+{
+  "titulo": "lista: criar agentes e sites com ia",
+  "formato": "pixel2",
+  "palavra_chave": "GITHUB",
+  "perfil": "@ursulino.ia",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "ferramentas gratuitas para potencializar seus projetos com inteligência artificial"
+  },
+  "chamada": {
+    "pergunta": "quer os links dos repositórios?"
+  },
+  "itens": [
+    {
+      "repo": "nightly-labs/openbot",
+      "nome": "openbot",
+      "cor": "azul",
+      "promessa": "A local-first desktop workspace for persistent AI teammates. Run Codex, Claude, ",
+      "texto": "Ele organiza assistentes no seu computador."
+    },
+    {
+      "repo": "elie222/rakazo",
+      "nome": "rakazo",
+      "cor": "verde",
+      "promessa": "Open-source Grok Bot alternative. Choose your own model and sandbox.",
+      "texto": "Ele executa agentes com suporte vocal."
+    },
+    {
+      "repo": "milind-soni/OpenMausBot",
+      "nome": "OpenMausBot",
+      "cor": "laranja",
+      "promessa": "Open-source Grok Bot alternative with a virtual machine that bots can use",
+      "texto": "Ele roda bots em um chat."
+    },
+    {
+      "repo": "elayadesign/ai-design-skills",
+      "nome": "ai-design-skills",
+      "cor": "roxo",
+      "promessa": "",
+      "texto": "Ele ensina regras de design para ia."
+    }
+  ],
+  "destaques": [
+    "open bot",
+    "rakazo",
+    "open maus bot",
+    "ai design skills",
+    "github"
+  ],
+  "cenas_roteiro": [
+    {
+      "humor": "animado",
+      "narracao": "Quatro repositórios grátis para criar agentes e sites com ia.",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "4 REPOS PARA",
+            "cor": "branco",
+            "tamanho": 100
+          },
+          {
+            "texto": "USAR COM IA",
+            "cor": "laranja",
+            "tamanho": 110
+          }
+        ]
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Primeiro: open bot. Ele organiza assistentes no seu computador.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "bot",
+        "cor": "azul",
+        "rotulo": "OPENBOT"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Segundo: rakazo. Ele executa agentes com suporte vocal.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "users",
+        "cor": "verde",
+        "rotulo": "RAKAZO"
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Terceiro: open maus bot. Ele roda bots em um chat.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "message-circle",
+        "cor": "laranja",
+        "rotulo": "OPENMAUSBOT"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Quarto: ai design skills. Ele ensina regras de design para ia.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "palette",
+        "cor": "roxo",
+        "rotulo": "AI DESIGN SKILLS"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "4 REPOS PARA",
+          "cor": "branco",
+          "tamanho": 96
+        },
+        {
+          "texto": "USAR COM IA",
+          "cor": "laranja",
+          "tamanho": 96
+        }
+      ],
+      "subtitulo": "ferramentas gratuitas para potencializar seus projetos com inteligência artificial"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 1",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "OPENBOT",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "openbot",
+      "texto": "Ele organiza assistentes no seu computador."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 2",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "RAKAZO",
+          "cor": "verde"
+        }
+      ],
+      "rotulo": "rakazo",
+      "texto": "Ele executa agentes com suporte vocal."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 3",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "OPENMAUSBOT",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "OpenMausBot",
+      "texto": "Ele roda bots em um chat."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 4",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "AI DESIGN SKILLS",
+          "cor": "roxo"
+        }
+      ],
+      "rotulo": "ai-design-skills",
+      "texto": "Ele ensina regras de design para ia."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER OS LINKS",
+          "cor": "branco"
+        },
+        {
+          "texto": "DOS REPOS?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando os links no direct.",
+      "palavra": "GITHUB",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "legenda": "Quatro repositórios grátis para criar agentes e sites com ia\n\nSalva este vídeo:\n1. Openbot: Ele organiza assistentes no seu computador.\n2. Rakazo: Ele executa agentes com suporte vocal.\n3. Openmausbot: Ele roda bots em um chat.\n4. Ai Design Skills: Ele ensina regras de design para ia.\n\nManda pra um amigo dev, segue o @ursulino.ia e comenta GITHUB que eu te mando os links no direct.\n\nQuer aprender a fazer vídeos assim? Link na bio.\n\n#claudecode #github #ia #programacao #opensource"
+}

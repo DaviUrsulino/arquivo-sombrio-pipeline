@@ -1,0 +1,125 @@
+{
+ "dia": "2026-10-29",
+ "itens": [
+  {
+   "repo": "rddmwmddr/android-ad-cleaner",
+   "nota": 0.982,
+   "fontes": 1
+  },
+  {
+   "repo": "elayadesign/ai-design-skills",
+   "nota": 0.902,
+   "fontes": 1
+  },
+  {
+   "repo": "Nutlope/hallmark",
+   "nota": 0.89,
+   "fontes": 1
+  },
+  {
+   "repo": "thomasunise/casecite",
+   "nota": 0.767,
+   "fontes": 1
+  },
+  {
+   "repo": "pbakaus/impeccable",
+   "nota": 0.621,
+   "fontes": 1
+  },
+  {
+   "repo": "t3dotgg/tstack",
+   "nota": 0.514,
+   "fontes": 1
+  },
+  {
+   "repo": "obra/superpowers",
+   "nota": 0.462,
+   "fontes": 1
+  },
+  {
+   "repo": "nightly-labs/openbot",
+   "nota": 0.445,
+   "fontes": 1
+  },
+  {
+   "repo": "anhao/ai-pose-gallery-zh",
+   "nota": 0.445,
+   "fontes": 1
+  },
+  {
+   "repo": "morganlinton/BeautifulRust",
+   "nota": 0.309,
+   "fontes": 1
+  },
+  {
+   "repo": "makecindy/cindy",
+   "nota": 0.307,
+   "fontes": 1
+  },
+  {
+   "repo": "andyhuo520/digital-human-koubo",
+   "nota": 0.298,
+   "fontes": 1
+  },
+  {
+   "repo": "DenisSergeevitch/ex-ussr-kinship-research",
+   "nota": 0.268,
+   "fontes": 1
+  },
+  {
+   "repo": "Motionsites-AI/claude-skill",
+   "nota": 0.204,
+   "fontes": 1
+  },
+  {
+   "repo": "ZiChuanLan/agent-purge",
+   "nota": 0.181,
+   "fontes": 1
+  },
+  {
+   "repo": "yaojingang/GEOInflow",
+   "nota": 0.156,
+   "fontes": 1
+  },
+  {
+   "repo": "daveebbelaar/bama",
+   "nota": 0.136,
+   "fontes": 1
+  },
+  {
+   "repo": "anonnerdfrenzy/survival-llm",
+   "nota": 0.132,
+   "fontes": 1
+  },
+  {
+   "repo": "blakeandersonw/ai-app-playbook",
+   "nota": 0.127,
+   "fontes": 1
+  },
+  {
+   "repo": "wangrongding/tv-fresh",
+   "nota": 0.118,
+   "fontes": 1
+  },
+  {
+   "repo": "songjianyang/xss-audit",
+   "nota": 0.118,
+   "fontes": 1
+  },
+  {
+   "repo": "stormydayy/halo-overlay",
+   "nota": 0.117,
+   "fontes": 1
+  },
+  {
+   "repo": "macro-inc/macro",
+   "nota": 0.049,
+   "fontes": 1
+  },
+  {
+   "repo": "expo/skills",
+   "nota": 0.038,
+   "fontes": 1
+  }
+ ]
+}

@@ -58,6 +58,8 @@
     "diegosouzapw/OmniRoute",
     "duty1g/x64dbg-mcp-server",
     "echris6/motion-video-kit",
+    "elayadesign/ai-design-skills",
+    "elie222/rakazo",
     "eternityspring/shuohao-skills",
     "farion1231/cc-switch",
     "flatkey-ai/flatkey-cli",
@@ -80,11 +82,13 @@
     "makecindy/cindy",
     "marmottajr/habblaud",
     "mattpocock/skills",
+    "milind-soni/OpenMausBot",
     "miqdadbadjuber/anti-slop",
     "morluto/rea",
     "mukul975/Anthropic-Cybersecurity-Skills",
     "mvanhorn/last30days-skill",
     "nateherkai/scroll-craft",
+    "nightly-labs/openbot",
     "nykooi1/vibe-wise",
     "obra/superpowers",
     "oil-oil/beautify-github-readme",
@@ -131,5 +135,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 62
+  "pautas_geradas": 63
 }
