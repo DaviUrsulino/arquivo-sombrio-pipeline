@@ -151,6 +151,7 @@ def montar(nome: str, plano: dict, voz, pasta: Path) -> float:
         shutil.rmtree(pasta)
     shutil.copytree(PASTA / nome, pasta)
     assets = pasta / "assets"
+    assets.mkdir(parents=True, exist_ok=True)
     for arq in ("gsap.min.js", "three.min.js"):
         if (ASSETS_COMUNS / "vendor" / arq).exists():
             shutil.copy(ASSETS_COMUNS / "vendor" / arq, assets / arq)
