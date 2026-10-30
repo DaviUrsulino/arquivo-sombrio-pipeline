@@ -1,35 +1,51 @@
 {
-  "gerado_em": "2026-10-29 13:57",
-  "seguidores": 319,
+  "gerado_em": "2026-10-30 13:43",
+  "seguidores": 320,
   "geral": {
-    "n": 33,
-    "views_medianas": 173,
-    "views_media": 362,
-    "salvos_por_100_alcance": 2.47,
-    "envios_por_100_alcance": 0.81,
-    "tempo_medio_s": 11.5
+    "n": 25,
+    "views_medianas": 312,
+    "views_media": 2700,
+    "salvos_por_100_alcance": 4.28,
+    "envios_por_100_alcance": 1.21,
+    "tempo_medio_s": 7.1
   },
   "por_estilo": {
-    "pixel2": {
+    "pixelui": {
       "n": 1,
-      "views_medianas": 621,
-      "views_media": 621,
-      "salvos_por_100_alcance": 3.41,
-      "envios_por_100_alcance": 0.8,
-      "tempo_medio_s": 7.8
+      "views_medianas": 41,
+      "views_media": 41,
+      "salvos_por_100_alcance": 0.0,
+      "envios_por_100_alcance": 0.0,
+      "tempo_medio_s": 4.6
+    },
+    "pixel2": {
+      "n": 2,
+      "views_medianas": 766,
+      "views_media": 766,
+      "salvos_por_100_alcance": 3.46,
+      "envios_por_100_alcance": 0.87,
+      "tempo_medio_s": 6.4
+    },
+    "vila": {
+      "n": 1,
+      "views_medianas": 141,
+      "views_media": 141,
+      "salvos_por_100_alcance": 0.87,
+      "envios_por_100_alcance": 0.0,
+      "tempo_medio_s": 4.5
     },
     "tier": {
       "n": 1,
-      "views_medianas": 152,
-      "views_media": 152,
-      "salvos_por_100_alcance": 1.48,
-      "envios_por_100_alcance": 0.74,
-      "tempo_medio_s": 4.6
+      "views_medianas": 156,
+      "views_media": 156,
+      "salvos_por_100_alcance": 1.44,
+      "envios_por_100_alcance": 0.72,
+      "tempo_medio_s": 4.7
     },
     "rabisco": {
       "n": 1,
-      "views_medianas": 135,
-      "views_media": 135,
+      "views_medianas": 136,
+      "views_media": 136,
       "salvos_por_100_alcance": 4.55,
       "envios_por_100_alcance": 0.91,
       "tempo_medio_s": 6.0
@@ -51,143 +67,170 @@
       "tempo_medio_s": 3.5
     },
     "pixel antigo / manual": {
-      "n": 28,
-      "views_medianas": 188,
-      "views_media": 386,
-      "salvos_por_100_alcance": 2.44,
-      "envios_por_100_alcance": 0.83,
-      "tempo_medio_s": 12.6
+      "n": 17,
+      "views_medianas": 503,
+      "views_media": 3839,
+      "salvos_por_100_alcance": 4.33,
+      "envios_por_100_alcance": 1.23,
+      "tempo_medio_s": 8.1
     }
   },
   "por_formato": {
     "curto (20-35 s)": {
-      "n": 26,
-      "views_medianas": 156,
-      "views_media": 304,
-      "salvos_por_100_alcance": 1.75,
-      "envios_por_100_alcance": 0.49,
-      "tempo_medio_s": 12.5
+      "n": 15,
+      "views_medianas": 185,
+      "views_media": 453,
+      "salvos_por_100_alcance": 2.19,
+      "envios_por_100_alcance": 0.6,
+      "tempo_medio_s": 5.9
     },
     "longo (45-60 s)": {
-      "n": 7,
-      "views_medianas": 213,
-      "views_media": 580,
-      "salvos_por_100_alcance": 3.89,
-      "envios_por_100_alcance": 1.45,
-      "tempo_medio_s": 7.5
+      "n": 10,
+      "views_medianas": 536,
+      "views_media": 6071,
+      "salvos_por_100_alcance": 4.53,
+      "envios_por_100_alcance": 1.29,
+      "tempo_medio_s": 8.9
     }
   },
   "por_faixa_horaria": {
-    "tarde da noite (22-24h)": {
-      "n": 8,
-      "views_medianas": 258,
-      "views_media": 471,
-      "salvos_por_100_alcance": 2.39,
-      "envios_por_100_alcance": 0.71,
-      "tempo_medio_s": 6.1
-    },
     "meio-dia (10-14h)": {
-      "n": 8,
-      "views_medianas": 154,
-      "views_media": 393,
-      "salvos_por_100_alcance": 3.0,
-      "envios_por_100_alcance": 1.25,
-      "tempo_medio_s": 5.5
+      "n": 5,
+      "views_medianas": 156,
+      "views_media": 510,
+      "salvos_por_100_alcance": 3.31,
+      "envios_por_100_alcance": 1.39,
+      "tempo_medio_s": 6.0
     },
-    "noite (18-22h)": {
-      "n": 7,
-      "views_medianas": 146,
-      "views_media": 253,
-      "salvos_por_100_alcance": 3.66,
-      "envios_por_100_alcance": 1.17,
-      "tempo_medio_s": 5.8
+    "tarde da noite (22-24h)": {
+      "n": 5,
+      "views_medianas": 1001,
+      "views_media": 807,
+      "salvos_por_100_alcance": 2.85,
+      "envios_por_100_alcance": 0.81,
+      "tempo_medio_s": 7.0
     },
     "tarde (14-18h)": {
-      "n": 2,
-      "views_medianas": 165,
-      "views_media": 165,
-      "salvos_por_100_alcance": 3.32,
-      "envios_por_100_alcance": 1.11,
-      "tempo_medio_s": 5.5
+      "n": 5,
+      "views_medianas": 163,
+      "views_media": 169,
+      "salvos_por_100_alcance": 1.7,
+      "envios_por_100_alcance": 0.71,
+      "tempo_medio_s": 7.5
+    },
+    "noite (18-22h)": {
+      "n": 5,
+      "views_medianas": 324,
+      "views_media": 387,
+      "salvos_por_100_alcance": 3.53,
+      "envios_por_100_alcance": 1.26,
+      "tempo_medio_s": 6.6
     },
     "manhã (6-10h)": {
-      "n": 8,
-      "views_medianas": 181,
-      "views_media": 369,
-      "salvos_por_100_alcance": 1.24,
-      "envios_por_100_alcance": 0.24,
-      "tempo_medio_s": 29.3
+      "n": 4,
+      "views_medianas": 919,
+      "views_media": 14195,
+      "salvos_por_100_alcance": 4.53,
+      "envios_por_100_alcance": 1.25,
+      "tempo_medio_s": 8.4
+    },
+    "madrugada (0-6h)": {
+      "n": 1,
+      "views_medianas": 1354,
+      "views_media": 1354,
+      "salvos_por_100_alcance": 3.1,
+      "envios_por_100_alcance": 0.86,
+      "tempo_medio_s": 9.2
     }
   },
   "por_tema": {
     "vídeo com IA": {
-      "n": 27,
-      "views_medianas": 189,
-      "views_media": 371,
-      "salvos_por_100_alcance": 2.88,
-      "envios_por_100_alcance": 0.96,
-      "tempo_medio_s": 13.0
-    },
-    "assistente (Jarvis)": {
-      "n": 5,
-      "views_medianas": 189,
-      "views_media": 465,
-      "salvos_por_100_alcance": 2.68,
-      "envios_por_100_alcance": 0.75,
-      "tempo_medio_s": 43.7
+      "n": 20,
+      "views_medianas": 352,
+      "views_media": 3281,
+      "salvos_por_100_alcance": 4.4,
+      "envios_por_100_alcance": 1.25,
+      "tempo_medio_s": 7.0
     },
     "Claude Code": {
-      "n": 31,
-      "views_medianas": 173,
-      "views_media": 340,
-      "salvos_por_100_alcance": 2.77,
-      "envios_por_100_alcance": 0.91,
-      "tempo_medio_s": 11.8
-    },
-    "agentes e skills": {
-      "n": 21,
-      "views_medianas": 197,
-      "views_media": 426,
-      "salvos_por_100_alcance": 2.93,
-      "envios_por_100_alcance": 0.98,
-      "tempo_medio_s": 15.0
+      "n": 24,
+      "views_medianas": 295,
+      "views_media": 2760,
+      "salvos_por_100_alcance": 4.36,
+      "envios_por_100_alcance": 1.24,
+      "tempo_medio_s": 7.0
     },
     "venda e kit": {
-      "n": 30,
-      "views_medianas": 188,
-      "views_media": 386,
-      "salvos_por_100_alcance": 2.48,
-      "envios_por_100_alcance": 0.83,
-      "tempo_medio_s": 12.2
+      "n": 19,
+      "views_medianas": 381,
+      "views_media": 635,
+      "salvos_por_100_alcance": 2.79,
+      "envios_por_100_alcance": 0.93,
+      "tempo_medio_s": 6.8
+    },
+    "assistente (Jarvis)": {
+      "n": 4,
+      "views_medianas": 758,
+      "views_media": 762,
+      "salvos_por_100_alcance": 3.03,
+      "envios_por_100_alcance": 0.8,
+      "tempo_medio_s": 6.4
+    },
+    "agentes e skills": {
+      "n": 15,
+      "views_medianas": 312,
+      "views_media": 578,
+      "salvos_por_100_alcance": 3.14,
+      "envios_por_100_alcance": 1.06,
+      "tempo_medio_s": 7.0
     },
     "segurança e teste": {
-      "n": 3,
-      "views_medianas": 123,
-      "views_media": 131,
-      "salvos_por_100_alcance": 1.18,
+      "n": 2,
+      "views_medianas": 120,
+      "views_media": 120,
+      "salvos_por_100_alcance": 0.95,
       "envios_por_100_alcance": 0.0,
-      "tempo_medio_s": 4.0
-    },
-    "outros": {
-      "n": 1,
-      "views_medianas": 142,
-      "views_media": 142,
-      "salvos_por_100_alcance": 0.0,
-      "envios_por_100_alcance": 0.0,
-      "tempo_medio_s": 2.9
+      "tempo_medio_s": 3.5
     }
   },
   "melhor_faixa": "tarde da noite (22-24h)",
-  "melhor_tema": "agentes e skills",
+  "melhor_tema": "assistente (Jarvis)",
   "top": [
     {
+      "id": "18027479654873301",
+      "views": 54663,
+      "salvos": 2022,
+      "envios": 560,
+      "tempo_s": 11.9,
+      "titulo": "Esse repositório faz a ia criar vídeo escrevendo html, grátis e open s",
+      "hora": "18/10 08:45"
+    },
+    {
       "id": "18413224864081335",
-      "views": 1849,
+      "views": 1850,
       "salvos": 56,
       "envios": 24,
       "tempo_s": 9.4,
       "titulo": "Editor de vídeo local para agentes de código com 42 ferramentas ffmpeg",
       "hora": "19/10 13:40"
+    },
+    {
+      "id": "17886619920622218",
+      "views": 1354,
+      "salvos": 36,
+      "envios": 10,
+      "tempo_s": 9.2,
+      "titulo": "Crie curtas metragens com o claude code gerando renderização e áudio d",
+      "hora": "19/10 03:11"
+    },
+    {
+      "id": "18110500358228983",
+      "views": 1347,
+      "salvos": 43,
+      "envios": 11,
+      "tempo_s": 7.7,
+      "titulo": "Quatro repositórios grátis para criar agentes e sites com ia",
+      "hora": "28/10 23:05"
     },
     {
       "id": "18031314608687509",
@@ -200,7 +243,7 @@
     },
     {
       "id": "18098799443108682",
-      "views": 1192,
+      "views": 1193,
       "salvos": 28,
       "envios": 8,
       "tempo_s": 7.1,
@@ -218,39 +261,12 @@
     },
     {
       "id": "17992667739058973",
-      "views": 855,
+      "views": 858,
       "salvos": 40,
       "envios": 15,
       "tempo_s": 11.1,
       "titulo": "O openfilm transforma agentes de código em criadores de vídeo usando a",
       "hora": "19/10 20:25"
-    },
-    {
-      "id": "18110500358228983",
-      "views": 621,
-      "salvos": 17,
-      "envios": 4,
-      "tempo_s": 7.8,
-      "titulo": "Quatro repositórios grátis para criar agentes e sites com ia",
-      "hora": "28/10 23:05"
-    },
-    {
-      "id": "18086283575333410",
-      "views": 569,
-      "salvos": 15,
-      "envios": 4,
-      "tempo_s": 6.2,
-      "titulo": "55 skills abertas para ensinar seu agente de código a criar animações ",
-      "hora": "20/10 09:10"
-    },
-    {
-      "id": "18160811710499604",
-      "views": 379,
-      "salvos": 11,
-      "envios": 4,
-      "tempo_s": 7.7,
-      "titulo": "Escritório virtual em pixel art para acompanhar agentes do claude code",
-      "hora": "21/10 12:04"
     }
   ]
 }
