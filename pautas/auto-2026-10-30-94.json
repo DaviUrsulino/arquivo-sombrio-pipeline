@@ -1,0 +1,88 @@
+{
+  "formato": "pixel2",
+  "palavra_chave": "ESTUDIO",
+  "perfil": "@ursulino.ia",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "chamada": {
+    "pergunta": "quer o pack?"
+  },
+  "itens": [],
+  "titulo": "Venda Estúdio 3: como esses vídeos são feitos",
+  "capa": {
+    "subtitulo": "como os vídeos deste perfil são feitos"
+  },
+  "destaques": [
+    "perfil",
+    "código",
+    "bônus",
+    "estudio"
+  ],
+  "legenda": "Muita gente pergunta como os vídeos deste perfil são feitos. É código: roteiro + narração viram vídeo em 8 estilos. O Pack Estúdio tem tudo, com o Kit Claude Code e o Kit Engenharia de bônus.\n\nComenta ESTUDIO que eu te mando o link no direct 👇\n\n#claudecode #ia #reels #programacao",
+  "cenas_roteiro": [
+    {
+      "humor": "pensando",
+      "narracao": "Todo dia alguém pergunta como os vídeos deste perfil são feitos.",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "COMO EU",
+            "cor": "branco"
+          },
+          {
+            "texto": "FAÇO ISSO?",
+            "cor": "laranja"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "A resposta é código: um script lê o roteiro e acha cada frase na narração.",
+      "visual": {
+        "tipo": "cadeia",
+        "nos": [
+          {
+            "icone": "file-text",
+            "rotulo": "ROTEIRO",
+            "cor": "azul"
+          },
+          {
+            "icone": "search",
+            "rotulo": "SINCRONIA",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "clapperboard",
+            "rotulo": "MP4",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Eu juntei os oito estilos num pack, com o prompt que escreve o roteiro.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "sparkles",
+        "cor": "roxo",
+        "rotulo": "PACK ESTÚDIO"
+      }
+    },
+    {
+      "narracao": "E de bônus vêm o Kit Claude Code e o Kit Engenharia com Inteligência Artificial.",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Pack Estúdio",
+          "Kit Claude Code",
+          "Kit Engenharia"
+        ]
+      }
+    }
+  ],
+  "molde": "estudio-pixelui.html.tpl"
+}
