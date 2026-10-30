@@ -1,0 +1,201 @@
+{
+  "titulo": "lista: trabalhar com agentes de ia",
+  "formato": "pixel2",
+  "palavra_chave": "GITHUB",
+  "perfil": "@ursulino.ia",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "ferramentas incríveis do github para potencializar seus agentes de inteligência artificial"
+  },
+  "chamada": {
+    "pergunta": "quer os links dos repositórios?"
+  },
+  "itens": [
+    {
+      "repo": "risa-labs-inc/BossConsole",
+      "nome": "BossConsole",
+      "cor": "azul",
+      "promessa": "Open-source, multi-platform harness for AI agents - a native, multi-threaded ope",
+      "texto": "Ele cria ambientes para executar agentes."
+    },
+    {
+      "repo": "dagoSte/squadra",
+      "nome": "squadra",
+      "cor": "verde",
+      "promessa": "Coordinate Claude, Codex and Cursor windows with shared tasks, acknowledgements,",
+      "texto": "Ele coordena vários agentes de código."
+    },
+    {
+      "repo": "DevnorsAI/devnors-data-mcp",
+      "nome": "devnors-data-mcp",
+      "cor": "laranja",
+      "promessa": "Devnors Data - MCP Server: MCP,Model Context Protocol,Claude,Cursor,WorkBuddy,接口",
+      "texto": "Ele conecta assistentes com APIs externas."
+    },
+    {
+      "repo": "DenisSergeevitch/ex-ussr-kinship-research",
+      "nome": "ex-ussr-kinship-research",
+      "cor": "roxo",
+      "promessa": "Evidence-first genealogy skill for AI agents (Codex, Claude Code): church books,",
+      "texto": "Ele busca documentos históricos de famílias."
+    }
+  ],
+  "destaques": [
+    "boss console",
+    "squadra",
+    "devnors data mcp",
+    "ex ussr kinship research",
+    "github"
+  ],
+  "cenas_roteiro": [
+    {
+      "humor": "animado",
+      "narracao": "Quatro repositórios grátis para trabalhar com agentes de ia.",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "5 FERRAMENTAS",
+            "cor": "branco",
+            "tamanho": 100
+          },
+          {
+            "texto": "PARA AGENTES",
+            "cor": "laranja",
+            "tamanho": 110
+          }
+        ]
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Primeiro: boss console. Ele cria ambientes para executar agentes.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "bot",
+        "cor": "azul",
+        "rotulo": "BOSS CONSOLE"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Segundo: squadra. Ele coordena vários agentes de código.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "users",
+        "cor": "verde",
+        "rotulo": "SQUADRA"
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Terceiro: devnors data mcp. Ele conecta assistentes com APIs externas.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "code-xml",
+        "cor": "laranja",
+        "rotulo": "DEVNORS DATA MCP"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Quarto: ex ussr kinship research. Ele busca documentos históricos de famílias.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "file-text",
+        "cor": "roxo",
+        "rotulo": "EX USSR KINSHIP"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "5 FERRAMENTAS",
+          "cor": "branco",
+          "tamanho": 96
+        },
+        {
+          "texto": "PARA AGENTES",
+          "cor": "laranja",
+          "tamanho": 96
+        }
+      ],
+      "subtitulo": "ferramentas incríveis do github para potencializar seus agentes de inteligência artificial"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 1",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "BOSS CONSOLE",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "BossConsole",
+      "texto": "Ele cria ambientes para executar agentes."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 2",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "SQUADRA",
+          "cor": "verde"
+        }
+      ],
+      "rotulo": "squadra",
+      "texto": "Ele coordena vários agentes de código."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 3",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "DEVNORS DATA MCP",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "devnors-data-mcp",
+      "texto": "Ele conecta assistentes com APIs externas."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 4",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "EX USSR KINSHIP",
+          "cor": "roxo"
+        }
+      ],
+      "rotulo": "ex-ussr-kinship-research",
+      "texto": "Ele busca documentos históricos de famílias."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER OS LINKS",
+          "cor": "branco"
+        },
+        {
+          "texto": "DOS REPOS?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando os links no direct.",
+      "palavra": "GITHUB",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "legenda": "Quatro repositórios grátis para trabalhar com agentes de ia\n\nSalva este vídeo:\n1. Boss Console: Ele cria ambientes para executar agentes.\n2. Squadra: Ele coordena vários agentes de código.\n3. Devnors Data Mcp: Ele conecta assistentes com APIs externas.\n4. Ex Ussr Kinship: Ele busca documentos históricos de famílias.\n\nManda pra um amigo dev, segue o @ursulino.ia e comenta GITHUB que eu te mando os links no direct.\n\nQuer aprender a fazer vídeos assim? Link na bio.\n\n#claudecode #github #ia #programacao #opensource"
+}

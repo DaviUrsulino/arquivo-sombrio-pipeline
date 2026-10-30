@@ -298,5 +298,10 @@
     "palavra": "RUST",
     "mensagem": "Oi! Aqui está o BeautifulRust.\n\nEnsina agentes de código a escrever, revisar e portar Rust idiomático com boas práticas, revisão automatizada e configuração de lints testada.\n\nComo começar:\n1. Instale com npx skills add morganlinton/BeautifulRust para a maioria dos agentes\n2. Ou use claude plugin install beautiful-rust --marketplace morganlinton/BeautifulRust no Claude Code\n3. Ou instale via gh skill install morganlinton/BeautifulRust rust-best-practices rust-review rust-port no GitHub Copilot\n\nPra testar hoje: Rode npx skills add morganlinton/BeautifulRust e peça ao agente para criar uma struct com campos públicos; veja ele tornar privados e adicionar getters e docs de erro.\n\nLink: https://github.com/morganlinton/BeautifulRust\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
     "repo": "morganlinton/BeautifulRust"
+  },
+  "18074133419784901": {
+    "palavra": "GITHUB",
+    "mensagem": "Oi! Aqui estão os repositórios do vídeo:\n1. BossConsole: https://github.com/risa-labs-inc/BossConsole\n2. squadra: https://github.com/dagoSte/squadra\n3. devnors-data-mcp: https://github.com/DevnorsAI/devnors-data-mcp\n4. ex-ussr-kinship-research: https://github.com/DenisSergeevitch/ex-ussr-kinship-research\nSe curtir, segue o @ursulino.ia pra mais ferramentas de IA.",
+    "repo": "risa-labs-inc/BossConsole"
   }
 }

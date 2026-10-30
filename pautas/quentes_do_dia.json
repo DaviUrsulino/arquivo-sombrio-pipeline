@@ -1,64 +1,44 @@
 {
- "dia": "2026-10-29",
+ "dia": "2026-10-30",
  "itens": [
   {
-   "repo": "rddmwmddr/android-ad-cleaner",
-   "nota": 0.982,
-   "fontes": 1
-  },
-  {
-   "repo": "elayadesign/ai-design-skills",
-   "nota": 0.902,
-   "fontes": 1
-  },
-  {
-   "repo": "Nutlope/hallmark",
-   "nota": 0.89,
-   "fontes": 1
-  },
-  {
-   "repo": "thomasunise/casecite",
-   "nota": 0.767,
-   "fontes": 1
-  },
-  {
    "repo": "pbakaus/impeccable",
-   "nota": 0.621,
+   "nota": 1.0,
    "fontes": 1
   },
   {
-   "repo": "t3dotgg/tstack",
-   "nota": 0.514,
+   "repo": "flamerix-ai/c3905705cc4205e5de3011fa2e74efce",
+   "nota": 1.0,
    "fontes": 1
   },
   {
-   "repo": "obra/superpowers",
-   "nota": 0.462,
-   "fontes": 1
-  },
-  {
-   "repo": "nightly-labs/openbot",
-   "nota": 0.445,
+   "repo": "rddmwmddr/android-ad-cleaner",
+   "nota": 1.0,
    "fontes": 1
   },
   {
    "repo": "anhao/ai-pose-gallery-zh",
-   "nota": 0.445,
+   "nota": 0.674,
    "fontes": 1
   },
   {
-   "repo": "morganlinton/BeautifulRust",
-   "nota": 0.309,
+   "repo": "t3dotgg/tstack",
+   "nota": 0.506,
    "fontes": 1
   },
   {
-   "repo": "makecindy/cindy",
-   "nota": 0.307,
+   "repo": "elayadesign/ai-design-skills",
+   "nota": 0.414,
+   "fontes": 1
+  },
+  {
+   "repo": "obra/superpowers",
+   "nota": 0.36,
    "fontes": 1
   },
   {
    "repo": "andyhuo520/digital-human-koubo",
-   "nota": 0.298,
+   "nota": 0.31,
    "fontes": 1
   },
   {
@@ -67,58 +47,83 @@
    "fontes": 1
   },
   {
+   "repo": "nightly-labs/openbot",
+   "nota": 0.247,
+   "fontes": 1
+  },
+  {
    "repo": "Motionsites-AI/claude-skill",
-   "nota": 0.204,
+   "nota": 0.23,
    "fontes": 1
   },
   {
    "repo": "ZiChuanLan/agent-purge",
-   "nota": 0.181,
+   "nota": 0.185,
    "fontes": 1
   },
   {
-   "repo": "yaojingang/GEOInflow",
-   "nota": 0.156,
+   "repo": "qybaihe/bla",
+   "nota": 0.167,
    "fontes": 1
   },
   {
    "repo": "daveebbelaar/bama",
-   "nota": 0.136,
+   "nota": 0.166,
    "fontes": 1
   },
   {
    "repo": "anonnerdfrenzy/survival-llm",
-   "nota": 0.132,
+   "nota": 0.162,
+   "fontes": 1
+  },
+  {
+   "repo": "yaojingang/GEOInflow",
+   "nota": 0.153,
+   "fontes": 1
+  },
+  {
+   "repo": "Donchitos/Claude-Code-Game-Studios",
+   "nota": 0.123,
+   "fontes": 1
+  },
+  {
+   "repo": "thomasunise/casecite",
+   "nota": 0.123,
    "fontes": 1
   },
   {
    "repo": "blakeandersonw/ai-app-playbook",
-   "nota": 0.127,
+   "nota": 0.122,
    "fontes": 1
   },
   {
-   "repo": "wangrongding/tv-fresh",
-   "nota": 0.118,
-   "fontes": 1
-  },
-  {
-   "repo": "songjianyang/xss-audit",
-   "nota": 0.118,
-   "fontes": 1
-  },
-  {
-   "repo": "stormydayy/halo-overlay",
+   "repo": "thedotmack/claude-mem",
    "nota": 0.117,
    "fontes": 1
   },
   {
-   "repo": "macro-inc/macro",
-   "nota": 0.049,
+   "repo": "songjianyang/xss-audit",
+   "nota": 0.113,
    "fontes": 1
   },
   {
-   "repo": "expo/skills",
-   "nota": 0.038,
+   "repo": "wangrongding/tv-fresh",
+   "nota": 0.111,
+   "fontes": 1
+  },
+  {
+   "repo": "konlu/story-studio",
+   "nota": 0.103,
+   "fontes": 1
+  },
+  {
+   "repo": "ZigEmbeddedGroup/microzig",
+   "nota": 0.098,
+   "fontes": 1
+  },
+  {
+   "repo": "CopilotKit/OpenBot",
+   "nota": 0.086,
    "fontes": 1
   }
  ]

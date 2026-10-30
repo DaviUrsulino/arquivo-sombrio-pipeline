@@ -4,6 +4,8 @@
     "20000419/fauxnix",
     "AMAP-ML/LongHorizon-Harness",
     "DayuanJiang/next-ai-draw-io",
+    "DenisSergeevitch/ex-ussr-kinship-research",
+    "DevnorsAI/devnors-data-mcp",
     "DietrichGebert/ponytail",
     "Donchitos/Claude-Code-Game-Studios",
     "EveryInc/compound-engineering-plugin",
@@ -54,6 +56,7 @@
     "continuedev/continue",
     "coreyhaines31/marketingskills",
     "czlonkowski/n8n-mcp",
+    "dagoSte/squadra",
     "danyuchn/asd-ste100-skill",
     "diegosouzapw/OmniRoute",
     "duty1g/x64dbg-mcp-server",
@@ -105,6 +108,7 @@
     "plandex-ai/plandex",
     "rehan-remade/universal-modder",
     "remotion-dev/remotion",
+    "risa-labs-inc/BossConsole",
     "ronak-create/FableCut",
     "ruc-datalab/EvoOntology",
     "ruvnet/ruflo",
@@ -137,5 +141,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 65
+  "pautas_geradas": 66
 }
