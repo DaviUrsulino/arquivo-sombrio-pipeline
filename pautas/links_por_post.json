@@ -308,5 +308,10 @@
     "palavra": "PERSONA",
     "mensagem": "Oi! Aqui está o agent-purge.\n\nUne a configuração de system prompt de vários coding agents em um só lugar com console web local.\n\nComo começar:\n1. npm i -g agent-purge\n2. agent-purge web\n3. agent-purge use <id>\n\nPra testar hoje: Rode agent-purge web e escolha um persona no painel http://127.0.0.1:7788 para testar no codex com agent-purge codex.\n\nLink: https://github.com/ZiChuanLan/agent-purge\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
     "repo": "ZiChuanLan/agent-purge"
+  },
+  "17893764597447022": {
+    "palavra": "PERSONA",
+    "mensagem": "Oi! Aqui está o repositório agent-purge: https://github.com/ZiChuanLan/agent-purge\nSe curtir, segue o @ursulino.ia pra mais ferramentas de IA.",
+    "repo": "ZiChuanLan/agent-purge"
   }
 }
