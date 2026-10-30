@@ -45,13 +45,42 @@ MOLDES_ESTUDIO = [
     "estudio-papel.html.tpl",    # @nodir.ai_: tipografia 3D extrudada em papel creme
     "estudio-vidro.html.tpl",    # @igao.ia: interface de app em vidro escuro
     "estudio-voxel.html.tpl",    # @macelista: letreiro neon, fita crepe, mascote voxel 3D
+    "estudio-cartao.html.tpl",   # @motionia.br: papel rasgado + fita, cartão creme, robô estagiário
+    "estudio-glow.html.tpl",     # @mateus.curta.ia: preto, glow vermelho, órbita de ícone, sem personagem
 ]  # escuro e neon foram reprovados pelo Davi (2026-10-26)
+
+# 2026-10-30: até aqui o rodízio automático do vídeo de UMA ferramenta só escolhia entre as 2
+# identidades de identidade.py (escritório, vila) -- os 10 moldes de MOLDES_ESTUDIO só saíam em
+# posts com `molde` forçado (venda). Resultado: 2 posts seguidos caíram na mesma identidade
+# (BeautifulRust e agent-purge, ambos "vila") e pareceram o mesmo vídeo. Davi reforçou que o Kit
+# Engenharia vende 8+ identidades -- o rodízio tem que usar o pool inteiro, não só 2.
+IDENTIDADES_IDENT = [f"ident-{n}" for n in identidade.identidades()]
+
+
+def todas_as_identidades() -> list[str]:
+    return IDENTIDADES_IDENT + MOLDES_ESTUDIO
+
+
+ARQUIVO_ULTIMA_IDENTIDADE = RAIZ / "pautas" / "ultima_identidade.json"
 
 
 def identidade_do(titulo: str) -> str:
-    """Identidade do vídeo de uma ferramenta, em rodízio pelo título (escritório, vila 3D, ...)."""
-    nomes = identidade.identidades()
-    return nomes[sum(ord(c) for c in titulo) % len(nomes)]
+    """Identidade/molde do vídeo de uma ferramenta, em rodízio pelo título, por TODO o acervo.
+
+    Nunca repete a identidade do post anterior: a soma de char codes colide fácil (dois títulos
+    quaisquer terminando em "roteiro automático" caem no mesmo bucket com frequência), e foi
+    exatamente isso que fez dois posts seguidos saírem na mesma identidade em 2026-10-30.
+    """
+    escolhas = todas_as_identidades()
+    indice = sum(ord(c) for c in titulo) % len(escolhas)
+    anterior = None
+    if ARQUIVO_ULTIMA_IDENTIDADE.exists():
+        anterior = json.loads(ARQUIVO_ULTIMA_IDENTIDADE.read_text(encoding="utf-8")).get("molde")
+    if escolhas[indice] == anterior:
+        indice = (indice + 1) % len(escolhas)
+    escolhido = escolhas[indice]
+    ARQUIVO_ULTIMA_IDENTIDADE.write_text(json.dumps({"molde": escolhido}), encoding="utf-8")
+    return escolhido
 
 
 def molde_estudio(titulo: str) -> str:
@@ -160,8 +189,10 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
         # a pauta pode fixar o estilo (ex.: vídeo de venda sempre no estilo mais vistoso)
         modelo_reels = dados_pauta.get("molde") or molde_estudio(dados_pauta.get("titulo", ""))
     if formato == "pixel2" and len(repos) == 1 and not dados_pauta.get("molde") and os.getenv("MOLDE_PIXEL2") != "1":
-        # vídeo de uma ferramenta: identidade com acervo de cenas (cada vídeo monta cenas próprias do assunto)
-        modelo_reels = "ident-" + identidade_do(dados_pauta.get("titulo", ""))
+        # vídeo de uma ferramenta: rodízio por TODO o acervo de identidades (ident- com cenas próprias
+        # do assunto, ou um molde estúdio comum) -- nunca só entre as 2 de identidade.py (2026-10-30).
+        modelo_reels = identidade_do(dados_pauta.get("titulo", ""))
+    if modelo_reels.startswith("ident-"):
         dados = next(iter(repos.values()))
         cenas_pauta = dados_pauta.get("cenas") or [{}]
         plano = identidade.planejar(modelo_reels.removeprefix("ident-"), dados, buscar_readme(dados.repo),
