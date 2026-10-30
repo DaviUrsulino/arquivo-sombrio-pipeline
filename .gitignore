@@ -18,6 +18,7 @@ roteiro*.json
 *.png
 !docs/**
 !assets/**
+!loops/fila/**
 
 # cache de narração (ElevenLabs) e saídas do canal Instagram
 .cache/
