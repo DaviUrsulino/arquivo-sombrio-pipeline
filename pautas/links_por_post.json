@@ -303,5 +303,10 @@
     "palavra": "GITHUB",
     "mensagem": "Oi! Aqui estão os repositórios do vídeo:\n1. BossConsole: https://github.com/risa-labs-inc/BossConsole\n2. squadra: https://github.com/dagoSte/squadra\n3. devnors-data-mcp: https://github.com/DevnorsAI/devnors-data-mcp\n4. ex-ussr-kinship-research: https://github.com/DenisSergeevitch/ex-ussr-kinship-research\nSe curtir, segue o @ursulino.ia pra mais ferramentas de IA.",
     "repo": "risa-labs-inc/BossConsole"
+  },
+  "17967218030983255": {
+    "palavra": "PERSONA",
+    "mensagem": "Oi! Aqui está o agent-purge.\n\nUne a configuração de system prompt de vários coding agents em um só lugar com console web local.\n\nComo começar:\n1. npm i -g agent-purge\n2. agent-purge web\n3. agent-purge use <id>\n\nPra testar hoje: Rode agent-purge web e escolha um persona no painel http://127.0.0.1:7788 para testar no codex com agent-purge codex.\n\nLink: https://github.com/ZiChuanLan/agent-purge\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
+    "repo": "ZiChuanLan/agent-purge"
   }
 }

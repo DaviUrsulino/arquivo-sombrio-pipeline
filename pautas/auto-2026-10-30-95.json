@@ -1,0 +1,230 @@
+{
+  "titulo": "agent-purge: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "PERSONA",
+  "perfil": "@ursulino.ia",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "gerencie personas em varios agentes de codigo com um painel local"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "ZiChuanLan/agent-purge",
+      "nome": "agent-purge",
+      "cor": "azul",
+      "promessa": "One persona, many coding agents. Replace or inject system prompts across codex, ",
+      "texto": "One persona, many coding agents. Replace or inject system prompts across codex, claude, opencode, grok, omp, hermes, pi,"
+    }
+  ],
+  "destaques": [
+    "agente",
+    "personas",
+    "instrucao",
+    "painel",
+    "instalacao",
+    "modos",
+    "persona"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Cada agente de código usa uma instrução totalmente diferente.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "CADA AGENTE",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "DE CÓDIGO",
+            "cor": "laranja",
+            "tamanho": 120
+          },
+          {
+            "texto": "DIFERENTE",
+            "cor": "amarelo",
+            "tamanho": 120
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Essa ferramenta unifica a mesma pessoa em vários assistentes.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "user",
+            "rotulo": "Instrução",
+            "cor": "roxo"
+          },
+          {
+            "icone": "zap",
+            "rotulo": "Agent Purge",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "bot",
+            "rotulo": "Assistentes",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Ela suporta quatro modos para alterar o comportamento do sistema.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "niveis",
+        "itens": [
+          {
+            "rotulo": "SUBSTITUIR",
+            "altura": 1,
+            "cor": "azul"
+          },
+          {
+            "rotulo": "ADICIONAR",
+            "altura": 2,
+            "cor": "verde"
+          },
+          {
+            "rotulo": "DESATIVAR",
+            "altura": 3,
+            "cor": "laranja"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Você gerencia todas as personas por um painel web local.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "terminal",
+        "cor": "roxo",
+        "rotulo": "PAINEL WEB LOCAL"
+      }
+    },
+    {
+      "narracao": "O projeto já soma {estrelas:ZiChuanLan/agent-purge} estrelas no repositório oficial.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "contador",
+        "repo": "ZiChuanLan/agent-purge"
+      }
+    },
+    {
+      "narracao": "A instalação global é feita diretamente com o comando npm.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "npm i -g agent-purge",
+        "texto": "instalação global via npm"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "UMA PERSONA",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "VÁRIOS AGENTES",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o agent-purge"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "GERENCIADOR DE IA",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "agent-purge",
+      "texto": "Unifica e injeta prompts de sistema em múltiplos agentes de código. Permite alternar personas em um painel web local."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMO INSTALAR",
+          "cor": "verde"
+        }
+      ],
+      "comando": "npm i -g agent-purge",
+      "texto": "requer Node maior ou igual a vinte",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "MODOS DE USO",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "modos",
+      "texto": "Suporta quatro modos: substituir, apenas persona, adicionar e limpar. Alterações são totalmente reversíveis."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "LICENÇA MIT",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "requisito",
+      "texto": "Código aberto sob licença MIT. Armazena dados localmente no diretório do usuário e não envia dados externos."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "PERSONA",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "passos": [
+    "Instale o pacote com npm i -g agent-purge",
+    "Inicie a interface com agent-purge web",
+    "Gerencie suas personas no painel local",
+    "Rode seu agente com agent-purge codex"
+  ]
+}
