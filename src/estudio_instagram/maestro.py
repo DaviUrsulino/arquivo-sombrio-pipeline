@@ -37,8 +37,12 @@ BRASILIA = timezone(timedelta(hours=-3))
 # 2026-10-28: as duas listas que passaram de 1.000 views saíram às 23:30 (25/10 e 26/10); a lista das 12:00 de
 # hoje fez 111. Lista volta pra noite (22:30, todo dia) e o meio-dia fica com o vídeo de uma ferramenta nas
 # identidades (escritório, vila 3D) ou venda.
-RODADAS = [("12:00", "pixel2"), ("20:00", "loop"), ("22:30", "lista")]
-# 20:00: loop de 8-10 s do Google Flow (estilo @pixosly), só se houver vídeo em loops/fila/ (ver loop.py).
+RODADAS = [("12:00", "pixel2"), ("20:00", "pixel2"), ("22:30", "lista")]
+# 2026-10-29: a rodada das 20:00 era "loop" (vídeo do Google Flow, formato @pixosly) -- dependia do Davi
+# soltar um vídeo à mão em loops/fila/ toda vez, o que ele não sustentou ("mó preguiça"). Virou "pixel2"
+# (ferramenta/identidade, 100% automático, sem insumo manual) pra fechar as 3 rodadas do dia sem depender
+# de ninguém. loop.py e instagram_loop.yml ficam prontos pra quando ele quiser soltar um vídeo de novo
+# (dispara via gh workflow run instagram_loop.yml na mão quando tiver fila).
 FILA_LOOPS = RAIZ / "loops" / "fila"
 # Formato da rodada das 12:00 por dia da semana (0 = segunda): venda 2x por semana, identidades nos outros dias.
 FORMATO_NOBRE_POR_DIA = {0: "pixel2", 1: "venda", 2: "pixel2", 3: "pixel2", 4: "venda", 5: "pixel2", 6: "pixel2"}
