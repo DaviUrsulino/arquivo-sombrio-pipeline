@@ -7,5 +7,12 @@
     "publicado": true,
     "media_id": "18145514257579555",
     "publicado_em": "2026-10-17T22:39:26+00:00"
+  },
+  {
+    "pauta": "loser-animacao-manual",
+    "video_url": "https://github.com/DaviUrsulino/arquivo-sombrio-pipeline/releases/download/midia-publicacao/loser-animacao-reels.mp4",
+    "legenda": "Todo dia a mesma correria. 6:58 de novo.\n\nSegue o @ursulino.ia.",
+    "postar_apos": "2026-11-01T03:00:00+00:00",
+    "publicado": false
   }
 ]
