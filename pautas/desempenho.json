@@ -1,46 +1,62 @@
 {
-  "gerado_em": "2026-10-30 13:43",
-  "seguidores": 320,
+  "gerado_em": "2026-10-31 12:46",
+  "seguidores": 322,
   "geral": {
-    "n": 25,
-    "views_medianas": 312,
-    "views_media": 2700,
+    "n": 28,
+    "views_medianas": 295,
+    "views_media": 2453,
     "salvos_por_100_alcance": 4.28,
     "envios_por_100_alcance": 1.21,
-    "tempo_medio_s": 7.1
+    "tempo_medio_s": 6.8
   },
   "por_estilo": {
-    "pixelui": {
+    "glow": {
       "n": 1,
-      "views_medianas": 41,
-      "views_media": 41,
+      "views_medianas": 1,
+      "views_media": 1,
       "salvos_por_100_alcance": 0.0,
       "envios_por_100_alcance": 0.0,
-      "tempo_medio_s": 4.6
+      "tempo_medio_s": 0.0
     },
     "pixel2": {
-      "n": 2,
-      "views_medianas": 766,
-      "views_media": 766,
-      "salvos_por_100_alcance": 3.46,
-      "envios_por_100_alcance": 0.87,
-      "tempo_medio_s": 6.4
+      "n": 3,
+      "views_medianas": 819,
+      "views_media": 794,
+      "salvos_por_100_alcance": 4.3,
+      "envios_por_100_alcance": 0.92,
+      "tempo_medio_s": 7.4
+    },
+    "escritorio": {
+      "n": 1,
+      "views_medianas": 156,
+      "views_media": 156,
+      "salvos_por_100_alcance": 0.0,
+      "envios_por_100_alcance": 0.0,
+      "tempo_medio_s": 2.9
+    },
+    "pixelui": {
+      "n": 1,
+      "views_medianas": 177,
+      "views_media": 177,
+      "salvos_por_100_alcance": 0.67,
+      "envios_por_100_alcance": 0.0,
+      "tempo_medio_s": 6.0
     },
     "vila": {
       "n": 1,
-      "views_medianas": 141,
-      "views_media": 141,
-      "salvos_por_100_alcance": 0.87,
+      "views_medianas": 143,
+      "views_media": 143,
+      "salvos_por_100_alcance": 0.86,
       "envios_por_100_alcance": 0.0,
       "tempo_medio_s": 4.5
     },
     "tier": {
       "n": 1,
-      "views_medianas": 156,
-      "views_media": 156,
-      "salvos_por_100_alcance": 1.44,
-      "envios_por_100_alcance": 0.72,
-      "tempo_medio_s": 4.7
+      "views_medianas": 158,
+      "views_media": 158,
+      "salvos_por_100_alcance": 1.43,
+      "envios_por_100_alcance": 0.71,
+      "tempo_medio_s": 4.6
     },
     "rabisco": {
       "n": 1,
@@ -48,15 +64,15 @@
       "views_media": 136,
       "salvos_por_100_alcance": 4.55,
       "envios_por_100_alcance": 0.91,
-      "tempo_medio_s": 6.0
+      "tempo_medio_s": 5.9
     },
     "esquete": {
       "n": 1,
-      "views_medianas": 117,
-      "views_media": 117,
-      "salvos_por_100_alcance": 1.87,
+      "views_medianas": 118,
+      "views_media": 118,
+      "salvos_por_100_alcance": 1.85,
       "envios_por_100_alcance": 0.0,
-      "tempo_medio_s": 3.5
+      "tempo_medio_s": 3.4
     },
     "vidro": {
       "n": 1,
@@ -69,7 +85,7 @@
     "pixel antigo / manual": {
       "n": 17,
       "views_medianas": 503,
-      "views_media": 3839,
+      "views_media": 3841,
       "salvos_por_100_alcance": 4.33,
       "envios_por_100_alcance": 1.23,
       "tempo_medio_s": 8.1
@@ -77,17 +93,17 @@
   },
   "por_formato": {
     "curto (20-35 s)": {
-      "n": 15,
-      "views_medianas": 185,
-      "views_media": 453,
-      "salvos_por_100_alcance": 2.19,
-      "envios_por_100_alcance": 0.6,
-      "tempo_medio_s": 5.9
+      "n": 18,
+      "views_medianas": 193,
+      "views_media": 441,
+      "salvos_por_100_alcance": 2.5,
+      "envios_por_100_alcance": 0.62,
+      "tempo_medio_s": 5.7
     },
     "longo (45-60 s)": {
       "n": 10,
       "views_medianas": 536,
-      "views_media": 6071,
+      "views_media": 6074,
       "salvos_por_100_alcance": 4.53,
       "envios_por_100_alcance": 1.29,
       "tempo_medio_s": 8.9
@@ -95,49 +111,49 @@
   },
   "por_faixa_horaria": {
     "meio-dia (10-14h)": {
-      "n": 5,
-      "views_medianas": 156,
-      "views_media": 510,
-      "salvos_por_100_alcance": 3.31,
-      "envios_por_100_alcance": 1.39,
-      "tempo_medio_s": 6.0
+      "n": 6,
+      "views_medianas": 167,
+      "views_media": 448,
+      "salvos_por_100_alcance": 3.17,
+      "envios_por_100_alcance": 1.31,
+      "tempo_medio_s": 5.2
     },
     "tarde da noite (22-24h)": {
-      "n": 5,
-      "views_medianas": 1001,
-      "views_media": 807,
-      "salvos_por_100_alcance": 2.85,
-      "envios_por_100_alcance": 0.81,
-      "tempo_medio_s": 7.0
+      "n": 6,
+      "views_medianas": 910,
+      "views_media": 815,
+      "salvos_por_100_alcance": 3.36,
+      "envios_por_100_alcance": 0.85,
+      "tempo_medio_s": 7.4
+    },
+    "noite (18-22h)": {
+      "n": 6,
+      "views_medianas": 240,
+      "views_media": 349,
+      "salvos_por_100_alcance": 3.25,
+      "envios_por_100_alcance": 1.16,
+      "tempo_medio_s": 6.0
     },
     "tarde (14-18h)": {
       "n": 5,
       "views_medianas": 163,
-      "views_media": 169,
+      "views_media": 170,
       "salvos_por_100_alcance": 1.7,
       "envios_por_100_alcance": 0.71,
       "tempo_medio_s": 7.5
     },
-    "noite (18-22h)": {
-      "n": 5,
-      "views_medianas": 324,
-      "views_media": 387,
-      "salvos_por_100_alcance": 3.53,
-      "envios_por_100_alcance": 1.26,
-      "tempo_medio_s": 6.6
-    },
     "manhã (6-10h)": {
       "n": 4,
       "views_medianas": 919,
-      "views_media": 14195,
+      "views_media": 14203,
       "salvos_por_100_alcance": 4.53,
       "envios_por_100_alcance": 1.25,
       "tempo_medio_s": 8.4
     },
     "madrugada (0-6h)": {
       "n": 1,
-      "views_medianas": 1354,
-      "views_media": 1354,
+      "views_medianas": 1357,
+      "views_media": 1357,
       "salvos_por_100_alcance": 3.1,
       "envios_por_100_alcance": 0.86,
       "tempo_medio_s": 9.2
@@ -145,44 +161,44 @@
   },
   "por_tema": {
     "vídeo com IA": {
-      "n": 20,
-      "views_medianas": 352,
-      "views_media": 3281,
+      "n": 23,
+      "views_medianas": 325,
+      "views_media": 2904,
       "salvos_por_100_alcance": 4.4,
-      "envios_por_100_alcance": 1.25,
-      "tempo_medio_s": 7.0
+      "envios_por_100_alcance": 1.24,
+      "tempo_medio_s": 6.6
     },
     "Claude Code": {
-      "n": 24,
-      "views_medianas": 295,
-      "views_media": 2760,
+      "n": 27,
+      "views_medianas": 279,
+      "views_media": 2497,
       "salvos_por_100_alcance": 4.36,
-      "envios_por_100_alcance": 1.24,
-      "tempo_medio_s": 7.0
+      "envios_por_100_alcance": 1.23,
+      "tempo_medio_s": 6.7
+    },
+    "agentes e skills": {
+      "n": 18,
+      "views_medianas": 295,
+      "views_media": 538,
+      "salvos_por_100_alcance": 3.32,
+      "envios_por_100_alcance": 1.04,
+      "tempo_medio_s": 6.5
     },
     "venda e kit": {
-      "n": 19,
-      "views_medianas": 381,
-      "views_media": 635,
-      "salvos_por_100_alcance": 2.79,
-      "envios_por_100_alcance": 0.93,
-      "tempo_medio_s": 6.8
+      "n": 20,
+      "views_medianas": 442,
+      "views_media": 653,
+      "salvos_por_100_alcance": 2.96,
+      "envios_por_100_alcance": 0.92,
+      "tempo_medio_s": 7.0
     },
     "assistente (Jarvis)": {
       "n": 4,
-      "views_medianas": 758,
-      "views_media": 762,
-      "salvos_por_100_alcance": 3.03,
-      "envios_por_100_alcance": 0.8,
-      "tempo_medio_s": 6.4
-    },
-    "agentes e skills": {
-      "n": 15,
-      "views_medianas": 312,
-      "views_media": 578,
-      "salvos_por_100_alcance": 3.14,
-      "envios_por_100_alcance": 1.06,
-      "tempo_medio_s": 7.0
+      "views_medianas": 760,
+      "views_media": 770,
+      "salvos_por_100_alcance": 3.04,
+      "envios_por_100_alcance": 0.79,
+      "tempo_medio_s": 6.6
     },
     "segurança e teste": {
       "n": 2,
@@ -193,12 +209,12 @@
       "tempo_medio_s": 3.5
     }
   },
-  "melhor_faixa": "tarde da noite (22-24h)",
+  "melhor_faixa": "manhã (6-10h)",
   "melhor_tema": "assistente (Jarvis)",
   "top": [
     {
       "id": "18027479654873301",
-      "views": 54663,
+      "views": 54695,
       "salvos": 2022,
       "envios": 560,
       "tempo_s": 11.9,
@@ -207,7 +223,7 @@
     },
     {
       "id": "18413224864081335",
-      "views": 1850,
+      "views": 1851,
       "salvos": 56,
       "envios": 24,
       "tempo_s": 9.4,
@@ -216,7 +232,7 @@
     },
     {
       "id": "17886619920622218",
-      "views": 1354,
+      "views": 1357,
       "salvos": 36,
       "envios": 10,
       "tempo_s": 9.2,
@@ -225,7 +241,7 @@
     },
     {
       "id": "18110500358228983",
-      "views": 1347,
+      "views": 1353,
       "salvos": 43,
       "envios": 11,
       "tempo_s": 7.7,
@@ -243,7 +259,7 @@
     },
     {
       "id": "18098799443108682",
-      "views": 1193,
+      "views": 1195,
       "salvos": 28,
       "envios": 8,
       "tempo_s": 7.1,
@@ -252,7 +268,7 @@
     },
     {
       "id": "18125688970698349",
-      "views": 1001,
+      "views": 1002,
       "salvos": 18,
       "envios": 6,
       "tempo_s": 8.9,
