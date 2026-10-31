@@ -318,5 +318,10 @@
     "palavra": "GITHUB",
     "mensagem": "Oi! Aqui estão os repositórios do vídeo:\n1. nesformer: https://github.com/dbreunig/nesformer\n2. aseprite-ai-artist: https://github.com/with-pebbly/aseprite-ai-artist\n3. blender-skills: https://github.com/EL4CTEO/blender-skills\n4. mcp-server: https://github.com/sv-number/mcp-server\nSe curtir, segue o @ursulino.ia pra mais ferramentas de IA.",
     "repo": "dbreunig/nesformer"
+  },
+  "18117690874819970": {
+    "palavra": "AGENTE",
+    "mensagem": "Oi! Aqui está o OpenBot.\n\nCrie assistentes de IA corporativos que rodam na sua própria infraestrutura com controle total sobre ferramentas e navegação.\n\nComo começar:\n1. Crie o arquivo de ambiente com cp .env.example .env e rode bun install\n2. Conecte o projeto executando npx --yes copilotkit@latest login e npx --yes copilotkit@latest project select\n3. Execute bun scripts/setup-learning.ts para configurar o ambiente\n\nPra testar hoje: Cole o arquivo prompt.txt no seu assistente de IA para guiar toda a instalação sem erros.\n\nLink: https://github.com/CopilotKit/OpenBot\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
+    "repo": "CopilotKit/OpenBot"
   }
 }

@@ -1,0 +1,213 @@
+{
+  "titulo": "OpenBot: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "AGENTE",
+  "perfil": "@ursulino.ia",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "crie assistentes virtuais de ia que rodam na sua própria infraestrutura"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "CopilotKit/OpenBot",
+      "nome": "OpenBot",
+      "cor": "azul",
+      "promessa": "Open-source AI coworkers that each get a computer of their own: a browser, files",
+      "texto": "Open-source AI coworkers that each get a computer of their own: a browser, files and tools, with every action decided be"
+    }
+  ],
+  "destaques": [
+    "agente",
+    "openbot",
+    "infraestrutura",
+    "permissoes",
+    "langgraph",
+    "crewai",
+    "agente"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Seu agente de inteligência artificial opera sem controle e sem registro.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "SEU AGENTE",
+            "cor": "branco",
+            "tamanho": 130
+          },
+          {
+            "texto": "SEM REGISTRO",
+            "cor": "vermelho",
+            "tamanho": 120
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O OpenBot cria colegas virtuais que rodam na sua própria infraestrutura.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "shield-check",
+        "cor": "verde",
+        "rotulo": "SUA INFRAESTRUTURA"
+      }
+    },
+    {
+      "narracao": "Cada robô recebe um navegador isolado e ferramentas com permissões definidas.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "bot",
+            "rotulo": "Agente",
+            "cor": "azul"
+          },
+          {
+            "icone": "shield-check",
+            "rotulo": "Permissão",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "code-xml",
+            "rotulo": "Ferramentas",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Você conecta agentes do LangGraph ou CrewAI pelo protocolo aberto.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "LangGraph",
+          "CrewAI",
+          "Pydantic AI",
+          "Google ADK"
+        ]
+      }
+    },
+    {
+      "narracao": "O repositório soma {estrelas:CopilotKit/OpenBot} estrelas e vem com modelos prontos.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "CopilotKit/OpenBot"
+      }
+    },
+    {
+      "narracao": "Você executa o sistema com bash scripts barra start ponto sh.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "bash scripts/start.sh",
+        "texto": "inicia o servidor e os servicos docker"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "COLEGAS DE IA",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "NA SUA MAQUINA",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o OpenBot"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "ASSISTENTES",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "openbot",
+      "texto": "Plataforma de agentes open-source que rodam na sua própria infraestrutura. Cada assistente recebe um navegador, arquivos e ferramentas com ações gravadas."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "INICIALIZAÇÃO",
+          "cor": "verde"
+        }
+      ],
+      "comando": "bash scripts/start.sh",
+      "texto": "inicia serviços docker e o servidor api",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "PROTOCOLOS",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "ag-ui",
+      "texto": "Suporta agentes construídos com LangGraph, CrewAI ou Pydantic AI através do protocolo AG-UI."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "LICENÇA MIT",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "detalhes",
+      "texto": "Projeto com licença MIT. Requer Docker e Bun 1.4 para execução."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "AGENTE",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "passos": [
+    "cp .env.example .env",
+    "bun install",
+    "bash scripts/start.sh"
+  ]
+}
