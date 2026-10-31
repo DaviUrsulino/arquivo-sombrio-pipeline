@@ -323,5 +323,10 @@
     "palavra": "AGENTE",
     "mensagem": "Oi! Aqui está o OpenBot.\n\nCrie assistentes de IA corporativos que rodam na sua própria infraestrutura com controle total sobre ferramentas e navegação.\n\nComo começar:\n1. Crie o arquivo de ambiente com cp .env.example .env e rode bun install\n2. Conecte o projeto executando npx --yes copilotkit@latest login e npx --yes copilotkit@latest project select\n3. Execute bun scripts/setup-learning.ts para configurar o ambiente\n\nPra testar hoje: Cole o arquivo prompt.txt no seu assistente de IA para guiar toda a instalação sem erros.\n\nLink: https://github.com/CopilotKit/OpenBot\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
     "repo": "CopilotKit/OpenBot"
+  },
+  "18135241732805980": {
+    "palavra": "NAVEGADOR",
+    "mensagem": "Oi! Aqui está o browser.\n\nEle substitui o Chrome em automações e agentes de IA consumindo até 16 vezes menos memória.\n\nComo começar:\n1. Instale via Homebrew rodando brew install lightpanda-io/browser/lightpanda ou baixe o binário.\n2. Confirme a instalação executando ./lightpanda version no terminal.\n3. Inicie o servidor local com ./lightpanda serve --host 127.0.0.1 --port 9222\n\nPra testar hoje: Extraia o conteúdo de uma página direto em markdown usando ./lightpanda fetch --dump markdown https://demo-browser.lightpanda.io/campfire-commerce/\n\nLink: https://github.com/lightpanda-io/browser\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
+    "repo": "lightpanda-io/browser"
   }
 }

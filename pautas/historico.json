@@ -86,6 +86,7 @@
     "kajisho5/ffmpeg-skill",
     "kaomei/stickman-video-director",
     "lemomo-ai/lemo-opuscar",
+    "lightpanda-io/browser",
     "makecindy/cindy",
     "marmottajr/habblaud",
     "mattpocock/skills",
@@ -147,5 +148,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 69
+  "pautas_geradas": 70
 }

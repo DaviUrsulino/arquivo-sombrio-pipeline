@@ -1,0 +1,229 @@
+{
+  "titulo": "browser: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "NAVEGADOR",
+  "perfil": "@ursulino.ia",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "um navegador leve feito em zig para agentes de ia e automacao"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "lightpanda-io/browser",
+      "nome": "browser",
+      "cor": "azul",
+      "promessa": "Lightpanda: the headless browser designed for AI and automation",
+      "texto": "Lightpanda: the headless browser designed for AI and automation"
+    }
+  ],
+  "destaques": [
+    "agentes",
+    "memoria",
+    "lightpanda",
+    "navegador",
+    "zig",
+    "chrome",
+    "docker",
+    "paginas",
+    "navegador"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Seus agentes de IA gastam muita memória raspando sites.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "SEUS AGENTES",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "GASTAM MUITA",
+            "cor": "laranja",
+            "tamanho": 120
+          },
+          {
+            "texto": "MEMÓRIA",
+            "cor": "amarelo",
+            "tamanho": 140
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O Lightpanda é um navegador feito do zero em Zig.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "zap",
+        "cor": "amarelo",
+        "rotulo": "NAVEGADOR FEITO EM ZIG"
+      }
+    },
+    {
+      "narracao": "Ele é dezesseis vezes mais leve que o Chrome.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "comparar",
+        "esq": {
+          "titulo": "CHROME",
+          "icone": "server-crash",
+          "cor": "vermelho",
+          "linhas": [
+            {
+              "rotulo": "memoria",
+              "valor": 8
+            }
+          ]
+        },
+        "dir": {
+          "titulo": "LIGHTPANDA",
+          "icone": "zap",
+          "cor": "verde",
+          "linhas": [
+            {
+              "rotulo": "memoria",
+              "valor": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "narracao": "Você pode rodar tarefas completas com um simples comando.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "./lightpanda agent --task \"top story on news.ycombinator.com?\"",
+        "texto": "agente executando tarefa no navegador"
+      }
+    },
+    {
+      "narracao": "Esse projeto já soma {estrelas:lightpanda-io/browser} estrelas no GitHub oficial.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "lightpanda-io/browser"
+      }
+    },
+    {
+      "narracao": "Dá para subir um servidor compatível usando o Docker.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "docker run -d --name lightpanda -p 127.0.0.1:9222:9222 lightpanda/browser:latest",
+        "texto": "servidor de navegacao iniciado"
+      }
+    },
+    {
+      "narracao": "Qualquer pessoa consegue extrair dados de páginas sem complicações.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "banner_repo",
+        "url": "github.com/lightpanda-io/browser"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "NAVEGADOR LEVE",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "PARA AGENTES DE IA",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o Lightpanda Browser"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "FEITO EM ZIG",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "lightpanda",
+      "texto": "Navegador headless construído do zero em Zig para agentes de IA e automação. Não é um fork do Chromium."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "RODE VIA DOCKER",
+          "cor": "verde"
+        }
+      ],
+      "comando": "docker run -d --name lightpanda -p 127.0.0.1:9222:9222 lightpanda/browser:latest",
+      "texto": "inicia o servidor cdp na porta 9222",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "DESEMPENHO",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "benchmark",
+      "texto": "Dezesseis vezes mais leve em memória e nove vezes mais rápido em testes com cem páginas reais."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1,
+      "linhas": [
+        {
+          "texto": "MODO AGENTE",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "recursos",
+      "texto": "Possui modo agente nativo com suporte ao protocolo CDP, Webdriver Bidi e licença AGPL-3.0."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "NAVEGADOR",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "passos": [
+    "Instale no MacOS executando brew install lightpanda-io/browser/lightpanda",
+    "Ou suba a imagem oficial via Docker com docker run -d --name lightpanda -p 127.0.0.1:9222:9222 lightpanda/browser:latest",
+    "Rode o agente nativo com ./lightpanda agent --task \"top story on news.ycombinator.com?\""
+  ]
+}
