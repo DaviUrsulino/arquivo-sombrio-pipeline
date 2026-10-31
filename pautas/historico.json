@@ -8,6 +8,7 @@
     "DevnorsAI/devnors-data-mcp",
     "DietrichGebert/ponytail",
     "Donchitos/Claude-Code-Game-Studios",
+    "EL4CTEO/blender-skills",
     "EveryInc/compound-engineering-plugin",
     "Graphify-Labs/graphify",
     "InsForge/InsForge",
@@ -59,6 +60,7 @@
     "czlonkowski/n8n-mcp",
     "dagoSte/squadra",
     "danyuchn/asd-ste100-skill",
+    "dbreunig/nesformer",
     "diegosouzapw/OmniRoute",
     "duty1g/x64dbg-mcp-server",
     "echris6/motion-video-kit",
@@ -120,6 +122,7 @@
     "sirioberati/Genjustsu-Open-Source-Workflow",
     "soumatheusgomes/vibe-coding-toolkit",
     "stablyai/orca",
+    "sv-number/mcp-server",
     "t3dotgg/tstack",
     "tamaratran/fast-jev-compaction",
     "thedotmack/claude-mem",
@@ -134,6 +137,7 @@
     "virgiliojr94/book-to-skill",
     "vshulcz/deja-vu",
     "wasp-lang/open-saas",
+    "with-pebbly/aseprite-ai-artist",
     "wshobson/agents",
     "xerj-org/xerj",
     "yetone/cumora",
@@ -142,5 +146,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 67
+  "pautas_geradas": 68
 }

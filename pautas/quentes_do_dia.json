@@ -1,5 +1,5 @@
 {
- "dia": "2026-10-30",
+ "dia": "2026-10-31",
  "itens": [
   {
    "repo": "pbakaus/impeccable",
@@ -12,118 +12,113 @@
    "fontes": 1
   },
   {
-   "repo": "rddmwmddr/android-ad-cleaner",
-   "nota": 1.0,
-   "fontes": 1
-  },
-  {
    "repo": "anhao/ai-pose-gallery-zh",
-   "nota": 0.674,
-   "fontes": 1
-  },
-  {
-   "repo": "t3dotgg/tstack",
-   "nota": 0.506,
-   "fontes": 1
-  },
-  {
-   "repo": "elayadesign/ai-design-skills",
-   "nota": 0.414,
+   "nota": 0.738,
    "fontes": 1
   },
   {
    "repo": "obra/superpowers",
-   "nota": 0.36,
-   "fontes": 1
-  },
-  {
-   "repo": "andyhuo520/digital-human-koubo",
-   "nota": 0.31,
-   "fontes": 1
-  },
-  {
-   "repo": "DenisSergeevitch/ex-ussr-kinship-research",
-   "nota": 0.268,
-   "fontes": 1
-  },
-  {
-   "repo": "nightly-labs/openbot",
-   "nota": 0.247,
-   "fontes": 1
-  },
-  {
-   "repo": "Motionsites-AI/claude-skill",
-   "nota": 0.23,
-   "fontes": 1
-  },
-  {
-   "repo": "ZiChuanLan/agent-purge",
-   "nota": 0.185,
-   "fontes": 1
-  },
-  {
-   "repo": "qybaihe/bla",
-   "nota": 0.167,
-   "fontes": 1
-  },
-  {
-   "repo": "daveebbelaar/bama",
-   "nota": 0.166,
-   "fontes": 1
-  },
-  {
-   "repo": "anonnerdfrenzy/survival-llm",
-   "nota": 0.162,
-   "fontes": 1
-  },
-  {
-   "repo": "yaojingang/GEOInflow",
-   "nota": 0.153,
-   "fontes": 1
-  },
-  {
-   "repo": "Donchitos/Claude-Code-Game-Studios",
-   "nota": 0.123,
-   "fontes": 1
-  },
-  {
-   "repo": "thomasunise/casecite",
-   "nota": 0.123,
-   "fontes": 1
-  },
-  {
-   "repo": "blakeandersonw/ai-app-playbook",
-   "nota": 0.122,
+   "nota": 0.547,
    "fontes": 1
   },
   {
    "repo": "thedotmack/claude-mem",
-   "nota": 0.117,
+   "nota": 0.496,
    "fontes": 1
   },
   {
-   "repo": "songjianyang/xss-audit",
-   "nota": 0.113,
+   "repo": "ccch1mneyyy/dsh-Go",
+   "nota": 0.471,
    "fontes": 1
   },
   {
-   "repo": "wangrongding/tv-fresh",
-   "nota": 0.111,
+   "repo": "mattpocock/skills",
+   "nota": 0.381,
    "fontes": 1
   },
   {
-   "repo": "konlu/story-studio",
-   "nota": 0.103,
-   "fontes": 1
-  },
-  {
-   "repo": "ZigEmbeddedGroup/microzig",
-   "nota": 0.098,
+   "repo": "dbreunig/nesformer",
+   "nota": 0.327,
    "fontes": 1
   },
   {
    "repo": "CopilotKit/OpenBot",
-   "nota": 0.086,
+   "nota": 0.307,
+   "fontes": 1
+  },
+  {
+   "repo": "andyhuo520/digital-human-koubo",
+   "nota": 0.289,
+   "fontes": 1
+  },
+  {
+   "repo": "lightpanda-io/browser",
+   "nota": 0.272,
+   "fontes": 1
+  },
+  {
+   "repo": "qybaihe/bla",
+   "nota": 0.263,
+   "fontes": 1
+  },
+  {
+   "repo": "wangzan101/Mika",
+   "nota": 0.256,
+   "fontes": 1
+  },
+  {
+   "repo": "DenisSergeevitch/ex-ussr-kinship-research",
+   "nota": 0.25,
+   "fontes": 1
+  },
+  {
+   "repo": "heydamir/unslop",
+   "nota": 0.242,
+   "fontes": 1
+  },
+  {
+   "repo": "paipiange/nvzhuang",
+   "nota": 0.224,
+   "fontes": 1
+  },
+  {
+   "repo": "Motionsites-AI/claude-skill",
+   "nota": 0.221,
+   "fontes": 1
+  },
+  {
+   "repo": "mottopanikeiku/doomformer",
+   "nota": 0.212,
+   "fontes": 1
+  },
+  {
+   "repo": "ZiChuanLan/agent-purge",
+   "nota": 0.169,
+   "fontes": 1
+  },
+  {
+   "repo": "yaojingang/GEOInflow",
+   "nota": 0.141,
+   "fontes": 1
+  },
+  {
+   "repo": "anthropics/skills",
+   "nota": 0.128,
+   "fontes": 1
+  },
+  {
+   "repo": "blakeandersonw/ai-app-playbook",
+   "nota": 0.11,
+   "fontes": 1
+  },
+  {
+   "repo": "macro-inc/macro",
+   "nota": 0.025,
+   "fontes": 1
+  },
+  {
+   "repo": "expo/skills",
+   "nota": 0.017,
    "fontes": 1
   }
  ]

@@ -1,0 +1,201 @@
+{
+  "titulo": "lista: automatizar tarefas com IA",
+  "formato": "pixel2",
+  "palavra_chave": "GITHUB",
+  "perfil": "@ursulino.ia",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "quatro ferramentas que agentes de IA usam para criar e testar"
+  },
+  "chamada": {
+    "pergunta": "quer os links dos repositórios?"
+  },
+  "itens": [
+    {
+      "repo": "dbreunig/nesformer",
+      "nome": "nesformer",
+      "cor": "azul",
+      "promessa": "An NES CPU compiled into the weights of a stock Qwen3.5 model",
+      "texto": "Roda CPU do NES dentro do modelo"
+    },
+    {
+      "repo": "with-pebbly/aseprite-ai-artist",
+      "nome": "aseprite-ai-artist",
+      "cor": "verde",
+      "promessa": "Your coding agent paints pixel art in the Aseprite window you already have open.",
+      "texto": "Agente pinta pixel art no Aseprite aberto"
+    },
+    {
+      "repo": "EL4CTEO/blender-skills",
+      "nome": "blender-skills",
+      "cor": "laranja",
+      "promessa": "Professional Blender 5.2 workflows as Agent Skills for Claude Code, Codex, Gemin",
+      "texto": "Vinte e oito skills profissionais para Blender"
+    },
+    {
+      "repo": "sv-number/mcp-server",
+      "nome": "mcp-server",
+      "cor": "roxo",
+      "promessa": "MCP server for AI agents that need a phone number: order a private number in 200",
+      "texto": "MCP server aluga números para SMS"
+    }
+  ],
+  "destaques": [
+    "nesformer",
+    "aseprite ai artist",
+    "blender agent skills",
+    "sv number mcp",
+    "github"
+  ],
+  "cenas_roteiro": [
+    {
+      "humor": "animado",
+      "narracao": "Quatro repositórios grátis para automatizar tarefas com IA.",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "4 REPOS PARA",
+            "cor": "branco",
+            "tamanho": 100
+          },
+          {
+            "texto": "AUTOMATIZAR IA",
+            "cor": "laranja",
+            "tamanho": 110
+          }
+        ]
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Primeiro: nesformer. Roda CPU do NES dentro do modelo.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "brain",
+        "cor": "azul",
+        "rotulo": "NEFORMER"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Segundo: aseprite ai artist. Agente pinta pixel art no Aseprite aberto.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "palette",
+        "cor": "verde",
+        "rotulo": "ASEPRITE AI ARTIST"
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Terceiro: blender agent skills. Vinte e oito skills profissionais para Blender.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "bot",
+        "cor": "laranja",
+        "rotulo": "BLENDER AGENT SKILLS"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Quarto: sv number mcp. MCP server aluga números para SMS.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "message-circle",
+        "cor": "roxo",
+        "rotulo": "SV NUMBER MCP"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "4 REPOS PARA",
+          "cor": "branco",
+          "tamanho": 96
+        },
+        {
+          "texto": "AUTOMATIZAR IA",
+          "cor": "laranja",
+          "tamanho": 96
+        }
+      ],
+      "subtitulo": "quatro ferramentas que agentes de IA usam para criar e testar"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 1",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "NEFORMER",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "nesformer",
+      "texto": "Roda CPU do NES dentro do modelo."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 2",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "ASEPRITE AI ARTIST",
+          "cor": "verde"
+        }
+      ],
+      "rotulo": "aseprite-ai-artist",
+      "texto": "Agente pinta pixel art no Aseprite aberto."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 3",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "BLENDER AGENT SKIL",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "blender-skills",
+      "texto": "Vinte e oito skills profissionais para Blender."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 4",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "SV NUMBER MCP",
+          "cor": "roxo"
+        }
+      ],
+      "rotulo": "mcp-server",
+      "texto": "MCP server aluga números para SMS."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER OS LINKS",
+          "cor": "branco"
+        },
+        {
+          "texto": "DOS REPOS?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando os links no direct.",
+      "palavra": "GITHUB",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "legenda": "Quatro repositórios grátis para automatizar tarefas com IA\n\nSalva este vídeo:\n1. Neformer: Roda CPU do NES dentro do modelo.\n2. Aseprite Ai Artist: Agente pinta pixel art no Aseprite aberto.\n3. Blender Agent Skills: Vinte e oito skills profissionais para Blender.\n4. Sv Number Mcp: MCP server aluga números para SMS.\n\nManda pra um amigo dev, segue o @ursulino.ia e comenta GITHUB que eu te mando os links no direct.\n\nQuer aprender a fazer vídeos assim? Link na bio.\n\n#claudecode #github #ia #programacao #opensource"
+}
