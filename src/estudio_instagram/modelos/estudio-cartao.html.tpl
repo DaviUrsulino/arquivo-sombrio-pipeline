@@ -19,19 +19,19 @@
       #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Mont", sans-serif; color: #15163a; }
       #fundo { position: absolute; inset: 0; background: linear-gradient(165deg, #28336d 0%, #181e4b 70%); }
       #listras { position: absolute; inset: -200px; bottom: 420px; background: repeating-linear-gradient(118deg, rgba(255,255,255,.035) 0 26px, transparent 26px 64px); }
-      #chao { position: absolute; left: 0; right: 0; bottom: 0; height: 460px; background: #daa167; }
+      #chao { position: absolute; left: 0; right: 0; bottom: 0; height: 620px; background: #daa167; }
       #chao::before { content: ""; position: absolute; inset: 0; background-image:
           repeating-linear-gradient(0deg, rgba(0,0,0,.08) 0 4px, transparent 4px 70px),
           repeating-linear-gradient(90deg, rgba(0,0,0,.08) 0 4px, transparent 4px 140px);
         background-position: 0 0, 70px 70px; }
-      #chao-linha { position: absolute; left: 0; right: 0; bottom: 460px; height: 6px; background: #0d1030; opacity: .5; }
-      #mesa { position: absolute; left: -18px; bottom: 390px; width: 170px; z-index: 3; }
-      #mesa .tampo { position: absolute; left: 0; top: 0; width: 170px; height: 16px; background: #6b4226; border-radius: 3px; box-shadow: 0 4px 0 rgba(0,0,0,.15); }
-      #mesa .perna { position: absolute; top: 16px; width: 12px; height: 150px; background: #6b4226; }
-      #mesa .perna.esq { left: 14px; } #mesa .perna.dir { right: 14px; }
+      #chao-linha { position: absolute; left: 0; right: 0; bottom: 620px; height: 6px; background: #0d1030; opacity: .5; }
+      #mesa { position: absolute; left: 10px; bottom: 540px; width: 190px; z-index: 3; }
+      #mesa .tampo { position: absolute; left: 0; top: 0; width: 190px; height: 16px; background: #6b4226; border-radius: 3px; box-shadow: 0 4px 0 rgba(0,0,0,.15); }
+      #mesa .perna { position: absolute; top: 16px; width: 14px; height: 230px; background: #6b4226; }
+      #mesa .perna.esq { left: 16px; } #mesa .perna.dir { right: 16px; }
       #progresso { position: absolute; left: 0; top: 0; width: 1080px; height: 10px; background: #ffd84a; z-index: 5; }
-      #personagem { position: absolute; left: 60px; top: 1430px; width: 290px; height: 380px; z-index: 4; }
-      #personagem .pose { position: absolute; left: 0; bottom: 0; width: 290px; }
+      #personagem { position: absolute; left: 60px; bottom: 560px; width: 340px; height: 440px; z-index: 4; }
+      #personagem .pose { position: absolute; left: 0; bottom: 0; width: 340px; }
       .contador-ferr { position: absolute; left: 0; right: 70px; top: 440px; display: flex; justify-content: flex-end; z-index: 3; }
       .contador-ferr div { background: #fff; color: #17183a; font-family: "Mont"; font-weight: 800; font-size: 26px; text-transform: uppercase; padding: 14px 26px; border-radius: 40px; box-shadow: 0 10px 20px rgba(0,0,0,.3); }
       .contador-ferr span { color: #c96a14; font-family: "Arch"; font-size: 32px; margin-left: 8px; }
@@ -45,7 +45,7 @@
       .fita { position: absolute; top: -18px; width: 92px; height: 46px; background: #e0b02a; opacity: .92; box-shadow: 0 4px 10px rgba(0,0,0,.3); }
       .fita.esq { left: -20px; transform: rotate(-38deg); }
       .fita.dir { right: -20px; transform: rotate(38deg); }
-      .cartao { width: 900px; background: #f6f1e3; border-radius: 30px; box-shadow: 0 40px 90px rgba(0,0,0,.45); overflow: hidden; }
+      .cartao { width: 800px; background: #f6f1e3; border-radius: 24px; box-shadow: 0 40px 90px rgba(0,0,0,.45); overflow: hidden; }
       .cartao .topo { display: flex; align-items: center; gap: 12px; padding: 20px 28px; background: #ece4cc; border-bottom: 2px solid #ddd2ad; font-family: "Mono"; font-size: 24px; color: #8a7d55; }
       .cartao .topo i { width: 16px; height: 16px; border-radius: 50%; background: #d8cba3; display: block; }
       .cartao .corpo { padding: 44px 48px; }
