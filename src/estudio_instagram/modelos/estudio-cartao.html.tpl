@@ -15,17 +15,30 @@
       @font-face { font-family: "Mono"; src: url("assets/fonts/JetBrainsMono.ttf"); font-weight: 100 800; }
       @font-face { font-family: "Mont"; src: url("assets/fonts/Montserrat.ttf"); font-weight: 100 900; }
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #141a3d; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #181e4b; }
       #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Mont", sans-serif; color: #15163a; }
-      #fundo { position: absolute; inset: 0; background: linear-gradient(165deg, #1b2152 0%, #141a3d 55%, #10143080 100%); }
-      #listras { position: absolute; inset: -200px; background: repeating-linear-gradient(118deg, rgba(255,255,255,.035) 0 26px, transparent 26px 64px); }
+      #fundo { position: absolute; inset: 0; background: linear-gradient(165deg, #28336d 0%, #181e4b 70%); }
+      #listras { position: absolute; inset: -200px; bottom: 420px; background: repeating-linear-gradient(118deg, rgba(255,255,255,.035) 0 26px, transparent 26px 64px); }
+      #chao { position: absolute; left: 0; right: 0; bottom: 0; height: 460px; background: #daa167; }
+      #chao::before { content: ""; position: absolute; inset: 0; background-image:
+          repeating-linear-gradient(0deg, rgba(0,0,0,.08) 0 4px, transparent 4px 70px),
+          repeating-linear-gradient(90deg, rgba(0,0,0,.08) 0 4px, transparent 4px 140px);
+        background-position: 0 0, 70px 70px; }
+      #chao-linha { position: absolute; left: 0; right: 0; bottom: 460px; height: 6px; background: #0d1030; opacity: .5; }
+      #mesa { position: absolute; left: -18px; bottom: 390px; width: 170px; z-index: 3; }
+      #mesa .tampo { position: absolute; left: 0; top: 0; width: 170px; height: 16px; background: #6b4226; border-radius: 3px; box-shadow: 0 4px 0 rgba(0,0,0,.15); }
+      #mesa .perna { position: absolute; top: 16px; width: 12px; height: 150px; background: #6b4226; }
+      #mesa .perna.esq { left: 14px; } #mesa .perna.dir { right: 14px; }
       #progresso { position: absolute; left: 0; top: 0; width: 1080px; height: 10px; background: #ffd84a; z-index: 5; }
       #personagem { position: absolute; left: 60px; top: 1430px; width: 290px; height: 380px; z-index: 4; }
       #personagem .pose { position: absolute; left: 0; bottom: 0; width: 290px; }
+      .contador-ferr { position: absolute; left: 0; right: 70px; top: 440px; display: flex; justify-content: flex-end; z-index: 3; }
+      .contador-ferr div { background: #fff; color: #17183a; font-family: "Mont"; font-weight: 800; font-size: 26px; text-transform: uppercase; padding: 14px 26px; border-radius: 40px; box-shadow: 0 10px 20px rgba(0,0,0,.3); }
+      .contador-ferr span { color: #c96a14; font-family: "Arch"; font-size: 32px; margin-left: 8px; }
       .cena { position: absolute; inset: 0; opacity: 0; }
       .palco { position: absolute; left: 0; width: 1080px; top: 300px; display: flex; flex-direction: column; align-items: center; gap: 36px; }
       .handle { background: #fff; color: #17183a; font-family: "Mont"; font-weight: 800; font-size: 28px; padding: 14px 34px; border-radius: 40px; margin-bottom: -6px; box-shadow: 0 10px 20px rgba(0,0,0,.3); }
-      .bandeirola { position: relative; background: #f3e9cf; color: #17183a; font-family: "Arch"; text-transform: uppercase; font-size: 40px; letter-spacing: -0.5px; padding: 28px 56px; text-align: center; max-width: 880px;
+      .bandeirola { position: relative; background: #fdefd7; color: #17183a; font-family: "Arch"; text-transform: uppercase; font-size: 40px; letter-spacing: -0.5px; padding: 28px 56px; text-align: center; max-width: 880px;
         clip-path: polygon(0% 10px, 2% 0%, 6% 8px, 11% 0%, 16% 8px, 21% 0%, 26% 8px, 31% 0%, 36% 8px, 41% 0%, 46% 8px, 51% 0%, 56% 8px, 61% 0%, 66% 8px, 71% 0%, 76% 8px, 81% 0%, 86% 8px, 91% 0%, 96% 8px, 100% 0%,
           100% 100%, 96% calc(100% - 8px), 91% 100%, 86% calc(100% - 8px), 81% 100%, 76% calc(100% - 8px), 71% 100%, 66% calc(100% - 8px), 61% 100%, 56% calc(100% - 8px), 51% 100%, 46% calc(100% - 8px), 41% 100%, 36% calc(100% - 8px), 31% 100%, 26% calc(100% - 8px), 21% 100%, 16% calc(100% - 8px), 11% 100%, 6% calc(100% - 8px), 1% 100%, 0% calc(100% - 10px));
         box-shadow: 0 16px 30px rgba(0,0,0,.4); }
@@ -65,7 +78,13 @@
     <div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURACAO}}">
       <div id="fundo" class="clip" data-start="0" data-duration="{{DURACAO}}" data-track-index="0"></div>
       <div id="listras" class="clip" data-start="0" data-duration="{{DURACAO}}" data-track-index="1"></div>
+      <div id="chao" class="clip" data-start="0" data-duration="{{DURACAO}}" data-track-index="2"></div>
+      <div id="chao-linha" class="clip" data-start="0" data-duration="{{DURACAO}}" data-track-index="2"></div>
+      <div id="mesa" class="clip" data-start="0" data-duration="{{DURACAO}}" data-track-index="4">
+        <div class="tampo"></div><div class="perna esq"></div><div class="perna dir"></div>
+      </div>
       <div id="personagem" class="clip" data-start="0" data-duration="{{DURACAO}}" data-track-index="5"></div>
+      <div id="contador" class="clip" data-start="0" data-duration="{{DURACAO}}" data-track-index="3"></div>
 {{CENAS}}
       <div id="progresso" class="clip" data-start="0" data-duration="{{DURACAO}}" data-track-index="7"></div>
       <div id="legenda" class="clip" data-start="0" data-duration="{{DURACAO}}" data-track-index="8"></div>
@@ -104,6 +123,10 @@
         },
         fundo(A, dur) {
           A.tl.fromTo("#listras", { x: 0, y: 0 }, { x: -60, y: -40, duration: dur, ease: "sine.inOut" }, 0);
+          const caixa = document.getElementById("contador");
+          const total = A.D.cenas.length;
+          const el = A.el(caixa, "div", "contador-ferr", null, `<div>FERRAMENTAS <span id="contador-n">0/${total}</span></div>`);
+          A.D.cenas.forEach((c, i) => A.tl.set("#contador-n", { textContent: `${i + 1}/${total}` }, c.inicio));
         },
         visuais: {
           titulo_pixel(A, palco, e) {
