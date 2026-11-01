@@ -105,23 +105,29 @@ def montar_pauta(resposta: dict, dados: list[DadosRepo], palavra_chave: str) -> 
     itens = resposta["itens"]
     n = len(itens)
     numero_por_extenso = {3: "Três", 4: "Quatro", 5: "Cinco"}[n]
+    # Cor de abertura/fechamento varia por vídeo (hash do tema), senão todo vídeo abre e fecha
+    # laranja e só o texto muda — o Davi notou a repetição (2026-10-31).
+    cor_video = CORES_ITENS[sum(ord(c) for c in resposta["tema"]) % len(CORES_ITENS)]
     cenas = [{
         "humor": "animado",
         "narracao": f"{numero_por_extenso} repositórios grátis para {resposta['tema'].strip().rstrip('.')}.",
+        "cor": cor_video,
         "visual": {"tipo": "titulo_pixel", "linhas": [
             {"texto": resposta["gancho"][0], "cor": "branco", "tamanho": 100},
-            {"texto": resposta["gancho"][1], "cor": "laranja", "tamanho": 110}]},
+            {"texto": resposta["gancho"][1], "cor": cor_video, "tamanho": 110}]},
     }]
     for i, item in enumerate(itens):
+        cor_item = CORES_ITENS[i % len(CORES_ITENS)]
         cenas.append({
             "humor": "feliz" if i % 2 == 0 else "animado",
             "narracao": f"{ORDINAIS[i]}: {item['falado']}. {_frase(item['frase'])}.",
-            "visual": {"tipo": "icone_pixel", "icone": item["icone"], "cor": CORES_ITENS[i % len(CORES_ITENS)],
+            "cor": cor_item,
+            "visual": {"tipo": "icone_pixel", "icone": item["icone"], "cor": cor_item,
                        "rotulo": item["rotulo"]},
         })
     slides = [{"tipo": "capa", "linhas": [
         {"texto": resposta["gancho"][0], "cor": "branco", "tamanho": 96},
-        {"texto": resposta["gancho"][1], "cor": "laranja", "tamanho": 96}], "subtitulo": resposta.get("subtitulo", "")}]
+        {"texto": resposta["gancho"][1], "cor": cor_video, "tamanho": 96}], "subtitulo": resposta.get("subtitulo", "")}]
     for i, item in enumerate(itens):
         slides.append({"tipo": "ponto", "fase": f"Nº {i + 1}", "progresso": round((i + 1) / n, 2),
                        "linhas": [{"texto": item["rotulo"][:18], "cor": CORES_ITENS[i % len(CORES_ITENS)]}],
@@ -141,7 +147,7 @@ def montar_pauta(resposta: dict, dados: list[DadosRepo], palavra_chave: str) -> 
         "capa": {"subtitulo": resposta.get("subtitulo") or resposta["tema"]},
         "chamada": {"pergunta": "quer os links dos repositórios?"},
         "itens": itens_pauta, "destaques": [it["falado"].lower() for it in itens][:8] + [palavra_chave.lower()],
-        "cenas_roteiro": cenas, "slides": slides, "legenda": legenda[:2200],
+        "cenas_roteiro": cenas, "slides": slides, "legenda": legenda[:2200], "cor_final": cor_video,
     }
 
 

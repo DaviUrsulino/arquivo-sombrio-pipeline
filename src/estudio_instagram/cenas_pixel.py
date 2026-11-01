@@ -90,13 +90,14 @@ def normalizar_cena(cena: dict, indice: int) -> dict:
     }
 
 
-def cena_final(palavra_chave: str) -> dict:
+def cena_final(palavra_chave: str, cor: str = "laranja") -> dict:
     """Última cena, sempre igual: o 'comenta PALAVRA' que o bot responde."""
     return {
         # Um pedido só (2026-10-26): "manda pra amigo + segue + comenta + link na bio" dividia a atenção; quem viraliza
         # no nicho pede só o comentário com a palavra.
         "narracao": f"Quer o link? Comenta {palavra_chave} que eu te mando no direct.",
         "humor": "animado",
+        "cor": cor,
         "visual": {
             "tipo": "titulo_pixel", "y": 330,
             "linhas": [{"texto": "COMENTA", "cor": "branco", "tamanho": 100},
@@ -110,7 +111,7 @@ def normalizar_pauta(pauta: dict) -> dict:
     palavra = pauta["palavra_chave"]
     # `fecho_proprio`: o roteiro já traz a chamada final (ex.: vídeo de venda com "link na bio"),
     # então não acrescenta o "comenta PALAVRA".
-    cenas = list(pauta["cenas_roteiro"]) + ([] if pauta.get("fecho_proprio") else [cena_final(palavra)])
+    cenas = list(pauta["cenas_roteiro"]) + ([] if pauta.get("fecho_proprio") else [cena_final(palavra, pauta.get("cor_final", "laranja"))])
     saida = dict(pauta)
     saida["cenas"] = [normalizar_cena(c, i) for i, c in enumerate(cenas, start=1)]
     saida.setdefault("destaques", [])
