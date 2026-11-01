@@ -1,0 +1,170 @@
+{
+  "titulo": "lista: cinco repositórios grátis para devs",
+  "formato": "pixel2",
+  "palavra_chave": "GITHUB",
+  "perfil": "@ursulino.ia",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "três ferramentas que aceleram seu código"
+  },
+  "chamada": {
+    "pergunta": "quer os links dos repositórios?"
+  },
+  "itens": [
+    {
+      "repo": "Orkas-AI/Orkas",
+      "nome": "Orkas",
+      "cor": "azul",
+      "promessa": "Orkas is an open-source (MIT), local-first AI team for your desktop: a Commander",
+      "texto": "Equipe de agentes IA no desktop"
+    },
+    {
+      "repo": "heydamir/unslop",
+      "nome": "unslop",
+      "cor": "verde",
+      "promessa": "A Claude skill that turns vibecoded, AI-looking UI into a designed interface",
+      "texto": "Transforma interface vibecoded em design"
+    },
+    {
+      "repo": "realmyang/MLView",
+      "nome": "MLView",
+      "cor": "laranja",
+      "promessa": "Interactive, source-linked ML workflow diagrams written by your coding assistant",
+      "texto": "Cria diagramas de fluxo de ML"
+    }
+  ],
+  "destaques": [
+    "orkas",
+    "unslop",
+    "ml view",
+    "github"
+  ],
+  "cenas_roteiro": [
+    {
+      "humor": "animado",
+      "narracao": "Três repositórios grátis para cinco repositórios grátis para devs.",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "3 REPOS PARA",
+            "cor": "branco",
+            "tamanho": 100
+          },
+          {
+            "texto": "CODAR COM IA",
+            "cor": "laranja",
+            "tamanho": 110
+          }
+        ]
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Primeiro: orkas. Equipe de agentes IA no desktop.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "bot",
+        "cor": "azul",
+        "rotulo": "ORKAS"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Segundo: unslop. Transforma interface vibecoded em design.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "palette",
+        "cor": "verde",
+        "rotulo": "UNSLOP"
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Terceiro: ml view. Cria diagramas de fluxo de ML.",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "code-xml",
+        "cor": "laranja",
+        "rotulo": "MLVIEW"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "3 REPOS PARA",
+          "cor": "branco",
+          "tamanho": 96
+        },
+        {
+          "texto": "CODAR COM IA",
+          "cor": "laranja",
+          "tamanho": 96
+        }
+      ],
+      "subtitulo": "três ferramentas que aceleram seu código"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 1",
+      "progresso": 0.33,
+      "linhas": [
+        {
+          "texto": "ORKAS",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "Orkas",
+      "texto": "Equipe de agentes IA no desktop."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 2",
+      "progresso": 0.67,
+      "linhas": [
+        {
+          "texto": "UNSLOP",
+          "cor": "verde"
+        }
+      ],
+      "rotulo": "unslop",
+      "texto": "Transforma interface vibecoded em design."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 3",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "MLVIEW",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "MLView",
+      "texto": "Cria diagramas de fluxo de ML."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER OS LINKS",
+          "cor": "branco"
+        },
+        {
+          "texto": "DOS REPOS?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando os links no direct.",
+      "palavra": "GITHUB",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "legenda": "Três repositórios grátis para cinco repositórios grátis para devs\n\nSalva este vídeo:\n1. Orkas: Equipe de agentes IA no desktop.\n2. Unslop: Transforma interface vibecoded em design.\n3. Mlview: Cria diagramas de fluxo de ML.\n\nManda pra um amigo dev, segue o @ursulino.ia e comenta GITHUB que eu te mando os links no direct.\n\nQuer aprender a fazer vídeos assim? Link na bio.\n\n#claudecode #github #ia #programacao #opensource"
+}

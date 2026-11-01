@@ -1,124 +1,124 @@
 {
- "dia": "2026-10-31",
+ "dia": "2026-11-01",
  "itens": [
   {
-   "repo": "pbakaus/impeccable",
-   "nota": 1.0,
-   "fontes": 1
-  },
-  {
-   "repo": "flamerix-ai/c3905705cc4205e5de3011fa2e74efce",
+   "repo": "thedotmack/claude-mem",
    "nota": 1.0,
    "fontes": 1
   },
   {
    "repo": "anhao/ai-pose-gallery-zh",
-   "nota": 0.738,
+   "nota": 1.0,
    "fontes": 1
   },
   {
-   "repo": "obra/superpowers",
-   "nota": 0.547,
-   "fontes": 1
-  },
-  {
-   "repo": "thedotmack/claude-mem",
-   "nota": 0.496,
-   "fontes": 1
-  },
-  {
-   "repo": "ccch1mneyyy/dsh-Go",
-   "nota": 0.471,
-   "fontes": 1
-  },
-  {
-   "repo": "mattpocock/skills",
-   "nota": 0.381,
+   "repo": "pbakaus/impeccable",
+   "nota": 0.777,
    "fontes": 1
   },
   {
    "repo": "dbreunig/nesformer",
-   "nota": 0.327,
-   "fontes": 1
-  },
-  {
-   "repo": "CopilotKit/OpenBot",
-   "nota": 0.307,
-   "fontes": 1
-  },
-  {
-   "repo": "andyhuo520/digital-human-koubo",
-   "nota": 0.289,
-   "fontes": 1
-  },
-  {
-   "repo": "lightpanda-io/browser",
-   "nota": 0.272,
-   "fontes": 1
-  },
-  {
-   "repo": "qybaihe/bla",
-   "nota": 0.263,
-   "fontes": 1
-  },
-  {
-   "repo": "wangzan101/Mika",
-   "nota": 0.256,
-   "fontes": 1
-  },
-  {
-   "repo": "DenisSergeevitch/ex-ussr-kinship-research",
-   "nota": 0.25,
+   "nota": 0.761,
    "fontes": 1
   },
   {
    "repo": "heydamir/unslop",
-   "nota": 0.242,
+   "nota": 0.752,
+   "fontes": 1
+  },
+  {
+   "repo": "Orkas-AI/Orkas",
+   "nota": 0.606,
+   "fontes": 1
+  },
+  {
+   "repo": "wangzan101/Mika",
+   "nota": 0.589,
+   "fontes": 1
+  },
+  {
+   "repo": "deepseek-ai/dsh-superagent-prototype",
+   "nota": 0.554,
+   "fontes": 1
+  },
+  {
+   "repo": "lightpanda-io/browser",
+   "nota": 0.539,
+   "fontes": 1
+  },
+  {
+   "repo": "mattpocock/skills",
+   "nota": 0.512,
+   "fontes": 1
+  },
+  {
+   "repo": "Donchitos/Claude-Code-Game-Studios",
+   "nota": 0.431,
+   "fontes": 1
+  },
+  {
+   "repo": "obra/superpowers",
+   "nota": 0.386,
    "fontes": 1
   },
   {
    "repo": "paipiange/nvzhuang",
-   "nota": 0.224,
+   "nota": 0.367,
+   "fontes": 1
+  },
+  {
+   "repo": "andyhuo520/digital-human-koubo",
+   "nota": 0.338,
+   "fontes": 1
+  },
+  {
+   "repo": "patch-gg/pixelfx",
+   "nota": 0.306,
    "fontes": 1
   },
   {
    "repo": "Motionsites-AI/claude-skill",
-   "nota": 0.221,
+   "nota": 0.275,
    "fontes": 1
   },
   {
-   "repo": "mottopanikeiku/doomformer",
-   "nota": 0.212,
-   "fontes": 1
-  },
-  {
-   "repo": "ZiChuanLan/agent-purge",
-   "nota": 0.169,
+   "repo": "haydenschmitty/floorplan",
+   "nota": 0.187,
    "fontes": 1
   },
   {
    "repo": "yaojingang/GEOInflow",
-   "nota": 0.141,
+   "nota": 0.164,
    "fontes": 1
   },
   {
-   "repo": "anthropics/skills",
+   "repo": "benderandrew069/deepseek-api-pricing-2026",
+   "nota": 0.142,
+   "fontes": 1
+  },
+  {
+   "repo": "jackwener/DSH-Android",
+   "nota": 0.135,
+   "fontes": 1
+  },
+  {
+   "repo": "jacke-pp/open-yoki",
    "nota": 0.128,
    "fontes": 1
   },
   {
    "repo": "blakeandersonw/ai-app-playbook",
-   "nota": 0.11,
+   "nota": 0.127,
    "fontes": 1
   },
   {
-   "repo": "macro-inc/macro",
-   "nota": 0.025,
+   "repo": "Koppar-AI/koppar-lte-modem",
+   "nota": 0.118,
    "fontes": 1
   },
   {
-   "repo": "expo/skills",
-   "nota": 0.017,
+   "repo": "THU-MAIC/OpenMAIC",
+   "nota": 0.067,
    "fontes": 1
   }
  ]

@@ -30,6 +30,7 @@
     "Nutlope/hallmark",
     "Oldcircle/geo-sleuth",
     "Orchestra-Research/AI-Research-SKILLs",
+    "Orkas-AI/Orkas",
     "OthmanAdi/planning-with-files",
     "Panniantong/Agent-Reach",
     "Paritok-official/paritok-4b-v1",
@@ -75,6 +76,7 @@
     "google/artemis",
     "google/elephant-goldfish-model",
     "headroomlabs-ai/headroom",
+    "heydamir/unslop",
     "heygen-com/hyperframes",
     "howseen-ai/claude-motion-design",
     "iOfficeAI/AionUi",
@@ -111,6 +113,7 @@
     "paperclipai/paperclip",
     "pbakaus/impeccable",
     "plandex-ai/plandex",
+    "realmyang/MLView",
     "rehan-remade/universal-modder",
     "remotion-dev/remotion",
     "risa-labs-inc/BossConsole",
@@ -148,5 +151,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 70
+  "pautas_geradas": 71
 }

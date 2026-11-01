@@ -328,5 +328,10 @@
     "palavra": "NAVEGADOR",
     "mensagem": "Oi! Aqui está o browser.\n\nEle substitui o Chrome em automações e agentes de IA consumindo até 16 vezes menos memória.\n\nComo começar:\n1. Instale via Homebrew rodando brew install lightpanda-io/browser/lightpanda ou baixe o binário.\n2. Confirme a instalação executando ./lightpanda version no terminal.\n3. Inicie o servidor local com ./lightpanda serve --host 127.0.0.1 --port 9222\n\nPra testar hoje: Extraia o conteúdo de uma página direto em markdown usando ./lightpanda fetch --dump markdown https://demo-browser.lightpanda.io/campfire-commerce/\n\nLink: https://github.com/lightpanda-io/browser\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
     "repo": "lightpanda-io/browser"
+  },
+  "18082365014532131": {
+    "palavra": "GITHUB",
+    "mensagem": "Oi! Aqui estão os repositórios do vídeo:\n1. Orkas: https://github.com/Orkas-AI/Orkas\n2. unslop: https://github.com/heydamir/unslop\n3. MLView: https://github.com/realmyang/MLView\nSe curtir, segue o @ursulino.ia pra mais ferramentas de IA.",
+    "repo": "Orkas-AI/Orkas"
   }
 }
