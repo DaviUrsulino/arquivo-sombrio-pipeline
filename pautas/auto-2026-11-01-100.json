@@ -1,0 +1,221 @@
+{
+  "titulo": "Mika: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "ANDROID",
+  "perfil": "@ursulino.ia",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "assistente de ia open source para android"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "wangzan101/Mika",
+      "nome": "Mika",
+      "cor": "azul",
+      "promessa": "An on-device AI agent for Android that operates apps and the web to get things d",
+      "texto": "An on-device AI agent for Android that operates apps and the web to get things done for you."
+    }
+  ],
+  "destaques": [
+    "inteligencia artificial",
+    "celular",
+    "aplicativos",
+    "segundo plano",
+    "mika",
+    "github",
+    "apk",
+    "android"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Uma inteligência artificial no celular mexe nos seus aplicativos sozinha.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "INTELIGENCIA",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "NO CELULAR",
+            "cor": "laranja",
+            "tamanho": 140
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O assistente Mika executa tarefas em uma tela de fundo oculta.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "bot",
+        "cor": "azul",
+        "rotulo": "TELA DE FUNDO OCULTA"
+      }
+    },
+    {
+      "narracao": "Ele lê mensagens grandes e pesquisa produtos sem interromper seu uso.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Resumo de mensagens",
+          "Pesquisa de produtos",
+          "Navegação na web"
+        ]
+      }
+    },
+    {
+      "narracao": "A ferramenta analisa a tela e clica como uma pessoa real.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "message-circle",
+            "rotulo": "Comando",
+            "cor": "azul"
+          },
+          {
+            "icone": "brain",
+            "rotulo": "Mika",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "check",
+            "rotulo": "Ação no App",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Todos os dados ficam guardados apenas no seu próprio aparelho.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "shield-check",
+        "cor": "verde",
+        "rotulo": "DADOS NO APARELHO"
+      }
+    },
+    {
+      "narracao": "Esse projeto de código aberto no GitHub soma {estrelas:wangzan101/Mika} estrelas.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "contador",
+        "repo": "wangzan101/Mika"
+      }
+    },
+    {
+      "narracao": "Você instala baixando o arquivo apk nas liberações do repositório.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "banner_repo",
+        "url": "github.com/wangzan101/Mika"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "AGENTE DE IA",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "NO CELULAR",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o Mika"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "AGENTE NO ANDROID",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "mika",
+      "texto": "Assistente de IA para Android que opera aplicativos e a web em segundo plano. Ele lê a tela e clica nos botões sozinho."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMO INSTALAR",
+          "cor": "verde"
+        }
+      ],
+      "comando": "Baixar APK na aba Releases do GitHub",
+      "texto": "Requer Android 11 ou superior para uso geral e Android 12 ou superior para controlar aplicativos.",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "O QUE ELE FAZ",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "recursos",
+      "texto": "Resume conversas de chats, pesquisa ofertas de produtos e executa tarefas do dia a dia sem usar servidores externos."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "LICENÇA",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "detalhes",
+      "texto": "Projeto totalmente código aberto sob a licença Apache 2.0. Seus dados e chaves de API ficam salvos apenas no dispositivo."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "ANDROID",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "passos": [
+    "Baixe o arquivo APK direto na aba Releases do repositório no GitHub",
+    "Em Configurações > Modelo, conecte sua chave de API ou conta de IA",
+    "Siga o assistente de controle do telefone para parear a depuração sem fio"
+  ]
+}

@@ -333,5 +333,10 @@
     "palavra": "GITHUB",
     "mensagem": "Oi! Aqui estão os repositórios do vídeo:\n1. Orkas: https://github.com/Orkas-AI/Orkas\n2. unslop: https://github.com/heydamir/unslop\n3. MLView: https://github.com/realmyang/MLView\nSe curtir, segue o @ursulino.ia pra mais ferramentas de IA.",
     "repo": "Orkas-AI/Orkas"
+  },
+  "18118121924092924": {
+    "palavra": "ANDROID",
+    "mensagem": "Oi! Aqui está o Mika.\n\nEle realiza tarefas automaticamente em aplicativos e na web no seu celular Android sem interromper o seu uso.\n\nComo começar:\n1. Baixe e instale o APK diretamente da aba Releases no repositório\n2. Acesse Settings e depois Model para selecionar um provedor e inserir sua chave de API\n3. Siga o assistente Set up phone control em Settings e pareie a depuração sem fio do celular\n\nPra testar hoje: Experimente pedir para a ferramenta: Defina alarmes para 9:40 e 10:00 amanhã de manhã.\n\nLink: https://github.com/wangzan101/Mika\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
+    "repo": "wangzan101/Mika"
   }
 }
