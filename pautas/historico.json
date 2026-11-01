@@ -63,6 +63,7 @@
     "dagoSte/squadra",
     "danyuchn/asd-ste100-skill",
     "dbreunig/nesformer",
+    "deepseek-ai/dsh-superagent-prototype",
     "diegosouzapw/OmniRoute",
     "duty1g/x64dbg-mcp-server",
     "echris6/motion-video-kit",
@@ -152,5 +153,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 72
+  "pautas_geradas": 73
 }

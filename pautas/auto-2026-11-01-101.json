@@ -1,0 +1,217 @@
+{
+  "titulo": "dsh-superagent-prototype: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "AGENTE",
+  "perfil": "@ursulino.ia",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "automação com agentes de código no github"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "deepseek-ai/dsh-superagent-prototype",
+      "nome": "dsh-superagent-prototype",
+      "cor": "azul",
+      "promessa": "Towards a More Autonomous Agent System",
+      "texto": "Towards a More Autonomous Agent System"
+    }
+  ],
+  "destaques": [
+    "agente",
+    "repositorio",
+    "pull request",
+    "deepseek",
+    "painel web",
+    "setup",
+    "pnpm check",
+    "mit",
+    "agente"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Este agente escuta seu repositorio e cria pull request.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "ESTE AGENTE",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "ESCUTA SEU",
+            "cor": "laranja",
+            "tamanho": 120
+          },
+          {
+            "texto": "REPOSITORIO",
+            "cor": "verde",
+            "tamanho": 120
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto oficial da DeepSeek automatiza tarefas direto no GitHub.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "github",
+            "rotulo": "GitHub",
+            "cor": "azul"
+          },
+          {
+            "icone": "bot",
+            "rotulo": "Agente",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "git-pull-request",
+            "rotulo": "Pull Request",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Ele abre uma sessao propria para trabalhar sem poluir seu ambiente.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "bot",
+        "cor": "roxo",
+        "rotulo": "SESSAO PROPRIA"
+      }
+    },
+    {
+      "narracao": "Um painel na web mostra o que precisa de atencao humana.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "GitHub",
+          "Feishu",
+          "Painel Web"
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto com {estrelas:deepseek-ai/dsh-superagent-prototype} estrelas e configurado pelo seu proprio agente.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "contador",
+        "repo": "deepseek-ai/dsh-superagent-prototype"
+      }
+    },
+    {
+      "narracao": "Voce pode testar o projeto no repositorio publico sob licenca MIT.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "banner_repo",
+        "url": "github.com/deepseek-ai/dsh-superagent-prototype"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "SUPER AGENTE DE",
+          "cor": "branco",
+          "tamanho": 100
+        },
+        {
+          "texto": "CÓDIGO NO GITHUB",
+          "cor": "laranja",
+          "tamanho": 90
+        }
+      ],
+      "subtitulo": "conheça o dsh-superagent"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "AGENTE PROATIVO",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "conceito",
+      "texto": "Um agente de código para repositórios do GitHub que trabalha em sessão própria e envia Pull Requests."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "CONFIGURAÇÃO",
+          "cor": "verde"
+        }
+      ],
+      "comando": "Read SETUP.md in this repository and set up dsh-superagent with me",
+      "texto": "Instalação guiada pelo seu próprio agente de código.",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "PAINEL WEB",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "controle",
+      "texto": "Possui painel web integrado para mostrar exatamente onde a intervenção humana é necessária."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "LICENÇA MIT",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "requisitos",
+      "texto": "Código aberto sob licença MIT. Para testes e compilação, use o comando pnpm check."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "AGENTE",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "passos": [
+    "Acesse o repositório github.com/deepseek-ai/dsh-superagent-prototype",
+    "Peça ao seu agente de código: Read SETUP.md in this repository and set up dsh-superagent with me",
+    "Execute pnpm check para validar os testes e o build"
+  ]
+}
