@@ -50,6 +50,7 @@
     "anthropics/knowledge-work-plugins",
     "arjun988/blender-skills",
     "bangtutorial/bang-motion",
+    "beenuar/AiSOC",
     "browser-use/browser-harness",
     "bytedance/deer-flow",
     "can1357/oh-my-pi",
@@ -157,5 +158,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 74
+  "pautas_geradas": 75
 }

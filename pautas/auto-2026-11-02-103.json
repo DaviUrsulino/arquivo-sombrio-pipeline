@@ -1,0 +1,224 @@
+{
+  "titulo": "AiSOC: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "SEGURANCA",
+  "perfil": "@ursulino.ia",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "um centro de operações de segurança open source com ia que roda offline"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "beenuar/AiSOC",
+      "nome": "AiSOC",
+      "cor": "azul",
+      "promessa": "Open-source AI Security Operations Center: alert fusion, LLM-agent triage, MITRE",
+      "texto": "Open-source AI Security Operations Center: alert fusion, LLM-agent triage, MITRE ATT&CK investigation, and a replayable "
+    }
+  ],
+  "destaques": [
+    "alertas",
+    "seguranca",
+    "inteligencia",
+    "artificial",
+    "agentes",
+    "offline",
+    "auditavel",
+    "docker",
+    "seguranca"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Seus alertas de segurança estão acumulando sem ninguém investigar nada.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "ALERTAS DE",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "SEGURANÇA",
+            "cor": "laranja",
+            "tamanho": 150
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Um centro de operações com inteligência artificial analisa tudo sozinho.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "shield-check",
+        "cor": "verde",
+        "rotulo": "TRIAGEM AUTOMÁTICA"
+      }
+    },
+    {
+      "narracao": "Agentes de inteligência artificial investigam cada evento de segurança.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "bot",
+            "rotulo": "Agente IA",
+            "cor": "azul"
+          },
+          {
+            "icone": "search",
+            "rotulo": "Investigação",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "shield-check",
+            "rotulo": "Decisão",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Ele executa milhares de regras de detecção totalmente offline.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "2538 regras ativas",
+          "7023 no catálogo",
+          "Sem chave de api"
+        ]
+      }
+    },
+    {
+      "narracao": "Cada passo da inteligência fica registrado em um histórico auditável.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "file-text",
+        "cor": "roxo",
+        "rotulo": "HISTÓRICO AUDITÁVEL"
+      }
+    },
+    {
+      "narracao": "O projeto código aberto já acumula {estrelas:beenuar/AiSOC} estrelas no GitHub.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "contador",
+        "repo": "beenuar/AiSOC"
+      }
+    },
+    {
+      "narracao": "Você roda a ferramenta na sua máquina com o docker.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "git clone https://github.com/beenuar/AiSOC && cd AiSOC",
+        "texto": "make up"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "AI SECURITY SOC",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "OPEN SOURCE",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheça o AiSOC"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "SOC COM IA",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "aisoc",
+      "texto": "Um centro de operações de segurança open-source e auto-hospedável. Normaliza telemetria e investiga ameaças com agentes de IA."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMO RODAR",
+          "cor": "verde"
+        }
+      ],
+      "comando": "git clone https://github.com/beenuar/AiSOC && cd AiSOC",
+      "texto": "depois execute make up",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "REGRAS E AUDITORIA",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "recursos",
+      "texto": "Executa 2538 regras de detecção sem precisar de chaves de API. Toda decisão do agente fica registrada e auditável."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "LICENÇA MIT",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "requisitos",
+      "texto": "Licença MIT e 100% open-source. Requer Docker Compose v2 com 8 GB de memória e 20 GB de disco."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "SEGURANCA",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "passos": [
+    "git clone https://github.com/beenuar/AiSOC && cd AiSOC",
+    "make up",
+    "make smoke"
+  ]
+}

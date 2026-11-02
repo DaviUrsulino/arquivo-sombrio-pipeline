@@ -348,5 +348,10 @@
     "palavra": "GITHUB",
     "mensagem": "Oi! Aqui estão os repositórios do vídeo:\n1. open-design-agent-kit: https://github.com/feimacode/open-design-agent-kit\n2. pixelfx: https://github.com/patch-gg/pixelfx\n3. agentacct: https://github.com/mikehasa/agentacct\n4. ai-engineering-hub: https://github.com/patchy631/ai-engineering-hub\nSe curtir, segue o @ursulino.ia pra mais ferramentas de IA.",
     "repo": "feimacode/open-design-agent-kit"
+  },
+  "18566635618072622": {
+    "palavra": "SEGURANCA",
+    "mensagem": "Oi! Aqui está o AiSOC.\n\nAjuda você a detectar, investigar e responder a ameaças de segurança automaticamente, sem depender de APIs externas ou chaves de API, usando IA em um ambiente auto-hospedado.\n\nComo começar:\n1. Clone o repositório: `git clone https://github.com/beenuar/AiSOC && cd AiSOC`\n2. Instale e execute localmente: `make up` (Linux/macOS) ou `iwr -useb https://raw.githubusercontent.com/beenuar/AiSOC/main/install.ps1 | iex` (Windows)\n3. Teste o funcionamento básico: `make smoke` para verificar se o pipeline está operando corretamente\n\nPra testar hoje: Tente rodar `make demo` para carregar dados sintéticos e ver como a ferramenta processa e classifica ameaças em tempo real, sem precisar de dados reais ainda.\n\nLink: https://github.com/beenuar/AiSOC\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
+    "repo": "beenuar/AiSOC"
   }
 }
