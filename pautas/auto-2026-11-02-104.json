@@ -1,0 +1,222 @@
+{
+  "titulo": "floorplan: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "MAPA",
+  "perfil": "@ursulino.ia",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "veja como todas as partes do seu projeto se conectam com a ia"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "haydenschmitty/floorplan",
+      "nome": "floorplan",
+      "cor": "azul",
+      "promessa": "See how your app actually fits together. An interactive, plain-English map of yo",
+      "texto": "See how your app actually fits together. An interactive, plain-English map of your codebase, drawn by Claude or Codex."
+    }
+  ],
+  "destaques": [
+    "inteligencia artificial",
+    "mapa interativo",
+    "portugues simples",
+    "checagem",
+    "chaves expostas",
+    "claude code",
+    "floorplan",
+    "mapa"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Seu aplicativo feito com inteligência artificial esconde falhas sem você saber.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "SEU APLICATIVO",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "ESCONDE FALHAS",
+            "cor": "vermelho",
+            "tamanho": 120
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O Floorplan desenha um mapa interativo de todo o seu projeto.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "code-xml",
+            "rotulo": "Código",
+            "cor": "azul"
+          },
+          {
+            "icone": "bot",
+            "rotulo": "Claude",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "palette",
+            "rotulo": "Mapa",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Ele explica cada arquivo em português simples sem termos técnicos difíceis.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "file-text",
+        "cor": "azul",
+        "rotulo": "PORTUGUÊS SIMPLES"
+      }
+    },
+    {
+      "narracao": "O recurso de checagem encontra chaves expostas e rotas sem senha.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "shield-check",
+        "cor": "vermelho",
+        "rotulo": "CHECAGEM DE SAÚDE"
+      }
+    },
+    {
+      "narracao": "Você consegue acompanhar tudo que a inteligência artificial alterou recentemente.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "sparkles",
+        "cor": "verde",
+        "rotulo": "ALTERAÇÕES EM VERDE"
+      }
+    },
+    {
+      "narracao": "Este projeto já possui mais de {estrelas:haydenschmitty/floorplan} estrelas no GitHub oficial.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "contador",
+        "repo": "haydenschmitty/floorplan"
+      }
+    },
+    {
+      "narracao": "Você instala o plugin no Claude Code com o comando marketplace.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "claude plugin marketplace add haydenschmitty/floorplan",
+        "texto": "Adiciona o repositório no Claude Code"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "MAPEIE SEU CÓDIGO",
+          "cor": "branco",
+          "tamanho": 90
+        },
+        {
+          "texto": "COM IA",
+          "cor": "laranja",
+          "tamanho": 130
+        }
+      ],
+      "subtitulo": "conheça o Floorplan"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "MAPA DO PROJETO",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "floorplan",
+      "texto": "Desenha um mapa interativo e navegável de todo o seu projeto em português simples usando Claude ou Codex."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMO INSTALAR",
+          "cor": "verde"
+        }
+      ],
+      "comando": "claude plugin marketplace add haydenschmitty/floorplan",
+      "texto": "Comando para adicionar o plugin no Claude Code",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "RECURSOS",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "CHECAGEM E MUDANÇAS",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "recursos",
+      "texto": "Identifica chaves expostas e regras de acesso abertas, além de destacar em verde as últimas alterações feitas pela IA."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "REQUISITOS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "LICENÇA MIT",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "requisitos",
+      "texto": "Projeto com licença MIT. Exige Node.js 18 ou superior e roda localmente sem enviar seu código para fora."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "MAPA",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "passos": [
+    "Tenha o Node.js 18 ou superior instalado no seu sistema.",
+    "Execute claude plugin marketplace add haydenschmitty/floorplan no terminal.",
+    "Execute claude plugin install floorplan@floorplan para instalar.",
+    "Abra um novo chat no Claude Code ou Codex e peça um mapa do seu projeto."
+  ]
+}

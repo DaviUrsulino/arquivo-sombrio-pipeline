@@ -78,6 +78,7 @@
     "google/adk-python",
     "google/artemis",
     "google/elephant-goldfish-model",
+    "haydenschmitty/floorplan",
     "headroomlabs-ai/headroom",
     "heydamir/unslop",
     "heygen-com/hyperframes",
@@ -158,5 +159,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 75
+  "pautas_geradas": 76
 }

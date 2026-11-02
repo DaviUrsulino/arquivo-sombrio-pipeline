@@ -353,5 +353,10 @@
     "palavra": "SEGURANCA",
     "mensagem": "Oi! Aqui está o AiSOC.\n\nAjuda você a detectar, investigar e responder a ameaças de segurança automaticamente, sem depender de APIs externas ou chaves de API, usando IA em um ambiente auto-hospedado.\n\nComo começar:\n1. Clone o repositório: `git clone https://github.com/beenuar/AiSOC && cd AiSOC`\n2. Instale e execute localmente: `make up` (Linux/macOS) ou `iwr -useb https://raw.githubusercontent.com/beenuar/AiSOC/main/install.ps1 | iex` (Windows)\n3. Teste o funcionamento básico: `make smoke` para verificar se o pipeline está operando corretamente\n\nPra testar hoje: Tente rodar `make demo` para carregar dados sintéticos e ver como a ferramenta processa e classifica ameaças em tempo real, sem precisar de dados reais ainda.\n\nLink: https://github.com/beenuar/AiSOC\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
     "repo": "beenuar/AiSOC"
+  },
+  "18026897654866824": {
+    "palavra": "MAPA",
+    "mensagem": "Oi! Aqui está o floorplan.\n\nCria um mapa visual interativo do seu código explicando em linguagem simples como cada parte se conecta, inclusive entre repositórios diferentes.\n\nComo começar:\n1. Instale com npx floorplan ou siga o guia de instalação no README\n2. Abra o Claude Code ou Codex no seu projeto\n3. Peça para gerar o floorplan e explore o mapa no navegador\n\nPra testar hoje: Use o live demo em haydenschmitty.github.io/floorplan-demo para testar sem instalar nada.\n\nLink: https://github.com/haydenschmitty/floorplan\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
+    "repo": "haydenschmitty/floorplan"
   }
 }
