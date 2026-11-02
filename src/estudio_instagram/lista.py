@@ -95,8 +95,13 @@ def problemas(resposta: dict, dados: list[DadosRepo], readmes: dict[str, str], i
         not g or len(g) > LETRAS_MAX_LINHA or g != g.upper() for g in gancho
     ):
         erros.append(f"'gancho' precisa de 2 linhas em MAIÚSCULAS, até {LETRAS_MAX_LINHA} letras cada")
-    if not resposta.get("tema") or len(resposta["tema"].split()) > 7:
+    tema = resposta.get("tema") or ""
+    if not tema or len(tema.split()) > 7:
         erros.append("'tema' precisa de até 6 palavras")
+    elif re.search(r"reposit[óo]ri", tema, re.I):
+        # já aconteceu o LLM devolver a frase inteira ("cinco repositórios grátis para devs") em vez de só
+        # completá-la, e o texto final saiu duplicado: "Três repositórios... para cinco repositórios... para devs".
+        erros.append("'tema' não pode repetir 'repositórios' — é só a parte que completa a frase, ex.: 'criar vídeo com ia'")
     return erros
 
 
