@@ -343,5 +343,10 @@
     "palavra": "AGENTE",
     "mensagem": "Oi! Aqui está o dsh-superagent-prototype.\n\nCria um agente que automatiza tarefas de código no seu repositório GitHub sem gastar o tempo da sua equipe.\n\nComo começar:\n1. Acesse o repositório no GitHub.\n2. Peça ao seu agente de código para ler o arquivo SETUP.md e realizar a instalação com você.\n3. Execute pnpm check para rodar a checagem de tipos e os testes.\n\nPra testar hoje: Envie para o seu agente o prompt: Read SETUP.md in this repository and set up dsh-superagent with me.\n\nLink: https://github.com/deepseek-ai/dsh-superagent-prototype\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
     "repo": "deepseek-ai/dsh-superagent-prototype"
+  },
+  "18117126881144132": {
+    "palavra": "GITHUB",
+    "mensagem": "Oi! Aqui estão os repositórios do vídeo:\n1. open-design-agent-kit: https://github.com/feimacode/open-design-agent-kit\n2. pixelfx: https://github.com/patch-gg/pixelfx\n3. agentacct: https://github.com/mikehasa/agentacct\n4. ai-engineering-hub: https://github.com/patchy631/ai-engineering-hub\nSe curtir, segue o @ursulino.ia pra mais ferramentas de IA.",
+    "repo": "feimacode/open-design-agent-kit"
   }
 }

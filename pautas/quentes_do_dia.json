@@ -1,124 +1,109 @@
 {
- "dia": "2026-11-01",
+ "dia": "2026-11-02",
  "itens": [
   {
-   "repo": "thedotmack/claude-mem",
+   "repo": "deepseek-ai/dsh-superagent-prototype",
    "nota": 1.0,
    "fontes": 1
   },
   {
    "repo": "anhao/ai-pose-gallery-zh",
-   "nota": 1.0,
-   "fontes": 1
-  },
-  {
-   "repo": "pbakaus/impeccable",
-   "nota": 0.777,
-   "fontes": 1
-  },
-  {
-   "repo": "dbreunig/nesformer",
-   "nota": 0.761,
+   "nota": 0.675,
    "fontes": 1
   },
   {
    "repo": "heydamir/unslop",
-   "nota": 0.752,
-   "fontes": 1
-  },
-  {
-   "repo": "Orkas-AI/Orkas",
-   "nota": 0.606,
+   "nota": 0.642,
    "fontes": 1
   },
   {
    "repo": "wangzan101/Mika",
-   "nota": 0.589,
+   "nota": 0.51,
    "fontes": 1
   },
   {
-   "repo": "deepseek-ai/dsh-superagent-prototype",
-   "nota": 0.554,
+   "repo": "thedotmack/claude-mem",
+   "nota": 0.493,
    "fontes": 1
   },
   {
-   "repo": "lightpanda-io/browser",
-   "nota": 0.539,
-   "fontes": 1
-  },
-  {
-   "repo": "mattpocock/skills",
-   "nota": 0.512,
-   "fontes": 1
-  },
-  {
-   "repo": "Donchitos/Claude-Code-Game-Studios",
-   "nota": 0.431,
-   "fontes": 1
-  },
-  {
-   "repo": "obra/superpowers",
-   "nota": 0.386,
-   "fontes": 1
-  },
-  {
-   "repo": "paipiange/nvzhuang",
-   "nota": 0.367,
-   "fontes": 1
-  },
-  {
-   "repo": "andyhuo520/digital-human-koubo",
-   "nota": 0.338,
+   "repo": "patchy631/ai-engineering-hub",
+   "nota": 0.385,
    "fontes": 1
   },
   {
    "repo": "patch-gg/pixelfx",
-   "nota": 0.306,
+   "nota": 0.343,
    "fontes": 1
   },
   {
-   "repo": "Motionsites-AI/claude-skill",
-   "nota": 0.275,
+   "repo": "Donchitos/Claude-Code-Game-Studios",
+   "nota": 0.313,
+   "fontes": 1
+  },
+  {
+   "repo": "lightpanda-io/browser",
+   "nota": 0.267,
+   "fontes": 1
+  },
+  {
+   "repo": "paipiange/nvzhuang",
+   "nota": 0.245,
    "fontes": 1
   },
   {
    "repo": "haydenschmitty/floorplan",
-   "nota": 0.187,
+   "nota": 0.236,
    "fontes": 1
   },
   {
-   "repo": "yaojingang/GEOInflow",
-   "nota": 0.164,
-   "fontes": 1
-  },
-  {
-   "repo": "benderandrew069/deepseek-api-pricing-2026",
-   "nota": 0.142,
-   "fontes": 1
-  },
-  {
-   "repo": "jackwener/DSH-Android",
-   "nota": 0.135,
-   "fontes": 1
-  },
-  {
-   "repo": "jacke-pp/open-yoki",
-   "nota": 0.128,
-   "fontes": 1
-  },
-  {
-   "repo": "blakeandersonw/ai-app-playbook",
-   "nota": 0.127,
+   "repo": "beenuar/AiSOC",
+   "nota": 0.144,
    "fontes": 1
   },
   {
    "repo": "Koppar-AI/koppar-lte-modem",
-   "nota": 0.118,
+   "nota": 0.141,
    "fontes": 1
   },
   {
-   "repo": "THU-MAIC/OpenMAIC",
-   "nota": 0.067,
+   "repo": "elvarofficial/teardown",
+   "nota": 0.122,
+   "fontes": 1
+  },
+  {
+   "repo": "NiazMorshed2007/reanimate",
+   "nota": 0.097,
+   "fontes": 1
+  },
+  {
+   "repo": "jacke-pp/open-yoki",
+   "nota": 0.095,
+   "fontes": 1
+  },
+  {
+   "repo": "jackwener/DSH-Android",
+   "nota": 0.092,
+   "fontes": 1
+  },
+  {
+   "repo": "benderandrew069/deepseek-api-pricing-2026",
+   "nota": 0.092,
+   "fontes": 1
+  },
+  {
+   "repo": "sleepy-zone/ai-ref-library-cn",
+   "nota": 0.075,
+   "fontes": 1
+  },
+  {
+   "repo": "CopilotKit/OpenBot",
+   "nota": 0.057,
+   "fontes": 1
+  },
+  {
+   "repo": "kornia/kornia",
+   "nota": 0.033,
    "fontes": 1
   }
  ]

@@ -1,0 +1,207 @@
+{
+  "titulo": "lista: facilitar o seu trabalho com ia",
+  "formato": "pixel2",
+  "palavra_chave": "GITHUB",
+  "perfil": "@ursulino.ia",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "ferramentas gratuitas do github para programar e criar conteúdo com ia"
+  },
+  "chamada": {
+    "pergunta": "quer os links dos repositórios?"
+  },
+  "itens": [
+    {
+      "repo": "feimacode/open-design-agent-kit",
+      "nome": "open-design-agent-kit",
+      "cor": "azul",
+      "promessa": "Pro-grade UI design built into the coding agent you already use — GitHub Copilot",
+      "texto": "Gera interfaces visuais dentro do seu agente."
+    },
+    {
+      "repo": "patch-gg/pixelfx",
+      "nome": "pixelfx",
+      "cor": "verde",
+      "promessa": "244 pixel art effects, every one a small piece of code. Plus a Claude Code skill",
+      "texto": "Cria efeitos visuais em pixel art."
+    },
+    {
+      "repo": "mikehasa/agentacct",
+      "nome": "agentacct",
+      "cor": "laranja",
+      "promessa": "See what your coding agents did and what it cost. Breaks each task down into wor",
+      "texto": "Mostra o custo dos seus agentes."
+    },
+    {
+      "repo": "patchy631/ai-engineering-hub",
+      "nome": "ai-engineering-hub",
+      "cor": "roxo",
+      "promessa": "In-depth tutorials on LLMs, RAGs and real-world AI agent applications.",
+      "texto": "Reúne tutoriais práticos para criar agentes."
+    }
+  ],
+  "destaques": [
+    "open design agent kit",
+    "pixel fx",
+    "agent acct",
+    "ai engineering hub",
+    "github"
+  ],
+  "cenas_roteiro": [
+    {
+      "humor": "animado",
+      "narracao": "Quatro repositórios grátis para facilitar o seu trabalho com ia.",
+      "cor": "roxo",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "4 REPOS PARA",
+            "cor": "branco",
+            "tamanho": 100
+          },
+          {
+            "texto": "CRIAR COM IA",
+            "cor": "roxo",
+            "tamanho": 110
+          }
+        ]
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Primeiro: open design agent kit. Gera interfaces visuais dentro do seu agente.",
+      "cor": "azul",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "palette",
+        "cor": "azul",
+        "rotulo": "OPEN DESIGN KIT"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Segundo: pixel fx. Cria efeitos visuais em pixel art.",
+      "cor": "verde",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "sparkles",
+        "cor": "verde",
+        "rotulo": "PIXELFX"
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Terceiro: agent acct. Mostra o custo dos seus agentes.",
+      "cor": "laranja",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "clock",
+        "cor": "laranja",
+        "rotulo": "AGENTACCT"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Quarto: ai engineering hub. Reúne tutoriais práticos para criar agentes.",
+      "cor": "roxo",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "brain",
+        "cor": "roxo",
+        "rotulo": "AI ENGINEERING HUB"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "4 REPOS PARA",
+          "cor": "branco",
+          "tamanho": 96
+        },
+        {
+          "texto": "CRIAR COM IA",
+          "cor": "roxo",
+          "tamanho": 96
+        }
+      ],
+      "subtitulo": "ferramentas gratuitas do github para programar e criar conteúdo com ia"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 1",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "OPEN DESIGN KIT",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "open-design-agent-kit",
+      "texto": "Gera interfaces visuais dentro do seu agente."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 2",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "PIXELFX",
+          "cor": "verde"
+        }
+      ],
+      "rotulo": "pixelfx",
+      "texto": "Cria efeitos visuais em pixel art."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 3",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "AGENTACCT",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "agentacct",
+      "texto": "Mostra o custo dos seus agentes."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 4",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "AI ENGINEERING HUB",
+          "cor": "roxo"
+        }
+      ],
+      "rotulo": "ai-engineering-hub",
+      "texto": "Reúne tutoriais práticos para criar agentes."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER OS LINKS",
+          "cor": "branco"
+        },
+        {
+          "texto": "DOS REPOS?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando os links no direct.",
+      "palavra": "GITHUB",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "legenda": "Quatro repositórios grátis para facilitar o seu trabalho com ia\n\nSalva este vídeo:\n1. Open Design Kit: Gera interfaces visuais dentro do seu agente.\n2. Pixelfx: Cria efeitos visuais em pixel art.\n3. Agentacct: Mostra o custo dos seus agentes.\n4. Ai Engineering Hub: Reúne tutoriais práticos para criar agentes.\n\nManda pra um amigo dev, segue o @ursulino.ia e comenta GITHUB que eu te mando os links no direct.\n\nQuer aprender a fazer vídeos assim? Link na bio.\n\n#claudecode #github #ia #programacao #opensource",
+  "cor_final": "roxo"
+}

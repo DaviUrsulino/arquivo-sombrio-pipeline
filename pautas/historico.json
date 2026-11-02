@@ -71,6 +71,7 @@
     "elie222/rakazo",
     "eternityspring/shuohao-skills",
     "farion1231/cc-switch",
+    "feimacode/open-design-agent-kit",
     "flatkey-ai/flatkey-cli",
     "genspark-ai/genoffice",
     "google/adk-python",
@@ -93,6 +94,7 @@
     "makecindy/cindy",
     "marmottajr/habblaud",
     "mattpocock/skills",
+    "mikehasa/agentacct",
     "milind-soni/OpenMausBot",
     "miqdadbadjuber/anti-slop",
     "morganlinton/BeautifulRust",
@@ -112,6 +114,8 @@
     "openfilm/openfilm",
     "openqodex/openqodex",
     "paperclipai/paperclip",
+    "patch-gg/pixelfx",
+    "patchy631/ai-engineering-hub",
     "pbakaus/impeccable",
     "plandex-ai/plandex",
     "realmyang/MLView",
@@ -153,5 +157,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 73
+  "pautas_geradas": 74
 }
