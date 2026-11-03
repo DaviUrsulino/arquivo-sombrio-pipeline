@@ -1,75 +1,83 @@
 {
-  "gerado_em": "2026-11-02 17:24",
-  "seguidores": 342,
+  "gerado_em": "2026-11-03 14:52",
+  "seguidores": 346,
   "geral": {
-    "n": 35,
+    "n": 37,
     "views_medianas": 313,
-    "views_media": 2112,
-    "salvos_por_100_alcance": 4.17,
+    "views_media": 2031,
+    "salvos_por_100_alcance": 4.15,
     "envios_por_100_alcance": 1.18,
-    "tempo_medio_s": 6.9
+    "tempo_medio_s": 6.8
   },
   "por_estilo": {
-    "rabisco": {
+    "3d": {
       "n": 2,
-      "views_medianas": 109,
-      "views_media": 109,
-      "salvos_por_100_alcance": 3.33,
-      "envios_por_100_alcance": 0.56,
-      "tempo_medio_s": 4.1
+      "views_medianas": 696,
+      "views_media": 696,
+      "salvos_por_100_alcance": 2.3,
+      "envios_por_100_alcance": 1.36,
+      "tempo_medio_s": 5.9
     },
     "pixel2": {
-      "n": 5,
-      "views_medianas": 1184,
-      "views_media": 1057,
-      "salvos_por_100_alcance": 3.77,
-      "envios_por_100_alcance": 0.75,
+      "n": 6,
+      "views_medianas": 1198,
+      "views_media": 1064,
+      "salvos_por_100_alcance": 3.85,
+      "envios_por_100_alcance": 0.88,
       "tempo_medio_s": 7.3
+    },
+    "papel": {
+      "n": 1,
+      "views_medianas": 136,
+      "views_media": 136,
+      "salvos_por_100_alcance": 0.85,
+      "envios_por_100_alcance": 0.85,
+      "tempo_medio_s": 5.0
+    },
+    "rabisco": {
+      "n": 2,
+      "views_medianas": 125,
+      "views_media": 125,
+      "salvos_por_100_alcance": 2.88,
+      "envios_por_100_alcance": 0.48,
+      "tempo_medio_s": 3.9
     },
     "vila": {
       "n": 2,
-      "views_medianas": 189,
-      "views_media": 189,
-      "salvos_por_100_alcance": 0.91,
-      "envios_por_100_alcance": 0.61,
+      "views_medianas": 192,
+      "views_media": 192,
+      "salvos_por_100_alcance": 0.9,
+      "envios_por_100_alcance": 0.6,
       "tempo_medio_s": 4.6
     },
-    "3d": {
-      "n": 1,
-      "views_medianas": 1269,
-      "views_media": 1269,
-      "salvos_por_100_alcance": 2.51,
-      "envios_por_100_alcance": 1.49,
-      "tempo_medio_s": 7.5
-    },
     "pixel antigo / manual": {
-      "n": 18,
-      "views_medianas": 442,
-      "views_media": 3644,
+      "n": 17,
+      "views_medianas": 503,
+      "views_media": 3847,
       "salvos_por_100_alcance": 4.32,
       "envios_por_100_alcance": 1.23,
       "tempo_medio_s": 8.2
     },
     "pixelui": {
       "n": 2,
-      "views_medianas": 247,
-      "views_media": 247,
+      "views_medianas": 248,
+      "views_media": 248,
       "salvos_por_100_alcance": 1.23,
       "envios_por_100_alcance": 0.74,
       "tempo_medio_s": 6.4
     },
     "glow": {
       "n": 1,
-      "views_medianas": 126,
-      "views_media": 126,
-      "salvos_por_100_alcance": 0.94,
-      "envios_por_100_alcance": 0.94,
-      "tempo_medio_s": 5.5
+      "views_medianas": 127,
+      "views_media": 127,
+      "salvos_por_100_alcance": 0.93,
+      "envios_por_100_alcance": 0.93,
+      "tempo_medio_s": 5.6
     },
     "escritorio": {
       "n": 1,
-      "views_medianas": 169,
-      "views_media": 169,
+      "views_medianas": 170,
+      "views_media": 170,
       "salvos_por_100_alcance": 0.0,
       "envios_por_100_alcance": 0.0,
       "tempo_medio_s": 2.9
@@ -84,16 +92,16 @@
     },
     "esquete": {
       "n": 1,
-      "views_medianas": 119,
-      "views_media": 119,
+      "views_medianas": 120,
+      "views_media": 120,
       "salvos_por_100_alcance": 1.85,
       "envios_por_100_alcance": 0.0,
-      "tempo_medio_s": 3.4
+      "tempo_medio_s": 3.5
     },
     "vidro": {
       "n": 1,
-      "views_medianas": 125,
-      "views_media": 125,
+      "views_medianas": 127,
+      "views_media": 127,
       "salvos_por_100_alcance": 0.0,
       "envios_por_100_alcance": 0.0,
       "tempo_medio_s": 3.4
@@ -101,44 +109,44 @@
   },
   "por_formato": {
     "curto (20-35 s)": {
-      "n": 25,
-      "views_medianas": 235,
-      "views_media": 525,
-      "salvos_por_100_alcance": 2.6,
-      "envios_por_100_alcance": 0.71,
-      "tempo_medio_s": 6.1
+      "n": 28,
+      "views_medianas": 232,
+      "views_media": 519,
+      "salvos_por_100_alcance": 2.67,
+      "envios_por_100_alcance": 0.76,
+      "tempo_medio_s": 6.0
     },
     "longo (45-60 s)": {
-      "n": 10,
-      "views_medianas": 536,
-      "views_media": 6080,
+      "n": 9,
+      "views_medianas": 569,
+      "views_media": 6735,
       "salvos_por_100_alcance": 4.53,
       "envios_por_100_alcance": 1.29,
-      "tempo_medio_s": 8.9
+      "tempo_medio_s": 9.1
     }
   },
   "por_faixa_horaria": {
     "meio-dia (10-14h)": {
-      "n": 8,
-      "views_medianas": 169,
-      "views_media": 521,
-      "salvos_por_100_alcance": 2.86,
-      "envios_por_100_alcance": 1.33,
-      "tempo_medio_s": 5.8
+      "n": 9,
+      "views_medianas": 159,
+      "views_media": 481,
+      "salvos_por_100_alcance": 2.76,
+      "envios_por_100_alcance": 1.28,
+      "tempo_medio_s": 5.6
     },
     "tarde da noite (22-24h)": {
-      "n": 8,
-      "views_medianas": 1176,
-      "views_media": 975,
-      "salvos_por_100_alcance": 3.36,
-      "envios_por_100_alcance": 0.76,
-      "tempo_medio_s": 7.3
+      "n": 10,
+      "views_medianas": 1121,
+      "views_media": 903,
+      "salvos_por_100_alcance": 3.42,
+      "envios_por_100_alcance": 0.85,
+      "tempo_medio_s": 7.1
     },
     "noite (18-22h)": {
       "n": 8,
-      "views_medianas": 275,
-      "views_media": 332,
-      "salvos_por_100_alcance": 2.81,
+      "views_medianas": 278,
+      "views_media": 333,
+      "salvos_por_100_alcance": 2.8,
       "envios_por_100_alcance": 1.13,
       "tempo_medio_s": 5.9
     },
@@ -151,17 +159,17 @@
       "tempo_medio_s": 9.1
     },
     "tarde (14-18h)": {
-      "n": 5,
-      "views_medianas": 163,
-      "views_media": 170,
-      "salvos_por_100_alcance": 1.7,
-      "envios_por_100_alcance": 0.71,
-      "tempo_medio_s": 7.5
+      "n": 4,
+      "views_medianas": 153,
+      "views_media": 160,
+      "salvos_por_100_alcance": 0.92,
+      "envios_por_100_alcance": 0.37,
+      "tempo_medio_s": 7.4
     },
     "manhã (6-10h)": {
       "n": 4,
       "views_medianas": 920,
-      "views_media": 14218,
+      "views_media": 14223,
       "salvos_por_100_alcance": 4.53,
       "envios_por_100_alcance": 1.25,
       "tempo_medio_s": 8.4
@@ -169,58 +177,58 @@
   },
   "por_tema": {
     "vídeo com IA": {
-      "n": 29,
+      "n": 31,
       "views_medianas": 325,
-      "views_media": 2477,
-      "salvos_por_100_alcance": 4.28,
+      "views_media": 2356,
+      "salvos_por_100_alcance": 4.26,
       "envios_por_100_alcance": 1.21,
-      "tempo_medio_s": 6.7
+      "tempo_medio_s": 6.5
     },
     "Claude Code": {
-      "n": 33,
+      "n": 35,
       "views_medianas": 313,
-      "views_media": 2195,
-      "salvos_por_100_alcance": 4.25,
+      "views_media": 2104,
+      "salvos_por_100_alcance": 4.23,
       "envios_por_100_alcance": 1.21,
-      "tempo_medio_s": 6.7
+      "tempo_medio_s": 6.6
+    },
+    "venda e kit": {
+      "n": 23,
+      "views_medianas": 569,
+      "views_media": 738,
+      "salvos_por_100_alcance": 3.08,
+      "envios_por_100_alcance": 0.89,
+      "tempo_medio_s": 6.9
+    },
+    "agentes e skills": {
+      "n": 23,
+      "views_medianas": 316,
+      "views_media": 626,
+      "salvos_por_100_alcance": 3.28,
+      "envios_por_100_alcance": 0.98,
+      "tempo_medio_s": 6.8
+    },
+    "assistente (Jarvis)": {
+      "n": 6,
+      "views_medianas": 762,
+      "views_media": 753,
+      "salvos_por_100_alcance": 2.83,
+      "envios_por_100_alcance": 0.99,
+      "tempo_medio_s": 6.5
     },
     "segurança e teste": {
       "n": 4,
-      "views_medianas": 122,
-      "views_media": 140,
-      "salvos_por_100_alcance": 1.01,
-      "envios_por_100_alcance": 0.4,
-      "tempo_medio_s": 3.5
-    },
-    "agentes e skills": {
-      "n": 22,
-      "views_medianas": 314,
-      "views_media": 604,
-      "salvos_por_100_alcance": 3.21,
-      "envios_por_100_alcance": 0.95,
-      "tempo_medio_s": 6.8
-    },
-    "venda e kit": {
-      "n": 22,
-      "views_medianas": 536,
-      "views_media": 727,
-      "salvos_por_100_alcance": 3.03,
-      "envios_por_100_alcance": 0.87,
-      "tempo_medio_s": 7.1
-    },
-    "assistente (Jarvis)": {
-      "n": 5,
-      "views_medianas": 1200,
-      "views_media": 872,
-      "salvos_por_100_alcance": 2.91,
-      "envios_por_100_alcance": 1.0,
-      "tempo_medio_s": 6.8
+      "views_medianas": 123,
+      "views_media": 150,
+      "salvos_por_100_alcance": 0.95,
+      "envios_por_100_alcance": 0.38,
+      "tempo_medio_s": 3.3
     },
     "outros": {
       "n": 1,
-      "views_medianas": 224,
-      "views_media": 224,
-      "salvos_por_100_alcance": 1.97,
+      "views_medianas": 225,
+      "views_media": 225,
+      "salvos_por_100_alcance": 1.96,
       "envios_por_100_alcance": 0.0,
       "tempo_medio_s": 9.1
     }
@@ -230,7 +238,7 @@
   "top": [
     {
       "id": "18027479654873301",
-      "views": 54752,
+      "views": 54773,
       "salvos": 2023,
       "envios": 561,
       "tempo_s": 11.9,
@@ -239,7 +247,7 @@
     },
     {
       "id": "18413224864081335",
-      "views": 1851,
+      "views": 1852,
       "salvos": 56,
       "envios": 24,
       "tempo_s": 9.4,
@@ -248,16 +256,16 @@
     },
     {
       "id": "18357919321174607",
-      "views": 1366,
+      "views": 1370,
       "salvos": 57,
       "envios": 11,
-      "tempo_s": 8.9,
+      "tempo_s": 9.0,
       "titulo": "Quatro repositórios grátis para automatizar tarefas com IA",
       "hora": "30/10 22:35"
     },
     {
       "id": "18110500358228983",
-      "views": 1358,
+      "views": 1359,
       "salvos": 44,
       "envios": 11,
       "tempo_s": 7.7,
@@ -274,6 +282,15 @@
       "hora": "19/10 03:11"
     },
     {
+      "id": "18118121924092924",
+      "views": 1290,
+      "salvos": 27,
+      "envios": 16,
+      "tempo_s": 7.5,
+      "titulo": "Uma inteligência artificial no celular mexe nos seus aplicativos sozin",
+      "hora": "01/11 12:12"
+    },
+    {
       "id": "18031314608687509",
       "views": 1272,
       "salvos": 4,
@@ -283,22 +300,13 @@
       "hora": "24/10 09:20"
     },
     {
-      "id": "18118121924092924",
-      "views": 1269,
-      "salvos": 27,
-      "envios": 16,
-      "tempo_s": 7.5,
-      "titulo": "Uma inteligência artificial no celular mexe nos seus aplicativos sozin",
-      "hora": "01/11 12:12"
-    },
-    {
-      "id": "18098799443108682",
-      "views": 1200,
-      "salvos": 28,
-      "envios": 8,
-      "tempo_s": 7.1,
-      "titulo": "Quatro repositórios grátis para desenvolver com inteligencia artificia",
-      "hora": "26/10 23:34"
+      "id": "18082365014532131",
+      "views": 1201,
+      "salvos": 29,
+      "envios": 7,
+      "tempo_s": 7.7,
+      "titulo": "Três repositórios grátis para cinco repositórios grátis para devs",
+      "hora": "31/10 22:35"
     }
   ]
 }
