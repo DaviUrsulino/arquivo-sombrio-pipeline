@@ -37,7 +37,8 @@ MOLDES_COM_SLIDES = {"pixel": "pixel.html.tpl", "pixel2": "pixel2.html.tpl"}
 # (escuro/laranja, rabisco à mão, neon). Cada pauta cai num deles, fixo pelo título, pra o feed variar.
 # `MOLDE_PIXEL2=1` no ambiente volta pro molde antigo.
 MOLDES_ESTUDIO = [
-    "estudio-3d.html.tpl",       # @yan.gsouza: cenas 3D cinematográficas
+    # estudio-3d.html.tpl (@yan.gsouza) reprovado pelo Davi em 2026-11-02: 4 posts, sempre a mesma
+    # animaçãozinha 3D genérica (template, não identidade) e um deles saiu sem sincronizar.
     "estudio-rabisco.html.tpl",  # @oguiadaia: desenho à mão em papel
     "estudio-pixelui.html.tpl",  # @99hud: fonte pixel, janelas retrô, personagem
     "estudio-tier.html.tpl",     # @daniel.esantos: ranking S/A/B + print real do repo
