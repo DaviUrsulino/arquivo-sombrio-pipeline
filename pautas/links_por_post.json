@@ -368,5 +368,10 @@
     "palavra": "GITHUB",
     "mensagem": "Oi! Aqui estão os repositórios do vídeo:\n1. agent-desktop: https://github.com/vercel-labs/agent-desktop\n2. skill-video-studio: https://github.com/aaitor/skill-video-studio\n3. framekeeper: https://github.com/chipfighter/framekeeper\n4. TokenEconomizer: https://github.com/microsoft/TokenEconomizer\nSe curtir, segue o @ursulino.ia pra mais ferramentas de IA.",
     "repo": "vercel-labs/agent-desktop"
+  },
+  "18074926214488132": {
+    "palavra": "OPENIDEA",
+    "mensagem": "Oi! Aqui está o openidea.\n\nIDE nativa em Rust com atalhos e fluxo do IntelliJ IDEA, leve e rápida para 60+ linguagens.\n\nComo começar:\n1. Acesse https://github.com/l0ng-ai/openidea/releases/latest e baixe o instalador do seu sistema\n2. Instale e abra o OpenIDEA\n3. Importe um projeto existente ou crie um novo para testar editor, debugger, Git, terminal, banco de dados e cliente HTTP\n\nPra testar hoje: Abra um projeto Python grande e compare o tempo de abertura e consumo de memória com o IntelliJ IDEA.\n\nLink: https://github.com/l0ng-ai/openidea\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
+    "repo": "l0ng-ai/openidea"
   }
 }

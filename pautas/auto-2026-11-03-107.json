@@ -1,0 +1,243 @@
+{
+  "titulo": "openidea: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "OPENIDEA",
+  "perfil": "@ursulino.ia",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "um novo editor de codigo em rust no estilo intellij"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "l0ng-ai/openidea",
+      "nome": "openidea",
+      "cor": "azul",
+      "promessa": "The IDE you know, rebuilt in Rust. IntelliJ IDEA–style keymap, tool windows and ",
+      "texto": "The IDE you know, rebuilt in Rust. IntelliJ IDEA–style keymap, tool windows and search-everywhere in a fast native app: "
+    }
+  ],
+  "destaques": [
+    "editor",
+    "codigo",
+    "rust",
+    "intellij",
+    "memoria",
+    "linguagens",
+    "openidea"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Seu editor de codigo consome muita memoria enquanto voce programa.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "SEU EDITOR",
+            "cor": "branco",
+            "tamanho": 120
+          },
+          {
+            "texto": "DE CODIGO",
+            "cor": "laranja",
+            "tamanho": 130
+          },
+          {
+            "texto": "CONSUME MUITA",
+            "cor": "amarelo",
+            "tamanho": 110
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Este novo ambiente em Rust recria a interface do IntelliJ.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "zap",
+        "cor": "amarelo",
+        "rotulo": "NATIVO EM RUST"
+      }
+    },
+    {
+      "narracao": "Ele abre em um segundo e consome pouca memoria RAM.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "comparar",
+        "esq": {
+          "titulo": "INTELLIJ",
+          "icone": "hourglass",
+          "cor": "vermelho",
+          "linhas": [
+            {
+              "rotulo": "memoria",
+              "valor": 8
+            }
+          ]
+        },
+        "dir": {
+          "titulo": "OPENIDEA",
+          "icone": "zap",
+          "cor": "verde",
+          "linhas": [
+            {
+              "rotulo": "memoria",
+              "valor": 2
+            }
+          ]
+        }
+      }
+    },
+    {
+      "narracao": "A ferramenta traz cliente de banco de dados e terminal embutido.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "Terminal embutido",
+          "Banco de dados",
+          "Cliente HTTP"
+        ]
+      }
+    },
+    {
+      "narracao": "O software suporta mais de sessenta linguagens em seu editor.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "niveis",
+        "itens": [
+          {
+            "rotulo": "SESSENTA",
+            "altura": 1,
+            "cor": "verde"
+          },
+          {
+            "rotulo": "LINGUAGENS",
+            "altura": 2,
+            "cor": "azul"
+          },
+          {
+            "rotulo": "SUPORTADAS",
+            "altura": 3,
+            "cor": "amarelo"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto e codigo aberto e soma {estrelas:l0ng-ai/openidea} no GitHub.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "contador",
+        "repo": "l0ng-ai/openidea"
+      }
+    },
+    {
+      "narracao": "Voce pode baixar versoes para Windows Linux e macOS no repositorio.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "banner_repo",
+        "url": "github.com/l0ng-ai/openidea"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "EDITOR EM RUST",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "ESTILO INTELLIJ",
+          "cor": "laranja",
+          "tamanho": 80
+        }
+      ],
+      "subtitulo": "conheca o OpenIDEA"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "O QUE É",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "openidea",
+      "texto": "Um ambiente de desenvolvimento nativo feito em Rust. Traz o estilo de atalhos e busca do IntelliJ IDEA."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMO OBTER",
+          "cor": "verde"
+        }
+      ],
+      "comando": "https://github.com/l0ng-ai/openidea/releases",
+      "texto": "baixe o binario do seu sistema",
+      "rotulo": "download"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "RECURSOS",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "recursos",
+      "texto": "Possui suporte para mais de sessenta linguagens, depurador, terminal e cliente de banco de dados."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "LICENÇA",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "detalhes",
+      "texto": "Projeto sob licenca Apache 2.0 disponivel para macOS, Windows e Linux."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "OPENIDEA",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "passos": [
+    "Acesse as releases no repositorio do projeto l0ng-ai/openidea.",
+    "Baixe a versao executavel para seu sistema operacional.",
+    "Abra o editor nativo para programar com mais facilidade."
+  ]
+}
