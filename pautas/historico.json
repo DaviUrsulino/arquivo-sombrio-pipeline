@@ -42,6 +42,7 @@
     "YishenTu/claudian",
     "ZiChuanLan/agent-purge",
     "aaif-goose/goose",
+    "aaitor/skill-video-studio",
     "addyosmani/agent-skills",
     "affaan-m/ECC",
     "alirezarezvani/claude-skills",
@@ -57,6 +58,7 @@
     "career-ops-hq/career-ops",
     "cbrock84/headcount",
     "cheaper-inference/OmniRoute",
+    "chipfighter/framekeeper",
     "cloudflare/security-audit-skill",
     "continuedev/continue",
     "coreyhaines31/marketingskills",
@@ -96,6 +98,7 @@
     "makecindy/cindy",
     "marmottajr/habblaud",
     "mattpocock/skills",
+    "microsoft/TokenEconomizer",
     "mikehasa/agentacct",
     "milind-soni/OpenMausBot",
     "miqdadbadjuber/anti-slop",
@@ -145,6 +148,7 @@
     "trailhq/Trail-Code",
     "tt-a1i/archify",
     "undefined-ui/second-brain-os",
+    "vercel-labs/agent-desktop",
     "viettranx/3dviz-pro-max",
     "virgiliojr94/book-to-skill",
     "vshulcz/deja-vu",
@@ -159,5 +163,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 76
+  "pautas_geradas": 77
 }

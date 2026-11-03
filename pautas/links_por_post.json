@@ -363,5 +363,10 @@
     "palavra": "ANDROID",
     "mensagem": "Oi! Aqui está o Mika.\n\nEle executa tarefas sozinho no seu celular Android abrindo aplicativos e sites em segundo plano.\n\nComo começar:\n1. Baixe o arquivo APK direto da página de Releases.\n2. Acesse Settings > Model para escolher um provedor e inserir sua chave de API.\n3. Siga o assistente Set up phone control em Settings e faça o pareamento por depuração sem fio.\n\nPra testar hoje: Experimente enviar a mensagem: Set alarms for 9:40 and 10:00 tomorrow morning.\n\nLink: https://github.com/wangzan101/Mika\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
     "repo": "wangzan101/Mika"
+  },
+  "18142437394617032": {
+    "palavra": "GITHUB",
+    "mensagem": "Oi! Aqui estão os repositórios do vídeo:\n1. agent-desktop: https://github.com/vercel-labs/agent-desktop\n2. skill-video-studio: https://github.com/aaitor/skill-video-studio\n3. framekeeper: https://github.com/chipfighter/framekeeper\n4. TokenEconomizer: https://github.com/microsoft/TokenEconomizer\nSe curtir, segue o @ursulino.ia pra mais ferramentas de IA.",
+    "repo": "vercel-labs/agent-desktop"
   }
 }

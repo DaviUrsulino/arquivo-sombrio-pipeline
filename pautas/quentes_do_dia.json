@@ -1,5 +1,5 @@
 {
- "dia": "2026-11-02",
+ "dia": "2026-11-03",
  "itens": [
   {
    "repo": "deepseek-ai/dsh-superagent-prototype",
@@ -7,103 +7,103 @@
    "fontes": 1
   },
   {
-   "repo": "anhao/ai-pose-gallery-zh",
-   "nota": 0.675,
-   "fontes": 1
-  },
-  {
-   "repo": "heydamir/unslop",
-   "nota": 0.642,
-   "fontes": 1
-  },
-  {
-   "repo": "wangzan101/Mika",
-   "nota": 0.51,
+   "repo": "vercel-labs/agent-desktop",
+   "nota": 0.705,
    "fontes": 1
   },
   {
    "repo": "thedotmack/claude-mem",
-   "nota": 0.493,
+   "nota": 0.558,
    "fontes": 1
   },
   {
-   "repo": "patchy631/ai-engineering-hub",
-   "nota": 0.385,
-   "fontes": 1
-  },
-  {
-   "repo": "patch-gg/pixelfx",
-   "nota": 0.343,
+   "repo": "heydamir/unslop",
+   "nota": 0.473,
    "fontes": 1
   },
   {
    "repo": "Donchitos/Claude-Code-Game-Studios",
-   "nota": 0.313,
+   "nota": 0.427,
    "fontes": 1
   },
   {
-   "repo": "lightpanda-io/browser",
-   "nota": 0.267,
+   "repo": "wangzan101/Mika",
+   "nota": 0.401,
+   "fontes": 1
+  },
+  {
+   "repo": "mattpocock/skills",
+   "nota": 0.266,
+   "fontes": 1
+  },
+  {
+   "repo": "patch-gg/pixelfx",
+   "nota": 0.265,
+   "fontes": 1
+  },
+  {
+   "repo": "aaitor/skill-video-studio",
+   "nota": 0.219,
    "fontes": 1
   },
   {
    "repo": "paipiange/nvzhuang",
-   "nota": 0.245,
+   "nota": 0.154,
    "fontes": 1
   },
   {
-   "repo": "haydenschmitty/floorplan",
-   "nota": 0.236,
-   "fontes": 1
-  },
-  {
-   "repo": "beenuar/AiSOC",
-   "nota": 0.144,
-   "fontes": 1
-  },
-  {
-   "repo": "Koppar-AI/koppar-lte-modem",
-   "nota": 0.141,
-   "fontes": 1
-  },
-  {
-   "repo": "elvarofficial/teardown",
-   "nota": 0.122,
-   "fontes": 1
-  },
-  {
-   "repo": "NiazMorshed2007/reanimate",
-   "nota": 0.097,
-   "fontes": 1
-  },
-  {
-   "repo": "jacke-pp/open-yoki",
-   "nota": 0.095,
-   "fontes": 1
-  },
-  {
-   "repo": "jackwener/DSH-Android",
-   "nota": 0.092,
-   "fontes": 1
-  },
-  {
-   "repo": "benderandrew069/deepseek-api-pricing-2026",
-   "nota": 0.092,
-   "fontes": 1
-  },
-  {
-   "repo": "sleepy-zone/ai-ref-library-cn",
-   "nota": 0.075,
-   "fontes": 1
-  },
-  {
-   "repo": "CopilotKit/OpenBot",
-   "nota": 0.057,
+   "repo": "l0ng-ai/openidea",
+   "nota": 0.132,
    "fontes": 1
   },
   {
    "repo": "kornia/kornia",
-   "nota": 0.033,
+   "nota": 0.128,
+   "fontes": 1
+  },
+  {
+   "repo": "paperclipai/paperclip",
+   "nota": 0.128,
+   "fontes": 1
+  },
+  {
+   "repo": "elvarofficial/teardown",
+   "nota": 0.096,
+   "fontes": 1
+  },
+  {
+   "repo": "caru-ini/stack-diagram",
+   "nota": 0.091,
+   "fontes": 1
+  },
+  {
+   "repo": "NiazMorshed2007/reanimate",
+   "nota": 0.072,
+   "fontes": 1
+  },
+  {
+   "repo": "jacke-pp/open-yoki",
+   "nota": 0.063,
+   "fontes": 1
+  },
+  {
+   "repo": "sleepy-zone/ai-ref-library-cn",
+   "nota": 0.05,
+   "fontes": 1
+  },
+  {
+   "repo": "mromidev/claude-animated-shorts",
+   "nota": 0.049,
+   "fontes": 1
+  },
+  {
+   "repo": "N1nEmAn/sapper-v2",
+   "nota": 0.046,
+   "fontes": 1
+  },
+  {
+   "repo": "max-sixty/worktrunk",
+   "nota": 0.024,
    "fontes": 1
   }
  ]
