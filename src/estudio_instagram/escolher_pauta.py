@@ -159,15 +159,36 @@ def pauta_pixel2(buscas: list[str], palavra_chave: str, dias_novidade: int = 120
     return None
 
 
-def pauta_lista(buscas: list[str], palavra_chave: str, dias_novidade: int = 120, llm=None, minimo_estrelas: int = 200) -> dict | None:
-    """Lista de 5 repositórios inéditos com README de verdade. None se não houver 5 ou se o LLM não passar na validação."""
-    desde = (date.today() - timedelta(days=dias_novidade)).isoformat()
+def _candidatos_da_semana(limite: int = 12) -> list:
+    """Repositórios do GitHub Trending semanal, já inéditos — fonte de candidato pro modo "semana" de `pauta_lista`."""
+    candidatos = []
+    for nome in inedito(assunto_quente.repos_em_alta_na_semana(limite=limite * 2)):
+        try:
+            candidatos.append(github_dados.buscar(nome))
+        except Exception:
+            continue
+        if len(candidatos) == limite:
+            break
+    return candidatos
+
+
+def pauta_lista(buscas: list[str], palavra_chave: str, dias_novidade: int = 120, llm=None, minimo_estrelas: int = 200,
+                modo: str = "gratis") -> dict | None:
+    """Lista de 5 repositórios inéditos com README de verdade. None se não houver 5 ou se o LLM não passar na validação.
+
+    `modo="semana"`: candidato vem do GitHub Trending semanal (o que mais bombou na semana), não da busca por
+    termo — gancho de ranking em vez de gancho de tema (ver `lista.MODOS`)."""
     icones = {p.stem for p in (montagem.MODELOS / "assets" / "icons").glob("*.svg")}
-    candidatos = _candidatos(buscas, minimo_estrelas=minimo_estrelas, criado_apos=desde) or _candidatos(buscas)
+    if modo == "semana":
+        candidatos = _candidatos_da_semana()
+    else:
+        desde = (date.today() - timedelta(days=dias_novidade)).isoformat()
+        candidatos_busca = _candidatos(buscas, minimo_estrelas=minimo_estrelas, criado_apos=desde) or _candidatos(buscas)
+        quentes = quentes_ineditos(limite=2)  # até 2 dos 4-5 itens da lista são assunto do dia
+        ja = {d.repo for d in quentes}
+        candidatos = quentes + [d for d in selecao.escolher_repos(candidatos_busca, quantidade=12) if d.repo not in ja]
     readmes, escolhidos = {}, []
-    quentes = quentes_ineditos(limite=2)  # até 2 dos 4-5 itens da lista são assunto do dia
-    ja = {d.repo for d in quentes}
-    for dados in quentes + [d for d in selecao.escolher_repos(candidatos, quantidade=12) if d.repo not in ja]:
+    for dados in candidatos:
         try:
             readme = roteirista.buscar_readme(dados.repo)
         except Exception:
@@ -182,7 +203,7 @@ def pauta_lista(buscas: list[str], palavra_chave: str, dias_novidade: int = 120,
         return None
     try:
         kwargs = {"llm": llm} if llm else {}
-        return lista.gerar_pauta(escolhidos, readmes, palavra_chave, icones, **kwargs)
+        return lista.gerar_pauta(escolhidos, readmes, palavra_chave, icones, modo=modo, **kwargs)
     except Exception as erro:
         print(f"lista falhou ({str(erro)[:200]})")
         return None
@@ -209,7 +230,12 @@ def executar(buscas: list[str], quantidade: int, titulo: str | None, palavra_cha
         print("sem roteiro de venda; seguindo com notícia de ferramenta")
         formato = "pixel2"
     if formato == "lista":
-        nova = pauta_lista(buscas, palavra_chave)
+        # alterna "grátis" (tema por busca) e "semana" (ranking do GitHub Trending semanal) pra variar o
+        # gancho sem tocar no visual pixel2, que já é o formato vencedor (sugestão pro Davi, 2026-11-02).
+        modo = "semana" if contar_pautas() % 2 else "gratis"
+        nova = pauta_lista(buscas, palavra_chave, modo=modo)
+        if not nova and modo == "semana":  # trending semanal pode não achar 3 inéditos; tenta o modo normal antes de desistir
+            nova = pauta_lista(buscas, palavra_chave, modo="gratis")
         if nova:
             return nova
         print("lista não saiu; caindo no pixel2")

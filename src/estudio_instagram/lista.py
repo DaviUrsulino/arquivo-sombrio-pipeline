@@ -20,6 +20,23 @@ ORDINAIS = ["Primeiro", "Segundo", "Terceiro", "Quarto", "Quinto"]
 CORES_ITENS = ["azul", "verde", "laranja", "roxo", "amarelo"]
 LETRAS_MAX_LINHA = 14
 
+# Dois jeitos de abrir o mesmo formato "lista" — o gancho muda, estrutura e validação são as
+# mesmas. "semana" usa candidato vindo do GitHub Trending semanal (assunto_quente.repos_em_alta_na_semana),
+# não de busca por termo fixo: o "5 mais bombaram essa semana" é curiosidade de ranking, não de tema
+# (sugestão pro Davi em 2026-11-02, pra variar o gancho sem tocar no visual pixel2 que já vence).
+MODOS = {
+    "gratis": {
+        "tema_instrucao": "até 6 palavras em minúsculas que completam 'Cinco repositórios grátis para ...' (ex.: criar vídeo com IA)",
+        "frase_video": "{numero} repositórios grátis para {tema}.",
+        "legenda_abertura": "{numero} repositórios grátis para {tema}",
+    },
+    "semana": {
+        "tema_instrucao": "até 6 palavras em minúsculas descrevendo pra que esses repositórios servem (ex.: criar vídeo com IA) — NÃO mencione 'semana' ou 'repositório', isso já está na frase",
+        "frase_video": "{numero} repositórios que mais bombaram essa semana no GitHub pra {tema}.",
+        "legenda_abertura": "{numero} repositórios que mais bombaram essa semana no GitHub pra {tema}",
+    },
+}
+
 SISTEMA = """Você é roteirista de Reels CURTOS (25 a 35 segundos) do perfil brasileiro @ursulino.ia, sobre ferramentas de IA para quem cria conteúdo, quem programa e quem nunca programou mas quer começar (com o Claude, qualquer um programa). Tema e frases em linguagem que um leigo entende, focando no que facilita a vida. Formato LISTA: 5 repositórios do GitHub num mesmo vídeo.
 
 Você recebe 5 repositórios com DADOS REAIS e o início do README. REGRAS DE FATO (inegociáveis):
@@ -30,7 +47,7 @@ Você recebe 5 repositórios com DADOS REAIS e o início do README. REGRAS DE FA
 ESTILO (é lido em voz alta): português do Brasil com ACENTOS corretos (código, memória, ação), frases completas que começam com letra MAIÚSCULA e têm verbo no presente, de 4 a 7 palavras, sem emoji, sem hashtag, sem símbolos como / @ #. Escreva siglas e comandos do jeito que se fala.
 
 SAÍDA: um único objeto JSON, sem texto fora dele:
-{"tema":"até 6 palavras em minúsculas que completam 'Cinco repositórios grátis para ...' (ex.: criar vídeo com IA)",
+{"tema":"__TEMA_INSTRUCAO__",
  "gancho":["LINHA 1 EM MAIÚSCULAS ATÉ 14 LETRAS","LINHA 2 EM MAIÚSCULAS ATÉ 14 LETRAS"],
  "subtitulo":"frase de uma linha para a legenda, minúscula",
  "itens":[{"repo":"dono/repo","rotulo":"NOME EM MAIÚSCULAS ATÉ 20 LETRAS","falado":"o nome do projeto escrito normalmente, com as palavras separadas (ex.: open jarvis). NÃO escreva fonética inventada","frase":"o que faz, de 4 a 7 palavras, começa com maiúscula, só com fatos do README","icone":"um destes: __ICONES__"}],
@@ -105,17 +122,21 @@ def problemas(resposta: dict, dados: list[DadosRepo], readmes: dict[str, str], i
     return erros
 
 
-def montar_pauta(resposta: dict, dados: list[DadosRepo], palavra_chave: str) -> dict:
+def montar_pauta(resposta: dict, dados: list[DadosRepo], palavra_chave: str, modo: str = "gratis") -> dict:
     por_repo = {d.repo: d for d in dados}
     itens = resposta["itens"]
     n = len(itens)
     numero_por_extenso = {3: "Três", 4: "Quatro", 5: "Cinco"}[n]
+    tema = resposta["tema"].strip().rstrip(".")
+    textos = MODOS[modo]
+    narracao_abertura = textos["frase_video"].format(numero=numero_por_extenso, tema=tema)
+    legenda_abertura = textos["legenda_abertura"].format(numero=numero_por_extenso, tema=tema)
     # Cor de abertura/fechamento varia por vídeo (hash do tema), senão todo vídeo abre e fecha
     # laranja e só o texto muda — o Davi notou a repetição (2026-10-31).
     cor_video = CORES_ITENS[sum(ord(c) for c in resposta["tema"]) % len(CORES_ITENS)]
     cenas = [{
         "humor": "animado",
-        "narracao": f"{numero_por_extenso} repositórios grátis para {resposta['tema'].strip().rstrip('.')}.",
+        "narracao": narracao_abertura,
         "cor": cor_video,
         "visual": {"tipo": "titulo_pixel", "linhas": [
             {"texto": resposta["gancho"][0], "cor": "branco", "tamanho": 100},
@@ -142,7 +163,7 @@ def montar_pauta(resposta: dict, dados: list[DadosRepo], palavra_chave: str) -> 
     itens_pauta = [{"repo": it["repo"], "nome": it["repo"].split("/", 1)[1], "cor": CORES_ITENS[i % len(CORES_ITENS)],
                     "promessa": por_repo[it["repo"]].descricao[:80], "texto": it["frase"][:120]} for i, it in enumerate(itens)]
     lista_texto = "\n".join(f"{i}. {it['rotulo'].title()}: {_frase(it['frase'])}." for i, it in enumerate(itens, 1))
-    legenda = (f"{numero_por_extenso} repositórios grátis para {resposta['tema'].strip().rstrip('.')}\n\n"
+    legenda = (f"{legenda_abertura}\n\n"
                f"Salva este vídeo:\n{lista_texto}\n\n"
                f"Manda pra um amigo dev, segue o @ursulino.ia e comenta {palavra_chave} que eu te mando os links no direct.\n\n"
                "Quer aprender a fazer vídeos assim? Link na bio.\n\n#claudecode #github #ia #programacao #opensource")
@@ -157,9 +178,12 @@ def montar_pauta(resposta: dict, dados: list[DadosRepo], palavra_chave: str) -> 
 
 
 def gerar_pauta(dados: list[DadosRepo], readmes: dict[str, str], palavra_chave: str, icones: set[str],
-                llm=gerar_json, tentativas: int = 3) -> dict:
-    """Pauta pixel2 pronta e validada para a lista, ou ValueError com os problemas da última tentativa."""
-    sistema = SISTEMA.replace("__ICONES__", ", ".join(sorted(icones)))
+                llm=gerar_json, tentativas: int = 3, modo: str = "gratis") -> dict:
+    """Pauta pixel2 pronta e validada para a lista, ou ValueError com os problemas da última tentativa.
+
+    `modo`: "gratis" (padrão, gancho "N repositórios grátis para X") ou "semana" (gancho de ranking,
+    pensado pra candidatos vindos do GitHub Trending semanal — ver `assunto_quente.repos_em_alta_na_semana`)."""
+    sistema = SISTEMA.replace("__ICONES__", ", ".join(sorted(icones))).replace("__TEMA_INSTRUCAO__", MODOS[modo]["tema_instrucao"])
     usuario = _usuario(dados, readmes)
     erros: list[str] = []
     for _ in range(tentativas):
@@ -171,7 +195,7 @@ def gerar_pauta(dados: list[DadosRepo], readmes: dict[str, str], palavra_chave: 
         if erros:
             continue
         vivos = [d for d in dados if d.repo in {i["repo"] for i in resposta["itens"]}]
-        nova = montar_pauta(resposta, vivos, palavra_chave)
+        nova = montar_pauta(resposta, vivos, palavra_chave, modo=modo)
         try:
             final = cenas_pixel.normalizar_pauta(nova)
         except (ValueError, KeyError) as erro:

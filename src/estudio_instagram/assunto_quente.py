@@ -40,19 +40,32 @@ def _repo(dono: str, nome: str) -> str | None:
 
 
 def github_trending(html: str) -> dict[str, tuple[float, str]]:
-    """{repo: (estrelas hoje, descrição)} a partir do HTML de github.com/trending."""
+    """{repo: (estrelas no período, descrição)} a partir do HTML de github.com/trending.
+
+    Serve tanto pro ?since=daily ("N stars today") quanto pro ?since=weekly ("N stars this week")."""
     saida = {}
     for bloco in html.split('<article class="Box-row')[1:]:
         m = re.search(r'<h2[^>]*>\s*<a[^>]*href="/([^/"]+)/([^/"]+)"', bloco)
         if not m:
             continue
-        hoje = re.search(r"([\d,]+)\s+stars\s+today", bloco)
+        periodo = re.search(r"([\d,]+)\s+stars\s+(?:today|this week)", bloco)
         desc = re.search(r'<p class="col-9[^"]*">\s*(.*?)\s*</p>', bloco, re.S)
         repo = _repo(m.group(1), m.group(2))
         if repo:
-            saida[repo] = (float(hoje.group(1).replace(",", "")) if hoje else 0.0,
+            saida[repo] = (float(periodo.group(1).replace(",", "")) if periodo else 0.0,
                            re.sub(r"<[^>]+>|\s+", " ", desc.group(1)).strip() if desc else "")
     return saida
+
+
+def repos_em_alta_na_semana(limite: int = 12, abrir=urllib.request.urlopen) -> list[str]:
+    """Repositórios de IA mais em alta na semana (GitHub Trending, ?since=weekly), do que mais ganhou estrela
+    pro que menos. Pensado pro gancho "lista" modo "semana" (ver lista.py) — curiosidade de ranking real, sem
+    inventar número (RN-1): a ordem já é o fato.
+    """
+    trending = github_trending(_get("https://github.com/trending?since=weekly", abrir))
+    quentes = [(repo, estrelas) for repo, (estrelas, desc) in trending.items() if IA.search(f"{desc} {repo}")]
+    quentes.sort(key=lambda par: par[1], reverse=True)
+    return [repo for repo, _ in quentes[:limite]]
 
 
 def hacker_news(dados: dict) -> dict[str, tuple[float, str]]:
