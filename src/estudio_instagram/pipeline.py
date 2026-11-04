@@ -12,6 +12,7 @@ import argparse
 import json
 import os
 import shutil
+import subprocess
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -194,10 +195,90 @@ def _registrar_pauta(media_id: str, caminho_pauta: Path, dados_pauta: dict, mold
     arquivo.write_text(json.dumps(atual, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
+def _publicar(publicar: bool, video: Path, dados_pauta: dict, repos: dict, registro: dict, caminho_pauta: Path,
+              pasta_saida: Path, modelo_reels: str, formato: str, slides: list):
+    """Publica o Reels (e o carrossel, se houver) e registra links, estilo e pauta do post. Usado pelo caminho normal
+    e pelo de vídeo pronto (produtora), para os dois respeitarem a mesma cota, pausa de segurança e registros."""
+    if publicar:
+        legenda = montar_legenda(dados_pauta, repos)
+        nome_base = pasta_saida.name
+        url_video = hospedagem.publicar(video, f"{nome_base}-reels.mp4")
+        ig = InstagramGraph(os.environ["INSTAGRAM_GRAPH_TOKEN"], os.environ["INSTAGRAM_USER_ID"])
+        try:
+            usados = ig.publicados_nas_ultimas_24h()
+        except Exception:  # consultar a cota não pode impedir o post; só informa quando consegue
+            usados = 0
+        if usados >= LIMITE_SEGURO_POSTS_24H:
+            raise SystemExit(f"a conta já usou {usados} publicações nas últimas 24 h (limite seguro: {LIMITE_SEGURO_POSTS_24H}); não publico")
+        try:
+            # Trial Reel (só pra quem não segue) no vídeo experimental da noite, quando a conta já tem acesso (1.000+):
+            # testa estilos e ganchos sem cansar os seguidores; o Instagram promove sozinho o que performar.
+            try:
+                experimental = formato == "pixel2" and len(dados_pauta.get("itens", [])) == 1 and dados_pauta.get("palavra_chave") != "ESTUDIO"
+                teste = experimental and ig.seguidores() >= MIN_SEGUIDORES_TRIAL
+            except Exception:
+                teste = False
+            reels_publicado = ig.publicar_reels(url_video, legenda, teste=teste, colaboradores=dados_pauta.get("colaboradores"))
+            registro["trial_reel"] = teste
+            registro["publicado"] = True
+            registro["legenda"] = legenda
+            registro["reels"]["media_id"] = reels_publicado.media_id
+            _registrar_links(dados_pauta, repos, registro) if repos else None  # o Reels já saiu: o bot já pode responder
+            _registrar_estilo(reels_publicado.media_id, modelo_reels)
+            _registrar_pauta(reels_publicado.media_id, caminho_pauta, dados_pauta, modelo_reels, formato)
+            # Story desligado em 28/10: o Davi achou sem sentido (trecho do Reels repostado). Volta com STORIES=1
+            # quando tiver um formato de Story próprio.
+            if os.getenv("STORIES") == "1":
+                try:  # Story avisando quem segue; se falhar, o Reels já saiu e segue a vida
+                    arq_story = story.preparar(video, pasta_saida / "story.mp4")
+                    url_story = hospedagem.publicar(arq_story, f"{nome_base}-story.mp4")
+                    registro["story_media_id"] = ig.publicar_story(url_story).media_id
+                except Exception as erro:
+                    print(f"story não saiu ({str(erro)[:160]})")
+
+            if slides:
+                time.sleep(ESPERA_ENTRE_REELS_E_CARROSSEL_S)
+                urls_slides = [
+                    hospedagem.publicar(s, f"{nome_base}-slide-{i:02d}.png") for i, s in enumerate(slides, start=1)
+                ]
+                carrossel_publicado = ig.publicar_carrossel(urls_slides, legenda)
+                registro["carrossel_media_id"] = carrossel_publicado.media_id
+        except RuntimeError as erro:
+            if pausa.e_bloqueio(str(erro)):
+                pausa.ativar(str(erro))
+                print("O Instagram acusou excesso de atividade: PAUSA DE SEGURANÇA de 24 h ligada (pautas/pausa.json).")
+            raise
+
+    if publicar and repos and registro["publicado"]:
+        _registrar_links(dados_pauta, repos, registro)
+
+
+def _executar_pronto(caminho_pauta: Path, dados_pauta: dict, pasta_saida: Path, publicar: bool) -> dict:
+    """Pauta de VÍDEO PRONTO (feito pela produtora no GitHub Actions): baixa o MP4 já hospedado e só publica.
+
+    A produtora sobe o vídeo para a release de mídia e põe a pauta na fila do maestro; aqui não se renderiza nada.
+    """
+    pasta_saida.mkdir(parents=True, exist_ok=True)
+    video = pasta_saida / "reels.mp4"
+    subprocess.run(["curl", "-sSLf", "-o", str(video), dados_pauta["video_pronto_url"]], check=True)
+    repos = {item["repo"]: github_dados.buscar(item["repo"]) for item in dados_pauta.get("itens", [])}
+    dur = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(video)],
+                         capture_output=True, text=True).stdout.strip()
+    registro = {"pauta": str(caminho_pauta), "gerado_em": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                "fontes": [d.url for d in repos.values()], "estrelas": {r: d.estrelas for r, d in repos.items()},
+                "reels": {"arquivo": str(video), "duracao_s": float(dur or 0)}, "carrossel": [], "publicado": False}
+    _publicar(publicar, video, dados_pauta, repos, registro, caminho_pauta, pasta_saida,
+              f"produtora-{dados_pauta.get('estilo', 'estilo')}", "pronto", [])
+    (pasta_saida / "registro.json").write_text(json.dumps(registro, ensure_ascii=False, indent=2), encoding="utf-8")
+    return registro
+
+
 def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) -> dict:
     if publicar and pausa.ativa():
         raise SystemExit(f"pausa de segurança ativa ({pausa.motivo()}): não publico agora")
     dados_pauta = pauta.carregar(caminho_pauta)
+    if dados_pauta.get("video_pronto_url"):
+        return _executar_pronto(caminho_pauta, dados_pauta, pasta_saida, publicar)
     if dados_pauta.get("formato") == "pixel2":
         dados_pauta = cenas_pixel.normalizar_pauta(dados_pauta)
     erros = pauta.problemas(dados_pauta, ICONES)
@@ -286,58 +367,7 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
         "publicado": False,
     }
 
-    if publicar:
-        legenda = montar_legenda(dados_pauta, repos)
-        nome_base = pasta_saida.name
-        url_video = hospedagem.publicar(video, f"{nome_base}-reels.mp4")
-        ig = InstagramGraph(os.environ["INSTAGRAM_GRAPH_TOKEN"], os.environ["INSTAGRAM_USER_ID"])
-        try:
-            usados = ig.publicados_nas_ultimas_24h()
-        except Exception:  # consultar a cota não pode impedir o post; só informa quando consegue
-            usados = 0
-        if usados >= LIMITE_SEGURO_POSTS_24H:
-            raise SystemExit(f"a conta já usou {usados} publicações nas últimas 24 h (limite seguro: {LIMITE_SEGURO_POSTS_24H}); não publico")
-        try:
-            # Trial Reel (só pra quem não segue) no vídeo experimental da noite, quando a conta já tem acesso (1.000+):
-            # testa estilos e ganchos sem cansar os seguidores; o Instagram promove sozinho o que performar.
-            try:
-                experimental = formato == "pixel2" and len(dados_pauta.get("itens", [])) == 1 and dados_pauta.get("palavra_chave") != "ESTUDIO"
-                teste = experimental and ig.seguidores() >= MIN_SEGUIDORES_TRIAL
-            except Exception:
-                teste = False
-            reels_publicado = ig.publicar_reels(url_video, legenda, teste=teste, colaboradores=dados_pauta.get("colaboradores"))
-            registro["trial_reel"] = teste
-            registro["publicado"] = True
-            registro["legenda"] = legenda
-            registro["reels"]["media_id"] = reels_publicado.media_id
-            _registrar_links(dados_pauta, repos, registro) if repos else None  # o Reels já saiu: o bot já pode responder
-            _registrar_estilo(reels_publicado.media_id, modelo_reels)
-            _registrar_pauta(reels_publicado.media_id, caminho_pauta, dados_pauta, modelo_reels, formato)
-            # Story desligado em 28/10: o Davi achou sem sentido (trecho do Reels repostado). Volta com STORIES=1
-            # quando tiver um formato de Story próprio.
-            if os.getenv("STORIES") == "1":
-                try:  # Story avisando quem segue; se falhar, o Reels já saiu e segue a vida
-                    arq_story = story.preparar(video, pasta_saida / "story.mp4")
-                    url_story = hospedagem.publicar(arq_story, f"{nome_base}-story.mp4")
-                    registro["story_media_id"] = ig.publicar_story(url_story).media_id
-                except Exception as erro:
-                    print(f"story não saiu ({str(erro)[:160]})")
-
-            if slides:
-                time.sleep(ESPERA_ENTRE_REELS_E_CARROSSEL_S)
-                urls_slides = [
-                    hospedagem.publicar(s, f"{nome_base}-slide-{i:02d}.png") for i, s in enumerate(slides, start=1)
-                ]
-                carrossel_publicado = ig.publicar_carrossel(urls_slides, legenda)
-                registro["carrossel_media_id"] = carrossel_publicado.media_id
-        except RuntimeError as erro:
-            if pausa.e_bloqueio(str(erro)):
-                pausa.ativar(str(erro))
-                print("O Instagram acusou excesso de atividade: PAUSA DE SEGURANÇA de 24 h ligada (pautas/pausa.json).")
-            raise
-
-    if publicar and repos and registro["publicado"]:
-        _registrar_links(dados_pauta, repos, registro)
+    _publicar(publicar, video, dados_pauta, repos, registro, caminho_pauta, pasta_saida, modelo_reels, formato, slides)
 
     (pasta_saida / "registro.json").write_text(json.dumps(registro, ensure_ascii=False, indent=2), encoding="utf-8")
     return registro
