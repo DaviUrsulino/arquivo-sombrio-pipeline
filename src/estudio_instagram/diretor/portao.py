@@ -20,21 +20,26 @@ from ..llm import MODELOS_GEMINI, _chaves_gemini, extrair_json
 RAIZ = Path(__file__).resolve().parents[3]
 REFERENCIAS = RAIZ / "referencias" / "estudos" / "2026-11-03" / "folhas"
 REF_PADRAO = ["_aighostlab__DfS3jZQpbkb.jpg", "_aighostlab__DfPY4rbJaL-.jpg", "clubedasskills__DfNvOR7CRAh.jpg"]
+# o que é próprio de cada formato (o juiz não deve punir isso como falta de variedade)
+FORMATOS = {"esquete": "esquete cômica em diálogo entre dois personagens. Cenário fixo e enquadramento parecido são do formato "
+                       "(como numa sitcom): julgue variedade pela atuação, expressões, objetos e gags que mudam a cada fala, e o "
+                       "gancho pela situação/conflito da 1ª fala."}
 AREAS = ["gancho_visual", "personagem_atua", "variedade_de_cena", "legibilidade", "acabamento", "parece_template"]
 
-CRITICO = """Você é diretor de arte e crítico exigente de Reels animados. Imagem 1 = folha de quadros do NOSSO vídeo
-(um quadro por frase narrada, em ordem). Imagem 2 = folha de um Reel de REFERÊNCIA que viralizou (o nível a alcançar).
-Narração do nosso vídeo, frase por frase:
+CRITICO = """Você é diretor de arte e crítico exigente de Reels animados para Instagram. A imagem é uma folha de quadros do
+vídeo, em ordem. O vídeo pode estar em QUALQUER estilo (desenho à mão, pixel art, colagem, dossiê, 3D, tipografia...):
+julgue a execução DENTRO do estilo escolhido, nunca por parecer ou não com outro estilo (3D não é melhor que 2D).
+Narração, frase por frase (se disponível):
 __FALAS__
 
-Dê nota de 0 a 10 (10 = nível da referência) para cada área:
-- gancho_visual: o 1º quadro faz parar o dedo? tem algo forte acontecendo?
-- personagem_atua: o personagem faz algo diferente e claro em cada quadro (não fica parado)?
-- variedade_de_cena: cada quadro é visualmente diferente do anterior (mundo, objeto, câmera)?
-- legibilidade: textos legíveis no celular, nada cortado, nada cobrindo o rosto, contraste bom?
-- acabamento: luz, cor, composição, sem objeto atravessando outro, sem coisa fora de enquadramento?
-- parece_template: 10 = NÃO parece template (cada cena feita pra frase); 0 = parece molde repetido.
-E liste até 6 correções concretas, cada uma citando o número do quadro.
+Dê nota de 0 a 10 (10 = nível dos Reels animados que viralizam com centenas de milhares de views) para cada área:
+- gancho_visual: o 1º quadro faz parar o dedo? tem algo forte e legível acontecendo?
+- personagem_atua: há ação concreta e diferente em cada momento (personagem, objeto ou elemento gráfico fazendo algo)?
+- variedade_de_cena: os quadros mudam de composição/conteúdo ao longo do vídeo, sem cara de slide repetido?
+- legibilidade: textos legíveis no celular, nada importante cortado, contraste bom?
+- acabamento: o estilo é executado com cuidado e consistência (cor, traço, composição, tipografia)?
+- parece_template: 10 = cada cena feita sob medida para o assunto; 0 = molde repetido com texto trocado.
+E liste até 6 correções concretas, citando o número do quadro.
 Responda só JSON: {"notas": {"gancho_visual": 0, ...}, "correcoes": ["quadro 3: ...", ...], "resumo": "uma frase"}"""
 
 
@@ -109,9 +114,13 @@ def _imagem(path: Path) -> dict:
     return {"inline_data": {"mime_type": "image/jpeg", "data": base64.b64encode(Path(path).read_bytes()).decode()}}
 
 
-def criticar(folha: Path, falas: list[str], referencia: Path | None = None) -> dict:
-    referencia = referencia or next((REFERENCIAS / n for n in REF_PADRAO if (REFERENCIAS / n).exists()), None)
+def criticar(folha: Path, falas: list[str], referencia: Path | None = None, formato: str | None = None) -> dict:
+    """Crítico com visão. Sem referência por padrão: comparar com uma folha fixa (3D do @_aighostlab) enviesava o juiz
+    a favor desse estilo. Calibração de 2026-11-04: os 3 vídeos que o Davi aprovou (esquete, pixel, dossiê) levavam
+    3 a 4,8, abaixo do palco 3D (5,0) que ele achou mediano."""
     texto = CRITICO.replace("__FALAS__", "\n".join(f"{i + 1}. {f}" for i, f in enumerate(falas)))
+    if formato in FORMATOS:
+        texto += "\n\nFORMATO DESTE VÍDEO: " + FORMATOS[formato]
     partes = [{"text": texto}, _imagem(folha)] + ([_imagem(referencia)] if referencia else [])
     ultimo = None
     for chave in _chaves_gemini():
@@ -135,7 +144,10 @@ def julgar(critica: dict, qa_res: dict) -> dict:
     valores = [float(notas[a]) for a in AREAS if isinstance(notas.get(a), (int, float))]
     media = round(sum(valores) / len(valores), 2) if valores else None
     aprovado = qa_res["ok"] and media is not None and media >= 7 and min(valores) >= 5
-    return {"media": media, "aprovado": aprovado, "qa": qa_res, "critica": critica}
+    # 3 níveis (calibração de 2026-11-04 contra o olho do Davi): verde vai pra fila; amarelo vai com aviso para ele
+    # revisar; vermelho (falha técnica ou nota < 5) não vai. O juiz é conselheiro: a palavra final é do Davi.
+    nivel = "vermelho" if not qa_res["ok"] or media is None or media < 5 else ("verde" if aprovado else "amarelo")
+    return {"media": media, "aprovado": aprovado, "nivel": nivel, "qa": qa_res, "critica": critica}
 
 
 def avaliar(mp4: Path, info_voz: dict, pasta: Path) -> dict:
