@@ -1,7 +1,8 @@
 {
  "estilos_usados": [
   "brick-toy",
-  "brick-toy"
+  "brick-toy",
+  "archive-lighttable"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -21,6 +22,13 @@
    "estilo": "brick-toy",
    "ok": false,
    "pasta": "/home/davi-ursulino-de-oliveira/Projetos/arquivo-sombrio-pipeline/videos_produzidos/2026-11-04-0804-agent-desktop-brick-toy"
+  },
+  {
+   "quando": "2026-11-04T21:58",
+   "repo": "venda/pack-estudio",
+   "estilo": "archive-lighttable",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-04-2139-pack-estudio-archive-lighttable"
   }
  ]
 }
