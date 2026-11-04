@@ -161,6 +161,20 @@ def _registrar_estilo(media_id: str, molde: str):
     arquivo.write_text(json.dumps(atual, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
+def _registrar_pauta(media_id: str, caminho_pauta: Path, dados_pauta: dict, molde: str, formato: str):
+    """Liga o post à pauta que o gerou (gancho A/B, formato, estilo): base da repostagem e da comparação de ganchos."""
+    arquivo = RAIZ / "pautas" / "pauta_por_post.json"
+    atual = json.loads(arquivo.read_text(encoding="utf-8")) if arquivo.exists() else {}
+    try:
+        rel = str(Path(caminho_pauta).resolve().relative_to(RAIZ))
+    except ValueError:
+        rel = str(caminho_pauta)
+    atual[media_id] = {"pauta": rel, "gancho": dados_pauta.get("gancho", "A"), "formato": formato,
+                       "estilo": molde.removeprefix("estudio-").removeprefix("ident-").removesuffix(".html.tpl"),
+                       "repost_de": dados_pauta.get("repost_de"), "publicado_em": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+    arquivo.write_text(json.dumps(atual, ensure_ascii=False, indent=1), encoding="utf-8")
+
+
 def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) -> dict:
     if publicar and pausa.ativa():
         raise SystemExit(f"pausa de segurança ativa ({pausa.motivo()}): não publico agora")
@@ -279,6 +293,7 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
             registro["reels"]["media_id"] = reels_publicado.media_id
             _registrar_links(dados_pauta, repos, registro) if repos else None  # o Reels já saiu: o bot já pode responder
             _registrar_estilo(reels_publicado.media_id, modelo_reels)
+            _registrar_pauta(reels_publicado.media_id, caminho_pauta, dados_pauta, modelo_reels, formato)
             # Story desligado em 28/10: o Davi achou sem sentido (trecho do Reels repostado). Volta com STORIES=1
             # quando tiver um formato de Story próprio.
             if os.getenv("STORIES") == "1":

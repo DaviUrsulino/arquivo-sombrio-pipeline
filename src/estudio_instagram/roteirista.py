@@ -66,6 +66,7 @@ VISUAIS (campo "visual" da cena; só estes "tipo", cores: laranja azul verde rox
 
 SAÍDA: um único objeto JSON, sem texto fora dele:
 {"subtitulo":"frase de uma linha para a legenda do post, minúscula",
+ "ganchos_alternativos":["2 frases de gancho DIFERENTES da narração da cena 1, mesmas regras do gancho (até 10 palavras, sem nome do projeto no começo), ângulos distintos: uma com alguém fazendo algo ousado, outra com a dor de quem assiste. São usadas para repostar o vídeo se o 1º gancho for mal (o mesmo vídeo com 3 ganchos fez 32 mil, 122 mil e 941 mil views)"],
  "palavra":"UMA palavra em MAIÚSCULAS, de 3 a 10 letras, sem acento, ligada à ferramenta (ex.: CORTE, DECODE, AGENTE), que a pessoa comenta para receber o link",
  "passos":["de 3 a 4 passos curtos e numeráveis para usar ou instalar a ferramenta, só com o que o README diz (comando copiado do README); vão na legenda para a pessoa salvar o post. Se o README não tem como usar, devolva lista vazia"],
  "destaques":["até 8 palavras da narração que valem destaque na legenda, minúsculas, sem acento se possível"],
@@ -184,6 +185,8 @@ def montar_pauta(resposta: dict, dados: DadosRepo, palavra_chave: str) -> dict:
         ],
         "slides": slides,
         "passos": [p.strip() for p in resposta.get("passos", []) if p.strip()],
+        "gancho": "A",
+        "ganchos_alternativos": [g.strip() for g in resposta.get("ganchos_alternativos", []) if isinstance(g, str) and 3 <= len(g.split()) <= 14][:2],
     }
 
 

@@ -193,7 +193,7 @@
       const coqueiro = (x, z, inc) => { const tr = new THREE.Group(); tr.position.set(x, 0.3, z); tr.rotation.z = inc; g.add(tr);
         for (let k = 0; k < 6; k++) cil(0.22 - k * 0.02, 0.26 - k * 0.02, 0.8, vinil("#a8743e"), 0, 0.4 + k * 0.75, 0, tr, 10);
         for (let k = 0; k < 6; k++) { const f = malha(new THREE.ConeGeometry(0.45, 2.6, 6), vinil("#3e9a57"), 0, 4.8, 0, tr); f.rotation.set(1.25, k * 1.05, 0); f.position.set(Math.sin(k * 1.05) * 1, 4.7, Math.cos(k * 1.05) * 1); } };
-      coqueiro(-5.2, -3.5, 0.15); coqueiro(5.5, -2.8, -0.2); coqueiro(-4.5, 3.6, 0.1);
+      coqueiro(-5.6, -4.2, 0.15); coqueiro(5.8, -3.6, -0.2); coqueiro(-6.8, -1.2, 0.25); // nenhum coqueiro na frente: a câmera fica do lado +z
       const fogo = new THREE.Group(); fogo.position.set(0, 0.35, 0); g.add(fogo);
       for (let k = 0; k < 5; k++) { const l = cil(0.12, 0.12, 1.3, vinil("#6b4423"), 0, 0.1, 0, fogo, 8); l.rotation.set(Math.PI / 2, 0, k * 1.26); }
       const chama = malha(new THREE.ConeGeometry(0.45, 1.2, 12), brilho("#ffb03b"), 0, 0.7, 0, fogo); const chama2 = malha(new THREE.ConeGeometry(0.28, 0.8, 12), brilho("#fff1a0"), 0, 0.6, 0, fogo);
@@ -413,6 +413,7 @@
   // monta os objetos de todas as cenas (cada cena tem o seu, com o texto dela)
   const montagem = CEN.map((c, i) => {
     const m = { alvo: null, mao: null };
+    if (ROT.experimento) return m; // modo experimento: os atores são as IAs; nada do robô principal entra em cena
     const fer = FERRAMENTA_DA_ACAO[c.acao];
     const nomeObj = OBJ[c.objeto] ? c.objeto : null;
     if (fer && OBJ[fer]) { m.mao = OBJ[fer](c); sombra(m.mao.g); m.mao.g.visible = false; cena.add(m.mao.g); }
@@ -649,7 +650,7 @@
     // câmera: plano da cena com empurrão constante (nunca parada) + chicote na entrada
     const camNome = CAMS[c.camera] ? c.camera : "frente";
     const cc = CAMS[camNome](k); let offX = rx * 0.35 + (m.alvo ? 0.35 * LADO(c) : 0);
-    if (alvoExp) { offX = alvoExp.x * 0.8; cc.p.z += alvoExp.z * 0.8 + (c.foco ? -2 : 3); cc.a.z += alvoExp.z * 0.8; cc.a.y += c.foco ? 0.6 : 0; }
+    if (alvoExp) { offX = alvoExp.x * 0.6; cc.p.z += alvoExp.z * 0.6 + (c.foco ? 1 : 5); cc.p.y += 1.5; cc.a.z += alvoExp.z * 0.6; cc.a.y += c.foco ? 0.8 : 0.4; }
     let chic = 0; if (c.transicao === "chicote" && i > 0) chic = 1 - suave(seg(lt, 0, 0.22));
     cam.position.set(cc.p.x + offX + chic * 7, cc.p.y, cc.p.z); cam.lookAt(cc.a.x + offX + chic * 4, cc.a.y, cc.a.z); cam.rotateZ(cc.rol || 0);
     canvas.style.filter = chic > 0.05 ? `blur(${(chic * 14).toFixed(1)}px)` : "none";
