@@ -81,7 +81,7 @@ def proximo_estilo(estado: dict, todos: list[dict]) -> dict:
     return livres[0]
 
 
-def briefing(frases: list[str], estilo: dict, pasta: Path, palavra: str) -> str:
+def briefing(frases: list[str], estilo: dict, pasta: Path, palavra: str, extra: str = "") -> str:
     """O que o Claude Code recebe. Só texto nosso + as frases do roteiro (sem nada vindo da internet)."""
     lista = json.dumps(frases, ensure_ascii=False, indent=1)
     if estilo["slug"] == "esquete":
@@ -116,7 +116,7 @@ REGRAS DO VÍDEO (estudo de 108 Reels virais):
 - Personagem: se o estilo tiver personagem, use o robô do perfil descrito acima, adaptado ao estilo.
 - Fechamento: caixa de comentário digitando {palavra} + botão seguir @ursulino.ia.
 - Sem emoji. Textos na tela em português do Brasil.
-
+{extra}
 RENDER: esta máquina não tem GPU. O WebGL roda por software (LEMO_ANGLE=swiftshader já está definido): é lento, mas
 funciona; não desista do 3D. Capture sempre em 1080x1920 (vertical): ajuste o tamanho da página/viewport do projeto.
 
@@ -168,6 +168,17 @@ pessoa recebe e o que ela consegue fazer. Nunca diga que o pack faz o estilo exa
 de views ou dinheiro. Não fale preço."""
 
 
+EXTRA_EM_ALTA = """ESTE É UM VÍDEO DO ASSUNTO DO MOMENTO no Brasil (ver FATOS: manchetes de hoje). Conte o assunto de um jeito
+divertido, com o que as manchetes dizem. Pode imaginar uma cena ("imagina se..."), desde que a frase deixe claro que
+é imaginação. Nunca afirme como fato o que não está nas manchetes. O ângulo sugerido é: __ANGULO__
+A frase "Ou seja" fecha o assunto. O vídeo termina vendendo: o próprio vídeo é a prova de que dá para fazer
+animação assim com IA (isso entra no fechamento, não precisa escrever)."""
+AVISO_EM_ALTA = ("- Assunto do momento: desenho 100% original. Não copie logo, personagem, capa nem arte oficial de jogo, "
+                 "filme, marca ou pessoa real; evoque o tema com elementos genéricos (ex.: um carro esportivo, uma cidade "
+                 "de praia neon), nunca a imagem oficial.\n- Última cena antes do fechamento: \"Esse vídeo eu fiz com IA\" "
+                 "aparecendo como um carimbo/revelação do bastidor.\n")
+
+
 def fatos_venda(pasta: Path = VENDAS) -> str:
     """Fatos do produto tirados dos roteiros de venda que o Davi já aprovou (texto nosso, não da internet)."""
     linhas = []
@@ -178,14 +189,22 @@ def fatos_venda(pasta: Path = VENDAS) -> str:
     return "\n".join(f"- {l}" for l in dict.fromkeys(l for l in linhas if l))
 
 
-def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: bool = False) -> dict:
+def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: bool = False,
+             momento: dict | None = None) -> dict:
     from .fazer import fatos_do_repo
     estado = _estado()
     todos = estilos()
     estilo = next((e for e in todos if e["slug"] == estilo_slug), None) if estilo_slug else proximo_estilo(estado, todos)
     if estilo is None:
         raise SystemExit(f"estilo {estilo_slug} não existe; opções: {', '.join(e['slug'] for e in todos)}")
-    if venda:
+    extra_video = ""
+    if momento:
+        repo = f"em-alta/{re.sub(r'[^a-z0-9]+', '-', momento['chave'].lower()).strip('-')}"
+        rot = roteiro.escrever(momento["fatos"], extra=EXTRA_EM_ALTA.replace("__ANGULO__", momento.get("angulo", "")))
+        rot["palavra"] = PALAVRA_VENDA
+        rot["cta"] = f"Esse vídeo eu fiz com IA. Quer fazer igual? Comenta {PALAVRA_VENDA} que eu te mando."
+        extra_video = AVISO_EM_ALTA
+    elif venda:
         repo = REPO_VENDA
         rot = roteiro.escrever(fatos_venda(), extra=EXTRA_VENDA)
         rot["palavra"] = PALAVRA_VENDA
@@ -200,9 +219,10 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
                                                  ensure_ascii=False, indent=1), encoding="utf-8")
     (pasta / "legenda.txt").write_text(rot.get("legenda", ""), encoding="utf-8")
     print(f"produzindo {repo} no estilo {estilo['nome']} -> {pasta}", flush=True)
-    resposta = rodar_agente(briefing(frases, estilo, pasta, rot["palavra"]), pasta)
+    resposta = rodar_agente(briefing(frases, estilo, pasta, rot["palavra"], extra_video), pasta)
     final = pasta / "final.mp4"
-    res = {"pasta": str(pasta), "repo": repo, "estilo": estilo["slug"], "palavra": rot["palavra"], "ok": False, "venda": venda}
+    res = {"pasta": str(pasta), "repo": repo, "estilo": estilo["slug"], "palavra": rot["palavra"], "ok": False, "venda": venda,
+           "em_alta": bool(momento)}
     if final.exists():
         dur = portao._ffprobe_duracao(final)
         q = portao.qa(final, dur)  # duração conferida pelo próprio arquivo; o QA olha congelado, preto, volume e miolo vazio
@@ -216,7 +236,7 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
         res["problemas"] = ["o agente não entregou final.mp4 (ver agente.log)"]
     (pasta / "producao.json").write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
     estado.setdefault("estilos_usados", []).append(estilo["slug"])
-    if not venda:
+    if not venda and not momento:
         estado.setdefault("repos_usados", []).append(repo)
     estado.setdefault("producoes", []).append({"quando": datetime.now().isoformat(timespec="minutes"), **{k: res[k] for k in ("repo", "estilo", "ok", "pasta")}})
     ESTADO.write_text(json.dumps(estado, ensure_ascii=False, indent=1), encoding="utf-8")
@@ -225,6 +245,14 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
 
 FILA = RAIZ / "pautas" / "viral" / "fila"
 FILA_VENDA = RAIZ / "pautas" / "viral" / "fila_venda"
+
+
+BANCO_MAXIMO = 2  # vídeos comuns esperando no banco: mais que isso envelhece e perde o assunto do dia
+
+
+def banco_cheio() -> bool:
+    from .. import maestro
+    return len(maestro.disponiveis(maestro._ler().get("fila_usadas", []))) >= BANCO_MAXIMO
 
 
 def precisa_venda() -> bool:
@@ -249,11 +277,13 @@ def para_fila(res: dict) -> Path:
     venda = res.get("venda", False)
     pauta = {"titulo": f"{res['repo'].split('/')[-1]}: produtora ({res['estilo']})", "formato": "pronto",
              "video_pronto_url": url, "palavra_chave": rot["palavra"], "legenda": legenda,
-             "itens": [] if venda else [{"repo": res["repo"]}], "estilo": res["estilo"], "gancho": "A",
-             "ganchos_alternativos": [], **({"tipo": "venda"} if venda else {})}
+             "itens": [] if venda or res.get("em_alta") else [{"repo": res["repo"]}], "estilo": res["estilo"], "gancho": "A",
+             "ganchos_alternativos": [], **({"tipo": "venda"} if venda else {}),
+             **({"tipo": "em-alta"} if res.get("em_alta") else {})}
     fila = FILA_VENDA if venda else FILA
     fila.mkdir(parents=True, exist_ok=True)
-    destino = fila / f"{datetime.now():%Y-%m-%d-%H%M}-produtora-{pasta.name.split('-', 4)[-1]}.json"
+    marca = "em-alta" if res.get("em_alta") else "produtora"
+    destino = fila / f"{datetime.now():%Y-%m-%d-%H%M}-{marca}-{pasta.name.split('-', 4)[-1]}.json"
     destino.write_text(json.dumps(pauta, ensure_ascii=False, indent=1), encoding="utf-8")
     return destino
 
@@ -276,6 +306,7 @@ def main():
     p.add_argument("--estilo")
     p.add_argument("--gancho", type=int, default=0)
     p.add_argument("--listar", action="store_true")
+    p.add_argument("--em-alta", action="store_true", help="vídeo do assunto do momento (no --auto vem primeiro)")
     p.add_argument("--venda", action="store_true", help="vídeo de venda do Pack Estúdio (com --auto, sai sozinho quando falta)")
     p.add_argument("--fila", action="store_true", help="se o vídeo passar na conferência, sobe e põe na fila do maestro")
     a = p.parse_args()
@@ -285,11 +316,24 @@ def main():
         return
     if not shutil.which("claude"):
         raise SystemExit("precisa do Claude Code instalado (comando claude)")
-    venda = a.venda or (a.auto and not a.repo and precisa_venda())
-    repo = REPO_VENDA if venda else (a.repo or (pauta_automatica() if a.auto else None))
+    # Ordem do automático (Davi, 04/11): assunto do momento primeiro (rápido, antes de esfriar); sem assunto bom,
+    # repõe a venda; com o banco já cheio, não produz (vídeo guardado demais perde o tema do dia).
+    from .. import em_alta
+    momento = em_alta.do_momento() if (a.em_alta or (a.auto and not a.repo and not a.venda)) else None
+    if a.em_alta and not momento:
+        raise SystemExit("nenhum assunto do momento rende vídeo agora")
+    venda = not momento and (a.venda or (a.auto and not a.repo and precisa_venda()))
+    if a.auto and not (momento or venda or a.repo) and banco_cheio():
+        print(f"banco já tem {BANCO_MAXIMO} vídeos esperando e nenhum assunto do momento: não produzo agora")
+        return
+    repo = REPO_VENDA if venda else (a.repo or ("em-alta" if momento else None) or (pauta_automatica() if a.auto else None))
     if not repo:
-        raise SystemExit("use --repo dono/nome, --auto ou --venda")
-    res = produzir(repo, a.estilo, a.gancho, venda=venda)
+        raise SystemExit("use --repo dono/nome, --auto, --em-alta ou --venda")
+    if momento:
+        print(f"assunto do momento: {momento['tema']} ({momento['angulo']})", flush=True)
+    res = produzir(repo, a.estilo, a.gancho, venda=venda, momento=momento)
+    if momento and res.get("ok"):
+        em_alta.registrar(momento["chave"])
     if a.fila and res.get("ok"):
         res["fila"] = str(para_fila(res).relative_to(RAIZ))
     print(json.dumps(res, ensure_ascii=False, indent=1))

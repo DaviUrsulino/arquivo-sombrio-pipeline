@@ -34,3 +34,28 @@ def test_fatos_de_venda_vem_dos_roteiros_aprovados_sem_hashtag(tmp_path):
     fatos = produtora.fatos_venda(tmp_path)
     assert "- Oito estilos." in fatos and "- O pack." in fatos
     assert "#" not in fatos and "Comenta" not in fatos
+
+
+def test_banco_tira_vencido_e_poe_assunto_do_momento_na_frente(tmp_path, monkeypatch):
+    from datetime import datetime
+    monkeypatch.setattr(maestro, "RAIZ", tmp_path)
+    fila = tmp_path / "fila"
+    for nome in ("2026-11-01-0300-produtora-velho.json", "2026-11-04-0300-produtora-a.json",
+                 "2026-11-04-1100-em-alta-gta.json", "2026-11-03-0300-em-alta-esfriou.json"):
+        _pauta(fila, nome)
+    agora = datetime(2026, 11, 4, 18, 0, tzinfo=maestro.BRASILIA)
+    assert maestro.disponiveis([], fila, agora) == ["fila/2026-11-04-1100-em-alta-gta.json", "fila/2026-11-04-0300-produtora-a.json"]
+
+
+def test_em_alta_pula_politica_e_usa_so_manchetes():
+    from src.estudio_instagram import em_alta
+    candidatos = [{"termo": "Flávio Bolsonaro", "buscas": 9000, "manchetes": ["Senador viaja"], "fonte": "x"},
+                  {"termo": "GTA 6", "buscas": 0, "manchetes": ["GTA 6 terá mais de 200 GB - Estadão"], "fonte": "x"}]
+    vistos = []
+
+    def llm(_sistema, lista):
+        vistos.append(lista)
+        return {"id": 0, "tema": "GTA 6", "angulo": "e se", "nota": 8}
+    r = em_alta.escolher(candidatos, llm=llm, usados=[])
+    assert "Bolsonaro" not in vistos[0] and r["chave"] == "GTA 6" and "200 GB" in r["fatos"]
+    assert em_alta.escolher(candidatos, llm=lambda *_: {"id": 0, "nota": 4}, usados=[]) is None  # fraco não vira vídeo

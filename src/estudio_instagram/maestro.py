@@ -18,6 +18,7 @@ Uso:
 
 import argparse
 import json
+import re
 import subprocess
 import time
 from datetime import datetime, timedelta, timezone
@@ -117,14 +118,36 @@ def decidir(agora: datetime, estado: dict) -> tuple[str | None, dict]:
     return (escolhido[1] if escolhido else None), novo
 
 
-def proxima_da_fila(usadas: list[str], pasta: Path | None = None) -> str | None:
-    """Caminho (relativo à raiz) da próxima pauta do banco que ainda não foi usada, ou None."""
+# Validade no banco (Davi, 04/11: "não ficar armazenando vídeo demais"): assunto do momento esfria em menos de um
+# dia; vídeo de ferramenta aguenta uns 3 dias. Vencido não sai mais.
+VALIDADE = {"em-alta": timedelta(hours=20), "padrao": timedelta(hours=72)}
+
+
+def _feito_em(arquivo: Path) -> datetime | None:
+    m = re.match(r"(\d{4}-\d{2}-\d{2}-\d{4})", arquivo.name)
+    return datetime.strptime(m.group(1), "%Y-%m-%d-%H%M").replace(tzinfo=BRASILIA) if m else None
+
+
+def disponiveis(usadas: list[str], pasta: Path | None = None, agora: datetime | None = None) -> list[str]:
+    """Pautas do banco ainda não usadas e dentro da validade: assunto do momento primeiro (mais novo antes), depois
+    as outras em ordem de nome (mais antiga antes)."""
     pasta = pasta or FILA
+    agora = agora or datetime.now(BRASILIA)
+    quentes, comuns = [], []
     for arquivo in sorted(pasta.glob("*.json")) if pasta.exists() else []:
         relativo = arquivo.relative_to(RAIZ).as_posix()
-        if relativo not in usadas:
-            return relativo
-    return None
+        quente = "-em-alta-" in arquivo.name
+        feito = _feito_em(arquivo)
+        if relativo in usadas or (feito and agora - feito > VALIDADE["em-alta" if quente else "padrao"]):
+            continue
+        (quentes if quente else comuns).append(relativo)
+    return quentes[::-1] + comuns
+
+
+def proxima_da_fila(usadas: list[str], pasta: Path | None = None, agora: datetime | None = None) -> str | None:
+    """Caminho (relativo à raiz) da próxima pauta do banco que ainda pode sair, ou None."""
+    lista = disponiveis(usadas, pasta, agora)
+    return lista[0] if lista else None
 
 
 def escolher_da_fila(formato: str, usadas: list[str]) -> str | None:
