@@ -1,0 +1,15 @@
+[  0.0-  4.8] O Canva acabou de lançar a própria inteligência artificial de geração de imagem.
+[  5.6-  7.2] E só perde pra OpenAI.
+[  7.9-  9.1] Sabe aquele vai e volta?
+[  9.6- 13.3] Você gera a imagem no chat GPT, no Gemini ou em outra EA,
+[ 13.8- 18.6] baixa, leva pro Canva e passa meia hora arrumando o texto que saiu torto.
+[ 19.1- 20.7] O Canva cansou disso.
+[ 21.3- 25.6] Ele criou o Craft, um modelo de imagem feito do zero pela própria equipe.
+[ 26.0- 28.0] E o segredo tá em como ele funciona.
+[ 28.0- 31.7] Em vez de sair jogando pixel na tela, ele planeja antes.
+[ 32.1- 36.1] Onde vai o texto, onde vai cada elemento, o que é mais importante.
+[ 36.4- 37.6] Igual um designer faria.
+[ 38.1- 43.1] Resultado? Estreou em quarto lugar no ranking da Design Arena, atrás só da OpenAI.
+[ 43.6- 46.6] E já tá liberado pra todo mundo, dentro do próprio Canva.
+[ 46.9- 50.7] Pra quem faz criativo de anúncio, isso corta uma etapa inteira do processo.
+[ 51.1- 55.1] Comenta aqui, você vai testar o Craft ou vai continuar no chat GPT?

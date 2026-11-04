@@ -1,0 +1,46 @@
+[  0.0-  2.5] Dia 1, modelando e melhorando ofertas low ticket.
+[  2.6-  5.6] Hoje eu vou modelar essa oferta de como fazer panetone caseiro no Natal.
+[  5.7-  8.4] É uma oferta e uma página que dá pra melhorar bastante.
+[  8.6- 11.9] Primeiramente, vem aqui nessa ferramenta, lowstack.app, faz o seu cadastro.
+[ 12.0- 14.0] Vem aqui em ofertas, nova oferta.
+[ 14.1- 16.8] Agora você vai jogar todas as informações que você tem da sua oferta aqui.
+[ 16.8- 21.3] Você pode jogar um prompt explicando, pode jogar o link da página, os criativos, algum material.
+[ 21.5- 24.4] Eu joguei só um prompt e o link da página de vendas aqui.
+[ 24.5- 26.5] Eu não vou mostrar a página de vendas do cara que eu tô modelando.
+[ 26.6- 28.7] Clique em continuar e deixa a ferramenta trabalhar.
+[ 28.7- 31.4] A ferramenta leu as informações que eu mandei com base nisso.
+[ 31.5- 35.8] Ela me entregou uma oferta completa e praticamente pronta já com tudo sobre o meu público-alvo.
+[ 36.1- 39.8] Com o funil completo, mecanismo único, front, order bump, upsell.
+[ 39.9- 40.7] Tá tudo pronto aqui.
+[ 40.9- 43.5] Agora vem aqui nesse lapizinho e clica em gerar copy.
+[ 43.6- 45.4] Copy da página de vendas tá criada.
+[ 45.5- 49.6] Agora eu vou clicar nesse globozinho aqui e clicar em gerar página de vendas.
+[ 49.7- 50.9] Deixa a ferramenta trabalhar.
+[ 51.2- 54.8] Página de vendas tá criada e lembrando que tudo isso é editável.
+[ 54.8- 58.2] Eu consigo trocar essas imagens, consigo adicionar novas imagens aqui.
+[ 58.2- 59.8] Agora clica aqui em criativos.
+[ 60.1- 61.9] Seleciona quantos criativos você quer criar.
+[ 62.0- 63.6] Eu vou selecionar 5 e dar um continuar.
+[ 63.7- 66.5] Aqui você consegue selecionar o ângulo que vai pegar o seu criativo.
+[ 66.6- 67.6] Tem vários ângulos diferentes.
+[ 67.9- 69.7] E aqui também você escolhe o estilo visual.
+[ 69.8- 71.8] Tem vários estilos diferentes aqui, realista.
+[ 71.8- 73.5] E eu sempre deixo esse padrão low ticket.
+[ 73.7- 75.9] Clique em continuar e deixa a ferramenta trabalhar.
+[ 76.1- 77.0] Criativos prontos.
+[ 77.1- 77.9] Olha como é que ficou aqui.
+[ 78.1- 79.4] E agora só tá faltando uma coisa.
+[ 79.6- 80.2] O entregável.
+[ 80.3- 81.6] Clica aqui em entregáveis.
+[ 81.6- 85.2] Aqui já vai criar o entregável completo, inclusive até o order bump e upsell.
+[ 85.2- 88.8] Eu vou selecionar esse primeiro bloco que tem 8 páginas e clicar em gerar essa peça.
+[ 88.9- 90.1] E deixa a ferramenta trabalhar.
+[ 90.2- 92.8] E aqui já tá criando as primeiras páginas do meu entregável.
+[ 92.9- 94.4] Tá criando esse primeiro bloco.
+[ 94.5- 95.5] Não terminou de criar ainda.
+[ 95.7- 99.4] Depois eu vou selecionar os outros blocos aqui e criar o entregável completo.
+[ 99.6-102.1] E não é qualquer entregávelzinho nível chat IPT.
+[102.2-105.7] Isso aqui é realmente um entregável de qualidade que o teu cliente não vai pedir reembolso.
+[105.8-107.3] Quer montar a tua oferta do zero ainda hoje?
+[107.5-110.2] Comenta low ticket aqui nesse vídeo que eu vou te enviar o link da ferramenta.
+[110.2-112.6] Mas olha se tá me seguindo primeiro, senão a mensagem não chega.

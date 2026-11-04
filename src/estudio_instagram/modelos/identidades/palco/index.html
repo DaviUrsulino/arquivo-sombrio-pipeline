@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>Palco</title>
+<script src="assets/three.min.js"></script>
+<script src="assets/gsap.min.js"></script>
+<script src="assets/catalogo.js"></script>
+<script src="assets/falas.js"></script>
+<script src="assets/roteiro.js"></script>
+<style>
+  @font-face { font-family: "Titulo"; src: url("assets/ArchivoBlack.ttf"); }
+  @font-face { font-family: "Corpo"; src: url("assets/Montserrat.ttf"); font-weight: 100 900; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #2a1840; }
+  #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
+  #gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+  /* pílula de título (marca): branca, borda neon, levemente torta */
+  #titulo { position: absolute; left: 50%; top: 150px; transform: translateX(-50%); max-width: 940px; padding: 18px 34px 20px; background: #fffaf0;
+    border: 6px solid #1c1230; border-radius: 22px; box-shadow: 0 0 0 6px #b78cff, 0 14px 0 rgba(0,0,0,.35); font: 62px/1.05 "Titulo"; color: #1c1230;
+    text-align: center; letter-spacing: 1px; white-space: nowrap; }
+  /* HUD de estado (contador) */
+  #hud { position: absolute; right: 54px; top: 300px; display: none; align-items: center; gap: 14px; padding: 12px 22px; background: rgba(20,12,36,.82);
+    border: 4px solid #b78cff; border-radius: 18px; color: #fff; font: 30px "Titulo"; transform-origin: right center; }
+  #hud-val { color: #63f5ad; font-size: 44px; }
+  #etapas { position: absolute; left: 50%; top: 300px; transform: translateX(-50%); display: none; gap: 10px; }
+  #etapas .et { padding: 10px 16px; border-radius: 14px; background: rgba(20,12,36,.7); color: rgba(255,255,255,.55); font: 26px "Titulo"; border: 3px solid rgba(255,255,255,.2); white-space: nowrap; }
+  #etapas .et.on { background: #63f5ad; color: #10202a; border-color: #10202a; }
+  /* legenda: uma palavra por vez, em chip (acima da zona coberta pela interface do Instagram) */
+  #leg { position: absolute; left: 50%; top: 1330px; transform: translateX(-50%); padding: 10px 30px 14px; background: #8a4a24; color: #fff7e8;
+    border: 5px solid #2b1408; border-radius: 16px; font: 92px/1 "Titulo"; text-transform: lowercase; box-shadow: 0 10px 0 rgba(0,0,0,.35); white-space: nowrap; }
+  /* fechamento */
+  #cta { position: absolute; left: 50%; top: 300px; transform: translateX(-50%); width: 900px; opacity: 0; display: flex; flex-direction: column; gap: 18px; }
+  .caixa { display: flex; align-items: center; gap: 22px; padding: 22px 26px; background: #fff; border-radius: 22px; border: 5px solid #1c1230; box-shadow: 0 12px 0 rgba(0,0,0,.3); font: 50px "Titulo"; color: #1c1230; }
+  .caixa .av { width: 70px; height: 70px; border-radius: 50%; background: #ec6f53; border: 4px solid #1c1230; flex: none; }
+  .caixa .bt { margin-left: auto; padding: 12px 22px; border-radius: 14px; background: #6c4bd8; color: #fff; font-size: 32px; }
+  .caixa .bt.ok { background: #1c1230; }
+  #cta-tx::after { content: "|"; color: #6c4bd8; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="__DURACAO__">
+  <canvas id="gl" class="clip" width="1080" height="1920" data-start="0" data-duration="__DURACAO__" data-track-index="0"></canvas>
+  <div id="titulo" class="clip" data-start="0" data-duration="__DURACAO__" data-track-index="2"></div>
+  <div id="hud" class="clip" data-start="0" data-duration="__DURACAO__" data-track-index="2"><span id="hud-rot"></span><b id="hud-val">0</b></div>
+  <div id="etapas" class="clip" data-start="0" data-duration="__DURACAO__" data-track-index="2"></div>
+  <div id="leg" class="clip" data-start="0" data-duration="__DURACAO__" data-track-index="3"></div>
+  <div id="cta" class="clip" data-start="0" data-duration="__DURACAO__" data-track-index="4">
+    <div class="caixa"><div class="av"></div><span id="cta-tx"></span><span class="bt">PUBLICAR</span></div>
+    <div class="caixa" style="font-size:42px"><div class="av" style="background:#63f5ad"></div>ursulino.ia<span class="bt" id="seg-bt">SEGUIR</span></div>
+  </div>
+  <audio src="assets/audio.wav" data-start="0" data-duration="__DURACAO__" data-track-index="9" data-volume="1"></audio>
+</div>
+<script src="assets/palco-motor.js"></script>
+</body>
+</html>

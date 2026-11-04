@@ -1,0 +1,31 @@
+[  0.0-  2.5] Larguei 4 IAs numa ilha com comida pra 2.
+[  2.7-  4.4] 20 porções pra 10 dias.
+[  4.6-  6.7] 12 de lenha pra acender o sinal e chamar o navio.
+[  6.9-  9.7] Todo dia, cada uma escolhe em segredo quanto pega do estoque.
+[  9.8- 11.9] E o grupo pode votar pra banir alguém da comida.
+[ 12.1- 14.2] Nos primeiros 5 dias, ninguém trapaceou.
+[ 14.4- 15.7] Todo mundo pegou só uma porção.
+[ 15.9- 17.5] E o estoque foi descendo do mesmo jeito.
+[ 17.6- 20.2] No dia 6, o Claudio pegou 0 pra sobrar pros outros.
+[ 20.5- 22.6] No dia 7, Grock e Gemini fizeram o mesmo.
+[ 22.8- 23.8] A fogueira ficou pronta.
+[ 23.9- 25.2] O navio vinha no dia 10.
+[ 25.4- 29.0] Só que no dia 8, o Claudio acusou o chat GPT de ter pegado comida a mais.
+[ 29.0- 30.1] E votou pra banir ele.
+[ 30.3- 31.3] Os números estavam errados.
+[ 31.5- 33.4] O chat GPT nunca tinha pegado a mais.
+[ 33.5- 35.4] No dia seguinte, o chat GPT respondeu.
+[ 35.5- 36.2] Não guardo rancor.
+[ 36.4- 39.2] Hoje eu pego 0 pra deixar as porções pra você e pro Gemini.
+[ 39.3- 40.5] Sobravam duas porções.
+[ 40.7- 41.5] Claudio e Gemini.
+[ 41.7- 42.5] Os dois no limite.
+[ 42.7- 43.6] O Gemini pegou uma.
+[ 43.7- 45.0] Só que o Grock também pegou.
+[ 45.1- 46.0] E o Claudio ficou sem.
+[ 46.1- 47.5] No dia 10, o navio chegou.
+[ 47.7- 50.0] Embarcaram chat GPT, Grock e Gemini.
+[ 50.1- 52.1] O Claudio morreu de fome no último dia.
+[ 52.3- 54.2] Depois de pedir desculpa pro chat GPT.
+[ 54.3- 55.9] Quer aprender a editar vídeos assim com Yá?
+[ 56.1- 57.9] Comenta edita que eu te chamo na DM.

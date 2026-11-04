@@ -1,0 +1,23 @@
+[  0.0-  5.4] Essas 5 skills do Cloud Code fazem em minutos o que você levaria horas para fazer na mão.
+[  6.0-  8.1] E são as mais instaladas do mundo.
+[  8.7- 12.1] Número 5. Com 650 mil instalações.
+[ 12.5- 14.0] Design, Taste, Frontend.
+[ 14.4- 18.2] Em vez de ficar ajustando o layout até ele parar de parecer feito por IA,
+[ 18.5- 20.5] você deixa ela cuidar do acabamento.
+[ 20.9- 23.0] Número 4. Passando de 1 milhão.
+[ 23.6- 24.1] Hyperframes.
+[ 24.1- 28.8] Você descreve o vídeo que quer e o Cloud escreve o código e entrega o vídeo pronto,
+[ 28.8- 30.2] sem abrir editor.
+[ 30.6- 33.0] Número 3. Com 1 milhão e 200 mil.
+[ 33.4- 34.2] Agent Browser.
+[ 34.6- 38.8] Sabe aquela tarefa repetitiva de entrar em site, clicar e preencher formulário?
+[ 39.2- 41.3] A IA faz isso sozinha no navegador.
+[ 41.7- 44.2] Número 2. Com 1 milhão e 400 mil.
+[ 44.6- 45.1] Grill Me.
+[ 45.5- 49.7] Antes de começar, ela te faz as perguntas certas e encontra os furos do plano.
+[ 50.0- 51.9] Você não perde tempo refazendo depois.
+[ 51.9- 54.9] E a número 1. Com mais de 4 milhões de instalações.
+[ 55.9- 56.7] Find Skills.
+[ 56.7- 62.3] Em vez de ficar procurando qual Skill usar, você diz a tarefa e ela encontra a certa para você.
+[ 62.6- 63.4] Quer o link da 5?
+[ 63.8- 66.1] Comenta a Skill que eu te mando tudo no direct.

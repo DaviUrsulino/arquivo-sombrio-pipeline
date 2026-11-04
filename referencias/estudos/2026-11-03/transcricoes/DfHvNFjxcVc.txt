@@ -1,0 +1,13 @@
+[  0.0-  5.8] Um cara montou um canal dark de finanças sem mostrar o rosto que fatura mais de 250 mil reais por mês,
+[  6.1-  7.6] tudo usando inteligência artificial.
+[  7.9- 10.3] E o sistema por trás é bem mais simples do que parece.
+[ 10.5- 13.4] Primeiro, ele acha canais sem rosto que já estão bombando.
+[ 13.5- 16.6] Depois, usa a IA pra fazer engenharia reversa do que funciona,
+[ 16.7- 19.3] os temas que a galera clica e a psicologia da thumbnail.
+[ 19.5- 22.8] Mas em vez de copiar, ele usa essa fórmula pra achar ideias novas.
+[ 23.0- 26.7] Aí o Claude pesquisa o assunto e transforma tudo num roteiro estilo documentário
+[ 26.7- 29.3] e quebra esse roteiro num storyboard, cena por cena.
+[ 29.3- 34.4] Depois, uma IA de imagem e voz gera os visuais, a narração e até ajuda na thumbnail.
+[ 34.5- 35.9] Ele só revisa e posta.
+[ 36.0- 39.5] No fim, você tem uma máquina de conteúdo pro YouTube sem mostrar o rosto.
+[ 39.7- 42.7] Comenta canal dark e me segue que eu te mando o passo a passo completo.

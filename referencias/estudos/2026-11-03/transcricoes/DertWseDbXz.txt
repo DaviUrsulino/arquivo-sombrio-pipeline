@@ -1,0 +1,13 @@
+[  0.0-  3.7] Seu agente de código ganha um editor de vídeo local.
+[  4.5-  7.1] O repositório tem duas mil estrelas no GitHub.
+[  8.0- 12.0] É uma skill de agente com 42 ferramentas FFMPEG.
+[ 12.6- 16.5] O fluxo é sonda, edita, verifica, tudo offline.
+[ 17.5- 22.2] Corta, junta, remove silêncio, ajusta aspecto, legendas, karaokê.
+[ 22.7- 26.5] Instala com NPX FFMPEG Skill para o seu agente.
+[ 26.5- 30.8] Roda, NPX FFMPEG Doctor, checa dependências.
+[ 31.5- 35.3] Doze ferramentas no MCP padrão, todas com contrato legível.
+[ 36.0- 39.4] Serve para Cloud, CodeCursor, Codex e clientes MCP.
+[ 40.2- 43.2] Precisa FFMPEG e Python 3 no caminho do sistema.
+[ 44.0- 47.1] Licença MT, código aberto, sem nuvem, sem chaves.
+[ 47.6- 49.8] Comenta link, que eu te mando o link do repositório.
+[ 50.1- 52.6] E quer aprender a fazer vídeos assim? O link está na bio.

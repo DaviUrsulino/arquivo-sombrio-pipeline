@@ -1,0 +1,9 @@
+[  0.0-  3.6] Agora o Claude transforma um áudio de WhatsApp num vídeo animado.
+[  3.8-  6.2] Isso porque eu ensinei ele a ser Motion Designer.
+[  6.4-  8.9] Você manda o áudio e ele anima cada palavra.
+[  9.1- 11.8] Coloca a legenda e entrega o vídeo pronto pro Reels.
+[ 12.1- 14.6] E olha isso, ele faz em 18 estilos.
+[ 14.8- 16.8] De 3D de cinema a pixel art.
+[ 17.1- 18.8] E ainda cria um mascote só seu.
+[ 18.8- 24.5] Ou seja, aquele áudio de 2 minutos que ninguém escuta virou o vídeo que todo mundo assiste.
+[ 24.6- 26.8] Comenta áudio e me segue que eu te mando a skill.

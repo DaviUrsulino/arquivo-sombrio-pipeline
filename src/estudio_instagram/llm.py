@@ -16,7 +16,7 @@ import time
 import urllib.parse
 import urllib.request
 
-MODELOS_GEMINI = ["gemini-3.6-flash", "gemini-3.5-flash", "gemini-flash-latest"]
+MODELOS_GEMINI = ["gemini-3.6-flash", "gemini-3.8-flash", "gemini-3.5-flash", "gemini-3.7-flash", "gemini-flash-latest", "gemini-3.5-flash-lite", "gemma-4-26b-a4b-it"]
 MODELOS_OPENROUTER_ESTATICOS = [
     "nvidia/nemotron-3-ultra-550b-a55b:free", "google/gemma-4-31b-it:free", "nvidia/nemotron-3-super-120b-a12b:free",
 ]

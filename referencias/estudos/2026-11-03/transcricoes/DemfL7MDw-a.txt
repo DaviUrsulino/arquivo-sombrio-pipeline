@@ -1,0 +1,10 @@
+[  0.0-  4.3] Como conectar o Cloud ao Instagram do seu consultório e fazer ele trabalhar como a sua secretária?
+[  4.6-  7.8] Ele responde as mensagens até de madrugada, com as regras do consultório.
+[  8.2-  9.9] Dúvida clínica? Ele passa pra sua equipe.
+[ 10.3- 13.6] Alguém comenta check-up no seu post e em segundos o guia chega na DM.
+[ 14.0- 15.8] Eu deixo a semana pronta antes do plantão.
+[ 16.1- 18.4] Will às 13 horas, Carrossel às 19h30.
+[ 18.7- 21.6] E é só perguntar, qual post trouxe mais pedidos de consulta?
+[ 21.9- 23.7] Tudo pela API oficial da meta.
+[ 24.0- 26.2] Sem senha compartilhada, sem extensão duvidosa.
+[ 26.5- 28.5] Comenta auto-post que eu te mando passo a passo.

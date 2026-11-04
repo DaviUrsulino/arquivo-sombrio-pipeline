@@ -1,0 +1,11 @@
+[  0.0-  4.9] Se os seus designs no Cloud Code parecem mediocres, não é culpa do Cloud, é o seu setup.
+[  5.3-  7.6] Aqui estão três skills que realmente resolvem isso.
+[  7.9-  9.7] Primeiro, design do Emil Kowalski.
+[ 10.0- 14.1] Isso adiciona motion e ease em adequados, para que a sua UI não pareça mais estática.
+[ 14.6- 15.9] Ela realmente ganha vida.
+[ 16.5- 18.2] Segundo, impeccable design.
+[ 18.2- 23.4] Em vez de ficar chutando layout, espaçamento e tipografia, você roda um comando e ele arruma tudo.
+[ 23.9- 25.5] Terceiro, taste skill.
+[ 25.9- 27.2] Esse é o mais importante.
+[ 27.2- 34.5] Ele puxa referências reais de design, para o Cloud parar de fazer sites genéricos e começar a fazer coisas que realmente ficam bonitas.
+[ 35.1- 38.4] A mesma ferramenta, mas com um resultado completamente diferente.

@@ -11,6 +11,7 @@ Publicar exige INSTAGRAM_GRAPH_TOKEN e INSTAGRAM_USER_ID no .env (ver docs/estud
 import argparse
 import json
 import os
+import shutil
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -193,7 +194,28 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
         # vídeo de uma ferramenta: rodízio por TODO o acervo de identidades (ident- com cenas próprias
         # do assunto, ou um molde estúdio comum) -- nunca só entre as 2 de identidade.py (2026-10-30).
         modelo_reels = identidade_do(dados_pauta.get("titulo", ""))
-    if modelo_reels.startswith("ident-"):
+    video = None
+    if (formato == "pixel2" and len(repos) == 1 and not dados_pauta.get("molde") and os.getenv("ESTUDIO_DIRETOR") == "1"):
+        # estúdio com direção (src/estudio_instagram/diretor): roteiro por acontecimento + storyboard por frase +
+        # portão de qualidade. Desligado por padrão; se o vídeo não passar no portão, cai no caminho antigo.
+        from .diretor import fazer as diretor_fazer
+        dados = next(iter(repos.values()))
+        try:
+            pasta_dir = trabalho / "diretor"
+            res = diretor_fazer.produzir(diretor_fazer.fatos_do_repo(dados.repo), pasta_dir, palavra=dados_pauta["palavra_chave"])
+            if res["aprovado"]:
+                video = pasta_saida / "reels.mp4"
+                pasta_saida.mkdir(parents=True, exist_ok=True)
+                shutil.copy(pasta_dir / "final.mp4", video)
+                duracao = res["qa"]["duracao"]
+                modelo_reels = "diretor-palco"
+            else:
+                print(f"estúdio com direção reprovado no portão (média {res['media']}); usando o caminho antigo")
+        except Exception as erro:
+            print(f"estúdio com direção falhou ({erro}); usando o caminho antigo")
+    if video is not None:
+        pass
+    elif modelo_reels.startswith("ident-"):
         dados = next(iter(repos.values()))
         cenas_pauta = dados_pauta.get("cenas") or [{}]
         plano = identidade.planejar(modelo_reels.removeprefix("ident-"), dados, buscar_readme(dados.repo),
@@ -201,13 +223,14 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
         duracao = identidade.montar(modelo_reels.removeprefix("ident-"), plano, voz, trabalho / "reels")
     else:
         duracao = montagem.montar_reels(dados_pauta, repos, voz, trabalho / "reels", modelo=modelo_reels)
-    if modelo_reels.startswith("estudio-") and repos:
+    if video is None and modelo_reels.startswith("estudio-") and repos:
         # o molde tier mostra o print real do repositório; os outros ignoram o arquivo
         try:
             github_dados.baixar_cartao(next(iter(repos)), trabalho / "reels" / "assets" / "cartao.png")
         except Exception as erro:  # sem print o molde mostra um quadro vazio, não vale travar o post
             print(f"não baixei o cartão do repositório ({erro})")
-    video = render.renderizar_reels(trabalho / "reels", pasta_saida / "reels.mp4")
+    if video is None:
+        video = render.renderizar_reels(trabalho / "reels", pasta_saida / "reels.mp4")
 
     if not PUBLICAR_CARROSSEL:
         slides = []

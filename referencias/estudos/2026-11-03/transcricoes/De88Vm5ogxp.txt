@@ -1,0 +1,26 @@
+[  0.0-  0.7] Stay!
+[  1.0-  3.3] Hey, it's the road to the same thing.
+[  3.6-  5.2] Wait, what are those?
+[  5.4-  8.2] I made a thousand followers in five days.
+[  8.5-  9.1] With you.
+[  9.4- 10.8] No, not with you.
+[ 11.1- 11.6] Just me.
+[ 11.8- 12.0] What?
+[ 12.4- 13.8] Nah, I'm kidding, bro.
+[ 14.3- 14.6] Congrats.
+[ 15.1- 16.5] So, what's the plan?
+[ 16.8- 17.1] No, no.
+[ 17.4- 18.2] I have to ask.
+[ 18.4- 19.1] What's your plan?
+[ 19.3- 20.4] Just keep posted?
+[ 20.7- 21.4] Wrong answer.
+[ 21.7- 24.0] You're gonna teach people how to use Claude properly.
+[ 24.4- 25.5] Yeah, that's what I meant.
+[ 25.8- 27.6] Mmm, you didn't mean that.
+[ 27.6- 29.8] No, that's exactly what I meant.
+[ 30.1- 31.4] Okay, okay.
+[ 31.7- 32.9] Let's just eat the cake.
+[ 33.2- 33.8] You're an AI.
+[ 34.1- 34.9] You can't eat.
+[ 35.2- 36.7] So, I'll eat it.
+[ 37.3- 38.2] Get out.

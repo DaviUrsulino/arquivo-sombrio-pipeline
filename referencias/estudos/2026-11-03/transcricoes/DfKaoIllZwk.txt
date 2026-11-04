@@ -1,0 +1,20 @@
+[  0.0-  3.4] O Google lançou o Gemini 4 Carbon, o modelo mais forte deles.
+[  3.7-  9.2] A gente colocou ele lado a lado com o Cloud Opus 5,5 e o GPT-6 Astra, os dois no Esforço
+[  9.2- 10.5] Max e o Carbon no High.
+[ 10.9- 13.6] No placar geral de inteligência, o Carbon ficou em primeiro.
+[ 14.0- 15.6] O Carbon é o que menos inventa.
+[ 15.8- 19.6] Quando não sabe a resposta, chuta quase 5 vezes menos que os outros dois modelos.
+[ 19.6- 23.5] Mas pra programar com agentes, o Opus 5,5 continua na frente.
+[ 23.9- 27.1] Em Designer, deu empate entre o Opus 5,5 e o Carbon.
+[ 27.1- 30.3] Em marca e marketing, o Opus ganha disparado do Carbon.
+[ 30.6- 34.5] E pra codar em HTML, o Carbon passa o Cloud Opus 5,5.
+[ 34.9- 35.8] Agora, o preço.
+[ 36.2- 41.2] Por tarefa, o Opus sai 10 dólares, o Carbon 7,76 e o Astra 6,25.
+[ 41.7- 44.2] E o detalhe, o Carbon ainda nem saiu pra você.
+[ 44.5- 46.6] O Google não deu data, só diz que chega em breve.
+[ 46.7- 50.0] Então, pra criar site e programar, Opus 5,5.
+[ 50.3- 52.6] Pra pesquisa e resposta que não inventa, Carbon.
+[ 52.9- 54.2] Pra gastar menos, Astra.
+[ 54.2- 57.4] Quer ficar por dentro das novidades das inteligências artificiais?
+[ 57.8- 59.4] Curte esse vídeo e segue a gente.
+[ 59.6- 60.9] E todo dia tem vídeo novo.

@@ -1,0 +1,17 @@
+[  0.0-  0.5] O que?
+[  0.5-  3.0] Olha meu site novo! Fiz com IA.
+[  3.0-  4.0] Dá pra ver.
+[  4.0-  5.0] Como assim?
+[  5.0-  9.5] Cards iguais, gradiente de enfeite e um título com uma palavra colorida.
+[  9.5- 11.0] Tá, e o que eu faço?
+[ 11.0- 15.5] Instala a Front End Design. Ela me tira desses vícios e me obriga a escolher um estilo.
+[ 15.5- 17.0] E se eu não souber escolher cor?
+[ 17.0- 20.0] A Theme Factory tem 10 temas prontos. Você é sua ponta.
+[ 20.0- 22.0] E quem garante que os botões funcionam?
+[ 22.0- 25.5] Com a Web App Testing, eu abro o site, clico nos botões e tiro o print.
+[ 25.5- 27.5] E se eu quiser esse estilo sempre?
+[ 27.5- 31.5] A Skill Creator transforma o seu estilo numa skill. Eu nunca mais esqueço.
+[ 31.5- 35.5] Ficou lindo! Só falta um detalhe. Fundo creme e botão laranja.
+[ 35.5- 37.5] Não! Essa cor é minha!
+[ 37.5- 40.5] Quer aprender a fazer isso e receber o link de cada skill?
+[ 40.5- 42.5] Comenta a design que eu te mando no direc...
