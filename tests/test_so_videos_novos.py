@@ -59,3 +59,11 @@ def test_em_alta_pula_politica_e_usa_so_manchetes():
     r = em_alta.escolher(candidatos, llm=llm, usados=[])
     assert "Bolsonaro" not in vistos[0] and r["chave"] == "GTA 6" and "200 GB" in r["fatos"]
     assert em_alta.escolher(candidatos, llm=lambda *_: {"id": 0, "nota": 4}, usados=[]) is None  # fraco não vira vídeo
+
+
+def test_estilo_combina_com_o_assunto_e_varia():
+    todos = [{"slug": s, "nome": s, "categoria": "x"} for s in ("archive-lighttable", "pixel-rpg", "neon", "dossie")]
+    escolhe = lambda *_: {"estilos": ["pixel-rpg", "neon"]}
+    assert produtora.estilo_para("GTA 6", {"estilos_usados": []}, todos, llm=escolhe)["slug"] == "pixel-rpg"
+    assert produtora.estilo_para("GTA 6", {"estilos_usados": ["pixel-rpg"]}, todos, llm=escolhe)["slug"] == "neon"
+    assert produtora.estilo_para("GTA 6", {"estilos_usados": ["neon", "pixel-rpg"]}, todos, llm=escolhe)["slug"] == "neon"

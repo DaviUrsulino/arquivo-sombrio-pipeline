@@ -48,6 +48,7 @@ def estilos() -> list[dict]:
             continue
         j = json.loads(arq.read_text(encoding="utf-8"))
         lista.append({"slug": arq.parent.name, "nome": j.get("en", arq.parent.name), "categoria": j.get("category_en", ""),
+                      "usos": j.get("uses", []),
                       "num": j.get("num")})
     # intercala os extras (esquete etc.) a cada 4 estilos, em vez de deixá-los para o fim do rodízio de 66 dias;
     # e alterna as categorias da biblioteca para dois dias seguidos não saírem parecidos
@@ -70,6 +71,29 @@ def estilos() -> list[dict]:
 
 def _estado() -> dict:
     return json.loads(ESTADO.read_text(encoding="utf-8")) if ESTADO.exists() else {"estilos_usados": [], "repos_usados": [], "producoes": []}
+
+
+COMBINA = """Você é diretor de arte de Reels. Escolha os 4 estilos de filme que MAIS combinam com este assunto, pensando
+em quem assiste (jogo de videogame pede estilo de game, neon, ação ou 3D; finanças pede gráfico, dossiê ou editorial;
+ferramenta de IA pede tecnologia, terminal, brinquedo 3D ou esquete). Nunca escolha um estilo que brigue com o clima.
+Responda só JSON: {"estilos": ["slug1", "slug2", "slug3", "slug4"]} usando os slugs da lista."""
+
+
+def estilo_para(assunto: str, estado: dict, todos: list[dict], llm=None) -> dict:
+    """Davi, 04/11: estilo de arquivo/dossiê num vídeo de GTA ficou ruim. O rodízio cego trocou por: estilos que
+    combinam com o assunto e, entre eles, o usado há mais tempo (variedade sem destoar)."""
+    from ..llm import gerar_json
+    lista = "\n".join(f"{e['slug']}: {e['nome']} ({e['categoria']}; {', '.join(e.get('usos', []))})" for e in todos)
+    try:
+        r = (llm or gerar_json)(COMBINA, f"ASSUNTO: {assunto}\n\nESTILOS:\n{lista}")
+        bons = [e for slug in r.get("estilos", []) for e in todos if e["slug"] == slug]
+    except Exception as erro:
+        print(f"não consegui casar estilo com o assunto ({erro}); sigo o rodízio")
+        bons = []
+    if not bons:
+        return proximo_estilo(estado, todos)
+    usados = estado.get("estilos_usados", [])
+    return min(bons, key=lambda e: -usados[::-1].index(e["slug"]) if e["slug"] in usados else -10**6)
 
 
 def proximo_estilo(estado: dict, todos: list[dict]) -> dict:
@@ -188,7 +212,9 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
     from .fazer import fatos_do_repo
     estado = _estado()
     todos = estilos()
-    estilo = next((e for e in todos if e["slug"] == estilo_slug), None) if estilo_slug else proximo_estilo(estado, todos)
+    assunto = (f"{momento['tema']}: {momento.get('angulo', '')}" if momento else
+               "vídeo de venda: animação feita com IA, sem editor" if venda else f"ferramenta de IA do GitHub {repo}")
+    estilo = next((e for e in todos if e["slug"] == estilo_slug), None) if estilo_slug else estilo_para(assunto, estado, todos)
     if estilo is None:
         raise SystemExit(f"estilo {estilo_slug} não existe; opções: {', '.join(e['slug'] for e in todos)}")
     extra_video = ""
