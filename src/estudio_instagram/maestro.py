@@ -67,10 +67,15 @@ PAUTAS_DO_DIA = {
                    "22:30": "pautas/viral/agendadas/2026-11-08-10-esquete-diretor.json"},  # esquete Davi x robô
     "2026-11-05": {"08:00": "pautas/viral/agendadas/2026-11-07-08-opuscar-pixel-rpg.json"},  # pixel RPG
 }
-# Banco de vídeos: pautas prontas e aprovadas em pautas/viral/fila/. A rodada FILA_RODADA de cada dia usa a próxima
-# que ainda não saiu (em ordem de nome); sem nada na fila, segue o formato normal da rodada.
+# Banco de vídeos: pautas prontas e aprovadas em pautas/viral/fila/. Cada rodada usa a próxima que ainda não saiu
+# (em ordem de nome); sem nada no banco, ver SO_VIDEOS_NOVOS.
 FILA = RAIZ / "pautas" / "viral" / "fila"
-FILA_RODADAS = ("08:00", "20:00")  # o banco (vídeos da produtora e repostagens) abastece as duas rodadas de vídeo de ferramenta
+FILA_RODADAS = ("08:00", "20:00", "22:30")  # 2026-11-04 (Davi): só vídeo novo, o banco abastece TODAS as rodadas
+# Vídeos de venda feitos pela produtora no estilo novo; a rodada de venda (ter/sex 08:00) usa esta fila primeiro.
+FILA_VENDA = RAIZ / "pautas" / "viral" / "fila_venda"
+# Davi, 2026-11-04: "para mim já fazia só dos novos". Sem vídeo novo no banco, a rodada NÃO cai no formato antigo:
+# é pulada e o maestro pede uma produção nova para repor o banco.
+SO_VIDEOS_NOVOS = True
 FILA_RODADA = FILA_RODADAS[0]  # compatibilidade
 TOLERANCIA_ATRASO = timedelta(hours=2)
 INTERVALO_MIN_MIN = 120  # nunca duas rodadas em menos de 2 horas
@@ -112,13 +117,23 @@ def decidir(agora: datetime, estado: dict) -> tuple[str | None, dict]:
     return (escolhido[1] if escolhido else None), novo
 
 
-def proxima_da_fila(usadas: list[str], pasta: Path = FILA) -> str | None:
+def proxima_da_fila(usadas: list[str], pasta: Path | None = None) -> str | None:
     """Caminho (relativo à raiz) da próxima pauta do banco que ainda não foi usada, ou None."""
+    pasta = pasta or FILA
     for arquivo in sorted(pasta.glob("*.json")) if pasta.exists() else []:
         relativo = arquivo.relative_to(RAIZ).as_posix()
         if relativo not in usadas:
             return relativo
     return None
+
+
+def escolher_da_fila(formato: str, usadas: list[str]) -> str | None:
+    """Rodada de venda pega o vídeo de venda novo; as outras (e a venda sem vídeo pronto) pegam o banco comum."""
+    if formato == "venda":
+        venda = proxima_da_fila(usadas, FILA_VENDA)
+        if venda:
+            return venda
+    return proxima_da_fila(usadas)
 
 
 def _ler() -> dict:
@@ -176,12 +191,21 @@ def main():
             nova_rodada = [h for h in novo["feitos"] if h not in (estado["feitos"] if estado.get("dia") == novo["dia"] else {})]
             subprocess.run(["git", "pull", "--rebase", "-q"], cwd=RAIZ, check=False)  # pega pautas novas do banco
             usadas = novo.get("fila_usadas", estado.get("fila_usadas", []))
-            da_fila = proxima_da_fila(usadas) if any(h in nova_rodada for h in FILA_RODADAS) else None
+            da_fila = escolher_da_fila(formato, usadas) if any(h in nova_rodada for h in FILA_RODADAS) else None
             if da_fila:
                 formato = f"pauta:{da_fila}"
                 novo["fila_usadas"] = [*usadas, da_fila]
-            elif usadas:
-                novo["fila_usadas"] = usadas
+            else:
+                if usadas:
+                    novo["fila_usadas"] = usadas
+                if SO_VIDEOS_NOVOS:
+                    print(f"banco de vídeos novos vazio; pulo a rodada {formato} (nada de vídeo antigo) e peço produção", flush=True)
+                    for h in nova_rodada:
+                        novo["feitos"][h] = "pulada: banco vazio"
+                    formato = None
+                    novo["ultimo_disparo"] = estado.get("ultimo_disparo")  # rodada pulada não segura a próxima
+                    if not args.simular:
+                        subprocess.run(["gh", "workflow", "run", "produtora.yml", "--ref", "master"], cwd=RAIZ, check=False)
         if formato:
             print(f"hora de uma rodada ({formato}); estado: {novo['feitos']}", flush=True)
             if not args.simular:

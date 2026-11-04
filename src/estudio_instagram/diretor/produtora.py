@@ -159,15 +159,39 @@ def rodar_agente(prompt: str, pasta: Path, timeout_s: int = 4500) -> str:
     return r.stdout
 
 
-def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0) -> dict:
+VENDAS = RAIZ / "pautas" / "vendas"
+REPO_VENDA = "venda/pack-estudio"  # rótulo interno (não é repositório)
+PALAVRA_VENDA = "ESTUDIO"  # o respondedor manda o link do pack para quem comenta essa palavra
+EXTRA_VENDA = """ESTE É UM VÍDEO DE VENDA do produto descrito nos FATOS (o Pack Estúdio), não uma notícia de ferramenta.
+Gancho pelo desejo de quem assiste (postar vídeo animado sem aparecer, sem editar, sem mensalidade). Diga o que a
+pessoa recebe e o que ela consegue fazer. Nunca diga que o pack faz o estilo exato deste vídeo nem prometa resultado
+de views ou dinheiro. Não fale preço."""
+
+
+def fatos_venda(pasta: Path = VENDAS) -> str:
+    """Fatos do produto tirados dos roteiros de venda que o Davi já aprovou (texto nosso, não da internet)."""
+    linhas = []
+    for arq in sorted(pasta.glob("*.json")):
+        d = json.loads(arq.read_text(encoding="utf-8"))
+        linhas += [c["narracao"] for c in d.get("cenas_roteiro", [])]
+        linhas.append(re.sub(r"#\S+|Comenta.*", "", d.get("legenda", "")).strip())
+    return "\n".join(f"- {l}" for l in dict.fromkeys(l for l in linhas if l))
+
+
+def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: bool = False) -> dict:
     from .fazer import fatos_do_repo
     estado = _estado()
     todos = estilos()
     estilo = next((e for e in todos if e["slug"] == estilo_slug), None) if estilo_slug else proximo_estilo(estado, todos)
     if estilo is None:
         raise SystemExit(f"estilo {estilo_slug} não existe; opções: {', '.join(e['slug'] for e in todos)}")
-    fatos = fatos_do_repo(repo)
-    rot = roteiro.escrever(fatos)
+    if venda:
+        repo = REPO_VENDA
+        rot = roteiro.escrever(fatos_venda(), extra=EXTRA_VENDA)
+        rot["palavra"] = PALAVRA_VENDA
+        rot["cta"] = f"Comenta {PALAVRA_VENDA} e me segue que eu te mando o link."
+    else:
+        rot = roteiro.escrever(fatos_do_repo(repo))
     frases = roteiro.frases(rot, gancho)
     nome = f"{datetime.now():%Y-%m-%d-%H%M}-{re.sub(r'[^a-z0-9]+', '-', repo.split('/')[-1].lower())}-{estilo['slug']}"
     pasta = SAIDA / nome
@@ -178,7 +202,7 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0) -> dict
     print(f"produzindo {repo} no estilo {estilo['nome']} -> {pasta}", flush=True)
     resposta = rodar_agente(briefing(frases, estilo, pasta, rot["palavra"]), pasta)
     final = pasta / "final.mp4"
-    res = {"pasta": str(pasta), "repo": repo, "estilo": estilo["slug"], "palavra": rot["palavra"], "ok": False}
+    res = {"pasta": str(pasta), "repo": repo, "estilo": estilo["slug"], "palavra": rot["palavra"], "ok": False, "venda": venda}
     if final.exists():
         dur = portao._ffprobe_duracao(final)
         q = portao.qa(final, dur)  # duração conferida pelo próprio arquivo; o QA olha congelado, preto, volume e miolo vazio
@@ -192,13 +216,21 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0) -> dict
         res["problemas"] = ["o agente não entregou final.mp4 (ver agente.log)"]
     (pasta / "producao.json").write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
     estado.setdefault("estilos_usados", []).append(estilo["slug"])
-    estado.setdefault("repos_usados", []).append(repo)
+    if not venda:
+        estado.setdefault("repos_usados", []).append(repo)
     estado.setdefault("producoes", []).append({"quando": datetime.now().isoformat(timespec="minutes"), **{k: res[k] for k in ("repo", "estilo", "ok", "pasta")}})
     ESTADO.write_text(json.dumps(estado, ensure_ascii=False, indent=1), encoding="utf-8")
     return res
 
 
 FILA = RAIZ / "pautas" / "viral" / "fila"
+FILA_VENDA = RAIZ / "pautas" / "viral" / "fila_venda"
+
+
+def precisa_venda() -> bool:
+    """Sem vídeo de venda novo esperando no banco, a próxima produção automática é de venda (ter/sex 08:00 usam)."""
+    from .. import maestro
+    return maestro.proxima_da_fila(maestro._ler().get("fila_usadas", []), FILA_VENDA) is None
 
 
 def para_fila(res: dict) -> Path:
@@ -214,11 +246,14 @@ def para_fila(res: dict) -> Path:
     legenda = (rot.get("legenda") or "").strip()
     if rot["palavra"] not in legenda:
         legenda += f"\nComenta {rot['palavra']} que eu te mando o link no direct."
+    venda = res.get("venda", False)
     pauta = {"titulo": f"{res['repo'].split('/')[-1]}: produtora ({res['estilo']})", "formato": "pronto",
              "video_pronto_url": url, "palavra_chave": rot["palavra"], "legenda": legenda,
-             "itens": [{"repo": res["repo"]}], "estilo": res["estilo"], "gancho": "A", "ganchos_alternativos": []}
-    FILA.mkdir(parents=True, exist_ok=True)
-    destino = FILA / f"{datetime.now():%Y-%m-%d-%H%M}-produtora-{pasta.name.split('-', 4)[-1]}.json"
+             "itens": [] if venda else [{"repo": res["repo"]}], "estilo": res["estilo"], "gancho": "A",
+             "ganchos_alternativos": [], **({"tipo": "venda"} if venda else {})}
+    fila = FILA_VENDA if venda else FILA
+    fila.mkdir(parents=True, exist_ok=True)
+    destino = fila / f"{datetime.now():%Y-%m-%d-%H%M}-produtora-{pasta.name.split('-', 4)[-1]}.json"
     destino.write_text(json.dumps(pauta, ensure_ascii=False, indent=1), encoding="utf-8")
     return destino
 
@@ -241,6 +276,7 @@ def main():
     p.add_argument("--estilo")
     p.add_argument("--gancho", type=int, default=0)
     p.add_argument("--listar", action="store_true")
+    p.add_argument("--venda", action="store_true", help="vídeo de venda do Pack Estúdio (com --auto, sai sozinho quando falta)")
     p.add_argument("--fila", action="store_true", help="se o vídeo passar na conferência, sobe e põe na fila do maestro")
     a = p.parse_args()
     if a.listar:
@@ -249,10 +285,11 @@ def main():
         return
     if not shutil.which("claude"):
         raise SystemExit("precisa do Claude Code instalado (comando claude)")
-    repo = a.repo or (pauta_automatica() if a.auto else None)
+    venda = a.venda or (a.auto and not a.repo and precisa_venda())
+    repo = REPO_VENDA if venda else (a.repo or (pauta_automatica() if a.auto else None))
     if not repo:
-        raise SystemExit("use --repo dono/nome ou --auto")
-    res = produzir(repo, a.estilo, a.gancho)
+        raise SystemExit("use --repo dono/nome, --auto ou --venda")
+    res = produzir(repo, a.estilo, a.gancho, venda=venda)
     if a.fila and res.get("ok"):
         res["fila"] = str(para_fila(res).relative_to(RAIZ))
     print(json.dumps(res, ensure_ascii=False, indent=1))

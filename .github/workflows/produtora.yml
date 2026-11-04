@@ -1,4 +1,4 @@
-name: Produtora - um filme por dia em rodízio pelos 66 estilos do Lemo-Opuscar
+name: Produtora - os vídeos novos do dia em rodízio pelos 66 estilos do Lemo-Opuscar
 
 # Roda de madrugada na nuvem (PC do Davi desligado). Escreve o roteiro com a fórmula (só fatos), escolhe o próximo
 # estilo do rodízio e o Claude Code (plano do Davi, via CLAUDE_CODE_OAUTH_TOKEN de `claude setup-token`) monta o
@@ -11,13 +11,18 @@ on:
   schedule:
     - cron: '17 6 * * *'   # 03:17 em Brasília
     - cron: '17 14 * * *'  # 11:17
-    - cron: '17 19 * * *'  # 16:17 (3 vídeos por dia: carga máxima, pedido do Davi em 04/11)
+    - cron: '17 19 * * *'  # 16:17
+    - cron: '17 2 * * *'   # 23:17 (4 por dia para 3 rodadas: sobra no banco; desde 04/11 só sai vídeo novo)
   workflow_dispatch:
     inputs:
       repo:
         description: 'dono/nome do repositório (vazio: assunto quente do dia)'
         required: false
         default: ''
+      venda:
+        description: 'vídeo de venda do Pack Estúdio (no automático sai sozinho quando o banco de venda está vazio)'
+        type: boolean
+        default: false
       estilo:
         description: 'slug do estilo (vazio: próximo do rodízio; ex.: brick-toy, pixel-rpg, esquete)'
         required: false
@@ -73,9 +78,11 @@ jobs:
           LEMO_ANGLE: swiftshader  # runner sem GPU: three.js por software (senão os estilos 3D saem em branco)
           ENTRADA_REPO: ${{ inputs.repo }}      # por variável de ambiente, nunca colado no script (evita injeção)
           ENTRADA_ESTILO: ${{ inputs.estilo }}
+          ENTRADA_VENDA: ${{ inputs.venda }}
         run: |
           set -- --fila
           if [ -n "$ENTRADA_REPO" ]; then set -- "$@" --repo "$ENTRADA_REPO"; else set -- "$@" --auto; fi
+          if [ "$ENTRADA_VENDA" = "true" ]; then set -- "$@" --venda; fi
           if [ -n "$ENTRADA_ESTILO" ]; then set -- "$@" --estilo "$ENTRADA_ESTILO"; fi
           python -m src.estudio_instagram.diretor.produtora "$@"
 
@@ -98,7 +105,7 @@ jobs:
         run: |
           git config user.name "estudio-automatico"
           git config user.email "actions@users.noreply.github.com"
-          git add pautas/produtora.json pautas/viral/fila/ || true
+          for f in pautas/produtora.json pautas/viral/fila pautas/viral/fila_venda; do if [ -e "$f" ]; then git add "$f"; fi; done
           if ! git diff --cached --quiet; then
             git commit -m "chore: produtora registra vídeo do dia [skip ci]"
             git pull --rebase -q && git push -q
