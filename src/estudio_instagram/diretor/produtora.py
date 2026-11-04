@@ -184,6 +184,7 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0) -> dict
         q = portao.qa(final, dur)  # duração conferida pelo próprio arquivo; o QA olha congelado, preto, volume e miolo vazio
         largura = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v", "-show_entries", "stream=width,height",
                                   "-of", "csv=p=0", str(final)], capture_output=True, text=True).stdout.strip()
+        largura = ",".join(x for x in largura.replace("\n", ",").split(",") if x)[:9]  # o ffprobe pode pôr vírgula no fim
         problemas = q["problemas"] + ([] if largura == "1080,1920" else [f"resolução {largura} (esperado 1080,1920)"]) + \
             ([] if 20 <= dur <= 60 else [f"duração {dur:.1f}s fora de 20-60 s"])
         res.update({"ok": not problemas, "duracao": round(dur, 1), "problemas": problemas, "resumo_agente": resposta[-800:]})
@@ -255,6 +256,8 @@ def main():
     if a.fila and res.get("ok"):
         res["fila"] = str(para_fila(res).relative_to(RAIZ))
     print(json.dumps(res, ensure_ascii=False, indent=1))
+    if not res.get("ok"):
+        raise SystemExit(1)  # workflow fica vermelho: vídeo que não passou na conferência não pode parecer sucesso
 
 
 if __name__ == "__main__":

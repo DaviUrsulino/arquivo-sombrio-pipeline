@@ -83,6 +83,7 @@ jobs:
         with:
           name: produtora
           path: |
+            videos_produzidos/*/final.mp4
             videos_produzidos/*/folha.jpg
             videos_produzidos/*/poster.jpg
             videos_produzidos/*/agente.log
