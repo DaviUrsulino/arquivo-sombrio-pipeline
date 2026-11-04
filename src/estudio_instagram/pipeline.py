@@ -95,24 +95,43 @@ MIN_SEGUIDORES_TRIAL = 1000  # Trial Reels só liberam a partir daqui
 PUBLICAR_CARROSSEL = os.getenv("PUBLICAR_CARROSSEL") == "1"
 
 
+HASHTAGS = ["ia", "inteligenciaartificial", "claudecode", "automacao"]  # 3 a 5: o Instagram limita e trata como tema
+
+
+def cenas_da_pauta(dados_pauta: dict) -> list[dict]:
+    """A pauta automática guarda as cenas em `cenas_roteiro`; as pautas manuais antigas, em `cenas`.
+
+    Bug corrigido em 2026-11-04: legenda e identidades só olhavam `cenas`, então nos vídeos automáticos a 1ª linha
+    da legenda (e o gancho das identidades) caíam na descrição do repositório em vez do gancho escrito.
+    """
+    return dados_pauta.get("cenas") or dados_pauta.get("cenas_roteiro") or []
+
+
 def montar_legenda(dados_pauta: dict, repos: dict) -> str:
-    """Legenda curta + chamada + hashtags. Pauta com `legenda` própria (vídeo de venda) usa o texto dela."""
+    """Legenda pensada para a busca do Instagram (skill instagram-seo) e para o algoritmo (envios e salvos).
+
+    1ª linha = o gancho falado (é o que aparece antes do "mais"); logo depois a palavra para comentar; uma frase com a
+    palavra-chave do tema (o que alguém buscaria); passos para salvar; 1 a cada 3 posts pede para enviar a alguém;
+    3 a 5 hashtags de tema. Sem emoji (regra do Davi). Pauta com `legenda` própria (venda) usa o texto dela.
+    """
     if dados_pauta.get("legenda"):
         return dados_pauta["legenda"][:LIMITE_LEGENDA_INSTAGRAM]
-    hashtags = " ".join(f"#{t.replace('/', '').replace('-', '')}" for t in ["claude", "claudecode", "github", "ia"])
-    passos = dados_pauta.get("passos") or []
-    bloco_passos = ""
-    if passos:
-        bloco_passos = "Salva este vídeo pra usar com calma:\n" + "\n".join(f"{i}. {p}" for i, p in enumerate(passos, 1)) + "\n\n"
-    # 1ª linha da legenda = o gancho falado (problema/benefício pra quem assiste), que é o que segura o "ver mais";
-    # a descrição da ferramenta sozinha ("Componentes de vídeo para...") foi o padrão dos posts que menos renderam.
-    cenas = dados_pauta.get("cenas") or []
+    cenas = cenas_da_pauta(dados_pauta)
     gancho = (cenas[0].get("narracao") or "").strip() if cenas else ""
-    primeira = gancho or dados_pauta['capa']['subtitulo'].capitalize()
+    subtitulo = (dados_pauta.get("capa") or {}).get("subtitulo", "").strip()
+    primeira = gancho or subtitulo.capitalize()
+    palavra = dados_pauta["palavra_chave"]
+    passos = dados_pauta.get("passos") or []
+    bloco_passos = ("Salva este vídeo pra usar com calma:\n" + "\n".join(f"{i}. {p}" for i, p in enumerate(passos, 1)) + "\n\n") if passos else ""
+    tema = f"{subtitulo[:1].upper()}{subtitulo[1:]}.\n\n" if subtitulo and subtitulo.lower() != primeira.lower() else ""
+    envio = "Manda pra um amigo que vai querer usar isso.\n" if sum(map(ord, dados_pauta.get("titulo", ""))) % 3 == 0 else ""
+    hashtags = " ".join(f"#{t}" for t in HASHTAGS)
     texto = (
-        f"{primeira}\n\n"
+        f"{primeira}\n"
+        f"Comenta {palavra} que eu te mando o link no direct.\n\n"
+        f"{tema}"
         f"{bloco_passos}"
-        f"Comenta {dados_pauta['palavra_chave']} que eu te mando o link no direct.\n"
+        f"{envio}"
         f"Segue o @ursulino.ia pra não perder a próxima ferramenta de IA.\n\n{hashtags}"
     )
     return texto[:LIMITE_LEGENDA_INSTAGRAM]
@@ -231,7 +250,7 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
         pass
     elif modelo_reels.startswith("ident-"):
         dados = next(iter(repos.values()))
-        cenas_pauta = dados_pauta.get("cenas") or [{}]
+        cenas_pauta = cenas_da_pauta(dados_pauta) or [{}]
         plano = identidade.planejar(modelo_reels.removeprefix("ident-"), dados, buscar_readme(dados.repo),
                                     cenas_pauta[0].get("narracao") or dados.descricao, dados_pauta["palavra_chave"])
         duracao = identidade.montar(modelo_reels.removeprefix("ident-"), plano, voz, trabalho / "reels")
