@@ -1,0 +1,22 @@
+[  0.0-  2.5] 5 plugins pra você instalar no Cloud ainda hoje.
+[  2.7-  6.0] E o ranqueado menos é o mais importante, porque o número 1 não é o que você imagina.
+[  6.1-  7.0] Nível Vic Haven.
+[  7.2- 10.7] Ele faz o Cloud responder curto, quase como um homem das cavernas.
+[ 10.8- 14.4] E o criador fala em uns 65% a menos de tokens nas respostas.
+[ 14.6- 16.9] Economiza cota, só que a resposta fica seca.
+[ 17.3- 17.7] Nível A.
+[ 18.2- 20.6] Superpowers com quase 300 mil estrelas no GitHub.
+[ 21.0- 25.7] Antes de sair escrevendo código, o Cloud faz perguntas, monta um plano e revisa o próprio trabalho.
+[ 25.9- 27.9] Menos retrabalho, mais acerto de primeira.
+[ 27.9- 31.2] Também nível A, Cloud Security, oficial da Antropic.
+[ 31.5- 35.9] Ele caça brecha de segurança no seu projeto antes que alguém mal intencionado encontre.
+[ 36.0- 37.2] E agora o nível S.
+[ 37.3- 40.2] No primeiro, o Frontend Design, também oficial.
+[ 40.5- 43.8] Ele faz o Cloud criar página de vendas com cara de designer.
+[ 43.9- 47.2] E não aquele visual genérico de IA que todo mundo já reconhece.
+[ 47.4- 49.1] E o número 1 é o mais simples de todos.
+[ 49.3- 50.2] Cloud Code Setup.
+[ 50.3- 52.7] Ele lê o seu projeto e te diz exatamente o que instalar.
+[ 53.0- 54.1] É o primeiro que você deveria rodar.
+[ 54.1- 56.8] O comando de instalação de cada um tá na legenda.
+[ 56.8- 59.8] E me diz nos comentários, qual você colocaria no nível S.

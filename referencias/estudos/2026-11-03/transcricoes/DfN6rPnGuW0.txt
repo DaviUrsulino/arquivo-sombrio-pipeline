@@ -1,0 +1,12 @@
+[  0.0-  3.0] Agora você pode virar o personagem de qualquer vídeo!
+[  3.4-  8.8] O Open Jutsu pega um vídeo e uma foto sua e refaz a cena com você no lugar da pessoa principal,
+[  9.1- 10.5] sem mandar nada pra nuvem.
+[ 10.8- 14.1] Você joga o vídeo e a foto, aperta Generate e pronto!
+[ 14.4- 18.7] O resto fica igual, a câmera, os cortes, o movimento e a trilha sonora.
+[ 19.2- 23.3] Aqui que tá o ouro, roda tudo no seu computador, com um modelo aberto,
+[ 23.7- 25.5] sem assinatura e sem servidor.
+[ 25.5- 31.6] E dá pra mais, trocar o cabelo, a roupa, tirar um objeto ou até levar a pessoa pra outro lugar.
+[ 32.1- 35.5] Quem fez foi o TheVoz e tá no GitHub, com licença MIT.
+[ 36.1- 40.3] Esse tipo de vídeo era coisa de plataforma fechada, agora tem versão aberta.
+[ 40.8- 43.9] Comenta Jutsu que eu te mando o link e o passo a passo no Direct.
+[ 44.3- 45.8] E me segue pra mais IA sim!

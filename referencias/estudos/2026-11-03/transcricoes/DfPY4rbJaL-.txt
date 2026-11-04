@@ -1,0 +1,8 @@
+[  0.0-  2.0] O Claude acabou com o After Effects!
+[  2.3-  5.8] Isso porque agora ele anima vídeos sozinho, sem você abrir programa nenhum.
+[  6.0-  9.0] Então eu criei uma skill que transforma o Claude num estúdio de Motion.
+[  9.1- 14.2] Você manda sua voz, ele anima, coloca a legenda palavra por palavra e entrega o vídeo pronto pro Reels.
+[ 14.5- 16.2] E olha isso, são 18 estilos.
+[ 16.5- 19.7] Ele cria o mascote da sua marca e ainda corta os erros do seu vídeo falado.
+[ 19.9- 23.9] Ou seja, um editor de Motion inteiro trabalhando pra você, sem pagar nenhum editor.
+[ 24.2- 26.0] Comenta Motion e me segue que eu te mando!

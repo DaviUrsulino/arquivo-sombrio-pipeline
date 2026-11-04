@@ -1,0 +1,12 @@
+[  0.0-  2.8] Esses três repositórios explodiram no GitHub esse mês.
+[  3.1-  5.7] E o primeiro faz de graça o que o Willevin Labs cobra.
+[  6.0-  7.4] Separei pra você não ter que procurar.
+[  7.9-  9.6] Em terceiro, Context Mode.
+[ 10.0- 12.5] Ele corta o lixo que as ferramentas jogam na conversa.
+[ 12.7- 14.4] E o seu limite do Cloud rende muito.
+[ 14.8- 17.8] Em segundo, o Auditor de Segurança da Cloudflare.
+[ 18.2- 22.2] Ele varre o seu código atrás de falha e confere cada uma antes de te avisar.
+[ 22.2- 26.3] E em primeiro, com quase 50 mil estrelas no mês, Void Studio.
+[ 26.3- 28.6] Clona Voz, dubla e transcreve.
+[ 28.7- 30.5] De graça, rodando o seu...
+[ 30.5- 33.8] Curta esse vídeo e comenta trio que eu te mando os três no seu direct.

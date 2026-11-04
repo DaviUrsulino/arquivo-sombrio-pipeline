@@ -1,0 +1,11 @@
+[  0.0-  1.7] Sua página de vendas demora para abrir?
+[  2.1-  4.9] Separei três skills que otimizam o carregamento da sua página.
+[  5.4-  7.4] Em terceiro lugar, Core Web Vitals.
+[  7.8- 11.6] Mede o que o Google usa para dizer se a sua página é lenta e já corrige ponto por ponto.
+[ 12.1- 13.7] Em segundo lugar, Performance.
+[ 14.0- 18.9] Encontra o que pesa e já otimiza as imagens, as fontes e os arquivos, sem a página perder qualidade.
+[ 19.4- 21.6] E em primeiríssimo lugar, Web Perth.
+[ 21.9- 25.3] Investiga o carregamento inteiro, acha o que está travando e já otimiza.
+[ 25.5- 28.6] Imagem grande, arquivo que demora e conteúdo que pula a tela.
+[ 28.6- 31.5] E você, sabe quanto tempo a sua página leva para abrir?
+[ 31.8- 36.4] Curte esse vídeo e comenta relógio que eu te mando as três com o pedido pronto para instalar no seu Direct.

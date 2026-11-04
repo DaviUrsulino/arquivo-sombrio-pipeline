@@ -11,6 +11,7 @@ Publicar exige INSTAGRAM_GRAPH_TOKEN e INSTAGRAM_USER_ID no .env (ver docs/estud
 import argparse
 import json
 import os
+import shutil
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -94,24 +95,43 @@ MIN_SEGUIDORES_TRIAL = 1000  # Trial Reels só liberam a partir daqui
 PUBLICAR_CARROSSEL = os.getenv("PUBLICAR_CARROSSEL") == "1"
 
 
+HASHTAGS = ["ia", "inteligenciaartificial", "claudecode", "automacao"]  # 3 a 5: o Instagram limita e trata como tema
+
+
+def cenas_da_pauta(dados_pauta: dict) -> list[dict]:
+    """A pauta automática guarda as cenas em `cenas_roteiro`; as pautas manuais antigas, em `cenas`.
+
+    Bug corrigido em 2026-11-04: legenda e identidades só olhavam `cenas`, então nos vídeos automáticos a 1ª linha
+    da legenda (e o gancho das identidades) caíam na descrição do repositório em vez do gancho escrito.
+    """
+    return dados_pauta.get("cenas") or dados_pauta.get("cenas_roteiro") or []
+
+
 def montar_legenda(dados_pauta: dict, repos: dict) -> str:
-    """Legenda curta + chamada + hashtags. Pauta com `legenda` própria (vídeo de venda) usa o texto dela."""
+    """Legenda pensada para a busca do Instagram (skill instagram-seo) e para o algoritmo (envios e salvos).
+
+    1ª linha = o gancho falado (é o que aparece antes do "mais"); logo depois a palavra para comentar; uma frase com a
+    palavra-chave do tema (o que alguém buscaria); passos para salvar; 1 a cada 3 posts pede para enviar a alguém;
+    3 a 5 hashtags de tema. Sem emoji (regra do Davi). Pauta com `legenda` própria (venda) usa o texto dela.
+    """
     if dados_pauta.get("legenda"):
         return dados_pauta["legenda"][:LIMITE_LEGENDA_INSTAGRAM]
-    hashtags = " ".join(f"#{t.replace('/', '').replace('-', '')}" for t in ["claude", "claudecode", "github", "ia"])
-    passos = dados_pauta.get("passos") or []
-    bloco_passos = ""
-    if passos:
-        bloco_passos = "Salva este vídeo pra usar com calma:\n" + "\n".join(f"{i}. {p}" for i, p in enumerate(passos, 1)) + "\n\n"
-    # 1ª linha da legenda = o gancho falado (problema/benefício pra quem assiste), que é o que segura o "ver mais";
-    # a descrição da ferramenta sozinha ("Componentes de vídeo para...") foi o padrão dos posts que menos renderam.
-    cenas = dados_pauta.get("cenas") or []
+    cenas = cenas_da_pauta(dados_pauta)
     gancho = (cenas[0].get("narracao") or "").strip() if cenas else ""
-    primeira = gancho or dados_pauta['capa']['subtitulo'].capitalize()
+    subtitulo = (dados_pauta.get("capa") or {}).get("subtitulo", "").strip()
+    primeira = gancho or subtitulo.capitalize()
+    palavra = dados_pauta["palavra_chave"]
+    passos = dados_pauta.get("passos") or []
+    bloco_passos = ("Salva este vídeo pra usar com calma:\n" + "\n".join(f"{i}. {p}" for i, p in enumerate(passos, 1)) + "\n\n") if passos else ""
+    tema = f"{subtitulo[:1].upper()}{subtitulo[1:]}.\n\n" if subtitulo and subtitulo.lower() != primeira.lower() else ""
+    envio = "Manda pra um amigo que vai querer usar isso.\n" if sum(map(ord, dados_pauta.get("titulo", ""))) % 3 == 0 else ""
+    hashtags = " ".join(f"#{t}" for t in HASHTAGS)
     texto = (
-        f"{primeira}\n\n"
+        f"{primeira}\n"
+        f"Comenta {palavra} que eu te mando o link no direct.\n\n"
+        f"{tema}"
         f"{bloco_passos}"
-        f"Comenta {dados_pauta['palavra_chave']} que eu te mando o link no direct.\n"
+        f"{envio}"
         f"Segue o @ursulino.ia pra não perder a próxima ferramenta de IA.\n\n{hashtags}"
     )
     return texto[:LIMITE_LEGENDA_INSTAGRAM]
@@ -160,6 +180,20 @@ def _registrar_estilo(media_id: str, molde: str):
     arquivo.write_text(json.dumps(atual, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
+def _registrar_pauta(media_id: str, caminho_pauta: Path, dados_pauta: dict, molde: str, formato: str):
+    """Liga o post à pauta que o gerou (gancho A/B, formato, estilo): base da repostagem e da comparação de ganchos."""
+    arquivo = RAIZ / "pautas" / "pauta_por_post.json"
+    atual = json.loads(arquivo.read_text(encoding="utf-8")) if arquivo.exists() else {}
+    try:
+        rel = str(Path(caminho_pauta).resolve().relative_to(RAIZ))
+    except ValueError:
+        rel = str(caminho_pauta)
+    atual[media_id] = {"pauta": rel, "gancho": dados_pauta.get("gancho", "A"), "formato": formato,
+                       "estilo": molde.removeprefix("estudio-").removeprefix("ident-").removesuffix(".html.tpl"),
+                       "repost_de": dados_pauta.get("repost_de"), "publicado_em": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+    arquivo.write_text(json.dumps(atual, ensure_ascii=False, indent=1), encoding="utf-8")
+
+
 def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) -> dict:
     if publicar and pausa.ativa():
         raise SystemExit(f"pausa de segurança ativa ({pausa.motivo()}): não publico agora")
@@ -193,21 +227,43 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
         # vídeo de uma ferramenta: rodízio por TODO o acervo de identidades (ident- com cenas próprias
         # do assunto, ou um molde estúdio comum) -- nunca só entre as 2 de identidade.py (2026-10-30).
         modelo_reels = identidade_do(dados_pauta.get("titulo", ""))
-    if modelo_reels.startswith("ident-"):
+    video = None
+    if (formato == "pixel2" and len(repos) == 1 and not dados_pauta.get("molde") and os.getenv("ESTUDIO_DIRETOR") == "1"):
+        # estúdio com direção (src/estudio_instagram/diretor): roteiro por acontecimento + storyboard por frase +
+        # portão de qualidade. Desligado por padrão; se o vídeo não passar no portão, cai no caminho antigo.
+        from .diretor import fazer as diretor_fazer
         dados = next(iter(repos.values()))
-        cenas_pauta = dados_pauta.get("cenas") or [{}]
+        try:
+            pasta_dir = trabalho / "diretor"
+            res = diretor_fazer.produzir(diretor_fazer.fatos_do_repo(dados.repo), pasta_dir, palavra=dados_pauta["palavra_chave"])
+            if res["aprovado"]:
+                video = pasta_saida / "reels.mp4"
+                pasta_saida.mkdir(parents=True, exist_ok=True)
+                shutil.copy(pasta_dir / "final.mp4", video)
+                duracao = res["qa"]["duracao"]
+                modelo_reels = "diretor-palco"
+            else:
+                print(f"estúdio com direção reprovado no portão (média {res['media']}); usando o caminho antigo")
+        except Exception as erro:
+            print(f"estúdio com direção falhou ({erro}); usando o caminho antigo")
+    if video is not None:
+        pass
+    elif modelo_reels.startswith("ident-"):
+        dados = next(iter(repos.values()))
+        cenas_pauta = cenas_da_pauta(dados_pauta) or [{}]
         plano = identidade.planejar(modelo_reels.removeprefix("ident-"), dados, buscar_readme(dados.repo),
                                     cenas_pauta[0].get("narracao") or dados.descricao, dados_pauta["palavra_chave"])
         duracao = identidade.montar(modelo_reels.removeprefix("ident-"), plano, voz, trabalho / "reels")
     else:
         duracao = montagem.montar_reels(dados_pauta, repos, voz, trabalho / "reels", modelo=modelo_reels)
-    if modelo_reels.startswith("estudio-") and repos:
+    if video is None and modelo_reels.startswith("estudio-") and repos:
         # o molde tier mostra o print real do repositório; os outros ignoram o arquivo
         try:
             github_dados.baixar_cartao(next(iter(repos)), trabalho / "reels" / "assets" / "cartao.png")
         except Exception as erro:  # sem print o molde mostra um quadro vazio, não vale travar o post
             print(f"não baixei o cartão do repositório ({erro})")
-    video = render.renderizar_reels(trabalho / "reels", pasta_saida / "reels.mp4")
+    if video is None:
+        video = render.renderizar_reels(trabalho / "reels", pasta_saida / "reels.mp4")
 
     if not PUBLICAR_CARROSSEL:
         slides = []
@@ -256,6 +312,7 @@ def executar(caminho_pauta: Path, pasta_saida: Path, *, publicar: bool = False) 
             registro["reels"]["media_id"] = reels_publicado.media_id
             _registrar_links(dados_pauta, repos, registro) if repos else None  # o Reels já saiu: o bot já pode responder
             _registrar_estilo(reels_publicado.media_id, modelo_reels)
+            _registrar_pauta(reels_publicado.media_id, caminho_pauta, dados_pauta, modelo_reels, formato)
             # Story desligado em 28/10: o Davi achou sem sentido (trecho do Reels repostado). Volta com STORIES=1
             # quando tiver um formato de Story próprio.
             if os.getenv("STORIES") == "1":

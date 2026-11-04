@@ -128,8 +128,12 @@ def estilo_de(media_id: str, mapa: dict) -> str:
     return mapa.get(media_id, "pixel antigo / manual")
 
 
-def analisar(reels: list[dict], estilos: dict | None = None) -> dict:
+PAUTAS = Path(__file__).resolve().parents[2] / "pautas" / "pauta_por_post.json"
+
+
+def analisar(reels: list[dict], estilos: dict | None = None, pautas: dict | None = None) -> dict:
     estilos = estilos if estilos is not None else (json.loads(ESTILOS.read_text(encoding="utf-8")) if ESTILOS.exists() else {})
+    pautas = pautas if pautas is not None else (json.loads(PAUTAS.read_text(encoding="utf-8")) if PAUTAS.exists() else {})
     por_hora = agrupar(reels, lambda r: faixa_horaria(r["hora"]))
     por_tema = agrupar(reels, lambda r: temas_de(r["legenda"]))
     ordenados = sorted(reels, key=lambda r: r.get("views", 0), reverse=True)
@@ -137,6 +141,7 @@ def analisar(reels: list[dict], estilos: dict | None = None) -> dict:
     melhor_hora = max(elegiveis(por_hora).items(), key=lambda kv: kv[1]["views_medianas"], default=None)
     melhor_tema = max(elegiveis(por_tema).items(), key=lambda kv: kv[1]["views_medianas"], default=None)
     return {
+        "por_gancho": agrupar(reels, lambda r: f"gancho {pautas[r['id']].get('gancho', 'A')}" if r["id"] in pautas else "sem registro"),
         "geral": resumo(reels), "por_estilo": agrupar(reels, lambda r: estilo_de(r["id"], estilos)), "por_formato": agrupar(reels, lambda r: formato_de(r["hora"])), "por_faixa_horaria": por_hora, "por_tema": por_tema,
         "melhor_faixa": melhor_hora[0] if melhor_hora else None, "melhor_tema": melhor_tema[0] if melhor_tema else None,
         "top": [{"id": r["id"], "views": r.get("views", 0), "salvos": r.get("saved", 0), "envios": r.get("shares", 0),
@@ -194,13 +199,18 @@ def main():
     load_dotenv(RAIZ / ".env")
     reels, _, seguidores = coletar(os.environ["INSTAGRAM_GRAPH_TOKEN"], os.environ["INSTAGRAM_USER_ID"])
     analise = analisar(reels)
+    from . import repostagem
+    reposts = repostagem.agendar(reels)  # vídeo abaixo da mediana ganha a mesma pauta com o gancho B, na fila do maestro
+    for r in reposts:
+        print(f"repostagem com outro gancho agendada: {r.name}")
     agora = datetime.now(BRASILIA).strftime("%Y-%m-%d %H:%M")
     RELATORIO.write_text(relatorio(analise, seguidores, agora), encoding="utf-8")
     DADOS.write_text(json.dumps({"gerado_em": agora, "seguidores": seguidores, **analise}, ensure_ascii=False, indent=2), encoding="utf-8")
     print(RELATORIO.read_text(encoding="utf-8"))
     if args.commit:
         try:
-            subprocess.run(["git", "add", str(RELATORIO), str(DADOS)], cwd=RAIZ, check=True)
+            extras = [str(p) for p in reposts] + ([str(repostagem.REGISTRO)] if reposts else [])
+            subprocess.run(["git", "add", str(RELATORIO), str(DADOS), *extras], cwd=RAIZ, check=True)
             if subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=RAIZ).returncode != 0:
                 subprocess.run(["git", "commit", "-m", "chore: análise de desempenho dos Reels [skip ci]"], cwd=RAIZ, check=True)
                 subprocess.run(["git", "pull", "--rebase", "-q"], cwd=RAIZ, check=True)

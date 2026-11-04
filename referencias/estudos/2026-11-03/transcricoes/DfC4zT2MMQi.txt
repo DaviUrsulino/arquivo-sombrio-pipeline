@@ -1,0 +1,16 @@
+[  0.0-  2.7] Terminei. Zero bugs. Pode subir pra produção.
+[  3.0-  5.4] Ninguém tem zero bugs. Chamei uma banca.
+[  5.7-  9.0] Uma banca pro meu código perfeito. Que fofo.
+[  9.5- 12.9] Primeiro, o code review. Ele caça os bugs no que você mudou.
+[ 13.2- 14.6] Achou quantos? Zero, né?
+[ 15.2- 18.1] Sete. E uma variável chamada agora vai.
+[ 18.6- 19.3] Ela ia, tá?
+[ 19.7- 24.2] Depois, o security review. Achei sua senha. No código. Em texto puro.
+[ 24.5- 25.2] Era só um teste.
+[ 25.8- 27.4] Parabéns. Agora ela é pública.
+[ 27.4- 32.3] E o Simplify chama quatro revisores ao mesmo tempo pra limpar tudo que você copiou e colou.
+[ 32.6- 33.5] E o veredito?
+[ 34.6- 36.0] Reprovado. Mas com carinho.
+[ 36.5- 38.0] Quer montar essa banca com o passo a passo?
+[ 38.3- 41.9] Comenta cinema e me segue. Porque o PDF só chega pra quem segue.
+[ 42.1- 42.6] É de graça.

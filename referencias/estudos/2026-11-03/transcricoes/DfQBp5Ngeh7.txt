@@ -1,0 +1,17 @@
+[  0.0-  3.8] O Claude faz um desenho animado pronto, a partir de uma frase só.
+[  4.1-  5.1] Você escreve a ideia.
+[  5.5-  8.9] Ele escreve a história, cria os personagens e monta cada cena.
+[  9.2- 12.9] Sem gerador de vídeo de IA, cada quadro é desenhado em código.
+[ 13.2- 18.7] Aí entra o narrador, uma voz calma do Eleven Labs, com música e efeito sonoro por baixo.
+[ 19.1- 20.0] O pulo do gato.
+[ 20.3- 22.9] Ele casa cada cena com a palavra que a voz fala.
+[ 23.2- 26.3] A voz diz tempestade e o raio cai na hora.
+[ 26.7- 27.5] Quer a cena de noite?
+[ 27.5- 28.3] É só pedir.
+[ 28.3- 30.8] Ele mexe no código e renderiza de novo.
+[ 31.1- 35.8] No fim, sai um MP4 pronto, no formato do YouTube, do Reels ou do Post.
+[ 36.1- 38.5] Saiu no GitHub, grátis, do DinoCAN.
+[ 38.7- 39.7] Instalar é simples.
+[ 40.0- 42.2] Cola o link no ClaudeCode e pede pra instalar.
+[ 42.6- 45.8] Comenta um desenho que eu te mando o link e o passo a passo na DM.
+[ 46.1- 48.4] E me segue pra receber mais ferramentas de IA.

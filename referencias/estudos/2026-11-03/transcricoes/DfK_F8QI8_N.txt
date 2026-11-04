@@ -1,0 +1,10 @@
+[  0.0-  3.1] Everyone is making high-level animations with Claude!
+[  3.1-  5.4] So why does yours look like bullshit?
+[  5.4-  8.2] Don't get upset! It's all about skills!
+[  8.2- 10.6] Claude alone can't make smooth animations,
+[ 10.6- 13.7] so people use skills to create premium motion design.
+[ 13.7- 17.2] So I built a skill that creates premium SaaS animations.
+[ 17.2- 19.9] Just download it, upload it to your skills, and type
+[ 19.9- 24.9] create a 15 second premium animation for this website using the skill I uploaded.
+[ 24.9- 29.4] And voila! Claude makes a SaaS animation that amazes everyone!
+[ 29.4- 32.2] Be quick and comment skill and I'll send it to you!

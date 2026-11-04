@@ -1,0 +1,30 @@
+[  0.0-  4.3] Of course, I gotta show you the most beautiful part, which is video games.
+[  5.5-  7.8] It is also the closest to our heart.
+[  8.7-  9.4] This is Forza.
+[ 10.3- 11.8] This is 007, by the way.
+[ 12.9- 15.5] The new 007 game, I'm looking forward to playing it.
+[ 16.3- 17.4] I look a little bit like him.
+[ 18.8- 23.7] Ladies and gentlemen, NVIDIA's RTX Spark laptops.
+[ 23.7- 24.7] Now...
+[ 24.7- 30.3] Thank you.
+[ 35.0- 36.8] I have too many things in my pocket.
+[ 37.9- 38.3] I don't know.
+[ 40.6- 41.2] Okay.
+[ 41.9- 42.2] All right.
+[ 42.7- 44.9] This is the most amazing chip the world has ever built.
+[ 46.0- 51.1] This is the N1X that we built in partnership with MediaTek.
+[ 51.6- 53.3] I think I saw Rick earlier.
+[ 53.5- 54.6] This is N1X.
+[ 54.7- 55.6] This is a beautiful chip.
+[ 56.2- 62.4] This is a chip that, frankly, would take 33 years to build.
+[ 63.0- 68.3] And the reason for that is because 100% of NVIDIA's software stack runs here.
+[ 69.4- 72.7] If you want to run digital biology, no problem.
+[ 72.8- 75.4] If you want to do seismic processing, no problem.
+[ 75.5- 77.0] You want astrophysics, no problem.
+[ 77.0- 78.9] Everything associated with CUDA.
+[ 78.9- 83.9] All the physics, all the biology, all the genomics, all the AI, no problem.
+[ 84.0- 85.5] All the computer graphics, no problem.
+[ 85.5- 94.1] Every single application NVIDIA has ever created and every single application that Windows has ever run.
+[ 95.8-105.7] Microsoft and NVIDIA meticulously optimized everything so that this computer literally runs everything the world has ever created.
+[105.7-109.5] Plus, it now runs agents.
+[110.2-111.6] An incredible computer.

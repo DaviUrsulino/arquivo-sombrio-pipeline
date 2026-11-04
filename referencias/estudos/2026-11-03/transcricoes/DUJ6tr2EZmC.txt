@@ -1,0 +1,18 @@
+[  0.0-  1.5] Eu sou o pão do seu hospital.
+[  1.7-  2.5] E meu recheio?
+[  2.7-  2.9] Pão.
+[  3.0-  3.6] Pão com pão.
+[  3.8-  4.7] Pão recheado de pão.
+[  4.9-  5.8] Pão com mais pão.
+[  5.9-  6.6] Sempre pão.
+[  6.7-  7.7] Sempre a mesma coisa.
+[  7.9-  9.5] Eu sou o frango do seu hospital.
+[  9.8- 10.2] Almoço?
+[ 10.3- 10.7] Sou eu.
+[ 10.8- 11.2] Jantar?
+[ 11.3- 11.8] Sou eu também.
+[ 12.1- 12.5] Domingo?
+[ 12.5- 12.8] Sou eu.
+[ 12.9- 13.3] Feriado?
+[ 13.4- 14.0] Sou eu também.
+[ 14.2- 15.8] Por favor, dê descanso à minha espécie.

@@ -1,0 +1,18 @@
+[  0.0-  2.8] Agora dá pra rodar IA dentro de uma tomada.
+[  3.5-  5.1] Calma, pera aí que eu te explico.
+[  5.7-  9.9] Um desenvolvedor conseguiu rodar uma IA dentro de um chip de automação.
+[ 10.4- 14.7] Aquele chipzinho que vai dentro de tomada inteligente, de interruptor inteligente,
+[ 14.7- 16.6] de lâmpada que liga pelo celular.
+[ 17.1- 18.4] Custa 8 dólares.
+[ 18.8- 22.2] E a IA roda ali dentro, sem nuvem e sem internet.
+[ 22.8- 25.2] Por enquanto, ela só escreve historinhas curtas.
+[ 25.6- 26.4] Mas pensa comigo.
+[ 26.4- 31.9] Se cabe nesse chipzinho, imagina na sua geladeira, no seu carro, no brinquedo do seu filho.
+[ 32.4- 33.1] E tem mais.
+[ 33.5- 37.2] Agora, um agente de IA também pode ganhar um celular próprio.
+[ 37.6- 40.0] Um Android de verdade, rodando na nuvem.
+[ 40.0- 44.8] Ele olha a tela, toca, digita e mexe nos apps igualzinho você.
+[ 45.2- 47.3] E isso já conecta no Cloud Code.
+[ 47.8- 48.5] Doideira, né?
+[ 48.9- 50.4] Comenta aqui o que você acha disso.
+[ 50.7- 52.9] Você tem medo ou acha esse avanço massa?

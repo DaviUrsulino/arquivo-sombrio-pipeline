@@ -33,3 +33,6 @@ produto/pack-pixel/__pycache__/
 # gerados localmente em testes de voz
 cache_voz/
 amostra_*.mp3
+logs_teste/
+videos_teste/
+videos_produzidos/

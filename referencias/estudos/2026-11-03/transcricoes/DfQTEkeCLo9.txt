@@ -1,0 +1,16 @@
+[  0.0-  3.0] O Google liberou uma IA que usa o celular sozinha.
+[  3.4-  6.5] É grátis, de código aberto e se chama Artemis.
+[  6.9-  8.5] Tá no GitHub oficial do Google.
+[  9.0- 12.5] Você conecta ela ao Cloud Code, ao Codex ou ao Cursor
+[ 12.5- 15.0] e pede pra IA mexer no celular por você.
+[ 15.4- 20.2] Tipo assim, abre as configurações, procura a bateria e me diz quantos porcento ainda tem.
+[ 20.6- 21.2] E ela faz.
+[ 21.5- 23.7] Abre os apps e toca na tela sozinha.
+[ 24.1- 25.6] Dá pra pedir coisa bem maior.
+[ 25.6- 29.8] Gera o app, instala no celular, faz login com uma conta de teste
+[ 29.8- 31.7] e me devolve os prints das telas.
+[ 32.0- 34.5] Ela já vem com MCP e tem dois modos.
+[ 34.8- 38.7] Um rápido pra tarefa simples e outro que planeja e confere se deu certo.
+[ 39.0- 44.3] O Hitme fala em mais de 99% das tarefas concluídas num teste do Google Resort.
+[ 44.7- 48.1] Comenta Artemis que eu te mando o repositório e o passo a passo na DM.
+[ 48.4- 50.8] E me segue pra receber mais ferramentas de IA.
