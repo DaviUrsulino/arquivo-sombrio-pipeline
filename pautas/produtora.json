@@ -1,0 +1,26 @@
+{
+ "estilos_usados": [
+  "brick-toy",
+  "brick-toy"
+ ],
+ "repos_usados": [
+  "vercel-labs/agent-desktop",
+  "vercel-labs/agent-desktop"
+ ],
+ "producoes": [
+  {
+   "quando": "2026-11-04T07:50",
+   "repo": "vercel-labs/agent-desktop",
+   "estilo": "brick-toy",
+   "ok": false,
+   "pasta": "/home/davi-ursulino-de-oliveira/Projetos/arquivo-sombrio-pipeline/videos_produzidos/2026-11-04-0738-agent-desktop-brick-toy"
+  },
+  {
+   "quando": "2026-11-04T08:14",
+   "repo": "vercel-labs/agent-desktop",
+   "estilo": "brick-toy",
+   "ok": false,
+   "pasta": "/home/davi-ursulino-de-oliveira/Projetos/arquivo-sombrio-pipeline/videos_produzidos/2026-11-04-0804-agent-desktop-brick-toy"
+  }
+ ]
+}
