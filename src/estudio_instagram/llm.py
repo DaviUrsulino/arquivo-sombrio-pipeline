@@ -10,6 +10,8 @@ Só usa a biblioteca padrão (urllib); nada de SDK nem `requests`, para o job do
 import json
 import os
 import re
+import shutil
+import subprocess
 import sys
 import time
 
@@ -127,4 +129,14 @@ def gerar_json(sistema: str, usuario: str) -> dict:
                                       MODELOS_MISTRAL, sistema, usuario)
         except LLMIndisponivel as erro:
             erros.append(f"Mistral: {erro}")
+    claude = shutil.which("claude")
+    if claude and os.environ.get("LLM_SEM_CLAUDE") != "1":
+        # último recurso LOCAL: o Claude Code da máquina (não existe no GitHub Actions, então lá nada muda)
+        try:
+            r = subprocess.run([claude, "-p", "--model", os.environ.get("LLM_CLAUDE_MODELO", "sonnet"),
+                                f"{sistema}\n\n---\n\n{usuario}\n\nResponda só com o JSON pedido, sem texto fora dele."],
+                               capture_output=True, text=True, timeout=300, cwd="/tmp")
+            return extrair_json(r.stdout)
+        except Exception as erro:
+            erros.append(f"Claude CLI: {erro}")
     raise LLMIndisponivel("nenhum provedor respondeu: " + " | ".join(erros) if erros else "nenhuma chave de LLM configurada")

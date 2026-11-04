@@ -141,6 +141,19 @@ def _variedade(plano: dict, cenas: list[dict]):
         if len({mundo_de(c) for c in cenas}) < 3:
             k = 2 if mundo_de(cenas[2]) == principal else 3
             cenas[k]["mundo"] = MUNDO_DE_VIRADA.get(principal, "oficina")
+    # nenhum mundo em mais de 3 cenas (o crítico reprovou 4 cenas seguidas na oficina)
+    contagem = {}
+    for i, c in enumerate(cenas[:-1]):
+        m = mundo_de(c)
+        contagem[m] = contagem.get(m, 0) + 1
+        if contagem[m] > 3:
+            alt = MUNDO_DE_VIRADA.get(m, "palco")
+            if i and mundo_de(cenas[i - 1]) == alt:
+                alt = "cor"
+            c["mundo"] = alt
+            if alt == "cor":
+                c["fundo_cor"] = c.get("fundo_cor") or ["rosa", "azul", "verde"][i % 3]
+            contagem[alt] = contagem.get(alt, 0) + 1
     # câmera: nenhuma mais de 2 vezes e nunca igual à anterior
     usos = {}
     for i, c in enumerate(cenas[:-1]):

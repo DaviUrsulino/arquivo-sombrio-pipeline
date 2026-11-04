@@ -28,6 +28,7 @@ FÓRMULA (medida nos Reels que mais viralizam no nicho):
 
 REGRAS:
 - Português do Brasil falado, frases de 5 a 13 palavras, verbo no presente, sem emoji, sem hashtag, sem símbolos.
+- Escreva "IA", nunca "inteligência artificial". Não repita a mesma palavra forte em frases seguidas.
 - Siglas e comandos como se fala. Nada de jargão (SDK, DOM, endpoint, deploy) sem traduzir.
 - SÓ use fatos do bloco FATOS. Não invente número, empresa, recurso nem resultado. Números grandes por extenso
   aproximado é ok ("mais de quarenta mil estrelas") se o número exato estiver nos fatos.

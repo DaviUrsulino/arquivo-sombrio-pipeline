@@ -435,10 +435,12 @@
   // DIREÇÃO: pose do robô por ação, posição dos objetos, câmera
   // ======================================================================
   const V = (x, y, z) => new THREE.Vector3(x, y, z);
-  const ROBO_X = (c, m) => (m.alvo ? (m.alvo.tam === "grande" ? -1.15 : -1.05) : 0);
+  // o lado do robô alterna por cena (espelha a composição) para nenhuma cena parecer a anterior
+  const LADO = (c) => (CEN.indexOf(c) % 2 ? -1 : 1);
+  const ROBO_X = (c, m) => (m.alvo ? (m.alvo.tam === "grande" ? -1.25 : -1.1) * LADO(c) : 0);
   // composição das referências: objeto grande ATRÁS e acima do robô (como o celular gigante atrás do mascote); pequeno ao lado, no chão
   const NO_CHAO = { equipe: 0, grafico: 0, maquina: 0, notebook: 0.05, placa: 2.1, monitor: 2.2 };
-  const ALVO_POS = (c, m) => (m.alvo && m.alvo.tam === "grande" ? V(0.95, NO_CHAO[c.objeto] ?? 3.5, c.objeto in NO_CHAO ? -1.3 : -1.8) : V(1.55, 0.75, 0.6));
+  const ALVO_POS = (c, m) => (m.alvo && m.alvo.tam === "grande" ? V(0.7 * LADO(c), (NO_CHAO[c.objeto] ?? 3.9) * (c.objeto in NO_CHAO ? 1 : 1), c.objeto in NO_CHAO ? -1.6 : -2.4) : V(1.65 * LADO(c), 1.0, 0.5));
   // planos bem diferentes entre si (o crítico reclamou de câmeras parecidas); "rol" inclina o horizonte
   const CAMS = {
     frente: (k) => ({ p: V(0, 3.2, mix(19.5, 17.5, k)), a: V(0, 2.3, 0), rol: 0 }),
@@ -620,13 +622,13 @@
     montagem.forEach((mm, k) => { [mm.alvo, mm.mao].forEach((o) => { if (o) o.g.visible = false; }); if (mm.marca) mm.marca.visible = false; });
     if (m.alvo) { const o = m.alvo, base = ALVO_POS(c, m); o.g.visible = true; const u = backOut(seg(lt, 0.08, 0.5), 2.2);
       const emp = c.acao === "empurra" ? mix(-3, 0, suave(seg(lt, 0, 1.2))) : 0;
-      o.g.position.set(base.x + emp, base.y + (o.tam === "grande" ? 0.06 * Math.sin(t * 2) : 0), base.z); o.g.scale.setScalar(Math.max(0.001, u) * (o.tam === "grande" ? 1.25 : 1.2) * (o.g.userData.fit || 1));
-      o.g.rotation.set(0, -0.28 + 0.05 * Math.sin(t * 1.5), 0);
+      o.g.position.set(base.x + emp, base.y + (o.tam === "grande" ? 0.06 * Math.sin(t * 2) : 0), base.z); o.g.scale.setScalar(Math.max(0.001, u) * (o.tam === "grande" ? 1.85 : 1.7) * (o.g.userData.fit || 1));
+      o.g.rotation.set(0, -0.2 * LADO(c) + 0.05 * Math.sin(t * 1.5), 0);
       if (c.acao === "martela") { const ciclo = (lt - 0.35) / 0.6, fase = ciclo - Math.floor(ciclo); if (lt > 0.35 && ciclo < 3 && fase > 0.55 && fase < 0.7) o.g.scale.y *= 0.88; }
       if (o.anima) o.anima(lt, t); }
     if (m.mao) { const o = m.mao; o.g.visible = true; const ref = bD.userData.mao; ref.updateWorldMatrix(true, false); const wp = new THREE.Vector3(); ref.getWorldPosition(wp);
       o.g.position.copy(wp); const q = new THREE.Quaternion(); bD.getWorldQuaternion(q); o.g.quaternion.copy(q); o.g.rotateX(Math.PI);
-      if (c.acao === "segura") { o.g.quaternion.identity(); o.g.position.x += 0.75; o.g.position.y += 0.75; o.g.rotation.y = -0.3 + 0.1 * Math.sin(t * 2); }
+      if (c.acao === "segura") { o.g.quaternion.identity(); o.g.position.x += 0.75 * LADO(c); o.g.position.y += 0.75; o.g.rotation.y = -0.3 + 0.1 * Math.sin(t * 2); }
       if (c.acao === "observa") { o.g.quaternion.identity(); o.g.rotation.z = 0.3; }
       o.g.scale.setScalar(backOut(seg(lt, 0.0, 0.3)) * (o.ferramenta ? 1 : 0.8)); if (o.anima) o.anima(lt, t); }
     if (m.marca) { const on = lt > 0.58; m.marca.visible = on; const a = ALVO_POS(c, m); m.marca.position.set(a.x, a.y + (m.alvo && m.alvo.tam === "grande" ? 0 : 0.9), a.z + 0.9); m.marca.rotation.z = -0.18; m.marca.scale.setScalar(on ? mix(1.6, 1, backOut(seg(lt, 0.58, 0.75))) : 1); }
@@ -646,7 +648,7 @@
     let alvoExp = null; if (EXP) alvoExp = experimentoQuadro(t, i, lt, c);
     // câmera: plano da cena com empurrão constante (nunca parada) + chicote na entrada
     const camNome = CAMS[c.camera] ? c.camera : "frente";
-    const cc = CAMS[camNome](k); let offX = rx * 0.35 + (m.alvo ? 0.35 : 0);
+    const cc = CAMS[camNome](k); let offX = rx * 0.35 + (m.alvo ? 0.35 * LADO(c) : 0);
     if (alvoExp) { offX = alvoExp.x * 0.8; cc.p.z += alvoExp.z * 0.8 + (c.foco ? -2 : 3); cc.a.z += alvoExp.z * 0.8; cc.a.y += c.foco ? 0.6 : 0; }
     let chic = 0; if (c.transicao === "chicote" && i > 0) chic = 1 - suave(seg(lt, 0, 0.22));
     cam.position.set(cc.p.x + offX + chic * 7, cc.p.y, cc.p.z); cam.lookAt(cc.a.x + offX + chic * 4, cc.a.y, cc.a.z); cam.rotateZ(cc.rol || 0);
