@@ -383,5 +383,10 @@
     "palavra": "SIMULADOR",
     "mensagem": "Oi! Aqui está o teardown.\n\nTransforma qualquer máquina em um simulador 3D interativo em HTML para você desmontar e entender como funciona.\n\nComo começar:\n1. Instale a skill executando npx skills add elvarofficial/teardown -g -a claude-code\n2. Rode npm install && npx playwright install chromium na pasta do projeto\n3. Peça ao Claude Code para construir o simulador da máquina que você quer ver\n\nPra testar hoje: Gere um exemplo pronto de motor V8 executando node sims/build.mjs v8-live no terminal.\n\nLink: https://github.com/elvarofficial/teardown\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
     "repo": "elvarofficial/teardown"
+  },
+  "18191637364405338": {
+    "palavra": "MEMORIA",
+    "mensagem": "Oi! Aqui está o claude-mem.\n\nEle mantém a memória e o histórico do seu agente de IA entre diferentes sessões para não perder o contexto do projeto.\n\nComo começar:\n1. Execute npx claude-mem install no seu terminal.\n2. Faça login no claude-mem através do navegador.\n3. Escolha o seu provedor de memória após o login.\n\nPra testar hoje: Para instalar diretamente no OpenCode, rode o comando npx claude-mem install --ide opencode no terminal.\n\nLink: https://github.com/thedotmack/claude-mem\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
+    "repo": "thedotmack/claude-mem"
   }
 }
