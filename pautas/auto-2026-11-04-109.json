@@ -1,0 +1,215 @@
+{
+  "titulo": "teardown: roteiro automático",
+  "formato": "pixel2",
+  "palavra_chave": "SIMULADOR",
+  "perfil": "@ursulino.ia",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "transforme qualquer maquina em simulador tridimensional no claude code"
+  },
+  "chamada": {
+    "pergunta": "quer o link do repositório?"
+  },
+  "itens": [
+    {
+      "repo": "elvarofficial/teardown",
+      "nome": "teardown",
+      "cor": "azul",
+      "promessa": "A Claude Code skill that turns any machine into a 3D simulator you can take apar",
+      "texto": "A Claude Code skill that turns any machine into a 3D simulator you can take apart"
+    }
+  ],
+  "destaques": [
+    "simulador tridimensional",
+    "desmonte peca por peca",
+    "pagina html",
+    "numeros reais",
+    "simulador"
+  ],
+  "cenas_roteiro": [
+    {
+      "narracao": "Peça qualquer máquina para o Claude e veja virar um simulador tridimensional.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "SIMULADOR",
+            "cor": "branco",
+            "tamanho": 130
+          },
+          {
+            "texto": "3D NO CLAUDE",
+            "cor": "laranja",
+            "tamanho": 110
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "O Claude constrói tudo sozinho em uma única página html offline.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "cadeia",
+        "layout": "horizontal",
+        "nos": [
+          {
+            "icone": "bot",
+            "rotulo": "CLAUDE",
+            "cor": "azul"
+          },
+          {
+            "icone": "code-xml",
+            "rotulo": "HTML",
+            "cor": "amarelo"
+          },
+          {
+            "icone": "clapperboard",
+            "rotulo": "SIMULADOR",
+            "cor": "verde"
+          }
+        ]
+      }
+    },
+    {
+      "narracao": "Cada painel mostra números reais e você pode desmontar tudo.",
+      "humor": "pensando",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "check",
+        "cor": "verde",
+        "rotulo": "DADOS REAIS"
+      }
+    },
+    {
+      "narracao": "Você pode pedir um motor de moto ou um relógio mecânico.",
+      "humor": "feliz",
+      "visual": {
+        "tipo": "lista",
+        "itens": [
+          "motor de moto",
+          "relogio mecanico",
+          "escavadeira"
+        ]
+      }
+    },
+    {
+      "narracao": "O projeto já ultrapassou {estrelas:elvarofficial/teardown} estrelas no github.",
+      "humor": "animado",
+      "visual": {
+        "tipo": "contador",
+        "repo": "elvarofficial/teardown"
+      }
+    },
+    {
+      "narracao": "Instale com o comando npx skills add elvarofficial/teardown e comece.",
+      "humor": "normal",
+      "visual": {
+        "tipo": "terminal",
+        "rotulo": "terminal",
+        "comando": "npx skills add elvarofficial/teardown -g -a claude-code",
+        "texto": "instalar skill"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "SIMULADOR 3D",
+          "cor": "branco",
+          "tamanho": 108
+        },
+        {
+          "texto": "NO CLAUDE",
+          "cor": "laranja",
+          "tamanho": 90
+        }
+      ],
+      "subtitulo": "conheça o elvarofficial/teardown"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "O QUE É",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "SIMULADOR 3D",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "teardown",
+      "texto": "Uma skill do Claude Code que transforma qualquer máquina em um simulador tridimensional interativo."
+    },
+    {
+      "tipo": "comando",
+      "fase": "INSTALAR",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "COMO USAR",
+          "cor": "verde"
+        }
+      ],
+      "comando": "npx skills add elvarofficial/teardown -g -a claude-code",
+      "texto": "Instale a skill no Claude Code antes de usar.",
+      "rotulo": "terminal"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "EXEMPLO",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "PEÇAS E DADOS",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "recursos",
+      "texto": "O Claude monta uma página html com painéis mostrando números reais e opção de desmontar."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "BÔNUS",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "LICENÇA MIT",
+          "cor": "amarelo"
+        }
+      ],
+      "rotulo": "licenca",
+      "texto": "Distribuído sob licença MIT, exigindo Node.js vinte ou mais e ffmpeg para vídeo."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER O LINK",
+          "cor": "branco"
+        },
+        {
+          "texto": "DO REPO?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando o link do repositório no direct.",
+      "palavra": "SIMULADOR",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "passos": [
+    "Instale com o comando npx skills add elvarofficial/teardown -g -a claude-code",
+    "Execute npm install e instale o playwright",
+    "Peça um simulador em linguagem natural para o Claude Code"
+  ],
+  "gancho": "A",
+  "ganchos_alternativos": [
+    "Peça qualquer simulador tridimensional para o Claude e desmonte peça por peça",
+    "Transforme qualquer máquina em simulador tridimensional interativo usando o Claude Code"
+  ]
+}

@@ -378,5 +378,10 @@
     "palavra": "GITHUB",
     "mensagem": "Oi! Aqui estão os repositórios do vídeo:\n1. claude-code-mods: https://github.com/hamzafer/claude-code-mods\n2. worktrunk: https://github.com/max-sixty/worktrunk\n3. postman-app-support: https://github.com/postmanlabs/postman-app-support\nSe curtir, segue o @ursulino.ia pra mais ferramentas de IA.",
     "repo": "hamzafer/claude-code-mods"
+  },
+  "18135587014708795": {
+    "palavra": "SIMULADOR",
+    "mensagem": "Oi! Aqui está o teardown.\n\nTransforma qualquer máquina em um simulador 3D interativo em HTML para você desmontar e entender como funciona.\n\nComo começar:\n1. Instale a skill executando npx skills add elvarofficial/teardown -g -a claude-code\n2. Rode npm install && npx playwright install chromium na pasta do projeto\n3. Peça ao Claude Code para construir o simulador da máquina que você quer ver\n\nPra testar hoje: Gere um exemplo pronto de motor V8 executando node sims/build.mjs v8-live no terminal.\n\nLink: https://github.com/elvarofficial/teardown\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
+    "repo": "elvarofficial/teardown"
   }
 }
