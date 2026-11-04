@@ -1,0 +1,15 @@
+{
+ "titulo": "motion-video-director: teste aprovado (esquete)",
+ "formato": "pronto",
+ "video_pronto_url": "https://github.com/DaviUrsulino/arquivo-sombrio-pipeline/releases/download/midia-publicacao/teste-aprovado-10-esquete-diretor.mp4",
+ "palavra_chave": "DIRETOR",
+ "legenda": "Pedi um vídeo bem editado pra IA e veio um lixo. Não era o prompt.\nComenta DIRETOR que eu te mando o link no direct.\n\nEditar vídeo com IA: a skill que faz o Claude planejar, animar e revisar como um diretor.\n\nSalva este vídeo pra usar com calma:\n1. Instale a skill motion-video-director\n2. Peça o vídeo e deixe ela planejar antes de codar\n3. Ela revisa os próprios quadros antes de entregar\n\nManda pra um amigo que vai querer usar isso.\nSegue o @ursulino.ia pra não perder a próxima ferramenta de IA.\n\n#ia #inteligenciaartificial #claudecode #automacao",
+ "itens": [
+  {
+   "repo": "MuhammadaliMS/motion-video-director"
+  }
+ ],
+ "estilo": "esquete",
+ "gancho": "A",
+ "ganchos_alternativos": []
+}

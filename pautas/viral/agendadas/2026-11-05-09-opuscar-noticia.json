@@ -1,0 +1,15 @@
+{
+ "titulo": "claude-mem: teste aprovado (dossie)",
+ "formato": "pronto",
+ "video_pronto_url": "https://github.com/DaviUrsulino/arquivo-sombrio-pipeline/releases/download/midia-publicacao/teste-aprovado-09-opuscar-noticia.mp4",
+ "palavra_chave": "MEMORIA",
+ "legenda": "Tem gente fazendo o Claude lembrar de tudo, mesmo depois de fechar a conversa.\nComenta MEMORIA que eu te mando o link no direct.\n\nMemória pra Claude Code que funciona também no Codex, no Gemini e no Copilot.\n\nSalva este vídeo pra usar com calma:\n1. Instale com um comando só\n2. Reinicie o Claude Code\n3. Na próxima conversa ele já lembra do que vocês fizeram\n\nSegue o @ursulino.ia pra não perder a próxima ferramenta de IA.\n\n#ia #inteligenciaartificial #claudecode #automacao",
+ "itens": [
+  {
+   "repo": "thedotmack/claude-mem"
+  }
+ ],
+ "estilo": "dossie",
+ "gancho": "A",
+ "ganchos_alternativos": []
+}

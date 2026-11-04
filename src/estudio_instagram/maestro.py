@@ -58,7 +58,14 @@ def rodadas_do_dia(dia: str) -> list[tuple[str, str]]:
 
 
 # Pauta pronta e aprovada que substitui o formato de uma rodada: {"AAAA-MM-DD": {"HH:MM": "caminho"}}.
-PAUTAS_DO_DIA = {"2026-10-21": {"23:30": "pautas/viral/geo-sleuth-novo.json"}}  # reposta do geo-sleuth no ritmo novo (cota de hoje não comporta antes)
+PAUTAS_DO_DIA = {
+    "2026-10-21": {"23:30": "pautas/viral/geo-sleuth-novo.json"},  # reposta do geo-sleuth no ritmo novo
+    # 2026-11-04: os 3 vídeos de teste que o Davi aprovou (feitos por agente com skill de estilo), já renderizados
+    # e hospedados (pauta de vídeo pronto: o pipeline só baixa e publica).
+    "2026-11-05": {"08:00": "pautas/viral/agendadas/2026-11-05-09-opuscar-noticia.json"},   # dossiê, claude-mem
+    "2026-11-07": {"08:00": "pautas/viral/agendadas/2026-11-07-08-opuscar-pixel-rpg.json"},  # pixel RPG, game studios
+    "2026-11-08": {"20:00": "pautas/viral/agendadas/2026-11-08-10-esquete-diretor.json"},    # esquete Davi x robô
+}
 # Banco de vídeos: pautas prontas e aprovadas em pautas/viral/fila/. A rodada FILA_RODADA de cada dia usa a próxima
 # que ainda não saiu (em ordem de nome); sem nada na fila, segue o formato normal da rodada.
 FILA = RAIZ / "pautas" / "viral" / "fila"
