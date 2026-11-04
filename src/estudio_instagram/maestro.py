@@ -119,8 +119,8 @@ def decidir(agora: datetime, estado: dict) -> tuple[str | None, dict]:
 
 
 # Validade no banco (Davi, 04/11: "não ficar armazenando vídeo demais"): assunto do momento esfria em menos de um
-# dia; vídeo de ferramenta aguenta uns 3 dias. Vencido não sai mais.
-VALIDADE = {"em-alta": timedelta(hours=20), "padrao": timedelta(hours=72)}
+# dia e meio (30 h cobre a noite até a próxima rodada); vídeo de ferramenta aguenta uns 3 dias. Vencido não sai.
+VALIDADE = {"em-alta": timedelta(hours=30), "padrao": timedelta(hours=72)}
 
 
 def _feito_em(arquivo: Path) -> datetime | None:
