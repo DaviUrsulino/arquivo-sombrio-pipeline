@@ -1,0 +1,175 @@
+{
+  "titulo": "lista: programar e criar com inteligência artificial",
+  "formato": "pixel2",
+  "palavra_chave": "GITHUB",
+  "perfil": "@ursulino.ia",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "ferramentas incríveis do github para facilitar o seu código"
+  },
+  "chamada": {
+    "pergunta": "quer os links dos repositórios?"
+  },
+  "itens": [
+    {
+      "repo": "hamzafer/claude-code-mods",
+      "nome": "claude-code-mods",
+      "cor": "azul",
+      "promessa": "Claude Code mods: plugins built on hooks that add live lines above the prompt, g",
+      "texto": "Exibe o trabalho do Claude ao vivo."
+    },
+    {
+      "repo": "max-sixty/worktrunk",
+      "nome": "worktrunk",
+      "cor": "verde",
+      "promessa": "Worktrunk is a CLI for Git worktree management, designed for parallel AI agent w",
+      "texto": "Gerencia tarefas paralelas de agentes com git."
+    },
+    {
+      "repo": "postmanlabs/postman-app-support",
+      "nome": "postman-app-support",
+      "cor": "laranja",
+      "promessa": "Postman is an API platform for building and using APIs. Postman simplifies each ",
+      "texto": "Simplifica o desenvolvimento de apis."
+    }
+  ],
+  "destaques": [
+    "claude code mods",
+    "work trunk",
+    "postman app support",
+    "github"
+  ],
+  "cenas_roteiro": [
+    {
+      "humor": "animado",
+      "narracao": "Três repositórios grátis para programar e criar com inteligência artificial.",
+      "cor": "verde",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "3 REPOS PARA",
+            "cor": "branco",
+            "tamanho": 100
+          },
+          {
+            "texto": "DEVS COM IA",
+            "cor": "verde",
+            "tamanho": 110
+          }
+        ]
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Primeiro: claude code mods. Exibe o trabalho do Claude ao vivo.",
+      "cor": "azul",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "sparkles",
+        "cor": "azul",
+        "rotulo": "CLAUDE CODE MODS"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Segundo: work trunk. Gerencia tarefas paralelas de agentes com git.",
+      "cor": "verde",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "git-fork",
+        "cor": "verde",
+        "rotulo": "WORKTRUNK"
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Terceiro: postman app support. Simplifica o desenvolvimento de apis.",
+      "cor": "laranja",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "code-xml",
+        "cor": "laranja",
+        "rotulo": "POSTMAN APP SUPPORT"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "3 REPOS PARA",
+          "cor": "branco",
+          "tamanho": 96
+        },
+        {
+          "texto": "DEVS COM IA",
+          "cor": "verde",
+          "tamanho": 96
+        }
+      ],
+      "subtitulo": "ferramentas incríveis do github para facilitar o seu código"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 1",
+      "progresso": 0.33,
+      "linhas": [
+        {
+          "texto": "CLAUDE CODE MODS",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "claude-code-mods",
+      "texto": "Exibe o trabalho do Claude ao vivo."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 2",
+      "progresso": 0.67,
+      "linhas": [
+        {
+          "texto": "WORKTRUNK",
+          "cor": "verde"
+        }
+      ],
+      "rotulo": "worktrunk",
+      "texto": "Gerencia tarefas paralelas de agentes com git."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 3",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "POSTMAN APP SUPPOR",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "postman-app-support",
+      "texto": "Simplifica o desenvolvimento de apis."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER OS LINKS",
+          "cor": "branco"
+        },
+        {
+          "texto": "DOS REPOS?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando os links no direct.",
+      "palavra": "GITHUB",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "legenda": "Três repositórios grátis para programar e criar com inteligência artificial\n\nSalva este vídeo:\n1. Claude Code Mods: Exibe o trabalho do Claude ao vivo.\n2. Worktrunk: Gerencia tarefas paralelas de agentes com git.\n3. Postman App Support: Simplifica o desenvolvimento de apis.\n\nManda pra um amigo dev, segue o @ursulino.ia e comenta GITHUB que eu te mando os links no direct.\n\nQuer aprender a fazer vídeos assim? Link na bio.\n\n#claudecode #github #ia #programacao #opensource",
+  "cor_final": "verde"
+}

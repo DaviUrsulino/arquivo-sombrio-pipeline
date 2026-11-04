@@ -80,6 +80,7 @@
     "google/adk-python",
     "google/artemis",
     "google/elephant-goldfish-model",
+    "hamzafer/claude-code-mods",
     "haydenschmitty/floorplan",
     "headroomlabs-ai/headroom",
     "heydamir/unslop",
@@ -99,6 +100,7 @@
     "makecindy/cindy",
     "marmottajr/habblaud",
     "mattpocock/skills",
+    "max-sixty/worktrunk",
     "microsoft/TokenEconomizer",
     "mikehasa/agentacct",
     "milind-soni/OpenMausBot",
@@ -124,6 +126,7 @@
     "patchy631/ai-engineering-hub",
     "pbakaus/impeccable",
     "plandex-ai/plandex",
+    "postmanlabs/postman-app-support",
     "realmyang/MLView",
     "rehan-remade/universal-modder",
     "remotion-dev/remotion",
@@ -164,5 +167,5 @@
     "zenstory-ai/drama-skills",
     "zhaoxuya520/reverse-skill"
   ],
-  "pautas_geradas": 78
+  "pautas_geradas": 79
 }

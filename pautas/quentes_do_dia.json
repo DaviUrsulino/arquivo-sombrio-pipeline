@@ -1,108 +1,133 @@
 {
- "dia": "2026-11-03",
+ "dia": "2026-11-04",
  "itens": [
+  {
+   "repo": "vercel-labs/agent-desktop",
+   "nota": 1.0,
+   "fontes": 1
+  },
+  {
+   "repo": "postmanlabs/postman-app-support",
+   "nota": 1.0,
+   "fontes": 1
+  },
   {
    "repo": "deepseek-ai/dsh-superagent-prototype",
    "nota": 1.0,
    "fontes": 1
   },
   {
-   "repo": "vercel-labs/agent-desktop",
-   "nota": 0.705,
-   "fontes": 1
-  },
-  {
-   "repo": "thedotmack/claude-mem",
-   "nota": 0.558,
-   "fontes": 1
-  },
-  {
    "repo": "heydamir/unslop",
-   "nota": 0.473,
-   "fontes": 1
-  },
-  {
-   "repo": "Donchitos/Claude-Code-Game-Studios",
-   "nota": 0.427,
+   "nota": 0.449,
    "fontes": 1
   },
   {
    "repo": "wangzan101/Mika",
-   "nota": 0.401,
+   "nota": 0.361,
+   "fontes": 1
+  },
+  {
+   "repo": "Donchitos/Claude-Code-Game-Studios",
+   "nota": 0.312,
    "fontes": 1
   },
   {
    "repo": "mattpocock/skills",
-   "nota": 0.266,
+   "nota": 0.307,
+   "fontes": 1
+  },
+  {
+   "repo": "thedotmack/claude-mem",
+   "nota": 0.3,
    "fontes": 1
   },
   {
    "repo": "patch-gg/pixelfx",
-   "nota": 0.265,
-   "fontes": 1
-  },
-  {
-   "repo": "aaitor/skill-video-studio",
-   "nota": 0.219,
+   "nota": 0.246,
    "fontes": 1
   },
   {
    "repo": "paipiange/nvzhuang",
-   "nota": 0.154,
-   "fontes": 1
-  },
-  {
-   "repo": "l0ng-ai/openidea",
-   "nota": 0.132,
-   "fontes": 1
-  },
-  {
-   "repo": "kornia/kornia",
-   "nota": 0.128,
-   "fontes": 1
-  },
-  {
-   "repo": "paperclipai/paperclip",
-   "nota": 0.128,
-   "fontes": 1
-  },
-  {
-   "repo": "elvarofficial/teardown",
-   "nota": 0.096,
-   "fontes": 1
-  },
-  {
-   "repo": "caru-ini/stack-diagram",
-   "nota": 0.091,
-   "fontes": 1
-  },
-  {
-   "repo": "NiazMorshed2007/reanimate",
-   "nota": 0.072,
-   "fontes": 1
-  },
-  {
-   "repo": "jacke-pp/open-yoki",
-   "nota": 0.063,
-   "fontes": 1
-  },
-  {
-   "repo": "sleepy-zone/ai-ref-library-cn",
-   "nota": 0.05,
-   "fontes": 1
-  },
-  {
-   "repo": "mromidev/claude-animated-shorts",
-   "nota": 0.049,
-   "fontes": 1
-  },
-  {
-   "repo": "N1nEmAn/sapper-v2",
-   "nota": 0.046,
+   "nota": 0.126,
    "fontes": 1
   },
   {
    "repo": "max-sixty/worktrunk",
+   "nota": 0.116,
+   "fontes": 1
+  },
+  {
+   "repo": "aaitor/skill-video-studio",
+   "nota": 0.113,
+   "fontes": 1
+  },
+  {
+   "repo": "elvarofficial/teardown",
+   "nota": 0.098,
+   "fontes": 1
+  },
+  {
+   "repo": "caru-ini/stack-diagram",
+   "nota": 0.092,
+   "fontes": 1
+  },
+  {
+   "repo": "mromidev/claude-animated-shorts",
+   "nota": 0.073,
+   "fontes": 1
+  },
+  {
+   "repo": "NiazMorshed2007/reanimate",
+   "nota": 0.065,
+   "fontes": 1
+  },
+  {
+   "repo": "Usagi-org/ai-goofish-monitor",
+   "nota": 0.06,
+   "fontes": 1
+  },
+  {
+   "repo": "finic-ai/kairos",
+   "nota": 0.056,
+   "fontes": 1
+  },
+  {
+   "repo": "Muvon/octomind",
+   "nota": 0.05,
+   "fontes": 1
+  },
+  {
+   "repo": "RikiyaT/lm_understand-logs",
+   "nota": 0.044,
+   "fontes": 1
+  },
+  {
+   "repo": "sleepy-zone/ai-ref-library-cn",
+   "nota": 0.042,
+   "fontes": 1
+  },
+  {
+   "repo": "N1nEmAn/sapper-v2",
+   "nota": 0.039,
+   "fontes": 1
+  },
+  {
+   "repo": "Balanov/uncut",
+   "nota": 0.035,
+   "fontes": 1
+  },
+  {
+   "repo": "rerun-build/rerun",
+   "nota": 0.035,
+   "fontes": 1
+  },
+  {
+   "repo": "wquguru/cicada",
+   "nota": 0.034,
+   "fontes": 1
+  },
+  {
+   "repo": "spotify/portal-ai-plugins",
    "nota": 0.024,
    "fontes": 1
   }
