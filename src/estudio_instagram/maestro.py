@@ -62,14 +62,16 @@ PAUTAS_DO_DIA = {
     "2026-10-21": {"23:30": "pautas/viral/geo-sleuth-novo.json"},  # reposta do geo-sleuth no ritmo novo
     # 2026-11-04: os 3 vídeos de teste que o Davi aprovou (feitos por agente com skill de estilo), já renderizados
     # e hospedados (pauta de vídeo pronto: o pipeline só baixa e publica).
-    "2026-11-05": {"08:00": "pautas/viral/agendadas/2026-11-05-09-opuscar-noticia.json"},   # dossiê, claude-mem
-    "2026-11-07": {"08:00": "pautas/viral/agendadas/2026-11-07-08-opuscar-pixel-rpg.json"},  # pixel RPG, game studios
-    "2026-11-08": {"20:00": "pautas/viral/agendadas/2026-11-08-10-esquete-diretor.json"},    # esquete Davi x robô
+    # 2026-11-04 (Davi: "queria que começasse já hoje"): os novos entram hoje à noite no lugar do antigo.
+    "2026-11-04": {"20:00": "pautas/viral/agendadas/2026-11-05-09-opuscar-noticia.json",   # dossiê, claude-mem
+                   "22:30": "pautas/viral/agendadas/2026-11-08-10-esquete-diretor.json"},  # esquete Davi x robô
+    "2026-11-05": {"08:00": "pautas/viral/agendadas/2026-11-07-08-opuscar-pixel-rpg.json"},  # pixel RPG
 }
 # Banco de vídeos: pautas prontas e aprovadas em pautas/viral/fila/. A rodada FILA_RODADA de cada dia usa a próxima
 # que ainda não saiu (em ordem de nome); sem nada na fila, segue o formato normal da rodada.
 FILA = RAIZ / "pautas" / "viral" / "fila"
-FILA_RODADA = "08:00"  # o banco de vídeos prontos sai no lugar do vídeo de ferramenta da manhã
+FILA_RODADAS = ("08:00", "20:00")  # o banco (vídeos da produtora e repostagens) abastece as duas rodadas de vídeo de ferramenta
+FILA_RODADA = FILA_RODADAS[0]  # compatibilidade
 TOLERANCIA_ATRASO = timedelta(hours=2)
 INTERVALO_MIN_MIN = 120  # nunca duas rodadas em menos de 2 horas
 
@@ -174,7 +176,7 @@ def main():
             nova_rodada = [h for h in novo["feitos"] if h not in (estado["feitos"] if estado.get("dia") == novo["dia"] else {})]
             subprocess.run(["git", "pull", "--rebase", "-q"], cwd=RAIZ, check=False)  # pega pautas novas do banco
             usadas = novo.get("fila_usadas", estado.get("fila_usadas", []))
-            da_fila = proxima_da_fila(usadas) if FILA_RODADA in nova_rodada else None
+            da_fila = proxima_da_fila(usadas) if any(h in nova_rodada for h in FILA_RODADAS) else None
             if da_fila:
                 formato = f"pauta:{da_fila}"
                 novo["fila_usadas"] = [*usadas, da_fila]

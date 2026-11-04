@@ -9,7 +9,9 @@ name: Produtora - um filme por dia em rodízio pelos 66 estilos do Lemo-Opuscar
 
 on:
   schedule:
-    - cron: '17 6 * * *'  # 03:17 em Brasília
+    - cron: '17 6 * * *'   # 03:17 em Brasília
+    - cron: '17 14 * * *'  # 11:17
+    - cron: '17 19 * * *'  # 16:17 (3 vídeos por dia: carga máxima, pedido do Davi em 04/11)
   workflow_dispatch:
     inputs:
       repo:
