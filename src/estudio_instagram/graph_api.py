@@ -126,8 +126,10 @@ class InstagramGraph:
         for midia in midias:
             if not midia.get("comments_count"):
                 continue
-            achados = self._ler(f"{midia['id']}/comments", fields="id,text,username,timestamp,from", limit=50)
-            comentarios += [{**c, "midia_id": midia["id"]} for c in achados.get("data", [])]
+            achados = self._ler(f"{midia['id']}/comments", fields="id,text,username,timestamp,from,replies{id}", limit=50)
+            # A API não diz quem escreveu cada resposta; comentário que já tem resposta (do Davi ou do robô) é tratado como respondido.
+            comentarios += [{**c, "midia_id": midia["id"], "tem_resposta": bool(c.pop("replies", {}).get("data"))}
+                            for c in achados.get("data", [])]
         return comentarios
 
     def responder_comentario(self, comment_id: str, texto: str) -> dict:

@@ -22,6 +22,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
+from . import perguntas
 from .graph_api import InstagramGraph
 from .sincronia import normalizar
 
@@ -36,6 +37,7 @@ PENDENTES = RAIZ / "pautas" / "pendentes_seguir.json"
 # Em post de repositório, quem comenta uma destas palavras também recebe o link do repositório do post.
 SINONIMOS_DO_POST = ("REPO", "REPOSITORIO", "LINK", "QUERO", "EU QUERO")
 JANELA = timedelta(days=7)  # limite da Meta para a resposta privada
+PASSADAS_POR_PERGUNTA = 7  # com intervalo de 90 s, as perguntas são olhadas a cada ~10 min
 
 
 def _hora(texto: str) -> datetime:
@@ -190,7 +192,8 @@ def _ler_json(arquivo: Path, padrao):
 def _guardar_no_git():
     """Commita e sobe o registro de quem já foi respondido. Falha aqui não derruba o laço."""
     try:
-        subprocess.run(["git", "add", str(ENVIADAS), str(PENDENTES)], cwd=RAIZ, check=True)
+        subprocess.run(["git", "add", str(ENVIADAS), str(PENDENTES), *([str(perguntas.REGISTRO)] if perguntas.REGISTRO.exists() else [])],
+                       cwd=RAIZ, check=True)
         if subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=RAIZ).returncode == 0:
             return
         subprocess.run(["git", "commit", "-m", "chore: registra respostas enviadas pelo bot [skip ci]"], cwd=RAIZ, check=True)
@@ -211,6 +214,7 @@ def main():
     ig = InstagramGraph(os.environ["INSTAGRAM_GRAPH_TOKEN"], os.environ["INSTAGRAM_USER_ID"])
     config = _ler_json(CONFIG, {})
     fim = time.monotonic() + args.minutos * 60
+    volta = 0
     while True:
         # Recarrega a cada passada: o registro e os links por post mudam enquanto o laço roda.
         enviadas = _ler_json(ENVIADAS, {})
@@ -222,6 +226,17 @@ def main():
         except Exception as erro:  # API fora do ar, rede: não pode matar o laço inteiro
             print(f"passada falhou ({str(erro)[:200]}); tento de novo")
             feitos = []
+        # Perguntas de verdade (comentário e direct) a cada ~10 min: cada olhada gasta chamadas da API e a
+        # Meta limita por hora; o "comenta PALAVRA" continua na olhada rápida.
+        if volta % PASSADAS_POR_PERGUNTA == 0:
+            try:
+                respostas = perguntas.passada(ig, ig.comentarios_recentes(), set(enviadas), simular=args.simular)
+                if respostas:
+                    print(json.dumps(respostas, ensure_ascii=False), flush=True)
+                    feitos += respostas
+            except Exception as erro:
+                print(f"perguntas falhou ({str(erro)[:200]}); sigo")
+        volta += 1
         if feitos and not args.simular:
             ENVIADAS.write_text(json.dumps(enviadas, ensure_ascii=False, indent=2), encoding="utf-8")
             PENDENTES.write_text(json.dumps(pendentes, ensure_ascii=False, indent=2), encoding="utf-8")
