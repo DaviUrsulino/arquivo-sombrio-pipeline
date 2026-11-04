@@ -1,9 +1,0 @@
-[  0.0-  3.8] Tem gente pagando pra roubar o espaço dos outros, de propósito!
-[  4.5-  8.3] É uma grade de 10 mil espaços e quem paga mais assume o seu.
-[  9.0- 10.4] A entrada custa R$ 1,00.
-[ 10.7- 14.4] Pra tomar um espaço ocupado, paga R$ 0,50 a mais que o dono atual.
-[ 15.2- 17.7] Eu já garanti os meus, 25 pixels.
-[ 18.4- 24.3] É o pixelguerra.com.br, a versão brasileira do Million Dollar Homepage, de 2005.
-[ 24.9- 27.1] Só que aqui dá pra roubar o espaço de volta.
-[ 27.8- 29.8] Garante seu espaço ou rouba de alguém.
-[ 30.0- 31.9] Comenta pixel que eu te mando o link.

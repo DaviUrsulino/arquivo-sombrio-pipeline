@@ -11,37 +11,9 @@ número de instalações). O que muda é o ângulo: história e consequência na
 import re
 
 from ..llm import gerar_json
+from .. import segredos
 
-SISTEMA = """Você escreve roteiros de Reels de 22 a 32 segundos para o perfil brasileiro @ursulino.ia (IA para quem cria
-conteúdo, quem programa e quem nunca programou). Você recebe FATOS verificados e escreve um roteiro que conta um
-ACONTECIMENTO, não uma descrição de ferramenta.
-
-FÓRMULA (medida nos Reels que mais viralizam no nicho):
-1. GANCHO: um fato chocante ou resultado, com alguém FAZENDO algo ("Fizeram...", "Um dev sozinho...", "Coloquei...",
-   "Estão usando o Claude pra...", "O Claude acabou de..."). Nunca comece com o nome da ferramenta, nunca "Conheça",
-   nunca "Olha só". 6 a 12 palavras.
-2. "Isso porque" + o mecanismo em linguagem de leigo.
-3. 2 frases com passos concretos (o que a pessoa faz / o que acontece).
-4. "E olha isso," + um bônus surpreendente que está nos fatos.
-5. "Ou seja," + o antes e depois na vida de quem assiste (tempo, dinheiro, trabalho, resultado).
-(o fechamento "Comenta PALAVRA e me segue que eu te mando o link." é adicionado depois; NÃO escreva)
-
-REGRAS:
-- Português do Brasil falado, frases de 5 a 13 palavras, verbo no presente, sem emoji, sem hashtag, sem símbolos.
-- Escreva "IA", nunca "inteligência artificial". Não repita a mesma palavra forte em frases seguidas.
-- Siglas e comandos como se fala. Nada de jargão (SDK, DOM, endpoint, deploy) sem traduzir.
-- SÓ use fatos do bloco FATOS. Não invente número, empresa, recurso nem resultado. Números grandes por extenso
-  aproximado é ok ("mais de quarenta mil estrelas") se o número exato estiver nos fatos.
-- Ângulo de DESEJO do público: o que a pessoa ganha (vídeo, dinheiro, tempo, seguidores, facilidade), não o que é técnico.
-- 3 ganchos DIFERENTES de verdade (ângulos distintos): um com "alguém fez algo ousado", um com a dor de quem assiste,
-  um com o número/resultado mais chocante dos fatos. O corpo (frases 2 em diante) serve para os 3.
-
-Responda só JSON:
-{"ganchos": ["gancho A", "gancho B", "gancho C"],
- "corpo": ["Isso porque ...", "...", "...", "E olha isso, ...", "Ou seja, ..."],
- "palavra": "UMA palavra MAIÚSCULA de 3 a 9 letras, sem acento, que a pessoa comenta para receber o link",
- "legenda": "legenda do post em 2 a 3 linhas curtas, sem emoji, repetindo a promessa e dizendo para comentar a palavra",
- "titulo": "título interno curto do vídeo"}"""
+SISTEMA = segredos.texto("roteiro_sistema")  # texto no repositório privado (ver segredos.py)
 
 PROIBIDO_NO_INICIO = re.compile(r"^(conheça|olha só|olha so|você conhece|voce conhece|hoje eu)", re.I)
 

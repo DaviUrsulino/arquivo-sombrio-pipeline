@@ -29,10 +29,11 @@ jobs:
         run: printf 'APIFY_TOKEN=%s\n' "$APIFY_TOKEN" > .env
       - name: Faz o estudo
         run: python -m src.estudio_instagram.estudo_animacao
-      - name: Salva o estudo no repositório
-        run: |
-          git config user.name "estudio-automatico (bot)"
-          git config user.email "actions@github.com"
-          git add referencias/estudos
-          git commit -m "chore: estudo semanal de animação [skip ci]" || exit 0
-          git pull --rebase && git push
+      # O estudo é segredo do perfil (2026-11-04): não vai mais para este repositório público. Fica como artefato da
+      # execução; o que valer a pena entra à mão no repositório privado arquivo-sombrio-segredos.
+      - name: Guarda o estudo como artefato (não commita no repositório público)
+        uses: actions/upload-artifact@v4
+        with:
+          name: estudo-animacao
+          path: referencias/estudos
+          if-no-files-found: ignore

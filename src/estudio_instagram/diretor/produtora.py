@@ -28,6 +28,7 @@ from datetime import datetime
 from pathlib import Path
 
 from . import portao, roteiro
+from .. import segredos
 
 RAIZ = Path(__file__).resolve().parents[3]
 BIBLIOTECA = Path(os.environ.get("LEMO_OPUSCAR", Path.home() / "lemo-opuscar"))
@@ -162,17 +163,10 @@ def rodar_agente(prompt: str, pasta: Path, timeout_s: int = 4500) -> str:
 VENDAS = RAIZ / "pautas" / "vendas"
 REPO_VENDA = "venda/pack-estudio"  # rótulo interno (não é repositório)
 PALAVRA_VENDA = "ESTUDIO"  # o respondedor manda o link do pack para quem comenta essa palavra
-EXTRA_VENDA = """ESTE É UM VÍDEO DE VENDA do produto descrito nos FATOS (o Pack Estúdio), não uma notícia de ferramenta.
-Gancho pelo desejo de quem assiste (postar vídeo animado sem aparecer, sem editar, sem mensalidade). Diga o que a
-pessoa recebe e o que ela consegue fazer. Nunca diga que o pack faz o estilo exato deste vídeo nem prometa resultado
-de views ou dinheiro. Não fale preço."""
+EXTRA_VENDA = segredos.texto("extra_venda")  # texto no repositório privado (ver segredos.py)
 
 
-EXTRA_EM_ALTA = """ESTE É UM VÍDEO DO ASSUNTO DO MOMENTO no Brasil (ver FATOS: manchetes de hoje). Conte o assunto de um jeito
-divertido, com o que as manchetes dizem. Pode imaginar uma cena ("imagina se..."), desde que a frase deixe claro que
-é imaginação. Nunca afirme como fato o que não está nas manchetes. O ângulo sugerido é: __ANGULO__
-A frase "Ou seja" fecha o assunto. O vídeo termina vendendo: o próprio vídeo é a prova de que dá para fazer
-animação assim com IA (isso entra no fechamento, não precisa escrever)."""
+EXTRA_EM_ALTA = segredos.texto("extra_em_alta")  # texto no repositório privado (ver segredos.py)
 AVISO_EM_ALTA = ("- Assunto do momento: desenho 100% original. Não copie logo, personagem, capa nem arte oficial de jogo, "
                  "filme, marca ou pessoa real; evoque o tema com elementos genéricos (ex.: um carro esportivo, uma cidade "
                  "de praia neon), nunca a imagem oficial.\n- Última cena antes do fechamento: \"Esse vídeo eu fiz com IA\" "

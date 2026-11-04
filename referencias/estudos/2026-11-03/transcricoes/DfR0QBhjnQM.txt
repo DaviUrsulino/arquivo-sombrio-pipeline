@@ -1,9 +1,0 @@
-[  0.0-  2.6] Existe uma skill que escolhe as outras skills pra você.
-[  2.9-  6.2] Foi feita pela Versa e já passou de 4 milhões de instalações.
-[  6.6-  7.6] Você fala o que quer fazer.
-[  7.9-  9.8] Uma página, um anúncio, um vídeo.
-[ 10.1- 14.6] Ela vasculha o diretório de skills, te mostra as melhores praquilo e instala no seu Cloud Code.
-[ 14.9- 16.9] Sem você ficar caçando repositório no GitVan.
-[ 17.2- 21.0] E antes ela olha quais são as mais instaladas, pra você não cair em skill abandonada.
-[ 21.3- 23.7] E você, qual skill ia pedir pra ela procurar primeiro?
-[ 24.0- 27.9] Curte esse vídeo e comenta a lupa que eu te mando o nome dela e o pedido pronto no direct.

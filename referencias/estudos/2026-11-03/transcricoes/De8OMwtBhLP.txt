@@ -1,7 +1,0 @@
-[  0.0-  3.5] Quatro repositórios grátis para turbinar seus agentes de código.
-[  4.0-  7.3] Primeiro, Deja Vu, guarda a memória local dos seus agentes.
-[  7.9- 11.9] Segundo, Second Brain OS, cria a base de conhecimento em Markdown.
-[ 12.5- 16.3] Terceiro, Avon Ontology, organiza dados para agentes de código.
-[ 17.0- 21.2] Quarto, Beautify GitHub Readme, melhora o visual de arquivos Readme.
-[ 21.9- 25.5] Manda para um amigo dev, segue e comenta GitHub para receber o link.
-[ 25.8- 27.3] Quer fazer igual? Link na bio.

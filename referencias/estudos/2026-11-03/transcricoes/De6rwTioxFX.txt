@@ -1,2 +1,0 @@
-[  0.0- 14.0] so
-[ 30.0- 60.0] We'll see you next week.

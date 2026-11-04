@@ -1,8 +1,0 @@
-[  0.0-  3.7] 4 IAs eraram o Minecraft sozinhas, e isso me deu uma ideia.
-[  4.1-  7.3] E se a inteligência artificial fizesse um Minecraft pra mim?
-[  7.6- 11.6] Mandei um prompt só pro Claude, pedindo um mundo de blocos com dia e noite.
-[ 11.9- 14.3] E saiu isso aqui, um jogo de verdade.
-[ 14.7- 17.5] Dá pra andar, pular, quebrar e colocar bloco.
-[ 17.9- 21.1] Tem árvore, morro, e o céu vira noite com estrelas.
-[ 21.4- 24.3] Tudo num arquivo só, que abre direto no navegador.
-[ 24.6- 27.6] Comenta a Cubo que eu te mando o prompt pra você fazer o seu.

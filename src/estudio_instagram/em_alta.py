@@ -26,6 +26,7 @@ from pathlib import Path
 from xml.etree import ElementTree
 
 from .llm import gerar_json
+from . import segredos
 
 RAIZ = Path(__file__).resolve().parents[2]
 USADOS = RAIZ / "pautas" / "em_alta_usados.json"
@@ -40,15 +41,7 @@ TERMOS_POLITICOS = re.compile(r"\b(bolsonaro|lula|trump|stf|senad\w*|deputad\w*|
                               r"elei\w*|partido|pec|congresso|câmara|planalto|vereador\w*|prefeit\w*|governador\w*|"
                               r"\bPL\b|\bPT\b|moraes|haddad|tarcísio|eduardo|flávio|michelle)\b", re.I)
 
-ESCOLHA = """Você é editor de pauta de um perfil brasileiro de Reels animados feitos com IA (@ursulino.ia; público: quem cria
-conteúdo, quem programa e gente comum que gosta de tecnologia). Abaixo estão os assuntos mais buscados e lidos no
-Brasil agora, cada um com um id e as manchetes. Escolha UM assunto que vire uma animação curta que muita gente
-quer ver e compartilhar HOJE (cultura pop, games, tecnologia, curiosidade, meme do dia, grandes lançamentos).
-NUNCA escolha: morte, tragédia, crime, violência, doença, acidente, assunto de criança, placar de jogo sem história.
-__POLITICA__
-Responda só JSON: {"id": "id escolhido", "tema": "o assunto em poucas palavras", "angulo": "a ideia da animação em
-uma frase (pode ser um 'e se...' imaginado, desde que fique claro que é imaginação)", "nota": 0 a 10 de potencial
-de viralizar hoje}. Se nenhum assunto servir, responda {"id": null}."""
+ESCOLHA = segredos.texto("em_alta_escolha")  # texto no repositório privado (ver segredos.py)
 
 
 def _get(url: str, abrir=urllib.request.urlopen) -> str:

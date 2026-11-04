@@ -36,3 +36,8 @@ amostra_*.mp3
 logs_teste/
 videos_teste/
 videos_produzidos/
+segredos/
+
+# 2026-11-04: estudos e zips dos produtos moram no repositório privado arquivo-sombrio-segredos
+referencias/estudos/
+produto/*.zip

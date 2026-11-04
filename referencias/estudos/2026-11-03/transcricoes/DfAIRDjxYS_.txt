@@ -1,8 +1,0 @@
-[  0.0-  4.2] A CloudFair liberou de graça o robô que ela usa pra achar falha de segurança.
-[  4.6-  6.5] Eu soltei ele no meu sistema de restaurante.
-[  6.7- 10.1] Primeiro, ele desenha o mapa por onde entra dados, onde fica a senha.
-[ 10.4- 13.5] Depois, manda vários caçadores, cada um num canto.
-[ 13.7- 16.8] E um outro agente tenta provar que cada falha é mentira.
-[ 17.0- 21.2] Em 20 minutos, ele me entregou 6 pontos fracos, cada um com caminho no código.
-[ 21.2- 24.4] E eu corrigi todos antes de postar, com um teste pra cada.
-[ 24.6- 27.9] Comenta hacker que eu te mando skill e como rodar no seu sistema.

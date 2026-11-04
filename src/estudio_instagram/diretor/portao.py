@@ -16,9 +16,10 @@ import urllib.request
 from pathlib import Path
 
 from ..llm import MODELOS_GEMINI, _chaves_gemini, extrair_json
+from .. import segredos
 
 RAIZ = Path(__file__).resolve().parents[3]
-REFERENCIAS = RAIZ / "referencias" / "estudos" / "2026-11-03" / "folhas"
+REFERENCIAS = RAIZ / "segredos" / "estudos" / "2026-11-03" / "folhas"  # estudo no repositório privado
 REF_PADRAO = ["_aighostlab__DfS3jZQpbkb.jpg", "_aighostlab__DfPY4rbJaL-.jpg", "clubedasskills__DfNvOR7CRAh.jpg"]
 # o que é próprio de cada formato (o juiz não deve punir isso como falta de variedade)
 FORMATOS = {"esquete": "esquete cômica em diálogo entre dois personagens. Cenário fixo e enquadramento parecido são do formato "
@@ -26,21 +27,7 @@ FORMATOS = {"esquete": "esquete cômica em diálogo entre dois personagens. Cen�
                        "gancho pela situação/conflito da 1ª fala."}
 AREAS = ["gancho_visual", "personagem_atua", "variedade_de_cena", "legibilidade", "acabamento", "parece_template"]
 
-CRITICO = """Você é diretor de arte e crítico exigente de Reels animados para Instagram. A imagem é uma folha de quadros do
-vídeo, em ordem. O vídeo pode estar em QUALQUER estilo (desenho à mão, pixel art, colagem, dossiê, 3D, tipografia...):
-julgue a execução DENTRO do estilo escolhido, nunca por parecer ou não com outro estilo (3D não é melhor que 2D).
-Narração, frase por frase (se disponível):
-__FALAS__
-
-Dê nota de 0 a 10 (10 = nível dos Reels animados que viralizam com centenas de milhares de views) para cada área:
-- gancho_visual: o 1º quadro faz parar o dedo? tem algo forte e legível acontecendo?
-- personagem_atua: há ação concreta e diferente em cada momento (personagem, objeto ou elemento gráfico fazendo algo)?
-- variedade_de_cena: os quadros mudam de composição/conteúdo ao longo do vídeo, sem cara de slide repetido?
-- legibilidade: textos legíveis no celular, nada importante cortado, contraste bom?
-- acabamento: o estilo é executado com cuidado e consistência (cor, traço, composição, tipografia)?
-- parece_template: 10 = cada cena feita sob medida para o assunto; 0 = molde repetido com texto trocado.
-E liste até 6 correções concretas, citando o número do quadro.
-Responda só JSON: {"notas": {"gancho_visual": 0, ...}, "correcoes": ["quadro 3: ...", ...], "resumo": "uma frase"}"""
+CRITICO = segredos.texto("critico")  # texto no repositório privado (ver segredos.py)
 
 
 def _ffprobe_duracao(mp4: Path) -> float:

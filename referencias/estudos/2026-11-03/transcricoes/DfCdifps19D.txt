@@ -1,2 +1,0 @@
-[  0.0- 30.0] We'll be right back.
-[ 30.0- 60.0] Thank you.
