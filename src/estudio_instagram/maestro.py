@@ -37,16 +37,19 @@ BRASILIA = timezone(timedelta(hours=-3))
 # 2026-10-28: as duas listas que passaram de 1.000 views saíram às 23:30 (25/10 e 26/10); a lista das 12:00 de
 # hoje fez 111. Lista volta pra noite (22:30, todo dia) e o meio-dia fica com o vídeo de uma ferramenta nas
 # identidades (escritório, vila 3D) ou venda.
-RODADAS = [("12:00", "pixel2"), ("20:00", "pixel2"), ("22:30", "lista")]
+# 2026-11-04: teste de 2 semanas (até 18/11) com a rodada do meio-dia às 08:00 (aprovado pelo Davi). Meio-dia tinha
+# mediana de 169 views e a manhã 920 (só 4 posts). Regra decidida antes: se a mediana das 08:00 for >= 1,5x a do
+# meio-dia das 2 semanas anteriores, fica; senão volta para 12:00. Ver docs/semana-2026-11-05.md (na branch estudio-direcao).
+RODADAS = [("08:00", "pixel2"), ("20:00", "pixel2"), ("22:30", "lista")]
 # 2026-10-29: a rodada das 20:00 era "loop" (vídeo do Google Flow, formato @pixosly) -- dependia do Davi
 # soltar um vídeo à mão em loops/fila/ toda vez, o que ele não sustentou ("mó preguiça"). Virou "pixel2"
 # (ferramenta/identidade, 100% automático, sem insumo manual) pra fechar as 3 rodadas do dia sem depender
 # de ninguém. loop.py e instagram_loop.yml ficam prontos pra quando ele quiser soltar um vídeo de novo
 # (dispara via gh workflow run instagram_loop.yml na mão quando tiver fila).
 FILA_LOOPS = RAIZ / "loops" / "fila"
-# Formato da rodada das 12:00 por dia da semana (0 = segunda): venda 2x por semana, identidades nos outros dias.
+# Formato da rodada nobre (08:00) por dia da semana (0 = segunda): venda 2x por semana, identidades nos outros dias.
 FORMATO_NOBRE_POR_DIA = {0: "pixel2", 1: "venda", 2: "pixel2", 3: "pixel2", 4: "venda", 5: "pixel2", 6: "pixel2"}
-RODADA_NOBRE = "12:00"
+RODADA_NOBRE = "08:00"
 
 
 def rodadas_do_dia(dia: str) -> list[tuple[str, str]]:
@@ -59,7 +62,7 @@ PAUTAS_DO_DIA = {"2026-10-21": {"23:30": "pautas/viral/geo-sleuth-novo.json"}}  
 # Banco de vídeos: pautas prontas e aprovadas em pautas/viral/fila/. A rodada FILA_RODADA de cada dia usa a próxima
 # que ainda não saiu (em ordem de nome); sem nada na fila, segue o formato normal da rodada.
 FILA = RAIZ / "pautas" / "viral" / "fila"
-FILA_RODADA = "12:00"  # o banco de vídeos prontos sai no lugar do vídeo de ferramenta do meio-dia
+FILA_RODADA = "08:00"  # o banco de vídeos prontos sai no lugar do vídeo de ferramenta da manhã
 TOLERANCIA_ATRASO = timedelta(hours=2)
 INTERVALO_MIN_MIN = 120  # nunca duas rodadas em menos de 2 horas
 

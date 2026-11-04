@@ -1,0 +1,207 @@
+{
+  "titulo": "lista: turbinar seus agentes de ia",
+  "formato": "pixel2",
+  "palavra_chave": "GITHUB",
+  "perfil": "@ursulino.ia",
+  "voz": {
+    "id": "iP95p4xoKVk53GoZ742B",
+    "modelo": "eleven_multilingual_v2"
+  },
+  "capa": {
+    "subtitulo": "ferramentas gratuitas do github para melhorar seus agentes"
+  },
+  "chamada": {
+    "pergunta": "quer os links dos repositórios?"
+  },
+  "itens": [
+    {
+      "repo": "vercel-labs/agent-desktop",
+      "nome": "agent-desktop",
+      "cor": "azul",
+      "promessa": "Computer use CLI for AI agents",
+      "texto": "Lê e controla aplicativos no computador."
+    },
+    {
+      "repo": "aaitor/skill-video-studio",
+      "nome": "skill-video-studio",
+      "cor": "verde",
+      "promessa": "Claude Code skill for product videos: real browser capture, branded composition,",
+      "texto": "Cria vídeos de demonstração de produtos."
+    },
+    {
+      "repo": "chipfighter/framekeeper",
+      "nome": "framekeeper",
+      "cor": "laranja",
+      "promessa": "Stop paying the multimodal tax. Your AI agent keeps every image it has seen but ",
+      "texto": "Gerencia imagens enviadas para seu agente."
+    },
+    {
+      "repo": "microsoft/TokenEconomizer",
+      "nome": "TokenEconomizer",
+      "cor": "roxo",
+      "promessa": "Experience-Driven Black-Box Cost Control for Coding Agents",
+      "texto": "Reduz custos de agentes de código."
+    }
+  ],
+  "destaques": [
+    "agent desktop",
+    "skill video studio",
+    "frame keeper",
+    "token economizer",
+    "github"
+  ],
+  "cenas_roteiro": [
+    {
+      "humor": "animado",
+      "narracao": "Quatro repositórios grátis para turbinar seus agentes de ia.",
+      "cor": "roxo",
+      "visual": {
+        "tipo": "titulo_pixel",
+        "linhas": [
+          {
+            "texto": "4 REPOS PARA",
+            "cor": "branco",
+            "tamanho": 100
+          },
+          {
+            "texto": "USAR COM IA",
+            "cor": "roxo",
+            "tamanho": 110
+          }
+        ]
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Primeiro: agent desktop. Lê e controla aplicativos no computador.",
+      "cor": "azul",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "bot",
+        "cor": "azul",
+        "rotulo": "AGENT DESKTOP"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Segundo: skill video studio. Cria vídeos de demonstração de produtos.",
+      "cor": "verde",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "clapperboard",
+        "cor": "verde",
+        "rotulo": "VIDEO STUDIO SKILL"
+      }
+    },
+    {
+      "humor": "feliz",
+      "narracao": "Terceiro: frame keeper. Gerencia imagens enviadas para seu agente.",
+      "cor": "laranja",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "sparkles",
+        "cor": "laranja",
+        "rotulo": "FRAMEKEEPER"
+      }
+    },
+    {
+      "humor": "animado",
+      "narracao": "Quarto: token economizer. Reduz custos de agentes de código.",
+      "cor": "roxo",
+      "visual": {
+        "tipo": "icone_pixel",
+        "icone": "zap",
+        "cor": "roxo",
+        "rotulo": "TOKEN ECONOMIZER"
+      }
+    }
+  ],
+  "slides": [
+    {
+      "tipo": "capa",
+      "linhas": [
+        {
+          "texto": "4 REPOS PARA",
+          "cor": "branco",
+          "tamanho": 96
+        },
+        {
+          "texto": "USAR COM IA",
+          "cor": "roxo",
+          "tamanho": 96
+        }
+      ],
+      "subtitulo": "ferramentas gratuitas do github para melhorar seus agentes"
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 1",
+      "progresso": 0.25,
+      "linhas": [
+        {
+          "texto": "AGENT DESKTOP",
+          "cor": "azul"
+        }
+      ],
+      "rotulo": "agent-desktop",
+      "texto": "Lê e controla aplicativos no computador."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 2",
+      "progresso": 0.5,
+      "linhas": [
+        {
+          "texto": "VIDEO STUDIO SKILL",
+          "cor": "verde"
+        }
+      ],
+      "rotulo": "skill-video-studio",
+      "texto": "Cria vídeos de demonstração de produtos."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 3",
+      "progresso": 0.75,
+      "linhas": [
+        {
+          "texto": "FRAMEKEEPER",
+          "cor": "laranja"
+        }
+      ],
+      "rotulo": "framekeeper",
+      "texto": "Gerencia imagens enviadas para seu agente."
+    },
+    {
+      "tipo": "ponto",
+      "fase": "Nº 4",
+      "progresso": 1.0,
+      "linhas": [
+        {
+          "texto": "TOKEN ECONOMIZER",
+          "cor": "roxo"
+        }
+      ],
+      "rotulo": "TokenEconomizer",
+      "texto": "Reduz custos de agentes de código."
+    },
+    {
+      "tipo": "cta",
+      "linhas": [
+        {
+          "texto": "QUER OS LINKS",
+          "cor": "branco"
+        },
+        {
+          "texto": "DOS REPOS?",
+          "cor": "verde"
+        }
+      ],
+      "subtitulo": "Mando os links no direct.",
+      "palavra": "GITHUB",
+      "extra": "Quer fazer vídeos assim? Link na bio."
+    }
+  ],
+  "legenda": "Quatro repositórios grátis para turbinar seus agentes de ia\n\nSalva este vídeo:\n1. Agent Desktop: Lê e controla aplicativos no computador.\n2. Video Studio Skill: Cria vídeos de demonstração de produtos.\n3. Framekeeper: Gerencia imagens enviadas para seu agente.\n4. Token Economizer: Reduz custos de agentes de código.\n\nManda pra um amigo dev, segue o @ursulino.ia e comenta GITHUB que eu te mando os links no direct.\n\nQuer aprender a fazer vídeos assim? Link na bio.\n\n#claudecode #github #ia #programacao #opensource",
+  "cor_final": "roxo"
+}
