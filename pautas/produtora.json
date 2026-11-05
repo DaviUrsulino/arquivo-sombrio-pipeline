@@ -5,7 +5,8 @@
   "archive-lighttable",
   "news-package",
   "esquete",
-  "glass-product"
+  "glass-product",
+  "telestrator"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -53,6 +54,13 @@
    "estilo": "glass-product",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-05-0449-jude-bellingham-calvin-klein-glass-product"
+  },
+  {
+   "quando": "2026-11-05T05:55",
+   "repo": "em-alta/spurs",
+   "estilo": "telestrator",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-05-0544-spurs-telestrator"
   }
  ]
 }
