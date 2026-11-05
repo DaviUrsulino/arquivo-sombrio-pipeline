@@ -7,7 +7,8 @@
   "esquete",
   "glass-product",
   "telestrator",
-  "dark-keynote"
+  "dark-keynote",
+  "spy-titles"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -69,6 +70,13 @@
    "estilo": "dark-keynote",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-05-0703-darius-acuff-jr-dark-keynote"
+  },
+  {
+   "quando": "2026-11-05T11:14",
+   "repo": "em-alta/ralph-fiennes",
+   "estilo": "spy-titles",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-05-1056-ralph-fiennes-spy-titles"
   }
  ]
 }
