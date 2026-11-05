@@ -12,6 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Baixa os textos privados (prompts) do repositório de segredos
+        uses: actions/checkout@v4
+        with:
+          repository: DaviUrsulino/arquivo-sombrio-segredos
+          ssh-key: ${{ secrets.SEGREDOS_DEPLOY_KEY }}
+          path: segredos
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
