@@ -393,5 +393,10 @@
     "palavra": "DIRETOR",
     "mensagem": "Oi! Aqui está o motion-video-director.\n\nAutomatiza a criação de vídeos em movimento usando código e IA para gerar demonstrações visuais profissionais.\n\nComo começar:\n1. git clone https://github.com/MuhammadaliMS/motion-video-director ~/.claude/skills/motion-video-director\n2. cp -R ~/.claude/skills/motion-video-director/starter ./motion && cd motion && npm install\n3. node render.mjs examples/_template.html --check\n\nPra testar hoje: Execute GPU=1 node render.mjs examples/three-studio.html --stills 1.5,4.1,5.6 para renderizar quadros de teste em 3D.\n\nLink: https://github.com/MuhammadaliMS/motion-video-director\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
     "repo": "MuhammadaliMS/motion-video-director"
+  },
+  "18127340134927939": {
+    "palavra": "GAME",
+    "mensagem": "Oi! Aqui está o Claude-Code-Game-Studios.\n\nOrganiza suas sessões do Claude Code como um estúdio de jogos real para evitar código sem estrutura e acelerar o desenvolvimento.\n\nComo começar:\n1. Acesse o repositório no GitHub e siga o README para instalar a estrutura\n2. Abra o Claude Code na pasta do seu projeto de jogo\n3. Digite o comando /start para navegar pelas opções e iniciar a configuração\n\nPra testar hoje: Digite /brainstorm no Claude Code para alinhar as ideias e a visão do seu jogo.\n\nLink: https://github.com/Donchitos/Claude-Code-Game-Studios\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
+    "repo": "Donchitos/Claude-Code-Game-Studios"
   }
 }
