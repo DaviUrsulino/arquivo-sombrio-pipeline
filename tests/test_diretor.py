@@ -16,7 +16,7 @@ def _roteiro_ok(**extra):
                      "Mais de quarenta mil pessoas já usam isso"],
          "corpo": ["Isso porque ele cria uma equipe de agentes", "Você descreve o jogo que quer",
                    "E a equipe planeja, programa e testa", "E olha isso, é de graça", "Ou seja, você só tem a ideia"],
-         "palavra": "GAME"}
+         "palavra": "GAME", "texto_tela": "ESTÚDIO DE GAMES NO CLAUDE"}
     r.update(extra)
     return r
 
@@ -40,7 +40,7 @@ def test_corpo_sem_isso_porque_e_ou_seja_e_recusado():
 def test_escrever_tenta_de_novo_e_adiciona_cta():
     respostas = iter([_roteiro_ok(palavra="game"), _roteiro_ok()])
     r = roteiro.escrever("fatos", llm=lambda s, u: next(respostas))
-    assert r["cta"] == "Comenta GAME e me segue que eu te mando o link."
+    assert r["cta"] == "Comenta GAME que eu te mando o link. E me segue: todo dia tem uma IA nova aqui."
     assert roteiro.frases(r, 1)[0] == r["ganchos"][1] and roteiro.frases(r)[-1] == r["cta"]
 
 
@@ -113,3 +113,11 @@ def test_catalogo_python_e_motor_js_tem_os_mesmos_objetos_mundos_e_acoes():
         assert f'case "{acao}"' in js, acao
     for cam in catalogo.CAMERAS:
         assert f"{cam}: (k)" in js, cam
+
+
+def test_versao_longa_aceita_corpo_maior_e_curta_nao():
+    corpo = ["Isso porque ele cria agentes", "Você descreve o jogo", "A equipe planeja tudo", "Depois ela programa o jogo",
+             "Em seguida ela testa", "E olha isso, é de graça", "Ou seja, você só tem a ideia"]
+    assert roteiro.problemas(_roteiro_ok(corpo=corpo), max_corpo=9) == []
+    assert roteiro.problemas(_roteiro_ok(corpo=corpo))
+    assert roteiro.problemas(_roteiro_ok(texto_tela=""))  # sem gancho escrito na tela não passa

@@ -18,13 +18,13 @@ SISTEMA = segredos.texto("roteiro_sistema")  # texto no repositório privado (ve
 PROIBIDO_NO_INICIO = re.compile(r"^(conheça|olha só|olha so|você conhece|voce conhece|hoje eu)", re.I)
 
 
-def problemas(r: dict) -> list[str]:
+def problemas(r: dict, max_corpo: int = 6) -> list[str]:
     erros = []
     g, c = r.get("ganchos"), r.get("corpo")
     if not isinstance(g, list) or len(g) != 3:
         return ["'ganchos' precisa ter exatamente 3 itens"]
-    if not isinstance(c, list) or not 4 <= len(c) <= 6:
-        return ["'corpo' precisa ter de 4 a 6 frases"]
+    if not isinstance(c, list) or not 4 <= len(c) <= max_corpo:
+        return [f"'corpo' precisa ter de 4 a {max_corpo} frases"]
     for k, f in enumerate(g + c):
         n = len(str(f).split())
         if not 4 <= n <= 15:
@@ -38,19 +38,29 @@ def problemas(r: dict) -> list[str]:
         erros.append("falta a frase que começa com 'Isso porque'")
     if not any(str(f).lower().startswith("ou seja") for f in c):
         erros.append("falta a frase que começa com 'Ou seja'")
+    tela = str(r.get("texto_tela", "")).split()
+    if not 1 <= len(tela) <= 7:
+        erros.append("'texto_tela' precisa ter de 1 a 6 palavras (o gancho escrito na tela)")
     p = str(r.get("palavra", ""))
     if not re.fullmatch(r"[A-Z]{3,9}", p):
         erros.append("'palavra' precisa ser 3 a 9 letras maiúsculas sem acento")
     return erros
 
 
-def escrever(fatos: str, llm=gerar_json, tentativas: int = 3, extra: str = "") -> dict:
+LONGO = """VERSÃO LONGA (teste A/B): no perfil, Reels de 45 a 60 s tiveram mediana de 570 views contra 313 dos curtos.
+Escreva o corpo com 7 a 9 frases: mais passos concretos e mais detalhes reais dos FATOS (nunca enchimento), mantendo
+"Isso porque", "E olha isso" e "Ou seja"."""
+
+
+def escrever(fatos: str, llm=gerar_json, tentativas: int = 3, extra: str = "", longo: bool = False) -> dict:
+    extra = (extra + "\n" + LONGO) if longo else extra
     pedido = f"FATOS:\n{fatos}\n{extra}"
     for _ in range(tentativas):
         r = llm(SISTEMA, pedido)
-        erros = problemas(r)
+        erros = problemas(r, max_corpo=9 if longo else 6)
         if not erros:
-            r["cta"] = f"Comenta {r['palavra']} e me segue que eu te mando o link."
+            # motivo para seguir (conversão de quem chegou pelo Reels): o link vem pelo comentário, o follow pela promessa
+            r["cta"] = f"Comenta {r['palavra']} que eu te mando o link. E me segue: todo dia tem uma IA nova aqui."
             return r
         pedido = f"FATOS:\n{fatos}\n{extra}\n\nSEU ROTEIRO ANTERIOR TEVE PROBLEMAS, CORRIJA:\n- " + "\n- ".join(erros)
     raise RuntimeError("roteiro inválido: " + "; ".join(erros))

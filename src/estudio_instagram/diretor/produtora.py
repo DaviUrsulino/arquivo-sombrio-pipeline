@@ -106,7 +106,7 @@ def proximo_estilo(estado: dict, todos: list[dict]) -> dict:
     return livres[0]
 
 
-def briefing(frases: list[str], estilo: dict, pasta: Path, palavra: str, extra: str = "") -> str:
+def briefing(frases: list[str], estilo: dict, pasta: Path, palavra: str, extra: str = "", tela: str = "") -> str:
     """O que o Claude Code recebe. Só texto nosso + as frases do roteiro (sem nada vindo da internet)."""
     lista = json.dumps(frases, ensure_ascii=False, indent=1)
     if estilo["slug"] == "esquete":
@@ -134,7 +134,9 @@ ROTEIRO (aprovado, frase por frase; não invente fatos nem números; pode encurt
 {lista}
 
 REGRAS DO VÍDEO (estudo de 108 Reels virais):
-- 1080x1920, 30 fps, com áudio, de 25 a 40 s. Cada frase é UMA cena com uma ação visual concreta ligada ao que a frase diz;
+- GANCHO (0 a 1,5 s, decide se o Reel viaja): o primeiro quadro já mostra o fato mais forte em movimento, nunca logo,
+  título ou introdução. Texto grande na tela, legível sem som: "{tela or frases[0]}". Ele some quando a 2ª frase começa.
+- 1080x1920, 30 fps, com áudio, duração igual à da narração (25 a 60 s). Cada frase é UMA cena com uma ação visual concreta ligada ao que a frase diz;
   algo novo na tela a cada 1 a 3 s; nunca um slide de texto parado.
 - Um estado na tela que avança (contador, barra, "prova 3/7", nível) do começo ao fim.
 - Legenda curta sincronizada com a voz por volta de y=1300; nada importante nos 560 px de baixo nem colado na borda direita.
@@ -230,7 +232,11 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
         rot["palavra"] = PALAVRA_VENDA
         rot["cta"] = f"Comenta {PALAVRA_VENDA} e me segue que eu te mando o link."
     else:
-        rot = roteiro.escrever(fatos_do_repo(repo))
+        # teste A/B (04/11): no perfil, 45-60 s teve mediana 570 views contra 313 dos curtos (n=9 x 23). Alterna para
+        # medir com os vídeos novos; o analista separa por duração (por_formato).
+        longo = len(estado.get("producoes", [])) % 2 == 1
+        rot = roteiro.escrever(fatos_do_repo(repo), longo=longo)
+        rot["versao"] = "longa" if longo else "curta"
     frases = roteiro.frases(rot, gancho)
     nome = f"{datetime.now():%Y-%m-%d-%H%M}-{re.sub(r'[^a-z0-9]+', '-', repo.split('/')[-1].lower())}-{estilo['slug']}"
     pasta = SAIDA / nome
@@ -239,7 +245,7 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
                                                  ensure_ascii=False, indent=1), encoding="utf-8")
     (pasta / "legenda.txt").write_text(rot.get("legenda", ""), encoding="utf-8")
     print(f"produzindo {repo} no estilo {estilo['nome']} -> {pasta}", flush=True)
-    resposta = rodar_agente(briefing(frases, estilo, pasta, rot["palavra"], extra_video), pasta)
+    resposta = rodar_agente(briefing(frases, estilo, pasta, rot["palavra"], extra_video, rot.get("texto_tela", "")), pasta)
     final = pasta / "final.mp4"
     res = {"pasta": str(pasta), "repo": repo, "estilo": estilo["slug"], "palavra": rot["palavra"], "ok": False, "venda": venda,
            "em_alta": bool(momento)}
