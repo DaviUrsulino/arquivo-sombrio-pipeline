@@ -267,7 +267,7 @@ FILA = RAIZ / "pautas" / "viral" / "fila"
 FILA_VENDA = RAIZ / "pautas" / "viral" / "fila_venda"
 
 
-BANCO_MAXIMO = 2  # vídeos comuns esperando no banco: mais que isso envelhece e perde o assunto do dia
+BANCO_MAXIMO = 3  # vídeos comuns esperando no banco (3 rodadas por dia); mais que isso envelhece e perde o assunto
 
 
 def banco_cheio() -> bool:

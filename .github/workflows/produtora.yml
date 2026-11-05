@@ -9,10 +9,12 @@ name: Produtora - os vídeos novos do dia em rodízio pelos 66 estilos do Lemo-O
 
 on:
   schedule:
-    - cron: '17 6 * * *'   # 03:17 em Brasília
-    - cron: '17 14 * * *'  # 11:17
-    - cron: '17 19 * * *'  # 16:17
-    - cron: '17 2 * * *'   # 23:17 (4 por dia para 3 rodadas: sobra no banco; desde 04/11 só sai vídeo novo)
+    # Davi, 04/11: produzir de madrugada, quando ele não está usando o Claude (o plano é o mesmo). 4 por noite,
+    # uma atrás da outra (concurrency), cobrem as 3 rodadas do dia seguinte e sobra 1 no banco.
+    - cron: '17 3 * * *'   # 00:17 em Brasília
+    - cron: '17 5 * * *'   # 02:17
+    - cron: '17 7 * * *'   # 04:17
+    - cron: '17 9 * * *'   # 06:17
   workflow_dispatch:
     inputs:
       repo:
