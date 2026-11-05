@@ -298,6 +298,9 @@ def para_fila(res: dict) -> Path:
     rot = pauta_prod["roteiro"]
     url = hospedagem.publicar(pasta / "final.mp4", f"produtora-{pasta.name}.mp4")
     legenda = (rot.get("legenda") or "").strip()
+    # a legenda vem do LLM com a palavra que ELE inventou; em venda/assunto do momento a palavra é trocada depois
+    # (ESTUDIO). Sem isto saiu "Comenta GAME" na legenda e "Comenta ESTUDIO" no vídeo (05/11).
+    legenda = re.sub(r"(?i)\bcomenta\s+[A-ZÀ-Ú]{3,}\b", f"Comenta {rot['palavra']}", legenda)
     if rot["palavra"] not in legenda:
         legenda += f"\nComenta {rot['palavra']} que eu te mando o link no direct."
     venda = res.get("venda", False)

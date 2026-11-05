@@ -84,3 +84,17 @@ def test_estado_do_maestro_guarda_a_ultima_producao():
     _, novo = maestro.decidir(datetime(2026, 11, 6, 1, 0, tzinfo=maestro.BRASILIA),
                               {"dia": "2026-11-05", "feitos": {}, "ultima_producao": "2026-11-06T00:40:00-03:00"})
     assert novo["ultima_producao"] == "2026-11-06T00:40:00-03:00"
+
+
+def test_legenda_usa_so_a_palavra_final(tmp_path, monkeypatch):
+    import json as _json
+    pasta = tmp_path / "2026-11-05-0420-gta-6-esquete"
+    pasta.mkdir()
+    (pasta / "pauta.json").write_text(_json.dumps({"roteiro": {"palavra": "ESTUDIO",
+                                                               "legenda": "Dias de duas horas. Comenta GAME e me segue."}}))
+    monkeypatch.setattr(produtora, "FILA", tmp_path / "fila")
+    from src.estudio_instagram import hospedagem
+    monkeypatch.setattr(hospedagem, "publicar", lambda *a, **k: "https://x/v.mp4")
+    destino = produtora.para_fila({"pasta": str(pasta), "repo": "em-alta/gta-6", "estilo": "esquete", "em_alta": True})
+    legenda = _json.loads(destino.read_text())["legenda"]
+    assert "GAME" not in legenda and legenda.count("ESTUDIO") == 1
