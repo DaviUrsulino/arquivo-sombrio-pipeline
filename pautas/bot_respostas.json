@@ -12,15 +12,21 @@
     "ENGENHARIA": "Oi! Aqui está o Pack Estúdio (R$ 47): os 8 estilos de Reels animados que você vê no perfil, gerados por código a partir do seu roteiro e da sua voz. Com Kit Claude Code e Kit Engenharia de bônus. Link: https://pay.kiwify.com.br/lfbxkKI",
     "TESTES": "Oi! Aqui está o Pack Estúdio (R$ 47): os 8 estilos de Reels animados que você vê no perfil, gerados por código a partir do seu roteiro e da sua voz. Com Kit Claude Code e Kit Engenharia de bônus. Link: https://pay.kiwify.com.br/lfbxkKI",
     "PIXEL": "Oi! É o Pixel Guerra: grade de 10 mil espaços, entrada R$ 1, pra tomar um espaço ocupado é só pagar R$ 0,50 a mais que o dono atual. Garante o seu: https://pixelguerra.com.br",
-    "ESTUDIO": "Oi! Aqui está o Pack Estúdio (R$ 47): os 8 estilos de Reels animados que você vê no perfil, gerados por código a partir do seu roteiro e da sua voz. Com Kit Claude Code e Kit Engenharia de bônus. Link: https://pay.kiwify.com.br/lfbxkKI",
-    "ESTÚDIO": "Oi! Aqui está o Pack Estúdio (R$ 47): os 8 estilos de Reels animados que você vê no perfil, gerados por código a partir do seu roteiro e da sua voz. Com Kit Claude Code e Kit Engenharia de bônus. Link: https://pay.kiwify.com.br/lfbxkKI"
+    "ESTUDIO": "Oi! Aqui está a Máquina de Reels: o sistema que faz os vídeos animados deste perfil, cada um num estilo de filme diferente, e posta sozinho no seu Instagram. Pagamento único de R$ 97, sem mensalidade, com o Pack Estúdio, o Kit Claude Code e o Kit Engenharia de bônus. Link: https://pay.kiwify.com.br/pqXFvEm",
+    "ESTÚDIO": "Oi! Aqui está a Máquina de Reels: o sistema que faz os vídeos animados deste perfil, cada um num estilo de filme diferente, e posta sozinho no seu Instagram. Pagamento único de R$ 97, sem mensalidade, com o Pack Estúdio, o Kit Claude Code e o Kit Engenharia de bônus. Link: https://pay.kiwify.com.br/pqXFvEm",
+    "MAQUINA": "Oi! Aqui está a Máquina de Reels: o sistema que faz os vídeos animados deste perfil, cada um num estilo de filme diferente, e posta sozinho no seu Instagram. Pagamento único de R$ 97, sem mensalidade, com o Pack Estúdio, o Kit Claude Code e o Kit Engenharia de bônus. Link: https://pay.kiwify.com.br/pqXFvEm",
+    "MÁQUINA": "Oi! Aqui está a Máquina de Reels: o sistema que faz os vídeos animados deste perfil, cada um num estilo de filme diferente, e posta sozinho no seu Instagram. Pagamento único de R$ 97, sem mensalidade, com o Pack Estúdio, o Kit Claude Code e o Kit Engenharia de bônus. Link: https://pay.kiwify.com.br/pqXFvEm"
   },
   "exigir_seguir": false,
   "sem_filtro": [
     "PACK",
     "ENGENHARIA",
     "TESTES",
-    "PIXEL"
+    "PIXEL",
+    "ESTUDIO",
+    "ESTÚDIO",
+    "MAQUINA",
+    "MÁQUINA"
   ],
   "mensagem_pedido": "Oi! Pra liberar o link, segue o @ursulino.ia e responde aqui com SIGO. Eu confiro e te mando na hora",
   "mensagem_nao_segue": "Ainda não vi o seu follow no @ursulino.ia Segue a conta e responde SIGO de novo que eu libero o link."
