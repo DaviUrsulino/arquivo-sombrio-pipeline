@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <style>
+      html, body { margin: 0; background: #0d0d0f; }
+      #root { position: relative; width: 1080px; height: 1350px; overflow: hidden; background: #0d0d0f; color: #f4f1ea;
+              font-family: "League Gothic", sans-serif; }
+      .grade { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.045) 2px, transparent 2px),
+               linear-gradient(90deg, rgba(255,255,255,0.045) 2px, transparent 2px); background-size: 90px 90px; }
+      .mono { font-family: "Space Mono", monospace; }
+      .topo { position: absolute; top: 64px; left: 80px; right: 80px; display: flex; justify-content: space-between;
+              font-family: "Space Mono", monospace; font-size: 30px; letter-spacing: 0.12em; color: #9a968c; }
+      .topo b { color: #ff6b4a; font-weight: 700; }
+      .num { position: absolute; top: 150px; left: 76px; font-size: 230px; line-height: 0.8; color: #ff6b4a; }
+      .nome { position: absolute; top: 160px; left: 330px; right: 70px; font-size: 128px; line-height: 0.88; text-transform: uppercase; }
+      .faz { position: absolute; top: 470px; left: 80px; right: 80px; font-family: "Space Mono", monospace; font-size: 44px;
+             line-height: 1.3; color: #f4f1ea; }
+      .faz em { font-style: normal; color: #5ef2c2; }
+      .palco { position: absolute; left: 80px; right: 80px; top: 700px; height: 430px; border: 4px solid #2a2a30;
+               border-radius: 28px; background: #141418; overflow: hidden; }
+      .estrelas { position: absolute; left: 80px; bottom: 90px; font-family: "Space Mono", monospace; font-size: 40px; color: #9a968c; }
+      .estrelas span { color: #ffd166; font-weight: 700; }
+      .arrasta { position: absolute; right: 80px; bottom: 84px; font-size: 64px; color: #5ef2c2; }
+      /* capa e fim */
+      .capa-titulo { position: absolute; left: 76px; right: 76px; top: 300px; font-size: 200px; line-height: 0.86; text-transform: uppercase; }
+      .capa-titulo .c { color: #ff6b4a; } .capa-titulo .m { color: #5ef2c2; }
+      .capa-sub { position: absolute; left: 80px; right: 80px; top: 1010px; font-family: "Space Mono", monospace; font-size: 40px; color: #c9c5bb; }
+      .selo { position: absolute; right: 80px; top: 150px; transform: rotate(8deg); border: 6px solid #ffd166; color: #ffd166;
+              font-size: 64px; padding: 8px 26px; border-radius: 14px; }
+      .bloco { position: absolute; background: #5ef2c2; border-radius: 10px; }
+      .barra { position: absolute; height: 46px; border-radius: 10px; }
+      .peca { position: absolute; width: 74px; height: 74px; border-radius: 14px; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="__DUR__" data-width="1080" data-height="1350">
+      <div class="grade"></div>
+      __CORPO__
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const ease = "expo.out";
+      __ANIM__
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
