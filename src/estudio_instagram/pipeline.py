@@ -10,6 +10,7 @@ Publicar exige INSTAGRAM_GRAPH_TOKEN e INSTAGRAM_USER_ID no .env (ver docs/estud
 
 import argparse
 import json
+import re
 import os
 import shutil
 import subprocess
@@ -195,6 +196,20 @@ def _registrar_pauta(media_id: str, caminho_pauta: Path, dados_pauta: dict, mold
     arquivo.write_text(json.dumps(atual, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
+def _capa(video: Path, dados_pauta: dict, pasta_saida: Path) -> str | None:
+    """Capa no padrão do grid (ver capa.py). Sem capa o Reel sai mesmo assim, com o quadro que o Instagram escolher."""
+    titulo = dados_pauta.get("capa") or re.split(r"(?<=[.!?])\s", (dados_pauta.get("legenda") or "").strip())[0]
+    if not titulo:
+        return None
+    try:
+        from . import capa
+        arquivo = capa.gerar(video, titulo, pasta_saida / "capa.jpg")
+        return hospedagem.publicar(arquivo, f"{pasta_saida.name}-capa.jpg")
+    except Exception as erro:
+        print(f"capa não saiu ({erro}); publico sem")
+        return None
+
+
 def _publicar(publicar: bool, video: Path, dados_pauta: dict, repos: dict, registro: dict, caminho_pauta: Path,
               pasta_saida: Path, modelo_reels: str, formato: str, slides: list):
     """Publica o Reels (e o carrossel, se houver) e registra links, estilo e pauta do post. Usado pelo caminho normal
@@ -218,7 +233,9 @@ def _publicar(publicar: bool, video: Path, dados_pauta: dict, repos: dict, regis
                 teste = experimental and ig.seguidores() >= MIN_SEGUIDORES_TRIAL
             except Exception:
                 teste = False
-            reels_publicado = ig.publicar_reels(url_video, legenda, teste=teste, colaboradores=dados_pauta.get("colaboradores"))
+            url_capa = _capa(video, dados_pauta, pasta_saida) if formato == "pronto" else None
+            reels_publicado = ig.publicar_reels(url_video, legenda, teste=teste, colaboradores=dados_pauta.get("colaboradores"),
+                                                capa_url=url_capa)
             registro["trial_reel"] = teste
             registro["publicado"] = True
             registro["legenda"] = legenda

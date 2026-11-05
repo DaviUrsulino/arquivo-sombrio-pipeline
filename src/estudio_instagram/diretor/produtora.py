@@ -335,6 +335,7 @@ def para_fila(res: dict) -> Path:
     venda = res.get("venda", False)
     pauta = {"titulo": f"{res['repo'].split('/')[-1]}: produtora ({res['estilo']})", "formato": "pronto",
              "video_pronto_url": url, "palavra_chave": rot["palavra"], "legenda": legenda,
+             **({"capa": rot["texto_tela"]} if rot.get("texto_tela") else {}),
              "itens": [] if venda or res.get("em_alta") else [{"repo": res["repo"]}], "estilo": res["estilo"], "gancho": "A",
              "ganchos_alternativos": [], **({"tipo": "venda"} if venda else {}),
              **({"tipo": "em-alta"} if res.get("em_alta") else {})}

@@ -109,3 +109,9 @@ def test_trial_reel_manda_trial_params_so_quando_pedido():
     ig.publicar_reels("http://v", "leg")
     assert json.loads(enviados[0][1]["trial_params"]) == {"graduation_strategy": "SS_PERFORMANCE"}
     assert "trial_params" not in enviados[2][1]
+
+
+def test_reels_com_capa_manda_cover_url():
+    abrir = AbridorFalso([{"id": "c1"}, {"status_code": "FINISHED"}, {"id": "m1"}])
+    InstagramGraph("t", "u", abrir=abrir, esperar=lambda s: None).publicar_reels("https://cdn/v.mp4", "x", capa_url="https://cdn/c.jpg")
+    assert "cover_url=https%3A%2F%2Fcdn%2Fc.jpg" in abrir.pedidos[0].data.decode()
