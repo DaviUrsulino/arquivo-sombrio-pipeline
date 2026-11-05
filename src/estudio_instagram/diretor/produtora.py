@@ -81,7 +81,7 @@ Responda só JSON: {"estilos": ["slug1", "slug2", "slug3", "slug4"]} usando os s
 
 def estilo_para(assunto: str, estado: dict, todos: list[dict], llm=None) -> dict:
     """Davi, 04/11: estilo de arquivo/dossiê num vídeo de GTA ficou ruim. O rodízio cego trocou por: estilos que
-    combinam com o assunto e, entre eles, o usado há mais tempo (variedade sem destoar)."""
+    combinam com o assunto, em ordem; sai o que mais combina e não foi usado nos últimos 8 vídeos."""
     from ..llm import gerar_json
     lista = "\n".join(f"{e['slug']}: {e['nome']} ({e['categoria']}; {', '.join(e.get('usos', []))})" for e in todos)
     try:
@@ -92,8 +92,8 @@ def estilo_para(assunto: str, estado: dict, todos: list[dict], llm=None) -> dict
         bons = []
     if not bons:
         return proximo_estilo(estado, todos)
-    usados = estado.get("estilos_usados", [])
-    return min(bons, key=lambda e: -usados[::-1].index(e["slug"]) if e["slug"] in usados else -10**6)
+    recentes = estado.get("estilos_usados", [])[-8:]
+    return next((e for e in bons if e["slug"] not in recentes), bons[0])  # o que mais combina, se não saiu há pouco
 
 
 def proximo_estilo(estado: dict, todos: list[dict]) -> dict:

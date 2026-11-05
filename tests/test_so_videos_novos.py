@@ -66,4 +66,4 @@ def test_estilo_combina_com_o_assunto_e_varia():
     escolhe = lambda *_: {"estilos": ["pixel-rpg", "neon"]}
     assert produtora.estilo_para("GTA 6", {"estilos_usados": []}, todos, llm=escolhe)["slug"] == "pixel-rpg"
     assert produtora.estilo_para("GTA 6", {"estilos_usados": ["pixel-rpg"]}, todos, llm=escolhe)["slug"] == "neon"
-    assert produtora.estilo_para("GTA 6", {"estilos_usados": ["neon", "pixel-rpg"]}, todos, llm=escolhe)["slug"] == "neon"
+    assert produtora.estilo_para("GTA 6", {"estilos_usados": ["neon", "pixel-rpg"]}, todos, llm=escolhe)["slug"] == "pixel-rpg"
