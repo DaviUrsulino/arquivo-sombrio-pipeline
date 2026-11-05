@@ -3,7 +3,8 @@
   "brick-toy",
   "brick-toy",
   "archive-lighttable",
-  "news-package"
+  "news-package",
+  "esquete"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -37,6 +38,13 @@
    "estilo": "news-package",
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-05-0134-gta-6-news-package"
+  },
+  {
+   "quando": "2026-11-05T04:45",
+   "repo": "em-alta/gta-6",
+   "estilo": "esquete",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-05-0420-gta-6-esquete"
   }
  ]
 }
