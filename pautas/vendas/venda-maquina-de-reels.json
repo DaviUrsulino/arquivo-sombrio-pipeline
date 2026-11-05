@@ -1,0 +1,29 @@
+{
+ "formato": "pixel2",
+ "palavra_chave": "ESTUDIO",
+ "titulo": "Venda: Máquina de Reels",
+ "legenda": "Os vídeos deste perfil saem de uma máquina: assunto, roteiro, narração, animação e postagem, tudo sozinho. Agora ela pode ser sua.\n\nComenta ESTUDIO que eu te mando o link no direct.",
+ "cenas_roteiro": [
+  {
+   "narracao": "Esse vídeo não passou por nenhum editor de vídeo."
+  },
+  {
+   "narracao": "Uma máquina achou o assunto, escreveu o roteiro e gravou a narração."
+  },
+  {
+   "narracao": "O Claude Code animou cada cena num estilo de filme diferente."
+  },
+  {
+   "narracao": "São mais de sessenta estilos, de pixel art a gravura japonesa."
+  },
+  {
+   "narracao": "Ela confere o vídeo e posta sozinha no horário certo."
+  },
+  {
+   "narracao": "Roda no seu computador e posta mesmo com ele desligado."
+  },
+  {
+   "narracao": "É a Máquina de Reels: pagamento único, sem mensalidade."
+  }
+ ]
+}
