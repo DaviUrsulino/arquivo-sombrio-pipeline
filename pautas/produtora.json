@@ -4,7 +4,8 @@
   "brick-toy",
   "archive-lighttable",
   "news-package",
-  "esquete"
+  "esquete",
+  "glass-product"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -45,6 +46,13 @@
    "estilo": "esquete",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-05-0420-gta-6-esquete"
+  },
+  {
+   "quando": "2026-11-05T05:38",
+   "repo": "em-alta/jude-bellingham-calvin-klein",
+   "estilo": "glass-product",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-05-0449-jude-bellingham-calvin-klein-glass-product"
   }
  ]
 }
