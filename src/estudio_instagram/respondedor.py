@@ -197,7 +197,7 @@ def _guardar_no_git():
         if subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=RAIZ).returncode == 0:
             return
         subprocess.run(["git", "commit", "-m", "chore: registra respostas enviadas pelo bot [skip ci]"], cwd=RAIZ, check=True)
-        subprocess.run(["git", "pull", "--rebase", "-q"], cwd=RAIZ, check=True)
+        subprocess.run(["git", "pull", "--rebase", "--autostash", "-q"], cwd=RAIZ, check=True)
         subprocess.run(["git", "push", "-q"], cwd=RAIZ, check=True)
     except subprocess.CalledProcessError as erro:
         print(f"não consegui gravar no git ({erro}); sigo, o próximo ciclo tenta de novo")

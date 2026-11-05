@@ -198,7 +198,7 @@ def _gravar(estado: dict, commitar: bool):
         if subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=RAIZ).returncode == 0:
             return
         subprocess.run(["git", "commit", "-m", "chore: registra rodada do maestro [skip ci]"], cwd=RAIZ, check=True)
-        subprocess.run(["git", "pull", "--rebase", "-q"], cwd=RAIZ, check=True)
+        subprocess.run(["git", "pull", "--rebase", "--autostash", "-q"], cwd=RAIZ, check=True)
         subprocess.run(["git", "push", "-q"], cwd=RAIZ, check=True)
     except subprocess.CalledProcessError as erro:
         print(f"não consegui gravar no git ({erro}); sigo, o estado local vale")
@@ -238,7 +238,7 @@ def main():
             novo = estado
         if formato and not formato.startswith("pauta:"):
             nova_rodada = [h for h in novo["feitos"] if h not in (estado["feitos"] if estado.get("dia") == novo["dia"] else {})]
-            subprocess.run(["git", "pull", "--rebase", "-q"], cwd=RAIZ, check=False)  # pega pautas novas do banco
+            subprocess.run(["git", "pull", "--rebase", "--autostash", "-q"], cwd=RAIZ, check=False)  # pega pautas novas do banco
             usadas = novo.get("fila_usadas", estado.get("fila_usadas", []))
             da_fila = escolher_da_fila(formato, usadas) if any(h in nova_rodada for h in FILA_RODADAS) else None
             if da_fila:

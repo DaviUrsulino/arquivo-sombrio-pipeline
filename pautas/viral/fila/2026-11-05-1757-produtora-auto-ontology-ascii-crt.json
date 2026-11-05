@@ -1,0 +1,15 @@
+{
+ "titulo": "auto-ontology: produtora (ascii-crt)",
+ "formato": "pronto",
+ "video_pronto_url": "https://github.com/DaviUrsulino/arquivo-sombrio-pipeline/releases/download/midia-publicacao/produtora-2026-11-05-1731-auto-ontology-ascii-crt.mp4",
+ "palavra_chave": "ONTOLOGIA",
+ "legenda": "A NVIDIA liberou de graça o jeito de a IA parar de errar número.\nComenta ONTOLOGIA que eu te mando o link.\n\nEla monta um mapa dos seus dados, você pergunta em português e toda resposta mostra de onde veio o número.\n\n#ia #inteligenciaartificial #claudecode #automacao",
+ "itens": [
+  {
+   "repo": "NVIDIA/auto-ontology"
+  }
+ ],
+ "estilo": "ascii-crt",
+ "gancho": "A",
+ "ganchos_alternativos": []
+}

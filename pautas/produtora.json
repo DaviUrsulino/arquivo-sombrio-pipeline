@@ -9,11 +9,13 @@
   "telestrator",
   "dark-keynote",
   "spy-titles",
-  "living-screencast"
+  "living-screencast",
+  "ascii-crt"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
-  "vercel-labs/agent-desktop"
+  "vercel-labs/agent-desktop",
+  "NVIDIA/auto-ontology"
  ],
  "producoes": [
   {

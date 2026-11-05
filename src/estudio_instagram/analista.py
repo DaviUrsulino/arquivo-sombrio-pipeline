@@ -213,7 +213,7 @@ def main():
             subprocess.run(["git", "add", str(RELATORIO), str(DADOS), *extras], cwd=RAIZ, check=True)
             if subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=RAIZ).returncode != 0:
                 subprocess.run(["git", "commit", "-m", "chore: análise de desempenho dos Reels [skip ci]"], cwd=RAIZ, check=True)
-                subprocess.run(["git", "pull", "--rebase", "-q"], cwd=RAIZ, check=True)
+                subprocess.run(["git", "pull", "--rebase", "--autostash", "-q"], cwd=RAIZ, check=True)
                 subprocess.run(["git", "push", "-q"], cwd=RAIZ, check=True)
         except subprocess.CalledProcessError as erro:
             print(f"não consegui gravar no git ({erro})")
