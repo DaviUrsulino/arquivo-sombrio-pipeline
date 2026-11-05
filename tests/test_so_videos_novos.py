@@ -64,9 +64,9 @@ def test_em_alta_pula_politica_e_usa_so_manchetes():
 def test_estilo_combina_com_o_assunto_e_varia():
     todos = [{"slug": s, "nome": s, "categoria": "x"} for s in ("archive-lighttable", "pixel-rpg", "neon", "dossie")]
     escolhe = lambda *_: {"estilos": ["pixel-rpg", "neon"]}
-    assert produtora.estilo_para("GTA 6", {"estilos_usados": []}, todos, llm=escolhe)["slug"] == "pixel-rpg"
-    assert produtora.estilo_para("GTA 6", {"estilos_usados": ["pixel-rpg"]}, todos, llm=escolhe)["slug"] == "neon"
-    assert produtora.estilo_para("GTA 6", {"estilos_usados": ["neon", "pixel-rpg"]}, todos, llm=escolhe)["slug"] == "pixel-rpg"
+    assert produtora.estilo_para("GTA 6", {"estilos_usados": []}, todos, llm=escolhe, fracos=set())["slug"] == "pixel-rpg"
+    assert produtora.estilo_para("GTA 6", {"estilos_usados": ["pixel-rpg"]}, todos, llm=escolhe, fracos=set())["slug"] == "neon"
+    assert produtora.estilo_para("GTA 6", {"estilos_usados": ["neon", "pixel-rpg"]}, todos, llm=escolhe, fracos=set())["slug"] == "pixel-rpg"
 
 
 def test_maestro_produz_de_madrugada_so_quando_falta_video():
@@ -108,3 +108,16 @@ def test_no_maximo_um_assunto_do_momento_por_dia(monkeypatch):
     assert not produtora.cabe_em_alta(agora)
     monkeypatch.setattr(produtora, "_estado", lambda: {"producoes": [{"repo": "x/y", "ok": True, "quando": "2026-11-05T01:00"}]})
     assert produtora.cabe_em_alta(agora)
+
+
+def test_estilo_que_flopou_sai_da_escolha():
+    desempenho = {"geral": {"views_medianas": 1200},
+                  "por_estilo": {"produtora-dossie": {"views_medianas": 130}, "produtora-esquete": {"views_medianas": 1266},
+                                 "vila": {"views_medianas": 100}}}
+    assert produtora.estilos_fracos(desempenho) == {"dossie"}
+    todos = [{"slug": s, "nome": s, "categoria": "x"} for s in ("dossie", "esquete")]
+    escolhe = lambda *_: {"estilos": ["dossie", "esquete"]}
+    assert produtora.estilo_para("caso", {}, todos, llm=escolhe, fracos={"dossie"})["slug"] == "esquete"
+    # se só sobrar estilo fraco, ainda produz (não trava a madrugada)
+    so_dossie = lambda *_: {"estilos": ["dossie"]}
+    assert produtora.estilo_para("caso", {}, todos, llm=so_dossie, fracos={"dossie"})["slug"] == "dossie"

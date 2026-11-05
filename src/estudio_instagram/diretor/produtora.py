@@ -79,7 +79,20 @@ ferramenta de IA pede tecnologia, terminal, brinquedo 3D ou esquete). Nunca esco
 Responda só JSON: {"estilos": ["slug1", "slug2", "slug3", "slug4"]} usando os slugs da lista."""
 
 
-def estilo_para(assunto: str, estado: dict, todos: list[dict], llm=None) -> dict:
+def estilos_fracos(desempenho: dict | None = None, corte: float = 0.2) -> set[str]:
+    """Estilos que já foram postados e ficaram muito abaixo do perfil (mediana de views abaixo de 20% da mediana
+    geral). Dossiê fez 130 views com o perfil na casa de 1.200: não vale repetir até os números mudarem."""
+    if desempenho is None:
+        try:
+            desempenho = json.loads((RAIZ / "pautas" / "desempenho.json").read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            return set()
+    geral = (desempenho.get("geral") or {}).get("views_medianas") or 0
+    return {nome.removeprefix("produtora-") for nome, d in (desempenho.get("por_estilo") or {}).items()
+            if nome.startswith("produtora-") and geral and d.get("views_medianas", geral) < corte * geral}
+
+
+def estilo_para(assunto: str, estado: dict, todos: list[dict], llm=None, fracos: set[str] | None = None) -> dict:
     """Davi, 04/11: estilo de arquivo/dossiê num vídeo de GTA ficou ruim. O rodízio cego trocou por: estilos que
     combinam com o assunto, em ordem; sai o que mais combina e não foi usado nos últimos 8 vídeos."""
     from ..llm import gerar_json
@@ -90,6 +103,8 @@ def estilo_para(assunto: str, estado: dict, todos: list[dict], llm=None) -> dict
     except Exception as erro:
         print(f"não consegui casar estilo com o assunto ({erro}); sigo o rodízio")
         bons = []
+    fracos = estilos_fracos() if fracos is None else fracos
+    bons = [e for e in bons if e["slug"] not in fracos] or bons
     if not bons:
         return proximo_estilo(estado, todos)
     recentes = estado.get("estilos_usados", [])[-8:]
