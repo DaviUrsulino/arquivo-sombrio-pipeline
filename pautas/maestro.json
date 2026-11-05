@@ -1,7 +1,8 @@
 {
   "dia": "2026-11-05",
   "feitos": {
-    "08:00": "disparada 08:00"
+    "08:00": "disparada 08:00",
+    "00:30": "perdida"
   },
   "ultimo_disparo": "2026-11-05T08:00:50-03:00",
   "fila_usadas": [
