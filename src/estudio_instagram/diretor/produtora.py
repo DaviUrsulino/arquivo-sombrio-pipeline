@@ -203,6 +203,7 @@ def rodar_agente(prompt: str, pasta: Path, timeout_s: int = 4500) -> str:
 
 VENDAS = RAIZ / "pautas" / "vendas"
 REPO_VENDA = "venda/pack-estudio"  # rótulo interno (não é repositório)
+PALAVRA_EM_ALTA = "MAQUINA"  # o respondedor manda o checkout da Máquina de Reels (aceita MÁQUINA também)
 PALAVRA_VENDA = "ESTUDIO"  # o respondedor manda o link do pack para quem comenta essa palavra
 EXTRA_VENDA = segredos.texto("extra_venda")  # texto no repositório privado (ver segredos.py)
 
@@ -238,8 +239,10 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
     if momento:
         repo = f"em-alta/{re.sub(r'[^a-z0-9]+', '-', momento['chave'].lower()).strip('-')}"
         rot = roteiro.escrever(momento["fatos"], extra=EXTRA_EM_ALTA.replace("__ANGULO__", momento.get("angulo", "")))
-        rot["palavra"] = PALAVRA_VENDA
-        rot["cta"] = f"Esse vídeo eu fiz com IA. Quer fazer igual? Comenta {PALAVRA_VENDA} que eu te mando."
+        # Davi, 05/11: assunto do momento é vídeo de venda. Atrai quem busca o tema e fecha mostrando a máquina.
+        rot["palavra"] = PALAVRA_EM_ALTA
+        rot["cta"] = ("Essa animação eu fiz sem editor, com uma máquina de IA. Quer saber como? "
+                      "Comenta MÁQUINA que eu te mando.")
         extra_video = AVISO_EM_ALTA
     elif venda:
         repo = REPO_VENDA

@@ -114,7 +114,7 @@ def escolher(candidatos: list[dict], llm=gerar_json, usados: list[str] | None = 
         c = validos[int(r.get("id"))]
     except (TypeError, ValueError, IndexError):
         return None
-    if float(r.get("nota") or 0) < 7:
+    if float(r.get("nota") or 0) < 8:
         return None
     fatos = (f"ASSUNTO DO MOMENTO no Brasil: {c['termo']} ({c['fonte']}"
              + (f", mais de {c['buscas']} buscas hoje" if c["buscas"] else "") + ").\nManchetes de hoje:\n"
