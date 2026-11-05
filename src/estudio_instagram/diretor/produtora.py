@@ -296,7 +296,7 @@ BANCO_MAXIMO = 3  # vídeos comuns esperando no banco (3 rodadas por dia); mais 
 
 def banco_cheio() -> bool:
     from .. import maestro
-    return len(maestro.disponiveis(maestro._ler().get("fila_usadas", []))) >= BANCO_MAXIMO
+    return len(maestro.disponiveis(maestro._ler().get("fila_usadas", []))) >= max(BANCO_MAXIMO, maestro.banco_alvo())
 
 
 EM_ALTA_POR_DIA = 1  # 05/11: na 1ª madrugada saíram 4 de esporte/celebridade seguidos; o perfil perde o nicho

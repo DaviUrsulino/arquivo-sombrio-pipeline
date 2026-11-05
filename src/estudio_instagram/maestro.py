@@ -167,13 +167,25 @@ def escolher_da_fila(formato: str, usadas: list[str]) -> str | None:
 JANELA_PRODUCAO = (0, 7)
 BANCO_ALVO = 3
 INTERVALO_PRODUCAO = timedelta(minutes=80)
+# Reforço (Davi, 05/11): a cota semanal do Claude renova 06/11 às 13h e sobrou; até lá a produtora enche o banco até
+# 6 e trabalha até o meio-dia. 6 vídeos = 2 dias de grade, dentro da validade de 72 h. Depois volta sozinho ao normal.
+REFORCO_ATE = datetime(2026, 11, 6, 12, 30, tzinfo=BRASILIA)
+
+
+def banco_alvo(agora: datetime | None = None) -> int:
+    return 6 if (agora or datetime.now(BRASILIA)) < REFORCO_ATE else BANCO_ALVO
+
+
+def janela_producao(agora: datetime | None = None) -> tuple[int, int]:
+    return (0, 13) if (agora or datetime.now(BRASILIA)) < REFORCO_ATE else JANELA_PRODUCAO
 
 
 def deve_produzir(agora: datetime, estado: dict, banco: int, rodando: bool) -> bool:
     agora = agora.astimezone(BRASILIA)
     ultima = estado.get("ultima_producao")
     recente = ultima and agora - datetime.fromisoformat(ultima) < INTERVALO_PRODUCAO
-    return JANELA_PRODUCAO[0] <= agora.hour < JANELA_PRODUCAO[1] and banco < BANCO_ALVO and not rodando and not recente
+    inicio, fim = janela_producao(agora)
+    return inicio <= agora.hour < fim and banco < banco_alvo(agora) and not rodando and not recente
 
 
 def _produtora_rodando() -> bool:
