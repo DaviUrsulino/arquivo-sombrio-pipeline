@@ -92,7 +92,7 @@ def decidir(agora: datetime, estado: dict) -> tuple[str | None, dict]:
     dia = agora.date().isoformat()
     if estado.get("dia") != dia:
         estado = {"dia": dia, "feitos": {}, "fila_usadas": estado.get("fila_usadas", []),
-                  "ultimo_disparo": estado.get("ultimo_disparo")}
+                  "ultimo_disparo": estado.get("ultimo_disparo"), "ultima_producao": estado.get("ultima_producao")}
     feitos = dict(estado["feitos"])
     ultimo = estado.get("ultimo_disparo")
     seguro = not ultimo or agora - datetime.fromisoformat(ultimo) >= timedelta(minutes=INTERVALO_MIN_MIN)
@@ -112,7 +112,7 @@ def decidir(agora: datetime, estado: dict) -> tuple[str | None, dict]:
             escolhido = (hhmm, f"pauta:{pronta}" if pronta else formato)
             feitos[hhmm] = f"disparada {agora.strftime('%H:%M')}"
     novo = {"dia": dia, "feitos": feitos, "ultimo_disparo": estado.get("ultimo_disparo"),
-            "fila_usadas": estado.get("fila_usadas", [])}
+            "fila_usadas": estado.get("fila_usadas", []), "ultima_producao": estado.get("ultima_producao")}
     if escolhido:
         novo["ultimo_disparo"] = agora.isoformat(timespec="seconds")
     return (escolhido[1] if escolhido else None), novo
@@ -157,6 +157,30 @@ def escolher_da_fila(formato: str, usadas: list[str]) -> str | None:
         if venda:
             return venda
     return proxima_da_fila(usadas)
+
+
+# Produção da madrugada (Davi, 04/11: produzir quando ele não usa o Claude). O cron do GitHub para a produtora pula ou
+# atrasa horas (00:17 de 05/11 nem entrou na fila), então o maestro, que está sempre rodando, garante: de 00h às 07h,
+# se o banco tem menos de BANCO_ALVO vídeos e não há produção rodando, dispara uma (no máximo 1 a cada 80 min).
+JANELA_PRODUCAO = (0, 7)
+BANCO_ALVO = 3
+INTERVALO_PRODUCAO = timedelta(minutes=80)
+
+
+def deve_produzir(agora: datetime, estado: dict, banco: int, rodando: bool) -> bool:
+    agora = agora.astimezone(BRASILIA)
+    ultima = estado.get("ultima_producao")
+    recente = ultima and agora - datetime.fromisoformat(ultima) < INTERVALO_PRODUCAO
+    return JANELA_PRODUCAO[0] <= agora.hour < JANELA_PRODUCAO[1] and banco < BANCO_ALVO and not rodando and not recente
+
+
+def _produtora_rodando() -> bool:
+    r = subprocess.run(["gh", "run", "list", "--workflow", "produtora.yml", "-L", "5", "--json", "status"],
+                       cwd=RAIZ, capture_output=True, text=True)
+    try:
+        return any(x["status"] in ("queued", "in_progress", "waiting", "pending", "requested") for x in json.loads(r.stdout or "[]"))
+    except ValueError:
+        return True  # na dúvida, não dispara de novo
 
 
 def _ler() -> dict:
@@ -240,6 +264,16 @@ def main():
                     continue
         if novo != estado and not args.simular:
             _gravar(novo, args.commit)
+        if not args.simular:
+            try:
+                banco = len(disponiveis(novo.get("fila_usadas", [])))
+                if deve_produzir(datetime.now(BRASILIA), novo, banco, _produtora_rodando()):
+                    subprocess.run(["gh", "workflow", "run", "produtora.yml", "--ref", "master"], cwd=RAIZ, check=True)
+                    novo["ultima_producao"] = datetime.now(BRASILIA).isoformat(timespec="seconds")
+                    _gravar(novo, args.commit)
+                    print(f"banco com {banco} vídeo(s): disparei uma produção da madrugada", flush=True)
+            except Exception as erro:
+                print(f"não consegui disparar a produção ({erro}); tento na próxima olhada", flush=True)
         if not formato:
             print(f"nada a disparar agora; feitos hoje: {novo['feitos']}", flush=True)
         if time.monotonic() + args.intervalo >= fim:

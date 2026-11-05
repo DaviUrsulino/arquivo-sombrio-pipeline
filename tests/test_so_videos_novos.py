@@ -67,3 +67,20 @@ def test_estilo_combina_com_o_assunto_e_varia():
     assert produtora.estilo_para("GTA 6", {"estilos_usados": []}, todos, llm=escolhe)["slug"] == "pixel-rpg"
     assert produtora.estilo_para("GTA 6", {"estilos_usados": ["pixel-rpg"]}, todos, llm=escolhe)["slug"] == "neon"
     assert produtora.estilo_para("GTA 6", {"estilos_usados": ["neon", "pixel-rpg"]}, todos, llm=escolhe)["slug"] == "pixel-rpg"
+
+
+def test_maestro_produz_de_madrugada_so_quando_falta_video():
+    from datetime import datetime
+    noite = datetime(2026, 11, 5, 1, 0, tzinfo=maestro.BRASILIA)
+    assert maestro.deve_produzir(noite, {}, banco=1, rodando=False)
+    assert not maestro.deve_produzir(noite, {}, banco=3, rodando=False)
+    assert not maestro.deve_produzir(noite, {}, banco=0, rodando=True)
+    assert not maestro.deve_produzir(noite, {"ultima_producao": "2026-11-05T00:30:00-03:00"}, banco=0, rodando=False)
+    assert not maestro.deve_produzir(datetime(2026, 11, 5, 15, 0, tzinfo=maestro.BRASILIA), {}, banco=0, rodando=False)
+
+
+def test_estado_do_maestro_guarda_a_ultima_producao():
+    from datetime import datetime
+    _, novo = maestro.decidir(datetime(2026, 11, 6, 1, 0, tzinfo=maestro.BRASILIA),
+                              {"dia": "2026-11-05", "feitos": {}, "ultima_producao": "2026-11-06T00:40:00-03:00"})
+    assert novo["ultima_producao"] == "2026-11-06T00:40:00-03:00"
