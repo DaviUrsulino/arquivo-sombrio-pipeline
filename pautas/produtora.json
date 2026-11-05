@@ -6,7 +6,8 @@
   "news-package",
   "esquete",
   "glass-product",
-  "telestrator"
+  "telestrator",
+  "dark-keynote"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -61,6 +62,13 @@
    "estilo": "telestrator",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-05-0544-spurs-telestrator"
+  },
+  {
+   "quando": "2026-11-05T07:14",
+   "repo": "em-alta/darius-acuff-jr",
+   "estilo": "dark-keynote",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-05-0703-darius-acuff-jr-dark-keynote"
   }
  ]
 }
