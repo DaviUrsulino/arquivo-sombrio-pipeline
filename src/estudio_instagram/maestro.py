@@ -41,7 +41,9 @@ BRASILIA = timezone(timedelta(hours=-3))
 # 2026-11-04: teste de 2 semanas (até 18/11) com a rodada do meio-dia às 08:00 (aprovado pelo Davi). Meio-dia tinha
 # mediana de 169 views e a manhã 920 (só 4 posts). Regra decidida antes: se a mediana das 08:00 for >= 1,5x a do
 # meio-dia das 2 semanas anteriores, fica; senão volta para 12:00. Ver docs/semana-2026-11-05.md (na branch estudio-direcao).
-RODADAS = [("08:00", "pixel2"), ("20:00", "pixel2"), ("22:30", "lista")]
+# 2026-11-05 (Davi): 20:00 era a pior faixa do perfil (mediana 317 views; o dossiê novo fez 124) e 22-24h a melhor
+# (mediana 1.200). Teste: a 3ª rodada vai para 00:30, 2 h depois da das 22:30 (regra de intervalo mínimo).
+RODADAS = [("00:30", "pixel2"), ("08:00", "pixel2"), ("22:30", "lista")]
 # 2026-10-29: a rodada das 20:00 era "loop" (vídeo do Google Flow, formato @pixosly) -- dependia do Davi
 # soltar um vídeo à mão em loops/fila/ toda vez, o que ele não sustentou ("mó preguiça"). Virou "pixel2"
 # (ferramenta/identidade, 100% automático, sem insumo manual) pra fechar as 3 rodadas do dia sem depender
@@ -71,7 +73,7 @@ PAUTAS_DO_DIA = {
 # Banco de vídeos: pautas prontas e aprovadas em pautas/viral/fila/. Cada rodada usa a próxima que ainda não saiu
 # (em ordem de nome); sem nada no banco, ver SO_VIDEOS_NOVOS.
 FILA = RAIZ / "pautas" / "viral" / "fila"
-FILA_RODADAS = ("08:00", "20:00", "22:30")  # 2026-11-04 (Davi): só vídeo novo, o banco abastece TODAS as rodadas
+FILA_RODADAS = ("00:30", "08:00", "22:30")  # 2026-11-04 (Davi): só vídeo novo, o banco abastece TODAS as rodadas
 # Vídeos de venda feitos pela produtora no estilo novo; a rodada de venda (ter/sex 08:00) usa esta fila primeiro.
 FILA_VENDA = RAIZ / "pautas" / "viral" / "fila_venda"
 # Davi, 2026-11-04: "para mim já fazia só dos novos". Sem vídeo novo no banco, a rodada NÃO cai no formato antigo:
