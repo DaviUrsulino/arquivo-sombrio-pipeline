@@ -24,7 +24,7 @@ import re
 import shutil
 import subprocess
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 from . import portao, roteiro
@@ -281,6 +281,17 @@ def banco_cheio() -> bool:
     return len(maestro.disponiveis(maestro._ler().get("fila_usadas", []))) >= BANCO_MAXIMO
 
 
+EM_ALTA_POR_DIA = 1  # 05/11: na 1ª madrugada saíram 4 de esporte/celebridade seguidos; o perfil perde o nicho
+
+
+def cabe_em_alta(agora: datetime | None = None) -> bool:
+    """No máximo EM_ALTA_POR_DIA assunto do momento por 20 h; o resto são vídeos do nicho (ferramentas de IA)."""
+    agora = agora or datetime.now()
+    recentes = [x for x in _estado().get("producoes", []) if str(x.get("repo", "")).startswith("em-alta/")
+                and x.get("ok") and agora - datetime.fromisoformat(x["quando"]) < timedelta(hours=20)]
+    return len(recentes) < EM_ALTA_POR_DIA
+
+
 def precisa_venda() -> bool:
     """Sem vídeo de venda novo esperando no banco, a próxima produção automática é de venda (ter/sex 08:00 usam)."""
     from .. import maestro
@@ -348,7 +359,7 @@ def main():
     # Ordem do automático (Davi, 04/11): assunto do momento primeiro (rápido, antes de esfriar); sem assunto bom,
     # repõe a venda; com o banco já cheio, não produz (vídeo guardado demais perde o tema do dia).
     from .. import em_alta
-    momento = em_alta.do_momento() if (a.em_alta or (a.auto and not a.repo and not a.venda)) else None
+    momento = em_alta.do_momento() if (a.em_alta or (a.auto and not a.repo and not a.venda and cabe_em_alta())) else None
     if a.em_alta and not momento:
         raise SystemExit("nenhum assunto do momento rende vídeo agora")
     venda = not momento and (a.venda or (a.auto and not a.repo and precisa_venda()))

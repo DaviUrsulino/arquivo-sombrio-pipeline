@@ -98,3 +98,13 @@ def test_legenda_usa_so_a_palavra_final(tmp_path, monkeypatch):
     destino = produtora.para_fila({"pasta": str(pasta), "repo": "em-alta/gta-6", "estilo": "esquete", "em_alta": True})
     legenda = _json.loads(destino.read_text())["legenda"]
     assert "GAME" not in legenda and legenda.count("ESTUDIO") == 1
+
+
+def test_no_maximo_um_assunto_do_momento_por_dia(monkeypatch):
+    from datetime import datetime
+    agora = datetime(2026, 11, 5, 9, 0)
+    feitos = {"producoes": [{"repo": "em-alta/gta-6", "ok": True, "quando": "2026-11-05T01:00"}]}
+    monkeypatch.setattr(produtora, "_estado", lambda: feitos)
+    assert not produtora.cabe_em_alta(agora)
+    monkeypatch.setattr(produtora, "_estado", lambda: {"producoes": [{"repo": "x/y", "ok": True, "quando": "2026-11-05T01:00"}]})
+    assert produtora.cabe_em_alta(agora)
