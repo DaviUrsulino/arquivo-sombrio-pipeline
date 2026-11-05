@@ -131,7 +131,7 @@ def gerar_json(sistema: str, usuario: str) -> dict:
             erros.append(f"Mistral: {erro}")
     claude = shutil.which("claude")
     if claude and os.environ.get("LLM_SEM_CLAUDE") != "1":
-        # último recurso LOCAL: o Claude Code da máquina (não existe no GitHub Actions, então lá nada muda)
+        # último recurso: o Claude Code da máquina (no Actions, só a produtora instala; lá ele salva a produção quando o Gemini esgota)
         try:
             r = subprocess.run([claude, "-p", "--model", os.environ.get("LLM_CLAUDE_MODELO", "sonnet"),
                                 f"{sistema}\n\n---\n\n{usuario}\n\nResponda só com o JSON pedido, sem texto fora dele."],

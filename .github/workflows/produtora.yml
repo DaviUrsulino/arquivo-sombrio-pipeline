@@ -83,7 +83,8 @@ jobs:
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # o gh sobe o MP4 para a release de mídia
-          LLM_SEM_CLAUDE: '1'
+          # sem LLM_SEM_CLAUDE: quando a cota grátis do Gemini acaba (aconteceu em 04/11 à noite), o roteiro e a escolha
+          # de estilo caem no Claude (Sonnet, texto curto) em vez de derrubar a produção inteira
           LEMO_ANGLE: swiftshader  # runner sem GPU: three.js por software (senão os estilos 3D saem em branco)
           ENTRADA_REPO: ${{ inputs.repo }}      # por variável de ambiente, nunca colado no script (evita injeção)
           ENTRADA_ESTILO: ${{ inputs.estilo }}
