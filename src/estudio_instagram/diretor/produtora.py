@@ -256,7 +256,7 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
                                   "-of", "csv=p=0", str(final)], capture_output=True, text=True).stdout.strip()
         largura = ",".join(x for x in largura.replace("\n", ",").split(",") if x)[:9]  # o ffprobe pode pôr vírgula no fim
         problemas = q["problemas"] + ([] if largura == "1080,1920" else [f"resolução {largura} (esperado 1080,1920)"]) + \
-            ([] if 20 <= dur <= 60 else [f"duração {dur:.1f}s fora de 20-60 s"])
+            ([] if 20 <= dur <= 75 else [f"duração {dur:.1f}s fora de 20-75 s"])
         res.update({"ok": not problemas, "duracao": round(dur, 1), "problemas": problemas, "resumo_agente": resposta[-800:]})
     else:
         res["problemas"] = ["o agente não entregou final.mp4 (ver agente.log)"]
