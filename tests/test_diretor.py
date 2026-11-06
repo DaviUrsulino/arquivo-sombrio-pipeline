@@ -40,7 +40,7 @@ def test_corpo_sem_isso_porque_e_ou_seja_e_recusado():
 def test_escrever_tenta_de_novo_e_adiciona_cta():
     respostas = iter([_roteiro_ok(palavra="game"), _roteiro_ok()])
     r = roteiro.escrever("fatos", llm=lambda s, u: next(respostas))
-    assert r["cta"] == "Comenta GAME que eu te mando o link. E me segue: todo dia tem uma IA nova aqui."
+    assert r["cta"] == "Me segue e comenta GAME que eu te mando o link. Todo dia tem uma IA nova aqui."
     assert roteiro.frases(r, 1)[0] == r["ganchos"][1] and roteiro.frases(r)[-1] == r["cta"]
 
 

@@ -175,4 +175,4 @@ def test_nunca_dois_videos_de_venda_seguidos(tmp_path, monkeypatch):
 def test_fechamento_varia_entre_comenta_segue_salva_e_manda():
     tipos = {produtora.fechamento(n, "KIT")[0] for n in range(6)}
     assert tipos == {"comenta", "segue", "salva", "manda"}
-    assert "Comenta KIT" in produtora.fechamento(0, "KIT")[1]
+    assert "comenta KIT" in produtora.fechamento(0, "KIT")[1].lower().replace("kit", "KIT")

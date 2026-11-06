@@ -18,7 +18,7 @@
         "MÁQUINA": "Oi! Aqui está a Máquina de Reels: o sistema que faz os vídeos animados deste perfil, cada um num estilo de filme diferente, e posta sozinho no seu Instagram. Pagamento único de R$ 97, sem mensalidade, com o Pack Estúdio, o Kit Claude Code e o Kit Engenharia de bônus. Link: https://pay.kiwify.com.br/pqXFvEm",
         "GRADIUM": "Oi! Aqui está o Gradium, o site que clona a sua voz com 10 segundos de áudio e tem voz em português do Brasil. O plano grátis não pede cartão. Link: https://studio.gradium.ai"
     },
-    "exigir_seguir": true,
+    "exigir_seguir": false,
     "sem_filtro": [
         "PACK",
         "ENGENHARIA",
@@ -32,11 +32,12 @@
     "mensagem_pedido": "Opa, que bom que curtiu! O link é liberado só pra quem segue o @ursulino.ia. Me segue e comenta SIGO aqui no mesmo vídeo que eu te mando na hora.",
     "mensagem_nao_segue": "Ainda não apareceu o seu follow no @ursulino.ia. Me segue e comenta SIGO de novo no vídeo que eu libero o link.",
     "botoes_seguir": [],
-    "_nota_exigir_seguir": "06/11: a Meta recusa a 2a mensagem no direct depois da resposta privada (erro 10/2534022). Por isso o passo 2 é um comentário SIGO no vídeo, que dá direito a outra resposta privada com o link.",
+    "_nota_exigir_seguir": "06/11: Davi escolheu link na hora (uma etapa). A Meta não deixa a 2a mensagem no direct e o ManyChat com conferência de follow é pago. O pedido de follow vai no vídeo ('me segue e comenta X') e no fim da mensagem do link.",
     "liberar_por_direct": false,
     "palavras_seguiu": [
         "SIGO",
         "SEGUI",
         "SEGUINDO"
-    ]
+    ],
+    "rodape_seguir": "Me segue no @ursulino.ia: todo dia tem uma ferramenta de IA nova aqui."
 }

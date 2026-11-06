@@ -85,11 +85,11 @@ Responda só JSON: {"estilos": ["slug1", "slug2", "slug3", "slug4"]} usando os s
 # entre 4 pedidos; a legenda continua com o "Comenta X" (o link sai pelo direct em todos). cta_tipo vai pra fila
 # para o analista comparar qual traz mais seguidor.
 FECHAMENTOS = [
-    ("comenta", "Comenta {p} que eu te mando o link. E me segue: todo dia tem uma IA nova aqui."),
+    ("comenta", "Me segue e comenta {p} que eu te mando o link. Todo dia tem uma IA nova aqui."),
     ("segue", "Me segue que amanhã tem outra dessas. Todo dia uma IA nova aqui."),
-    ("comenta", "Comenta {p} que eu te mando o link. E me segue: todo dia tem uma IA nova aqui."),
+    ("comenta", "Me segue e comenta {p} que eu te mando o link. Todo dia tem uma IA nova aqui."),
     ("salva", "Salva esse vídeo pra testar depois. E me segue pra não perder a próxima."),
-    ("comenta", "Comenta {p} que eu te mando o link. E me segue: todo dia tem uma IA nova aqui."),
+    ("comenta", "Me segue e comenta {p} que eu te mando o link. Todo dia tem uma IA nova aqui."),
     ("manda", "Manda esse vídeo pra aquele amigo que precisa ver isso. E me segue pra mais."),
 ]
 
@@ -288,13 +288,13 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
         # Davi, 05/11: assunto do momento é vídeo de venda. Atrai quem busca o tema e fecha mostrando a máquina.
         rot["palavra"] = PALAVRA_EM_ALTA
         rot["cta"] = ("Essa animação eu fiz sem editor, com uma máquina de IA. Quer saber como? "
-                      "Comenta MÁQUINA que eu te mando.")
+                      "Me segue e comenta MÁQUINA que eu te mando.")
         extra_video = AVISO_EM_ALTA
     elif venda:
         repo = REPO_VENDA
         rot = roteiro.escrever(fatos_venda(), extra=EXTRA_VENDA)
         rot["palavra"] = PALAVRA_VENDA
-        rot["cta"] = f"Comenta {PALAVRA_VENDA} e me segue que eu te mando o link."
+        rot["cta"] = f"Me segue e comenta {PALAVRA_VENDA} que eu te mando o link."
     else:
         # teste A/B (04/11): no perfil, 45-60 s teve mediana 570 views contra 313 dos curtos (n=9 x 23). Alterna para
         # medir com os vídeos novos; o analista separa por duração (por_formato).
@@ -396,7 +396,7 @@ def para_fila(res: dict) -> Path:
             linhas.append(linha)
         legenda = "\n".join(linhas)
         if rot["palavra"] not in legenda:
-            legenda += f"\nComenta {rot['palavra']} que eu te mando o link no direct."
+            legenda += f"\nMe segue e comenta {rot['palavra']} que eu te mando o link no direct."
     venda = res.get("venda", False)
     pauta = {"titulo": f"{res['repo'].split('/')[-1]}: produtora ({res['estilo']})", "formato": "pronto",
              "video_pronto_url": url, "palavra_chave": rot["palavra"], "legenda": legenda,

@@ -60,7 +60,7 @@ def escrever(fatos: str, llm=gerar_json, tentativas: int = 3, extra: str = "", l
         erros = problemas(r, max_corpo=9 if longo else 6)
         if not erros:
             # motivo para seguir (conversão de quem chegou pelo Reels): o link vem pelo comentário, o follow pela promessa
-            r["cta"] = f"Comenta {r['palavra']} que eu te mando o link. E me segue: todo dia tem uma IA nova aqui."
+            r["cta"] = f"Me segue e comenta {r['palavra']} que eu te mando o link. Todo dia tem uma IA nova aqui."
             return r
         pedido = f"FATOS:\n{fatos}\n{extra}\n\nSEU ROTEIRO ANTERIOR TEVE PROBLEMAS, CORRIJA:\n- " + "\n- ".join(erros)
     raise RuntimeError("roteiro inválido: " + "; ".join(erros))

@@ -130,7 +130,7 @@ def montar_legenda(dados_pauta: dict, repos: dict) -> str:
     hashtags = " ".join(f"#{t}" for t in HASHTAGS)
     texto = (
         f"{primeira}\n"
-        f"Comenta {palavra} que eu te mando o link no direct.\n\n"
+        f"Me segue e comenta {palavra} que eu te mando o link no direct.\n\n"
         f"{tema}"
         f"{bloco_passos}"
         f"{envio}"
