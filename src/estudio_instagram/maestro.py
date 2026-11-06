@@ -152,8 +152,25 @@ def proxima_da_fila(usadas: list[str], pasta: Path | None = None, agora: datetim
     return lista[0] if lista else None
 
 
+def _tem_cara_de_venda(caminho: str) -> bool:
+    """Pack Estúdio (fila_venda) ou assunto do momento (em-alta) -- os dois fecham vendendo (Comenta ESTUDIO)."""
+    return caminho.startswith("pautas/viral/fila_venda/") or "-em-alta-" in caminho
+
+
+def duas_seguidas_de_venda(usadas: list[str]) -> bool:
+    ultimas = usadas[-2:]
+    return len(ultimas) == 2 and all(_tem_cara_de_venda(u) for u in ultimas)
+
+
 def escolher_da_fila(formato: str, usadas: list[str]) -> str | None:
-    """Rodada de venda pega o vídeo de venda novo; as outras (e a venda sem vídeo pronto) pegam o banco comum."""
+    """Rodada de venda pega o vídeo de venda novo; as outras (e a venda sem vídeo pronto) pegam o banco comum.
+
+    Trava (Davi, 06/11): nunca o 3º vídeo seguido com cara de venda. Saíram GTA 6 e Ralph Fiennes (os dois
+    em-alta) e, logo depois, o Pack Estúdio -- 3 "Comenta ESTUDIO" seguidos. Com os 2 últimos usados já de
+    venda, a rodada pega um vídeo comum nem que seja fora de ordem, ou é pulada se não sobrar nenhum."""
+    if duas_seguidas_de_venda(usadas):
+        comuns = [c for c in disponiveis(usadas) if not _tem_cara_de_venda(c)]
+        return comuns[0] if comuns else None
     if formato == "venda":
         venda = proxima_da_fila(usadas, FILA_VENDA)
         if venda:

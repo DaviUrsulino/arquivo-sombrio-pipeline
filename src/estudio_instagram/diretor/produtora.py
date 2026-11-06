@@ -329,7 +329,19 @@ def para_fila(res: dict) -> Path:
     legenda = (rot.get("legenda") or "").strip()
     # a legenda vem do LLM com a palavra que ELE inventou; em venda/assunto do momento a palavra é trocada depois
     # (ESTUDIO). Sem isto saiu "Comenta GAME" na legenda e "Comenta ESTUDIO" no vídeo (05/11).
-    legenda = re.sub(r"(?i)\bcomenta\s+[A-ZÀ-Ú]{3,}\b", f"Comenta {rot['palavra']}", legenda)
+    # "comenta" cobre só uma conjugação -- o LLM também escreve "Comente" (06/11), passava direto pelo regex e
+    # sobravam 2 chamadas pra ação na mesma legenda ("Comente MAQUINA" + "Comenta ESTUDIO" coladas no fim).
+    legenda = re.sub(r"(?i)\bcoment[ae]\s+[A-ZÀ-Ú]{3,}\b", f"Comenta {rot['palavra']}", legenda)
+    # o LLM às vezes escreve 2 frases de CTA (uma por linha, cada uma com sua própria palavra errada); a troca
+    # acima deixa as duas com a mesma palavra certa, mas repetidas -- fica só a primeira (06/11).
+    vista, linhas = False, []
+    for linha in legenda.split("\n"):
+        eh_cta = re.search(rf"(?i)\bcomenta\s+{re.escape(rot['palavra'])}\b", linha)
+        if eh_cta and vista:
+            continue
+        vista = vista or bool(eh_cta)
+        linhas.append(linha)
+    legenda = "\n".join(linhas)
     if rot["palavra"] not in legenda:
         legenda += f"\nComenta {rot['palavra']} que eu te mando o link no direct."
     venda = res.get("venda", False)

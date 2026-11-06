@@ -109,6 +109,24 @@ def test_legenda_usa_so_a_palavra_final(tmp_path, monkeypatch):
     assert "GAME" not in legenda and legenda.count("ESTUDIO") == 1
 
 
+def test_legenda_com_duas_chamadas_vira_uma_so(tmp_path, monkeypatch):
+    # 06/11: o LLM escreveu "Comente MAQUINA..." (verbo diferente de "Comenta") numa linha e deixou uma segunda
+    # linha de CTA solta; o regex antigo só pegava "comenta" e o reforço de palavra colava uma 3ª linha -- saiu
+    # legenda real com 2 chamadas de ação diferentes ("Comente MAQUINA" + "Comenta ESTUDIO").
+    import json as _json
+    pasta = tmp_path / "2026-11-06-1137-pack-estudio-dark-keynote"
+    pasta.mkdir()
+    (pasta / "pauta.json").write_text(_json.dumps({"roteiro": {"palavra": "ESTUDIO",
+        "legenda": "Tenha seu sistema de vídeos sem mensalidade.\nComente MAQUINA para receber o link no direct."}}))
+    monkeypatch.setattr(produtora, "FILA_VENDA", tmp_path / "fila_venda")
+    from src.estudio_instagram import hospedagem
+    monkeypatch.setattr(hospedagem, "publicar", lambda *a, **k: "https://x/v.mp4")
+    destino = produtora.para_fila({"pasta": str(pasta), "repo": "venda/pack-estudio", "estilo": "dark-keynote", "venda": True})
+    legenda = _json.loads(destino.read_text())["legenda"]
+    assert "MAQUINA" not in legenda
+    assert legenda.lower().count("comenta") == 1
+
+
 def test_no_maximo_um_assunto_do_momento_por_dia(monkeypatch):
     # 06/11: o repo do assunto do momento é a string fixa "em-alta" (sem slug — ver main()), e o campo
     # que diz se foi assunto do momento é `em_alta`, não um prefixo em `repo`. Testar com "em-alta/gta-6"
