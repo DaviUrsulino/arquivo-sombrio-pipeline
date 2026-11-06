@@ -1,0 +1,22 @@
+{
+ "slug": "mensagem-do-seu-numero",
+ "estilo": "cel-anime-80s",
+ "direcao": "HISTÓRIA de suspense em segunda pessoa ('e se fosse com você?'). Quarto escuro de apartamento, luz azul do celular no rosto de uma pessoa jovem de camiseta cinza (vista de costas ou de lado, sem rosto definido, pra quem assiste se colocar no lugar). Relógio digital vermelho 03:12 na tela o tempo todo, como HUD. A mensagem aparece numa bolha de celular grande e legível. Tensão crescente, sem sangue nem violência. No fim, dois botões grandes ABRIR e ESCONDER e o botão SEGUIR @ursulino.ia pulsando.",
+ "roteiro": {
+  "texto_tela": "SEU NÚMERO TE MANDOU ISSO",
+  "ganchos": [
+   "Três e doze da manhã, o seu próprio número te manda uma mensagem: não abre a porta do quarto."
+  ],
+  "corpo": [
+   "Você mora sozinho.",
+   "Você liga de volta pro número. Dá ocupado.",
+   "Da sala, vem o barulho de uma chave girando na porta.",
+   "O celular vibra de novo.",
+   "Seu número: eu já tô aqui dentro.",
+   "E a maçaneta do quarto começa a girar."
+  ],
+  "cta": "Comenta ABRIR ou ESCONDER. A parte dois sai amanhã com a escolha que ganhar. Me segue pra não perder.",
+  "palavra": "",
+  "legenda": "E se fosse com você? 3h12 da manhã, chega uma mensagem do seu próprio número.\n\nComenta ABRIR ou ESCONDER. A mais votada vira a parte 2.\n\nSegue o @ursulino.ia pra não perder o final.\n\n#suspense #historia #animacao #vocedecide #terror"
+ }
+}

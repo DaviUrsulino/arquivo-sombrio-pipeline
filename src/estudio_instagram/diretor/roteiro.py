@@ -66,7 +66,7 @@ def escrever(fatos: str, llm=gerar_json, tentativas: int = 3, extra: str = "", l
     raise RuntimeError("roteiro inválido: " + "; ".join(erros))
 
 
-def prever(r: dict, gancho: int = 0, llm=None, corte: float = 7) -> dict:
+def prever(r: dict, gancho: int = 0, llm=None, corte: float = 7.5) -> dict:
     """Previsor de viral (Davi, 06/11, como o Virality da Higgsfield), ANTES de gastar o Claude animando: o Gemini dá
     nota ao gancho, clareza, retenção e compartilhamento. Nota abaixo de 7 troca a abertura e o texto da tela pelos
     que ele sugeriu. Falhar aqui nunca derruba a produção: o roteiro segue como estava."""
@@ -79,7 +79,7 @@ def prever(r: dict, gancho: int = 0, llm=None, corte: float = 7) -> dict:
     except Exception as erro:
         print(f"previsor de viral falhou ({erro}); sigo com o roteiro")
         return r
-    r["previsao"] = {k: p.get(k) for k in ("gancho", "clareza", "retencao", "compartilhavel", "nota", "problema")}
+    r["previsao"] = {k: p.get(k) for k in ("gancho", "clareza", "retencao", "compartilhavel", "seguir", "nota", "problema")}
     novo, tela = (p.get("novo_gancho") or "").strip(), (p.get("novo_texto_tela") or "").strip()
     if nota < corte and novo and len(novo.split()) <= 18:
         r["previsao"]["gancho_antigo"] = r["ganchos"][gancho]

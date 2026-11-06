@@ -1,0 +1,23 @@
+{
+ "slug": "preso-no-shopping",
+ "estilo": "cartoon-3d-short",
+ "direcao": "HISTÓRIA 'você ficou preso' em segunda pessoa. Shopping de madrugada, escuro, luzes de emergência verdes, vitrines apagadas, escada rolante parada. Personagem: jovem de jaqueta jeans e mochila amarela (sempre igual). HUD no topo: bateria do celular '3%' piscando e relógio '02:47'. Uma lanterna andando devagar no andar de baixo. Suspense leve, sem violência. No fim, dois botões grandes ESCADA e ELEVADOR e o botão SEGUIR @ursulino.ia pulsando.",
+ "roteiro": {
+  "texto_tela": "TRANCADO NO SHOPPING ÀS 3H",
+  "ganchos": [
+   "Você acordou trancado no shopping às três da manhã. E a lanterna lá embaixo não é do segurança."
+  ],
+  "corpo": [
+   "Você tinha cochilado no provador. Agora tá tudo escuro.",
+   "Celular com três por cento de bateria.",
+   "As portas de vidro estão trancadas.",
+   "O segurança está dormindo na cadeira dele.",
+   "Mas a lanterna continua andando pelo corredor.",
+   "Ela para. E vira na sua direção.",
+   "Do seu lado, a escada de emergência. Na sua frente, o elevador, com a luz acesa."
+  ],
+  "cta": "Comenta ESCADA ou ELEVADOR. A parte dois sai amanhã com a escolha que ganhar. Me segue pra não perder.",
+  "palavra": "",
+  "legenda": "Você dormiu no provador e acordou com o shopping fechado. E não está sozinho.\n\nComenta ESCADA ou ELEVADOR. A mais votada vira a parte 2.\n\nSegue o @ursulino.ia pra ver o final.\n\n#suspense #historia #animacao #vocedecide #shopping"
+ }
+}

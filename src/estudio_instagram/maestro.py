@@ -138,9 +138,9 @@ def disponiveis(usadas: list[str], pasta: Path | None = None, agora: datetime | 
     quentes, comuns = [], []
     for arquivo in sorted(pasta.glob("*.json")) if pasta.exists() else []:
         relativo = arquivo.relative_to(RAIZ).as_posix()
-        quente = "-em-alta-" in arquivo.name
+        quente = "-em-alta-" in arquivo.name or "-historia-" in arquivo.name  # histórias (06/11) também furam a fila
         feito = _feito_em(arquivo)
-        if relativo in usadas or (feito and agora - feito > VALIDADE["em-alta" if quente else "padrao"]):
+        if relativo in usadas or (feito and agora - feito > VALIDADE["em-alta" if "-em-alta-" in arquivo.name else "padrao"]):
             continue
         (quentes if quente else comuns).append(relativo)
     return quentes[::-1] + comuns

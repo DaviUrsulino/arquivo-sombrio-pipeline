@@ -34,7 +34,9 @@ RAIZ = Path(__file__).resolve().parents[3]
 BIBLIOTECA = Path(os.environ.get("LEMO_OPUSCAR", Path.home() / "lemo-opuscar"))
 SAIDA = RAIZ / "videos_produzidos"
 ESTADO = RAIZ / "pautas" / "produtora.json"
-EXTRAS = {"esquete": "esquete em diálogo entre o Davi e o robô (skill hand-drawn-cartoon), duas vozes",
+EXTRAS = {"hand-drawn-cartoon": "desenho animado de livro ilustrado, traço à mão, cores chapadas (skill hand-drawn-cartoon)",
+          "cartoon-3d-short": "personagens 2D de desenho num mundo 3D colorido, câmera deslizando (skill cartoon-3d-short)",
+          "esquete": "esquete em diálogo entre o Davi e o robô (skill hand-drawn-cartoon), duas vozes",
           "3d-toy-character": "mascote 3D de vinil com luz de estúdio (skill 3d-toy-character)",
           "kinetic-typography": "tipografia cinética: o texto é a animação (skill kinetic-typography)",
           "data-story-charts": "história contada por gráfico animado com números reais (skill data-story-charts)"}
@@ -139,7 +141,8 @@ def proximo_estilo(estado: dict, todos: list[dict]) -> dict:
     return livres[0]
 
 
-def briefing(frases: list[str], estilo: dict, pasta: Path, palavra: str, extra: str = "", tela: str = "") -> str:
+def briefing(frases: list[str], estilo: dict, pasta: Path, palavra: str, extra: str = "", tela: str = "",
+             historia: bool = False) -> str:
     """O que o Claude Code recebe. Só texto nosso + as frases do roteiro (sem nada vindo da internet)."""
     lista = json.dumps(frases, ensure_ascii=False, indent=1)
     if estilo["slug"] == "esquete":
@@ -149,12 +152,29 @@ def briefing(frases: list[str], estilo: dict, pasta: Path, palavra: str, extra: 
                 "engraçado entre os dois SEM mudar os fatos nem a última frase. Duas vozes: Davi = Puck, robô = Orus.")
     elif estilo["slug"] in EXTRAS:
         como = (f"ESTILO: {EXTRAS[estilo['slug']]}. Leia e siga ~/.agents/skills/{estilo['slug']}/SKILL.md (HyperFrames). "
-                "Personagem, quando houver, é o robô do perfil: corpo arredondado coral, cabeça creme que é uma tela escura "
-                "com olhos verde-menta brilhando, antena com luz vermelha.")
+                + ("" if historia else "Personagem, quando houver, é o robô do perfil: corpo arredondado coral, cabeça creme que é "
+                   "uma tela escura com olhos verde-menta brilhando, antena com luz vermelha."))
     else:
         como = (f"ESTILO: \"{estilo['nome']}\" da biblioteca Lemo-Opuscar (slug {estilo['slug']}). Use a skill lemo-opuscar "
                 f"(Skill tool) ou leia direto {BIBLIOTECA}/AGENTS.md, {BIBLIOTECA}/DIRECTOR.md e {BIBLIOTECA}/styles/{estilo['slug']}/STYLE.md. "
                 "A biblioteca já está instalada nesse caminho (não clone de novo). Siga o STYLE.md à risca: é ele que dá a qualidade.")
+    personagem = ("- Personagens: os da HISTÓRIA (ver DIREÇÃO abaixo), com o MESMO desenho em todas as cenas (cabelo, roupa, "
+                  "cores fixas): é uma série, o público tem que reconhecer o personagem no próximo episódio." if historia else
+                  "- Personagem: se o estilo tiver personagem, use o robô do perfil descrito acima, adaptado ao estilo.")
+    if historia:
+        extra = extra + f"""
+QUALIDADE MÁXIMA (Davi: "quero que esses vídeos sejam virais"). Este vídeo concorre com séries de 1 a 3 milhões de views:
+- Antes de animar, escreva {pasta}/storyboard.md: cada frase vira uma cena com enquadramento (plano geral, médio,
+  close), movimento de câmera e a AÇÃO do personagem. Varie: nunca duas cenas seguidas com o mesmo enquadramento.
+- Atuação: o personagem pisca, respira, reage com o rosto e o corpo (antecipação, squash and stretch, olhar).
+  Nada de boneco parado com a boca mexendo.
+- Ritmo: corte ou movimento novo a cada 1 a 2 s; impacto visual nas viradas (zoom rápido, tremida, flash, carimbo).
+- Som: efeitos sonoros nas ações (passos, vibração, chave, porta, clarão) e trilha baixa que cresce na tensão.
+- Confira: gere a folha de contato, olhe cena por cena e REFAÇA qualquer cena feia, vazia ou parada antes do final.
+"""
+    fecho = ("- Fechamento: a última frase pede o follow. Mostre as opções de voto (se houver) como dois botões grandes na tela "
+             "e o botão SEGUIR @ursulino.ia pulsando no fim." if historia else
+             f"- Fechamento: caixa de comentário digitando {palavra} + botão seguir @ursulino.ia.")
     return f"""Você é a produtora automática do perfil brasileiro @ursulino.ia (IA para quem cria conteúdo, programa ou está começando).
 Faça UM Reel vertical pronto, sem perguntar nada (ninguém vai responder). Faça TUDO você mesmo, em primeiro plano,
 até o final.mp4 existir: NÃO delegue para sub-agentes e NÃO deixe render rodando em segundo plano, porque este
@@ -173,8 +193,8 @@ REGRAS DO VÍDEO (estudo de 108 Reels virais):
   algo novo na tela a cada 1 a 3 s; nunca um slide de texto parado.
 - Um estado na tela que avança (contador, barra, "prova 3/7", nível) do começo ao fim.
 - Legenda curta sincronizada com a voz por volta de y=1300; nada importante nos 560 px de baixo nem colado na borda direita.
-- Personagem: se o estilo tiver personagem, use o robô do perfil descrito acima, adaptado ao estilo.
-- Fechamento: caixa de comentário digitando {palavra} + botão seguir @ursulino.ia.
+{personagem}
+{fecho}
 - Sem emoji. Textos na tela em português do Brasil.
 {extra}
 RENDER: esta máquina não tem GPU. O WebGL roda por software (LEMO_ANGLE=swiftshader já está definido): é lento, mas
@@ -199,7 +219,7 @@ FERRAMENTAS = ["Read", "Write", "Edit", "Glob", "Grep", "Skill",
                "Bash(mkdir:*)", "Bash(cp:*)", "Bash(mv:*)", "Bash(rm -rf ./tmp:*)", "Bash(python3:*)", "Bash(sh:*)"]
 
 
-def rodar_agente(prompt: str, pasta: Path, timeout_s: int = 4500) -> str:
+def rodar_agente(prompt: str, pasta: Path, timeout_s: int = 4500, modelo: str | None = None) -> str:
     """Claude Code sem tela, com permissões RESTRITAS (lista FERRAMENTAS) e limitado à pasta + biblioteca + repositório.
 
     Não usa --dangerously-skip-permissions: o modo automático do Claude Code recusou rodar um agente sem permissões,
@@ -210,7 +230,7 @@ def rodar_agente(prompt: str, pasta: Path, timeout_s: int = 4500) -> str:
     cmd = ["claude", "-p", "--permission-mode", "acceptEdits", "--allowedTools", *FERRAMENTAS,
            "--disallowedTools", "Agent", "Task",
            "--add-dir", str(pasta), "--add-dir", str(BIBLIOTECA), "--add-dir", str(RAIZ),
-           "--add-dir", str(Path.home() / ".agents" / "skills"), "--", prompt]
+           "--add-dir", str(Path.home() / ".agents" / "skills"), *(["--model", modelo] if modelo else []), "--", prompt]
     # LEMO_ANGLE=swiftshader: sem GPU (PC do Davi e GitHub Actions), o Chrome perde o contexto WebGL e os estilos 3D saem
     # em branco; forçando o SwiftShader o three.js renderiza por software (mais lento, mas funciona). Teste de 04/11.
     env = {**os.environ, "CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS": "0", "LEMO_ANGLE": os.environ.get("LEMO_ANGLE", "swiftshader")}
@@ -244,7 +264,7 @@ def fatos_venda(pasta: Path = VENDAS) -> str:
 
 
 def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: bool = False,
-             momento: dict | None = None) -> dict:
+             momento: dict | None = None, historia: dict | None = None) -> dict:
     from .fazer import fatos_do_repo
     estado = _estado()
     todos = estilos()
@@ -254,7 +274,14 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
     if estilo is None:
         raise SystemExit(f"estilo {estilo_slug} não existe; opções: {', '.join(e['slug'] for e in todos)}")
     extra_video = ""
-    if momento:
+    if historia:
+        # Davi, 06/11: histórias animadas pra viralizar e captar seguidor (séries "você decide", história real
+        # bizarra). O roteiro vem pronto (pautas/historias/*.json) e fecha pedindo o follow ("quer a parte 2?").
+        repo = f"historia/{historia['slug']}"
+        rot = json.loads(json.dumps(historia["roteiro"]))
+        rot["cta_tipo"] = "segue"
+        extra_video = historia.get("direcao", "")
+    elif momento:
         repo = f"em-alta/{re.sub(r'[^a-z0-9]+', '-', momento['chave'].lower()).strip('-')}"
         rot = roteiro.escrever(momento["fatos"], extra=EXTRA_EM_ALTA.replace("__ANGULO__", momento.get("angulo", "")))
         # Davi, 05/11: assunto do momento é vídeo de venda. Atrai quem busca o tema e fecha mostrando a máquina.
@@ -283,10 +310,12 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
                                                  ensure_ascii=False, indent=1), encoding="utf-8")
     (pasta / "legenda.txt").write_text(rot.get("legenda", ""), encoding="utf-8")
     print(f"produzindo {repo} no estilo {estilo['nome']} -> {pasta}", flush=True)
-    resposta = rodar_agente(briefing(frases, estilo, pasta, rot["palavra"], extra_video, rot.get("texto_tela", "")), pasta)
+    resposta = rodar_agente(briefing(frases, estilo, pasta, rot["palavra"], extra_video, rot.get("texto_tela", ""),
+                                     historia=bool(historia)), pasta,
+                            timeout_s=7200 if historia else 4500, modelo="opus" if historia else None)
     final = pasta / "final.mp4"
     res = {"pasta": str(pasta), "repo": repo, "estilo": estilo["slug"], "palavra": rot["palavra"], "ok": False, "venda": venda,
-           "em_alta": bool(momento)}
+           "em_alta": bool(momento), "historia": bool(historia)}
     if final.exists():
         dur = portao._ffprobe_duracao(final)
         q = portao.qa(final, dur)  # duração conferida pelo próprio arquivo; o QA olha congelado, preto, volume e miolo vazio
@@ -300,7 +329,7 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
         res["problemas"] = ["o agente não entregou final.mp4 (ver agente.log)"]
     (pasta / "producao.json").write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
     estado.setdefault("estilos_usados", []).append(estilo["slug"])
-    if not venda and not momento:
+    if not venda and not momento and not historia:
         estado.setdefault("repos_usados", []).append(repo)
     estado.setdefault("producoes", []).append({"quando": datetime.now().isoformat(timespec="minutes"), **{k: res[k] for k in ("repo", "estilo", "ok", "pasta", "em_alta")}})
     ESTADO.write_text(json.dumps(estado, ensure_ascii=False, indent=1), encoding="utf-8")
@@ -351,19 +380,20 @@ def para_fila(res: dict) -> Path:
     # (ESTUDIO). Sem isto saiu "Comenta GAME" na legenda e "Comenta ESTUDIO" no vídeo (05/11).
     # "comenta" cobre só uma conjugação -- o LLM também escreve "Comente" (06/11), passava direto pelo regex e
     # sobravam 2 chamadas pra ação na mesma legenda ("Comente MAQUINA" + "Comenta ESTUDIO" coladas no fim).
-    legenda = re.sub(r"(?i)\bcoment[ae]\s+[A-ZÀ-Ú]{3,}\b", f"Comenta {rot['palavra']}", legenda)
-    # o LLM às vezes escreve 2 frases de CTA (uma por linha, cada uma com sua própria palavra errada); a troca
-    # acima deixa as duas com a mesma palavra certa, mas repetidas -- fica só a primeira (06/11).
-    vista, linhas = False, []
-    for linha in legenda.split("\n"):
-        eh_cta = re.search(rf"(?i)\bcomenta\s+{re.escape(rot['palavra'])}\b", linha)
-        if eh_cta and vista:
-            continue
-        vista = vista or bool(eh_cta)
-        linhas.append(linha)
-    legenda = "\n".join(linhas)
-    if rot["palavra"] not in legenda:
-        legenda += f"\nComenta {rot['palavra']} que eu te mando o link no direct."
+    if not res.get("historia"):  # história: o voto (Comenta A ou B) é do roteiro e não tem link pra mandar
+        legenda = re.sub(r"(?i)\bcoment[ae]\s+[A-ZÀ-Ú]{3,}\b", f"Comenta {rot['palavra']}", legenda)
+        # o LLM às vezes escreve 2 frases de CTA (uma por linha, cada uma com sua própria palavra errada); a troca
+        # acima deixa as duas com a mesma palavra certa, mas repetidas -- fica só a primeira (06/11).
+        vista, linhas = False, []
+        for linha in legenda.split("\n"):
+            eh_cta = re.search(rf"(?i)\bcomenta\s+{re.escape(rot['palavra'])}\b", linha)
+            if eh_cta and vista:
+                continue
+            vista = vista or bool(eh_cta)
+            linhas.append(linha)
+        legenda = "\n".join(linhas)
+        if rot["palavra"] not in legenda:
+            legenda += f"\nComenta {rot['palavra']} que eu te mando o link no direct."
     venda = res.get("venda", False)
     pauta = {"titulo": f"{res['repo'].split('/')[-1]}: produtora ({res['estilo']})", "formato": "pronto",
              "video_pronto_url": url, "palavra_chave": rot["palavra"], "legenda": legenda,
@@ -373,9 +403,11 @@ def para_fila(res: dict) -> Path:
              "itens": [] if venda or res.get("em_alta") else [{"repo": res["repo"]}], "estilo": res["estilo"], "gancho": "A",
              "ganchos_alternativos": [], **({"tipo": "venda"} if venda else {}),
              **({"tipo": "em-alta"} if res.get("em_alta") else {})}
+    if res.get("historia"):
+        pauta["itens"], pauta["tipo"] = [], "historia"
     fila = FILA_VENDA if venda else FILA
     fila.mkdir(parents=True, exist_ok=True)
-    marca = "em-alta" if res.get("em_alta") else "produtora"
+    marca = "em-alta" if res.get("em_alta") else ("historia" if res.get("historia") else "produtora")
     destino = fila / f"{datetime.now():%Y-%m-%d-%H%M}-{marca}-{pasta.name.split('-', 4)[-1]}.json"
     destino.write_text(json.dumps(pauta, ensure_ascii=False, indent=1), encoding="utf-8")
     return destino
@@ -398,6 +430,7 @@ def main():
     p.add_argument("--auto", action="store_true")
     p.add_argument("--estilo")
     p.add_argument("--gancho", type=int, default=0)
+    p.add_argument("--historia", help="roteiro pronto de história (pautas/historias/x.json); precisa de --estilo")
     p.add_argument("--listar", action="store_true")
     p.add_argument("--em-alta", action="store_true", help="vídeo do assunto do momento (no --auto vem primeiro)")
     p.add_argument("--venda", action="store_true", help="vídeo de venda do Pack Estúdio (com --auto, sai sozinho quando falta)")
@@ -411,6 +444,13 @@ def main():
         raise SystemExit("precisa do Claude Code instalado (comando claude)")
     # Ordem do automático (Davi, 04/11): assunto do momento primeiro (rápido, antes de esfriar); sem assunto bom,
     # repõe a venda; com o banco já cheio, não produz (vídeo guardado demais perde o tema do dia).
+    if a.historia:
+        historia = json.loads(Path(a.historia).read_text(encoding="utf-8"))
+        res = produzir(f"historia/{historia['slug']}", a.estilo or historia.get("estilo"), historia=historia)
+        if a.fila and res.get("ok"):
+            res["fila"] = str(para_fila(res).relative_to(RAIZ))
+        print(json.dumps(res, ensure_ascii=False, indent=1))
+        raise SystemExit(0 if res.get("ok") else 1)
     from .. import em_alta
     momento = em_alta.do_momento() if (a.em_alta or (a.auto and not a.repo and not a.venda and cabe_em_alta())) else None
     if a.em_alta and not momento:
