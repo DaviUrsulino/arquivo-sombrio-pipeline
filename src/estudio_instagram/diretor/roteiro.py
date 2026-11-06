@@ -66,7 +66,7 @@ def escrever(fatos: str, llm=gerar_json, tentativas: int = 3, extra: str = "", l
     raise RuntimeError("roteiro inválido: " + "; ".join(erros))
 
 
-def prever(r: dict, gancho: int = 0, llm=None, corte: float = 7.5) -> dict:
+def prever(r: dict, gancho: int = 0, llm=None, corte: float = 6.5) -> dict:
     """Previsor de viral (Davi, 06/11, como o Virality da Higgsfield), ANTES de gastar o Claude animando: o Gemini dá
     nota ao gancho, clareza, retenção e compartilhamento. Nota abaixo de 7 troca a abertura e o texto da tela pelos
     que ele sugeriu. Falhar aqui nunca derruba a produção: o roteiro segue como estava."""
