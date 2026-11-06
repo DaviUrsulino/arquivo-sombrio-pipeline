@@ -157,18 +157,17 @@ def _tem_cara_de_venda(caminho: str) -> bool:
     return caminho.startswith("pautas/viral/fila_venda/") or "-em-alta-" in caminho
 
 
-def duas_seguidas_de_venda(usadas: list[str]) -> bool:
-    ultimas = usadas[-2:]
-    return len(ultimas) == 2 and all(_tem_cara_de_venda(u) for u in ultimas)
+def ultima_foi_venda(usadas: list[str]) -> bool:
+    return bool(usadas) and _tem_cara_de_venda(usadas[-1])
 
 
-def escolher_da_fila(formato: str, usadas: list[str]) -> str | None:
+def escolher_da_fila(formato: str, usadas: list[str], antes_da_venda: bool = False) -> str | None:
     """Rodada de venda pega o vídeo de venda novo; as outras (e a venda sem vídeo pronto) pegam o banco comum.
 
-    Trava (Davi, 06/11): nunca o 3º vídeo seguido com cara de venda. Saíram GTA 6 e Ralph Fiennes (os dois
-    em-alta) e, logo depois, o Pack Estúdio -- 3 "Comenta ESTUDIO" seguidos. Com os 2 últimos usados já de
-    venda, a rodada pega um vídeo comum nem que seja fora de ordem, ou é pulada se não sobrar nenhum."""
-    if duas_seguidas_de_venda(usadas):
+    Trava (Davi, 06/11): saíram GTA 6 e Ralph Fiennes (os dois em-alta) e, logo depois, o Pack Estúdio -- 3
+    "Comenta ESTUDIO" seguidos, e ele ficou bravo. Agora nunca 2 seguidos com cara de venda: depois de um, a rodada
+    pega um vídeo comum nem que seja fora de ordem. A venda do dia (ter/sex) tem prioridade sobre o em-alta."""
+    if (ultima_foi_venda(usadas) or antes_da_venda) and not (formato == "venda" and proxima_da_fila(usadas, FILA_VENDA)):
         comuns = [c for c in disponiveis(usadas) if not _tem_cara_de_venda(c)]
         return comuns[0] if comuns else None
     if formato == "venda":
@@ -269,7 +268,10 @@ def main():
             nova_rodada = [h for h in novo["feitos"] if h not in (estado["feitos"] if estado.get("dia") == novo["dia"] else {})]
             subprocess.run(["git", "pull", "--rebase", "--autostash", "-q"], cwd=RAIZ, check=False)  # pega pautas novas do banco
             usadas = novo.get("fila_usadas", estado.get("fila_usadas", []))
-            da_fila = escolher_da_fila(formato, usadas) if any(h in nova_rodada for h in FILA_RODADAS) else None
+            # a rodada logo antes da venda do dia (00:30 de ter/sex) não pode sair com cara de venda
+            antes = "00:30" in nova_rodada and dict(rodadas_do_dia(novo["dia"])).get(RODADA_NOBRE) == "venda" \
+                and proxima_da_fila(usadas, FILA_VENDA) is not None
+            da_fila = escolher_da_fila(formato, usadas, antes) if any(h in nova_rodada for h in FILA_RODADAS) else None
             if da_fila:
                 formato = f"pauta:{da_fila}"
                 novo["fila_usadas"] = [*usadas, da_fila]

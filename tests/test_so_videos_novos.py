@@ -151,3 +151,22 @@ def test_estilo_que_flopou_sai_da_escolha():
     # se só sobrar estilo fraco, ainda produz (não trava a madrugada)
     so_dossie = lambda *_: {"estilos": ["dossie"]}
     assert produtora.estilo_para("caso", {}, todos, llm=so_dossie, fracos={"dossie"})["slug"] == "dossie"
+
+
+def test_nunca_dois_videos_de_venda_seguidos(tmp_path, monkeypatch):
+    fila, venda = tmp_path / "pautas/viral/fila", tmp_path / "pautas/viral/fila_venda"
+    fila.mkdir(parents=True), venda.mkdir(parents=True)
+    for n in ("2099-01-01-0000-em-alta-x.json", "2099-01-01-0001-produtora-a.json"):
+        (fila / n).write_text("{}")
+    (venda / "2099-01-01-0002-produtora-v.json").write_text("{}")
+    monkeypatch.setattr(maestro, "RAIZ", tmp_path)
+    monkeypatch.setattr(maestro, "FILA", fila)
+    monkeypatch.setattr(maestro, "FILA_VENDA", venda)
+    monkeypatch.setattr(maestro, "disponiveis", lambda usadas, pasta=None, agora=None: [
+        c for c in ["pautas/viral/fila/2099-01-01-0000-em-alta-x.json", "pautas/viral/fila/2099-01-01-0001-produtora-a.json"]
+        if c not in usadas] if pasta in (None, fila) else [c for c in ["pautas/viral/fila_venda/2099-01-01-0002-produtora-v.json"] if c not in usadas])
+    em_alta = "pautas/viral/fila/2099-01-01-0000-em-alta-x.json"
+    # depois de um em-alta, a rodada comum pega o vídeo comum
+    assert maestro.escolher_da_fila("lista", [em_alta]) == "pautas/viral/fila/2099-01-01-0001-produtora-a.json"
+    # na rodada antes da venda do dia, nada de em-alta
+    assert maestro.escolher_da_fila("pixel2", [], antes_da_venda=True) == "pautas/viral/fila/2099-01-01-0001-produtora-a.json"
