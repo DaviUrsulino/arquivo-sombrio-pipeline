@@ -14,7 +14,8 @@
   "circuit-board",
   "ascii-crt",
   "desktop-flythrough",
-  "ascii-crt"
+  "ascii-crt",
+  "hologram-hud"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -123,6 +124,13 @@
    "estilo": "ascii-crt",
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-06-0935-skills-ascii-crt"
+  },
+  {
+   "quando": "2026-11-06T11:21",
+   "repo": "em-alta/grande-pr-mio-do-brasil",
+   "estilo": "hologram-hud",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-06-1053-grande-pr-mio-do-brasil-hologram-hud"
   }
  ]
 }
