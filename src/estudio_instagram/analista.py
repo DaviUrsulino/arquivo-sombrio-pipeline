@@ -129,6 +129,40 @@ def estilo_de(media_id: str, mapa: dict) -> str:
 
 
 PAUTAS = Path(__file__).resolve().parents[2] / "pautas" / "pauta_por_post.json"
+RAIZ_REPO = Path(__file__).resolve().parents[2]
+# Meta de novembro (Davi, 06/11: "eu gosto de trabalhar com meta"): 1.000 seguidores até 30/11.
+META = {"seguidores": 1000, "ate": "2026-11-30", "inicio": {"data": "2026-11-06", "seguidores": 353}}
+
+
+def tipo_de(media_id: str, pautas: dict) -> str:
+    """Tipo de roteiro do post, pelo nome da pauta: história, assunto do momento, venda ou ferramenta de IA."""
+    caminho = (pautas.get(media_id) or {}).get("pauta", "")
+    for marca, nome in (("-historia-", "história"), ("-em-alta-", "assunto do momento"), ("fila_venda", "venda")):
+        if marca in caminho:
+            return nome
+    return "ferramenta de IA" if caminho else "sem registro"
+
+
+def fechamento_de(media_id: str, pautas: dict) -> str:
+    """Pedido do fim do vídeo (comenta, segue, salva, manda), gravado na pauta pela produtora."""
+    caminho = (pautas.get(media_id) or {}).get("pauta", "")
+    try:
+        return json.loads((RAIZ_REPO / caminho).read_text(encoding="utf-8")).get("cta_tipo", "comenta")
+    except (OSError, ValueError):
+        return "sem registro"
+
+
+def ritmo_da_meta(seguidores: int | None, hoje: str) -> dict | None:
+    """Quanto falta e quantos seguidores por dia precisa daqui até o fim do prazo."""
+    if seguidores is None:
+        return None
+    from datetime import date
+    dias = max(1, (date.fromisoformat(META["ate"]) - date.fromisoformat(hoje)).days)
+    falta = max(0, META["seguidores"] - seguidores)
+    feitos = (date.fromisoformat(hoje) - date.fromisoformat(META["inicio"]["data"])).days or 1
+    return {"meta": META["seguidores"], "ate": META["ate"], "seguidores": seguidores, "falta": falta,
+            "por_dia_necessario": round(falta / dias, 1),
+            "por_dia_atual": round((seguidores - META["inicio"]["seguidores"]) / feitos, 1)}
 
 
 def analisar(reels: list[dict], estilos: dict | None = None, pautas: dict | None = None) -> dict:
@@ -143,6 +177,8 @@ def analisar(reels: list[dict], estilos: dict | None = None, pautas: dict | None
     return {
         "por_gancho": agrupar(reels, lambda r: f"gancho {pautas[r['id']].get('gancho', 'A')}" if r["id"] in pautas else "sem registro"),
         "geral": resumo(reels), "por_estilo": agrupar(reels, lambda r: estilo_de(r["id"], estilos)), "por_formato": agrupar(reels, lambda r: formato_de(r["hora"])), "por_faixa_horaria": por_hora, "por_tema": por_tema,
+        "por_tipo": agrupar(reels, lambda r: tipo_de(r["id"], pautas)),
+        "por_fechamento": agrupar(reels, lambda r: fechamento_de(r["id"], pautas)),
         "melhor_faixa": melhor_hora[0] if melhor_hora else None, "melhor_tema": melhor_tema[0] if melhor_tema else None,
         "top": [{"id": r["id"], "views": r.get("views", 0), "salvos": r.get("saved", 0), "envios": r.get("shares", 0),
                  "tempo_s": round(r.get("ig_reels_avg_watch_time", 0) / 1000, 1), "titulo": r["legenda"].split("\n")[0][:70], "hora": _parse(r["hora"]).strftime("%d/%m %H:%M")} for r in ordenados[:8]],
@@ -157,6 +193,14 @@ def _tabela(grupos: dict[str, dict]) -> str:
     return "\n".join(linhas)
 
 
+def _meta(seguidores: int | None, gerado_em: str) -> str:
+    r = ritmo_da_meta(seguidores, gerado_em[:10])
+    if not r:
+        return ""
+    return (f"## Meta: {r['meta']} seguidores até {r['ate']}\nFaltam {r['falta']}. Precisa de {r['por_dia_necessario']} por dia; "
+            f"desde 06/11 o ritmo está em {r['por_dia_atual']} por dia.\n")
+
+
 def relatorio(analise: dict, seguidores: int | None, gerado_em: str) -> str:
     g = analise["geral"]
     top = "\n".join(f"{i}. {t['views']} views, {t['salvos']} salvos, {t['envios']} envios, {t['tempo_s']} s assistidos em média ({t['hora']}): {t['titulo']}" for i, t in enumerate(analise["top"], 1))
@@ -165,8 +209,15 @@ def relatorio(analise: dict, seguidores: int | None, gerado_em: str) -> str:
 Gerado em {gerado_em} (horário de Brasília). Seguidores agora: {seguidores}. Reels analisados: {g['n']}.
 Mediana de views: {g['views_medianas']} · média: {g['views_media']} (a média é puxada para cima por poucos vídeos que estouram).
 
+{_meta(seguidores, gerado_em)}
 ## Melhores posts
 {top}
+
+## Por tipo de roteiro (ferramenta, história, assunto do momento, venda)
+{_tabela(analise.get('por_tipo', {}))}
+
+## Por pedido do fim do vídeo (comenta, segue, salva, manda)
+{_tabela(analise.get('por_fechamento', {}))}
 
 ## Por estilo visual (as 8 identidades)
 {_tabela(analise['por_estilo'])}
@@ -205,7 +256,7 @@ def main():
         print(f"repostagem com outro gancho agendada: {r.name}")
     agora = datetime.now(BRASILIA).strftime("%Y-%m-%d %H:%M")
     RELATORIO.write_text(relatorio(analise, seguidores, agora), encoding="utf-8")
-    DADOS.write_text(json.dumps({"gerado_em": agora, "seguidores": seguidores, **analise}, ensure_ascii=False, indent=2), encoding="utf-8")
+    DADOS.write_text(json.dumps({"gerado_em": agora, "seguidores": seguidores, "meta": ritmo_da_meta(seguidores, agora[:10]), **analise}, ensure_ascii=False, indent=2), encoding="utf-8")
     print(RELATORIO.read_text(encoding="utf-8"))
     if args.commit:
         try:
