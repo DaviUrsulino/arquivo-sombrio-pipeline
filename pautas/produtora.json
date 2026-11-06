@@ -17,7 +17,8 @@
   "ascii-crt",
   "hologram-hud",
   "dark-keynote",
-  "ascii-crt"
+  "ascii-crt",
+  "blueprint"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -27,7 +28,8 @@
   "deepseek-ai/dsh-superagent-prototype",
   "mattpocock/skills",
   "scenario-labs/skills",
-  "cloudflare/security-audit-skill"
+  "cloudflare/security-audit-skill",
+  "google/skills"
  ],
  "producoes": [
   {
@@ -148,6 +150,13 @@
    "estilo": "ascii-crt",
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-06-1248-security-audit-skill-ascii-crt"
+  },
+  {
+   "quando": "2026-11-06T13:00",
+   "repo": "google/skills",
+   "estilo": "blueprint",
+   "ok": false,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-06-1300-skills-blueprint"
   }
  ]
 }
