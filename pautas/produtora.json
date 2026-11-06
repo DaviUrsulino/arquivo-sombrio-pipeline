@@ -15,7 +15,8 @@
   "ascii-crt",
   "desktop-flythrough",
   "ascii-crt",
-  "hologram-hud"
+  "hologram-hud",
+  "dark-keynote"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -131,6 +132,13 @@
    "estilo": "hologram-hud",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-06-1053-grande-pr-mio-do-brasil-hologram-hud"
+  },
+  {
+   "quando": "2026-11-06T11:37",
+   "repo": "venda/pack-estudio",
+   "estilo": "dark-keynote",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-06-1125-pack-estudio-dark-keynote"
   }
  ]
 }
