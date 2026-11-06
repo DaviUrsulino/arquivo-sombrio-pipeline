@@ -16,7 +16,8 @@
   "desktop-flythrough",
   "ascii-crt",
   "hologram-hud",
-  "dark-keynote"
+  "dark-keynote",
+  "ascii-crt"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -25,7 +26,8 @@
   "anthropics/claude-code",
   "deepseek-ai/dsh-superagent-prototype",
   "mattpocock/skills",
-  "scenario-labs/skills"
+  "scenario-labs/skills",
+  "cloudflare/security-audit-skill"
  ],
  "producoes": [
   {
@@ -139,6 +141,13 @@
    "estilo": "dark-keynote",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-06-1125-pack-estudio-dark-keynote"
+  },
+  {
+   "quando": "2026-11-06T12:51",
+   "repo": "cloudflare/security-audit-skill",
+   "estilo": "ascii-crt",
+   "ok": false,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-06-1248-security-audit-skill-ascii-crt"
   }
  ]
 }
