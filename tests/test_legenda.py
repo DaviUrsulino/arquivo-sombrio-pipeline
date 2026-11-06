@@ -9,7 +9,7 @@ PAUTA = {"titulo": "x: roteiro automático", "palavra_chave": "CORTE", "capa": {
 def test_gancho_de_cenas_roteiro_vira_a_primeira_linha():
     legenda = montar_legenda(PAUTA, {})
     assert legenda.splitlines()[0] == "Fizeram um editor de vídeo que corta tudo sozinho."
-    assert legenda.splitlines()[1].startswith("Comenta CORTE")  # a palavra aparece antes do "mais"
+    assert legenda.splitlines()[1].startswith("Me segue e comenta CORTE")  # a palavra aparece antes do "mais"
 
 
 def test_frase_de_tema_passos_e_no_maximo_5_hashtags_sem_emoji():
