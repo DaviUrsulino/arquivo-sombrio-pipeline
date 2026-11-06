@@ -116,10 +116,10 @@ def liberar_pendentes(config: dict, pendentes: dict, ig, agora: datetime | None 
             continue
         try:
             if segue:
-                ig.enviar_mensagem(conversa["usuario_id"], pendente["mensagem"])
+                ig.enviar_link(conversa["usuario_id"], pendente["mensagem"])
                 del pendentes[chave]
             else:
-                ig.enviar_mensagem(conversa["usuario_id"], config["mensagem_nao_segue"])
+                ig.enviar_mensagem(conversa["usuario_id"], config["mensagem_nao_segue"], config.get("botoes_seguir"))
                 pendente["tratada_ate"] = ultima["hora"]
             feitos.append(registro)
         except urllib.error.HTTPError as erro:
@@ -171,7 +171,7 @@ def responder_novos(config: dict, enviadas: dict, ig, agora: datetime | None = N
                 # Passo 1: pede para seguir e responder. O link só sai depois de conferir que a pessoa segue.
                 pendentes[_chave(comentario["from"]["id"])] = {
                     "palavra": palavra, "mensagem": texto, "desde": agora.isoformat(timespec="seconds")}
-                ig.responder_comentario(comentario["id"], config["mensagem_pedido"])
+                ig.responder_comentario(comentario["id"], config["mensagem_pedido"], config.get("botoes_seguir"))
             else:
                 ig.responder_comentario(comentario["id"], texto)
             enviadas[comentario["id"]] = {**registro, "enviado_em": agora.isoformat(timespec="seconds")}

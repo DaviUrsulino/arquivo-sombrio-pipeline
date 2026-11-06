@@ -11,6 +11,7 @@ depois um container pai referenciando os filhos, espera, publica.
 """
 
 import json
+import re
 import time
 import urllib.error
 import urllib.parse
@@ -135,9 +136,8 @@ class InstagramGraph:
                             for c in achados.get("data", [])]
         return comentarios
 
-    def responder_comentario(self, comment_id: str, texto: str) -> dict:
-        """Resposta privada (DM) a um comentário. A Meta aceita uma por comentário, em até 7 dias."""
-        corpo = json.dumps({"recipient": {"comment_id": comment_id}, "message": {"text": texto}}).encode()
+    def _mandar(self, destino: dict, mensagem: dict) -> dict:
+        corpo = json.dumps({"recipient": destino, "message": mensagem}).encode()
         pedido = urllib.request.Request(
             f"{BASE}/{self.ig_user_id}/messages?access_token={urllib.parse.quote(self.token)}",
             data=corpo,
@@ -147,17 +147,48 @@ class InstagramGraph:
         with self._abrir(pedido, timeout=60) as resposta:
             return json.load(resposta)
 
-    def enviar_mensagem(self, igsid: str, texto: str) -> dict:
+    @staticmethod
+    def _com_botoes(texto: str, botoes: list[str] | None) -> dict:
+        """Texto com botões de resposta rápida (quick replies). Tocar no botão manda o título como mensagem da pessoa."""
+        mensagem = {"text": texto}
+        if botoes:
+            mensagem["quick_replies"] = [{"content_type": "text", "title": b[:20], "payload": b[:20]} for b in botoes[:13]]
+        return mensagem
+
+    def responder_comentario(self, comment_id: str, texto: str, botoes: list[str] | None = None) -> dict:
+        """Resposta privada (DM) a um comentário. A Meta aceita uma por comentário, em até 7 dias."""
+        try:
+            return self._mandar({"comment_id": comment_id}, self._com_botoes(texto, botoes))
+        except urllib.error.HTTPError:
+            if not botoes:
+                raise
+            return self._mandar({"comment_id": comment_id}, {"text": texto})  # sem botão, mas a mensagem sai
+
+    def enviar_mensagem(self, igsid: str, texto: str, botoes: list[str] | None = None) -> dict:
         """DM normal para quem já escreveu para a conta (janela de 24 h depois da última mensagem da pessoa)."""
-        corpo = json.dumps({"recipient": {"id": igsid}, "message": {"text": texto}}).encode()
-        pedido = urllib.request.Request(
-            f"{BASE}/{self.ig_user_id}/messages?access_token={urllib.parse.quote(self.token)}",
-            data=corpo,
-            headers={"User-Agent": "estudio-automatico/1.0", "Content-Type": "application/json"},
-            method="POST",
-        )
-        with self._abrir(pedido, timeout=60) as resposta:
-            return json.load(resposta)
+        try:
+            return self._mandar({"id": igsid}, self._com_botoes(texto, botoes))
+        except urllib.error.HTTPError:
+            if not botoes:
+                raise
+            return self._mandar({"id": igsid}, {"text": texto})
+
+    def enviar_link(self, igsid: str, texto: str) -> dict:
+        """Manda o texto e o primeiro link dele como um cartão com botão "Acessar agora" (como os perfis grandes fazem).
+        Se o cartão falhar, manda o texto puro com o link, que sempre funciona."""
+        achado = re.search(r"https?://\S+", texto)
+        if not achado:
+            return self.enviar_mensagem(igsid, texto)
+        url = achado.group(0).rstrip(".,)")
+        sem_link = re.sub(r"\s*(Link:)?\s*" + re.escape(achado.group(0)), "", texto).strip()
+        cartao = {"attachment": {"type": "template", "payload": {"template_type": "generic", "elements": [
+            {"title": "Tá na mão! Aqui está o seu link", "buttons": [{"type": "web_url", "url": url, "title": "Acessar agora"}]}]}}}
+        try:
+            if sem_link:
+                self._mandar({"id": igsid}, {"text": sem_link})
+            return self._mandar({"id": igsid}, cartao)
+        except urllib.error.HTTPError:
+            return self._mandar({"id": igsid}, {"text": texto})
 
     def conversas_recentes(self, limite: int = 30) -> list[dict]:
         """Conversas de DM mais recentes: [{"usuario_id", "mensagens": [{"de", "texto", "hora"}]}] (mais nova primeiro)."""

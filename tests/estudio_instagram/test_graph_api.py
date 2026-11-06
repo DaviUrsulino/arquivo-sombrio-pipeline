@@ -115,3 +115,18 @@ def test_reels_com_capa_manda_cover_url():
     abrir = AbridorFalso([{"id": "c1"}, {"status_code": "FINISHED"}, {"id": "m1"}])
     InstagramGraph("t", "u", abrir=abrir, esperar=lambda s: None).publicar_reels("https://cdn/v.mp4", "x", capa_url="https://cdn/c.jpg")
     assert "cover_url=https%3A%2F%2Fcdn%2Fc.jpg" in abrir.pedidos[0].data.decode()
+
+
+def test_link_vai_num_cartao_com_botao_acessar_agora():
+    abrir = AbridorFalso([{"id": "a"}, {"id": "b"}])
+    InstagramGraph("t", "u", abrir=abrir).enviar_link("p1", "Oi! Aqui está o kit. Link: https://x.com/kit")
+    primeira, cartao = (json.loads(p.data) for p in abrir.pedidos)
+    assert primeira["message"] == {"text": "Oi! Aqui está o kit."}
+    botao = cartao["message"]["attachment"]["payload"]["elements"][0]["buttons"][0]
+    assert botao == {"type": "web_url", "url": "https://x.com/kit", "title": "Acessar agora"}
+
+
+def test_pedido_de_follow_vai_com_botao_ja_sigo():
+    abrir = AbridorFalso([{"id": "a"}])
+    InstagramGraph("t", "u", abrir=abrir).responder_comentario("c1", "segue aí", ["Já sigo"])
+    assert json.loads(abrir.pedidos[0].data)["message"]["quick_replies"][0]["title"] == "Já sigo"

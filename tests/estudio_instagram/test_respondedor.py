@@ -19,7 +19,7 @@ class InstagramFalso:
     def comentarios_recentes(self):
         return self._comentarios
 
-    def responder_comentario(self, comment_id, texto):
+    def responder_comentario(self, comment_id, texto, botoes=None):
         if comment_id == self.falhar_em:
             raise urllib.error.HTTPError("u", 400, "ruim", {}, io.BytesIO(b'{"error":"x"}'))
         self.respostas.append((comment_id, texto))
@@ -180,7 +180,10 @@ class InstagramComConversa(InstagramFalso):
     def segue_a_conta(self, igsid):
         return self._segue
 
-    def enviar_mensagem(self, igsid, texto):
+    def enviar_mensagem(self, igsid, texto, botoes=None):
+        self.mensagens.append((igsid, texto))
+
+    def enviar_link(self, igsid, texto):
         self.mensagens.append((igsid, texto))
 
 
