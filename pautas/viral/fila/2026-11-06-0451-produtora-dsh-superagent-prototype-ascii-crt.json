@@ -1,0 +1,16 @@
+{
+ "titulo": "dsh-superagent-prototype: produtora (ascii-crt)",
+ "formato": "pronto",
+ "video_pronto_url": "https://github.com/DaviUrsulino/arquivo-sombrio-pipeline/releases/download/midia-publicacao/produtora-2026-11-06-0423-dsh-superagent-prototype-ascii-crt.mp4",
+ "palavra_chave": "AGENTE",
+ "legenda": "O novo código da DeepSeek cria um agente que trabalha sozinho no seu repositório. Comente AGENTE para receber o link.",
+ "capa": "AGENTE AUTÔNOMO DA DEEPSEEK",
+ "itens": [
+  {
+   "repo": "deepseek-ai/dsh-superagent-prototype"
+  }
+ ],
+ "estilo": "ascii-crt",
+ "gancho": "A",
+ "ganchos_alternativos": []
+}

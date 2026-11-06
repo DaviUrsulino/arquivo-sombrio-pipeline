@@ -11,13 +11,15 @@
   "spy-titles",
   "living-screencast",
   "ascii-crt",
-  "circuit-board"
+  "circuit-board",
+  "ascii-crt"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
   "vercel-labs/agent-desktop",
   "NVIDIA/auto-ontology",
-  "anthropics/claude-code"
+  "anthropics/claude-code",
+  "deepseek-ai/dsh-superagent-prototype"
  ],
  "producoes": [
   {
@@ -96,6 +98,13 @@
    "estilo": "circuit-board",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-06-0302-claude-code-circuit-board"
+  },
+  {
+   "quando": "2026-11-06T04:51",
+   "repo": "deepseek-ai/dsh-superagent-prototype",
+   "estilo": "ascii-crt",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-06-0423-dsh-superagent-prototype-ascii-crt"
   }
  ]
 }
