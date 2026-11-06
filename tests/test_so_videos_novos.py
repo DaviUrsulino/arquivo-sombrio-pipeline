@@ -73,7 +73,7 @@ def test_maestro_produz_de_madrugada_so_quando_falta_video():
     from datetime import datetime
     noite = datetime(2026, 11, 10, 1, 0, tzinfo=maestro.BRASILIA)
     assert maestro.deve_produzir(noite, {}, banco=1, rodando=False)
-    assert not maestro.deve_produzir(noite, {}, banco=3, rodando=False)
+    assert not maestro.deve_produzir(noite, {}, banco=4, rodando=False)
     assert not maestro.deve_produzir(noite, {}, banco=0, rodando=True)
     assert not maestro.deve_produzir(noite, {"ultima_producao": "2026-11-10T00:30:00-03:00"}, banco=0, rodando=False)
     assert not maestro.deve_produzir(datetime(2026, 11, 10, 15, 0, tzinfo=maestro.BRASILIA), {}, banco=0, rodando=False)
@@ -85,7 +85,7 @@ def test_reforco_ate_a_cota_renovar_e_depois_volta_ao_normal():
     assert maestro.deve_produzir(manha, {}, banco=5, rodando=False)
     assert not maestro.deve_produzir(manha, {}, banco=6, rodando=False)
     depois = datetime(2026, 11, 6, 13, 0, tzinfo=maestro.BRASILIA)
-    assert maestro.banco_alvo(depois) == 3 and not maestro.deve_produzir(depois, {}, banco=0, rodando=False)
+    assert maestro.banco_alvo(depois) == 4 and not maestro.deve_produzir(depois, {}, banco=0, rodando=False)
 
 
 def test_estado_do_maestro_guarda_a_ultima_producao():
