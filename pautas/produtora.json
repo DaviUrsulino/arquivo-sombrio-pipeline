@@ -20,7 +20,8 @@
   "ascii-crt",
   "blueprint",
   "esquete",
-  "living-screencast"
+  "living-screencast",
+  "data-story-charts"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -177,6 +178,14 @@
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-06-1505-google-ai-pro-2year-zerocost-auto-living-screencast",
    "em_alta": false
+  },
+  {
+   "quando": "2026-11-06T15:26",
+   "repo": "em-alta/sp500",
+   "estilo": "data-story-charts",
+   "ok": false,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-06-1526-sp500-data-story-charts",
+   "em_alta": true
   }
  ]
 }
