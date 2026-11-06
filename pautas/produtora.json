@@ -12,14 +12,16 @@
   "living-screencast",
   "ascii-crt",
   "circuit-board",
-  "ascii-crt"
+  "ascii-crt",
+  "desktop-flythrough"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
   "vercel-labs/agent-desktop",
   "NVIDIA/auto-ontology",
   "anthropics/claude-code",
-  "deepseek-ai/dsh-superagent-prototype"
+  "deepseek-ai/dsh-superagent-prototype",
+  "mattpocock/skills"
  ],
  "producoes": [
   {
@@ -105,6 +107,13 @@
    "estilo": "ascii-crt",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-06-0423-dsh-superagent-prototype-ascii-crt"
+  },
+  {
+   "quando": "2026-11-06T08:35",
+   "repo": "mattpocock/skills",
+   "estilo": "desktop-flythrough",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-06-0813-skills-desktop-flythrough"
   }
  ]
 }

@@ -1,0 +1,16 @@
+{
+ "titulo": "skills: produtora (desktop-flythrough)",
+ "formato": "pronto",
+ "video_pronto_url": "https://github.com/DaviUrsulino/arquivo-sombrio-pipeline/releases/download/midia-publicacao/produtora-2026-11-06-0813-skills-desktop-flythrough.mp4",
+ "palavra_chave": "SKILLS",
+ "legenda": "Quer parar de refazer o trabalho que a IA entrega errado?\nEsse repositório traz comandos simples pra IA te entrevistar antes de criar qualquer coisa.\nComenta SKILLS que eu te mando o link completo.",
+ "capa": "COMANDO ANTI-ERRO NA IA",
+ "itens": [
+  {
+   "repo": "mattpocock/skills"
+  }
+ ],
+ "estilo": "desktop-flythrough",
+ "gancho": "A",
+ "ganchos_alternativos": []
+}
