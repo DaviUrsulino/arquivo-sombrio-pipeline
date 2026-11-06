@@ -19,5 +19,11 @@
   "cta": "Comenta ESCADA ou ELEVADOR. A parte dois sai amanhã com a escolha que ganhar. Me segue pra não perder.",
   "palavra": "",
   "legenda": "Você dormiu no provador e acordou com o shopping fechado. E não está sozinho.\n\nComenta ESCADA ou ELEVADOR. A mais votada vira a parte 2.\n\nSegue o @ursulino.ia pra ver o final.\n\n#suspense #historia #animacao #vocedecide #shopping"
- }
+ },
+ "serie": "preso-no-shopping",
+ "episodio": 1,
+ "opcoes": [
+  "ESCADA",
+  "ELEVADOR"
+ ]
 }

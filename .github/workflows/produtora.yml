@@ -72,6 +72,7 @@ jobs:
           sh /tmp/lemo-setup.sh deps
           npx --yes skills add PHANTOMTONYT/motion-design-skills --skill hand-drawn-cartoon 3d-toy-character kinetic-typography data-story-charts -g -y
           npx --yes skills add heygen-com/hyperframes --skill hyperframes -g -y
+          npx --yes skills add mromidev/claude-animated-shorts --skill cartoon-3d-short -g -y  # séries (06/11): 2D em mundo 3D
 
       - name: Escreve os segredos no .env
         env:
@@ -79,8 +80,12 @@ jobs:
           GH_TOKEN_PARA_BUSCA: ${{ secrets.GITHUB_TOKEN }}
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
           GRADIUM_API_KEY: ${{ secrets.GRADIUM_API_KEY }}
+          IG_TOKEN: ${{ secrets.INSTAGRAM_GRAPH_TOKEN }}
+          IG_USER: ${{ secrets.INSTAGRAM_USER_ID }}
         # vozes reserva (06/11): Gemini -> ElevenLabs -> Gradium -> Edge; segredo que não existir fica vazio e é pulado
         run: printf 'GEMINI_API_KEY=%s\nGITHUB_TOKEN=%s\nELEVENLABS_API_KEY=%s\nGRADIUM_API_KEY=%s\n' "$GEMINI_API_KEY" "$GH_TOKEN_PARA_BUSCA" "$ELEVENLABS_API_KEY" "$GRADIUM_API_KEY" > .env
+          # token do Instagram: só leitura dos comentários pra contar os votos das séries "você decide"
+          printf 'INSTAGRAM_GRAPH_TOKEN=%s\nINSTAGRAM_USER_ID=%s\n' "$IG_TOKEN" "$IG_USER" >> .env
 
       - name: Produz o vídeo
         env:
@@ -118,7 +123,7 @@ jobs:
         run: |
           git config user.name "estudio-automatico"
           git config user.email "actions@users.noreply.github.com"
-          for f in pautas/produtora.json pautas/em_alta_usados.json pautas/viral/fila pautas/viral/fila_venda; do if [ -e "$f" ]; then git add "$f"; fi; done
+          for f in pautas/produtora.json pautas/em_alta_usados.json pautas/viral/fila pautas/viral/fila_venda pautas/historias pautas/series.json; do if [ -e "$f" ]; then git add "$f"; fi; done
           if ! git diff --cached --quiet; then
             git commit -m "chore: produtora registra vídeo do dia [skip ci]"
             git pull --rebase --autostash -q && git push -q

@@ -196,8 +196,11 @@ def janela_producao(agora: datetime | None = None) -> tuple[int, int]:
     return (0, 13) if (agora or datetime.now(BRASILIA)) < REFORCO_ATE else JANELA_PRODUCAO
 
 
-def deve_produzir(agora: datetime, estado: dict, banco: int, rodando: bool) -> bool:
+def deve_produzir(agora: datetime, estado: dict, banco: int, rodando: bool, serie_pendente: bool = False) -> bool:
     agora = agora.astimezone(BRASILIA)
+    if serie_pendente and not rodando:  # parte 2 prometida pra "amanhã": produz a qualquer hora, sem esperar o banco
+        ultima = estado.get("ultima_producao")
+        return not (ultima and agora - datetime.fromisoformat(ultima) < INTERVALO_PRODUCAO)
     ultima = estado.get("ultima_producao")
     recente = ultima and agora - datetime.fromisoformat(ultima) < INTERVALO_PRODUCAO
     inicio, fim = janela_producao(agora)
@@ -300,11 +303,13 @@ def main():
         if not args.simular:
             try:
                 banco = len(disponiveis(novo.get("fila_usadas", [])))
-                if deve_produzir(datetime.now(BRASILIA), novo, banco, _produtora_rodando()):
+                from . import series
+                pendente = series.pendente() is not None
+                if deve_produzir(datetime.now(BRASILIA), novo, banco, _produtora_rodando(), pendente):
                     subprocess.run(["gh", "workflow", "run", "produtora.yml", "--ref", "master"], cwd=RAIZ, check=True)
                     novo["ultima_producao"] = datetime.now(BRASILIA).isoformat(timespec="seconds")
                     _gravar(novo, args.commit)
-                    print(f"banco com {banco} vídeo(s): disparei uma produção da madrugada", flush=True)
+                    print(f"banco com {banco} vídeo(s){', parte 2 de série pendente' if pendente else ''}: disparei uma produção", flush=True)
             except Exception as erro:
                 print(f"não consegui disparar a produção ({erro}); tento na próxima olhada", flush=True)
         if not formato:

@@ -19,5 +19,11 @@
   "cta": "Comenta só uma palavra: VÍDEO ou SITE. A mais votada acontece no dia dois, amanhã. Me segue pra ver se ele chega no dia trinta.",
   "palavra": "",
   "legenda": "Dia 1 de 30. O Léo tem 30 dias pra fazer R$ 10 mil só com IA, ou volta pra casa da mãe. VOCÊ escolhe cada passo dele.\n\nComenta UMA palavra: VÍDEO ou SITE. A mais votada acontece no Dia 2.\n\nSegue o @ursulino.ia pra acompanhar. O Dia 30 vai ser surreal.\n\n#ia #inteligenciaartificial #animacao #historinha #vocedecide"
- }
+ },
+ "serie": "30-dias-10-mil",
+ "episodio": 1,
+ "opcoes": [
+  "VIDEO",
+  "SITE"
+ ]
 }

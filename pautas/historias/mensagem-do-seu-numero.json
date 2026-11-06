@@ -18,5 +18,11 @@
   "cta": "Comenta ABRIR ou ESCONDER. A parte dois sai amanhã com a escolha que ganhar. Me segue pra não perder.",
   "palavra": "",
   "legenda": "E se fosse com você? 3h12 da manhã, chega uma mensagem do seu próprio número.\n\nComenta ABRIR ou ESCONDER. A mais votada vira a parte 2.\n\nSegue o @ursulino.ia pra não perder o final.\n\n#suspense #historia #animacao #vocedecide #terror"
- }
+ },
+ "serie": "mensagem-do-seu-numero",
+ "episodio": 1,
+ "opcoes": [
+  "ABRIR",
+  "ESCONDER"
+ ]
 }

@@ -450,6 +450,12 @@ def main():
         raise SystemExit("precisa do Claude Code instalado (comando claude)")
     # Ordem do automático (Davi, 04/11): assunto do momento primeiro (rápido, antes de esfriar); sem assunto bom,
     # repõe a venda; com o banco já cheio, não produz (vídeo guardado demais perde o tema do dia).
+    if a.auto and not a.repo and not a.venda:
+        # série "você decide" (06/11): episódio com voto vencido vem antes de tudo (a parte 2 foi prometida "amanhã")
+        from .. import series
+        proximo = series.preparar_proximo()
+        if proximo:
+            a.historia = str(proximo)
     if a.fatos:
         res = produzir(f"site/{a.assunto}", a.estilo, fatos=Path(a.fatos).read_text(encoding="utf-8"), palavra=a.palavra)
         if a.fila and res.get("ok"):
