@@ -43,7 +43,8 @@ BRASILIA = timezone(timedelta(hours=-3))
 # meio-dia das 2 semanas anteriores, fica; senão volta para 12:00. Ver docs/semana-2026-11-05.md (na branch estudio-direcao).
 # 2026-11-05 (Davi): 20:00 era a pior faixa do perfil (mediana 317 views; o dossiê novo fez 124) e 22-24h a melhor
 # (mediana 1.200). Teste: a 3ª rodada vai para 00:30, 2 h depois da das 22:30 (regra de intervalo mínimo).
-RODADAS = [("00:30", "pixel2"), ("08:00", "pixel2"), ("22:30", "lista")]
+# 06/11: 00:30 virou 12:00 (análise: madrugada mediana 793 views, 10h-14h 1.578); séries às 22:30 (maratona antes de dormir)
+RODADAS = [("08:00", "pixel2"), ("12:00", "pixel2"), ("22:30", "lista")]
 # 2026-10-29: a rodada das 20:00 era "loop" (vídeo do Google Flow, formato @pixosly) -- dependia do Davi
 # soltar um vídeo à mão em loops/fila/ toda vez, o que ele não sustentou ("mó preguiça"). Virou "pixel2"
 # (ferramenta/identidade, 100% automático, sem insumo manual) pra fechar as 3 rodadas do dia sem depender
@@ -73,7 +74,7 @@ PAUTAS_DO_DIA = {
 # Banco de vídeos: pautas prontas e aprovadas em pautas/viral/fila/. Cada rodada usa a próxima que ainda não saiu
 # (em ordem de nome); sem nada no banco, ver SO_VIDEOS_NOVOS.
 FILA = RAIZ / "pautas" / "viral" / "fila"
-FILA_RODADAS = ("00:30", "08:00", "22:30")  # 2026-11-04 (Davi): só vídeo novo, o banco abastece TODAS as rodadas
+FILA_RODADAS = ("08:00", "12:00", "22:30")  # 2026-11-04 (Davi): só vídeo novo, o banco abastece TODAS as rodadas
 # Vídeos de venda feitos pela produtora no estilo novo; a rodada de venda (ter/sex 08:00) usa esta fila primeiro.
 FILA_VENDA = RAIZ / "pautas" / "viral" / "fila_venda"
 # Davi, 2026-11-04: "para mim já fazia só dos novos". Sem vídeo novo no banco, a rodada NÃO cai no formato antigo:
@@ -271,8 +272,9 @@ def main():
             nova_rodada = [h for h in novo["feitos"] if h not in (estado["feitos"] if estado.get("dia") == novo["dia"] else {})]
             subprocess.run(["git", "pull", "--rebase", "--autostash", "-q"], cwd=RAIZ, check=False)  # pega pautas novas do banco
             usadas = novo.get("fila_usadas", estado.get("fila_usadas", []))
-            # a rodada logo antes da venda do dia (00:30 de ter/sex) não pode sair com cara de venda
-            antes = "00:30" in nova_rodada and dict(rodadas_do_dia(novo["dia"])).get(RODADA_NOBRE) == "venda" \
+            # a rodada logo antes da venda (22:30 da véspera de ter/sex) não pode sair com cara de venda
+            amanha = (datetime.fromisoformat(novo["dia"]) + timedelta(days=1)).date().isoformat()
+            antes = "22:30" in nova_rodada and dict(rodadas_do_dia(amanha)).get(RODADA_NOBRE) == "venda" \
                 and proxima_da_fila(usadas, FILA_VENDA) is not None
             da_fila = escolher_da_fila(formato, usadas, antes) if any(h in nova_rodada for h in FILA_RODADAS) else None
             if da_fila:
