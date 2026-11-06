@@ -10,12 +10,14 @@
   "dark-keynote",
   "spy-titles",
   "living-screencast",
-  "ascii-crt"
+  "ascii-crt",
+  "circuit-board"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
   "vercel-labs/agent-desktop",
-  "NVIDIA/auto-ontology"
+  "NVIDIA/auto-ontology",
+  "anthropics/claude-code"
  ],
  "producoes": [
   {
@@ -87,6 +89,13 @@
    "estilo": "living-screencast",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-05-1316-pack-estudio-living-screencast"
+  },
+  {
+   "quando": "2026-11-06T04:08",
+   "repo": "anthropics/claude-code",
+   "estilo": "circuit-board",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-06-0302-claude-code-circuit-board"
   }
  ]
 }

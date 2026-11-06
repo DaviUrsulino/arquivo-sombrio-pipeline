@@ -1,0 +1,16 @@
+{
+ "titulo": "claude-code: produtora (circuit-board)",
+ "formato": "pronto",
+ "video_pronto_url": "https://github.com/DaviUrsulino/arquivo-sombrio-pipeline/releases/download/midia-publicacao/produtora-2026-11-06-0302-claude-code-circuit-board.mp4",
+ "palavra_chave": "TERMINAL",
+ "legenda": "Descubra a ferramenta que roda no terminal e programa por você. Comente TERMINAL e eu te mando o link.",
+ "capa": "PROGRAMAR PELO TERMINAL",
+ "itens": [
+  {
+   "repo": "anthropics/claude-code"
+  }
+ ],
+ "estilo": "circuit-board",
+ "gancho": "A",
+ "ganchos_alternativos": []
+}
