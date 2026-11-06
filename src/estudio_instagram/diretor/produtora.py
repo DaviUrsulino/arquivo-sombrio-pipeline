@@ -282,7 +282,7 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
     estado.setdefault("estilos_usados", []).append(estilo["slug"])
     if not venda and not momento:
         estado.setdefault("repos_usados", []).append(repo)
-    estado.setdefault("producoes", []).append({"quando": datetime.now().isoformat(timespec="minutes"), **{k: res[k] for k in ("repo", "estilo", "ok", "pasta")}})
+    estado.setdefault("producoes", []).append({"quando": datetime.now().isoformat(timespec="minutes"), **{k: res[k] for k in ("repo", "estilo", "ok", "pasta", "em_alta")}})
     ESTADO.write_text(json.dumps(estado, ensure_ascii=False, indent=1), encoding="utf-8")
     return res
 
@@ -305,7 +305,7 @@ EM_ALTA_POR_DIA = 1  # 05/11: na 1ª madrugada saíram 4 de esporte/celebridade 
 def cabe_em_alta(agora: datetime | None = None) -> bool:
     """No máximo EM_ALTA_POR_DIA assunto do momento por 20 h; o resto são vídeos do nicho (ferramentas de IA)."""
     agora = agora or datetime.now()
-    recentes = [x for x in _estado().get("producoes", []) if str(x.get("repo", "")).startswith("em-alta/")
+    recentes = [x for x in _estado().get("producoes", []) if x.get("em_alta")
                 and x.get("ok") and agora - datetime.fromisoformat(x["quando"]) < timedelta(hours=20)]
     return len(recentes) < EM_ALTA_POR_DIA
 

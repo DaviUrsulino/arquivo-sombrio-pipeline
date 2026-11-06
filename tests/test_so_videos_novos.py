@@ -110,12 +110,15 @@ def test_legenda_usa_so_a_palavra_final(tmp_path, monkeypatch):
 
 
 def test_no_maximo_um_assunto_do_momento_por_dia(monkeypatch):
+    # 06/11: o repo do assunto do momento é a string fixa "em-alta" (sem slug — ver main()), e o campo
+    # que diz se foi assunto do momento é `em_alta`, não um prefixo em `repo`. Testar com "em-alta/gta-6"
+    # passava isolado mas nunca batia com o dado real gravado, e saíram 2 em-alta na mesma madrugada (06/11).
     from datetime import datetime
     agora = datetime(2026, 11, 5, 9, 0)
-    feitos = {"producoes": [{"repo": "em-alta/gta-6", "ok": True, "quando": "2026-11-05T01:00"}]}
+    feitos = {"producoes": [{"repo": "em-alta", "em_alta": True, "ok": True, "quando": "2026-11-05T01:00"}]}
     monkeypatch.setattr(produtora, "_estado", lambda: feitos)
     assert not produtora.cabe_em_alta(agora)
-    monkeypatch.setattr(produtora, "_estado", lambda: {"producoes": [{"repo": "x/y", "ok": True, "quando": "2026-11-05T01:00"}]})
+    monkeypatch.setattr(produtora, "_estado", lambda: {"producoes": [{"repo": "x/y", "em_alta": False, "ok": True, "quando": "2026-11-05T01:00"}]})
     assert produtora.cabe_em_alta(agora)
 
 
