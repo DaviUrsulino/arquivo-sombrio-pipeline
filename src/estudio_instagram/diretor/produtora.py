@@ -264,7 +264,8 @@ def fatos_venda(pasta: Path = VENDAS) -> str:
 
 
 def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: bool = False,
-             momento: dict | None = None, historia: dict | None = None) -> dict:
+             momento: dict | None = None, historia: dict | None = None, fatos: str | None = None,
+             palavra: str | None = None) -> dict:
     from .fazer import fatos_do_repo
     estado = _estado()
     todos = estilos()
@@ -298,8 +299,10 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
         # teste A/B (04/11): no perfil, 45-60 s teve mediana 570 views contra 313 dos curtos (n=9 x 23). Alterna para
         # medir com os vídeos novos; o analista separa por duração (por_formato).
         longo = len(estado.get("producoes", [])) % 2 == 1
-        rot = roteiro.escrever(fatos_do_repo(repo), longo=longo)
+        rot = roteiro.escrever(fatos or fatos_do_repo(repo), longo=longo)
         rot["versao"] = "longa" if longo else "curta"
+        if palavra:  # site/ferramenta (Davi, 06/11: Gradium): a palavra tem resposta fixa em bot_respostas.json
+            rot["palavra"] = palavra
         rot["cta_tipo"], rot["cta"] = fechamento(len(estado.get("producoes", [])), rot["palavra"])
     rot = roteiro.prever(rot, gancho)
     frases = roteiro.frases(rot, gancho)
@@ -400,7 +403,7 @@ def para_fila(res: dict) -> Path:
              **({"capa": rot["texto_tela"]} if rot.get("texto_tela") else {}),
              **({"cta_tipo": rot["cta_tipo"]} if rot.get("cta_tipo") else {}),
              **({"previsao": rot["previsao"].get("nota")} if rot.get("previsao") else {}),
-             "itens": [] if venda or res.get("em_alta") else [{"repo": res["repo"]}], "estilo": res["estilo"], "gancho": "A",
+             "itens": [] if venda or res.get("em_alta") or res["repo"].startswith("site/") else [{"repo": res["repo"]}], "estilo": res["estilo"], "gancho": "A",
              "ganchos_alternativos": [], **({"tipo": "venda"} if venda else {}),
              **({"tipo": "em-alta"} if res.get("em_alta") else {})}
     if res.get("historia"):
@@ -430,6 +433,9 @@ def main():
     p.add_argument("--auto", action="store_true")
     p.add_argument("--estilo")
     p.add_argument("--gancho", type=int, default=0)
+    p.add_argument("--fatos", help="arquivo de texto com os fatos de um site/ferramenta (sem repositório); use com --assunto")
+    p.add_argument("--assunto", help="nome curto do site, ex.: gradium")
+    p.add_argument("--palavra", help="palavra do comentário que manda o link (precisa estar em pautas/bot_respostas.json)")
     p.add_argument("--historia", help="roteiro pronto de história (pautas/historias/x.json); precisa de --estilo")
     p.add_argument("--listar", action="store_true")
     p.add_argument("--em-alta", action="store_true", help="vídeo do assunto do momento (no --auto vem primeiro)")
@@ -444,6 +450,12 @@ def main():
         raise SystemExit("precisa do Claude Code instalado (comando claude)")
     # Ordem do automático (Davi, 04/11): assunto do momento primeiro (rápido, antes de esfriar); sem assunto bom,
     # repõe a venda; com o banco já cheio, não produz (vídeo guardado demais perde o tema do dia).
+    if a.fatos:
+        res = produzir(f"site/{a.assunto}", a.estilo, fatos=Path(a.fatos).read_text(encoding="utf-8"), palavra=a.palavra)
+        if a.fila and res.get("ok"):
+            res["fila"] = str(para_fila(res).relative_to(RAIZ))
+        print(json.dumps(res, ensure_ascii=False, indent=1))
+        raise SystemExit(0 if res.get("ok") else 1)
     if a.historia:
         historia = json.loads(Path(a.historia).read_text(encoding="utf-8"))
         res = produzir(f"historia/{historia['slug']}", a.estilo or historia.get("estilo"), historia=historia)

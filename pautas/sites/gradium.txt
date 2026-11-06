@@ -1,0 +1,10 @@
+Site: Gradium (studio.gradium.ai), estúdio de voz com IA, concorrente do ElevenLabs. Fatos tirados do site oficial em 06/11/2026.
+- Clona qualquer voz com 10 segundos de áudio, sem etapa de treino: a voz fica pronta em segundos.
+- Mantém a rouquidão, a respiração e a variação de tom da voz original, em qualquer língua.
+- Em 3.220 comparações às cegas feitas por pessoas, ganhou do ElevenLabs Flash 2.5 em inglês, francês, espanhol e alemão.
+- Tem voz em português do Brasil (uma delas se chama Davi, "confiante e animada").
+- Começa a falar em cerca de 50 milissegundos e acerta e-mail, telefone e sigla.
+- Plano grátis: 45 mil créditos por mês (1 crédito por caractere, cerca de 1 hora de áudio), texto pra voz, voz pra texto, criar voz a partir de descrição e até 5 vozes próprias. Não pede cartão de crédito.
+- O plano grátis não libera uso comercial; o plano pago mais barato (XS) custa US$ 12 por mês e libera.
+- Também lançou o Phonon, um modelo de voz aberto que roda no próprio computador.
+- Uso: narrar vídeo, Reels, aula ou podcast com a sua própria voz sem gravar de novo; dublar em outra língua.
