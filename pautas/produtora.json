@@ -19,7 +19,8 @@
   "dark-keynote",
   "ascii-crt",
   "blueprint",
-  "esquete"
+  "esquete",
+  "living-screencast"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -31,7 +32,8 @@
   "scenario-labs/skills",
   "cloudflare/security-audit-skill",
   "google/skills",
-  "KKKKhazix/agent-autoloop"
+  "KKKKhazix/agent-autoloop",
+  "worldonlyu/Google_AI_Pro_2Year_ZeroCost_Auto"
  ],
  "producoes": [
   {
@@ -166,6 +168,14 @@
    "estilo": "esquete",
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-06-1407-agent-autoloop-esquete",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-06T15:05",
+   "repo": "worldonlyu/Google_AI_Pro_2Year_ZeroCost_Auto",
+   "estilo": "living-screencast",
+   "ok": false,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-06-1505-google-ai-pro-2year-zerocost-auto-living-screencast",
    "em_alta": false
   }
  ]
