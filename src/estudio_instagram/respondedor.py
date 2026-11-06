@@ -173,6 +173,9 @@ def responder_novos(config: dict, enviadas: dict, ig, agora: datetime | None = N
                     "palavra": palavra, "mensagem": texto, "desde": agora.isoformat(timespec="seconds")}
                 ig.responder_comentario(comentario["id"], config["mensagem_pedido"], config.get("botoes_seguir"))
             else:
+                # a resposta privada é a ÚNICA mensagem que a Meta deixa mandar (06/11): o pedido de follow vai junto
+                if "segue" not in texto.lower() and config.get("rodape_seguir"):
+                    texto = f"{texto}\n\n{config['rodape_seguir']}"
                 ig.responder_comentario(comentario["id"], texto)
             enviadas[comentario["id"]] = {**registro, "enviado_em": agora.isoformat(timespec="seconds")}
             feitos.append(registro)
