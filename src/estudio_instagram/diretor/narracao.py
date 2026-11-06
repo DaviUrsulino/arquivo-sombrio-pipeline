@@ -22,8 +22,11 @@ PAUSA_S, INICIO_S, FIM_S = 0.18, 0.25, 1.4
 
 
 def voz_padrao(nome: str = "Orus"):
-    from ..voz import ComReserva, EdgeTTS, GeminiTTS
-    return ComReserva(GeminiTTS(nome, RAIZ / "cache_voz"), EdgeTTS())
+    from ..voz import EdgeTTS, ElevenLabs, EmCadeia, GeminiTTS, Gradium
+    # ordem do Davi (06/11): Gemini -> ElevenLabs -> Gradium -> Edge (sem chave, nunca deixa sem vídeo)
+    return EmCadeia(GeminiTTS(nome, RAIZ / "cache_voz"),
+                    ElevenLabs("iP95p4xoKVk53GoZ742B", "eleven_multilingual_v2", RAIZ / "cache_voz"),
+                    Gradium(), EdgeTTS())
 
 
 def narrar_frases(frases: list[str], voz, destino: Path) -> dict:

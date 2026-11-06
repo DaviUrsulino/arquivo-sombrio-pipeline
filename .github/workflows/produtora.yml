@@ -77,7 +77,10 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GH_TOKEN_PARA_BUSCA: ${{ secrets.GITHUB_TOKEN }}
-        run: printf 'GEMINI_API_KEY=%s\nGITHUB_TOKEN=%s\n' "$GEMINI_API_KEY" "$GH_TOKEN_PARA_BUSCA" > .env
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          GRADIUM_API_KEY: ${{ secrets.GRADIUM_API_KEY }}
+        # vozes reserva (06/11): Gemini -> ElevenLabs -> Gradium -> Edge; segredo que não existir fica vazio e é pulado
+        run: printf 'GEMINI_API_KEY=%s\nGITHUB_TOKEN=%s\nELEVENLABS_API_KEY=%s\nGRADIUM_API_KEY=%s\n' "$GEMINI_API_KEY" "$GH_TOKEN_PARA_BUSCA" "$ELEVENLABS_API_KEY" "$GRADIUM_API_KEY" > .env
 
       - name: Produz o vídeo
         env:

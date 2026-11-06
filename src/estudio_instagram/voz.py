@@ -185,6 +185,59 @@ class ComReserva:
         return (self.reserva if self.usando_reserva else self.principal).sintetizar(texto)
 
 
+class Gradium:
+    """Voz do Gradium (POST /post/speech/tts). Davi, 06/11: último recurso antes da voz do Edge (plano grátis:
+    45 mil caracteres por mês). Não devolve tempo por palavra: a narração distribui as palavras pela duração."""
+
+    URL = "https://api.gradium.ai/api/post/speech/tts"
+
+    def __init__(self, voz: str = "NuUr_x5V90hSHzCJ", chave: str | None = None, abrir=urllib.request.urlopen):
+        self.voz = voz  # "Davi": português do Brasil, masculina, confiante e animada
+        self._chave = chave
+        self._abrir = abrir
+
+    def sintetizar(self, texto: str) -> Narracao:
+        chave = self._chave or os.getenv("GRADIUM_API_KEY", "").strip()
+        if not chave:
+            raise RuntimeError("GRADIUM_API_KEY não definida")
+        pedido = urllib.request.Request(
+            self.URL, data=json.dumps({"text": aplicar_pronuncia(texto)[0], "voice_id": self.voz,
+                                       "output_format": "pcm_24000", "only_audio": True}).encode(),
+            headers={"x-api-key": chave, "Content-Type": "application/json"})
+        try:
+            with self._abrir(pedido, timeout=120) as resposta:
+                return Narracao(resposta.read(), [])
+        except urllib.error.HTTPError as erro:
+            raise RuntimeError(f"Gradium recusou (HTTP {erro.code}): {erro.read().decode(errors='replace')[:200]}") from erro
+
+
+class EmCadeia:
+    """Tenta as vozes em ordem e fica com a PRIMEIRA que gravar todas as falas do vídeo (nunca mistura duas vozes).
+    Davi, 06/11: Gemini; se cair, ElevenLabs; se cair, Gradium; e o Edge (sem chave) para nunca ficar sem vídeo."""
+
+    def __init__(self, *vozes):
+        self.vozes = vozes
+        self._prontas: dict[str, Narracao] = {}
+        self.usada = None
+
+    def preparar(self, textos: list[str]):
+        for voz in self.vozes:
+            try:
+                prontas = (voz.sintetizar_varios(textos) if hasattr(voz, "sintetizar_varios")
+                           else {t: voz.sintetizar(t) for t in textos})
+            except Exception as erro:
+                print(f"voz {type(voz).__name__} indisponível ({str(erro)[:140]}); tento a próxima")
+                continue
+            self._prontas, self.usada = prontas, voz
+            return
+        raise RuntimeError("nenhuma voz da cadeia funcionou")
+
+    def sintetizar(self, texto: str) -> Narracao:
+        if texto in self._prontas:
+            return self._prontas[texto]
+        return (self.usada or self.vozes[-1]).sintetizar(texto)
+
+
 class CotaEsgotada(RuntimeError):
     """O modelo de voz do Gemini já usou a cota grátis do dia."""
 
