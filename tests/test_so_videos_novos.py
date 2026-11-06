@@ -170,3 +170,9 @@ def test_nunca_dois_videos_de_venda_seguidos(tmp_path, monkeypatch):
     assert maestro.escolher_da_fila("lista", [em_alta]) == "pautas/viral/fila/2099-01-01-0001-produtora-a.json"
     # na rodada antes da venda do dia, nada de em-alta
     assert maestro.escolher_da_fila("pixel2", [], antes_da_venda=True) == "pautas/viral/fila/2099-01-01-0001-produtora-a.json"
+
+
+def test_fechamento_varia_entre_comenta_segue_salva_e_manda():
+    tipos = {produtora.fechamento(n, "KIT")[0] for n in range(6)}
+    assert tipos == {"comenta", "segue", "salva", "manda"}
+    assert "Comenta KIT" in produtora.fechamento(0, "KIT")[1]

@@ -1,120 +1,160 @@
 {
-  "_sobre": "Referências de animação e conteúdo que o Davi mandou. Fonte do estudo semanal (src/estudio_instagram/estudo_animacao.py). Adicione aqui toda referência nova.",
-  "perfis": [
-    {
-      "perfil": "mateus.curta.ia",
-      "motivo": "Davi pediu como nova identidade (2026-10-29). Fundo preto com glow vermelho, círculos de ícone com anel neon, número gigante com barra de progresso, diagrama de nós conectados (modelo A -> troca -> modelo B), sem personagem nenhum. Banner de título compacto no topo esquerdo (categoria + contador 'xx:xx'). Final 'comenta LIMITE'.",
-      "desde": "2026-10-29"
-    },
-    {
-      "perfil": "motionia.br",
-      "motivo": "Davi pediu como nova identidade (2026-10-29): 'ta na cara que é claude' (o próprio roteiro do reel brinca citando Claude/Codex). Banner amarelo tipo bandeirola no topo (igual referências do @oandrenuneu), personagem num escritório + robozinho mascote laranja ao lado, monitor mostrando UI falsa (ex. app 'Remotion', editor de cena). Contador 'ETAPAS x/3' fixo. Final 'comenta ESTÚDIO'.",
-      "desde": "2026-10-29"
-    },
-    {
-      "perfil": "omagodoalgoritmo",
-      "motivo": "identidade escritório (preto e vermelho) e vila 3D estilo jogo",
-      "desde": "2026-10-27"
-    },
-    {
-      "perfil": "kaiooliveira.ia",
-      "motivo": "pixel art com janelas do Claude; 3D voxel com fita crepe",
-      "desde": "2026-10-27"
-    },
-    {
-      "perfil": "clubedasskills",
-      "motivo": "vídeos muito bons segundo o Davi",
-      "desde": "2026-10-27"
-    },
-    {
-      "perfil": "lowstack.app",
-      "motivo": "identidade holofote (objeto sob luz, fundo que muda)",
-      "desde": "2026-10-27"
-    },
-    {
-      "perfil": "ismjeff.ia",
-      "motivo": "referência visual",
-      "desde": "2026-10-26"
-    },
-    {
-      "perfil": "_aighostlab",
-      "motivo": "Davi reforçou em 2026-10-28. Palco 3D com holofote e varal de luz, mascote cubo laranja que troca de chapéu por função (boina=roteirista, fone=social media, óculos, chapéu de palha), pílula de título com borda neon roxa, contador 'AGENTES x13', legenda em chips roxos, transição com borrão de movimento, final com plateia de mascotes + caixa de comentário + seguir. Reel De91bnbp8S5: 32 mil views (2,6x a média), tema 'uma skill = uma agência'.",
-      "desde": "2026-10-28"
-    },
-    {
-      "perfil": "jako.frames",
-      "motivo": "referência visual",
-      "desde": "2026-10-26"
-    },
-    {
-      "perfil": "pixosly",
-      "motivo": "loops pixel art",
-      "desde": "2026-10-26"
-    },
-    {
-      "perfil": "thiagomendesmed",
-      "motivo": "referência visual",
-      "desde": "2026-10-26"
-    },
-    {
-      "perfil": "macelista",
-      "motivo": "letreiro neon, mascote voxel",
-      "desde": "2026-10-26"
-    },
-    {
-      "perfil": "gab.gouvea",
-      "motivo": "gancho e roteiro",
-      "desde": "2026-10-25"
-    },
-    {
-      "perfil": "exosmkt",
-      "motivo": "gancho e roteiro",
-      "desde": "2026-10-25"
-    },
-    {
-      "perfil": "nodir.ai_",
-      "motivo": "referência visual",
-      "desde": "2026-10-26"
-    },
-    {
-      "perfil": "evolving.ai",
-      "motivo": "referência visual",
-      "desde": "2026-10-26"
-    },
-    {
-      "perfil": "airesearches",
-      "motivo": "referência visual",
-      "desde": "2026-10-26"
-    },
-    {
-      "perfil": "mizak_criativos",
-      "motivo": "Davi mandou em 2026-11-03: reel DfSBF1Bxj7- explica que não existe prompt mágico, existe uma skill de diretor/editor (~50 KB) que ensina o Claude a editar como motion designer. Perfil com um vídeo só.",
-      "desde": "2026-11-03"
-    }
-  ],
-  "reels": [
-    "DfAAxPbR2Nq",
-    "DfAP6GNMZ8M",
-    "De7KmHggMxl",
-    "DboEIZoEynV",
-    "DdnbVsaE-8e",
-    "De4Hht8z0X-",
-    "De4hRg_xF62",
-    "De8OMwtBhLP",
-    "De9hykyqdd6",
-    "De9lLWSsJAj",
-    "De9X6oVAUaD",
-    "DecGBSqvFhf",
-    "Dep_9l2tzZH",
-    "DeqlWSCjRs9",
-    "DertWseDbXz",
-    "DetQ8tOOEkg",
-    "DeZgnSJDMIn",
-    "De91bnbp8S5",
-    "DfR1NJ2pBKp",
-    "DfSBF1Bxj7-"
-  ],
-  "anuncios": [
-    "Biblioteca de Anúncios do Facebook: esquete 3D low-poly (Achados F.C / EDIT IA)"
-  ]
+ "_sobre": "Referências de animação e conteúdo que o Davi mandou. Fonte do estudo semanal (src/estudio_instagram/estudo_animacao.py). Adicione aqui toda referência nova.",
+ "perfis": [
+  {
+   "perfil": "mateus.curta.ia",
+   "motivo": "Davi pediu como nova identidade (2026-10-29). Fundo preto com glow vermelho, círculos de ícone com anel neon, número gigante com barra de progresso, diagrama de nós conectados (modelo A -> troca -> modelo B), sem personagem nenhum. Banner de título compacto no topo esquerdo (categoria + contador 'xx:xx'). Final 'comenta LIMITE'.",
+   "desde": "2026-10-29"
+  },
+  {
+   "perfil": "motionia.br",
+   "motivo": "Davi pediu como nova identidade (2026-10-29): 'ta na cara que é claude' (o próprio roteiro do reel brinca citando Claude/Codex). Banner amarelo tipo bandeirola no topo (igual referências do @oandrenuneu), personagem num escritório + robozinho mascote laranja ao lado, monitor mostrando UI falsa (ex. app 'Remotion', editor de cena). Contador 'ETAPAS x/3' fixo. Final 'comenta ESTÚDIO'.",
+   "desde": "2026-10-29"
+  },
+  {
+   "perfil": "omagodoalgoritmo",
+   "motivo": "identidade escritório (preto e vermelho) e vila 3D estilo jogo",
+   "desde": "2026-10-27"
+  },
+  {
+   "perfil": "kaiooliveira.ia",
+   "motivo": "pixel art com janelas do Claude; 3D voxel com fita crepe",
+   "desde": "2026-10-27"
+  },
+  {
+   "perfil": "clubedasskills",
+   "motivo": "vídeos muito bons segundo o Davi",
+   "desde": "2026-10-27"
+  },
+  {
+   "perfil": "lowstack.app",
+   "motivo": "identidade holofote (objeto sob luz, fundo que muda)",
+   "desde": "2026-10-27"
+  },
+  {
+   "perfil": "ismjeff.ia",
+   "motivo": "referência visual",
+   "desde": "2026-10-26"
+  },
+  {
+   "perfil": "_aighostlab",
+   "motivo": "Davi reforçou em 2026-10-28. Palco 3D com holofote e varal de luz, mascote cubo laranja que troca de chapéu por função (boina=roteirista, fone=social media, óculos, chapéu de palha), pílula de título com borda neon roxa, contador 'AGENTES x13', legenda em chips roxos, transição com borrão de movimento, final com plateia de mascotes + caixa de comentário + seguir. Reel De91bnbp8S5: 32 mil views (2,6x a média), tema 'uma skill = uma agência'.",
+   "desde": "2026-10-28"
+  },
+  {
+   "perfil": "jako.frames",
+   "motivo": "referência visual",
+   "desde": "2026-10-26"
+  },
+  {
+   "perfil": "pixosly",
+   "motivo": "loops pixel art",
+   "desde": "2026-10-26"
+  },
+  {
+   "perfil": "thiagomendesmed",
+   "motivo": "referência visual",
+   "desde": "2026-10-26"
+  },
+  {
+   "perfil": "macelista",
+   "motivo": "letreiro neon, mascote voxel",
+   "desde": "2026-10-26"
+  },
+  {
+   "perfil": "gab.gouvea",
+   "motivo": "gancho e roteiro",
+   "desde": "2026-10-25"
+  },
+  {
+   "perfil": "exosmkt",
+   "motivo": "gancho e roteiro",
+   "desde": "2026-10-25"
+  },
+  {
+   "perfil": "nodir.ai_",
+   "motivo": "referência visual",
+   "desde": "2026-10-26"
+  },
+  {
+   "perfil": "evolving.ai",
+   "motivo": "referência visual",
+   "desde": "2026-10-26"
+  },
+  {
+   "perfil": "airesearches",
+   "motivo": "referência visual",
+   "desde": "2026-10-26"
+  },
+  {
+   "perfil": "mizak_criativos",
+   "motivo": "Davi mandou em 2026-11-03: reel DfSBF1Bxj7- explica que não existe prompt mágico, existe uma skill de diretor/editor (~50 KB) que ensina o Claude a editar como motion designer. Perfil com um vídeo só.",
+   "desde": "2026-11-03"
+  },
+  {
+   "perfil": "historiasaoub",
+   "motivo": "Davi, 2026-11-06: série animada interativa 'você decide' (24 mil seguidores). Episódios numerados, capa 'EPISÓDIO 01 + título', 2D vetorial, final 'comenta A ou B', a mais votada vira o próximo episódio.",
+   "desde": "2026-11-06"
+  },
+  {
+   "perfil": "contosderisco",
+   "motivo": "Davi, 2026-11-06: histórias animadas 'e se fosse com você?' (14,9 mil, '+5 mi de views em 3 dias'); vende método no link.",
+   "desde": "2026-11-06"
+  },
+  {
+   "perfil": "escolhas.app",
+   "motivo": "Davi, 2026-11-06: 344 mil seguidores. Todo vídeo termina com uma escolha, o público vota e acontece. Vende método de vídeo viral.",
+   "desde": "2026-11-06"
+  },
+  {
+   "perfil": "bieldozero",
+   "motivo": "Davi, 2026-11-06: 121 mil. Personagem fixo (Biel, no zero, com ordem de despejo), 'cada seguidor = R$ 1 pro Biel', comenta A ou B decide o caminho.",
+   "desde": "2026-11-06"
+  },
+  {
+   "perfil": "trancados.br",
+   "motivo": "Davi, 2026-11-06: 30,7 mil. Série 'você decide o próximo episódio nos comentários'; vende curso de série com IA.",
+   "desde": "2026-11-06"
+  },
+  {
+   "perfil": "marcondes.ai",
+   "motivo": "Davi, 2026-11-06: Reel do Isaac Newton e a agulha no olho (15,7 mil curtidas). História real bizarra, desenho de linha à mão, palavra grande na tela, legenda longa com fontes, CTA 'só me siga'.",
+   "desde": "2026-11-06"
+  },
+  {
+   "perfil": "lucentride.studio",
+   "motivo": "Davi, 2026-11-06: a mesma cena em 10 estilos (pixel, PS2, quadrinho, brinquedo, massinha, papel, anime 90, low poly, risografia, diorama). Direct com botão + follow gate + guia em página.",
+   "desde": "2026-11-06"
+  },
+  {
+   "perfil": "fabianocarvalhojr",
+   "motivo": "Davi, 2026-11-06: carrossel '9 skills do Claude pra animação' + guia em página. Direct com botão 'Me envie', confere follow, link em cartão 'Acessar agora'.",
+   "desde": "2026-11-06"
+  }
+ ],
+ "reels": [
+  "DfAAxPbR2Nq",
+  "DfAP6GNMZ8M",
+  "De7KmHggMxl",
+  "DboEIZoEynV",
+  "DdnbVsaE-8e",
+  "De4Hht8z0X-",
+  "De4hRg_xF62",
+  "De8OMwtBhLP",
+  "De9hykyqdd6",
+  "De9lLWSsJAj",
+  "De9X6oVAUaD",
+  "DecGBSqvFhf",
+  "Dep_9l2tzZH",
+  "DeqlWSCjRs9",
+  "DertWseDbXz",
+  "DetQ8tOOEkg",
+  "DeZgnSJDMIn",
+  "De91bnbp8S5",
+  "DfR1NJ2pBKp",
+  "DfSBF1Bxj7-"
+ ],
+ "anuncios": [
+  "Biblioteca de Anúncios do Facebook: esquete 3D low-poly (Achados F.C / EDIT IA)"
+ ]
 }

@@ -79,6 +79,24 @@ ferramenta de IA pede tecnologia, terminal, brinquedo 3D ou esquete). Nunca esco
 Responda só JSON: {"estilos": ["slug1", "slug2", "slug3", "slug4"]} usando os slugs da lista."""
 
 
+# Davi, 06/11: "só me siga, em vez de ficar comente também... pra não ser sempre a mesma coisa". O fechamento roda
+# entre 4 pedidos; a legenda continua com o "Comenta X" (o link sai pelo direct em todos). cta_tipo vai pra fila
+# para o analista comparar qual traz mais seguidor.
+FECHAMENTOS = [
+    ("comenta", "Comenta {p} que eu te mando o link. E me segue: todo dia tem uma IA nova aqui."),
+    ("segue", "Me segue que amanhã tem outra dessas. Todo dia uma IA nova aqui."),
+    ("comenta", "Comenta {p} que eu te mando o link. E me segue: todo dia tem uma IA nova aqui."),
+    ("salva", "Salva esse vídeo pra testar depois. E me segue pra não perder a próxima."),
+    ("comenta", "Comenta {p} que eu te mando o link. E me segue: todo dia tem uma IA nova aqui."),
+    ("manda", "Manda esse vídeo pra aquele amigo que precisa ver isso. E me segue pra mais."),
+]
+
+
+def fechamento(n: int, palavra: str) -> tuple[str, str]:
+    tipo, texto = FECHAMENTOS[n % len(FECHAMENTOS)]
+    return tipo, texto.format(p=palavra)
+
+
 def estilos_fracos(desempenho: dict | None = None, corte: float = 0.2) -> set[str]:
     """Estilos que já foram postados e ficaram muito abaixo do perfil (mediana de views abaixo de 20% da mediana
     geral). Dossiê fez 130 views com o perfil na casa de 1.200: não vale repetir até os números mudarem."""
@@ -255,6 +273,7 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
         longo = len(estado.get("producoes", [])) % 2 == 1
         rot = roteiro.escrever(fatos_do_repo(repo), longo=longo)
         rot["versao"] = "longa" if longo else "curta"
+        rot["cta_tipo"], rot["cta"] = fechamento(len(estado.get("producoes", [])), rot["palavra"])
     frases = roteiro.frases(rot, gancho)
     nome = f"{datetime.now():%Y-%m-%d-%H%M}-{re.sub(r'[^a-z0-9]+', '-', repo.split('/')[-1].lower())}-{estilo['slug']}"
     pasta = SAIDA / nome
@@ -348,6 +367,7 @@ def para_fila(res: dict) -> Path:
     pauta = {"titulo": f"{res['repo'].split('/')[-1]}: produtora ({res['estilo']})", "formato": "pronto",
              "video_pronto_url": url, "palavra_chave": rot["palavra"], "legenda": legenda,
              **({"capa": rot["texto_tela"]} if rot.get("texto_tela") else {}),
+             **({"cta_tipo": rot["cta_tipo"]} if rot.get("cta_tipo") else {}),
              "itens": [] if venda or res.get("em_alta") else [{"repo": res["repo"]}], "estilo": res["estilo"], "gancho": "A",
              "ganchos_alternativos": [], **({"tipo": "venda"} if venda else {}),
              **({"tipo": "em-alta"} if res.get("em_alta") else {})}
