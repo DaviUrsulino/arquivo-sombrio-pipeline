@@ -121,3 +121,17 @@ def test_versao_longa_aceita_corpo_maior_e_curta_nao():
     assert roteiro.problemas(_roteiro_ok(corpo=corpo), max_corpo=9) == []
     assert roteiro.problemas(_roteiro_ok(corpo=corpo))
     assert roteiro.problemas(_roteiro_ok(texto_tela=""))  # sem gancho escrito na tela não passa
+
+
+def test_previsor_troca_gancho_fraco_e_mantem_o_bom():
+    from src.estudio_instagram.diretor import roteiro as rt
+    base = lambda: {"ganchos": ["Este repositório usa embeddings vetoriais"], "corpo": ["a"], "cta": "c", "texto_tela": "REPO NOVO"}
+    fraco = lambda *_: {"nota": 4, "problema": "técnico", "novo_gancho": "Essa IA faz seu trabalho de uma semana em 5 minutos",
+                        "novo_texto_tela": "UMA SEMANA EM 5 MIN"}
+    r = rt.prever(base(), llm=fraco)
+    assert r["ganchos"][0].startswith("Essa IA") and r["texto_tela"] == "UMA SEMANA EM 5 MIN" and r["previsao"]["nota"] == 4
+    bom = lambda *_: {"nota": 8.5, "novo_gancho": "outro"}
+    assert rt.prever(base(), llm=bom)["ganchos"][0].startswith("Este repositório")
+    def quebra(*_):
+        raise RuntimeError("sem cota")
+    assert rt.prever(base(), llm=quebra)["ganchos"][0].startswith("Este repositório")

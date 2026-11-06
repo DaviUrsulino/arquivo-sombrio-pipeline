@@ -66,5 +66,29 @@ def escrever(fatos: str, llm=gerar_json, tentativas: int = 3, extra: str = "", l
     raise RuntimeError("roteiro inválido: " + "; ".join(erros))
 
 
+def prever(r: dict, gancho: int = 0, llm=None, corte: float = 7) -> dict:
+    """Previsor de viral (Davi, 06/11, como o Virality da Higgsfield), ANTES de gastar o Claude animando: o Gemini dá
+    nota ao gancho, clareza, retenção e compartilhamento. Nota abaixo de 7 troca a abertura e o texto da tela pelos
+    que ele sugeriu. Falhar aqui nunca derruba a produção: o roteiro segue como estava."""
+    try:
+        sistema = segredos.texto("viral_nota")
+        texto = (f"TEXTO NA TELA: {r.get('texto_tela', '')}\nABERTURA: {r['ganchos'][gancho]}\n"
+                 f"CORPO: {' '.join(r['corpo'])}\nFECHAMENTO: {r.get('cta', '')}")
+        p = (llm or gerar_json)(sistema, texto)
+        nota = float(p.get("nota") or 0)
+    except Exception as erro:
+        print(f"previsor de viral falhou ({erro}); sigo com o roteiro")
+        return r
+    r["previsao"] = {k: p.get(k) for k in ("gancho", "clareza", "retencao", "compartilhavel", "nota", "problema")}
+    novo, tela = (p.get("novo_gancho") or "").strip(), (p.get("novo_texto_tela") or "").strip()
+    if nota < corte and novo and len(novo.split()) <= 18:
+        r["previsao"]["gancho_antigo"] = r["ganchos"][gancho]
+        r["ganchos"][gancho] = novo
+        if tela and len(tela.split()) <= 7:
+            r["texto_tela"] = tela
+    print(f"previsão de viral: {nota:.1f}/10 ({p.get('problema', '')})", flush=True)
+    return r
+
+
 def frases(roteiro: dict, gancho: int = 0) -> list[str]:
     return [roteiro["ganchos"][gancho]] + list(roteiro["corpo"]) + [roteiro["cta"]]

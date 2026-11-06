@@ -274,6 +274,7 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
         rot = roteiro.escrever(fatos_do_repo(repo), longo=longo)
         rot["versao"] = "longa" if longo else "curta"
         rot["cta_tipo"], rot["cta"] = fechamento(len(estado.get("producoes", [])), rot["palavra"])
+    rot = roteiro.prever(rot, gancho)
     frases = roteiro.frases(rot, gancho)
     nome = f"{datetime.now():%Y-%m-%d-%H%M}-{re.sub(r'[^a-z0-9]+', '-', repo.split('/')[-1].lower())}-{estilo['slug']}"
     pasta = SAIDA / nome
@@ -368,6 +369,7 @@ def para_fila(res: dict) -> Path:
              "video_pronto_url": url, "palavra_chave": rot["palavra"], "legenda": legenda,
              **({"capa": rot["texto_tela"]} if rot.get("texto_tela") else {}),
              **({"cta_tipo": rot["cta_tipo"]} if rot.get("cta_tipo") else {}),
+             **({"previsao": rot["previsao"].get("nota")} if rot.get("previsao") else {}),
              "itens": [] if venda or res.get("em_alta") else [{"repo": res["repo"]}], "estilo": res["estilo"], "gancho": "A",
              "ganchos_alternativos": [], **({"tipo": "venda"} if venda else {}),
              **({"tipo": "em-alta"} if res.get("em_alta") else {})}
