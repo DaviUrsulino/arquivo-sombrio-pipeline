@@ -191,8 +191,9 @@ class Gradium:
 
     URL = "https://api.gradium.ai/api/post/speech/tts"
 
-    def __init__(self, voz: str = "NuUr_x5V90hSHzCJ", chave: str | None = None, abrir=urllib.request.urlopen):
-        self.voz = voz  # "Davi": português do Brasil, masculina, confiante e animada
+    def __init__(self, voz: str | None = None, chave: str | None = None, abrir=urllib.request.urlopen):
+        # GRADIUM_VOICE_ID = a voz clonada do Davi (06/11); sem ela, "Davi" da biblioteca (pt-BR, confiante e animada)
+        self.voz = voz or os.getenv("GRADIUM_VOICE_ID", "").strip() or "NuUr_x5V90hSHzCJ"
         self._chave = chave
         self._abrir = abrir
 
