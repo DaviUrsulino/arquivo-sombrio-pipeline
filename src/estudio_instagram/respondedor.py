@@ -139,6 +139,23 @@ def _mensagem_para(comentario: dict, config: dict, por_post: dict) -> tuple[str,
     return None
 
 
+def _liberar_por_comentario(config: dict, ig, comentario: dict, pendentes: dict, enviadas: dict, agora: datetime,
+                            feitos: list):
+    chave = _chave(comentario["from"]["id"])
+    segue = ig.segue_a_conta(comentario["from"]["id"])  # None = a API não sabe (sem conversa aberta): libera
+    registro = {"comentario_id": comentario["id"], "palavra": pendentes[chave]["palavra"], "segue": segue is not False}
+    try:
+        if segue is False:
+            ig.responder_comentario(comentario["id"], config["mensagem_nao_segue"])
+        else:
+            ig.responder_comentario(comentario["id"], pendentes.pop(chave)["mensagem"])
+        enviadas[comentario["id"]] = {**registro, "enviado_em": agora.isoformat(timespec="seconds")}
+        feitos.append(registro)
+        _avisar_no_comentario(config, ig, comentario["id"], len(enviadas))
+    except urllib.error.HTTPError as erro:
+        print(f"falhou ao liberar o link em {comentario['id']}: HTTP {erro.code} {erro.read().decode(errors='replace')[:200]}")
+
+
 def responder_novos(config: dict, enviadas: dict, ig, agora: datetime | None = None, simular: bool = False,
                     por_post: dict | None = None, pendentes: dict | None = None) -> list[dict]:
     """Responde cada comentário novo com palavra-chave. Devolve o que foi (ou seria) respondido.
@@ -154,6 +171,16 @@ def responder_novos(config: dict, enviadas: dict, ig, agora: datetime | None = N
         if comentario["id"] in enviadas:
             continue
         if agora - _hora(comentario["timestamp"]) > JANELA:
+            continue
+        # Passo 2 da trava de follow (06/11): a Meta só deixa UMA resposta no direct por comentário, então o
+        # "já segui" é um comentário novo (SIGO) no vídeo, que dá direito a outra resposta: aí sai o link.
+        quem = (comentario.get("from") or {}).get("id", "")
+        if (config.get("exigir_seguir") and quem and _chave(quem) in pendentes
+                and palavra_encontrada(comentario.get("text", ""), {p: "" for p in config.get("palavras_seguiu", ["SIGO"])})):
+            if not simular:
+                _liberar_por_comentario(config, ig, comentario, pendentes, enviadas, agora, feitos)
+            else:
+                feitos.append({"comentario_id": comentario["id"], "palavra": "SIGO", "simulado": True})
             continue
         achado = _mensagem_para(comentario, config, por_post or {})
         if not achado:
@@ -225,7 +252,8 @@ def main():
         pendentes = _ler_json(PENDENTES, {})
         try:
             feitos = responder_novos(config, enviadas, ig, simular=args.simular, por_post=por_post, pendentes=pendentes)
-            feitos += liberar_pendentes(config, pendentes, ig, simular=args.simular)
+            if config.get("liberar_por_direct"):  # desligado: a Meta recusa a 2ª mensagem no direct (06/11)
+                feitos += liberar_pendentes(config, pendentes, ig, simular=args.simular)
         except Exception as erro:  # API fora do ar, rede: não pode matar o laço inteiro
             print(f"passada falhou ({str(erro)[:200]}); tento de novo")
             feitos = []

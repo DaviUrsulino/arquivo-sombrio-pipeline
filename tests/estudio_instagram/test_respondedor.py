@@ -261,3 +261,23 @@ def test_pendente_velho_demais_e_descartado():
     ig, pend = InstagramComConversa([], _resposta_da_pessoa()), _pendente(desde="2026-10-01T15:00:00+00:00")
     liberar_pendentes(CONFIG_FILTRO, pend, ig, agora=AGORA)
     assert pend == {} and ig.mensagens == []
+
+
+def test_sigo_comentado_libera_o_link_de_quem_ja_pediu():
+    from src.estudio_instagram.respondedor import _chave, responder_novos
+    cfg = {**CONFIG_FILTRO, "palavras_seguiu": ["SIGO"]}
+    ig, pend = InstagramComConversa([_cd("c1", "CLAUDE")], segue=True), {}
+    responder_novos(cfg, {}, ig, agora=AGORA, pendentes=pend)
+    assert _chave("u1") in pend
+    ig2 = InstagramComConversa([_cd("c2", "já sigo!")], segue=None)
+    feitos = responder_novos(cfg, {}, ig2, agora=AGORA, pendentes=pend)
+    assert ig2.respostas == [("c2", "link do kit")] and _chave("u1") not in pend and feitos[0]["segue"]
+
+
+def test_sigo_sem_seguir_pede_de_novo():
+    from src.estudio_instagram.respondedor import _chave, responder_novos
+    cfg = {**CONFIG_FILTRO, "palavras_seguiu": ["SIGO"]}
+    pend = {_chave("u1"): {"palavra": "CLAUDE", "mensagem": "link do kit", "desde": AGORA.isoformat()}}
+    ig = InstagramComConversa([_cd("c3", "SIGO")], segue=False)
+    responder_novos(cfg, {}, ig, agora=AGORA, pendentes=pend)
+    assert ig.respostas == [("c3", "ainda não vi o follow")] and _chave("u1") in pend

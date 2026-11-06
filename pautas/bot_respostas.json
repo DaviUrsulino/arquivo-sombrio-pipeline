@@ -18,7 +18,7 @@
         "MÁQUINA": "Oi! Aqui está a Máquina de Reels: o sistema que faz os vídeos animados deste perfil, cada um num estilo de filme diferente, e posta sozinho no seu Instagram. Pagamento único de R$ 97, sem mensalidade, com o Pack Estúdio, o Kit Claude Code e o Kit Engenharia de bônus. Link: https://pay.kiwify.com.br/pqXFvEm",
         "GRADIUM": "Oi! Aqui está o Gradium, o site que clona a sua voz com 10 segundos de áudio e tem voz em português do Brasil. O plano grátis não pede cartão. Link: https://studio.gradium.ai"
     },
-    "exigir_seguir": false,
+    "exigir_seguir": true,
     "sem_filtro": [
         "PACK",
         "ENGENHARIA",
@@ -29,11 +29,14 @@
         "MAQUINA",
         "MÁQUINA"
     ],
-    "mensagem_pedido": "Opa, que bom que curtiu! O link é liberado só pra quem segue o @ursulino.ia. Segue lá no perfil e toca em Já sigo aqui embaixo que eu te mando na hora.",
-    "mensagem_nao_segue": "Ainda não apareceu o seu follow por aqui. Vai no perfil, toca em Seguir e depois toca em Já sigo de novo que eu libero o link.",
-    "botoes_seguir": [
-        "Já sigo"
-    ],
-    "_nota_exigir_seguir": "Desligado em 06/11: a Meta recusa a 2a mensagem depois da resposta privada ao comentário (erro 10/2534022, 'fora do período permitido'), mesmo com a pessoa respondendo 'Já sigo'. Nenhum link foi liberado desde 05/11. O link sai direto na resposta privada; a trava de follow só volta com webhook (evento de botão) do app da Meta.",
-    "rodape_seguir": "Me segue no @ursulino.ia: todo dia tem uma ferramenta de IA nova aqui."
+    "mensagem_pedido": "Opa, que bom que curtiu! O link é liberado só pra quem segue o @ursulino.ia. Me segue e comenta SIGO aqui no mesmo vídeo que eu te mando na hora.",
+    "mensagem_nao_segue": "Ainda não apareceu o seu follow no @ursulino.ia. Me segue e comenta SIGO de novo no vídeo que eu libero o link.",
+    "botoes_seguir": [],
+    "_nota_exigir_seguir": "06/11: a Meta recusa a 2a mensagem no direct depois da resposta privada (erro 10/2534022). Por isso o passo 2 é um comentário SIGO no vídeo, que dá direito a outra resposta privada com o link.",
+    "liberar_por_direct": false,
+    "palavras_seguiu": [
+        "SIGO",
+        "SEGUI",
+        "SEGUINDO"
+    ]
 }
