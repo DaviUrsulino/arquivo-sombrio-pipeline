@@ -18,7 +18,8 @@
   "hologram-hud",
   "dark-keynote",
   "ascii-crt",
-  "blueprint"
+  "blueprint",
+  "esquete"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -29,7 +30,8 @@
   "mattpocock/skills",
   "scenario-labs/skills",
   "cloudflare/security-audit-skill",
-  "google/skills"
+  "google/skills",
+  "KKKKhazix/agent-autoloop"
  ],
  "producoes": [
   {
@@ -157,6 +159,14 @@
    "estilo": "blueprint",
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-06-1300-skills-blueprint"
+  },
+  {
+   "quando": "2026-11-06T14:07",
+   "repo": "KKKKhazix/agent-autoloop",
+   "estilo": "esquete",
+   "ok": false,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-06-1407-agent-autoloop-esquete",
+   "em_alta": false
   }
  ]
 }
