@@ -8,13 +8,13 @@
  "roteiro": {
   "texto_tela": "VOZ DE IA GRÁTIS NO SEU PC",
   "ganchos": [
-   "Lançaram uma voz de IA que roda no seu próprio computador, e é de graça."
+   "Chega de pagar voz de IA: lançaram uma grátis que roda no seu PC."
   ],
   "corpo": [
-   "Chama Phonon, e foi a Gradium que soltou, com o código aberto.",
+   "Chama Phonon, e o código é aberto.",
    "Ela fala português, inglês, espanhol, francês e alemão.",
    "É tão pequena que cabe num aplicativo de celular ou roda numa aba do navegador.",
-   "Com uma linha no terminal, você manda o texto e sai o áudio pronto.",
+   "Você escreve o texto e sai o áudio pronto, em segundos.",
    "Depois de baixar o modelo, funciona até sem internet.",
    "Dá pra narrar vídeo, aula e Reels sem pagar mensalidade de voz."
   ],
