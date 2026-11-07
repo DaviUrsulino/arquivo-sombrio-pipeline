@@ -95,7 +95,8 @@ def escrever_proximo(p: dict, votos: dict[str, int] | None, llm=None) -> Path:
     novo.update({"slug": f"{serie}-ep{n}", "serie": serie, "episodio": n,
                  "roteiro": {k: r[k] for k in ("texto_tela", "ganchos", "corpo", "cta", "legenda")},
                  "opcoes": r.get("opcoes") or None, "fatos_continuacao": r.get("fatos_continuacao") or None,
-                 "escolha_anterior": escolha, "votos_anteriores": votos})
+                 "escolha_anterior": escolha, "votos_anteriores": votos,
+                 "produzir": True, "prioridade": True})  # se a produção falhar (ex.: limite do Claude), tenta de novo
     novo["roteiro"]["palavra"] = ""
     destino = HISTORIAS / f"{novo['slug']}.json"
     destino.write_text(json.dumps(novo, ensure_ascii=False, indent=1), encoding="utf-8")
@@ -134,7 +135,8 @@ def historia_para_produzir(estado: dict | None = None) -> Path | None:
     """Roteiro novo marcado com "produzir": true que ainda não virou vídeo (06/11: lote de 5 escritos à mão; o GitHub
     produz um por rodada, com o PC do Davi desligado). Episódio de série pendente tem prioridade (ver pendente)."""
     estado = _ler(ESTADO) if estado is None else estado
-    for arq in sorted(HISTORIAS.glob("*.json")):
+    # episódio de série (prometido "amanhã") antes dos roteiros novos
+    for arq in sorted(HISTORIAS.glob("*.json"), key=lambda a: (not _ler(a).get("prioridade"), a.name)):
         h = _ler(arq)
         if h.get("produzir") and f"produzido:{arq.stem}" not in estado:
             return arq

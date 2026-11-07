@@ -28,5 +28,7 @@
  ],
  "fatos_continuacao": "Em 1935, Victor Lustig foi preso nos Estados Unidos por falsificacao de dinheiro em grande escala. Foi enviado para a prisao de Alcatraz e morreu em 1947. Ele deixou uma famosa lista com dez mandamentos do golpista.",
  "escolha_anterior": null,
- "votos_anteriores": null
+ "votos_anteriores": null,
+ "produzir": true,
+ "prioridade": true
 }

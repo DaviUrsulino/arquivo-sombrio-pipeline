@@ -51,3 +51,11 @@ def test_historia_marcada_pra_produzir_sai_uma_vez(tmp_path, monkeypatch):
     (tmp_path / "b.json").write_text(json.dumps({}))
     assert series.historia_para_produzir({}).name == "a.json"
     assert series.historia_para_produzir({"produzido:a": {}}) is None
+
+
+def test_episodio_de_serie_vem_antes_dos_roteiros_novos(tmp_path, monkeypatch):
+    import json
+    monkeypatch.setattr(series, "HISTORIAS", tmp_path)
+    (tmp_path / "a-novo.json").write_text(json.dumps({"produzir": True}))
+    (tmp_path / "z-ep2.json").write_text(json.dumps({"produzir": True, "prioridade": True}))
+    assert series.historia_para_produzir({}).name == "z-ep2.json"
