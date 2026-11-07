@@ -21,7 +21,8 @@
   "blueprint",
   "esquete",
   "living-screencast",
-  "data-story-charts"
+  "data-story-charts",
+  "halftone-dossier"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -185,6 +186,14 @@
    "estilo": "data-story-charts",
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-06-1526-sp500-data-story-charts",
+   "em_alta": true
+  },
+  {
+   "quando": "2026-11-07T00:54",
+   "repo": "em-alta/wall-street-perde-trilh-es-em-um-dia-entenda-o-que-derrubou-as-a-es-de-ia-g1",
+   "estilo": "halftone-dossier",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-07-0021-wall-street-perde-trilh-es-em-um-dia-entenda-o-que-derrubou-as-a-es-de-ia-g1-halftone-dossier",
    "em_alta": true
   }
  ]
