@@ -90,7 +90,23 @@ def escrever_proximo(p: dict, votos: dict[str, int] | None, llm=None) -> Path:
     pedido = {"episodio_anterior": ep["roteiro"], "numero_do_novo_episodio": n, "opcoes_anteriores": ep.get("opcoes"),
               "votos": votos, "escolha_vencedora": escolha, "fatos_da_continuacao": ep.get("fatos_continuacao"),
               "ultimo_episodio": n >= MAX_EPISODIOS}
-    r = (llm or gerar_json)(segredos.texto("serie_episodio"), json.dumps(pedido, ensure_ascii=False))
+    gerar = llm or gerar_json
+    r = gerar(segredos.texto("serie_episodio"), json.dumps(pedido, ensure_ascii=False))
+    # Davi (07/11): "faz melhor ainda". O previsor critica; abaixo de 7,5 o roteirista reescreve com a crítica (até 2x).
+    for _ in range(2):
+        try:
+            texto = (f"TEXTO NA TELA: {r['texto_tela']}\nABERTURA: {r['ganchos'][0]}\nCORPO: {' '.join(r['corpo'])}\n"
+                     f"FECHAMENTO: {r['cta']}")
+            nota = gerar(segredos.texto("viral_nota"), texto)
+        except Exception as erro:
+            print(f"previsor do episódio falhou ({erro}); sigo com o roteiro")
+            break
+        print(f"episódio {n}: nota {nota.get('nota')} ({nota.get('problema')})", flush=True)
+        if float(nota.get("nota") or 0) >= 7.5:
+            break
+        pedido["critica_do_editor"] = nota.get("problema")
+        pedido["roteiro_rejeitado"] = {k: r.get(k) for k in ("texto_tela", "ganchos", "corpo", "cta")}
+        r = gerar(segredos.texto("serie_episodio"), json.dumps(pedido, ensure_ascii=False))
     novo = {k: ep[k] for k in ("estilo", "direcao") if k in ep}
     novo.update({"slug": f"{serie}-ep{n}", "serie": serie, "episodio": n,
                  "roteiro": {k: r[k] for k in ("texto_tela", "ganchos", "corpo", "cta", "legenda")},
