@@ -6,5 +6,9 @@
  "vendeu-a-torre-eiffel": {
   "quando": "2026-11-07T13:34+00:00",
   "resultado": "vendeu-a-torre-eiffel-ep2"
+ },
+ "produzido:vendeu-a-torre-eiffel-ep2": {
+  "quando": "2026-11-07T16:27+00:00",
+  "resultado": "ok"
  }
 }
