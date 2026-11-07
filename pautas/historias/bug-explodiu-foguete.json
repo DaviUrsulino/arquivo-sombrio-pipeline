@@ -6,12 +6,12 @@
  "opcoes": null,
  "direcao": "HISTÓRIA REAL (4 de junho de 1996, Guiana Francesa). Foguete Ariane 5 branco na plataforma, sala de controle com engenheiros (2D, sempre os mesmos: uma engenheira de cabelo preso e um engenheiro de bigode), céu tropical. HUD fixo: contador 'T+00:00' que corre até 'T+00:37' e um número de velocidade que cresce até estourar a caixa onde ele mora (visualize o 'número que não cabe'). A explosão é um clarão laranja no céu, sem ninguém ferido, e a sala de controle em silêncio. Depois, a linha de código culpada aparece em destaque.",
  "roteiro": {
-  "texto_tela": "UM BUG EXPLODIU ESSE FOGUETE",
+  "texto_tela": "BUG DE 370 MILHÕES",
   "ganchos": [
-   "Esse foguete de 370 milhões de dólares explodiu 37 segundos depois de decolar. O culpado foi um erro de código."
+   "Um erro simples de código explodiu esse foguete de 370 milhões de dólares."
   ],
   "corpo": [
-   "Em 1996, a Europa lançou o Ariane 5, o foguete mais moderno que ela tinha.",
+   "Foi em 1996: a Europa lançou o Ariane 5, e 37 segundos depois ele explodiu.",
    "Pra economizar, reaproveitaram o software do foguete antigo, o Ariane 4.",
    "Só que o Ariane 5 era bem mais rápido.",
    "Um número de velocidade ficou grande demais pro espaço que o código reservava pra ele.",
