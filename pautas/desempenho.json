@@ -1,247 +1,357 @@
 {
-  "gerado_em": "2026-11-06 14:31",
-  "seguidores": 353,
+  "gerado_em": "2026-11-07 13:28",
+  "seguidores": 356,
+  "meta": {
+    "meta": 1000,
+    "ate": "2026-11-30",
+    "seguidores": 356,
+    "falta": 644,
+    "por_dia_necessario": 28.0,
+    "por_dia_atual": 3.0
+  },
   "por_gancho": {
     "gancho A": {
-      "n": 6,
-      "views_medianas": 743,
-      "views_media": 846,
-      "salvos_por_100_alcance": 2.04,
-      "envios_por_100_alcance": 0.91,
-      "tempo_medio_s": 9.4
+      "n": 10,
+      "views_medianas": 760,
+      "views_media": 937,
+      "salvos_por_100_alcance": 1.26,
+      "envios_por_100_alcance": 0.5,
+      "tempo_medio_s": 12.2
     },
     "sem registro": {
-      "n": 21,
-      "views_medianas": 1203,
-      "views_media": 3441,
-      "salvos_por_100_alcance": 4.27,
-      "envios_por_100_alcance": 1.21,
-      "tempo_medio_s": 8.0
+      "n": 17,
+      "views_medianas": 1220,
+      "views_media": 4173,
+      "salvos_por_100_alcance": 4.31,
+      "envios_por_100_alcance": 1.22,
+      "tempo_medio_s": 8.6
     }
   },
   "geral": {
     "n": 27,
-    "views_medianas": 1203,
-    "views_media": 2864,
-    "salvos_por_100_alcance": 4.12,
-    "envios_por_100_alcance": 1.19,
-    "tempo_medio_s": 8.3
+    "views_medianas": 1220,
+    "views_media": 2974,
+    "salvos_por_100_alcance": 3.94,
+    "envios_por_100_alcance": 1.13,
+    "tempo_medio_s": 9.9
   },
   "por_estilo": {
+    "produtora-cartoon-3d-short": {
+      "n": 2,
+      "views_medianas": 1223,
+      "views_media": 1223,
+      "salvos_por_100_alcance": 0.34,
+      "envios_por_100_alcance": 0.0,
+      "tempo_medio_s": 19.2
+    },
+    "produtora-halftone-dossier": {
+      "n": 1,
+      "views_medianas": 177,
+      "views_media": 177,
+      "salvos_por_100_alcance": 0.0,
+      "envios_por_100_alcance": 0.0,
+      "tempo_medio_s": 8.7
+    },
+    "produtora-midcentury-toon": {
+      "n": 1,
+      "views_medianas": 1472,
+      "views_media": 1472,
+      "salvos_por_100_alcance": 0.16,
+      "envios_por_100_alcance": 0.0,
+      "tempo_medio_s": 19.8
+    },
     "produtora-living-screencast": {
       "n": 1,
-      "views_medianas": 137,
-      "views_media": 137,
-      "salvos_por_100_alcance": 0.8,
-      "envios_por_100_alcance": 0.8,
-      "tempo_medio_s": 5.7
+      "views_medianas": 177,
+      "views_media": 177,
+      "salvos_por_100_alcance": 0.64,
+      "envios_por_100_alcance": 0.64,
+      "tempo_medio_s": 5.3
     },
     "produtora-esquete": {
       "n": 2,
-      "views_medianas": 1399,
-      "views_media": 1399,
-      "salvos_por_100_alcance": 1.73,
-      "envios_por_100_alcance": 0.54,
-      "tempo_medio_s": 12.7
+      "views_medianas": 1425,
+      "views_media": 1425,
+      "salvos_por_100_alcance": 1.69,
+      "envios_por_100_alcance": 0.52,
+      "tempo_medio_s": 12.6
     },
     "produtora-spy-titles": {
       "n": 1,
-      "views_medianas": 189,
-      "views_media": 189,
-      "salvos_por_100_alcance": 1.24,
+      "views_medianas": 208,
+      "views_media": 208,
+      "salvos_por_100_alcance": 1.14,
       "envios_por_100_alcance": 0.0,
-      "tempo_medio_s": 8.3
+      "tempo_medio_s": 7.9
     },
     "produtora-pixel-rpg": {
       "n": 1,
-      "views_medianas": 1826,
-      "views_media": 1826,
-      "salvos_por_100_alcance": 2.77,
-      "envios_por_100_alcance": 1.66,
-      "tempo_medio_s": 12.1
+      "views_medianas": 1906,
+      "views_media": 1906,
+      "salvos_por_100_alcance": 2.84,
+      "envios_por_100_alcance": 1.59,
+      "tempo_medio_s": 11.9
     },
     "produtora-dossie": {
       "n": 1,
-      "views_medianas": 131,
-      "views_media": 131,
-      "salvos_por_100_alcance": 1.77,
-      "envios_por_100_alcance": 0.88,
-      "tempo_medio_s": 5.0
+      "views_medianas": 139,
+      "views_media": 139,
+      "salvos_por_100_alcance": 1.64,
+      "envios_por_100_alcance": 0.82,
+      "tempo_medio_s": 4.7
     },
     "pixel2": {
       "n": 5,
-      "views_medianas": 1219,
-      "views_media": 1276,
-      "salvos_por_100_alcance": 3.99,
-      "envios_por_100_alcance": 0.92,
+      "views_medianas": 1229,
+      "views_media": 1284,
+      "salvos_por_100_alcance": 3.96,
+      "envios_por_100_alcance": 0.91,
       "tempo_medio_s": 7.5
-    },
-    "vila": {
-      "n": 2,
-      "views_medianas": 195,
-      "views_media": 195,
-      "salvos_por_100_alcance": 0.88,
-      "envios_por_100_alcance": 0.59,
-      "tempo_medio_s": 4.5
     },
     "3d": {
       "n": 1,
-      "views_medianas": 1303,
-      "views_media": 1303,
-      "salvos_por_100_alcance": 2.43,
-      "envios_por_100_alcance": 1.44,
+      "views_medianas": 1311,
+      "views_media": 1311,
+      "salvos_por_100_alcance": 2.42,
+      "envios_por_100_alcance": 1.43,
       "tempo_medio_s": 7.5
     },
     "pixel antigo / manual": {
-      "n": 13,
-      "views_medianas": 860,
-      "views_media": 4937,
-      "salvos_por_100_alcance": 4.36,
-      "envios_por_100_alcance": 1.24,
-      "tempo_medio_s": 8.8
+      "n": 11,
+      "views_medianas": 1011,
+      "views_media": 5746,
+      "salvos_por_100_alcance": 4.39,
+      "envios_por_100_alcance": 1.25,
+      "tempo_medio_s": 9.1
     }
   },
   "por_formato": {
     "curto (20-35 s)": {
-      "n": 19,
-      "views_medianas": 1211,
-      "views_media": 893,
-      "salvos_por_100_alcance": 2.69,
-      "envios_por_100_alcance": 0.85,
-      "tempo_medio_s": 7.8
+      "n": 21,
+      "views_medianas": 1220,
+      "views_media": 998,
+      "salvos_por_100_alcance": 2.23,
+      "envios_por_100_alcance": 0.67,
+      "tempo_medio_s": 9.8
     },
     "longo (45-60 s)": {
-      "n": 8,
-      "views_medianas": 715,
-      "views_media": 7545,
-      "salvos_por_100_alcance": 4.54,
-      "envios_por_100_alcance": 1.29,
-      "tempo_medio_s": 9.5
+      "n": 6,
+      "views_medianas": 1117,
+      "views_media": 9891,
+      "salvos_por_100_alcance": 4.57,
+      "envios_por_100_alcance": 1.3,
+      "tempo_medio_s": 10.4
     }
   },
   "por_faixa_horaria": {
+    "meio-dia (10-14h)": {
+      "n": 3,
+      "views_medianas": 1311,
+      "views_media": 1123,
+      "salvos_por_100_alcance": 3.01,
+      "envios_por_100_alcance": 1.43,
+      "tempo_medio_s": 12.2
+    },
     "manhã (6-10h)": {
       "n": 5,
-      "views_medianas": 1272,
-      "views_media": 11728,
-      "salvos_por_100_alcance": 4.48,
-      "envios_por_100_alcance": 1.27,
-      "tempo_medio_s": 9.2
+      "views_medianas": 1906,
+      "views_media": 12094,
+      "salvos_por_100_alcance": 4.32,
+      "envios_por_100_alcance": 1.22,
+      "tempo_medio_s": 11.5
     },
     "madrugada (0-6h)": {
-      "n": 3,
-      "views_medianas": 1361,
-      "views_media": 1029,
-      "salvos_por_100_alcance": 1.54,
-      "envios_por_100_alcance": 0.49,
-      "tempo_medio_s": 11.1
+      "n": 4,
+      "views_medianas": 800,
+      "views_media": 829,
+      "salvos_por_100_alcance": 1.43,
+      "envios_por_100_alcance": 0.45,
+      "tempo_medio_s": 10.5
     },
     "tarde da noite (22-24h)": {
-      "n": 9,
-      "views_medianas": 1211,
-      "views_media": 1119,
-      "salvos_por_100_alcance": 3.57,
-      "envios_por_100_alcance": 0.86,
-      "tempo_medio_s": 8.0
+      "n": 10,
+      "views_medianas": 1224,
+      "views_media": 1163,
+      "salvos_por_100_alcance": 3.1,
+      "envios_por_100_alcance": 0.75,
+      "tempo_medio_s": 9.1
     },
     "noite (18-22h)": {
-      "n": 5,
-      "views_medianas": 246,
-      "views_media": 371,
-      "salvos_por_100_alcance": 3.31,
-      "envios_por_100_alcance": 1.36,
-      "tempo_medio_s": 6.1
-    },
-    "meio-dia (10-14h)": {
-      "n": 2,
-      "views_medianas": 1579,
-      "views_media": 1579,
-      "salvos_por_100_alcance": 3.16,
-      "envios_por_100_alcance": 1.52,
-      "tempo_medio_s": 8.5
+      "n": 3,
+      "views_medianas": 139,
+      "views_media": 377,
+      "salvos_por_100_alcance": 4.59,
+      "envios_por_100_alcance": 1.71,
+      "tempo_medio_s": 6.4
     },
     "tarde (14-18h)": {
-      "n": 3,
-      "views_medianas": 163,
-      "views_media": 174,
-      "salvos_por_100_alcance": 0.69,
-      "envios_por_100_alcance": 0.46,
-      "tempo_medio_s": 8.7
+      "n": 2,
+      "views_medianas": 196,
+      "views_media": 196,
+      "salvos_por_100_alcance": 0.6,
+      "envios_por_100_alcance": 0.6,
+      "tempo_medio_s": 10.4
     }
   },
   "por_tema": {
-    "vídeo com IA": {
-      "n": 23,
-      "views_medianas": 1211,
-      "views_media": 3281,
-      "salvos_por_100_alcance": 4.21,
-      "envios_por_100_alcance": 1.22,
-      "tempo_medio_s": 8.0
-    },
-    "Claude Code": {
-      "n": 22,
-      "views_medianas": 1207,
-      "views_media": 3364,
-      "salvos_por_100_alcance": 4.3,
-      "envios_por_100_alcance": 1.24,
-      "tempo_medio_s": 8.1
-    },
-    "agentes e skills": {
-      "n": 15,
-      "views_medianas": 1211,
-      "views_media": 1036,
-      "salvos_por_100_alcance": 3.51,
-      "envios_por_100_alcance": 1.11,
-      "tempo_medio_s": 8.4
-    },
-    "venda e kit": {
-      "n": 14,
-      "views_medianas": 1211,
-      "views_media": 1080,
-      "salvos_por_100_alcance": 3.3,
-      "envios_por_100_alcance": 0.95,
-      "tempo_medio_s": 7.8
-    },
     "segurança e teste": {
       "n": 1,
-      "views_medianas": 246,
-      "views_media": 246,
-      "salvos_por_100_alcance": 0.9,
-      "envios_por_100_alcance": 0.9,
-      "tempo_medio_s": 4.6
+      "views_medianas": 198,
+      "views_media": 198,
+      "salvos_por_100_alcance": 0.65,
+      "envios_por_100_alcance": 0.0,
+      "tempo_medio_s": 19.7
+    },
+    "outros": {
+      "n": 4,
+      "views_medianas": 853,
+      "views_media": 1032,
+      "salvos_por_100_alcance": 0.35,
+      "envios_por_100_alcance": 0.0,
+      "tempo_medio_s": 14.0
+    },
+    "vídeo com IA": {
+      "n": 19,
+      "views_medianas": 1229,
+      "views_media": 3911,
+      "salvos_por_100_alcance": 4.24,
+      "envios_por_100_alcance": 1.22,
+      "tempo_medio_s": 8.5
+    },
+    "Claude Code": {
+      "n": 18,
+      "views_medianas": 1224,
+      "views_media": 4043,
+      "salvos_por_100_alcance": 4.33,
+      "envios_por_100_alcance": 1.25,
+      "tempo_medio_s": 8.5
+    },
+    "agentes e skills": {
+      "n": 12,
+      "views_medianas": 1224,
+      "views_media": 1230,
+      "salvos_por_100_alcance": 3.58,
+      "envios_por_100_alcance": 1.12,
+      "tempo_medio_s": 9.1
+    },
+    "venda e kit": {
+      "n": 12,
+      "views_medianas": 1224,
+      "views_media": 1178,
+      "salvos_por_100_alcance": 3.35,
+      "envios_por_100_alcance": 0.96,
+      "tempo_medio_s": 8.0
     },
     "assistente (Jarvis)": {
       "n": 3,
-      "views_medianas": 1303,
-      "views_media": 1290,
-      "salvos_por_100_alcance": 3.09,
-      "envios_por_100_alcance": 1.09,
+      "views_medianas": 1311,
+      "views_media": 1298,
+      "salvos_por_100_alcance": 3.07,
+      "envios_por_100_alcance": 1.08,
       "tempo_medio_s": 7.4
-    },
-    "outros": {
-      "n": 1,
-      "views_medianas": 228,
-      "views_media": 228,
-      "salvos_por_100_alcance": 1.93,
-      "envios_por_100_alcance": 0.0,
-      "tempo_medio_s": 9.0
     }
   },
-  "melhor_faixa": "madrugada (0-6h)",
+  "por_tipo": {
+    "história": {
+      "n": 3,
+      "views_medianas": 1472,
+      "views_media": 1306,
+      "salvos_por_100_alcance": 0.28,
+      "envios_por_100_alcance": 0.0,
+      "tempo_medio_s": 19.4
+    },
+    "assunto do momento": {
+      "n": 3,
+      "views_medianas": 208,
+      "views_media": 641,
+      "salvos_por_100_alcance": 0.18,
+      "envios_por_100_alcance": 0.18,
+      "tempo_medio_s": 10.6
+    },
+    "venda": {
+      "n": 1,
+      "views_medianas": 177,
+      "views_media": 177,
+      "salvos_por_100_alcance": 0.64,
+      "envios_por_100_alcance": 0.64,
+      "tempo_medio_s": 5.3
+    },
+    "ferramenta de IA": {
+      "n": 3,
+      "views_medianas": 1312,
+      "views_media": 1119,
+      "salvos_por_100_alcance": 3.09,
+      "envios_por_100_alcance": 1.26,
+      "tempo_medio_s": 8.9
+    },
+    "sem registro": {
+      "n": 17,
+      "views_medianas": 1220,
+      "views_media": 4173,
+      "salvos_por_100_alcance": 4.31,
+      "envios_por_100_alcance": 1.22,
+      "tempo_medio_s": 8.6
+    }
+  },
+  "por_fechamento": {
+    "segue": {
+      "n": 3,
+      "views_medianas": 1472,
+      "views_media": 1306,
+      "salvos_por_100_alcance": 0.28,
+      "envios_por_100_alcance": 0.0,
+      "tempo_medio_s": 19.4
+    },
+    "comenta": {
+      "n": 7,
+      "views_medianas": 208,
+      "views_media": 779,
+      "salvos_por_100_alcance": 1.95,
+      "envios_por_100_alcance": 0.85,
+      "tempo_medio_s": 9.1
+    },
+    "sem registro": {
+      "n": 17,
+      "views_medianas": 1220,
+      "views_media": 4173,
+      "salvos_por_100_alcance": 4.31,
+      "envios_por_100_alcance": 1.22,
+      "tempo_medio_s": 8.6
+    }
+  },
+  "melhor_faixa": "manhã (6-10h)",
   "melhor_tema": "assistente (Jarvis)",
   "top": [
     {
       "id": "18027479654873301",
-      "views": 54836,
-      "salvos": 2021,
+      "views": 54863,
+      "salvos": 2019,
       "envios": 561,
       "tempo_s": 11.9,
       "titulo": "Esse repositório faz a ia criar vídeo escrevendo html, grátis e open s",
       "hora": "18/10 08:45"
     },
     {
+      "id": "18100419563670495",
+      "views": 2248,
+      "salvos": 6,
+      "envios": 0,
+      "tempo_s": 18.6,
+      "titulo": "Você dormiu no provador e acordou com o shopping fechado. E não está s",
+      "hora": "07/11 08:01"
+    },
+    {
+      "id": "18127340134927939",
+      "views": 1906,
+      "salvos": 43,
+      "envios": 24,
+      "tempo_s": 11.9,
+      "titulo": "Uma pessoa sozinha abriu o Claude Code e ganhou um estúdio de games co",
+      "hora": "05/11 08:02"
+    },
+    {
       "id": "18413224864081335",
-      "views": 1855,
+      "views": 1861,
       "salvos": 56,
       "envios": 24,
       "tempo_s": 9.4,
@@ -249,58 +359,40 @@
       "hora": "19/10 13:40"
     },
     {
-      "id": "18127340134927939",
-      "views": 1826,
-      "salvos": 40,
-      "envios": 24,
-      "tempo_s": 12.1,
-      "titulo": "Uma pessoa sozinha abriu o Claude Code e ganhou um estúdio de games co",
-      "hora": "05/11 08:02"
-    },
-    {
       "id": "18128094488490921",
-      "views": 1500,
+      "views": 1539,
       "salvos": 1,
       "envios": 3,
-      "tempo_s": 15.2,
+      "tempo_s": 15.1,
       "titulo": "O GTA 6 vai ter dias de duas horas e precisa de duzentos gigas.",
       "hora": "06/11 00:33"
     },
     {
+      "id": "18095692625657436",
+      "views": 1472,
+      "salvos": 2,
+      "envios": 0,
+      "tempo_s": 19.8,
+      "titulo": "Em 1925, Victor Lustig se passou por funcionário do governo francês e ",
+      "hora": "06/11 22:32"
+    },
+    {
       "id": "18357919321174607",
-      "views": 1376,
+      "views": 1383,
       "salvos": 57,
       "envios": 11,
-      "tempo_s": 9.0,
+      "tempo_s": 8.9,
       "titulo": "Quatro repositórios grátis para automatizar tarefas com IA",
       "hora": "30/10 22:35"
     },
     {
       "id": "18110500358228983",
-      "views": 1365,
+      "views": 1373,
       "salvos": 44,
       "envios": 11,
-      "tempo_s": 7.7,
+      "tempo_s": 7.6,
       "titulo": "Quatro repositórios grátis para criar agentes e sites com ia",
       "hora": "28/10 23:05"
-    },
-    {
-      "id": "17886619920622218",
-      "views": 1361,
-      "salvos": 36,
-      "envios": 10,
-      "tempo_s": 9.2,
-      "titulo": "Crie curtas metragens com o claude code gerando renderização e áudio d",
-      "hora": "19/10 03:11"
-    },
-    {
-      "id": "18118121924092924",
-      "views": 1303,
-      "salvos": 27,
-      "envios": 16,
-      "tempo_s": 7.5,
-      "titulo": "Uma inteligência artificial no celular mexe nos seus aplicativos sozin",
-      "hora": "01/11 12:12"
     }
   ]
 }
