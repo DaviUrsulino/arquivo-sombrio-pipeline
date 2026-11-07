@@ -1,0 +1,30 @@
+{
+ "slug": "estagiaria-apagou-producao",
+ "estilo": "scifi-toon",
+ "serie": "estagiaria-apagou-producao",
+ "episodio": 1,
+ "opcoes": [
+  "CONTAR",
+  "ESCONDER"
+ ],
+ "direcao": "SÉRIE 'você decide' de programador. Bia: 20 anos, cabelo cacheado ruivo, óculos redondos, moletom roxo com crachá 'ESTAGIÁRIA', sempre igual. Chefe: homem de camisa social azul e caneca de café (só aparece de longe, chegando). Escritório de startup ao entardecer. HUD fixo: relógio '17:58' andando, 'DIA 1 DE ESTÁGIO' e um contador 'CLIENTES SEM ACESSO' subindo. A palavra PRODUÇÃO aparece gigante, em vermelho, na tela do computador. Tensão cômica (suor, olhos arregalados). No fim, dois botões grandes CONTAR e ESCONDER e o botão SEGUIR @ursulino.ia pulsando.",
+ "roteiro": {
+  "texto_tela": "APAGUEI O BANCO DE PRODUÇÃO",
+  "ganchos": [
+   "Primeiro dia de estágio. Às 17h58, a Bia apagou o banco de dados da empresa inteira."
+  ],
+  "corpo": [
+   "Ela só queria limpar o banco de teste antes de ir embora.",
+   "Digitou o comando, apertou Enter e foi pegar a mochila.",
+   "Aí o celular do chefe começou a tocar sem parar.",
+   "Os clientes não conseguiam mais entrar no aplicativo.",
+   "Ela olhou pra tela e viu a palavra que nenhum dev quer ver: produção.",
+   "O último backup é de ontem. E ninguém sabe ainda que foi ela.",
+   "O chefe está vindo na direção da mesa dela."
+  ],
+  "cta": "Comenta CONTAR ou ESCONDER. A parte dois sai amanhã com a escolha que ganhar. Me segue pra não perder.",
+  "palavra": "",
+  "legenda": "Parte 1. Primeiro dia de estágio, 17h58: a Bia apagou o banco de dados de produção. O chefe está vindo.\n\nComenta CONTAR ou ESCONDER. A mais votada vira a parte 2.\nSegue o @ursulino.ia pra acompanhar.\n\n#programacao #dev #estagio #vocedecide #tecnologia"
+ },
+ "produzir": true
+}

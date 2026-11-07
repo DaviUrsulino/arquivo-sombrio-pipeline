@@ -128,3 +128,18 @@ def preparar_proximo(ig=None) -> Path | None:
     registrar(p["slug"], destino.stem)
     print(f"série {p['slug']}: votos {votos}; próximo episódio em {destino.relative_to(RAIZ)}", flush=True)
     return destino
+
+
+def historia_para_produzir(estado: dict | None = None) -> Path | None:
+    """Roteiro novo marcado com "produzir": true que ainda não virou vídeo (06/11: lote de 5 escritos à mão; o GitHub
+    produz um por rodada, com o PC do Davi desligado). Episódio de série pendente tem prioridade (ver pendente)."""
+    estado = _ler(ESTADO) if estado is None else estado
+    for arq in sorted(HISTORIAS.glob("*.json")):
+        h = _ler(arq)
+        if h.get("produzir") and f"produzido:{arq.stem}" not in estado:
+            return arq
+    return None
+
+
+def marcar_produzida(slug: str):
+    registrar(f"produzido:{slug}", "ok")

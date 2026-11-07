@@ -453,7 +453,7 @@ def main():
     if a.auto and not a.repo and not a.venda:
         # série "você decide" (06/11): episódio com voto vencido vem antes de tudo (a parte 2 foi prometida "amanhã")
         from .. import series
-        proximo = series.preparar_proximo()
+        proximo = series.preparar_proximo() or series.historia_para_produzir()
         if proximo:
             a.historia = str(proximo)
     if a.fatos:
@@ -467,6 +467,9 @@ def main():
         res = produzir(f"historia/{historia['slug']}", a.estilo or historia.get("estilo"), historia=historia)
         if a.fila and res.get("ok"):
             res["fila"] = str(para_fila(res).relative_to(RAIZ))
+        if res.get("ok"):
+            from .. import series
+            series.marcar_produzida(Path(a.historia).stem)
         print(json.dumps(res, ensure_ascii=False, indent=1))
         raise SystemExit(0 if res.get("ok") else 1)
     from .. import em_alta

@@ -1,0 +1,26 @@
+{
+ "slug": "phonon-voz-gratis",
+ "estilo": "kinetic-typography",
+ "serie": "phonon-voz-gratis",
+ "episodio": 1,
+ "opcoes": null,
+ "direcao": "FERRAMENTA (estilo do nosso vídeo mais viral, o do HyperFrames: desejo + grátis). Tipografia cinética forte, palavras-chave enormes (GRÁTIS, SEM INTERNET, PORTUGUÊS, 1 LINHA). Mostre uma onda de áudio pulsando no ritmo da voz, um terminal com o comando de uma linha e o arquivo de áudio saindo, um notebook com o wi-fi desligado e o áudio tocando mesmo assim, e o contador 'MENSALIDADE: R$ 0'. Cores vivas, nada parado.",
+ "roteiro": {
+  "texto_tela": "VOZ DE IA GRÁTIS NO SEU PC",
+  "ganchos": [
+   "Lançaram uma voz de IA que roda no seu próprio computador, e é de graça."
+  ],
+  "corpo": [
+   "Chama Phonon, e foi a Gradium que soltou, com o código aberto.",
+   "Ela fala português, inglês, espanhol, francês e alemão.",
+   "É tão pequena que cabe num aplicativo de celular ou roda numa aba do navegador.",
+   "Com uma linha no terminal, você manda o texto e sai o áudio pronto.",
+   "Depois de baixar o modelo, funciona até sem internet.",
+   "Dá pra narrar vídeo, aula e Reels sem pagar mensalidade de voz."
+  ],
+  "cta": "Me segue e comenta VOZ que eu te mando o link. E manda pro amigo que ainda paga por voz de IA.",
+  "palavra": "VOZ",
+  "legenda": "Phonon: a voz de IA aberta da Gradium que roda no seu computador, no celular ou no navegador, em português e mais 4 línguas. Uma linha no terminal gera o áudio, e depois de baixar o modelo funciona sem internet.\n\nMe segue e comenta VOZ que eu te mando o link no direct.\nManda pro amigo que ainda paga por voz de IA.\n\n#ia #inteligenciaartificial #voz #opensource #ferramentasia"
+ },
+ "produzir": true
+}

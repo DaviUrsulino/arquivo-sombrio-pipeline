@@ -16,7 +16,8 @@
         "ESTÚDIO": "Oi! Aqui está a Máquina de Reels: o sistema que faz os vídeos animados deste perfil, cada um num estilo de filme diferente, e posta sozinho no seu Instagram. Pagamento único de R$ 97, sem mensalidade, com o Pack Estúdio, o Kit Claude Code e o Kit Engenharia de bônus. Link: https://pay.kiwify.com.br/pqXFvEm",
         "MAQUINA": "Oi! Aqui está a Máquina de Reels: o sistema que faz os vídeos animados deste perfil, cada um num estilo de filme diferente, e posta sozinho no seu Instagram. Pagamento único de R$ 97, sem mensalidade, com o Pack Estúdio, o Kit Claude Code e o Kit Engenharia de bônus. Link: https://pay.kiwify.com.br/pqXFvEm",
         "MÁQUINA": "Oi! Aqui está a Máquina de Reels: o sistema que faz os vídeos animados deste perfil, cada um num estilo de filme diferente, e posta sozinho no seu Instagram. Pagamento único de R$ 97, sem mensalidade, com o Pack Estúdio, o Kit Claude Code e o Kit Engenharia de bônus. Link: https://pay.kiwify.com.br/pqXFvEm",
-        "GRADIUM": "Oi! Aqui está o Gradium, o site que clona a sua voz com 10 segundos de áudio e tem voz em português do Brasil. O plano grátis não pede cartão. Link: https://studio.gradium.ai"
+        "GRADIUM": "Oi! Aqui está o Gradium, o site que clona a sua voz com 10 segundos de áudio e tem voz em português do Brasil. O plano grátis não pede cartão. Link: https://studio.gradium.ai",
+        "VOZ": "Oi! Aqui está o Phonon, a voz de IA aberta que roda no seu computador, em português: https://github.com/gradium-ai/xn-ptts\n\nPra testar: uvx ptts --lang pt \"Olá, essa é a minha voz de IA.\" -o voz.wav"
     },
     "exigir_seguir": false,
     "sem_filtro": [

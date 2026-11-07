@@ -1,0 +1,28 @@
+{
+ "slug": "pizza-de-10-mil-bitcoins",
+ "estilo": "pixel-rpg",
+ "serie": "pizza-de-10-mil-bitcoins",
+ "episodio": 1,
+ "opcoes": null,
+ "direcao": "HISTÓRIA REAL (maio de 2010), em pixel art de jogo 16-bit. Laszlo: programador de óculos, camiseta azul, barba curta, sempre igual. Um fórum antigo na tela do PC, duas pizzas grandes, um entregador. HUD de jogo fixo: 'ANO 2010' e uma barra 'VALOR DAS PIZZAS EM BITCOIN' que cresce absurdamente no fim, passando por 2013, 2017, 2021 até estourar a tela. Tom divertido, 'game over' cômico no final.",
+ "roteiro": {
+  "texto_tela": "2 PIZZAS POR 10 MIL BITCOINS",
+  "ganchos": [
+   "Em 2010, um programador pagou duas pizzas com dez mil bitcoins. Hoje isso valeria centenas de milhões de dólares."
+  ],
+  "corpo": [
+   "O nome dele é Laszlo Hanyecz, um programador da Flórida.",
+   "Na época, o bitcoin quase não valia nada e ninguém aceitava como pagamento.",
+   "Ele postou num fórum: pago dez mil bitcoins em duas pizzas grandes.",
+   "Quatro dias depois, um rapaz topou, pediu as pizzas e mandou entregar na casa dele.",
+   "Pela cotação da época, a troca valia uns quarenta dólares.",
+   "Foi a primeira compra de algo físico com bitcoin que se tem registro.",
+   "O dia 22 de maio virou o Bitcoin Pizza Day, comemorado até hoje.",
+   "E sabe o que ele diz quando perguntam? Que não se arrepende."
+  ],
+  "cta": "Manda pro amigo que sempre diz que bitcoin é golpe. E me segue: amanhã tem outra história real da tecnologia.",
+  "palavra": "",
+  "legenda": "Em 22 de maio de 2010, Laszlo Hanyecz pagou 10 mil bitcoins por duas pizzas, depois de anunciar a troca num fórum. Na época, isso dava uns 40 dólares. Foi a primeira compra registrada de um produto físico com bitcoin, e a data virou o Bitcoin Pizza Day.\n\nManda pro amigo que sempre diz que bitcoin é golpe.\nSegue o @ursulino.ia: todo dia uma história real da tecnologia.\n\n#bitcoin #tecnologia #historia #cripto #curiosidades"
+ },
+ "produzir": true
+}

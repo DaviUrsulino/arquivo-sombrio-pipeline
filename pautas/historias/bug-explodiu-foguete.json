@@ -1,0 +1,28 @@
+{
+ "slug": "bug-explodiu-foguete",
+ "estilo": "cartoon-3d-short",
+ "serie": "bug-explodiu-foguete",
+ "episodio": 1,
+ "opcoes": null,
+ "direcao": "HISTÓRIA REAL (4 de junho de 1996, Guiana Francesa). Foguete Ariane 5 branco na plataforma, sala de controle com engenheiros (2D, sempre os mesmos: uma engenheira de cabelo preso e um engenheiro de bigode), céu tropical. HUD fixo: contador 'T+00:00' que corre até 'T+00:37' e um número de velocidade que cresce até estourar a caixa onde ele mora (visualize o 'número que não cabe'). A explosão é um clarão laranja no céu, sem ninguém ferido, e a sala de controle em silêncio. Depois, a linha de código culpada aparece em destaque.",
+ "roteiro": {
+  "texto_tela": "UM BUG EXPLODIU ESSE FOGUETE",
+  "ganchos": [
+   "Esse foguete de 370 milhões de dólares explodiu 37 segundos depois de decolar. O culpado foi um erro de código."
+  ],
+  "corpo": [
+   "Em 1996, a Europa lançou o Ariane 5, o foguete mais moderno que ela tinha.",
+   "Pra economizar, reaproveitaram o software do foguete antigo, o Ariane 4.",
+   "Só que o Ariane 5 era bem mais rápido.",
+   "Um número de velocidade ficou grande demais pro espaço que o código reservava pra ele.",
+   "O computador de navegação travou. E o reserva, com o mesmo código, travou junto.",
+   "O foguete leu lixo como se fosse direção, virou de lado e se autodestruiu.",
+   "O mais absurdo: aquele cálculo nem servia pra nada depois da decolagem.",
+   "Ninguém se feriu, mas virou o bug caro mais famoso da história."
+  ],
+  "cta": "Manda pro amigo que diz que teste é perda de tempo. E me segue: amanhã tem outra história real da tecnologia.",
+  "palavra": "",
+  "legenda": "Em 4 de junho de 1996, o primeiro Ariane 5 se autodestruiu cerca de 37 segundos depois do lançamento. O software de navegação, reaproveitado do Ariane 4, tentou guardar um número de velocidade grande demais num espaço de 16 bits, e os dois computadores de navegação travaram. O prejuízo costuma ser estimado em 370 milhões de dólares.\n\nManda pro amigo que diz que teste é perda de tempo.\nSegue o @ursulino.ia: todo dia uma história real da tecnologia.\n\n#programacao #tecnologia #bug #historia #dev"
+ },
+ "produzir": true
+}

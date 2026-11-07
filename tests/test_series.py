@@ -42,3 +42,12 @@ def test_escreve_episodio_seguinte_com_mesmo_estilo(tmp_path, monkeypatch):
     novo = json.loads(destino.read_text())
     assert destino.name == "x-ep2.json" and novo["estilo"] == "cel-anime-80s" and novo["direcao"] == "D"
     assert novo["escolha_anterior"] == "B" and novo["opcoes"] == ["C", "D"] and novo["roteiro"]["palavra"] == ""
+
+
+def test_historia_marcada_pra_produzir_sai_uma_vez(tmp_path, monkeypatch):
+    import json
+    monkeypatch.setattr(series, "HISTORIAS", tmp_path)
+    (tmp_path / "a.json").write_text(json.dumps({"produzir": True}))
+    (tmp_path / "b.json").write_text(json.dumps({}))
+    assert series.historia_para_produzir({}).name == "a.json"
+    assert series.historia_para_produzir({"produzido:a": {}}) is None

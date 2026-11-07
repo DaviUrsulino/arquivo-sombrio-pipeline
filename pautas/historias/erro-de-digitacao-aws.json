@@ -1,0 +1,28 @@
+{
+ "slug": "erro-de-digitacao-aws",
+ "estilo": "hand-drawn-cartoon",
+ "serie": "erro-de-digitacao-aws",
+ "episodio": 1,
+ "opcoes": null,
+ "direcao": "HISTÓRIA REAL (28/02/2017). Engenheiro da Amazon (jovem, camiseta preta, fone no pescoço, sempre igual) num escritório. HUD fixo: relógio que avança de '09:37' até '13:54' e um contador 'SITES FORA DO AR' que dispara. Mostre o comando no terminal com UM valor errado em vermelho, os servidores apagando em fila como dominó, logos genéricos de sites (sem marcas reais desenhadas, só os nomes em texto) quebrando, e o painel de status 'tudo verde' travado enquanto o mundo pega fogo (a ironia). Humor nervoso, ritmo rápido.",
+ "roteiro": {
+  "texto_tela": "UM ERRO DE DIGITAÇÃO DERRUBOU A INTERNET",
+  "ganchos": [
+   "Em 2017, um engenheiro da Amazon errou um valor num comando. E metade da internet caiu."
+  ],
+  "corpo": [
+   "Era uma manhã normal na AWS, a nuvem que segura milhares de sites.",
+   "Ele só precisava desligar uns poucos servidores pra corrigir um problema.",
+   "Digitou o comando. Só que um dos valores saiu errado.",
+   "Em vez de poucos, o comando desligou um monte de servidores de uma vez.",
+   "Trello, Quora e milhares de sites começaram a falhar.",
+   "E o mais irônico: o painel que avisava se a AWS estava fora do ar caiu junto.",
+   "Foram umas quatro horas de caos, e uma estimativa calculou 150 milhões de dólares de prejuízo.",
+   "Depois disso, a Amazon mudou a ferramenta pra nunca mais aceitar um erro desses."
+  ],
+  "cta": "Manda pro amigo dev que tem medo de apertar Enter em produção. E me segue: amanhã tem outra história real da tecnologia.",
+  "palavra": "",
+  "legenda": "Em 28 de fevereiro de 2017, um engenheiro da AWS rodou um comando pra tirar alguns servidores do ar e digitou um valor errado. Saíram muito mais servidores do que devia, e o S3 caiu por cerca de 4 horas, levando junto milhares de sites. Até o painel de status da AWS parou de atualizar, porque dependia do próprio S3.\n\nManda pro amigo dev que tem medo de apertar Enter em produção.\nSegue o @ursulino.ia: todo dia uma história real da tecnologia.\n\n#programacao #tecnologia #aws #historia #dev"
+ },
+ "produzir": true
+}
