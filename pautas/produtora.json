@@ -22,7 +22,8 @@
   "esquete",
   "living-screencast",
   "data-story-charts",
-  "halftone-dossier"
+  "halftone-dossier",
+  "cartoon-3d-short"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -195,6 +196,14 @@
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-07-0021-wall-street-perde-trilh-es-em-um-dia-entenda-o-que-derrubou-as-a-es-de-ia-g1-halftone-dossier",
    "em_alta": true
+  },
+  {
+   "quando": "2026-11-07T11:48",
+   "repo": "historia/bug-explodiu-foguete",
+   "estilo": "cartoon-3d-short",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-07-1049-bug-explodiu-foguete-cartoon-3d-short",
+   "em_alta": false
   }
  ]
 }
