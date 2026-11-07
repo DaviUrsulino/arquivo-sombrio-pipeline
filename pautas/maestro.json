@@ -1,9 +1,10 @@
 {
   "dia": "2026-11-07",
   "feitos": {
-    "00:30": "disparada 00:32"
+    "00:30": "disparada 00:32",
+    "08:00": "disparada 08:00"
   },
-  "ultimo_disparo": "2026-11-07T00:32:12-03:00",
+  "ultimo_disparo": "2026-11-07T08:00:38-03:00",
   "fila_usadas": [
     "pautas/viral/fila/01-motion-skills.json",
     "pautas/viral/fila/01b-habblaud.json",
@@ -19,7 +20,8 @@
     "pautas/viral/fila/2026-11-05-0445-em-alta-gta-6-esquete.json",
     "pautas/viral/fila_venda/2026-11-05-1325-produtora-pack-estudio-living-screencast.json",
     "pautas/viral/fila/2026-11-06-1909-historia-vendeu-a-torre-eiffel-midcentury-toon.json",
-    "pautas/viral/fila/2026-11-07-0054-em-alta-wall-street-perde-trilh-es-em-um-dia-entenda-o-que-derrubou-as-a-es-de-ia-g1-halftone-dossier.json"
+    "pautas/viral/fila/2026-11-07-0054-em-alta-wall-street-perde-trilh-es-em-um-dia-entenda-o-que-derrubou-as-a-es-de-ia-g1-halftone-dossier.json",
+    "pautas/viral/fila/2026-11-06-1843-historia-preso-no-shopping-cartoon-3d-short.json"
   ],
   "ultima_producao": "2026-11-06T12:24:31-03:00"
 }
