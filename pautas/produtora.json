@@ -27,7 +27,8 @@
   "midcentury-toon",
   "hand-drawn-cartoon",
   "hand-drawn-cartoon",
-  "midcentury-toon"
+  "midcentury-toon",
+  "hand-drawn-cartoon"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -239,6 +240,14 @@
    "estilo": "midcentury-toon",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-07-1545-vendeu-a-torre-eiffel-ep2-midcentury-toon",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-07T16:47",
+   "repo": "historia/erro-de-digitacao-aws",
+   "estilo": "hand-drawn-cartoon",
+   "ok": false,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-07-1630-erro-de-digitacao-aws-hand-drawn-cartoon",
    "em_alta": false
   }
  ]
