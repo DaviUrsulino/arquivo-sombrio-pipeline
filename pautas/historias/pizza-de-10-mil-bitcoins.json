@@ -6,12 +6,12 @@
  "opcoes": null,
  "direcao": "HISTÓRIA REAL (maio de 2010), em pixel art de jogo 16-bit. Laszlo: programador de óculos, camiseta azul, barba curta, sempre igual. Um fórum antigo na tela do PC, duas pizzas grandes, um entregador. HUD de jogo fixo: 'ANO 2010' e uma barra 'VALOR DAS PIZZAS EM BITCOIN' que cresce absurdamente no fim, passando por 2013, 2017, 2021 até estourar a tela. Tom divertido, 'game over' cômico no final.",
  "roteiro": {
-  "texto_tela": "2 PIZZAS POR 10 MIL BITCOINS",
+  "texto_tela": "A PIZZA MAIS CARA DA HISTÓRIA",
   "ganchos": [
-   "Em 2010, um programador pagou duas pizzas com dez mil bitcoins. Hoje isso valeria centenas de milhões de dólares."
+   "Ele comprou duas pizzas que hoje valeriam centenas de milhões de dólares."
   ],
   "corpo": [
-   "O nome dele é Laszlo Hanyecz, um programador da Flórida.",
+   "Em 2010, o programador Laszlo Hanyecz pagou essas pizzas com dez mil bitcoins.",
    "Na época, o bitcoin quase não valia nada e ninguém aceitava como pagamento.",
    "Ele postou num fórum: pago dez mil bitcoins em duas pizzas grandes.",
    "Quatro dias depois, um rapaz topou, pediu as pizzas e mandou entregar na casa dele.",
