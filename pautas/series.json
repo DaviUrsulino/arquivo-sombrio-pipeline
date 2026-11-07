@@ -2,5 +2,9 @@
  "produzido:bug-explodiu-foguete": {
   "quando": "2026-11-07T11:48+00:00",
   "resultado": "ok"
+ },
+ "vendeu-a-torre-eiffel": {
+  "quando": "2026-11-07T13:34+00:00",
+  "resultado": "vendeu-a-torre-eiffel-ep2"
  }
 }
