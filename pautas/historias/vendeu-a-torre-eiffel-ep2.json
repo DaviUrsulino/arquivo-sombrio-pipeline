@@ -5,28 +5,26 @@
  "serie": "vendeu-a-torre-eiffel",
  "episodio": 2,
  "roteiro": {
-  "texto_tela": "ELE ENGANOU AL CAPONE",
+  "texto_tela": "ELE ENGANOU ATÉ O AL CAPONE",
+  "palavra": "",
   "ganchos": [
-   "No segundo golpe da Torre Eiffel, um empresario desconfiou e chamou a policia."
+   "Parte 2: o homem que vendeu a Torre Eiffel conseguiu enganar até o Al Capone."
   ],
   "corpo": [
-   "Lustig tentou vender a Torre Eiffel pela segunda vez em Paris.",
-   "Mas dessa vez um dos empresarios chamou a policia e ele fugiu pros Estados Unidos.",
-   "Na America, ele inventou uma caixa que prometia imprimir notas de cem dolares.",
-   "Depois ele mirou no criminoso mais perigoso do pais, Al Capone.",
-   "Lustig pediu cinquenta mil dolares emprestados pra um negocio.",
-   "Ele guardou o dinheiro e devolveu tudo meses depois.",
-   "Capone ficou impressionado com a honestidade e deu cinco mil dolares de recompensa."
+   "Lustig voltou a Paris pra vender a torre de novo.",
+   "Dessa vez um dos empresários desconfiou e chamou a polícia.",
+   "Ele fugiu a tempo e foi parar nos Estados Unidos.",
+   "Lá, vendia uma caixa que prometia imprimir notas de cem dólares.",
+   "Até que ele pediu cinquenta mil dólares emprestados ao Al Capone.",
+   "Guardou o dinheiro, e meses depois devolveu tudo, dizendo que o negócio deu errado.",
+   "Capone ficou tão impressionado com a honestidade que deu cinco mil dólares de presente.",
+   "Era esse o golpe: os cinco mil."
   ],
-  "cta": "Comenta CAPONE ou ALCATRAZ. A parte 3 sai amanhã com a escolha que ganhar. Me segue pra não perder.",
-  "legenda": "Parte 2.\nVictor Lustig fugiu pra os Estados Unidos e conseguiu enganar até o gangster Al Capone.\n\nSegue o @ursulino.ia pra acompanhar.\n\n#historia #curiosidades #alcapone #golpe #animacao",
-  "palavra": ""
+  "cta": "Manda pro amigo que se acha esperto demais pra cair em golpe. E me segue: amanhã tem outra história real que parece mentira.",
+  "legenda": "Parte 2. Depois da Torre Eiffel, Victor Lustig fugiu pros Estados Unidos, vendeu caixas que supostamente imprimiam dinheiro e pegou 50 mil dólares emprestados do Al Capone. Devolveu tudo intacto e ganhou 5 mil de recompensa pela honestidade. Ele acabou preso em 1935 por falsificação e foi mandado pra Alcatraz.\n\nManda pro amigo que se acha esperto demais pra cair em golpe.\nSegue o @ursulino.ia: todo dia uma história real que parece mentira.\n\n#historia #curiosidades #alcapone #golpe #animacao"
  },
- "opcoes": [
-  "CAPONE",
-  "ALCATRAZ"
- ],
- "fatos_continuacao": "Em 1935, Victor Lustig foi preso nos Estados Unidos por falsificacao de dinheiro em grande escala. Foi enviado para a prisao de Alcatraz e morreu em 1947. Ele deixou uma famosa lista com dez mandamentos do golpista.",
+ "opcoes": null,
+ "fatos_continuacao": null,
  "escolha_anterior": null,
  "votos_anteriores": null,
  "produzir": true,
