@@ -24,7 +24,7 @@ jobs:
       # Os testes usam dublês no lugar das APIs (ElevenLabs, GitHub, Instagram) e não
       # precisam das dependências pesadas dos canais dark (kokoro, faster-whisper, modal).
       - name: Instala dependências de teste
-        run: pip install "pytest>=8.0" "python-dotenv>=1.0.0" "Pillow>=10.0.0"
+        run: pip install "pytest>=8.0" "python-dotenv>=1.0.0" "Pillow>=10.0.0" pyyaml
       - name: Roda os testes
         run: python -m pytest -q
 
