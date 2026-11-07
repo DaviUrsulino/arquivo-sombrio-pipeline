@@ -25,6 +25,7 @@
   "halftone-dossier",
   "cartoon-3d-short",
   "midcentury-toon",
+  "hand-drawn-cartoon",
   "hand-drawn-cartoon"
  ],
  "repos_usados": [
@@ -221,6 +222,14 @@
    "estilo": "hand-drawn-cartoon",
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-07-1400-erro-de-digitacao-aws-hand-drawn-cartoon",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-07T14:55",
+   "repo": "historia/erro-de-digitacao-aws",
+   "estilo": "hand-drawn-cartoon",
+   "ok": false,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-07-1455-erro-de-digitacao-aws-hand-drawn-cartoon",
    "em_alta": false
   }
  ]
