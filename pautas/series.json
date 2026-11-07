@@ -10,5 +10,9 @@
  "produzido:vendeu-a-torre-eiffel-ep2": {
   "quando": "2026-11-07T16:27+00:00",
   "resultado": "ok"
+ },
+ "produzido:erro-de-digitacao-aws": {
+  "quando": "2026-11-07T22:18+00:00",
+  "resultado": "ok"
  }
 }

@@ -1,0 +1,15 @@
+{
+ "titulo": "erro-de-digitacao-aws: produtora (hand-drawn-cartoon)",
+ "formato": "pronto",
+ "video_pronto_url": "https://github.com/DaviUrsulino/arquivo-sombrio-pipeline/releases/download/midia-publicacao/produtora-2026-11-07-2151-erro-de-digitacao-aws-hand-drawn-cartoon.mp4",
+ "palavra_chave": "",
+ "legenda": "Em 28 de fevereiro de 2017, um engenheiro da AWS rodou um comando pra tirar alguns servidores do ar e digitou um valor errado. Saíram muito mais servidores do que devia, e o S3 caiu por cerca de 4 horas, levando junto milhares de sites. Até o painel de status da AWS parou de atualizar, porque dependia do próprio S3.\n\nManda pro amigo dev que tem medo de apertar Enter em produção.\nSegue o @ursulino.ia: todo dia uma história real da tecnologia.\n\n#programacao #tecnologia #aws #historia #dev",
+ "capa": "O ERRO QUE DERRUBOU A INTERNET",
+ "cta_tipo": "segue",
+ "previsao": 6.8,
+ "itens": [],
+ "estilo": "hand-drawn-cartoon",
+ "gancho": "A",
+ "ganchos_alternativos": [],
+ "tipo": "historia"
+}
