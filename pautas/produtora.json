@@ -38,7 +38,8 @@
   "kinetic-typography",
   "kinetic-typography",
   "pixel-rpg",
-  "countdown"
+  "countdown",
+  "scifi-toon"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -339,6 +340,14 @@
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-08-1159-que-horas-abre-o-port-o-do-enem-que-horas-fecha-o-port-o-do-enem-g1-countdown",
    "em_alta": true
+  },
+  {
+   "quando": "2026-11-08T14:04",
+   "repo": "historia/estagiaria-apagou-producao-ep2",
+   "estilo": "scifi-toon",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-08-1335-estagiaria-apagou-producao-ep2-scifi-toon",
+   "em_alta": false
   }
  ]
 }

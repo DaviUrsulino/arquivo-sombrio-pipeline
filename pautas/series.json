@@ -34,5 +34,13 @@
  "produzido:pizza-de-10-mil-bitcoins": {
   "quando": "2026-11-08T04:55+00:00",
   "resultado": "ok"
+ },
+ "estagiaria-apagou-producao": {
+  "quando": "2026-11-08T13:35+00:00",
+  "resultado": "estagiaria-apagou-producao-ep2"
+ },
+ "produzido:estagiaria-apagou-producao-ep2": {
+  "quando": "2026-11-08T14:04+00:00",
+  "resultado": "ok"
  }
 }
