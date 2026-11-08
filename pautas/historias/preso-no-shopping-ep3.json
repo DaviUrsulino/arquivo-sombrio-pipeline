@@ -1,0 +1,38 @@
+{
+ "estilo": "cartoon-3d-short",
+ "direcao": "HISTÓRIA 'você ficou preso' em segunda pessoa. Shopping de madrugada, escuro, luzes de emergência verdes, vitrines apagadas, escada rolante parada. Personagem: jovem de jaqueta jeans e mochila amarela (sempre igual). HUD no topo: bateria do celular '3%' piscando e relógio '02:47'. Uma lanterna andando devagar no andar de baixo. Suspense leve, sem violência. No fim, dois botões grandes ESCADA e ELEVADOR e o botão SEGUIR @ursulino.ia pulsando.",
+ "slug": "preso-no-shopping-ep3",
+ "serie": "preso-no-shopping",
+ "episodio": 3,
+ "roteiro": {
+  "texto_tela": "SEU IRMÃO ERA O CÚMPLICE",
+  "ganchos": [
+   "Vocês escolheram o ALARME, a sirene ensurdeceu o shopping e o gerente correu até sua porta."
+  ],
+  "corpo": [
+   "Os roletes de água do teto começaram a molhar tudo e cortaram a visão dele.",
+   "Você aproveitou a fumaça para empurrar o gerente e derrubar o saco de joias.",
+   "No chão, o rádio comunicador dele caiu ligado na frequência principal.",
+   "Uma voz familiar saiu do alto-falante dizendo que o carro de fuga já estava pronto.",
+   "Era a voz do seu próprio irmão, a pessoa que te pediu pra cobrir esse turno.",
+   "Ele planejou a culpa cair em você para ficar com o dinheiro do seguro da loja.",
+   "O gerente se levantou furioso bloqueando a saída enquanto o rádio ainda tocava.",
+   "Você pode usar o rádio pra falar com seu irmão ou tentar arrombar a porta de emergência."
+  ],
+  "cta": "Comenta RADIO ou PORTA. A parte 4 sai amanhã com a escolha que ganhar. Me segue pra não perder.",
+  "legenda": "Parte 3. Vocês escolheram ALARME e a traição apareceu.\n\nSegue o @ursulino.ia pra acompanhar.\n\n#suspense #historia #animacao #vocedecide #traicao",
+  "palavra": ""
+ },
+ "opcoes": [
+  "RADIO",
+  "PORTA"
+ ],
+ "fatos_continuacao": null,
+ "escolha_anterior": "ALARME",
+ "votos_anteriores": {
+  "ALARME": 2,
+  "FUGIR": 0
+ },
+ "produzir": true,
+ "prioridade": true
+}
