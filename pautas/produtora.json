@@ -37,7 +37,8 @@
   "scifi-toon",
   "kinetic-typography",
   "kinetic-typography",
-  "pixel-rpg"
+  "pixel-rpg",
+  "countdown"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -330,6 +331,14 @@
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-08-0434-pizza-de-10-mil-bitcoins-pixel-rpg",
    "em_alta": false
+  },
+  {
+   "quando": "2026-11-08T12:13",
+   "repo": "em-alta/que-horas-abre-o-port-o-do-enem-que-horas-fecha-o-port-o-do-enem-g1",
+   "estilo": "countdown",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-08-1159-que-horas-abre-o-port-o-do-enem-que-horas-fecha-o-port-o-do-enem-g1-countdown",
+   "em_alta": true
   }
  ]
 }
