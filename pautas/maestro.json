@@ -1,34 +1,34 @@
 {
- "dia": "2026-11-08",
- "feitos": {
-  "00:30": "disparada 00:32",
-  "08:00": "disparada 09:15",
-  "12:00": "disparada 12:00"
- },
- "ultimo_disparo": "2026-11-08T12:00:03-03:00",
- "fila_usadas": [
-  "pautas/viral/fila/01-motion-skills.json",
-  "pautas/viral/fila/01b-habblaud.json",
-  "pautas/viral/fila/02-ai-video-editor.json",
-  "pautas/viral/fila/02a-xerj.json",
-  "pautas/viral/fila/02b-jarvis-open-jarvis-OpenJarvis.json",
-  "pautas/viral/fila/02c-jarvis-isair-jarvis.json",
-  "pautas/viral/fila/03-heygen-com-hyperframes.json",
-  "pautas/viral/fila/03b-valida-claude-senior.json",
-  "pautas/viral/fila/04-remotion-dev-remotion.json",
-  "pautas/viral/fila/04b-valida-4-coisas.json",
-  "pautas/viral/fila/2026-11-05-1114-em-alta-ralph-fiennes-spy-titles.json",
-  "pautas/viral/fila/2026-11-05-0445-em-alta-gta-6-esquete.json",
-  "pautas/viral/fila_venda/2026-11-05-1325-produtora-pack-estudio-living-screencast.json",
-  "pautas/viral/fila/2026-11-06-1909-historia-vendeu-a-torre-eiffel-midcentury-toon.json",
-  "pautas/viral/fila/2026-11-07-0054-em-alta-wall-street-perde-trilh-es-em-um-dia-entenda-o-que-derrubou-as-a-es-de-ia-g1-halftone-dossier.json",
-  "pautas/viral/fila/2026-11-06-1843-historia-preso-no-shopping-cartoon-3d-short.json",
-  "pautas/viral/fila/2026-11-07-1148-historia-bug-explodiu-foguete-cartoon-3d-short.json",
-  "pautas/viral/fila/2026-11-08-0058-historia-estagiaria-apagou-producao-scifi-toon.json",
-  "pautas/viral/fila/2026-11-08-0003-historia-preso-no-shopping-ep2-cartoon-3d-short.json",
-  "pautas/viral/fila/2026-11-08-1213-em-alta-que-horas-abre-o-port-o-do-enem-que-horas-fecha-o-port-o-do-enem-g1-countdown.json",
-  "pautas/viral/fila/2026-11-08-1404-historia-estagiaria-apagou-producao-ep2-scifi-toon.json",
-  "pautas/viral/fila/2026-11-08-0455-historia-pizza-de-10-mil-bitcoins-pixel-rpg.json"
- ],
- "ultima_producao": "2026-11-08T13:40:38-03:00"
+  "dia": "2026-11-08",
+  "feitos": {
+    "00:30": "disparada 00:32",
+    "08:00": "disparada 09:15",
+    "12:00": "disparada 12:00"
+  },
+  "ultimo_disparo": "2026-11-08T12:00:03-03:00",
+  "fila_usadas": [
+    "pautas/viral/fila/01-motion-skills.json",
+    "pautas/viral/fila/01b-habblaud.json",
+    "pautas/viral/fila/02-ai-video-editor.json",
+    "pautas/viral/fila/02a-xerj.json",
+    "pautas/viral/fila/02b-jarvis-open-jarvis-OpenJarvis.json",
+    "pautas/viral/fila/02c-jarvis-isair-jarvis.json",
+    "pautas/viral/fila/03-heygen-com-hyperframes.json",
+    "pautas/viral/fila/03b-valida-claude-senior.json",
+    "pautas/viral/fila/04-remotion-dev-remotion.json",
+    "pautas/viral/fila/04b-valida-4-coisas.json",
+    "pautas/viral/fila/2026-11-05-1114-em-alta-ralph-fiennes-spy-titles.json",
+    "pautas/viral/fila/2026-11-05-0445-em-alta-gta-6-esquete.json",
+    "pautas/viral/fila_venda/2026-11-05-1325-produtora-pack-estudio-living-screencast.json",
+    "pautas/viral/fila/2026-11-06-1909-historia-vendeu-a-torre-eiffel-midcentury-toon.json",
+    "pautas/viral/fila/2026-11-07-0054-em-alta-wall-street-perde-trilh-es-em-um-dia-entenda-o-que-derrubou-as-a-es-de-ia-g1-halftone-dossier.json",
+    "pautas/viral/fila/2026-11-06-1843-historia-preso-no-shopping-cartoon-3d-short.json",
+    "pautas/viral/fila/2026-11-07-1148-historia-bug-explodiu-foguete-cartoon-3d-short.json",
+    "pautas/viral/fila/2026-11-08-0058-historia-estagiaria-apagou-producao-scifi-toon.json",
+    "pautas/viral/fila/2026-11-08-0003-historia-preso-no-shopping-ep2-cartoon-3d-short.json",
+    "pautas/viral/fila/2026-11-08-1213-em-alta-que-horas-abre-o-port-o-do-enem-que-horas-fecha-o-port-o-do-enem-g1-countdown.json",
+    "pautas/viral/fila/2026-11-08-1404-historia-estagiaria-apagou-producao-ep2-scifi-toon.json",
+    "pautas/viral/fila/2026-11-08-0455-historia-pizza-de-10-mil-bitcoins-pixel-rpg.json"
+  ],
+  "ultima_producao": "2026-11-08T20:34:58-03:00"
 }
