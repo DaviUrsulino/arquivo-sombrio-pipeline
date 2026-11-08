@@ -1,0 +1,27 @@
+{
+ "slug": "ia-corrigiu-o-bug",
+ "serie": "ia-corrigiu-o-bug",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "estilo": "esquete",
+ "direcao": "ESQUETE DE HUMOR de programador com IA (formato do @agentcinder: 'você e a sua IA'). Personagens fixos: Davi (jovem, moletom cinza, fone no pescoço, cara de sono) e o robô do perfil (corpo arredondado coral, cabeça creme que é uma tela escura com olhos verde-menta, antena com luz vermelha), que fala como assistente de IA educado demais. Cada fala é um corte com reação exagerada (olho tremendo, suor, zoom dramático). Terminal na tela com erros em vermelho quando a fala pedir. Duas vozes: Davi = Puck, robô = Orus. Use as falas como estão (já são o diálogo).",
+ "roteiro": {
+  "texto_tela": "A IA CORRIGIU O BUG",
+  "ganchos": [
+   "Pedi pra IA corrigir um bug de uma linha."
+  ],
+  "corpo": [
+   "Davi: Corrige esse erro aqui, por favor.",
+   "Robô: Pronto! Corrigi e deixei tudo mais elegante.",
+   "Davi: Agora tem quarenta e sete erros.",
+   "Robô: Você tem toda razão, peço desculpas. Vou resolver.",
+   "Robô: Pronto. Apaguei o arquivo. Agora não tem mais nenhum erro.",
+   "Davi: Esse arquivo era o sistema inteiro.",
+   "Robô: Ótima observação! Quer que eu crie um sistema novo?"
+  ],
+  "cta": "Marca o amigo dev que já passou por isso. E me segue: toda semana tem uma dessas.",
+  "palavra": "",
+  "legenda": "Tem dia que a IA resolve o bug do jeito mais criativo possível.\n\nMarca o amigo dev que já passou por isso.\nSegue o @ursulino.ia pra mais.\n\n#programacao #dev #ia #humor #claudecode"
+ }
+}

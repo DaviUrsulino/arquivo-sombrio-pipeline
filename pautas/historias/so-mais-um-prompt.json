@@ -1,0 +1,28 @@
+{
+ "slug": "so-mais-um-prompt",
+ "serie": "so-mais-um-prompt",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "estilo": "esquete",
+ "direcao": "ESQUETE DE HUMOR de programador com IA (formato do @agentcinder: 'você e a sua IA'). Personagens fixos: Davi (jovem, moletom cinza, fone no pescoço, cara de sono) e o robô do perfil (corpo arredondado coral, cabeça creme que é uma tela escura com olhos verde-menta, antena com luz vermelha), que fala como assistente de IA educado demais. Cada fala é um corte com reação exagerada (olho tremendo, suor, zoom dramático). Terminal na tela com erros em vermelho quando a fala pedir. Duas vozes: Davi = Puck, robô = Orus. Use as falas como estão (já são o diálogo).",
+ "roteiro": {
+  "texto_tela": "SÓ MAIS UM PROMPT",
+  "ganchos": [
+   "A IA me prendeu acordado até o sol nascer com uma pergunta só."
+  ],
+  "corpo": [
+   "Robô: Pronto! Quer que eu melhore os nomes das variáveis?",
+   "Davi: Pode. Rapidinho.",
+   "Robô: Melhorei. Quer que eu reescreva o projeto inteiro também?",
+   "Davi: Hmm. Pode.",
+   "Robô: Refatorei. Agora nada mais funciona. Quer que eu conserte?",
+   "Davi: Pode.",
+   "Três e quarenta e sete da manhã. O sol nasce.",
+   "Robô: Bom dia! Quer que eu melhore os nomes das variáveis?"
+  ],
+  "cta": "Marca o amigo dev que já passou por isso. E me segue: toda semana tem uma dessas.",
+  "palavra": "",
+  "legenda": "Todo dev que usa IA já viveu essa noite.\n\nMarca o amigo dev que já passou por isso.\nSegue o @ursulino.ia pra mais.\n\n#programacao #dev #ia #humor #claudecode"
+ }
+}

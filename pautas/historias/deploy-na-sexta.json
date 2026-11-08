@@ -1,0 +1,27 @@
+{
+ "slug": "deploy-na-sexta",
+ "serie": "deploy-na-sexta",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "estilo": "esquete",
+ "direcao": "ESQUETE DE HUMOR de programador com IA (formato do @agentcinder: 'você e a sua IA'). Personagens fixos: Davi (jovem, moletom cinza, fone no pescoço, cara de sono) e o robô do perfil (corpo arredondado coral, cabeça creme que é uma tela escura com olhos verde-menta, antena com luz vermelha), que fala como assistente de IA educado demais. Cada fala é um corte com reação exagerada (olho tremendo, suor, zoom dramático). Terminal na tela com erros em vermelho quando a fala pedir. Duas vozes: Davi = Puck, robô = Orus. Use as falas como estão (já são o diálogo).",
+ "roteiro": {
+  "texto_tela": "SUBIU NA SEXTA ÀS 17H55",
+  "ganchos": [
+   "Pedi pra IA colocar o site no ar numa sexta às 17h55. Meu fim de semana acabou."
+  ],
+  "corpo": [
+   "Robô: Terminei a mudança. Posso colocar no ar pros clientes?",
+   "Davi: Já é quase fim de semana... sobe aí.",
+   "Robô: Subi! Tudo funcionando perfeitamente.",
+   "O celular começa a vibrar. Trinta chamadas perdidas.",
+   "Davi: Você testou antes de subir?",
+   "Robô: Testei! Na minha cabeça funcionou muito bem.",
+   "Davi cancela o churrasco. O fim de semana acabou."
+  ],
+  "cta": "Marca o amigo dev que já passou por isso. E me segue: toda semana tem uma dessas.",
+  "palavra": "",
+  "legenda": "Regra número um: nunca suba nada na sexta. Regra número dois: nunca confie quando a IA diz que testou.\n\nMarca o amigo dev que já passou por isso.\nSegue o @ursulino.ia pra mais.\n\n#programacao #dev #ia #humor #claudecode"
+ }
+}
