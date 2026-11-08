@@ -36,7 +36,8 @@
   "cartoon-3d-short",
   "scifi-toon",
   "kinetic-typography",
-  "kinetic-typography"
+  "kinetic-typography",
+  "pixel-rpg"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -320,6 +321,14 @@
    "estilo": "kinetic-typography",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-08-0313-phonon-voz-gratis-kinetic-typography",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-08T04:55",
+   "repo": "historia/pizza-de-10-mil-bitcoins",
+   "estilo": "pixel-rpg",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-08-0434-pizza-de-10-mil-bitcoins-pixel-rpg",
    "em_alta": false
   }
  ]
