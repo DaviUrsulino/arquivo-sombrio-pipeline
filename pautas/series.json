@@ -26,5 +26,9 @@
  "produzido:estagiaria-apagou-producao": {
   "quando": "2026-11-08T00:58+00:00",
   "resultado": "ok"
+ },
+ "produzido:phonon-voz-gratis": {
+  "quando": "2026-11-08T03:32+00:00",
+  "resultado": "ok"
  }
 }

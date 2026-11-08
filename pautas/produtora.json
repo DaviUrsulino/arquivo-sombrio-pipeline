@@ -35,6 +35,7 @@
   "hand-drawn-cartoon",
   "cartoon-3d-short",
   "scifi-toon",
+  "kinetic-typography",
   "kinetic-typography"
  ],
  "repos_usados": [
@@ -311,6 +312,14 @@
    "estilo": "kinetic-typography",
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-08-0153-phonon-voz-gratis-kinetic-typography",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-08T03:32",
+   "repo": "historia/phonon-voz-gratis",
+   "estilo": "kinetic-typography",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-08-0313-phonon-voz-gratis-kinetic-typography",
    "em_alta": false
   }
  ]
