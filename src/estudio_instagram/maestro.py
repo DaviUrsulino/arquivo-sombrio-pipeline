@@ -136,6 +136,13 @@ def disponiveis(usadas: list[str], pasta: Path | None = None, agora: datetime | 
     as outras em ordem de nome (mais antiga antes)."""
     pasta = pasta or FILA
     agora = agora or datetime.now(BRASILIA)
+    # 08/11: uma rodada cancelada perdeu o registro em fila_usadas e a pizza ia sair 2 vezes; o registro de posts
+    # publicados (gravado pelo pipeline na hora do post) também conta como usado
+    try:
+        publicados = {v.get("pauta") for v in json.loads((RAIZ / "pautas" / "pauta_por_post.json").read_text(encoding="utf-8")).values()}
+    except (OSError, ValueError):
+        publicados = set()
+    usadas = [*usadas, *publicados]
     quentes, comuns = [], []
     for arquivo in sorted(pasta.glob("*.json")) if pasta.exists() else []:
         relativo = arquivo.relative_to(RAIZ).as_posix()
