@@ -33,7 +33,8 @@
   "hand-drawn-cartoon",
   "hand-drawn-cartoon",
   "hand-drawn-cartoon",
-  "cartoon-3d-short"
+  "cartoon-3d-short",
+  "scifi-toon"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -293,6 +294,14 @@
    "estilo": "cartoon-3d-short",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-07-2314-preso-no-shopping-ep2-cartoon-3d-short",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-08T00:58",
+   "repo": "historia/estagiaria-apagou-producao",
+   "estilo": "scifi-toon",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-08-0032-estagiaria-apagou-producao-scifi-toon",
    "em_alta": false
   }
  ]

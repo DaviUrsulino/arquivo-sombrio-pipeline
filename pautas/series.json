@@ -22,5 +22,9 @@
  "produzido:preso-no-shopping-ep2": {
   "quando": "2026-11-08T00:03+00:00",
   "resultado": "ok"
+ },
+ "produzido:estagiaria-apagou-producao": {
+  "quando": "2026-11-08T00:58+00:00",
+  "resultado": "ok"
  }
 }
