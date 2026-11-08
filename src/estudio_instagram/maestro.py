@@ -312,7 +312,9 @@ def main():
             try:
                 banco = len(disponiveis(novo.get("fila_usadas", [])))
                 from . import series
-                pendente = series.pendente() is not None or series.historia_para_produzir() is not None
+                from . import historias_tech
+                pendente = (series.pendente() is not None or series.historia_para_produzir() is not None
+                            or historias_tech.precisa(series._ler(series.ESTADO)))
                 if deve_produzir(datetime.now(BRASILIA), novo, banco, _produtora_rodando(), pendente):
                     subprocess.run(["gh", "workflow", "run", "produtora.yml", "--ref", "master"], cwd=RAIZ, check=True)
                     novo["ultima_producao"] = datetime.now(BRASILIA).isoformat(timespec="seconds")

@@ -453,7 +453,8 @@ def main():
     if a.auto and not a.repo and not a.venda:
         # série "você decide" (06/11): episódio com voto vencido vem antes de tudo (a parte 2 foi prometida "amanhã")
         from .. import series
-        proximo = series.preparar_proximo() or series.historia_para_produzir()
+        from .. import historias_tech
+        proximo = series.preparar_proximo() or series.historia_para_produzir() or historias_tech.gerar_se_preciso()
         if proximo:
             a.historia = str(proximo)
     if a.fatos:
