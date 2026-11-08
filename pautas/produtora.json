@@ -32,7 +32,8 @@
   "hand-drawn-cartoon",
   "hand-drawn-cartoon",
   "hand-drawn-cartoon",
-  "hand-drawn-cartoon"
+  "hand-drawn-cartoon",
+  "cartoon-3d-short"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -284,6 +285,14 @@
    "estilo": "hand-drawn-cartoon",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-07-2151-erro-de-digitacao-aws-hand-drawn-cartoon",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-08T00:03",
+   "repo": "historia/preso-no-shopping-ep2",
+   "estilo": "cartoon-3d-short",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-07-2314-preso-no-shopping-ep2-cartoon-3d-short",
    "em_alta": false
   }
  ]

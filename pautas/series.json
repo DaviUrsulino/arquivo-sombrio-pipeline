@@ -14,5 +14,13 @@
  "produzido:erro-de-digitacao-aws": {
   "quando": "2026-11-07T22:18+00:00",
   "resultado": "ok"
+ },
+ "preso-no-shopping": {
+  "quando": "2026-11-07T23:12+00:00",
+  "resultado": "preso-no-shopping-ep2"
+ },
+ "produzido:preso-no-shopping-ep2": {
+  "quando": "2026-11-08T00:03+00:00",
+  "resultado": "ok"
  }
 }

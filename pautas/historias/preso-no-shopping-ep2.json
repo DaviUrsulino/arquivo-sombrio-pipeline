@@ -1,0 +1,38 @@
+{
+ "estilo": "cartoon-3d-short",
+ "direcao": "HISTÓRIA 'você ficou preso' em segunda pessoa. Shopping de madrugada, escuro, luzes de emergência verdes, vitrines apagadas, escada rolante parada. Personagem: jovem de jaqueta jeans e mochila amarela (sempre igual). HUD no topo: bateria do celular '3%' piscando e relógio '02:47'. Uma lanterna andando devagar no andar de baixo. Suspense leve, sem violência. No fim, dois botões grandes ESCADA e ELEVADOR e o botão SEGUIR @ursulino.ia pulsando.",
+ "slug": "preso-no-shopping-ep2",
+ "serie": "preso-no-shopping",
+ "episodio": 2,
+ "roteiro": {
+  "texto_tela": "O GERENTE ERA O LADRÃO",
+  "ganchos": [
+   "Vocês escolheram a ESCADA, mas a porta travou e a lanterna começou a subir logo atrás."
+  ],
+  "corpo": [
+   "Você subiu três andares no escuro tropeçando nos degraus.",
+   "Conseguiu entrar na sala de manutenção e prendeu a respiração.",
+   "A lanterna parou bem na frente da sua porta.",
+   "Quando o feixe de luz virou, você reconheceu o rosto: era o gerente da loja.",
+   "Ele segurava o crachá do segurança desacordado e um saco cheio de joias.",
+   "Ele trancou o shopping de propósito pra colocar a culpa em você.",
+   "Seu celular apitou no último por cento de bateria e o gerente olhou direto pro seu esconderijo.",
+   "O botão do alarme de incêndio está do seu lado e a porta dos fundos atrás."
+  ],
+  "cta": "Comenta ALARME ou FUGIR. A parte 3 sai amanhã com a escolha que ganhar. Me segue pra não perder.",
+  "legenda": "Parte 2. Vocês escolheram ESCADA e a verdade apareceu.\n\nSegue o @ursulino.ia pra acompanhar.\n\n#suspense #historia #animacao #vocedecide #shopping",
+  "palavra": ""
+ },
+ "opcoes": [
+  "ALARME",
+  "FUGIR"
+ ],
+ "fatos_continuacao": null,
+ "escolha_anterior": "ESCADA",
+ "votos_anteriores": {
+  "ESCADA": 8,
+  "ELEVADOR": 2
+ },
+ "produzir": true,
+ "prioridade": true
+}
