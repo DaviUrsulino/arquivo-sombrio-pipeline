@@ -70,5 +70,13 @@
  "produzido:so-mais-um-prompt": {
   "quando": "2026-11-09T08:03+00:00",
   "resultado": "ok"
+ },
+ "tech:knight-capital-45-minutos": {
+  "quando": "2026-11-09T09:01+00:00",
+  "resultado": "knight-capital-45-minutos"
+ },
+ "produzido:knight-capital-45-minutos": {
+  "quando": "2026-11-09T09:50+00:00",
+  "resultado": "ok"
  }
 }

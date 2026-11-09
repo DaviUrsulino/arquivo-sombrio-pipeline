@@ -1,0 +1,29 @@
+{
+ "slug": "knight-capital-45-minutos",
+ "serie": "knight-capital-45-minutos",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "estilo": "hand-drawn-cartoon",
+ "fonte": "https://en.wikipedia.org/wiki/Knight_Capital_Group",
+ "direcao": "HISTÓRIA REAL DA TECNOLOGIA. Cenário de uma sala de servidores escura com luzes piscando e um operador de óculos e camisa azul. No topo da tela, um HUD fixo mostra um relógio avançando de zero a quarenta e cinco minutos e um contador de prejuízo subindo sem parar. Na virada, o oitavo servidor brilha em vermelho emitindo alertas na tela. A estética é limpa em estilo de animação 2D, sem violência e sem logotipos reais.",
+ "roteiro": {
+  "texto_tela": "PERDEU 440 MILHÕES EM 45 MINUTOS",
+  "ganchos": [
+   "Um técnico esqueceu de atualizar um computador e causou um prejuízo de 440 milhões de dólares."
+  ],
+  "corpo": [
+   "A Knight Capital era a maior operadora de ações de todo o mercado americano.",
+   "Um técnico precisava instalar um código novo em oito servidores, os computadores centrais.",
+   "Mas ele esqueceu de copiar a atualização para o oitavo servidor.",
+   "Esse servidor isolado reativou uma função antiga e defeituosa do sistema.",
+   "A revelação foi que o código nunca registrava as ordens de compra como finalizadas.",
+   "Por causa disso, a máquina começou a disparar compras de ações sem parar.",
+   "Em quarenta e cinco minutos, ela realizou mais de quatro milhões de operações.",
+   "A empresa perdeu quatrocentos e quarenta milhões de dólares e perdeu quase todo o seu valor."
+  ],
+  "cta": "Manda pro amigo que trabalha com programação. E me segue: amanhã tem outra história real da tecnologia.",
+  "legenda": "Em 2012, a Knight Capital perdeu mais de 400 milhões de dólares em 45 minutos por uma falha de sistema.\nUm técnico esqueceu de atualizar um dos servidores e o código antigo comprou ações sem parar. Fonte: Wikipédia.\nManda pro amigo que trabalha com programação.\nSegue o @ursulino.ia: todo dia uma história real da tecnologia.\n#tecnologia #programacao #investimentos #mercado #curiosidades",
+  "palavra": ""
+ }
+}

@@ -47,7 +47,8 @@
   "scifi-toon",
   "scifi-toon",
   "scifi-toon",
-  "esquete"
+  "esquete",
+  "hand-drawn-cartoon"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -419,6 +420,14 @@
    "estilo": "esquete",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-09-0743-so-mais-um-prompt-esquete",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-09T09:50",
+   "repo": "historia/knight-capital-45-minutos",
+   "estilo": "hand-drawn-cartoon",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-09-0902-knight-capital-45-minutos-hand-drawn-cartoon",
    "em_alta": false
   }
  ]
