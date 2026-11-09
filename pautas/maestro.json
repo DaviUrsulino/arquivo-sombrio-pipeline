@@ -3,9 +3,10 @@
   "feitos": {
     "00:30": "disparada 00:32",
     "08:00": "disparada 09:15",
-    "12:00": "disparada 12:00"
+    "12:00": "disparada 12:00",
+    "22:30": "disparada 22:31"
   },
-  "ultimo_disparo": "2026-11-08T12:00:03-03:00",
+  "ultimo_disparo": "2026-11-08T22:31:26-03:00",
   "fila_usadas": [
     "pautas/viral/fila/01-motion-skills.json",
     "pautas/viral/fila/01b-habblaud.json",
@@ -28,7 +29,8 @@
     "pautas/viral/fila/2026-11-08-0003-historia-preso-no-shopping-ep2-cartoon-3d-short.json",
     "pautas/viral/fila/2026-11-08-1213-em-alta-que-horas-abre-o-port-o-do-enem-que-horas-fecha-o-port-o-do-enem-g1-countdown.json",
     "pautas/viral/fila/2026-11-08-1404-historia-estagiaria-apagou-producao-ep2-scifi-toon.json",
-    "pautas/viral/fila/2026-11-08-0455-historia-pizza-de-10-mil-bitcoins-pixel-rpg.json"
+    "pautas/viral/fila/2026-11-08-0455-historia-pizza-de-10-mil-bitcoins-pixel-rpg.json",
+    "pautas/viral/fila/2026-11-09-0120-historia-ia-corrigiu-o-bug-esquete.json"
   ],
   "ultima_producao": "2026-11-08T21:55:17-03:00"
 }
