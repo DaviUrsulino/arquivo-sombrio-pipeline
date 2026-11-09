@@ -48,7 +48,8 @@
   "scifi-toon",
   "scifi-toon",
   "esquete",
-  "hand-drawn-cartoon"
+  "hand-drawn-cartoon",
+  "dark-keynote"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -429,6 +430,14 @@
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-09-0902-knight-capital-45-minutos-hand-drawn-cartoon",
    "em_alta": false
+  },
+  {
+   "quando": "2026-11-09T17:43",
+   "repo": "em-alta/tesla-cybertruck",
+   "estilo": "dark-keynote",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-09-1731-tesla-cybertruck-dark-keynote",
+   "em_alta": true
   }
  ]
 }
