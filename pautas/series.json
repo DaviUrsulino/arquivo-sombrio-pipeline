@@ -62,5 +62,9 @@
  "estagiaria-apagou-producao-ep2": {
   "quando": "2026-11-09T03:42+00:00",
   "resultado": "estagiaria-apagou-producao-ep3"
+ },
+ "produzido:estagiaria-apagou-producao-ep3": {
+  "quando": "2026-11-09T06:51+00:00",
+  "resultado": "ok"
  }
 }
