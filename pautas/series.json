@@ -50,5 +50,9 @@
  "produzido:preso-no-shopping-ep3": {
   "quando": "2026-11-08T16:40+00:00",
   "resultado": "ok"
+ },
+ "produzido:deploy-na-sexta": {
+  "quando": "2026-11-08T23:59+00:00",
+  "resultado": "ok"
  }
 }

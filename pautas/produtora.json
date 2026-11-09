@@ -40,7 +40,8 @@
   "pixel-rpg",
   "countdown",
   "scifi-toon",
-  "cartoon-3d-short"
+  "cartoon-3d-short",
+  "esquete"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -356,6 +357,14 @@
    "estilo": "cartoon-3d-short",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-08-1603-preso-no-shopping-ep3-cartoon-3d-short",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-08T23:59",
+   "repo": "historia/deploy-na-sexta",
+   "estilo": "esquete",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-08-2336-deploy-na-sexta-esquete",
    "em_alta": false
   }
  ]
