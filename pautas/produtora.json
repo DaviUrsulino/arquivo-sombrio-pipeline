@@ -41,6 +41,7 @@
   "countdown",
   "scifi-toon",
   "cartoon-3d-short",
+  "esquete",
   "esquete"
  ],
  "repos_usados": [
@@ -365,6 +366,14 @@
    "estilo": "esquete",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-08-2336-deploy-na-sexta-esquete",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-09T01:20",
+   "repo": "historia/ia-corrigiu-o-bug",
+   "estilo": "esquete",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-09-0056-ia-corrigiu-o-bug-esquete",
    "em_alta": false
   }
  ]
