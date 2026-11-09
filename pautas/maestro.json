@@ -1,9 +1,10 @@
 {
   "dia": "2026-11-09",
   "feitos": {
-    "00:30": "disparada 00:31"
+    "00:30": "disparada 00:31",
+    "08:00": "disparada 08:00"
   },
-  "ultimo_disparo": "2026-11-09T00:31:58-03:00",
+  "ultimo_disparo": "2026-11-09T08:00:40-03:00",
   "fila_usadas": [
     "pautas/viral/fila/01-motion-skills.json",
     "pautas/viral/fila/01b-habblaud.json",
@@ -28,7 +29,8 @@
     "pautas/viral/fila/2026-11-08-1404-historia-estagiaria-apagou-producao-ep2-scifi-toon.json",
     "pautas/viral/fila/2026-11-08-0455-historia-pizza-de-10-mil-bitcoins-pixel-rpg.json",
     "pautas/viral/fila/2026-11-09-0120-historia-ia-corrigiu-o-bug-esquete.json",
-    "pautas/viral/fila/2026-11-08-2359-historia-deploy-na-sexta-esquete.json"
+    "pautas/viral/fila/2026-11-08-2359-historia-deploy-na-sexta-esquete.json",
+    "pautas/viral/fila/2026-11-09-0950-historia-knight-capital-45-minutos-hand-drawn-cartoon.json"
   ],
   "ultima_producao": "2026-11-09T07:18:16-03:00"
 }
