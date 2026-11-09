@@ -1,0 +1,37 @@
+{
+ "estilo": "scifi-toon",
+ "direcao": "SÉRIE 'você decide' de programador. Bia: 20 anos, cabelo cacheado ruivo, óculos redondos, moletom roxo com crachá 'ESTAGIÁRIA', sempre igual. Chefe: homem de camisa social azul e caneca de café (só aparece de longe, chegando). Escritório de startup ao entardecer. HUD fixo: relógio '17:58' andando, 'DIA 1 DE ESTÁGIO' e um contador 'CLIENTES SEM ACESSO' subindo. A palavra PRODUÇÃO aparece gigante, em vermelho, na tela do computador. Tensão cômica (suor, olhos arregalados). No fim, dois botões grandes CONTAR e ESCONDER e o botão SEGUIR @ursulino.ia pulsando.",
+ "slug": "estagiaria-apagou-producao-ep3",
+ "serie": "estagiaria-apagou-producao",
+ "episodio": 3,
+ "roteiro": {
+  "texto_tela": "O DIRETOR ERA O TRAIDOR",
+  "ganchos": [
+   "Vocês mandaram a Bia AJUDAR, e o rastreamento provou que o traidor está na sala ao lado."
+  ],
+  "corpo": [
+   "Bia plugou o cabo no roteador principal para isolar a transmissão dos dados e impedir o golpe.",
+   "O cronômetro do resgate caiu para quinze minutos na tela vermelha do escritório.",
+   "Ao triangular o endereço de rede, veio a revelação: o ataque veio do computador do próprio diretor.",
+   "Pela divisória de vidro, Bia viu o chefe executivo enchendo uma mochila com discos rígidos da empresa.",
+   "Ele percebeu que foi descoberto e disparou em fuga pelas escadas de emergência do prédio.",
+   "O chefe avisou que aqueles discos contêm a única chave para impedir o vazamento dos dados.",
+   "Mas o rack principal começou a superaquecer e vai queimar tudo se ninguém cortar a energia agora."
+  ],
+  "cta": "Comenta ESCADA ou SERVIDOR. A parte 4 sai amanhã com a escolha que ganhar. Me segue pra não perder.",
+  "legenda": "Parte 3. Vocês mandaram a Bia AJUDAR e descobriram quem roubou os dados.\n\nComenta ESCADA ou SERVIDOR. A mais votada vira a parte 4.\nSegue o @ursulino.ia pra acompanhar.\n\n#programacao #dev #tecnologia #vocedecide #estagio",
+  "palavra": ""
+ },
+ "opcoes": [
+  "ESCADA",
+  "SERVIDOR"
+ ],
+ "fatos_continuacao": null,
+ "escolha_anterior": "AJUDAR",
+ "votos_anteriores": {
+  "AJUDAR": 1,
+  "FUGIR": 0
+ },
+ "produzir": true,
+ "prioridade": true
+}
