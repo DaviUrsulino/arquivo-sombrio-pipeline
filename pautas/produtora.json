@@ -44,6 +44,7 @@
   "esquete",
   "esquete",
   "esquete",
+  "scifi-toon",
   "scifi-toon"
  ],
  "repos_usados": [
@@ -392,6 +393,14 @@
    "estilo": "scifi-toon",
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-09-0343-estagiaria-apagou-producao-ep3-scifi-toon",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-09T04:59",
+   "repo": "historia/estagiaria-apagou-producao-ep3",
+   "estilo": "scifi-toon",
+   "ok": false,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-09-0459-estagiaria-apagou-producao-ep3-scifi-toon",
    "em_alta": false
   }
  ]
