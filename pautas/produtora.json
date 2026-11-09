@@ -46,7 +46,8 @@
   "esquete",
   "scifi-toon",
   "scifi-toon",
-  "scifi-toon"
+  "scifi-toon",
+  "esquete"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -410,6 +411,14 @@
    "estilo": "scifi-toon",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-09-0618-estagiaria-apagou-producao-ep3-scifi-toon",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-09T08:03",
+   "repo": "historia/so-mais-um-prompt",
+   "estilo": "esquete",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-09-0743-so-mais-um-prompt-esquete",
    "em_alta": false
   }
  ]
