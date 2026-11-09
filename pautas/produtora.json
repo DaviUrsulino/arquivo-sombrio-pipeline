@@ -42,6 +42,7 @@
   "scifi-toon",
   "cartoon-3d-short",
   "esquete",
+  "esquete",
   "esquete"
  ],
  "repos_usados": [
@@ -374,6 +375,14 @@
    "estilo": "esquete",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-09-0056-ia-corrigiu-o-bug-esquete",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-09T02:30",
+   "repo": "historia/so-mais-um-prompt",
+   "estilo": "esquete",
+   "ok": false,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-09-0217-so-mais-um-prompt-esquete",
    "em_alta": false
   }
  ]
