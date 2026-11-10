@@ -107,6 +107,13 @@ def escrever_proximo(p: dict, votos: dict[str, int] | None, llm=None) -> Path:
         pedido["critica_do_editor"] = nota.get("problema")
         pedido["roteiro_rejeitado"] = {k: r.get(k) for k in ("texto_tela", "ganchos", "corpo", "cta")}
         r = gerar(segredos.texto("serie_episodio"), json.dumps(pedido, ensure_ascii=False))
+    # Davi (10/11): o crítico olha ganchos/corpo/cta, nunca a legenda -- e o LLM às vezes esquece o voto na
+    # legenda (que é o que aparece no post) mesmo escrevendo ele certinho no cta. Saiu "Segue pra acompanhar"
+    # sem nenhum motivo pra comentar em 2 episódios reais (preso-no-shopping ep2 e ep3). Sem o voto na legenda,
+    # ninguém comenta, ninguém salva, ninguém manda -- cola o pedido de voto na força se ele não aparecer.
+    opcoes = r.get("opcoes") or []
+    if len(opcoes) == 2 and not all(re.search(rf"\b{re.escape(_normal(o))}\b", _normal(r.get("legenda", ""))) for o in opcoes):
+        r["legenda"] = r.get("legenda", "").rstrip() + f"\n\nComenta {opcoes[0]} ou {opcoes[1]}. A mais votada vira a próxima parte."
     novo = {k: ep[k] for k in ("estilo", "direcao") if k in ep}
     novo.update({"slug": f"{serie}-ep{n}", "serie": serie, "episodio": n,
                  "roteiro": {k: r[k] for k in ("texto_tela", "ganchos", "corpo", "cta", "legenda")},

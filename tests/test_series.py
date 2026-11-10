@@ -42,6 +42,9 @@ def test_escreve_episodio_seguinte_com_mesmo_estilo(tmp_path, monkeypatch):
     novo = json.loads(destino.read_text())
     assert destino.name == "x-ep2.json" and novo["estilo"] == "cel-anime-80s" and novo["direcao"] == "D"
     assert novo["escolha_anterior"] == "B" and novo["opcoes"] == ["C", "D"] and novo["roteiro"]["palavra"] == ""
+    # 10/11: o llm devolveu legenda "Parte 2." sem o voto (bug real em preso-no-shopping ep2/ep3) -- tem que
+    # colar o pedido de voto na legenda, senão o post sai sem nenhum motivo pra comentar.
+    assert "C" in novo["roteiro"]["legenda"] and "D" in novo["roteiro"]["legenda"]
 
 
 def test_historia_marcada_pra_produzir_sai_uma_vez(tmp_path, monkeypatch):
