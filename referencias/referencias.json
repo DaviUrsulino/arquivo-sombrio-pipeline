@@ -200,6 +200,11 @@
    "perfil": "crafty_animations",
    "desde": "2026-11-10",
    "motivo": "Davi mandou 2026-11-10. 274 mil seguidores, EUA. MEDIDO: mediana ~35 mil, maior 470 mil. 'Animated American Stories -- humor, laughs, real moments': história animada curta de situação cotidiana com humor."
+  },
+  {
+   "perfil": "quehistoriabsurda",
+   "desde": "2026-11-10",
+   "motivo": "Davi mandou 2026-11-10. 27,4 mil seguidores, 'histórias reais que parecem mentira, curiosidades do Brasil e do mundo'. MEDIDO: picos de 546 mil e 103 mil, mas mediana ~3 mil (piso 53) -- aposta de alta variância. É o MESMO formato do nosso historias_tech.py, só que de curiosidade geral em vez de tecnologia, com visual de capa de jornal antigo. Atenção: os dois picos são de tema político brasileiro, que a gente evita por decisão (em_alta tem política desligada por padrão)."
   }
  ],
  "reels": [
@@ -239,7 +244,8 @@
   "DfZ0etttREN",
   "Dfaq0lWTxBt",
   "DfS5gBzTAhZ",
-  "DfVgPSqzUNp"
+  "DfVgPSqzUNp",
+  "DfhcvH3xvC2"
  ],
  "anuncios": [
   "Biblioteca de Anúncios do Facebook: esquete 3D low-poly (Achados F.C / EDIT IA)"

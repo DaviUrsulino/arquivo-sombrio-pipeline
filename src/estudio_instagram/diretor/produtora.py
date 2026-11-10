@@ -265,7 +265,7 @@ def fatos_venda(pasta: Path = VENDAS) -> str:
 
 def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: bool = False,
              momento: dict | None = None, historia: dict | None = None, fatos: str | None = None,
-             palavra: str | None = None) -> dict:
+             palavra: str | None = None, promessa: str | None = None) -> dict:
     from .fazer import fatos_do_repo
     estado = _estado()
     todos = estilos()
@@ -299,8 +299,15 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
         # teste A/B (04/11): no perfil, 45-60 s teve mediana 570 views contra 313 dos curtos (n=9 x 23). Alterna para
         # medir com os vídeos novos; o analista separa por duração (por_formato).
         longo = len(estado.get("producoes", [])) % 2 == 1
-        rot = roteiro.escrever(fatos or fatos_do_repo(repo), longo=longo)
+        # `promessa`: vídeo de utilidade prática (ver utilidade.py). A ferramenta vira o meio; a promessa, escrita
+        # pra quem nunca programou, vira o assunto. Medido 10/11: é o que separa 307 mil views de 3 mil.
+        extra_roteiro = ""
+        if promessa:
+            from .. import utilidade
+            extra_roteiro = utilidade.extra(promessa)
+        rot = roteiro.escrever(fatos or fatos_do_repo(repo), longo=longo, extra=extra_roteiro)
         rot["versao"] = "longa" if longo else "curta"
+        rot["utilidade"] = bool(promessa)
         if palavra:  # site/ferramenta (Davi, 06/11: Gradium): a palavra tem resposta fixa em bot_respostas.json
             rot["palavra"] = palavra
         rot["cta_tipo"], rot["cta"] = fechamento(len(estado.get("producoes", [])), rot["palavra"])
@@ -443,7 +450,10 @@ def main():
     p.add_argument("--em-alta", action="store_true", help="vídeo do assunto do momento (no --auto vem primeiro)")
     p.add_argument("--venda", action="store_true", help="vídeo de venda do Pack Estúdio (com --auto, sai sozinho quando falta)")
     p.add_argument("--fila", action="store_true", help="se o vídeo passar na conferência, sobe e põe na fila do maestro")
+    p.add_argument("--promessa", help="ângulo de utilidade prática: o que QUEM ASSISTE ganha, em linguagem de leigo "
+                                      "(ver utilidade.py). Use com --repo. Ex.: 'tirar o fundo de qualquer foto de graça'")
     a = p.parse_args()
+    a.repo_utilidade = a.utilidade_slug = None  # preenchidos pelo rodízio automático de utilidade (ver abaixo)
     if a.listar:
         for e in estilos():
             print(f"{e['slug']:24} {e['nome']}  ({e['categoria']})")
@@ -473,6 +483,15 @@ def main():
                    or historias_cotidiano.gerar_se_preciso() or historias_tech.gerar_se_preciso())
         if proximo:
             a.historia = str(proximo)
+        else:
+            # sem história na vez: o vídeo de ferramenta sai com promessa de utilidade (10/11), que é o que
+            # separa 307 mil views de 3 mil nas contas medidas. Sem utilidade nova na fila, segue o normal.
+            # Guardado à parte de `a.repo` de propósito: o limite de banco cheio continua valendo para ele.
+            from .. import utilidade
+            estado_u = series._ler(series.ESTADO)
+            escolha = utilidade.proxima(estado_u) if utilidade.precisa(estado_u) else None
+            if escolha:
+                a.utilidade_slug, a.repo_utilidade, a.promessa = escolha
     if a.fatos:
         res = produzir(f"site/{a.assunto}", a.estilo, fatos=Path(a.fatos).read_text(encoding="utf-8"), palavra=a.palavra)
         if a.fila and res.get("ok"):
@@ -497,14 +516,21 @@ def main():
     if a.auto and not (momento or venda or a.repo) and banco_cheio():
         print(f"banco já tem {BANCO_MAXIMO} vídeos esperando e nenhum assunto do momento: não produzo agora")
         return
-    repo = REPO_VENDA if venda else (a.repo or ("em-alta" if momento else None) or (pauta_automatica() if a.auto else None))
+    repo = REPO_VENDA if venda else (a.repo or ("em-alta" if momento else None) or a.repo_utilidade
+                                     or (pauta_automatica() if a.auto else None))
     if not repo:
         raise SystemExit("use --repo dono/nome, --auto, --em-alta ou --venda")
     if momento:
         print(f"assunto do momento: {momento['tema']} ({momento['angulo']})", flush=True)
-    res = produzir(repo, a.estilo, a.gancho, venda=venda, momento=momento)
+    promessa = a.promessa if repo == a.repo_utilidade or (a.promessa and a.repo) else None
+    if promessa:
+        print(f"ângulo de utilidade: {promessa}", flush=True)
+    res = produzir(repo, a.estilo, a.gancho, venda=venda, momento=momento, promessa=promessa)
     if momento and res.get("ok"):
         em_alta.registrar(momento["chave"])
+    if a.utilidade_slug and res.get("ok"):
+        from .. import utilidade
+        utilidade.registrar(a.utilidade_slug)
     if a.fila and res.get("ok"):
         res["fila"] = str(para_fila(res).relative_to(RAIZ))
     print(json.dumps(res, ensure_ascii=False, indent=1))
