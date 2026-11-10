@@ -112,10 +112,18 @@ def estilos_fracos(desempenho: dict | None = None, corte: float = 0.2) -> set[st
             if nome.startswith("produtora-") and geral and d.get("views_medianas", geral) < corte * geral}
 
 
-def estilo_para(assunto: str, estado: dict, todos: list[dict], llm=None, fracos: set[str] | None = None) -> dict:
+def estilo_para(assunto: str, estado: dict, todos: list[dict], llm=None, fracos: set[str] | None = None,
+                formato: str | None = None) -> dict:
     """Davi, 04/11: estilo de arquivo/dossiê num vídeo de GTA ficou ruim. O rodízio cego trocou por: estilos que
-    combinam com o assunto, em ordem; sai o que mais combina e não foi usado nos últimos 8 vídeos."""
+    combinam com o assunto, em ordem; sai o que mais combina e não foi usado nos últimos 8 vídeos.
+
+    `formato` (10/11) corta antes os estilos que brigam com a FORMA do vídeo: documentário não leva mascote,
+    história precisa de personagem que atua, utilidade precisa mostrar a tela. Ver estilo_formato.py."""
+    from .. import estilo_formato
     from ..llm import gerar_json
+    todos = estilo_formato.filtrar(todos, formato)
+    if formato:
+        print(f"formato {formato}: {estilo_formato.motivo(formato)}", flush=True)
     lista = "\n".join(f"{e['slug']}: {e['nome']} ({e['categoria']}; {', '.join(e.get('usos', []))})" for e in todos)
     try:
         r = (llm or gerar_json)(COMBINA, f"ASSUNTO: {assunto}\n\nESTILOS:\n{lista}")
@@ -271,7 +279,11 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
     todos = estilos()
     assunto = (f"{momento['tema']}: {momento.get('angulo', '')}" if momento else
                "vídeo de venda: animação feita com IA, sem editor" if venda else f"ferramenta de IA do GitHub {repo}")
-    estilo = next((e for e in todos if e["slug"] == estilo_slug), None) if estilo_slug else estilo_para(assunto, estado, todos)
+    # a forma do vídeo manda no grupo de estilos; o assunto escolhe dentro do grupo (ver estilo_formato.py)
+    formato_video = ((historia.get("formato") or "historia_personagem") if historia
+                     else "documentario" if momento else "utilidade" if promessa else None)
+    estilo = (next((e for e in todos if e["slug"] == estilo_slug), None) if estilo_slug
+              else estilo_para(assunto, estado, todos, formato=formato_video))
     if estilo is None:
         raise SystemExit(f"estilo {estilo_slug} não existe; opções: {', '.join(e['slug'] for e in todos)}")
     extra_video = ""
@@ -469,6 +481,9 @@ def main():
         from .. import historias_tech, series
         slug = _re.sub(r"[^a-z0-9]+", "-", a.wiki.lower()).strip("-")
         historia = historias_tech.escrever(slug, a.wiki, 0)
+        # é documentário, não série: objeto-herói por cena e nada de mascote (ver estilo_formato.py)
+        historia["formato"] = "documentario"
+        historia.pop("estilo", None)
         destino = series.HISTORIAS / f"{slug}.json"
         destino.write_text(json.dumps(historia, ensure_ascii=False, indent=1), encoding="utf-8")
         series.registrar(f"tech:{slug}", destino.stem)
