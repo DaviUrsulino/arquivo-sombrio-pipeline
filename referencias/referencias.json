@@ -103,8 +103,8 @@
   },
   {
    "perfil": "escolhas.app",
-   "motivo": "Davi, 2026-11-06: 344 mil seguidores. Todo vídeo termina com uma escolha, o público vota e acontece. Vende método de vídeo viral.",
-   "desde": "2026-11-06"
+   "motivo": "MEDIDO em 2026-11-10: mediana de 1,2 MILHÃO de views (maior de todas as referências). Série 'você decide' com voto no comentário -- mesmo formato que a gente já roda -- mas com tema de cotidiano universal (encontro atrasado, despertador às 3h, pão de queijo, traição). Animação 2D SIMPLES, personagem de cara grande e olho esbugalhado, bem menos caprichada que a nossa. Prova que o fator é o tema, não o capricho visual.",
+   "desde": "2026-11-10"
   },
   {
    "perfil": "bieldozero",
@@ -155,6 +155,11 @@
    "perfil": "devarthurensina",
    "motivo": "Davi, 2026-11-08: 13,4 mil. Dicas de programação pra iniciante em doodle (sites grátis, comandos git, lógica).",
    "desde": "2026-11-08"
+  },
+  {
+   "perfil": "okaashish",
+   "motivo": "Davi mandou em 2026-11-10 (reel DfkIR2tv5Wu). Animação estilo documentário de natureza desenhado (lagarta comendo folha, legenda explicativa em serifa) em cima, ele falando embaixo, ensinando a fazer com o Claude. Referência de ESTILO visual: o post tem só 64 curtidas, não serve de referência de alcance.",
+   "desde": "2026-11-10"
   }
  ],
  "reels": [
@@ -177,7 +182,8 @@
   "DeZgnSJDMIn",
   "De91bnbp8S5",
   "DfR1NJ2pBKp",
-  "DfSBF1Bxj7-"
+  "DfSBF1Bxj7-",
+  "DfkIR2tv5Wu"
  ],
  "anuncios": [
   "Biblioteca de Anúncios do Facebook: esquete 3D low-poly (Achados F.C / EDIT IA)"
