@@ -86,5 +86,13 @@
  "produzido:mars-climate-orbiter": {
   "quando": "2026-11-10T05:44+00:00",
   "resultado": "ok"
+ },
+ "estagiaria-apagou-producao-ep3": {
+  "quando": "2026-11-10T15:45+00:00",
+  "resultado": "estagiaria-apagou-producao-ep4"
+ },
+ "produzido:estagiaria-apagou-producao-ep4": {
+  "quando": "2026-11-10T16:19+00:00",
+  "resultado": "ok"
  }
 }
