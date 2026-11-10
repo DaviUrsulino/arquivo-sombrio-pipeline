@@ -66,16 +66,38 @@ def escrever(fatos: str, llm=gerar_json, tentativas: int = 3, extra: str = "", l
     raise RuntimeError("roteiro inválido: " + "; ".join(erros))
 
 
+def _notar(r: dict, i: int, sistema: str, llm) -> tuple[float, dict]:
+    texto = (f"TEXTO NA TELA: {r.get('texto_tela', '')}\nABERTURA: {r['ganchos'][i]}\n"
+             f"CORPO: {' '.join(r['corpo'])}\nFECHAMENTO: {r.get('cta', '')}")
+    p = (llm or gerar_json)(sistema, texto)
+    return float(p.get("nota") or 0), p
+
+
 def prever(r: dict, gancho: int = 0, llm=None, corte: float = 6.5) -> dict:
     """Previsor de viral (Davi, 06/11, como o Virality da Higgsfield), ANTES de gastar o Claude animando: o Gemini dá
     nota ao gancho, clareza, retenção e compartilhamento. Nota abaixo de 7 troca a abertura e o texto da tela pelos
-    que ele sugeriu. Falhar aqui nunca derruba a produção: o roteiro segue como estava."""
+    que ele sugeriu. Falhar aqui nunca derruba a produção: o roteiro segue como estava.
+
+    10/11: o roteirista sempre escreve 3 ganchos, mas só o primeiro era avaliado e os outros dois eram jogados fora.
+    No estudo de referências, o MESMO vídeo com 3 ganchos diferentes fez 32 mil, 122 mil e 941 mil views (@gab.gouvea)
+    -- 29x só pela primeira frase. Agora os 3 são notados e o melhor é que vai ao ar; custa 2 chamadas de texto a
+    mais, nenhuma renderização a mais. Os perdedores ficam em `ganchos_alternativos` para repostar depois."""
     try:
         sistema = segredos.texto("viral_nota")
-        texto = (f"TEXTO NA TELA: {r.get('texto_tela', '')}\nABERTURA: {r['ganchos'][gancho]}\n"
-                 f"CORPO: {' '.join(r['corpo'])}\nFECHAMENTO: {r.get('cta', '')}")
-        p = (llm or gerar_json)(sistema, texto)
-        nota = float(p.get("nota") or 0)
+        notas = []
+        for i in range(len(r.get("ganchos") or [])):
+            try:
+                notas.append((*_notar(r, i, sistema, llm), i))
+            except Exception as erro:  # um gancho que falhou não pode custar os outros dois
+                print(f"não consegui notar o gancho {i} ({str(erro)[:80]})")
+        if not notas:
+            raise RuntimeError("nenhum gancho pôde ser avaliado")
+        nota, p, gancho = max(notas, key=lambda n: n[0])
+        if len(notas) > 1:
+            print("notas dos ganchos: " + ", ".join(f"{i}={n:.1f}" for n, _, i in notas), flush=True)
+            r["ganchos_alternativos"] = [g for i, g in enumerate(r["ganchos"]) if i != gancho]
+            r["ganchos"] = [r["ganchos"][gancho]] + r["ganchos_alternativos"]
+            gancho = 0  # o vencedor passa a ser o primeiro: quem renderiza usa sempre o índice 0
     except Exception as erro:
         print(f"previsor de viral falhou ({erro}); sigo com o roteiro")
         return r

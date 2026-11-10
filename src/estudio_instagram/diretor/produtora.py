@@ -423,7 +423,10 @@ def para_fila(res: dict) -> Path:
              **({"cta_tipo": rot["cta_tipo"]} if rot.get("cta_tipo") else {}),
              **({"previsao": rot["previsao"].get("nota")} if rot.get("previsao") else {}),
              "itens": [] if venda or res.get("em_alta") or res["repo"].startswith("site/") else [{"repo": res["repo"]}], "estilo": res["estilo"], "gancho": "A",
-             "ganchos_alternativos": [], **({"tipo": "venda"} if venda else {}),
+             # os ganchos que perderam a nota do previsor ficam guardados: se o vídeo render abaixo da mediana,
+             # dá pra repostar com outra abertura (no estudo, 29x de diferença só pela primeira frase)
+             "ganchos_alternativos": rot.get("ganchos_alternativos") or [],
+             **({"tipo": "venda"} if venda else {}),
              **({"tipo": "em-alta"} if res.get("em_alta") else {})}
     if res.get("historia"):
         pauta["itens"], pauta["tipo"] = [], "historia"
