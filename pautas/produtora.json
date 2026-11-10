@@ -55,7 +55,8 @@
   "desktop-flythrough",
   "scifi-toon",
   "microgame",
-  "hand-drawn-cartoon"
+  "hand-drawn-cartoon",
+  "circuit-board"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -491,6 +492,14 @@
    "estilo": "hand-drawn-cartoon",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-10-1948-porta-que-nao-abre-hand-drawn-cartoon",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-10T21:43",
+   "repo": "historia/xai-company",
+   "estilo": "circuit-board",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-10-2024-xai-company-circuit-board",
    "em_alta": false
   }
  ]

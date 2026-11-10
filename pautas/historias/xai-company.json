@@ -1,0 +1,29 @@
+{
+ "slug": "xai-company",
+ "serie": "xai-company",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "fonte": "https://en.wikipedia.org/wiki/xAI_(company)",
+ "direcao": "HISTÓRIA REAL DA TECNOLOGIA. Personagens simples e sem marcas reais. Cenário com escritório e computadores. HUD fixo na lateral mostrando contador de tempo e valor de mercado subindo. Imagem da virada mostrando a fusão das empresas na tela.",
+ "roteiro": {
+  "texto_tela": "COMPROU A PRÓPRIA EMPRESA",
+  "ganchos": [
+   "Elon Musk comprou a rede social X usando a empresa de inteligência artificial dele."
+  ],
+  "corpo": [
+   "O criador Elon Musk fundou a xAI, sua empresa de inteligência artificial, no início do boom tecnológico.",
+   "Pouco tempo depois, ele anunciou que a xAI comprou a sua empresa irmã, a proprietária da rede social X.",
+   "O negócio foi feito em ações, avaliando a rede social em bilhões de dólares.",
+   "As duas empresas foram combinadas em uma única holding.",
+   "Mais tarde, a empresa de inteligência artificial virou uma subsidiária da SpaceX.",
+   "O supercomputador Colossus da empresa necessitava de imensa energia para funcionar.",
+   "Geradores a gás foram instalados rapidamente para suprir a demanda energética.",
+   "Isso gerou processos judiciais por poluição e falta de licenças federais adequadas."
+  ],
+  "cta": "Manda pro amigo que acompanha os negócios de Elon Musk. E me segue: amanhã tem outra história real da tecnologia.",
+  "legenda": "Elon Musk uniu sua empresa de inteligencia artificial com a rede social X e depois vendeu tudo para a SpaceX, enquanto enfrentava polêmica sobre geradores de energia poluentes.\nFonte: Wikipedia\nManda pro amigo que acompanha os negócios de Elon Musk.\nSegue o @ursulino.ia: todo dia uma história real da tecnologia.\n#elonmusk #ia #tecnologia #noticias #curiosidades",
+  "palavra": ""
+ },
+ "formato": "documentario"
+}
