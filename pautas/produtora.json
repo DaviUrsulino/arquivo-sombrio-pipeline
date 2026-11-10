@@ -50,7 +50,8 @@
   "esquete",
   "hand-drawn-cartoon",
   "dark-keynote",
-  "kinetic-typography"
+  "kinetic-typography",
+  "cartoon-3d-short"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -446,6 +447,14 @@
    "estilo": "kinetic-typography",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-09-2003-pack-estudio-kinetic-typography",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-10T05:44",
+   "repo": "historia/mars-climate-orbiter",
+   "estilo": "cartoon-3d-short",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-10-0505-mars-climate-orbiter-cartoon-3d-short",
    "em_alta": false
   }
  ]

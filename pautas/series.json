@@ -78,5 +78,13 @@
  "produzido:knight-capital-45-minutos": {
   "quando": "2026-11-09T09:50+00:00",
   "resultado": "ok"
+ },
+ "tech:mars-climate-orbiter": {
+  "quando": "2026-11-10T05:05+00:00",
+  "resultado": "mars-climate-orbiter"
+ },
+ "produzido:mars-climate-orbiter": {
+  "quando": "2026-11-10T05:44+00:00",
+  "resultado": "ok"
  }
 }

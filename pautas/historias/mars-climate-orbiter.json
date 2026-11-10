@@ -1,0 +1,30 @@
+{
+ "slug": "mars-climate-orbiter",
+ "serie": "mars-climate-orbiter",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "estilo": "cartoon-3d-short",
+ "fonte": "https://en.wikipedia.org/wiki/Mars_Climate_Orbiter",
+ "direcao": "HISTÓRIA REAL DA TECNOLOGIA. Crie uma animação 2D simples com um cientista animado segurando uma régua e um painel espacial ao fundo. No canto superior direito, mantenha um HUD fixo exibindo o contador de segundos, um relógio em contagem regressiva e o texto 'Prejuízo: Milhões'. Na cena da virada, mostre a sonda de desenho simples passando muito perto de um planeta vermelho e brilhante.",
+ "roteiro": {
+  "texto_tela": "NAVE PERDIDA POR ERRO DE CÁLCULO",
+  "ganchos": [
+   "Uma nave espacial de milhões de dólares virou pó por causa de uma simples confusão de unidades."
+  ],
+  "corpo": [
+   "A NASA lançou a sonda Mars Climate Orbiter para estudar a atmosfera de Marte.",
+   "A construtora Lockheed Martin usou o sistema de medidas americano nos softwares de navegação.",
+   "Já a equipe da NASA calculava tudo usando o sistema métrico internacional.",
+   "Os dados passavam pela memória RAM, que armazena informações temporárias, sem nenhuma conversão entre os sistemas.",
+   "No dia vinte e três de setembro, a sonda iniciou a manobra para entrar na órbita do planeta.",
+   "O plano era passar a uma altitude segura de duzentos e vinte e seis quilômetros.",
+   "Mas o erro nos cálculos fez a espaçonave despencar a apenas cinquenta e sete quilômetros de altitude.",
+   "A nave entrou na atmosfera de Marte e foi destruída.",
+   "O contato de rádio com a sonda foi perdido para sempre."
+  ],
+  "cta": "Manda pro amigo que sempre erra as contas na hora de somar. E me segue: amanhã tem outra história real da tecnologia.",
+  "legenda": "Uma nave espacial enviada a Marte foi destruida porque equipes diferentes usaram sistemas de medida incompativeis nos calculos.\nFonte: Wikipedia\nManda pro amigo que sempre erra as contas na hora de somar.\nSegue o @ursulino.ia: todo dia uma história real da tecnologia.\n#tecnologia #espaco #nasa #ciencia #historia",
+  "palavra": ""
+ }
+}
