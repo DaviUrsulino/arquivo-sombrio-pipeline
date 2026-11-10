@@ -51,7 +51,8 @@
   "hand-drawn-cartoon",
   "dark-keynote",
   "kinetic-typography",
-  "cartoon-3d-short"
+  "cartoon-3d-short",
+  "desktop-flythrough"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -455,6 +456,14 @@
    "estilo": "cartoon-3d-short",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-10-0505-mars-climate-orbiter-cartoon-3d-short",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-10T12:34",
+   "repo": "venda/pack-estudio",
+   "estilo": "desktop-flythrough",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-10-1206-pack-estudio-desktop-flythrough",
    "em_alta": false
   }
  ]
