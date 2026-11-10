@@ -437,6 +437,8 @@ def main():
     p.add_argument("--assunto", help="nome curto do site, ex.: gradium")
     p.add_argument("--palavra", help="palavra do comentário que manda o link (precisa estar em pautas/bot_respostas.json)")
     p.add_argument("--historia", help="roteiro pronto de história (pautas/historias/x.json); precisa de --estilo")
+    p.add_argument("--wiki", help="título de artigo da Wikipédia em inglês: escreve a história desse assunto e produz "
+                                  "(formato @marcondes.ai: fatos de uma empresa/figura gigante). Ex.: --wiki 'xAI' --estilo dark-keynote")
     p.add_argument("--listar", action="store_true")
     p.add_argument("--em-alta", action="store_true", help="vídeo do assunto do momento (no --auto vem primeiro)")
     p.add_argument("--venda", action="store_true", help="vídeo de venda do Pack Estúdio (com --auto, sai sozinho quando falta)")
@@ -450,7 +452,18 @@ def main():
         raise SystemExit("precisa do Claude Code instalado (comando claude)")
     # Ordem do automático (Davi, 04/11): assunto do momento primeiro (rápido, antes de esfriar); sem assunto bom,
     # repõe a venda; com o banco já cheio, não produz (vídeo guardado demais perde o tema do dia).
-    if a.auto and not a.repo and not a.venda:
+    if a.wiki:
+        # Davi, 10/11, pedindo um vídeo igual ao do @marcondes.ai (reel Dfj6T7CR9WW): fato de empresa/figura gigante
+        # em 3D escuro. O roteirista de história real já faz o texto; aqui só escolhemos o assunto e o estilo na mão.
+        import re as _re
+        from .. import historias_tech, series
+        slug = _re.sub(r"[^a-z0-9]+", "-", a.wiki.lower()).strip("-")
+        historia = historias_tech.escrever(slug, a.wiki, 0)
+        destino = series.HISTORIAS / f"{slug}.json"
+        destino.write_text(json.dumps(historia, ensure_ascii=False, indent=1), encoding="utf-8")
+        series.registrar(f"tech:{slug}", destino.stem)
+        a.historia = str(destino)
+    if a.auto and not a.repo and not a.venda and not a.wiki:
         # série "você decide" (06/11): episódio com voto vencido vem antes de tudo (a parte 2 foi prometida "amanhã")
         from .. import series
         from .. import historias_cotidiano, historias_tech

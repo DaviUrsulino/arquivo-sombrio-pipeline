@@ -117,11 +117,6 @@
    "desde": "2026-11-06"
   },
   {
-   "perfil": "marcondes.ai",
-   "motivo": "Davi, 2026-11-06: Reel do Isaac Newton e a agulha no olho (15,7 mil curtidas). História real bizarra, desenho de linha à mão, palavra grande na tela, legenda longa com fontes, CTA 'só me siga'.",
-   "desde": "2026-11-06"
-  },
-  {
    "perfil": "lucentride.studio",
    "motivo": "Davi, 2026-11-06: a mesma cena em 10 estilos (pixel, PS2, quadrinho, brinquedo, massinha, papel, anime 90, low poly, risografia, diorama). Direct com botão + follow gate + guia em página.",
    "desde": "2026-11-06"
@@ -160,6 +155,11 @@
    "perfil": "okaashish",
    "motivo": "Davi mandou em 2026-11-10 (reel DfkIR2tv5Wu). Animação estilo documentário de natureza desenhado (lagarta comendo folha, legenda explicativa em serifa) em cima, ele falando embaixo, ensinando a fazer com o Claude. Referência de ESTILO visual: o post tem só 64 curtidas, não serve de referência de alcance.",
    "desde": "2026-11-10"
+  },
+  {
+   "perfil": "marcondes.ai",
+   "motivo": "Davi mandou 2026-11-10 (reel Dfj6T7CR9WW, 23,5 mil curtidas e 301 comentários em 7 h) e pediu um IDÊNTICO. Formato: narração de fatos impressionantes sobre uma figura/empresa gigante (Elon Musk e a xAI), não ferramenta explicada. Visual: 3D cinematográfico ESCURO, um objeto-herói por cena em fundo preto com luz neon azul/verde (carro de corrida numa arena com holofotes, logo 3D flutuando sobre globo terrestre com grid, placas de vídeo empilhadas em grade isométrica, corredor de data center com LEDs azuis). Câmera lenta e contínua, sem personagem mascote. Legenda QUEIMADA no centro-baixo, branca com sombra, acompanhando a fala. Estilos nossos mais próximos: dark-keynote, glass-product, desktop-flythrough.",
+   "desde": "2026-11-10"
   }
  ],
  "reels": [
@@ -183,7 +183,8 @@
   "De91bnbp8S5",
   "DfR1NJ2pBKp",
   "DfSBF1Bxj7-",
-  "DfkIR2tv5Wu"
+  "DfkIR2tv5Wu",
+  "Dfj6T7CR9WW"
  ],
  "anuncios": [
   "Biblioteca de Anúncios do Facebook: esquete 3D low-poly (Achados F.C / EDIT IA)"

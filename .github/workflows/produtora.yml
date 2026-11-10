@@ -29,6 +29,10 @@ on:
         description: 'slug do estilo (vazio: próximo do rodízio; ex.: brick-toy, pixel-rpg, esquete)'
         required: false
         default: ''
+      wiki:
+        description: 'título de artigo da Wikipédia em inglês (fato de empresa/figura gigante, formato @marcondes.ai). Ex.: xAI'
+        required: false
+        default: ''
 
 concurrency:
   group: produtora
@@ -100,9 +104,11 @@ jobs:
           ENTRADA_REPO: ${{ inputs.repo }}      # por variável de ambiente, nunca colado no script (evita injeção)
           ENTRADA_ESTILO: ${{ inputs.estilo }}
           ENTRADA_VENDA: ${{ inputs.venda }}
+          ENTRADA_WIKI: ${{ inputs.wiki }}
         run: |
           set -- --fila
-          if [ -n "$ENTRADA_REPO" ]; then set -- "$@" --repo "$ENTRADA_REPO"; else set -- "$@" --auto; fi
+          if [ -n "$ENTRADA_WIKI" ]; then set -- "$@" --wiki "$ENTRADA_WIKI";
+          elif [ -n "$ENTRADA_REPO" ]; then set -- "$@" --repo "$ENTRADA_REPO"; else set -- "$@" --auto; fi
           if [ "$ENTRADA_VENDA" = "true" ]; then set -- "$@" --venda; fi
           if [ -n "$ENTRADA_ESTILO" ]; then set -- "$@" --estilo "$ENTRADA_ESTILO"; fi
           python -m src.estudio_instagram.diretor.produtora "$@"
