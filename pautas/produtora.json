@@ -54,7 +54,8 @@
   "cartoon-3d-short",
   "desktop-flythrough",
   "scifi-toon",
-  "microgame"
+  "microgame",
+  "hand-drawn-cartoon"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -483,6 +484,14 @@
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-10-1625-xbox-one-microgame",
    "em_alta": true
+  },
+  {
+   "quando": "2026-11-10T20:16",
+   "repo": "historia/porta-que-nao-abre",
+   "estilo": "hand-drawn-cartoon",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-10-1948-porta-que-nao-abre-hand-drawn-cartoon",
+   "em_alta": false
   }
  ]
 }

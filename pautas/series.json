@@ -94,5 +94,13 @@
  "produzido:estagiaria-apagou-producao-ep4": {
   "quando": "2026-11-10T16:19+00:00",
   "resultado": "ok"
+ },
+ "cotidiano:porta-que-nao-abre": {
+  "quando": "2026-11-10T19:48+00:00",
+  "resultado": "porta-que-nao-abre"
+ },
+ "produzido:porta-que-nao-abre": {
+  "quando": "2026-11-10T20:16+00:00",
+  "resultado": "ok"
  }
 }

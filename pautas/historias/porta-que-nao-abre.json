@@ -1,0 +1,31 @@
+{
+ "slug": "porta-que-nao-abre",
+ "serie": "porta-que-nao-abre",
+ "episodio": 1,
+ "opcoes": [
+  "ABRIR",
+  "FUGIR"
+ ],
+ "produzir": true,
+ "estilo": "hand-drawn-cartoon",
+ "direcao": "HISTÓRIA DE COTIDIANO, público amplo, sem nada de tecnologia. ",
+ "roteiro": {
+  "texto_tela": "A LUZ ESTÁ ACESA. QUEM ESTÁ AÍ?",
+  "ganchos": [
+   "Você chegou de madrugada, a chave não girou e a luz da sua sala estava acesa."
+  ],
+  "corpo": [
+   "Marina trabalha de garçonete e volta para casa depois da meia-noite, sempre sozinha.",
+   "Hoje a chave entra na fechadura, mas não gira, como se alguém tivesse trancado por dentro.",
+   "Ela olha pela fresta da porta e vê a luz da sala acesa. Ela jura que apagou antes de sair.",
+   "Marina encosta o ouvido na madeira e escuta uma panela raspando no fogão.",
+   "Cheiro de café fresco sai por baixo da porta.",
+   "Ela pega o celular para ligar para a irmã, que tem a outra cópia da chave, e vê uma mensagem enviada há dez minutos: \"Tô aí dentro, não se assusta.\"",
+   "Só que a irmã de Marina está viajando e o número que mandou a mensagem nem está salvo no celular dela.",
+   "Do outro lado da porta, a maçaneta começa a girar bem devagar."
+  ],
+  "cta": "Comenta ABRIR ou FUGIR. A parte 2 sai amanhã com a escolha que ganhar. Me segue pra não perder.",
+  "legenda": "Você chegou de madrugada, a chave não girou e a luz da sua sala estava acesa.\nComenta ABRIR ou FUGIR. A mais votada vira a parte 2.\nSegue o @ursulino.ia pra ver o final.\n#suspense #historiadecotidiano #vocedecide #medo #madrugada",
+  "palavra": ""
+ }
+}
