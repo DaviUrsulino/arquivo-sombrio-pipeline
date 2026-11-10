@@ -53,7 +53,8 @@
   "kinetic-typography",
   "cartoon-3d-short",
   "desktop-flythrough",
-  "scifi-toon"
+  "scifi-toon",
+  "microgame"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -474,6 +475,14 @@
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-10-1545-estagiaria-apagou-producao-ep4-scifi-toon",
    "em_alta": false
+  },
+  {
+   "quando": "2026-11-10T16:39",
+   "repo": "em-alta/xbox-one",
+   "estilo": "microgame",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-10-1625-xbox-one-microgame",
+   "em_alta": true
   }
  ]
 }
