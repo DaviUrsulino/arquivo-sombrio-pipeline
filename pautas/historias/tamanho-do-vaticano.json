@@ -1,0 +1,31 @@
+{
+ "slug": "tamanho-do-vaticano",
+ "serie": "tamanho-do-vaticano",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "formato": "numero",
+ "fonte": "https://en.wikipedia.org/wiki/Vatican_City",
+ "direcao": "CURIOSIDADE COM NÚMERO. Sem mascote, sem personagem falando. Abra o vídeo mostrando um mapa de Roma em 3D com o formato do Vaticano destacado em vermelho vibrante. Conforme o locutor fala das medidas, insira animações lado a lado de 69 campos de futebol preenchendo o espaço da cidade. Mantenha o número 0,49 quilômetro quadrado crescendo na tela durante a locução. Feche a cena mostrando a Basílica de São Pedro vista de cima.",
+ "roteiro": {
+  "texto_tela": "69 CAMPOS DE FUTEBOL",
+  "ganchos": [
+   "Existe um país inteiro que tem o tamanho exato de apenas 69 campos de futebol.",
+   "Como um país inteiro consegue funcionar tendo o espaço de apenas 49 quarteirões?",
+   "Qual é o menor país do mundo que cabe inteirinho dentro de Roma?"
+  ],
+  "corpo": [
+   "Esse país inteiro tem uma área de 0,49 quilômetro quadrado.",
+   "Isso é o equivalente a 69 campos de futebol.",
+   "Ou o espaço exato de 49 quarteirões de cidade.",
+   "Ele fica totalmente cercado pelas ruas de Roma, na Itália.",
+   "Tem uma população de cerca de 882 pessoas, sendo o país menos populoso do planeta.",
+   "Mesmo com esse tamanho minúsculo, ele emite suas próprias moedas de euro e mantém relações com 180 estados.",
+   "O governo de lá é uma monarquia absoluta comandada pelo papa, eleito em conclave.",
+   "É o Vaticano, um território soberano que guarda tesouros como a Basílica de São Pedro."
+  ],
+  "cta": "Manda pro amigo que não vai acreditar. E me segue: todo dia uma dessas aqui.",
+  "legenda": "Area de 0.49 quilometros quadrados, equivalente a 69 campos de futebol.\nPopulacao de cerca de 882 pessoas no Vaticano.\nFonte: Wikipedia.\nManda pro amigo que nao vai acreditar. Segue o @ursulino.ia\n#vaticano #curiosidades #italia #historia #roma",
+  "palavra": ""
+ }
+}

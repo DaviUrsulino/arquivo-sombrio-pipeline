@@ -110,5 +110,9 @@
  "produzido:xai-company": {
   "quando": "2026-11-10T21:43+00:00",
   "resultado": "ok"
+ },
+ "curiosidade:tamanho-do-vaticano": {
+  "quando": "2026-11-11T00:31+00:00",
+  "resultado": "tamanho-do-vaticano"
  }
 }

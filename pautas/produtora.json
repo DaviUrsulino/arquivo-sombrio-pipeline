@@ -56,7 +56,8 @@
   "scifi-toon",
   "microgame",
   "hand-drawn-cartoon",
-  "circuit-board"
+  "circuit-board",
+  "data-story-charts"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -500,6 +501,14 @@
    "estilo": "circuit-board",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-10-2024-xai-company-circuit-board",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-11T01:45",
+   "repo": "historia/tamanho-do-vaticano",
+   "estilo": "data-story-charts",
+   "ok": false,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-11-0033-tamanho-do-vaticano-data-story-charts",
    "em_alta": false
   }
  ]
