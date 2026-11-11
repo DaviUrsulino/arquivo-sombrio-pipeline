@@ -1,0 +1,21 @@
+{
+ "titulo": "LLocalSearch: produtora (iso-infographic)",
+ "formato": "pronto",
+ "video_pronto_url": "https://github.com/DaviUrsulino/arquivo-sombrio-pipeline/releases/download/midia-publicacao/produtora-2026-11-11-0628-llocalsearch-iso-infographic.mp4",
+ "palavra_chave": "BUSCA",
+ "legenda": "Ache vagas de trabalho remoto que os buscadores comuns escondem de você.\nEsse buscador com agentes vasculha a internet direto do seu computador.\nComenta BUSCA para receber o link gratuito.",
+ "capa": "VAGAS REMOTAS ESCONDIDAS",
+ "cta_tipo": "manda",
+ "previsao": 7.8,
+ "itens": [
+  {
+   "repo": "nilsherzig/LLocalSearch"
+  }
+ ],
+ "estilo": "iso-infographic",
+ "gancho": "A",
+ "ganchos_alternativos": [
+  "Descobri como encontrar vagas de trabalho remoto sem depender de buscas pagas.",
+  "Fizeram um sistema que encontra vagas remotas escondidas dos buscadores comuns."
+ ]
+}
