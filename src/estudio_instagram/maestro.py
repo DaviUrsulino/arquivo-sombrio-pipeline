@@ -44,7 +44,9 @@ BRASILIA = timezone(timedelta(hours=-3))
 # 2026-11-05 (Davi): 20:00 era a pior faixa do perfil (mediana 317 views; o dossiê novo fez 124) e 22-24h a melhor
 # (mediana 1.200). Teste: a 3ª rodada vai para 00:30, 2 h depois da das 22:30 (regra de intervalo mínimo).
 # 06/11 (Davi): 4 por dia, a madrugada fica e entra o almoço (10h-14h teve mediana 1.578); séries às 22:30
-RODADAS = [("00:30", "pixel2"), ("08:00", "pixel2"), ("12:00", "pixel2"), ("22:30", "lista")]
+# 10/11 (Davi, com o banco sobrando): "é só postar um a mais de tarde, acho um horáriozinho". 16:00 entrou
+# porque a faixa da tarde era a única sem rodada e o banco estava com 7 vídeos para 4 rodadas por dia.
+RODADAS = [("00:30", "pixel2"), ("08:00", "pixel2"), ("12:00", "pixel2"), ("16:00", "pixel2"), ("22:30", "lista")]
 # 2026-10-29: a rodada das 20:00 era "loop" (vídeo do Google Flow, formato @pixosly) -- dependia do Davi
 # soltar um vídeo à mão em loops/fila/ toda vez, o que ele não sustentou ("mó preguiça"). Virou "pixel2"
 # (ferramenta/identidade, 100% automático, sem insumo manual) pra fechar as 3 rodadas do dia sem depender
@@ -78,7 +80,7 @@ PAUTAS_DO_DIA = {
 # Banco de vídeos: pautas prontas e aprovadas em pautas/viral/fila/. Cada rodada usa a próxima que ainda não saiu
 # (em ordem de nome); sem nada no banco, ver SO_VIDEOS_NOVOS.
 FILA = RAIZ / "pautas" / "viral" / "fila"
-FILA_RODADAS = ("00:30", "08:00", "12:00", "22:30")  # 2026-11-04 (Davi): só vídeo novo, o banco abastece TODAS as rodadas
+FILA_RODADAS = ("00:30", "08:00", "12:00", "16:00", "22:30")  # 2026-11-04 (Davi): só vídeo novo, o banco abastece TODAS as rodadas
 # Vídeos de venda feitos pela produtora no estilo novo; a rodada de venda (ter/sex 08:00) usa esta fila primeiro.
 FILA_VENDA = RAIZ / "pautas" / "viral" / "fila_venda"
 # Davi, 2026-11-04: "para mim já fazia só dos novos". Sem vídeo novo no banco, a rodada NÃO cai no formato antigo:
@@ -193,19 +195,22 @@ def escolher_da_fila(formato: str, usadas: list[str], antes_da_venda: bool = Fal
 # atrasa horas (00:17 de 05/11 nem entrou na fila), então o maestro, que está sempre rodando, garante: de 00h às 07h,
 # se o banco tem menos de BANCO_ALVO vídeos e não há produção rodando, dispara uma (no máximo 1 a cada 80 min).
 JANELA_PRODUCAO = (0, 7)
-BANCO_ALVO = 4  # 4 rodadas por dia (06/11)
+BANCO_ALVO = 5  # uma rodada por post do dia (10/11: 5 rodadas)
 INTERVALO_PRODUCAO = timedelta(minutes=80)
 # Reforço (Davi, 05/11): a cota semanal do Claude renova 06/11 às 13h e sobrou; até lá a produtora enche o banco até
 # 6 e trabalha até o meio-dia. 6 vídeos = 2 dias de grade, dentro da validade de 72 h. Depois volta sozinho ao normal.
-REFORCO_ATE = datetime(2026, 11, 6, 12, 30, tzinfo=BRASILIA)
+REFORCO_ATE = datetime(2026, 11, 12, 12, 0, tzinfo=BRASILIA)
+# Davi, 10/11: "minha sessão renova 2 horas da manhã; depois das 2 pode gerar um monte de vídeo". Então o
+# reforço da madrugada começa às 2h, e não à meia-noite, para não gastar a cota que ainda é da sessão velha.
+REFORCO_DESDE_HORA = 2
 
 
 def banco_alvo(agora: datetime | None = None) -> int:
-    return 6 if (agora or datetime.now(BRASILIA)) < REFORCO_ATE else BANCO_ALVO
+    return 9 if (agora or datetime.now(BRASILIA)) < REFORCO_ATE else BANCO_ALVO
 
 
 def janela_producao(agora: datetime | None = None) -> tuple[int, int]:
-    return (0, 13) if (agora or datetime.now(BRASILIA)) < REFORCO_ATE else JANELA_PRODUCAO
+    return (REFORCO_DESDE_HORA, 11) if (agora or datetime.now(BRASILIA)) < REFORCO_ATE else JANELA_PRODUCAO
 
 
 def deve_produzir(agora: datetime, estado: dict, banco: int, rodando: bool, serie_pendente: bool = False) -> bool:

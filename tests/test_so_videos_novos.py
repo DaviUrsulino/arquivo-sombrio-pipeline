@@ -70,22 +70,28 @@ def test_estilo_combina_com_o_assunto_e_varia():
 
 
 def test_maestro_produz_de_madrugada_so_quando_falta_video():
+    """10/11: a janela passou a começar às 2h (a sessão do Claude do Davi renova nesse horário)."""
     from datetime import datetime
-    noite = datetime(2026, 11, 10, 1, 0, tzinfo=maestro.BRASILIA)
+    noite = datetime(2026, 11, 10, 3, 0, tzinfo=maestro.BRASILIA)
+    alvo = maestro.banco_alvo(noite)
     assert maestro.deve_produzir(noite, {}, banco=1, rodando=False)
-    assert not maestro.deve_produzir(noite, {}, banco=4, rodando=False)
+    assert not maestro.deve_produzir(noite, {}, banco=alvo, rodando=False)
     assert not maestro.deve_produzir(noite, {}, banco=0, rodando=True)
-    assert not maestro.deve_produzir(noite, {"ultima_producao": "2026-11-10T00:30:00-03:00"}, banco=0, rodando=False)
+    assert not maestro.deve_produzir(noite, {"ultima_producao": "2026-11-10T02:30:00-03:00"}, banco=0, rodando=False)
     assert not maestro.deve_produzir(datetime(2026, 11, 10, 15, 0, tzinfo=maestro.BRASILIA), {}, banco=0, rodando=False)
+    # antes das 2h não produz: a cota ainda é da sessão velha
+    assert not maestro.deve_produzir(datetime(2026, 11, 10, 1, 0, tzinfo=maestro.BRASILIA), {}, banco=0, rodando=False)
 
 
 def test_reforco_ate_a_cota_renovar_e_depois_volta_ao_normal():
     from datetime import datetime
-    manha = datetime(2026, 11, 6, 10, 0, tzinfo=maestro.BRASILIA)
-    assert maestro.deve_produzir(manha, {}, banco=5, rodando=False)
-    assert not maestro.deve_produzir(manha, {}, banco=6, rodando=False)
-    depois = datetime(2026, 11, 6, 13, 0, tzinfo=maestro.BRASILIA)
-    assert maestro.banco_alvo(depois) == 4 and not maestro.deve_produzir(depois, {}, banco=0, rodando=False)
+    manha = datetime(2026, 11, 11, 10, 0, tzinfo=maestro.BRASILIA)   # dentro do reforço
+    reforcado = maestro.banco_alvo(manha)
+    assert maestro.deve_produzir(manha, {}, banco=reforcado - 1, rodando=False)
+    assert not maestro.deve_produzir(manha, {}, banco=reforcado, rodando=False)
+    depois = maestro.REFORCO_ATE.replace(hour=13)                     # reforço acabou
+    assert maestro.banco_alvo(depois) == maestro.BANCO_ALVO
+    assert not maestro.deve_produzir(depois, {}, banco=0, rodando=False)
 
 
 def test_estado_do_maestro_guarda_a_ultima_producao():
