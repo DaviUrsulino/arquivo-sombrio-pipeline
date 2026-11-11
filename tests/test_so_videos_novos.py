@@ -178,12 +178,6 @@ def test_nunca_dois_videos_de_venda_seguidos(tmp_path, monkeypatch):
     assert maestro.escolher_da_fila("pixel2", [], antes_da_venda=True) == "pautas/viral/fila/2099-01-01-0001-produtora-a.json"
 
 
-def test_fechamento_varia_entre_comenta_segue_salva_e_manda():
-    tipos = {produtora.fechamento(n, "KIT")[0] for n in range(6)}
-    assert tipos == {"comenta", "segue", "salva", "manda"}
-    assert "comenta KIT" in produtora.fechamento(0, "KIT")[1].lower().replace("kit", "KIT")
-
-
 def test_pauta_fixada_do_dia_nao_perde_a_vez_pro_banco(tmp_path, monkeypatch):
     """11/11: a estreia do cotidiano estava fixada em PAUTAS_DO_DIA para as 22:30 e saiu o vídeo do xAI.
     Como hoje TODAS as rodadas usam o banco, o escolher_da_fila sobrescrevia a pauta fixada."""
@@ -197,20 +191,25 @@ def test_pauta_fixada_do_dia_nao_perde_a_vez_pro_banco(tmp_path, monkeypatch):
     assert formato.startswith("pauta:")
 
 
-def test_fechamento_revela_que_foi_a_maquina_antes_de_pedir():
-    """Davi, 11/11: 'no final só bota: esse vídeo foi gerado por IA, querem saber como? digite alguma coisa'.
-    A venda deixa de ser vídeo institucional (mediana 159 views) e vira a última frase de um vídeo bom."""
-    tipos, revelacoes = set(), set()
-    for n in range(8):
-        tipo, frase = produtora.fechamento(n, "ESTUDIO")
-        tipos.add(tipo)
-        revelacoes.add(produtora.revelacao(n))
-        assert produtora.revelacao(n) in frase, "a revelação vem antes do pedido"
-        assert frase.index(produtora.revelacao(n)) == 0
-    assert tipos >= {"comenta", "segue", "salva", "manda"}, "o pedido tem que alternar"
-    assert len(revelacoes) > 1, "a revelação também alterna, senão cansa"
+def test_fechamento_segue_o_que_os_virais_fazem():
+    """11/11: transcrevi 6 Reels com 11 milhões de views somados. O de 3 milhões (@thiagonavega) não pede NADA,
+    e o de 3,5 milhões (@aprendisemquere) segmenta ('já sabia? comenta X / aprendeu agora? comenta Y')."""
+    tipos = [produtora.fechamento(n, "ESTUDIO")[0] for n in range(len(produtora.FECHAMENTOS))]
+    assert "nenhum" in tipos, "um em cada quatro fecha sem pedir nada, como o de 3 milhões"
+    assert "segmentado" in tipos, "o de 3,5 milhões divide quem assiste em dois grupos"
+    assert len(set(tipos)) >= 5, "o fechamento tem que variar, senão cansa"
 
 
-def test_da_pra_desligar_a_revelacao_quando_o_video_ja_e_sobre_a_maquina():
-    _, frase = produtora.fechamento(0, "ESTUDIO", revelar=False)
-    assert produtora.revelacao(0) not in frase
+def test_fechamento_vazio_nao_vira_cena_muda():
+    from src.estudio_instagram.diretor import roteiro
+    tipo, frase = next((t, f) for t, f in (produtora.fechamento(n, "X")
+                                           for n in range(len(produtora.FECHAMENTOS))) if t == "nenhum")
+    assert frase == ""
+    rot = {"ganchos": ["g"], "corpo": ["c1", "c2"], "cta": frase}
+    assert roteiro.frases(rot) == ["g", "c1", "c2"], "sem pedido, o vídeo acaba na última frase do corpo"
+
+
+def test_segmentado_da_uma_palavra_pra_cada_lado():
+    frase = dict(produtora.FECHAMENTOS)["segmentado"].format(p="ESTUDIO")
+    assert frase.lower().count("comenta") == 2, "um pedido para cada grupo"
+    assert "ESTUDIO" in frase

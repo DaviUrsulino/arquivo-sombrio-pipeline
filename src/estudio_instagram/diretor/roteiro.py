@@ -113,4 +113,8 @@ def prever(r: dict, gancho: int = 0, llm=None, corte: float = 6.5) -> dict:
 
 
 def frases(roteiro: dict, gancho: int = 0) -> list[str]:
-    return [roteiro["ganchos"][gancho]] + list(roteiro["corpo"]) + [roteiro["cta"]]
+    """11/11: o fechamento pode vir vazio de propósito -- um em cada quatro vídeos não pede nada, como o Reels
+    de 3 milhões do @thiagonavega, que termina na frase que dá sentido ao vídeo. Sem o filtro viraria uma cena
+    muda no fim."""
+    cta = (roteiro.get("cta") or "").strip()
+    return [roteiro["ganchos"][gancho]] + list(roteiro["corpo"]) + ([cta] if cta else [])

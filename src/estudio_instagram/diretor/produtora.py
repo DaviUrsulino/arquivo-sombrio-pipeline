@@ -81,43 +81,34 @@ ferramenta de IA pede tecnologia, terminal, brinquedo 3D ou esquete). Nunca esco
 Responda só JSON: {"estilos": ["slug1", "slug2", "slug3", "slug4"]} usando os slugs da lista."""
 
 
-# Davi, 06/11: "só me siga, em vez de ficar comente também... pra não ser sempre a mesma coisa". O fechamento roda
-# entre 4 pedidos; a legenda continua com o "Comenta X" (o link sai pelo direct em todos). cta_tipo vai pra fila
-# para o analista comparar qual traz mais seguidor.
+# Como os virais REALMENTE fecham (11/11: transcrevi 6 Reels somando 11 milhões de views, com Whisper local,
+# ver referencias/transcricoes/). Não existe fórmula única, e a minha tentativa anterior -- empilhar revelação
+# + pedido numa frase só -- não aparece em nenhum deles:
+#   @thiagonavega (3 mi)      ZERO pedido. Termina na frase que dá sentido ao vídeo.
+#   @aprendisemquere (3,5 mi) pedido SEGMENTADO: "já sabia? comenta gelado / aprendeu agora? comenta aprendi
+#                             sem querer" -- divide quem assiste em dois grupos e os dois comentam. Ainda pede
+#                             o tema do próximo vídeo.
+#   @gabriel.cta (990 mil)    pedido mínimo: "segue pra parte 4".
+#   @escolhas.app (1,9 mi)    um pedido no MEIO do vídeo (aos 34 s de 66) e outro no fim.
+#   @guics.dev (307 mil)      um pedido curto, e o vídeo inteiro é diálogo entre dois personagens.
+# Daí o rodízio abaixo: cada vídeo fecha de um jeito, e um em cada quatro não pede nada.
 FECHAMENTOS = [
-    ("comenta", "Me segue e comenta {p} que eu te mando o link. Todo dia tem uma IA nova aqui."),
-    ("segue", "Me segue que amanhã tem outra dessas. Todo dia uma IA nova aqui."),
-    ("comenta", "Me segue e comenta {p} que eu te mando o link. Todo dia tem uma IA nova aqui."),
-    ("salva", "Salva esse vídeo pra testar depois. E me segue pra não perder a próxima."),
-    ("comenta", "Me segue e comenta {p} que eu te mando o link. Todo dia tem uma IA nova aqui."),
-    ("manda", "Manda esse vídeo pra aquele amigo que precisa ver isso. E me segue pra mais."),
-]
-
-# Davi, 11/11: "faz um post de venda foda com roteiro foda e no final só bota: esse vídeo foi gerado por IA,
-# querem saber como? digite alguma coisa". É a estrutura do Reels de 39 mil curtidas do @productivevick, que a
-# gente transcreveu: 70 segundos de conteúdo bom SEM narração nenhuma e, só aos 70 s, "você assistiu o vídeo
-# inteiro, não é?" seguido do pedido. A venda deixa de ser um vídeo institucional (mediana de 159 views, o pior
-# formato da conta) e vira a última frase de um vídeo que já valeu a pena assistir.
-REVELACOES = [
-    "Esse vídeo foi feito do começo ao fim por uma máquina, sem editor.",
-    "Você assistiu até aqui, né? Nenhum quadro disso foi editado à mão.",
-    "Tudo o que você viu foi uma máquina que montou sozinha, enquanto eu dormia.",
-    "Esse vídeo inteiro saiu de um comando só. Nenhuma edição depois disso.",
+    # o segmentado é o do vídeo de 3,5 milhões: todo mundo se encaixa num dos dois lados
+    ("segmentado", "Já sabia disso? Comenta JÁ SABIA. Descobriu agora? Comenta {p}."),
+    ("comenta", "Comenta {p} que eu te mando no direct."),
+    ("nenhum", ""),  # o vídeo de 3 milhões fecha sem pedir nada: a última frase é a mensagem
+    ("segue", "Se você quer ver a próxima, me segue."),
+    ("segmentado", "Você faria igual? Comenta EU FARIA. Não faria? Comenta {p}."),
+    ("manda", "Manda pra quem precisa ver isso hoje."),
+    ("nenhum", ""),
+    ("pauta", "Comenta {p} e me diz qual vai ser o próximo vídeo."),
 ]
 
 
-def revelacao(n: int) -> str:
-    return REVELACOES[n % len(REVELACOES)]
-
-
-def fechamento(n: int, palavra: str, revelar: bool = True) -> tuple[str, str]:
-    """(tipo do pedido, frase final). `revelar` põe a revelação antes do pedido -- é o que transforma um vídeo
-    comum em vídeo de venda sem precisar de um vídeo de venda."""
+def fechamento(n: int, palavra: str) -> tuple[str, str]:
+    """(tipo do pedido, frase final). Um em cada quatro vídeos fecha sem pedido nenhum, de propósito."""
     tipo, texto = FECHAMENTOS[n % len(FECHAMENTOS)]
-    pedido = texto.format(p=palavra)
-    return tipo, (f"{revelacao(n)} {pedido}" if revelar else pedido)
-
-
+    return tipo, texto.format(p=palavra)
 def estilos_fracos(desempenho: dict | None = None, corte: float = 0.2) -> set[str]:
     """Estilos que já foram postados e ficaram muito abaixo do perfil (mediana de views abaixo de 20% da mediana
     geral). Dossiê fez 130 views com o perfil na casa de 1.200: não vale repetir até os números mudarem."""
