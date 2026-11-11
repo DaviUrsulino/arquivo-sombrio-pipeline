@@ -69,6 +69,7 @@
   "circuit-board",
   "cartoon-3d-short",
   "midcentury-toon",
+  "midcentury-toon",
   "midcentury-toon"
  ],
  "repos_usados": [
@@ -625,6 +626,14 @@
    "estilo": "midcentury-toon",
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-11-1927-wannacry-dominio-de-10-dolares-midcentury-toon",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-11T22:08",
+   "repo": "historia/wannacry-dominio-de-10-dolares",
+   "estilo": "midcentury-toon",
+   "ok": false,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-11-2208-wannacry-dominio-de-10-dolares-midcentury-toon",
    "em_alta": false
   }
  ]
