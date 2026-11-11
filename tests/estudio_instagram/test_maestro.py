@@ -50,9 +50,12 @@ def test_rodada_de_venda_dispara_no_horario_dela():
 
 
 def test_acordar_muito_depois_da_hora_perde_a_rodada_em_vez_de_empilhar():
+    """A rodada atrasada demais vira 'perdida' em vez de disparar fora de hora. As outras rodadas do dia entram
+    como já feitas para isolar a regra: senão o teste mede a grade (que muda), não o comportamento."""
     hora = RODADAS[0][0]
     agora = _mais(hora, int(maestro.TOLERANCIA_ATRASO.total_seconds() // 60) + 30)
-    formato, estado = decidir(_t(agora), {})
+    feitos = {h: "x" for h, _ in RODADAS[1:]}
+    formato, estado = decidir(_t(agora), {"dia": "2026-10-19", "feitos": feitos})
     assert formato is None
     assert estado["feitos"][hora] == "perdida"
 

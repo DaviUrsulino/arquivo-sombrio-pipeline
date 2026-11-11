@@ -44,9 +44,10 @@ BRASILIA = timezone(timedelta(hours=-3))
 # 2026-11-05 (Davi): 20:00 era a pior faixa do perfil (mediana 317 views; o dossiê novo fez 124) e 22-24h a melhor
 # (mediana 1.200). Teste: a 3ª rodada vai para 00:30, 2 h depois da das 22:30 (regra de intervalo mínimo).
 # 06/11 (Davi): 4 por dia, a madrugada fica e entra o almoço (10h-14h teve mediana 1.578); séries às 22:30
-# 10/11 (Davi, com o banco sobrando): "é só postar um a mais de tarde, acho um horáriozinho". 16:00 entrou
-# porque a faixa da tarde era a única sem rodada e o banco estava com 7 vídeos para 4 rodadas por dia.
-RODADAS = [("00:30", "pixel2"), ("08:00", "pixel2"), ("12:00", "pixel2"), ("16:00", "pixel2"), ("22:30", "lista")]
+# 10/11: entrou uma 5ª rodada porque o banco sobrava, e eu pus às 16:00 "porque a tarde estava vazia".
+# 11/11: medi por hora e a tarde é o fundo do poço deste perfil -- 14h fez 226, 15h fez 173 e 18h fez 126 views,
+# contra 1.2 a 1.3 mil da madrugada, do meio-dia e das 22h. A rodada da tarde virou 03:00 (mediana 1.368).
+RODADAS = [("00:30", "pixel2"), ("03:00", "pixel2"), ("08:00", "pixel2"), ("12:00", "pixel2"), ("22:30", "lista")]
 # 2026-10-29: a rodada das 20:00 era "loop" (vídeo do Google Flow, formato @pixosly) -- dependia do Davi
 # soltar um vídeo à mão em loops/fila/ toda vez, o que ele não sustentou ("mó preguiça"). Virou "pixel2"
 # (ferramenta/identidade, 100% automático, sem insumo manual) pra fechar as 3 rodadas do dia sem depender
@@ -80,7 +81,7 @@ PAUTAS_DO_DIA = {
 # Banco de vídeos: pautas prontas e aprovadas em pautas/viral/fila/. Cada rodada usa a próxima que ainda não saiu
 # (em ordem de nome); sem nada no banco, ver SO_VIDEOS_NOVOS.
 FILA = RAIZ / "pautas" / "viral" / "fila"
-FILA_RODADAS = ("00:30", "08:00", "12:00", "16:00", "22:30")  # 2026-11-04 (Davi): só vídeo novo, o banco abastece TODAS as rodadas
+FILA_RODADAS = ("00:30", "03:00", "08:00", "12:00", "22:30")  # 2026-11-04 (Davi): só vídeo novo, o banco abastece TODAS as rodadas
 # Vídeos de venda feitos pela produtora no estilo novo; a rodada de venda (ter/sex 08:00) usa esta fila primeiro.
 FILA_VENDA = RAIZ / "pautas" / "viral" / "fila_venda"
 # Davi, 2026-11-04: "para mim já fazia só dos novos". Sem vídeo novo no banco, a rodada NÃO cai no formato antigo:
