@@ -60,7 +60,8 @@
   "data-story-charts",
   "dataviz",
   "ascii-crt",
-  "iso-infographic"
+  "iso-infographic",
+  "desktop-flythrough"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -75,7 +76,8 @@
   "KKKKhazix/agent-autoloop",
   "worldonlyu/Google_AI_Pro_2Year_ZeroCost_Auto",
   "Mintplex-Labs/anything-llm",
-  "nilsherzig/LLocalSearch"
+  "nilsherzig/LLocalSearch",
+  "meta/astryx"
  ],
  "producoes": [
   {
@@ -538,6 +540,14 @@
    "estilo": "iso-infographic",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-11-0628-llocalsearch-iso-infographic",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-11T08:15",
+   "repo": "meta/astryx",
+   "estilo": "desktop-flythrough",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-11-0745-astryx-desktop-flythrough",
    "em_alta": false
   }
  ]

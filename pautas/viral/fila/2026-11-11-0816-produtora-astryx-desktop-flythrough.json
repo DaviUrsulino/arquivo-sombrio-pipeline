@@ -1,0 +1,21 @@
+{
+ "titulo": "astryx: produtora (desktop-flythrough)",
+ "formato": "pronto",
+ "video_pronto_url": "https://github.com/DaviUrsulino/arquivo-sombrio-pipeline/releases/download/midia-publicacao/produtora-2026-11-11-0745-astryx-desktop-flythrough.mp4",
+ "palavra_chave": "ASTRYX",
+ "legenda": "A Meta liberou o seu principal sistema visual para criadores e programadores. Comente a palavra para receber o link.\nMe segue e comenta ASTRYX que eu te mando o link no direct.",
+ "capa": "FERRAMENTA SECRETA DA META",
+ "cta_tipo": "comenta",
+ "previsao": 5.6,
+ "itens": [
+  {
+   "repo": "meta/astryx"
+  }
+ ],
+ "estilo": "desktop-flythrough",
+ "gancho": "A",
+ "ganchos_alternativos": [
+  "A Meta abriu o código do maior sistema visual da empresa.",
+  "Fizeram um sistema visual gigante que funciona direto com a IA."
+ ]
+}
