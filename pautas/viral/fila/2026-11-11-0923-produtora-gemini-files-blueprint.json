@@ -1,0 +1,21 @@
+{
+ "titulo": "gemini_files: produtora (blueprint)",
+ "formato": "pronto",
+ "video_pronto_url": "https://github.com/DaviUrsulino/arquivo-sombrio-pipeline/releases/download/midia-publicacao/produtora-2026-11-11-0914-gemini-files-blueprint.mp4",
+ "palavra_chave": "ALERTA",
+ "legenda": "O Google confirmou que dados do seu Drive e Gmail no Gemini pessoal vão para revisores humanos.\nVeja como testar se a IA está lendo suas coisas.\nComenta ALERTA para receber o link com a prova completa.",
+ "capa": "HUMANOS LENDO SEUS EMAILS?",
+ "cta_tipo": "segue",
+ "previsao": 8.1,
+ "itens": [
+  {
+   "repo": "thisisme6598/gemini_files"
+  }
+ ],
+ "estilo": "blueprint",
+ "gancho": "A",
+ "ganchos_alternativos": [
+  "Um pesquisador provou que o Google lê seus arquivos sem você pedir",
+  "Pegaram a IA do Google vazando dados do seu Drive para revisores humanos"
+ ]
+}

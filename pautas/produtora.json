@@ -61,7 +61,8 @@
   "dataviz",
   "ascii-crt",
   "iso-infographic",
-  "desktop-flythrough"
+  "desktop-flythrough",
+  "blueprint"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -77,7 +78,8 @@
   "worldonlyu/Google_AI_Pro_2Year_ZeroCost_Auto",
   "Mintplex-Labs/anything-llm",
   "nilsherzig/LLocalSearch",
-  "meta/astryx"
+  "meta/astryx",
+  "thisisme6598/gemini_files"
  ],
  "producoes": [
   {
@@ -548,6 +550,14 @@
    "estilo": "desktop-flythrough",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-11-0745-astryx-desktop-flythrough",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-11T09:23",
+   "repo": "thisisme6598/gemini_files",
+   "estilo": "blueprint",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-11-0914-gemini-files-blueprint",
    "em_alta": false
   }
  ]
