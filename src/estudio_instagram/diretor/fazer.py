@@ -40,7 +40,7 @@ def _renderizar(pasta_proj: Path, mp4: Path):
 
 def produzir(fatos: str, saida: Path, gancho: int = 0, plano: dict | None = None, rot: dict | None = None,
              correcao: bool = True, voz=None, chapeu: str | None = None, mundo: str | None = None,
-             palavra: str | None = None) -> dict:
+             palavra: str | None = None, formato: str | None = None) -> dict:
     saida.mkdir(parents=True, exist_ok=True)
     voz = voz or narracao.voz_padrao()
     if plano is None:
@@ -50,7 +50,7 @@ def produzir(fatos: str, saida: Path, gancho: int = 0, plano: dict | None = None
             rot["cta"] = f"Comenta {rot['palavra']} e me segue que eu te mando o link."
         (saida / "roteiro.json").write_text(json.dumps(rot, ensure_ascii=False, indent=1), encoding="utf-8")
         frases = roteiro.frases(rot, gancho)
-        plano = direcao.dirigir(frases, fatos, rot["palavra"])
+        plano = direcao.dirigir(frases, fatos, rot["palavra"], formato=formato)
         if chapeu:
             plano["chapeu"] = chapeu
         if mundo:
@@ -77,7 +77,7 @@ def produzir(fatos: str, saida: Path, gancho: int = 0, plano: dict | None = None
     if correcao and not v1["res"]["aprovado"] and corr and rot is not None:
         extra = "\n\nUM CRÍTICO VIU OS QUADROS DA VERSÃO ANTERIOR E PEDIU (os números são as cenas):\n- " + "\n- ".join(corr)
         try:
-            plano2 = direcao.dirigir(frases, fatos + extra, plano["palavra"])
+            plano2 = direcao.dirigir(frases, fatos + extra, plano["palavra"], formato=formato)
             if chapeu:
                 plano2["chapeu"] = chapeu
             v2 = rodada(plano2, "v2")

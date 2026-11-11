@@ -49,7 +49,7 @@ def _usuario(frases: list[str], fatos: str) -> str:
     return f"FRASES ({len(frases)}):\n{linhas}\n\nFATOS DO TEMA (contexto):\n{fatos[:2500]}"
 
 
-def consertar(plano: dict, frases: list[str]) -> tuple[dict, list[str]]:
+def consertar(plano: dict, frases: list[str], formato: str | None = None) -> tuple[dict, list[str]]:
     """Normaliza o storyboard; devolve (plano, erros graves que pedem nova tentativa)."""
     erros = []
     cenas = plano.get("cenas") or []
@@ -61,7 +61,10 @@ def consertar(plano: dict, frases: list[str]) -> tuple[dict, list[str]]:
         plano["chapeu"] = "nenhum"
     hud = plano.get("hud") or {}
     if hud.get("tipo") not in ("contador", "etapas"):
-        plano["hud"] = {"tipo": "contador", "rotulo": "VÍDEOS"}
+        # o HUD fica na tela o vídeo inteiro: o rótulo tem que ter a ver com o formato, senão não dá motivo
+        # pra ficar até o fim (ver estilo_formato.HUD_PADRAO e o Reels de 1,9 milhão do @escolhas.app)
+        from .. import estilo_formato
+        plano["hud"] = estilo_formato.hud(formato)
     mundos_usados = set()
     anterior = {}
     for i, (c, f) in enumerate(zip(cenas, frases)):
@@ -172,13 +175,14 @@ def _variedade(plano: dict, cenas: list[dict]):
                 c["hud_valor"] = round(topo * (i / max(1, n - 2)) ** 1.6) if i < n - 1 else topo
 
 
-def dirigir(frases: list[str], fatos: str, palavra: str, llm=gerar_json, tentativas: int = 3) -> dict:
+def dirigir(frases: list[str], fatos: str, palavra: str, llm=gerar_json, tentativas: int = 3,
+            formato: str | None = None) -> dict:
     sistema = SISTEMA.replace("__CATALOGO__", cat.para_llm())
     pedido = _usuario(frases, fatos)
     melhor, erros = None, ["sem resposta"]
     for _ in range(tentativas):
         plano = llm(sistema, pedido)
-        plano, erros = consertar(plano, frases)
+        plano, erros = consertar(plano, frases, formato)
         melhor = plano
         if not erros:
             break

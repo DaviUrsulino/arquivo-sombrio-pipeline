@@ -149,10 +149,21 @@ def proximo_estilo(estado: dict, todos: list[dict]) -> dict:
     return livres[0]
 
 
+# O que o placar do topo mostra, por formato do vídeo. Ver estilo_formato.py e a regra PLACAR FIXO no briefing.
+PLACAR = {
+    "historia_personagem": '"PARTE 1" e uma barra de TENSÃO que sobe a cada cena',
+    "documentario": '"O NÚMERO" com o valor principal da história subindo até o total real',
+    "numero": '"A CONTA" com o número da curiosidade subindo até o valor real do fim',
+    "utilidade": '"PASSO 1/N" com a barra enchendo a cada passo concluído',
+}
+PLACAR_GENERICO = 'um contador que sobe a cada cena, com rótulo curto ligado ao assunto do vídeo'
+
+
 def briefing(frases: list[str], estilo: dict, pasta: Path, palavra: str, extra: str = "", tela: str = "",
-             historia: bool = False) -> str:
+             historia: bool = False, formato: str | None = None) -> str:
     """O que o Claude Code recebe. Só texto nosso + as frases do roteiro (sem nada vindo da internet)."""
     lista = json.dumps(frases, ensure_ascii=False, indent=1)
+    hud = PLACAR.get(formato or "", PLACAR_GENERICO)
     if estilo["slug"] == "esquete":
         como = ("FORMATO: esquete cômica em diálogo entre o criador \"Davi\" (jovem, moletom) e o robô assistente (mascote do perfil: "
                 "corpo arredondado coral, cabeça creme que é uma tela escura com olhos verde-menta brilhando, antena com luz vermelha). "
@@ -197,6 +208,10 @@ ROTEIRO (aprovado, frase por frase; não invente fatos nem números; pode encurt
 REGRAS DO VÍDEO (estudo de 108 Reels virais):
 - GANCHO (0 a 1,5 s, decide se o Reel viaja): o primeiro quadro já mostra o fato mais forte em movimento, nunca logo,
   título ou introdução. Texto grande na tela, legível sem som: "{tela or frases[0]}". Ele some quando a 2ª frase começa.
+- PLACAR FIXO NO TOPO, do primeiro ao último quadro (medido em 10/11: o Reels de 1,9 milhão do @escolhas.app, com
+  22,7 mil comentários, mantém "DIAS RESTANTES: 4" e "GLOW-UP: 75%" com a barra enchendo o vídeo inteiro; quem assiste
+  fica para ver o placar chegar ao fim). Faixa fina no alto com 1 ou 2 indicadores: {hud}. O valor MUDA a cada cena,
+  sempre para frente, e a barra enche junto. Letra pequena no rótulo, número grande. Nunca suma com ele no meio.
 - 1080x1920, 30 fps, com áudio, duração igual à da narração (25 a 60 s). Cada frase é UMA cena com uma ação visual concreta ligada ao que a frase diz;
   algo novo na tela a cada 1 a 3 s; nunca um slide de texto parado.
 - Um estado na tela que avança (contador, barra, "prova 3/7", nível) do começo ao fim.
@@ -333,7 +348,7 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
     (pasta / "legenda.txt").write_text(rot.get("legenda", ""), encoding="utf-8")
     print(f"produzindo {repo} no estilo {estilo['nome']} -> {pasta}", flush=True)
     resposta = rodar_agente(briefing(frases, estilo, pasta, rot["palavra"], extra_video, rot.get("texto_tela", ""),
-                                     historia=bool(historia)), pasta,
+                                     historia=bool(historia), formato=formato_video), pasta,
                             timeout_s=7200 if historia else 4500, modelo="opus" if historia else None)
     final = pasta / "final.mp4"
     res = {"pasta": str(pasta), "repo": repo, "estilo": estilo["slug"], "palavra": rot["palavra"], "ok": False, "venda": venda,

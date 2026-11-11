@@ -53,3 +53,17 @@ def test_estilo_para_so_oferece_ao_llm_o_que_cabe_no_formato():
     escolhido = produtora.estilo_para("tecnologia", {}, todos, llm=llm, fracos=set(), formato="documentario")
     assert escolhido["slug"] == "teardown"
     assert "hand-drawn-cartoon" not in vistos["pedido"]
+
+
+def test_placar_do_topo_muda_com_o_formato():
+    """O Reels de 1,9 milhão do @escolhas.app mantém o placar na tela o vídeo inteiro; o nosso briefing tem que
+    pedir um placar que faça sentido pro formato, não um contador genérico."""
+    from pathlib import Path
+    estilo = {"slug": "pixel-rpg", "nome": "RPG"}
+    historia = produtora.briefing(["f1"], estilo, Path("/tmp/x"), "P", formato="historia_personagem")
+    numero = produtora.briefing(["f1"], estilo, Path("/tmp/x"), "P", formato="numero")
+    generico = produtora.briefing(["f1"], estilo, Path("/tmp/x"), "P")
+    assert "PLACAR FIXO NO TOPO" in historia
+    assert "TENSÃO" in historia and "A CONTA" not in historia
+    assert "A CONTA" in numero
+    assert produtora.PLACAR_GENERICO in generico

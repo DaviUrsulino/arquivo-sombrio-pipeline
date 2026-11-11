@@ -42,6 +42,22 @@ FORMATOS: dict[str, tuple[list[str], str]] = {
 }
 PADRAO = "historia_personagem"  # na dúvida, personagem que atua rende mais que tela parada
 
+# O HUD que fica na tela o vídeo inteiro, por formato. O Reels de 1,9 milhão do @escolhas.app (102 mil curtidas,
+# 22,7 mil comentários) mantém "DIAS RESTANTES: 4" e "GLOW-UP: 75%" com barra enchendo do começo ao fim: quem
+# assiste não está vendo uma história, está acompanhando um placar. O nosso HUD existia mas caía num rótulo
+# genérico ("VÍDEOS"), que não dá a ninguém motivo para ficar até o fim.
+HUD_PADRAO: dict[str, dict] = {
+    "documentario": {"tipo": "contador", "rotulo": "O NÚMERO"},
+    "historia_personagem": {"tipo": "contador", "rotulo": "TENSÃO"},
+    "utilidade": {"tipo": "etapas", "itens": []},
+    "numero": {"tipo": "contador", "rotulo": "A CONTA"},
+}
+
+
+def hud(formato: str | None) -> dict:
+    """O HUD que faz sentido para este formato. Sem formato conhecido, o contador genérico de sempre."""
+    return dict(HUD_PADRAO.get(formato or "", {"tipo": "contador", "rotulo": "VÍDEOS"}))
+
 
 def recomendados(formato: str) -> list[str]:
     return FORMATOS.get(formato, FORMATOS[PADRAO])[0]
