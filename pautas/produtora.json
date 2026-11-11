@@ -67,7 +67,8 @@
   "esquete",
   "ascii-crt",
   "circuit-board",
-  "cartoon-3d-short"
+  "cartoon-3d-short",
+  "midcentury-toon"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -607,6 +608,14 @@
    "estilo": "cartoon-3d-short",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-11-1721-mensagem-do-proprio-numero-cartoon-3d-short",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-11T18:38",
+   "repo": "historia/wannacry-dominio-de-10-dolares",
+   "estilo": "midcentury-toon",
+   "ok": false,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-11-1807-wannacry-dominio-de-10-dolares-midcentury-toon",
    "em_alta": false
   }
  ]

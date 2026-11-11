@@ -134,5 +134,9 @@
  "produzido:mensagem-do-proprio-numero": {
   "quando": "2026-11-11T18:03+00:00",
   "resultado": "ok"
+ },
+ "tech:wannacry-dominio-de-10-dolares": {
+  "quando": "2026-11-11T18:06+00:00",
+  "resultado": "wannacry-dominio-de-10-dolares"
  }
 }

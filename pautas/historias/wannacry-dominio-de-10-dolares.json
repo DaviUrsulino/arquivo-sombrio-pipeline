@@ -1,0 +1,29 @@
+{
+ "slug": "wannacry-dominio-de-10-dolares",
+ "serie": "wannacry-dominio-de-10-dolares",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "estilo": "midcentury-toon",
+ "fonte": "https://en.wikipedia.org/wiki/WannaCry_ransomware_attack",
+ "direcao": "HISTÓRIA REAL DA TECNOLOGIA. Crie animações simples e limpas em estilo 2D. Mostre um escritório com computadores exibindo telas vermelhas de erro. No HUD fixo, exiba um contador de países que chega a 150. Na cena da virada, o pesquisador digita em um teclado e um escudo digital azul bloqueia o vírus no mapa mundial.",
+ "roteiro": {
+  "texto_tela": "COMPUTADORES TRAVADOS EM 150 PAÍSES",
+  "ganchos": [
+   "Um pesquisador achou um botão de emergência escondido em um vírus que parou o mundo."
+  ],
+  "corpo": [
+   "Em maio de 2017, computadores começaram a travar em massa ao redor do planeta.",
+   "Uma tela vermelha exigia pagamento em bitcoin, uma moeda digital, para destrancar os arquivos.",
+   "O vírus se espalhava sozinho entre as máquinas, explorando uma falha que foi roubada da NSA, a agência de espionagem americana.",
+   "A Microsoft já tinha avisado e lançado uma atualização, mas milhares de empresas ignoraram o aviso.",
+   "Em poucas horas, mais de 300 mil computadores em 150 países foram atingidos pelos criminosos.",
+   "Foi aí que um pesquisador chamado Marcus Hutchins analisou o código do programa malicioso.",
+   "Ele descobriu um endereço de internet estranho que o vírus tentava abrir antes de atacar.",
+   "Se o endereço respondesse, o ataque parava sozinho. Hutchins comprou o domínio por poucos dólares e travou a infecção global."
+  ],
+  "cta": "Manda pro amigo que sempre deixa a atualização do celular pra depois. E me segue: amanhã tem outra história real da tecnologia.",
+  "legenda": "Em 2017, o ataque do WannaCry travou centenas de milhares de computadores no mundo inteiro usando uma falha vazada da NSA. Um pesquisador salvou o dia ao registrar um endereço de internet esquecido no código do vírus.\nFonte: Wikipédia\nManda pro amigo que sempre deixa a atualização do celular pra depois.\nSegue o @ursulino.ia: todo dia uma história real da tecnologia.\n#tecnologia #historia #seguranca #computador #curiosidades",
+  "palavra": ""
+ }
+}
