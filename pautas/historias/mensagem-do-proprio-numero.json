@@ -1,0 +1,31 @@
+{
+ "slug": "mensagem-do-proprio-numero",
+ "serie": "mensagem-do-proprio-numero",
+ "episodio": 1,
+ "opcoes": [
+  "JANELA",
+  "CAMA"
+ ],
+ "produzir": true,
+ "estilo": "cartoon-3d-short",
+ "direcao": "HISTÓRIA DE COTIDIANO, público amplo, sem nada de tecnologia. ",
+ "roteiro": {
+  "texto_tela": "QUEM ESTÁ LIGANDO PARA VOCÊ?",
+  "ganchos": [
+   "Seu celular tocou às três da manhã e era o seu próprio número."
+  ],
+  "corpo": [
+   "Você acorda assustada com o som estridente no quarto escuro.",
+   "O visor mostra claramente o seu nome e a sua foto chamando agora.",
+   "Você atende com o coração disparado, esperando ouvir a sua própria voz.",
+   "Em vez disso, você ouve o barulho exato da chuva batendo na sua janela.",
+   "Só que hoje a noite está perfeitamente limpa e sem nenhuma gota de água.",
+   "A ligação continua ativa e alguém respira pesado do outro lado da linha.",
+   "Você olha para a janela e vê uma silhueta parada no vidro te encarando.",
+   "Agora você precisa escolher entre olhar embaixo da cama ou abrir a janela."
+  ],
+  "cta": "Comenta JANELA ou CAMA. A parte 2 sai amanhã com a escolha que ganhar. Me segue pra não perder.",
+  "legenda": "Seu celular tocou às três da manhã e era o seu próprio número.\nComenta JANELA ou CAMA. A mais votada vira a parte 2.\nSegue o @ursulino.ia pra ver o final.\n#suspense #medo #terror #historias #cotidiano",
+  "palavra": ""
+ }
+}
