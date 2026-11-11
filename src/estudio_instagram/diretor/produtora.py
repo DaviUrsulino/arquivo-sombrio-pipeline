@@ -288,7 +288,7 @@ def fatos_venda(pasta: Path = VENDAS) -> str:
 
 def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: bool = False,
              momento: dict | None = None, historia: dict | None = None, fatos: str | None = None,
-             palavra: str | None = None, promessa: str | None = None) -> dict:
+             palavra: str | None = None, promessa: str | None = None, par: tuple | None = None) -> dict:
     from .fazer import fatos_do_repo
     estado = _estado()
     todos = estilos()
@@ -329,12 +329,22 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
         # `promessa`: vídeo de utilidade prática (ver utilidade.py). A ferramenta vira o meio; a promessa, escrita
         # pra quem nunca programou, vira o assunto. Medido 10/11: é o que separa 307 mil views de 3 mil.
         extra_roteiro = ""
-        if promessa:
+        if par:  # assunto gigante + ferramenta pra quem curte o assunto (fórmula do Reels de 558 mil, 10/11)
+            from .. import assunto_ferramenta
+            _slug, assunto_gigante, _repo, palavra_par, promessa_par = par
+            extra_roteiro = assunto_ferramenta.extra(assunto_gigante, promessa_par, palavra_par)
+        elif promessa:
             from .. import utilidade
             extra_roteiro = utilidade.extra(promessa)
         rot = roteiro.escrever(fatos or fatos_do_repo(repo), longo=longo, extra=extra_roteiro)
         rot["versao"] = "longa" if longo else "curta"
         rot["utilidade"] = bool(promessa)
+        if par:
+            from .. import assunto_ferramenta
+            rot["palavra"] = par[3]
+            rot["cta"] = f"Comenta {par[3]} que eu te mando o sistema."
+            # legenda de UMA linha, como a do Reels de 558 mil: o resto do texto está dentro do vídeo
+            rot["legenda"] = assunto_ferramenta.legenda(par[4], par[3])
         if palavra:  # site/ferramenta (Davi, 06/11: Gradium): a palavra tem resposta fixa em bot_respostas.json
             rot["palavra"] = palavra
         rot["cta_tipo"], rot["cta"] = fechamento(len(estado.get("producoes", [])), rot["palavra"])
@@ -483,7 +493,7 @@ def main():
     p.add_argument("--promessa", help="ângulo de utilidade prática: o que QUEM ASSISTE ganha, em linguagem de leigo "
                                       "(ver utilidade.py). Use com --repo. Ex.: 'tirar o fundo de qualquer foto de graça'")
     a = p.parse_args()
-    a.repo_utilidade = a.utilidade_slug = None  # preenchidos pelo rodízio automático de utilidade (ver abaixo)
+    a.repo_utilidade = a.utilidade_slug = a.par_assunto = None  # preenchidos pelo rodízio automático (ver abaixo)
     if a.listar:
         for e in estilos():
             print(f"{e['slug']:24} {e['nome']}  ({e['categoria']})")
@@ -522,11 +532,16 @@ def main():
             # sem história na vez: o vídeo de ferramenta sai com promessa de utilidade (10/11), que é o que
             # separa 307 mil views de 3 mil nas contas medidas. Sem utilidade nova na fila, segue o normal.
             # Guardado à parte de `a.repo` de propósito: o limite de banco cheio continua valendo para ele.
-            from .. import utilidade
+            from .. import assunto_ferramenta, utilidade
             estado_u = series._ler(series.ESTADO)
-            escolha = utilidade.proxima(estado_u) if utilidade.precisa(estado_u) else None
-            if escolha:
-                a.utilidade_slug, a.repo_utilidade, a.promessa = escolha
+            # assunto gigante vem antes da utilidade pura: é a fórmula do Reels de 558 mil (10/11)
+            par = assunto_ferramenta.proximo(estado_u) if assunto_ferramenta.precisa(estado_u) else None
+            if par:
+                a.par_assunto, a.repo_utilidade = par, par[2]
+            else:
+                escolha = utilidade.proxima(estado_u) if utilidade.precisa(estado_u) else None
+                if escolha:
+                    a.utilidade_slug, a.repo_utilidade, a.promessa = escolha
     if a.fatos:
         res = produzir(f"site/{a.assunto}", a.estilo, fatos=Path(a.fatos).read_text(encoding="utf-8"), palavra=a.palavra)
         if a.fila and res.get("ok"):
@@ -560,12 +575,15 @@ def main():
     promessa = a.promessa if repo == a.repo_utilidade or (a.promessa and a.repo) else None
     if promessa:
         print(f"ângulo de utilidade: {promessa}", flush=True)
-    res = produzir(repo, a.estilo, a.gancho, venda=venda, momento=momento, promessa=promessa)
+    res = produzir(repo, a.estilo, a.gancho, venda=venda, momento=momento, promessa=promessa, par=a.par_assunto)
     if momento and res.get("ok"):
         em_alta.registrar(momento["chave"])
     if a.utilidade_slug and res.get("ok"):
         from .. import utilidade
         utilidade.registrar(a.utilidade_slug)
+    if a.par_assunto and res.get("ok"):
+        from .. import assunto_ferramenta
+        assunto_ferramenta.registrar(a.par_assunto[0])
     if a.fila and res.get("ok"):
         res["fila"] = str(para_fila(res).relative_to(RAIZ))
     print(json.dumps(res, ensure_ascii=False, indent=1))
