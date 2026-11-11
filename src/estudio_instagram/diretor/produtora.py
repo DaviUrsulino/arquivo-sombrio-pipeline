@@ -494,11 +494,13 @@ def main():
     if a.auto and not a.repo and not a.venda and not a.wiki:
         # série "você decide" (06/11): episódio com voto vencido vem antes de tudo (a parte 2 foi prometida "amanhã")
         from .. import series
-        from .. import historias_cotidiano, historias_tech
-        # cotidiano antes de tech (10/11): é a frente de alcance (mediana medida 295 mil contra 2,7 mil do nicho,
-        # ver segredos/estudos/2026-11-10/). Cada um tem o seu intervalo de 20 h, então na prática alternam.
+        from .. import curiosidades, historias_cotidiano, historias_tech
+        # ordem por alcance medido (10/11, segredos/estudos/2026-11-10/): cotidiano e curiosidade são as frentes de
+        # público amplo (mediana de 87 mil a 1,2 milhão nas referências) e vêm antes da história de tecnologia,
+        # que é de nicho. Cada frente tem o seu intervalo de 20 h, então na prática se revezam uma por dia.
         proximo = (series.preparar_proximo() or series.historia_para_produzir()
-                   or historias_cotidiano.gerar_se_preciso() or historias_tech.gerar_se_preciso())
+                   or historias_cotidiano.gerar_se_preciso() or curiosidades.gerar_se_preciso()
+                   or historias_tech.gerar_se_preciso())
         if proximo:
             a.historia = str(proximo)
         else:
