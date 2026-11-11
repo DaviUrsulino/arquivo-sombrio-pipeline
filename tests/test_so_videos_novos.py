@@ -195,3 +195,22 @@ def test_pauta_fixada_do_dia_nao_perde_a_vez_pro_banco(tmp_path, monkeypatch):
     assert formato == "pauta:pautas/viral/fixada.json"
     # e o main só consulta o banco quando a rodada NÃO tem pauta fixada
     assert formato.startswith("pauta:")
+
+
+def test_fechamento_revela_que_foi_a_maquina_antes_de_pedir():
+    """Davi, 11/11: 'no final só bota: esse vídeo foi gerado por IA, querem saber como? digite alguma coisa'.
+    A venda deixa de ser vídeo institucional (mediana 159 views) e vira a última frase de um vídeo bom."""
+    tipos, revelacoes = set(), set()
+    for n in range(8):
+        tipo, frase = produtora.fechamento(n, "ESTUDIO")
+        tipos.add(tipo)
+        revelacoes.add(produtora.revelacao(n))
+        assert produtora.revelacao(n) in frase, "a revelação vem antes do pedido"
+        assert frase.index(produtora.revelacao(n)) == 0
+    assert tipos >= {"comenta", "segue", "salva", "manda"}, "o pedido tem que alternar"
+    assert len(revelacoes) > 1, "a revelação também alterna, senão cansa"
+
+
+def test_da_pra_desligar_a_revelacao_quando_o_video_ja_e_sobre_a_maquina():
+    _, frase = produtora.fechamento(0, "ESTUDIO", revelar=False)
+    assert produtora.revelacao(0) not in frase

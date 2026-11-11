@@ -54,8 +54,13 @@ RODADAS = [("00:30", "pixel2"), ("03:00", "pixel2"), ("08:00", "pixel2"), ("12:0
 # de ninguém. loop.py e instagram_loop.yml ficam prontos pra quando ele quiser soltar um vídeo de novo
 # (dispara via gh workflow run instagram_loop.yml na mão quando tiver fila).
 FILA_LOOPS = RAIZ / "loops" / "fila"
-# Formato da rodada nobre (08:00) por dia da semana (0 = segunda): venda 2x por semana, identidades nos outros dias.
-FORMATO_NOBRE_POR_DIA = {0: "pixel2", 1: "venda", 2: "pixel2", 3: "pixel2", 4: "venda", 5: "pixel2", 6: "pixel2"}
+# Formato da rodada nobre (08:00) por dia da semana (0 = segunda).
+# 11/11: a venda saía 2x por semana aqui e é o PIOR formato da conta -- mediana de 159 views, contra 1.200+ de
+# todo o resto (os dois últimos fizeram 140 e 177, e o Davi apagou os dois). O problema não é vender: é vender
+# com vídeo institucional. O @_aighostlab vende o tempo todo e fez 558 mil com "comenta CORTES e recebe o sistema
+# que faz os cortes do GTA 6" -- entrega valor, pede comentário, e o produto vai no direct. É o que o formato
+# assunto+ferramenta faz, e ele já está no rodízio da produtora. A rodada nobre volta a ser conteúdo.
+FORMATO_NOBRE_POR_DIA = {d: "pixel2" for d in range(7)}
 RODADA_NOBRE = "08:00"
 
 

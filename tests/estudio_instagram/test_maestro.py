@@ -23,10 +23,11 @@ def test_rodadas_automaticas_espacadas():
     assert min(gaps) >= maestro.INTERVALO_MIN_MIN  # nunca duas rodadas em menos de 2 h
 
 
-def test_venda_so_duas_vezes_por_semana_no_horario_nobre():
+def test_nenhuma_rodada_e_de_venda_institucional():
+    """11/11: a venda saía 2x por semana na rodada nobre e era o pior formato da conta (mediana 159 views contra
+    1.200+ do resto). Agora a venda acontece dentro do conteúdo, pelo formato assunto+ferramenta."""
     semana = [maestro.rodadas_do_dia(f"2026-10-{d}") for d in range(19, 26)]  # segunda a domingo
-    vendas = [r for dia in semana for r in dia if r[1] == "venda"]
-    assert len(vendas) == 2 and all(h == maestro.RODADA_NOBRE for h, _ in vendas)
+    assert not [r for dia in semana for r in dia if r[1] == "venda"]
 
 
 def test_dispara_a_rodada_quando_chega_a_hora():
@@ -42,11 +43,11 @@ def test_nao_dispara_antes_da_hora_nem_repete():
     assert decidir(_t(_mais(hora, 5)), estado)[0] is None
 
 
-def test_rodada_de_venda_dispara_no_horario_dela():
-    dia = "2026-10-20"  # terça
-    hora_venda = next(h for h, f in maestro.rodadas_do_dia(dia) if f == "venda")
-    estado = {"dia": dia, "feitos": {}}
-    assert decidir(_t(_mais(hora_venda, 5), dia), estado)[0] == "venda"
+def test_rodada_nobre_e_conteudo_todo_dia_da_semana():
+    for d in range(19, 26):
+        dia = f"2026-10-{d}"
+        formato = dict(maestro.rodadas_do_dia(dia))[maestro.RODADA_NOBRE]
+        assert formato == "pixel2", dia
 
 
 def test_acordar_muito_depois_da_hora_perde_a_rodada_em_vez_de_empilhar():

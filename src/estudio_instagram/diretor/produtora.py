@@ -93,10 +93,29 @@ FECHAMENTOS = [
     ("manda", "Manda esse vídeo pra aquele amigo que precisa ver isso. E me segue pra mais."),
 ]
 
+# Davi, 11/11: "faz um post de venda foda com roteiro foda e no final só bota: esse vídeo foi gerado por IA,
+# querem saber como? digite alguma coisa". É a estrutura do Reels de 39 mil curtidas do @productivevick, que a
+# gente transcreveu: 70 segundos de conteúdo bom SEM narração nenhuma e, só aos 70 s, "você assistiu o vídeo
+# inteiro, não é?" seguido do pedido. A venda deixa de ser um vídeo institucional (mediana de 159 views, o pior
+# formato da conta) e vira a última frase de um vídeo que já valeu a pena assistir.
+REVELACOES = [
+    "Esse vídeo foi feito do começo ao fim por uma máquina, sem editor.",
+    "Você assistiu até aqui, né? Nenhum quadro disso foi editado à mão.",
+    "Tudo o que você viu foi uma máquina que montou sozinha, enquanto eu dormia.",
+    "Esse vídeo inteiro saiu de um comando só. Nenhuma edição depois disso.",
+]
 
-def fechamento(n: int, palavra: str) -> tuple[str, str]:
+
+def revelacao(n: int) -> str:
+    return REVELACOES[n % len(REVELACOES)]
+
+
+def fechamento(n: int, palavra: str, revelar: bool = True) -> tuple[str, str]:
+    """(tipo do pedido, frase final). `revelar` põe a revelação antes do pedido -- é o que transforma um vídeo
+    comum em vídeo de venda sem precisar de um vídeo de venda."""
     tipo, texto = FECHAMENTOS[n % len(FECHAMENTOS)]
-    return tipo, texto.format(p=palavra)
+    pedido = texto.format(p=palavra)
+    return tipo, (f"{revelacao(n)} {pedido}" if revelar else pedido)
 
 
 def estilos_fracos(desempenho: dict | None = None, corte: float = 0.2) -> set[str]:
