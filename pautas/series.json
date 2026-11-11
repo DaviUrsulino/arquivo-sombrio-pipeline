@@ -114,5 +114,9 @@
  "curiosidade:tamanho-do-vaticano": {
   "quando": "2026-11-11T00:31+00:00",
   "resultado": "tamanho-do-vaticano"
+ },
+ "produzido:tamanho-do-vaticano": {
+  "quando": "2026-11-11T03:06+00:00",
+  "resultado": "ok"
  }
 }

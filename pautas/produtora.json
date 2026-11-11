@@ -57,7 +57,8 @@
   "microgame",
   "hand-drawn-cartoon",
   "circuit-board",
-  "data-story-charts"
+  "data-story-charts",
+  "dataviz"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -509,6 +510,14 @@
    "estilo": "data-story-charts",
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-11-0033-tamanho-do-vaticano-data-story-charts",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-11T03:06",
+   "repo": "historia/tamanho-do-vaticano",
+   "estilo": "dataviz",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-11-0233-tamanho-do-vaticano-dataviz",
    "em_alta": false
   }
  ]
