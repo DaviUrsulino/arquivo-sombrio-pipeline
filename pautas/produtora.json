@@ -64,7 +64,8 @@
   "desktop-flythrough",
   "blueprint",
   "ascii-crt",
-  "esquete"
+  "esquete",
+  "ascii-crt"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -83,7 +84,8 @@
   "meta/astryx",
   "thisisme6598/gemini_files",
   "anthropics/skills",
-  "GoogleChrome/modern-web-guidance"
+  "GoogleChrome/modern-web-guidance",
+  "IainKay/ram-altman"
  ],
  "producoes": [
   {
@@ -578,6 +580,14 @@
    "estilo": "esquete",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-11-1113-modern-web-guidance-esquete",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-11T12:27",
+   "repo": "IainKay/ram-altman",
+   "estilo": "ascii-crt",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-11-1210-ram-altman-ascii-crt",
    "em_alta": false
   }
  ]

@@ -1,0 +1,21 @@
+{
+ "titulo": "ram-altman: produtora (ascii-crt)",
+ "formato": "pronto",
+ "video_pronto_url": "https://github.com/DaviUrsulino/arquivo-sombrio-pipeline/releases/download/midia-publicacao/produtora-2026-11-11-1210-ram-altman-ascii-crt.mp4",
+ "palavra_chave": "MEMORIA",
+ "legenda": "Um dev criou um script que avisa o Sam Altman quando sobra RAM no seu PC.\nComenta MEMORIA para receber o link do projeto no seu direct.",
+ "capa": "SPAM PRO CEO DA OPENAI",
+ "cta_tipo": "segmentado",
+ "previsao": 3.7,
+ "itens": [
+  {
+   "repo": "IainKay/ram-altman"
+  }
+ ],
+ "estilo": "ascii-crt",
+ "gancho": "A",
+ "ganchos_alternativos": [
+  "O CEO da OpenAI acha ruim você ter memória RAM no computador.",
+  "Esse código avisa o CEO da OpenAI toda vez que sobra memória."
+ ]
+}
