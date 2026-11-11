@@ -291,7 +291,12 @@ def main():
             # a rodada logo antes da venda do dia (00:30 de ter/sex) não pode sair com cara de venda
             antes = "00:30" in nova_rodada and dict(rodadas_do_dia(novo["dia"])).get(RODADA_NOBRE) == "venda" \
                 and proxima_da_fila(usadas, FILA_VENDA) is not None
-            da_fila = escolher_da_fila(formato, usadas, antes) if any(h in nova_rodada for h in FILA_RODADAS) else None
+            # 11/11: uma pauta fixada em PAUTAS_DO_DIA era escolhida pelo decidir() e logo sobrescrita aqui, porque
+            # hoje TODAS as rodadas estão em FILA_RODADAS. Foi assim que a estreia da série de cotidiano, fixada
+            # para as 22:30, perdeu a vez para o vídeo do xAI que veio do banco. Pauta fixada manda.
+            ja_fixada = formato.startswith("pauta:")
+            da_fila = (escolher_da_fila(formato, usadas, antes)
+                       if not ja_fixada and any(h in nova_rodada for h in FILA_RODADAS) else None)
             if da_fila:
                 formato = f"pauta:{da_fila}"
                 novo["fila_usadas"] = [*usadas, da_fila]

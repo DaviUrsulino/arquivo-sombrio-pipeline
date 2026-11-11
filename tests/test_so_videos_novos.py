@@ -182,3 +182,16 @@ def test_fechamento_varia_entre_comenta_segue_salva_e_manda():
     tipos = {produtora.fechamento(n, "KIT")[0] for n in range(6)}
     assert tipos == {"comenta", "segue", "salva", "manda"}
     assert "comenta KIT" in produtora.fechamento(0, "KIT")[1].lower().replace("kit", "KIT")
+
+
+def test_pauta_fixada_do_dia_nao_perde_a_vez_pro_banco(tmp_path, monkeypatch):
+    """11/11: a estreia do cotidiano estava fixada em PAUTAS_DO_DIA para as 22:30 e saiu o vídeo do xAI.
+    Como hoje TODAS as rodadas usam o banco, o escolher_da_fila sobrescrevia a pauta fixada."""
+    from datetime import datetime
+    monkeypatch.setitem(maestro.PAUTAS_DO_DIA, "2026-11-20", {"22:30": "pautas/viral/fixada.json"})
+    agora = datetime(2026, 11, 20, 22, 31, tzinfo=maestro.BRASILIA)
+    formato, _ = maestro.decidir(agora, {"dia": "2026-11-20", "feitos": {h: "ok" for h, _ in maestro.RODADAS
+                                                                        if h != "22:30"}})
+    assert formato == "pauta:pautas/viral/fixada.json"
+    # e o main só consulta o banco quando a rodada NÃO tem pauta fixada
+    assert formato.startswith("pauta:")

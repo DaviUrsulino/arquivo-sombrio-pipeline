@@ -295,8 +295,11 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
     assunto = (f"{momento['tema']}: {momento.get('angulo', '')}" if momento else
                "vídeo de venda: animação feita com IA, sem editor" if venda else f"ferramenta de IA do GitHub {repo}")
     # a forma do vídeo manda no grupo de estilos; o assunto escolhe dentro do grupo (ver estilo_formato.py)
+    # 11/11: o par assunto+ferramenta chega em `par`, não em `promessa`, e por isso o formato saía None e o
+    # filtro de estilo nem rodava -- o vídeo do ENEM foi animado em ascii-crt (terminal verde) quando pedia
+    # tela e passo a passo. Os dois são vídeo de utilidade.
     formato_video = ((historia.get("formato") or "historia_personagem") if historia
-                     else "documentario" if momento else "utilidade" if promessa else None)
+                     else "documentario" if momento else "utilidade" if (promessa or par) else None)
     estilo = (next((e for e in todos if e["slug"] == estilo_slug), None) if estilo_slug
               else estilo_para(assunto, estado, todos, formato=formato_video))
     if estilo is None:
