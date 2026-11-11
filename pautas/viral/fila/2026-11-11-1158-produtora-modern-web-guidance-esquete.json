@@ -1,0 +1,21 @@
+{
+ "titulo": "modern-web-guidance: produtora (esquete)",
+ "formato": "pronto",
+ "video_pronto_url": "https://github.com/DaviUrsulino/arquivo-sombrio-pipeline/releases/download/midia-publicacao/produtora-2026-11-11-1113-modern-web-guidance-esquete.mp4",
+ "palavra_chave": "MODERNO",
+ "legenda": "Chega de IA gerando codigo ultrapassado. O Google e outros gigantes criaram um guia com mais de 250 recursos modernos para sua IA programar melhor. Comenta MODERNO que eu te mando o link do projeto.",
+ "capa": "ADEUS CÓDIGO QUEBRADO NA IA",
+ "cta_tipo": "salva",
+ "previsao": 5.4,
+ "itens": [
+  {
+   "repo": "GoogleChrome/modern-web-guidance"
+  }
+ ],
+ "estilo": "esquete",
+ "gancho": "A",
+ "ganchos_alternativos": [
+  "O Google uniu Firefox e Edge para atualizar sua IA",
+  "Fizeram a sua IA de programar parar de usar codigo ultrapassado"
+ ]
+}

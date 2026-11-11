@@ -63,7 +63,8 @@
   "iso-infographic",
   "desktop-flythrough",
   "blueprint",
-  "ascii-crt"
+  "ascii-crt",
+  "esquete"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -81,7 +82,8 @@
   "nilsherzig/LLocalSearch",
   "meta/astryx",
   "thisisme6598/gemini_files",
-  "anthropics/skills"
+  "anthropics/skills",
+  "GoogleChrome/modern-web-guidance"
  ],
  "producoes": [
   {
@@ -568,6 +570,14 @@
    "estilo": "ascii-crt",
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-11-1025-skills-ascii-crt",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-11T11:58",
+   "repo": "GoogleChrome/modern-web-guidance",
+   "estilo": "esquete",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-11-1113-modern-web-guidance-esquete",
    "em_alta": false
   }
  ]
