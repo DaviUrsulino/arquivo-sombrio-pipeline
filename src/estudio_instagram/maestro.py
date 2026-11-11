@@ -70,6 +70,10 @@ PAUTAS_DO_DIA = {
     "2026-11-04": {"20:00": "pautas/viral/agendadas/2026-11-05-09-opuscar-noticia.json",   # dossiê, claude-mem
                    "22:30": "pautas/viral/agendadas/2026-11-08-10-esquete-diretor.json"},  # esquete Davi x robô
     "2026-11-05": {"08:00": "pautas/viral/agendadas/2026-11-07-08-opuscar-pixel-rpg.json"},  # pixel RPG
+    # 2026-11-10 (Davi, sobre o vídeo do xAI: "não gostei muito desse do chip... posta o que você achar melhor
+    # agora"). A estreia da série de cotidiano vai no lugar: é a frente de maior alcance medido (mediana de 295 mil
+    # nas referências contra 2,7 mil do nicho). O do xAI fica no banco e sai numa rodada seguinte.
+    "2026-11-10": {"22:30": "pautas/viral/fila/2026-11-10-2016-historia-porta-que-nao-abre-hand-drawn-cartoon.json"},
 }
 # Banco de vídeos: pautas prontas e aprovadas em pautas/viral/fila/. Cada rodada usa a próxima que ainda não saiu
 # (em ordem de nome); sem nada no banco, ver SO_VIDEOS_NOVOS.
