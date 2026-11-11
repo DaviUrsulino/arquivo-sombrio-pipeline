@@ -63,6 +63,31 @@ def _numero(texto: str, padrao: str) -> float | None:
         return None
 
 
+# Velocidades de quem atravessa o lugar. Davi, 10/11: "se tu rodar de bicicleta a 12 por hora, você demora 2
+# minutos pra dar a volta — tem que ser umas paradas assim pra galera achar massa". É melhor que comparar área:
+# "69 campos de futebol" é abstrato, "você atravessa a pé em 8 minutos" a pessoa sente no corpo.
+ESCALAS_TEMPO = [("a pé", 5.0), ("de bicicleta", 12.0), ("de carro", 40.0)]
+
+
+def comparacoes_de_tempo(fatos: str) -> list[str]:
+    """Quanto tempo se leva para atravessar e para dar a volta no lugar, a partir da área real.
+
+    Trata a área como um quadrado de lado igual à raiz: é aproximação honesta de ordem de grandeza, então o texto
+    diz "mais ou menos". Sem área, nenhuma frase — nunca estimar distância que o artigo não dá."""
+    km2 = _numero(fatos, r"([\d,.]+)\s*km2") or _numero(fatos, r"([\d,.]+)\s*square kilomet")
+    if not km2:
+        return []
+    lado = km2 ** 0.5           # km de ponta a ponta, se fosse um quadrado
+    volta = lado * 4            # dar a volta no contorno
+    frases = []
+    for nome, kmh in ESCALAS_TEMPO:
+        for rotulo, distancia in (("atravessa", lado), ("dá a volta", volta)):
+            minutos = round(distancia / kmh * 60)
+            if 1 <= minutos <= 90:
+                frases.append(f"{rotulo} {nome} em mais ou menos {minutos} minuto{'s' if minutos > 1 else ''}")
+    return frases
+
+
 def comparacoes_de_area(fatos: str) -> list[str]:
     """Frases de comparação prontas, calculadas com a área real do artigo. Lista vazia quando não há área —
     melhor nenhuma comparação do que uma comparação inventada."""
@@ -88,7 +113,7 @@ def precisa(estado: dict, agora: datetime | None = None) -> bool:
     return not feitas or agora - max(feitas) >= INTERVALO
 
 
-def escrever(slug: str, titulo: str, angulo: str, llm=None, ler=None) -> dict:
+def escrever(slug: str, titulo: str, angulo: str, llm=None, ler=None, corte: float = NOTA_MINIMA) -> dict:
     from . import segredos
     from .historias_tech import fatos as ler_fatos
     from .llm import gerar_json
@@ -97,8 +122,11 @@ def escrever(slug: str, titulo: str, angulo: str, llm=None, ler=None) -> dict:
     base = (ler or ler_fatos)(titulo)
     if len(base) < 1500:
         raise ValueError(f"artigo da Wikipédia curto demais ({len(base)} caracteres)")
-    pedido = {"FATOS": base, "ANGULO": angulo, "COMPARACOES": comparacoes_de_area(base)}
+    pedido = {"FATOS": base, "ANGULO": angulo,
+              # tempo primeiro: "atravessa de bicicleta em 3 minutos" bate mais que "69 campos de futebol"
+              "COMPARACOES": comparacoes_de_tempo(base) + comparacoes_de_area(base)}
     r = gerar(segredos.texto("curiosidade"), _json.dumps(pedido, ensure_ascii=False))
+    ultima_nota = None
     for _ in range(2):
         if len(r.get("ganchos") or []) != 3:
             pedido["critica_do_editor"] = "preciso de exatamente 3 ganchos diferentes para o mesmo corpo"
@@ -110,14 +138,19 @@ def escrever(slug: str, titulo: str, angulo: str, llm=None, ler=None) -> dict:
             except Exception as erro:
                 print(f"previsor da curiosidade falhou ({erro}); sigo com o roteiro")
                 break
-            print(f"curiosidade {slug}: nota {nota.get('nota')} ({nota.get('problema')})", flush=True)
-            if float(nota.get("nota") or 0) >= NOTA_MINIMA:
+            ultima_nota = float(nota.get("nota") or 0)
+            print(f"curiosidade {slug}: nota {ultima_nota} ({nota.get('problema')})", flush=True)
+            if ultima_nota >= corte:
                 break
             pedido["critica_do_editor"] = nota.get("problema")
         pedido["roteiro_rejeitado"] = {k: r.get(k) for k in ("texto_tela", "ganchos", "corpo", "cta")}
         r = gerar(segredos.texto("curiosidade"), _json.dumps(pedido, ensure_ascii=False))
     if len(r.get("ganchos") or []) != 3:
         raise ValueError("o roteirista não entregou os 3 ganchos")
+    # 10/11: a nota mínima existia mas não barrava nada, e um roteiro nota 5 ("parece uma aula de geografia")
+    # ia virar 40 minutos de renderização. Roteiro reprovado não vira vídeo: a frente tenta de novo amanhã.
+    if ultima_nota is not None and ultima_nota < corte:
+        raise ValueError(f"roteiro reprovado pelo previsor (nota {ultima_nota}, mínimo {corte})")
     return {"slug": slug, "serie": slug, "episodio": 1, "opcoes": None, "produzir": True,
             "formato": "numero",  # o número é o herói: gráfico e comparação, nunca mascote (ver estilo_formato.py)
             "fonte": f"https://en.wikipedia.org/wiki/{titulo.replace(' ', '_')}",

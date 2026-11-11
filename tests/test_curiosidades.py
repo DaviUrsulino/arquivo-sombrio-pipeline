@@ -53,3 +53,21 @@ def test_sem_os_3_ganchos_nao_vira_video():
     ruim = {"texto_tela": "T", "ganchos": ["só um"], "corpo": ["c"] * 6, "cta": "k", "legenda": "L"}
     with pytest.raises(ValueError):
         cur.escrever("x", "X", "ângulo", llm=lambda *_: ruim, ler=lambda t: "f" * 2000)
+
+
+def test_roteiro_reprovado_pelo_previsor_nao_vira_video():
+    """10/11: a nota mínima existia mas não barrava nada. Um roteiro nota 5 ('parece uma aula de geografia')
+    ia virar 40 minutos de renderização."""
+    bom = {"texto_tela": "T", "ganchos": ["g1", "g2", "g3"], "corpo": ["c"] * 6, "cta": "k", "legenda": "L"}
+    # o previsor devolve sempre 5.0: depois das tentativas, tem que abortar em vez de entregar
+    with pytest.raises(ValueError, match="reprovado"):
+        cur.escrever("x", "X", "ângulo", llm=lambda s, p: {"nota": 5.0, "problema": "aula"} if "FECHAMENTO" in p else bom,
+                     ler=lambda t: "f" * 2000)
+
+
+def test_roteiro_aprovado_passa_normal():
+    bom = {"texto_tela": "T", "ganchos": ["g1", "g2", "g3"], "corpo": ["c"] * 6, "cta": "k", "legenda": "L"}
+    c = cur.escrever("x", "X", "ângulo",
+                     llm=lambda s, p: {"nota": 8.5, "problema": ""} if "FECHAMENTO" in p else bom,
+                     ler=lambda t: "f" * 2000)
+    assert c["produzir"] and c["formato"] == "numero"

@@ -22,14 +22,16 @@ from . import series
 
 # (slug, assunto gigante, repositório, palavra do comentário, o que a ferramenta faz PARA quem curte o assunto)
 PARES = [
+    # 10/11: a 2ª prova do ENEM 2026 é dia 15/11. Janela de 5 dias com milhões de estudantes no desespero —
+    # assunto gigante com data marcada vem antes de qualquer outro (ver em_alta.py para o assunto do dia).
+    ("resumo-pra-prova", "a reta final do ENEM, com a segunda prova no domingo e matéria demais pra revisar",
+     "Mintplex-Labs/anything-llm", "RESUMO", "lê a apostila inteira e responde a sua dúvida em português"),
     ("cortes-de-gameplay", "GTA 6 e os clipes de jogo que todo mundo posta", "Vincentwei1021/video-shotcraft",
      "CLIPE", "corta sozinho os melhores momentos de uma gravação longa de gameplay"),
     ("legenda-de-corte", "os cortes de podcast que tomaram conta do feed", "m1guelpf/auto-subtitle",
      "LEGENDA", "põe legenda queimada em qualquer corte, do jeito que o pessoal posta"),
     ("capa-de-musica", "a capa que todo mundo posta quando sai a retrospectiva do ano", "danielgatis/rembg",
      "CAPA", "recorta a sua foto e monta a arte sem pagar aplicativo"),
-    ("resumo-pra-prova", "a semana de prova em que ninguém consegue ler tudo", "Mintplex-Labs/anything-llm",
-     "RESUMO", "lê a apostila inteira e responde a sua dúvida em português"),
     ("roteiro-de-viagem", "a viagem que todo mundo planeja no grupo e nunca sai do papel", "open-webui/open-webui",
      "VIAGEM", "monta o roteiro dia a dia com o que você quer ver e quanto pode gastar"),
     ("foto-de-familia", "aquela foto antiga de família que ficou borrada", "TencentARC/GFPGAN",
