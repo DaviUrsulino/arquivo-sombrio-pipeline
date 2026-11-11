@@ -1,0 +1,21 @@
+{
+ "titulo": "daily_stock_analysis: produtora (circuit-board)",
+ "formato": "pronto",
+ "video_pronto_url": "https://github.com/DaviUrsulino/arquivo-sombrio-pipeline/releases/download/midia-publicacao/produtora-2026-11-11-1256-daily-stock-analysis-circuit-board.mp4",
+ "palavra_chave": "ACOES",
+ "legenda": "Sistema automatiza análise de ações e manda o resumo no seu chat.\nMe segue e comenta ACOES que eu te mando o link no direct.",
+ "capa": "ROBÔ ANALISA AÇÕES DE GRAÇA",
+ "cta_tipo": "comenta",
+ "previsao": 7.2,
+ "itens": [
+  {
+   "repo": "ZhuLinsen/daily_stock_analysis"
+  }
+ ],
+ "estilo": "circuit-board",
+ "gancho": "A",
+ "ganchos_alternativos": [
+  "Criaram um robô que analisa ações de graça todo dia.",
+  "Esse projeto faz análise de ações usando inteligência artificial."
+ ]
+}

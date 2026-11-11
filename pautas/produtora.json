@@ -65,7 +65,8 @@
   "blueprint",
   "ascii-crt",
   "esquete",
-  "ascii-crt"
+  "ascii-crt",
+  "circuit-board"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -85,7 +86,8 @@
   "thisisme6598/gemini_files",
   "anthropics/skills",
   "GoogleChrome/modern-web-guidance",
-  "IainKay/ram-altman"
+  "IainKay/ram-altman",
+  "ZhuLinsen/daily_stock_analysis"
  ],
  "producoes": [
   {
@@ -588,6 +590,14 @@
    "estilo": "ascii-crt",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-11-1210-ram-altman-ascii-crt",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-11T13:06",
+   "repo": "ZhuLinsen/daily_stock_analysis",
+   "estilo": "circuit-board",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-11-1256-daily-stock-analysis-circuit-board",
    "em_alta": false
   }
  ]
