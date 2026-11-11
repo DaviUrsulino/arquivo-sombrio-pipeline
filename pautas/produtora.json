@@ -58,7 +58,8 @@
   "hand-drawn-cartoon",
   "circuit-board",
   "data-story-charts",
-  "dataviz"
+  "dataviz",
+  "ascii-crt"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -71,7 +72,8 @@
   "cloudflare/security-audit-skill",
   "google/skills",
   "KKKKhazix/agent-autoloop",
-  "worldonlyu/Google_AI_Pro_2Year_ZeroCost_Auto"
+  "worldonlyu/Google_AI_Pro_2Year_ZeroCost_Auto",
+  "Mintplex-Labs/anything-llm"
  ],
  "producoes": [
   {
@@ -518,6 +520,14 @@
    "estilo": "dataviz",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-11-0233-tamanho-do-vaticano-dataviz",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-11T05:12",
+   "repo": "Mintplex-Labs/anything-llm",
+   "estilo": "ascii-crt",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-11-0504-anything-llm-ascii-crt",
    "em_alta": false
   }
  ]

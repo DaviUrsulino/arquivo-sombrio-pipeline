@@ -1,0 +1,21 @@
+{
+ "titulo": "anything-llm: produtora (ascii-crt)",
+ "formato": "pronto",
+ "video_pronto_url": "https://github.com/DaviUrsulino/arquivo-sombrio-pipeline/releases/download/midia-publicacao/produtora-2026-11-11-0504-anything-llm-ascii-crt.mp4",
+ "palavra_chave": "RESUMO",
+ "legenda": "Comenta RESUMO e recebe o sistema que lê a apostila inteira e responde a sua dúvida em português",
+ "capa": "REVISÃO DO ENEM EM MINUTOS",
+ "cta_tipo": "comenta",
+ "previsao": 8.9,
+ "itens": [
+  {
+   "repo": "Mintplex-Labs/anything-llm"
+  }
+ ],
+ "estilo": "ascii-crt",
+ "gancho": "A",
+ "ganchos_alternativos": [
+  "Colocaram a apostila inteira do segundo dia do ENEM no computador.",
+  "Estão usando uma IA pra responder dúvidas da apostila do ENEM."
+ ]
+}
