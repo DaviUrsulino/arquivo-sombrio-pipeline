@@ -21,6 +21,13 @@ from . import series
 # Situações de cotidiano que qualquer pessoa entende, sem tecnologia. Cada uma vira uma série nova.
 # Ordem = ordem de uso. A marca do perfil continua sendo o visual; o assunto é que abre o alcance.
 SITUACOES = [
+    # 11/11 (comparação frase a frase com o Reels de 1,9 mi do @escolhas.app, segredos/FORMATOS.md seção 10): o
+    # deles é SITCOM (peruca, 17ª tentativa, capa presa na porta) e o nosso era trailer de suspense. As situações de
+    # comédia entram na frente; o suspense fica para depois.
+    ("quatro-dias-para-o-encontro", "Ele tem 4 dias até um encontro com alguém que nunca viu, e a única pessoa que pode treiná-lo é o vizinho esquisito. Comédia: cada tentativa dá errado de um jeito novo."),
+    ("sogra-chega-no-domingo", "A sogra chega no domingo e ela prometeu que sabe cozinhar. Tem 3 dias para aprender um prato, com o namorado atrapalhando. Comédia."),
+    ("presente-de-dois-mil", "Ele comprou um presente de 2 mil reais no cartão da namorada sem querer, e tem 5 dias para resolver antes da fatura. Comédia de enrolação."),
+    ("primeiro-dia-na-cadeira-do-chefe", "No primeiro dia de trabalho ele senta sem saber na cadeira do chefe e todo mundo passa a tratá-lo como chefe. Comédia: até onde ele leva."),
     ("porta-que-nao-abre", "A pessoa volta para casa de madrugada e a chave não gira na fechadura. A luz da sala está acesa, e ela mora sozinha."),
     ("mensagem-do-proprio-numero", "O celular toca às 3 da manhã e quem está ligando é o próprio número dela."),
     ("elevador-que-passou-do-andar", "O elevador do prédio passa direto pelo andar dela e continua subindo, e o prédio só tem 12 andares."),
@@ -94,7 +101,9 @@ def escrever(slug: str, situacao: str, n: int, llm=None) -> dict:
         raise ValueError("episódio sem dilema válido: " + "; ".join(problemas(r)))
     return {"slug": slug, "serie": slug, "episodio": 1, "opcoes": r["opcoes"], "produzir": True,
             "estilo": ESTILOS[n % len(ESTILOS)],
-            "direcao": "HISTÓRIA DE COTIDIANO, público amplo, sem nada de tecnologia. " + (r.get("direcao") or ""),
+            "direcao": ("HISTÓRIA DE COTIDIANO, público amplo, sem nada de tecnologia. SITCOM, não trailer: cada frase é um "
+                        "ACONTECIMENTO com piada (algo dá errado, alguém reage), nunca descrição de ambiente; tem payoff "
+                        "dentro do episódio, não só o cliffhanger. " + (r.get("direcao") or "")),
             "roteiro": {"texto_tela": r["texto_tela"], "ganchos": r["ganchos"][:1], "corpo": r["corpo"],
                         "cta": r["cta"], "legenda": r["legenda"], "palavra": ""}}
 

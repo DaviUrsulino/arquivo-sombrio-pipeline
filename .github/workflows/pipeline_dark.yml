@@ -49,10 +49,16 @@ on:
         required: false
         default: ''
 
+# 11/11 (Davi): "vamos migrar as duas contas pra animação". A geração por foto (roteiro -> imagens -> montagem) sai
+# do automático: a produtora (produtora_youtube.yml) faz o vídeo animado de madrugada no molde Zack D. Films e põe em
+# pautas/youtube/fila/; cada slot abaixo só baixa e publica o próximo da fila nesta conta (--video-pronto). Fila vazia
+# = slot pulado, nunca vídeo de foto. A geração antiga continua disponível no workflow_dispatch com roteiro_json.
 jobs:
   gerar-e-publicar:
     runs-on: ubuntu-latest
     timeout-minutes: 90
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
@@ -167,14 +173,28 @@ jobs:
           TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
           TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
         run: |
+          git pull --rebase --autostash -q || true  # pega a fila que a produtora acabou de encher
           ARGS="--canal ${{ steps.conta.outputs.canal }}"
           if [ "${{ github.event.inputs.publicar }}" = "false" ]; then
             ARGS="$ARGS --sem-publicar"
           fi
           if [ -n "${{ github.event.inputs.roteiro_json }}" ]; then
             ARGS="$ARGS --roteiro-json ${{ github.event.inputs.roteiro_json }}"
+          else
+            ARGS="$ARGS --video-pronto"
           fi
           python src/pipeline_completo.py $ARGS
+
+      - name: Registra em qual canal o vídeo pronto já saiu
+        if: always()
+        run: |
+          git config user.name "estudio-automatico"
+          git config user.email "actions@users.noreply.github.com"
+          git add pautas/youtube/fila 2>/dev/null || true
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: youtube registra publicação do vídeo pronto [skip ci]"
+            git pull --rebase --autostash -q && git push -q
+          fi
 
       - name: Persistir tokens atualizados (refresh token roda uma vez só)
         if: always()

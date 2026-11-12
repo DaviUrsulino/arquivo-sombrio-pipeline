@@ -1,0 +1,105 @@
+name: Produtora YouTube - Shorts animados no molde Zack D. Films para os dois canais
+
+# 11/11 (Davi): "o YouTube pra mim é viralizar". Os dois canais (Arquivo Sombrio e Em Alta) deixam a foto e passam
+# a animação. O molde é o do canal que mais viraliza em Short animado (Zack D. Films, 14 a 50 mi por vídeo; ver
+# segredos/FORMATOS.md seções 8 e 9 e src/estudio_instagram/zack.py). Roda de madrugada (Davi: "de 2 às 5 da manhã é
+# o melhor horário pra ficar gerando vídeo"), 3 por noite; o pipeline_dark publica cada um nos DOIS canais.
+
+on:
+  schedule:
+    - cron: '47 5 * * *'   # 02:47 em Brasília
+    - cron: '17 7 * * *'   # 04:17
+    - cron: '47 8 * * *'   # 05:47
+  workflow_dispatch:
+    inputs:
+      estilo:
+        description: 'slug do estilo (vazio: o que mais combina dentro do formato zack)'
+        required: false
+        default: ''
+
+concurrency:
+  group: produtora-youtube
+  cancel-in-progress: false
+
+jobs:
+  produzir:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Baixa os textos privados (prompts) do repositório de segredos
+        uses: actions/checkout@v4
+        with:
+          repository: DaviUrsulino/arquivo-sombrio-segredos
+          ssh-key: ${{ secrets.SEGREDOS_DEPLOY_KEY }}
+          path: segredos
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instala ferramentas de vídeo
+        run: |
+          sudo apt-get update || true
+          sudo apt-get install -y ffmpeg fonts-noto fonts-noto-color-emoji
+          pip install "python-dotenv>=1.0.0" edge-tts numpy
+          npm install -g @anthropic-ai/claude-code
+
+      - name: Instala a biblioteca Lemo-Opuscar e as skills
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/lemomo-ai/lemo-opuscar/main/plugin/skills/lemo-opuscar/scripts/setup.sh -o /tmp/lemo-setup.sh
+          sh /tmp/lemo-setup.sh
+          sh /tmp/lemo-setup.sh deps
+          npx --yes skills add PHANTOMTONYT/motion-design-skills --skill hand-drawn-cartoon 3d-toy-character kinetic-typography data-story-charts -g -y
+          npx --yes skills add heygen-com/hyperframes --skill hyperframes -g -y
+          npx --yes skills add mromidev/claude-animated-shorts --skill cartoon-3d-short -g -y
+
+      - name: Escreve os segredos no .env
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          GRADIUM_API_KEY: ${{ secrets.GRADIUM_API_KEY }}
+          GRADIUM_VOICE_ID: ${{ secrets.GRADIUM_VOICE_ID }}
+        run: |
+          printf 'GEMINI_API_KEY=%s\nELEVENLABS_API_KEY=%s\nGRADIUM_API_KEY=%s\nGRADIUM_VOICE_ID=%s\n' "$GEMINI_API_KEY" "$ELEVENLABS_API_KEY" "$GRADIUM_API_KEY" "$GRADIUM_VOICE_ID" > .env
+
+      - name: Produz o Short
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LEMO_ANGLE: swiftshader
+          ENTRADA_ESTILO: ${{ inputs.estilo }}
+        run: |
+          set -- --youtube --fila
+          if [ -n "$ENTRADA_ESTILO" ]; then set -- "$@" --estilo "$ENTRADA_ESTILO"; fi
+          python -m src.estudio_instagram.diretor.produtora "$@"
+
+      - name: Guarda folha de quadros e log do agente
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: produtora-youtube
+          path: |
+            videos_produzidos/*/final.mp4
+            videos_produzidos/*/folha.jpg
+            videos_produzidos/*/agente.log
+            videos_produzidos/*/roteiro.md
+          if-no-files-found: ignore
+
+      - name: Registra roteiro e fila no repositório
+        if: always()
+        run: |
+          git config user.name "estudio-automatico"
+          git config user.email "actions@users.noreply.github.com"
+          for f in pautas/produtora.json pautas/series.json pautas/youtube; do if [ -e "$f" ]; then git add "$f"; fi; done
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: produtora youtube registra vídeo do dia [skip ci]"
+            git pull --rebase --autostash -q && git push -q
+          fi

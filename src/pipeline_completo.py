@@ -17,7 +17,7 @@ import json
 import os
 import random
 import sys
-from datetime import datetime
+from datetime import datetime, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -440,9 +440,69 @@ def executar(
     return resultado
 
 
+# 11/11 (Davi): os dois canais do YouTube deixam a foto e passam a animação, no molde do Zack D. Films. O vídeo é
+# feito de madrugada pela produtora (produtora_youtube.yml) e fica em pautas/youtube/fila/; aqui só baixa e publica.
+# O MESMO vídeo sai nos dois canais (custa metade; o teste é do molde, não do canal).
+FILA_YOUTUBE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "pautas", "youtube", "fila")
+HASHTAGS_PRONTO = ["shorts", "curiosidades", "animacao", "vocesabia", "ciencia"]
+
+
+def proxima_pronta(conta_nome: str, pasta: str | None = None) -> str | None:
+    """Caminho da pauta de vídeo pronto mais antiga que ainda não saiu nesta conta, ou None."""
+    pasta = pasta or FILA_YOUTUBE
+    if not os.path.isdir(pasta):
+        return None
+    for nome in sorted(os.listdir(pasta)):
+        if not nome.endswith(".json"):
+            continue
+        caminho = os.path.join(pasta, nome)
+        with open(caminho, encoding="utf-8") as f:
+            pauta = json.load(f)
+        if pauta.get("video_pronto_url") and conta_nome not in (pauta.get("publicado") or {}):
+            return caminho
+    return None
+
+
+def publicar_pronta(conta_nome: str, publicar: bool = True, baixar=None, pasta: str | None = None) -> dict:
+    """Publica na conta o próximo vídeo pronto da fila do YouTube e marca a pauta. Sem vídeo na fila, não faz nada
+    (nunca cai na geração por foto: Davi, 11/11, "vai ser só animação agora")."""
+    import urllib.request
+    caminho = proxima_pronta(conta_nome, pasta)
+    if not caminho:
+        print(f"fila do YouTube vazia para {conta_nome}: nada a publicar (sem vídeo de foto como reserva)")
+        return {"aprovado": True, "publicado": False, "motivo": "fila vazia"}
+    with open(caminho, encoding="utf-8") as f:
+        pauta = json.load(f)
+    pasta_run = os.path.join("runs", "pronto")
+    os.makedirs(pasta_run, exist_ok=True)
+    video = os.path.join(pasta_run, os.path.basename(caminho).replace(".json", ".mp4"))
+    (baixar or urllib.request.urlretrieve)(pauta["video_pronto_url"], video)
+    titulo = pauta["titulo"][:100]
+    descricao = (pauta.get("descricao") or "").strip() + "\n\n" + " ".join(f"#{h}" for h in HASHTAGS_PRONTO)
+    print(f"vídeo pronto {os.path.basename(caminho)} -> {conta_nome}: {titulo}")
+    resultado = {"aprovado": True, "publicado": publicar, "pauta": caminho, "molde": pauta.get("molde")}
+    if not publicar:
+        print("--sem-publicar ativo — só baixou, não publicou.")
+        return resultado
+    credenciais = CREDENCIAIS_POR_CONTA.get(conta_nome, CREDENCIAIS_POR_CONTA["arquivo_sombrio"])
+    from publicar_youtube import publicar_short
+    video_id = publicar_short(video, titulo, descricao=descricao, tags=HASHTAGS_PRONTO,
+                              arquivo_client_secret=credenciais["youtube_client_secret"],
+                              arquivo_token=credenciais["youtube_token"])
+    resultado["youtube"] = f"https://youtube.com/shorts/{video_id}"
+    print(f"YouTube: {resultado['youtube']}")
+    pauta.setdefault("publicado", {})[conta_nome] = {"url": resultado["youtube"],
+                                                     "quando": datetime.now(timezone.utc).isoformat(timespec="minutes")}
+    with open(caminho, "w", encoding="utf-8") as f:
+        json.dump(pauta, f, ensure_ascii=False, indent=1)
+    return resultado
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--canal", default="terror")
+    parser.add_argument("--video-pronto", action="store_true",
+                        help="publica o próximo vídeo pronto de pautas/youtube/fila/ nesta conta (sem gerar nada)")
     parser.add_argument("--tema", default=None)
     parser.add_argument("--sem-publicar", action="store_true")
     parser.add_argument("--publicar-tiktok", action="store_true", help="Por padrão só publica no YouTube; TikTok fica manual")
@@ -451,6 +511,11 @@ def main():
         help="Caminho de um roteiro.json pronto -- pula gerar_roteiro() e usa esse roteiro direto",
     )
     args = parser.parse_args()
+
+    if args.video_pronto:
+        resultado = publicar_pronta(args.canal, publicar=not args.sem_publicar)
+        print("\n" + json.dumps(resultado, ensure_ascii=False, indent=2))
+        return
 
     roteiro_manual = None
     if args.roteiro_json:

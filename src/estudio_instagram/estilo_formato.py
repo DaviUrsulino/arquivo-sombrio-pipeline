@@ -39,6 +39,13 @@ FORMATOS: dict[str, tuple[list[str], str]] = {
         ["data-story-charts", "dataviz", "data-physical", "iso-infographic", "transit-map", "countdown"],
         "ranking, comparação, quanto custa, quanto economiza: o número é o herói e precisa crescer na tela",
     ),
+    "zack": (
+        ["3d-toy-character", "cartoon-3d-short", "teardown", "white-model", "data-physical", "scifi-toon",
+         "hand-drawn-cartoon"],
+        "molde Zack D. Films (11/11, 14 a 50 mi por vídeo): a câmera entra onde nenhuma câmera entra (corte "
+        "transversal, por dentro do corpo ou da máquina) e um personagem genérico sempre igual; 3D simples serve, "
+        "capricho não é o fator",
+    ),
 }
 PADRAO = "historia_personagem"  # na dúvida, personagem que atua rende mais que tela parada
 
@@ -51,6 +58,7 @@ HUD_PADRAO: dict[str, dict] = {
     "historia_personagem": {"tipo": "contador", "rotulo": "TENSÃO"},
     "utilidade": {"tipo": "etapas", "itens": []},
     "numero": {"tipo": "contador", "rotulo": "A CONTA"},
+    "zack": {"tipo": "nenhum"},  # o Zack não tem placar: a tela é só a cena e a legenda de 1 a 3 palavras
 }
 
 

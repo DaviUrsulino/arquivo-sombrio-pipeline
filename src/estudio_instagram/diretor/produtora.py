@@ -165,15 +165,20 @@ PLACAR = {
     "documentario": '"O NÚMERO" com o valor principal da história subindo até o total real',
     "numero": '"A CONTA" com o número da curiosidade subindo até o valor real do fim',
     "utilidade": '"PASSO 1/N" com a barra enchendo a cada passo concluído',
+    "zack": "NENHUM placar (o molde Zack não tem HUD: só a cena e a legenda curta)",
 }
 PLACAR_GENERICO = 'um contador que sobe a cada cena, com rótulo curto ligado ao assunto do vídeo'
 
 
 def briefing(frases: list[str], estilo: dict, pasta: Path, palavra: str, extra: str = "", tela: str = "",
-             historia: bool = False, formato: str | None = None) -> str:
+             historia: bool = False, formato: str | None = None, plataforma: str = "instagram") -> str:
     """O que o Claude Code recebe. Só texto nosso + as frases do roteiro (sem nada vindo da internet)."""
     lista = json.dumps(frases, ensure_ascii=False, indent=1)
     hud = PLACAR.get(formato or "", PLACAR_GENERICO)
+    zack = formato == "zack"
+    youtube = plataforma == "youtube"
+    perfil = ("do canal brasileiro de curiosidades no YouTube Shorts (público amplo, qualquer idade)" if youtube
+              else "do perfil brasileiro @ursulino.ia (IA para quem cria conteúdo, programa ou está começando)")
     if estilo["slug"] == "esquete":
         como = ("FORMATO: esquete cômica em diálogo entre o criador \"Davi\" (jovem, moletom) e o robô assistente (mascote do perfil: "
                 "corpo arredondado coral, cabeça creme que é uma tela escura com olhos verde-menta brilhando, antena com luz vermelha). "
@@ -187,9 +192,23 @@ def briefing(frases: list[str], estilo: dict, pasta: Path, palavra: str, extra: 
         como = (f"ESTILO: \"{estilo['nome']}\" da biblioteca Lemo-Opuscar (slug {estilo['slug']}). Use a skill lemo-opuscar "
                 f"(Skill tool) ou leia direto {BIBLIOTECA}/AGENTS.md, {BIBLIOTECA}/DIRECTOR.md e {BIBLIOTECA}/styles/{estilo['slug']}/STYLE.md. "
                 "A biblioteca já está instalada nesse caminho (não clone de novo). Siga o STYLE.md à risca: é ele que dá a qualidade.")
-    personagem = ("- Personagens: os da HISTÓRIA (ver DIREÇÃO abaixo), com o MESMO desenho em todas as cenas (cabelo, roupa, "
+    personagem = ("- Personagem: o boneco sempre igual descrito na DIREÇÃO (genérico, constante, nosso); nada de mascote do "
+                  "perfil, nada de logo. Ele é quem sofre o que a frase descreve." if zack else
+                  "- Personagens: os da HISTÓRIA (ver DIREÇÃO abaixo), com o MESMO desenho em todas as cenas (cabelo, roupa, "
                   "cores fixas): é uma série, o público tem que reconhecer o personagem no próximo episódio." if historia else
                   "- Personagem: se o estilo tiver personagem, use o robô do perfil descrito acima, adaptado ao estilo.")
+    if zack:
+        # 11/11: anatomia dos 5 vídeos de 14 a 50 mi do Zack D. Films (segredos/FORMATOS.md, seção 9)
+        extra = extra + """
+MOLDE ZACK D. FILMS (medido em 5 vídeos de 14 a 50 milhões de views):
+- A CÂMERA ENTRA ONDE NENHUMA CÂMERA ENTRA: pelo menos 3 cenas mostram o que é impossível filmar (corte transversal da
+  pele, por dentro do peito, por dentro do cabo/chip, raio-X). É o visual que faz o vídeo; sem isso não vale.
+- Legenda de 1 a 3 palavras por vez, centro-baixo, acompanhando a fala. Nunca uma frase inteira na tela.
+- NENHUM placar, NENHUM HUD, NENHUM título fixo depois do primeiro segundo: a tela é só a cena.
+- Cena nova a cada 3 a 4 s, sempre a que a frase descreve (a frase escolhe a cena). Nunca slide de texto.
+- Antes de animar, escreva {pasta}/storyboard.md com o objeto-herói e o movimento de câmera de cada frase.
+- Confira a folha de contato e REFAÇA qualquer cena parada, vazia ou com cara de slide.
+""".replace("{pasta}", str(pasta))
     if historia:
         extra = extra + f"""
 QUALIDADE MÁXIMA (Davi: "quero que esses vídeos sejam virais"). Este vídeo concorre com séries de 1 a 3 milhões de views:
@@ -201,10 +220,16 @@ QUALIDADE MÁXIMA (Davi: "quero que esses vídeos sejam virais"). Este vídeo co
 - Som: efeitos sonoros nas ações (passos, vibração, chave, porta, clarão) e trilha baixa que cresce na tensão.
 - Confira: gere a folha de contato, olhe cena por cena e REFAÇA qualquer cena feia, vazia ou parada antes do final.
 """
-    fecho = ("- Fechamento: a última frase pede o follow. Mostre as opções de voto (se houver) como dois botões grandes na tela "
+    fecho = ("- Fechamento: NENHUM pedido, nenhum botão, nenhuma caixa de comentário. O vídeo termina na última frase, na "
+             "imagem mais forte, e corta." if zack else
+             "- Fechamento: a última frase pede o follow. Mostre as opções de voto (se houver) como dois botões grandes na tela "
              "e o botão SEGUIR @ursulino.ia pulsando no fim." if historia else
              f"- Fechamento: caixa de comentário digitando {palavra} + botão seguir @ursulino.ia.")
-    return f"""Você é a produtora automática do perfil brasileiro @ursulino.ia (IA para quem cria conteúdo, programa ou está começando).
+    regra_placar = ("- SEM placar e SEM HUD (molde Zack)." if zack else f"""- PLACAR FIXO NO TOPO, do primeiro ao último quadro (medido em 10/11: o Reels de 1,9 milhão do @escolhas.app, com
+  22,7 mil comentários, mantém "DIAS RESTANTES: 4" e "GLOW-UP: 75%" com a barra enchendo o vídeo inteiro; quem assiste
+  fica para ver o placar chegar ao fim). Faixa fina no alto com 1 ou 2 indicadores: {hud}. O valor MUDA a cada cena,
+  sempre para frente, e a barra enche junto. Letra pequena no rótulo, número grande. Nunca suma com ele no meio.""")
+    return f"""Você é a produtora automática {perfil}.
 Faça UM Reel vertical pronto, sem perguntar nada (ninguém vai responder). Faça TUDO você mesmo, em primeiro plano,
 até o final.mp4 existir: NÃO delegue para sub-agentes e NÃO deixe render rodando em segundo plano, porque este
 processo termina quando você der a resposta final. Não publique nada, não faça git commit/push,
@@ -218,13 +243,10 @@ ROTEIRO (aprovado, frase por frase; não invente fatos nem números; pode encurt
 REGRAS DO VÍDEO (estudo de 108 Reels virais):
 - GANCHO (0 a 1,5 s, decide se o Reel viaja): o primeiro quadro já mostra o fato mais forte em movimento, nunca logo,
   título ou introdução. Texto grande na tela, legível sem som: "{tela or frases[0]}". Ele some quando a 2ª frase começa.
-- PLACAR FIXO NO TOPO, do primeiro ao último quadro (medido em 10/11: o Reels de 1,9 milhão do @escolhas.app, com
-  22,7 mil comentários, mantém "DIAS RESTANTES: 4" e "GLOW-UP: 75%" com a barra enchendo o vídeo inteiro; quem assiste
-  fica para ver o placar chegar ao fim). Faixa fina no alto com 1 ou 2 indicadores: {hud}. O valor MUDA a cada cena,
-  sempre para frente, e a barra enche junto. Letra pequena no rótulo, número grande. Nunca suma com ele no meio.
+{regra_placar}
 - 1080x1920, 30 fps, com áudio, duração igual à da narração (25 a 60 s). Cada frase é UMA cena com uma ação visual concreta ligada ao que a frase diz;
   algo novo na tela a cada 1 a 3 s; nunca um slide de texto parado.
-- Um estado na tela que avança (contador, barra, "prova 3/7", nível) do começo ao fim.
+{"" if zack else '- Um estado na tela que avança (contador, barra, "prova 3/7", nível) do começo ao fim.'}
 - Legenda curta sincronizada com a voz por volta de y=1300; nada importante nos 560 px de baixo nem colado na borda direita.
 {personagem}
 {fecho}
@@ -250,6 +272,21 @@ FERRAMENTAS = ["Read", "Write", "Edit", "Glob", "Grep", "Skill",
                "Bash(ffmpeg:*)", "Bash(ffprobe:*)", "Bash(node:*)", "Bash(npx hyperframes:*)", "Bash(npm run:*)",
                f"Bash({sys.executable} -m src.estudio_instagram.diretor.narracao:*)", f"Bash(cd {RAIZ} && {sys.executable} -m src.estudio_instagram.diretor.narracao:*)", "Bash(cd:*)", "Bash(ls:*)",
                "Bash(mkdir:*)", "Bash(cp:*)", "Bash(mv:*)", "Bash(rm -rf ./tmp:*)", "Bash(python3:*)", "Bash(sh:*)"]
+
+
+# Davi, 11/11: gera vídeo com o Fable até a redefinição gratuita dele expirar (17/11 04:59 BRT, devolve ao limite
+# semanal o que o Fable usou); depois volta ao comportamento anterior (opus nas histórias, padrão no resto).
+FABLE_ATE = datetime.fromisoformat("2026-11-17T04:59:00-03:00")
+
+
+def modelo_do_video(historia: bool) -> str | None:
+    """PRODUTORA_MODELO força um modelo; senão Fable até FABLE_ATE; depois opus nas histórias e o padrão no resto."""
+    forcado = os.environ.get("PRODUTORA_MODELO")
+    if forcado:
+        return forcado
+    if datetime.now(FABLE_ATE.tzinfo) < FABLE_ATE:
+        return "claude-fable-5-1"
+    return "opus" if historia else None
 
 
 def rodar_agente(prompt: str, pasta: Path, timeout_s: int = 4500, modelo: str | None = None) -> str:
@@ -303,7 +340,8 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
     estado = _estado()
     todos = estilos()
     assunto = (f"{momento['tema']}: {momento.get('angulo', '')}" if momento else
-               "vídeo de venda: animação feita com IA, sem editor" if venda else f"ferramenta de IA do GitHub {repo}")
+               "vídeo de venda: animação feita com IA, sem editor" if venda else
+               (historia.get("titulo") or historia.get("slug") or repo) if historia else f"ferramenta de IA do GitHub {repo}")
     # a forma do vídeo manda no grupo de estilos; o assunto escolhe dentro do grupo (ver estilo_formato.py)
     # 11/11: o par assunto+ferramenta chega em `par`, não em `promessa`, e por isso o formato saía None e o
     # filtro de estilo nem rodava -- o vídeo do ENEM foi animado em ascii-crt (terminal verde) quando pedia
@@ -320,7 +358,8 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
         # bizarra). O roteiro vem pronto (pautas/historias/*.json) e fecha pedindo o follow ("quer a parte 2?").
         repo = f"historia/{historia['slug']}"
         rot = json.loads(json.dumps(historia["roteiro"]))
-        rot["cta_tipo"] = "segue"
+        # molde Zack (11/11): zero pedido no fim, em todos os 5 vídeos de 14 a 50 mi transcritos
+        rot["cta_tipo"] = "nenhum" if historia.get("formato") == "zack" else "segue"
         extra_video = historia.get("direcao", "")
     elif momento:
         repo = f"em-alta/{re.sub(r'[^a-z0-9]+', '-', momento['chave'].lower()).strip('-')}"
@@ -370,12 +409,14 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
                                                  ensure_ascii=False, indent=1), encoding="utf-8")
     (pasta / "legenda.txt").write_text(rot.get("legenda", ""), encoding="utf-8")
     print(f"produzindo {repo} no estilo {estilo['nome']} -> {pasta}", flush=True)
+    plataforma = (historia or {}).get("plataforma") or "instagram"
     resposta = rodar_agente(briefing(frases, estilo, pasta, rot["palavra"], extra_video, rot.get("texto_tela", ""),
-                                     historia=bool(historia), formato=formato_video), pasta,
-                            timeout_s=7200 if historia else 4500, modelo="opus" if historia else None)
+                                     historia=bool(historia), formato=formato_video, plataforma=plataforma), pasta,
+                            timeout_s=7200 if historia else 4500, modelo=modelo_do_video(bool(historia)))
     final = pasta / "final.mp4"
     res = {"pasta": str(pasta), "repo": repo, "estilo": estilo["slug"], "palavra": rot["palavra"], "ok": False, "venda": venda,
-           "em_alta": bool(momento), "historia": bool(historia)}
+           "em_alta": bool(momento), "historia": bool(historia), "plataforma": plataforma,
+           **({"molde": historia["molde"], "titulo": historia.get("titulo", "")} if historia and historia.get("molde") else {})}
     if final.exists():
         dur = portao._ffprobe_duracao(final)
         q = portao.qa(final, dur)  # duração conferida pelo próprio arquivo; o QA olha congelado, preto, volume e miolo vazio
@@ -476,6 +517,29 @@ def para_fila(res: dict) -> Path:
     return destino
 
 
+FILA_YOUTUBE = RAIZ / "pautas" / "youtube" / "fila"
+
+
+def para_fila_youtube(res: dict) -> Path:
+    """Sobe o MP4 aprovado e põe uma pauta de vídeo pronto na fila do YouTube (pautas/youtube/fila/).
+
+    Davi, 11/11: o mesmo vídeo sai nos DOIS canais (Arquivo Sombrio e Em Alta): custa metade e o teste é do molde,
+    não do canal. O pipeline_dark (`pipeline_completo.py --video-pronto`) pega daqui, publica e marca o canal."""
+    from .. import hospedagem
+    pasta = Path(res["pasta"])
+    pauta_prod = json.loads((pasta / "pauta.json").read_text(encoding="utf-8"))
+    rot = pauta_prod["roteiro"]
+    url = hospedagem.publicar(pasta / "final.mp4", f"youtube-{pasta.name}.mp4")
+    legenda = (rot.get("legenda") or "").strip()
+    pauta = {"titulo": res.get("titulo") or rot.get("texto_tela") or pasta.name, "descricao": legenda,
+             "video_pronto_url": url, "molde": res.get("molde", ""), "estilo": res["estilo"], "slug": res["repo"].split("/")[-1],
+             "formato": "zack", "publicado": {}}
+    FILA_YOUTUBE.mkdir(parents=True, exist_ok=True)
+    destino = FILA_YOUTUBE / f"{datetime.now():%Y-%m-%d-%H%M}-{res.get('molde', 'zack')}-{pasta.name.split('-', 4)[-1]}.json"
+    destino.write_text(json.dumps(pauta, ensure_ascii=False, indent=1), encoding="utf-8")
+    return destino
+
+
 def pauta_automatica() -> str:
     from .. import assunto_quente
     usados = set(_estado().get("repos_usados", []))
@@ -500,6 +564,8 @@ def main():
     p.add_argument("--wiki", help="título de artigo da Wikipédia em inglês: escreve a história desse assunto e produz "
                                   "(formato @marcondes.ai: fatos de uma empresa/figura gigante). Ex.: --wiki 'xAI' --estilo dark-keynote")
     p.add_argument("--listar", action="store_true")
+    p.add_argument("--youtube", action="store_true", help="Short no molde Zack para os dois canais do YouTube "
+                                                           "(roteiro em pautas/youtube/roteiros, fila em pautas/youtube/fila)")
     p.add_argument("--em-alta", action="store_true", help="vídeo do assunto do momento (no --auto vem primeiro)")
     p.add_argument("--venda", action="store_true", help="vídeo de venda do Pack Estúdio (com --auto, sai sozinho quando falta)")
     p.add_argument("--fila", action="store_true", help="se o vídeo passar na conferência, sobe e põe na fila do maestro")
@@ -529,16 +595,25 @@ def main():
         destino.write_text(json.dumps(historia, ensure_ascii=False, indent=1), encoding="utf-8")
         series.registrar(f"tech:{slug}", destino.stem)
         a.historia = str(destino)
+    if a.youtube:
+        from .. import zack
+        proximo = zack.roteiro_youtube_pendente() or zack.gerar_se_preciso("youtube")
+        if not proximo:
+            print("YouTube: nenhum roteiro novo no molde Zack agora (intervalo ou temas esgotados)")
+            return
+        a.historia = str(proximo)
     if a.auto and not a.repo and not a.venda and not a.wiki:
         # série "você decide" (06/11): episódio com voto vencido vem antes de tudo (a parte 2 foi prometida "amanhã")
         from .. import series
-        from .. import curiosidades, historias_cotidiano, historias_tech
+        from .. import curiosidades, historias_cotidiano, historias_tech, zack
         # ordem por alcance medido (10/11, segredos/estudos/2026-11-10/): cotidiano e curiosidade são as frentes de
         # público amplo (mediana de 87 mil a 1,2 milhão nas referências) e vêm antes da história de tecnologia,
         # que é de nicho. Cada frente tem o seu intervalo de 20 h, então na prática se revezam uma por dia.
+        # 11/11: o molde Zack com pé em tecnologia (cabo submarino, chip, bateria) entra no ciclo do Instagram
+        # uma vez por dia, antes da história de tecnologia
         proximo = (series.preparar_proximo() or series.historia_para_produzir()
                    or historias_cotidiano.gerar_se_preciso() or curiosidades.gerar_se_preciso()
-                   or historias_tech.gerar_se_preciso())
+                   or zack.gerar_se_preciso("instagram") or historias_tech.gerar_se_preciso())
         if proximo:
             a.historia = str(proximo)
         else:
@@ -565,7 +640,8 @@ def main():
         historia = json.loads(Path(a.historia).read_text(encoding="utf-8"))
         res = produzir(f"historia/{historia['slug']}", a.estilo or historia.get("estilo"), historia=historia)
         if a.fila and res.get("ok"):
-            res["fila"] = str(para_fila(res).relative_to(RAIZ))
+            fila = para_fila_youtube(res) if historia.get("plataforma") == "youtube" else para_fila(res)
+            res["fila"] = str(fila.relative_to(RAIZ))
         if res.get("ok"):
             from .. import series
             series.marcar_produzida(Path(a.historia).stem)

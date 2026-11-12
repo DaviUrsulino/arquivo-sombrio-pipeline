@@ -112,7 +112,8 @@ def decidir(agora: datetime, estado: dict) -> tuple[str | None, dict]:
     dia = agora.date().isoformat()
     if estado.get("dia") != dia:
         estado = {"dia": dia, "feitos": {}, "fila_usadas": estado.get("fila_usadas", []),
-                  "ultimo_disparo": estado.get("ultimo_disparo"), "ultima_producao": estado.get("ultima_producao")}
+                  "ultimo_disparo": estado.get("ultimo_disparo"), "ultima_producao": estado.get("ultima_producao"),
+                  "ultima_producao_youtube": estado.get("ultima_producao_youtube")}
     feitos = dict(estado["feitos"])
     ultimo = estado.get("ultimo_disparo")
     seguro = not ultimo or agora - datetime.fromisoformat(ultimo) >= timedelta(minutes=INTERVALO_MIN_MIN)
@@ -132,7 +133,8 @@ def decidir(agora: datetime, estado: dict) -> tuple[str | None, dict]:
             escolhido = (hhmm, f"pauta:{pronta}" if pronta else formato)
             feitos[hhmm] = f"disparada {agora.strftime('%H:%M')}"
     novo = {"dia": dia, "feitos": feitos, "ultimo_disparo": estado.get("ultimo_disparo"),
-            "fila_usadas": estado.get("fila_usadas", []), "ultima_producao": estado.get("ultima_producao")}
+            "fila_usadas": estado.get("fila_usadas", []), "ultima_producao": estado.get("ultima_producao"),
+            "ultima_producao_youtube": estado.get("ultima_producao_youtube")}
     if escolhido:
         novo["ultimo_disparo"] = agora.isoformat(timespec="seconds")
     return (escolhido[1] if escolhido else None), novo
@@ -237,8 +239,35 @@ def deve_produzir(agora: datetime, estado: dict, banco: int, rodando: bool, seri
     return inicio <= agora.hour < fim and banco < banco_alvo(agora) and not rodando and not recente
 
 
-def _produtora_rodando() -> bool:
-    r = subprocess.run(["gh", "run", "list", "--workflow", "produtora.yml", "-L", "5", "--json", "status"],
+# 11/11: YouTube em animação (molde Zack). O cron da produtora_youtube.yml pula como o da produtora; de madrugada, se
+# a fila do YouTube tem menos de FILA_YOUTUBE_ALVO vídeos ainda não publicados nos dois canais, o maestro dispara uma.
+FILA_YOUTUBE = RAIZ / "pautas" / "youtube" / "fila"
+FILA_YOUTUBE_ALVO = 3
+JANELA_YOUTUBE = (2, 7)
+
+
+def fila_youtube_pendente(pasta: Path | None = None) -> int:
+    pasta = pasta or FILA_YOUTUBE
+    n = 0
+    for arq in sorted(pasta.glob("*.json")) if pasta.exists() else []:
+        try:
+            pub = json.loads(arq.read_text(encoding="utf-8")).get("publicado") or {}
+        except ValueError:
+            continue
+        if not ({"arquivo_sombrio", "tendencias"} <= set(pub)):
+            n += 1
+    return n
+
+
+def deve_produzir_youtube(agora: datetime, estado: dict, pendentes: int, rodando: bool) -> bool:
+    agora = agora.astimezone(BRASILIA)
+    ultima = estado.get("ultima_producao_youtube")
+    recente = ultima and agora - datetime.fromisoformat(ultima) < INTERVALO_PRODUCAO
+    return JANELA_YOUTUBE[0] <= agora.hour < JANELA_YOUTUBE[1] and pendentes < FILA_YOUTUBE_ALVO and not rodando and not recente
+
+
+def _produtora_rodando(workflow: str = "produtora.yml") -> bool:
+    r = subprocess.run(["gh", "run", "list", "--workflow", workflow, "-L", "5", "--json", "status"],
                        cwd=RAIZ, capture_output=True, text=True)
     try:
         return any(x["status"] in ("queued", "in_progress", "waiting", "pending", "requested") for x in json.loads(r.stdout or "[]"))
@@ -351,6 +380,15 @@ def main():
                     print(f"banco com {banco} vídeo(s){', parte 2 de série pendente' if pendente else ''}: disparei uma produção", flush=True)
             except Exception as erro:
                 print(f"não consegui disparar a produção ({erro}); tento na próxima olhada", flush=True)
+            try:
+                pendentes = fila_youtube_pendente()
+                if deve_produzir_youtube(datetime.now(BRASILIA), novo, pendentes, _produtora_rodando("produtora_youtube.yml")):
+                    subprocess.run(["gh", "workflow", "run", "produtora_youtube.yml", "--ref", "master"], cwd=RAIZ, check=True)
+                    novo["ultima_producao_youtube"] = datetime.now(BRASILIA).isoformat(timespec="seconds")
+                    _gravar(novo, args.commit)
+                    print(f"fila do YouTube com {pendentes} vídeo(s): disparei uma produção do YouTube", flush=True)
+            except Exception as erro:
+                print(f"não consegui disparar a produção do YouTube ({erro}); tento na próxima olhada", flush=True)
         if not formato:
             print(f"nada a disparar agora; feitos hoje: {novo['feitos']}", flush=True)
         if time.monotonic() + args.intervalo >= fim:

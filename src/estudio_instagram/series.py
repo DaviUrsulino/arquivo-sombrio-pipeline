@@ -126,9 +126,9 @@ def escrever_proximo(p: dict, votos: dict[str, int] | None, llm=None) -> Path:
     return destino
 
 
-def registrar(slug: str, resultado: str):
+def registrar(slug: str, resultado: str, **extra):
     estado = _ler(ESTADO)
-    estado[slug] = {"quando": datetime.now(timezone.utc).isoformat(timespec="minutes"), "resultado": resultado}
+    estado[slug] = {"quando": datetime.now(timezone.utc).isoformat(timespec="minutes"), "resultado": resultado, **extra}
     ESTADO.write_text(json.dumps(estado, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
