@@ -1,0 +1,37 @@
+{
+ "estilo": "cartoon-3d-short",
+ "direcao": "HISTÓRIA DE COTIDIANO, público amplo, sem nada de tecnologia. ",
+ "slug": "mensagem-do-proprio-numero-ep2",
+ "serie": "mensagem-do-proprio-numero",
+ "episodio": 2,
+ "roteiro": {
+  "texto_tela": "ELE ESTAVA DENTRO DO QUARTO",
+  "ganchos": [
+   "Vocês escolheram JANELA, e assim que você puxou a cortina, a silhueta deu um soco no vidro."
+  ],
+  "corpo": [
+   "O vidro trincou e o impacto fez você recuar com o coração na boca.",
+   "No ponto exato onde a mão bateu, você encontra um celular preso pelo lado de fora.",
+   "A tela do aparelho acende e mostra um vídeo ao vivo da sua cama, gravado de dentro do seu guarda-roupa.",
+   "A revelação te paralisa: a pessoa não estava lá fora, ela estava escondida no seu quarto o tempo todo.",
+   "De repente, a porta do guarda-roupa ao seu lado começa a abrir bem devagar.",
+   "Uma mão pálida sai lá de dentro e joga uma chave de carro nos seus pés.",
+   "A figura mascarada aponta para a porta do corredor e faz sinal para você sair."
+  ],
+  "cta": "Comenta CHAVE ou RUA. A parte 3 sai amanhã com a escolha que ganhar. Me segue pra não perder.",
+  "legenda": "Parte 2. A escolha vencedora foi JANELA com 3 votos.\nSegue o @ursulino.ia pra acompanhar.\n#suspense #medo #terror #historias #vocedecide\n\nComenta CHAVE ou RUA. A mais votada vira a próxima parte.",
+  "palavra": ""
+ },
+ "opcoes": [
+  "CHAVE",
+  "RUA"
+ ],
+ "fatos_continuacao": null,
+ "escolha_anterior": "JANELA",
+ "votos_anteriores": {
+  "JANELA": 3,
+  "CAMA": 2
+ },
+ "produzir": true,
+ "prioridade": true
+}

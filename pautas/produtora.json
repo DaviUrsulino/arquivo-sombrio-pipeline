@@ -81,7 +81,8 @@
   "hand-drawn-cartoon",
   "hand-drawn-cartoon",
   "hand-drawn-cartoon",
-  "hand-drawn-cartoon"
+  "hand-drawn-cartoon",
+  "cartoon-3d-short"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -733,6 +734,14 @@
    "estilo": "hand-drawn-cartoon",
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-12-1257-porta-que-nao-abre-ep2-hand-drawn-cartoon",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-12T13:49",
+   "repo": "historia/mensagem-do-proprio-numero-ep2",
+   "estilo": "cartoon-3d-short",
+   "ok": false,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-12-1349-mensagem-do-proprio-numero-ep2-cartoon-3d-short",
    "em_alta": false
   }
  ]
