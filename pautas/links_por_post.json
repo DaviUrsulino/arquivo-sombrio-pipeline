@@ -403,5 +403,10 @@
     "palavra": "RESUMO",
     "mensagem": "Oi! Aqui está o anything-llm.\n\nPermite conversar com seus próprios documentos e usar agentes de IA de forma totalmente local e privada.\n\nComo começar:\n1. Abra o site em anythingllm.com/download\n2. Baixe a versão para o seu sistema operacional\n3. Instale e abra o aplicativo para começar a conversar com seus arquivos\n\nPra testar hoje: Baixe o aplicativo para desktop e arraste um arquivo PDF para conversar com ele sem enviar dados para a nuvem.\n\nLink: https://github.com/Mintplex-Labs/anything-llm\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
     "repo": "Mintplex-Labs/anything-llm"
+  },
+  "18134371009887747": {
+    "palavra": "BUSCA",
+    "mensagem": "Oi! Aqui está o LLocalSearch.\n\nEle faz pesquisas na internet e responde perguntas usando modelos de inteligência artificial rodando 100% no seu próprio computador, sem pagar APIs ou expor seus dados.\n\nComo começar:\n1. Clone o repositório executando git clone git@github.com:nilsherzig/LLocalSearch.git e entre na pasta com cd LLocalSearch\n2. Crie o arquivo de configurações locais executando o comando touch .env\n3. Inicie a ferramenta rodando docker-compose up -d\n\nPra testar hoje: Faça uma pergunta sobre um assunto recente para acompanhar os agentes pesquisando a web em tempo real no seu navegador.\n\nLink: https://github.com/nilsherzig/LLocalSearch\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
+    "repo": "nilsherzig/LLocalSearch"
   }
 }
