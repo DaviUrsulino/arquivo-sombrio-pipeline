@@ -398,5 +398,10 @@
     "palavra": "GAME",
     "mensagem": "Oi! Aqui está o Claude-Code-Game-Studios.\n\nOrganiza suas sessões do Claude Code como um estúdio de jogos real para evitar código sem estrutura e acelerar o desenvolvimento.\n\nComo começar:\n1. Acesse o repositório no GitHub e siga o README para instalar a estrutura\n2. Abra o Claude Code na pasta do seu projeto de jogo\n3. Digite o comando /start para navegar pelas opções e iniciar a configuração\n\nPra testar hoje: Digite /brainstorm no Claude Code para alinhar as ideias e a visão do seu jogo.\n\nLink: https://github.com/Donchitos/Claude-Code-Game-Studios\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
     "repo": "Donchitos/Claude-Code-Game-Studios"
+  },
+  "17966271438231093": {
+    "palavra": "RESUMO",
+    "mensagem": "Oi! Aqui está o anything-llm.\n\nPermite conversar com seus próprios documentos e usar agentes de IA de forma totalmente local e privada.\n\nComo começar:\n1. Abra o site em anythingllm.com/download\n2. Baixe a versão para o seu sistema operacional\n3. Instale e abra o aplicativo para começar a conversar com seus arquivos\n\nPra testar hoje: Baixe o aplicativo para desktop e arraste um arquivo PDF para conversar com ele sem enviar dados para a nuvem.\n\nLink: https://github.com/Mintplex-Labs/anything-llm\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
+    "repo": "Mintplex-Labs/anything-llm"
   }
 }
