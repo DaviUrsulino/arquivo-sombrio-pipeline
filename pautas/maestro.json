@@ -4,9 +4,10 @@
     "00:30": "disparada 00:32",
     "03:00": "disparada 03:01",
     "08:00": "disparada 08:00",
-    "12:00": "pulada: banco vazio"
+    "12:00": "pulada: banco vazio",
+    "15:00": "disparada 15:00"
   },
-  "ultimo_disparo": "2026-11-12T08:00:03-03:00",
+  "ultimo_disparo": "2026-11-12T15:00:16-03:00",
   "fila_usadas": [
     "pautas/viral/fila/01-motion-skills.json",
     "pautas/viral/fila/01b-habblaud.json",
@@ -45,7 +46,8 @@
     "pautas/viral/fila/2026-11-11-1803-historia-mensagem-do-proprio-numero-cartoon-3d-short.json",
     "pautas/viral/fila/2026-11-11-0512-produtora-anything-llm-ascii-crt.json",
     "pautas/viral/fila/2026-11-11-0656-produtora-llocalsearch-iso-infographic.json",
-    "pautas/viral/fila/2026-11-11-1158-produtora-modern-web-guidance-esquete.json"
+    "pautas/viral/fila/2026-11-11-1158-produtora-modern-web-guidance-esquete.json",
+    "pautas/viral/fila_descarte/2026-11-11-0816-produtora-astryx-desktop-flythrough.json"
   ],
   "ultima_producao": "2026-11-12T13:59:27-03:00",
   "ultima_producao_youtube": "2026-11-12T06:24:43-03:00"
