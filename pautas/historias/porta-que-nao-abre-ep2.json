@@ -1,0 +1,37 @@
+{
+ "estilo": "hand-drawn-cartoon",
+ "direcao": "HISTÓRIA DE COTIDIANO, público amplo, sem nada de tecnologia. ",
+ "slug": "porta-que-nao-abre-ep2",
+ "serie": "porta-que-nao-abre",
+ "episodio": 2,
+ "roteiro": {
+  "texto_tela": "ALGUÉM ESTÁ TE SEGUINDO",
+  "ganchos": [
+   "Vocês escolheram FUGIR, e Marina disparou escada abaixo antes da maçaneta terminar de girar."
+  ],
+  "corpo": [
+   "Ela correu descalça pelos degraus de concreto, ouvindo passos pesados começarem a descer logo atrás.",
+   "Chegando à rua escura, Marina escondeu-se atrás de uma caçamba de lixo na esquina.",
+   "O homem saiu do prédio vestindo a jaqueta preta que pertencia ao pai dela, falecido há anos.",
+   "Na mão dele, brilhava o chaveiro com a única cópia da chave que estava guardada no fundo da gaveta.",
+   "Marina percebeu então que o invasor sabia todos os seus horários e hábitos de cor.",
+   "O intruso parou bem na frente do esconderijo, segurando um bilhete com o endereço atualizado do emprego dela.",
+   "Ela precisa decidir se corre para a delegacia ou se entra no carro aberto de um estranho na rua."
+  ],
+  "cta": "Comenta POLICIA ou CARRO. A parte 3 sai amanhã com a escolha que ganhar. Me segue pra não perder.",
+  "legenda": "Parte 2.\nVocês escolheram FUGIR e Marina quase foi pega.\nSegue o @ursulino.ia para acompanhar.\n#suspense #medo #vocedecide #terror #historias\n\nComenta POLICIA ou CARRO. A mais votada vira a próxima parte.",
+  "palavra": ""
+ },
+ "opcoes": [
+  "POLICIA",
+  "CARRO"
+ ],
+ "fatos_continuacao": null,
+ "escolha_anterior": "FUGIR",
+ "votos_anteriores": {
+  "ABRIR": 1,
+  "FUGIR": 3
+ },
+ "produzir": true,
+ "prioridade": true
+}

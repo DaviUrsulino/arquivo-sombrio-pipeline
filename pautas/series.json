@@ -138,5 +138,9 @@
  "tech:wannacry-dominio-de-10-dolares": {
   "quando": "2026-11-11T18:06+00:00",
   "resultado": "wannacry-dominio-de-10-dolares"
+ },
+ "porta-que-nao-abre": {
+  "quando": "2026-11-12T00:51+00:00",
+  "resultado": "porta-que-nao-abre-ep2"
  }
 }
