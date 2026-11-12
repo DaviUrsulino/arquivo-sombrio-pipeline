@@ -275,11 +275,11 @@ FERRAMENTAS = ["Read", "Write", "Edit", "Glob", "Grep", "Skill",
 
 
 def modelo_do_video(historia: bool) -> str | None:
-    """PRODUTORA_MODELO força um modelo; senão opus nas histórias e o padrão no resto."""
+    """PRODUTORA_MODELO força um modelo; senão opus em toda produção (Davi, 12/11: o Fable estourou o limite)."""
     forcado = os.environ.get("PRODUTORA_MODELO")
     if forcado:
         return forcado
-    return "opus" if historia else None
+    return "opus"
 
 
 def rodar_agente(prompt: str, pasta: Path, timeout_s: int = 4500, modelo: str | None = None) -> str:
