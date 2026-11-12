@@ -3,7 +3,8 @@
   "feitos": {
     "00:30": "disparada 00:32",
     "03:00": "disparada 03:01",
-    "08:00": "disparada 08:00"
+    "08:00": "disparada 08:00",
+    "12:00": "pulada: banco vazio"
   },
   "ultimo_disparo": "2026-11-12T08:00:03-03:00",
   "fila_usadas": [
