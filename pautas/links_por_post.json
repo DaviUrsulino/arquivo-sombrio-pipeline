@@ -413,5 +413,10 @@
     "palavra": "MODERNO",
     "mensagem": "Oi! Aqui está o modern-web-guidance.\n\nEvita que agentes de IA gerem código desatualizado, ensinando as melhores práticas modernas da web.\n\nComo começar:\n1. Abra o terminal no seu projeto.\n2. Execute npx modern-web-guidance@latest install para rodar o assistente de instalação.\n3. Rode npx modern-web-guidance@latest legacy-scan . para escanear seu código em busca de padrões antigos.\n\nPra testar hoje: Rode npx modern-web-guidance@latest search \"animate a dialog modal backdrop\" no terminal para testar a busca de guias sem instalar.\n\nLink: https://github.com/GoogleChrome/modern-web-guidance\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
     "repo": "GoogleChrome/modern-web-guidance"
+  },
+  "18077202128769277": {
+    "palavra": "ASTRYX",
+    "mensagem": "Oi! Aqui está o astryx.\n\nO Astryx oferece um sistema de design completo e customizável do Meta para criar interfaces no React 19 integradas a agentes de IA.\n\nComo começar:\n1. Instale os pacotes principais com npm install @astryxdesign/core @astryxdesign/theme-neutral @stylexjs/stylex\n2. Adicione a ferramenta de linha de comando usando npm install -D @astryxdesign/cli\n3. Instale a CLI globalmente executando npm i -g @astryxdesign/cli\n\nPra testar hoje: Execute npm run astryx -- component --list para ver a lista de componentes disponíveis no projeto.\n\nLink: https://github.com/meta/astryx\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
+    "repo": "meta/astryx"
   }
 }
