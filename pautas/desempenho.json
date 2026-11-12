@@ -1,330 +1,370 @@
 {
-  "gerado_em": "2026-11-11 14:55",
-  "seguidores": 366,
+  "gerado_em": "2026-11-12 15:22",
+  "seguidores": 372,
   "meta": {
     "meta": 1000,
     "ate": "2026-11-30",
-    "seguidores": 366,
-    "falta": 634,
-    "por_dia_necessario": 33.4,
-    "por_dia_atual": 2.6
+    "seguidores": 372,
+    "falta": 628,
+    "por_dia_necessario": 34.9,
+    "por_dia_atual": 3.2
   },
   "por_gancho": {
     "gancho A": {
-      "n": 19,
-      "views_medianas": 1300,
-      "views_media": 1259,
-      "salvos_por_100_alcance": 0.57,
-      "envios_por_100_alcance": 0.22,
-      "tempo_medio_s": 15.8
+      "n": 24,
+      "views_medianas": 1281,
+      "views_media": 1152,
+      "salvos_por_100_alcance": 0.59,
+      "envios_por_100_alcance": 0.21,
+      "tempo_medio_s": 13.9
     },
     "sem registro": {
       "n": 17,
-      "views_medianas": 1231,
-      "views_media": 4181,
+      "views_medianas": 1236,
+      "views_media": 4186,
       "salvos_por_100_alcance": 4.3,
       "envios_por_100_alcance": 1.22,
       "tempo_medio_s": 8.5
     }
   },
   "geral": {
-    "n": 36,
-    "views_medianas": 1261,
-    "views_media": 2639,
-    "salvos_por_100_alcance": 3.32,
-    "envios_por_100_alcance": 0.95,
-    "tempo_medio_s": 12.3
+    "n": 41,
+    "views_medianas": 1246,
+    "views_media": 2410,
+    "salvos_por_100_alcance": 3.21,
+    "envios_por_100_alcance": 0.92,
+    "tempo_medio_s": 11.7
   },
   "por_estilo": {
+    "produtora-desktop-flythrough": {
+      "n": 1,
+      "views_medianas": 9,
+      "views_media": 9,
+      "salvos_por_100_alcance": 0.0,
+      "envios_por_100_alcance": 0.0,
+      "tempo_medio_s": 0.0
+    },
+    "produtora-esquete": {
+      "n": 6,
+      "views_medianas": 1324,
+      "views_media": 1177,
+      "salvos_por_100_alcance": 0.83,
+      "envios_por_100_alcance": 0.29,
+      "tempo_medio_s": 13.6
+    },
+    "produtora-iso-infographic": {
+      "n": 1,
+      "views_medianas": 755,
+      "views_media": 755,
+      "salvos_por_100_alcance": 2.6,
+      "envios_por_100_alcance": 0.46,
+      "tempo_medio_s": 7.9
+    },
+    "produtora-ascii-crt": {
+      "n": 1,
+      "views_medianas": 208,
+      "views_media": 208,
+      "salvos_por_100_alcance": 0.0,
+      "envios_por_100_alcance": 0.0,
+      "tempo_medio_s": 4.2
+    },
+    "produtora-cartoon-3d-short": {
+      "n": 5,
+      "views_medianas": 1410,
+      "views_media": 1507,
+      "salvos_por_100_alcance": 0.19,
+      "envios_por_100_alcance": 0.06,
+      "tempo_medio_s": 16.6
+    },
     "produtora-hand-drawn-cartoon": {
       "n": 2,
-      "views_medianas": 1165,
-      "views_media": 1165,
-      "salvos_por_100_alcance": 0.2,
+      "views_medianas": 1232,
+      "views_media": 1232,
+      "salvos_por_100_alcance": 0.19,
       "envios_por_100_alcance": 0.0,
-      "tempo_medio_s": 19.3
+      "tempo_medio_s": 18.9
     },
     "produtora-dataviz": {
       "n": 1,
-      "views_medianas": 1327,
-      "views_media": 1327,
+      "views_medianas": 1355,
+      "views_media": 1355,
       "salvos_por_100_alcance": 0.17,
       "envios_por_100_alcance": 0.0,
-      "tempo_medio_s": 21.8
-    },
-    "produtora-cartoon-3d-short": {
-      "n": 4,
-      "views_medianas": 1322,
-      "views_media": 1321,
-      "salvos_por_100_alcance": 0.24,
-      "envios_por_100_alcance": 0.04,
-      "tempo_medio_s": 16.6
+      "tempo_medio_s": 21.7
     },
     "produtora-scifi-toon": {
       "n": 3,
-      "views_medianas": 1300,
-      "views_media": 1458,
+      "views_medianas": 1307,
+      "views_media": 1469,
       "salvos_por_100_alcance": 0.16,
       "envios_por_100_alcance": 0.03,
       "tempo_medio_s": 17.2
     },
-    "produtora-esquete": {
-      "n": 5,
-      "views_medianas": 1334,
-      "views_media": 1359,
-      "salvos_por_100_alcance": 0.81,
-      "envios_por_100_alcance": 0.3,
-      "tempo_medio_s": 15.0
-    },
     "produtora-countdown": {
       "n": 1,
-      "views_medianas": 177,
-      "views_media": 177,
-      "salvos_por_100_alcance": 0.64,
+      "views_medianas": 190,
+      "views_media": 190,
+      "salvos_por_100_alcance": 0.62,
       "envios_por_100_alcance": 0.0,
-      "tempo_medio_s": 6.6
+      "tempo_medio_s": 6.7
     },
     "produtora-halftone-dossier": {
       "n": 1,
-      "views_medianas": 195,
-      "views_media": 195,
+      "views_medianas": 199,
+      "views_media": 199,
       "salvos_por_100_alcance": 0.0,
       "envios_por_100_alcance": 0.0,
-      "tempo_medio_s": 8.1
+      "tempo_medio_s": 7.9
     },
     "produtora-midcentury-toon": {
       "n": 1,
-      "views_medianas": 1519,
-      "views_media": 1519,
+      "views_medianas": 1526,
+      "views_media": 1526,
       "salvos_por_100_alcance": 0.16,
       "envios_por_100_alcance": 0.0,
       "tempo_medio_s": 19.4
     },
     "produtora-pixel-rpg": {
       "n": 1,
-      "views_medianas": 1920,
-      "views_media": 1920,
+      "views_medianas": 1931,
+      "views_media": 1931,
       "salvos_por_100_alcance": 2.88,
       "envios_por_100_alcance": 1.57,
       "tempo_medio_s": 11.8
     },
     "pixel2": {
       "n": 5,
-      "views_medianas": 1239,
-      "views_media": 1292,
-      "salvos_por_100_alcance": 3.94,
-      "envios_por_100_alcance": 0.91,
+      "views_medianas": 1246,
+      "views_media": 1298,
+      "salvos_por_100_alcance": 3.93,
+      "envios_por_100_alcance": 0.9,
       "tempo_medio_s": 7.5
     },
     "3d": {
       "n": 1,
-      "views_medianas": 1318,
-      "views_media": 1318,
-      "salvos_por_100_alcance": 2.4,
+      "views_medianas": 1330,
+      "views_media": 1330,
+      "salvos_por_100_alcance": 2.48,
       "envios_por_100_alcance": 1.42,
       "tempo_medio_s": 7.5
     },
     "pixel antigo / manual": {
       "n": 11,
-      "views_medianas": 1013,
-      "views_media": 5755,
+      "views_medianas": 1014,
+      "views_media": 5759,
       "salvos_por_100_alcance": 4.38,
-      "envios_por_100_alcance": 1.25,
-      "tempo_medio_s": 9.1
+      "envios_por_100_alcance": 1.24,
+      "tempo_medio_s": 9.0
     }
   },
   "por_formato": {
     "curto (20-35 s)": {
-      "n": 30,
-      "views_medianas": 1261,
-      "views_media": 1185,
-      "salvos_por_100_alcance": 1.36,
-      "envios_por_100_alcance": 0.41,
-      "tempo_medio_s": 12.7
+      "n": 35,
+      "views_medianas": 1246,
+      "views_media": 1124,
+      "salvos_por_100_alcance": 1.3,
+      "envios_por_100_alcance": 0.39,
+      "tempo_medio_s": 11.9
     },
     "longo (45-60 s)": {
       "n": 6,
-      "views_medianas": 1119,
-      "views_media": 9906,
+      "views_medianas": 1120,
+      "views_media": 9911,
       "salvos_por_100_alcance": 4.56,
       "envios_por_100_alcance": 1.3,
       "tempo_medio_s": 10.3
     }
   },
   "por_faixa_horaria": {
+    "tarde (14-18h)": {
+      "n": 3,
+      "views_medianas": 177,
+      "views_media": 138,
+      "salvos_por_100_alcance": 0.58,
+      "envios_por_100_alcance": 0.58,
+      "tempo_medio_s": 6.8
+    },
     "manhã (6-10h)": {
-      "n": 7,
-      "views_medianas": 1279,
-      "views_media": 9009,
-      "salvos_por_100_alcance": 4.13,
-      "envios_por_100_alcance": 1.17,
-      "tempo_medio_s": 13.8
+      "n": 8,
+      "views_medianas": 1262,
+      "views_media": 7932,
+      "salvos_por_100_alcance": 4.11,
+      "envios_por_100_alcance": 1.16,
+      "tempo_medio_s": 12.9
     },
     "madrugada (0-6h)": {
-      "n": 8,
-      "views_medianas": 1269,
-      "views_media": 1056,
-      "salvos_por_100_alcance": 0.64,
-      "envios_por_100_alcance": 0.18,
-      "tempo_medio_s": 14.3
+      "n": 10,
+      "views_medianas": 1200,
+      "views_media": 949,
+      "salvos_por_100_alcance": 0.78,
+      "envios_por_100_alcance": 0.2,
+      "tempo_medio_s": 12.6
+    },
+    "tarde da noite (22-24h)": {
+      "n": 12,
+      "views_medianas": 1325,
+      "views_media": 1378,
+      "salvos_por_100_alcance": 2.22,
+      "envios_por_100_alcance": 0.56,
+      "tempo_medio_s": 10.8
     },
     "meio-dia (10-14h)": {
       "n": 6,
-      "views_medianas": 1302,
-      "views_media": 1307,
-      "salvos_por_100_alcance": 1.35,
+      "views_medianas": 1318,
+      "views_media": 1318,
+      "salvos_por_100_alcance": 1.36,
       "envios_por_100_alcance": 0.66,
       "tempo_medio_s": 14.2
     },
-    "tarde da noite (22-24h)": {
-      "n": 11,
-      "views_medianas": 1300,
-      "views_media": 1296,
-      "salvos_por_100_alcance": 2.56,
-      "envios_por_100_alcance": 0.64,
-      "tempo_medio_s": 10.2
-    },
     "noite (18-22h)": {
       "n": 2,
-      "views_medianas": 497,
-      "views_media": 497,
-      "salvos_por_100_alcance": 5.01,
-      "envios_por_100_alcance": 1.83,
+      "views_medianas": 498,
+      "views_media": 498,
+      "salvos_por_100_alcance": 4.98,
+      "envios_por_100_alcance": 1.82,
       "tempo_medio_s": 7.2
-    },
-    "tarde (14-18h)": {
-      "n": 2,
-      "views_medianas": 201,
-      "views_media": 201,
-      "salvos_por_100_alcance": 0.58,
-      "envios_por_100_alcance": 0.58,
-      "tempo_medio_s": 10.3
     }
   },
   "por_tema": {
     "outros": {
-      "n": 12,
-      "views_medianas": 1267,
-      "views_media": 1168,
-      "salvos_por_100_alcance": 0.22,
-      "envios_por_100_alcance": 0.01,
-      "tempo_medio_s": 16.2
+      "n": 16,
+      "views_medianas": 1232,
+      "views_media": 1056,
+      "salvos_por_100_alcance": 0.21,
+      "envios_por_100_alcance": 0.02,
+      "tempo_medio_s": 13.8
+    },
+    "agentes e skills": {
+      "n": 13,
+      "views_medianas": 1236,
+      "views_media": 1204,
+      "salvos_por_100_alcance": 3.51,
+      "envios_por_100_alcance": 1.09,
+      "tempo_medio_s": 9.0
     },
     "Claude Code": {
       "n": 20,
-      "views_medianas": 1263,
-      "views_media": 3837,
+      "views_medianas": 1276,
+      "views_media": 3843,
       "salvos_por_100_alcance": 4.11,
       "envios_por_100_alcance": 1.19,
       "tempo_medio_s": 9.9
     },
     "vídeo com IA": {
       "n": 17,
-      "views_medianas": 1318,
-      "views_media": 4361,
+      "views_medianas": 1330,
+      "views_media": 4368,
       "salvos_por_100_alcance": 4.24,
       "envios_por_100_alcance": 1.22,
       "tempo_medio_s": 8.8
     },
     "segurança e teste": {
       "n": 1,
-      "views_medianas": 1244,
-      "views_media": 1244,
+      "views_medianas": 1256,
+      "views_media": 1256,
       "salvos_por_100_alcance": 0.27,
       "envios_por_100_alcance": 0.18,
-      "tempo_medio_s": 20.7
-    },
-    "agentes e skills": {
-      "n": 12,
-      "views_medianas": 1235,
-      "views_media": 1237,
-      "salvos_por_100_alcance": 3.56,
-      "envios_por_100_alcance": 1.12,
-      "tempo_medio_s": 9.1
+      "tempo_medio_s": 20.6
     },
     "venda e kit": {
       "n": 12,
-      "views_medianas": 1235,
-      "views_media": 1182,
-      "salvos_por_100_alcance": 3.34,
+      "views_medianas": 1241,
+      "views_media": 1186,
+      "salvos_por_100_alcance": 3.33,
       "envios_por_100_alcance": 0.95,
       "tempo_medio_s": 8.0
     },
     "assistente (Jarvis)": {
       "n": 3,
-      "views_medianas": 1318,
-      "views_media": 1304,
-      "salvos_por_100_alcance": 3.05,
+      "views_medianas": 1330,
+      "views_media": 1309,
+      "salvos_por_100_alcance": 3.08,
       "envios_por_100_alcance": 1.08,
       "tempo_medio_s": 7.4
     }
   },
   "por_tipo": {
+    "ferramenta de IA": {
+      "n": 6,
+      "views_medianas": 481,
+      "views_media": 742,
+      "salvos_por_100_alcance": 2.81,
+      "envios_por_100_alcance": 1.03,
+      "tempo_medio_s": 6.8
+    },
     "história": {
-      "n": 14,
-      "views_medianas": 1293,
-      "views_media": 1339,
-      "salvos_por_100_alcance": 0.19,
+      "n": 15,
+      "views_medianas": 1307,
+      "views_media": 1416,
+      "salvos_por_100_alcance": 0.17,
       "envios_por_100_alcance": 0.04,
-      "tempo_medio_s": 17.7
+      "tempo_medio_s": 17.5
     },
     "assunto do momento": {
       "n": 3,
-      "views_medianas": 195,
-      "views_media": 639,
+      "views_medianas": 199,
+      "views_media": 648,
       "salvos_por_100_alcance": 0.12,
       "envios_por_100_alcance": 0.18,
       "tempo_medio_s": 9.9
     },
-    "ferramenta de IA": {
-      "n": 2,
-      "views_medianas": 1627,
-      "views_media": 1627,
-      "salvos_por_100_alcance": 3.12,
-      "envios_por_100_alcance": 1.3,
-      "tempo_medio_s": 10.9
-    },
     "sem registro": {
       "n": 17,
-      "views_medianas": 1231,
-      "views_media": 4181,
+      "views_medianas": 1236,
+      "views_media": 4186,
       "salvos_por_100_alcance": 4.3,
       "envios_por_100_alcance": 1.22,
       "tempo_medio_s": 8.5
     }
   },
   "por_fechamento": {
-    "segue": {
-      "n": 14,
-      "views_medianas": 1293,
-      "views_media": 1339,
-      "salvos_por_100_alcance": 0.19,
-      "envios_por_100_alcance": 0.04,
-      "tempo_medio_s": 17.7
-    },
     "comenta": {
-      "n": 5,
-      "views_medianas": 1334,
-      "views_media": 1034,
-      "salvos_por_100_alcance": 1.97,
-      "envios_por_100_alcance": 0.87,
-      "tempo_medio_s": 10.3
+      "n": 7,
+      "views_medianas": 208,
+      "views_media": 776,
+      "salvos_por_100_alcance": 1.89,
+      "envios_por_100_alcance": 0.83,
+      "tempo_medio_s": 8.0
+    },
+    "salva": {
+      "n": 1,
+      "views_medianas": 208,
+      "views_media": 208,
+      "salvos_por_100_alcance": 1.7,
+      "envios_por_100_alcance": 0.0,
+      "tempo_medio_s": 6.9
+    },
+    "manda": {
+      "n": 1,
+      "views_medianas": 755,
+      "views_media": 755,
+      "salvos_por_100_alcance": 2.6,
+      "envios_por_100_alcance": 0.46,
+      "tempo_medio_s": 7.9
+    },
+    "segue": {
+      "n": 15,
+      "views_medianas": 1307,
+      "views_media": 1416,
+      "salvos_por_100_alcance": 0.17,
+      "envios_por_100_alcance": 0.04,
+      "tempo_medio_s": 17.5
     },
     "sem registro": {
       "n": 17,
-      "views_medianas": 1231,
-      "views_media": 4181,
+      "views_medianas": 1236,
+      "views_media": 4186,
       "salvos_por_100_alcance": 4.3,
       "envios_por_100_alcance": 1.22,
       "tempo_medio_s": 8.5
     }
   },
-  "melhor_faixa": "meio-dia (10-14h)",
+  "melhor_faixa": "tarde da noite (22-24h)",
   "melhor_tema": "vídeo com IA",
   "top": [
     {
       "id": "18027479654873301",
-      "views": 54937,
+      "views": 54956,
       "salvos": 2016,
       "envios": 561,
       "tempo_s": 11.9,
@@ -333,7 +373,7 @@
     },
     {
       "id": "18100419563670495",
-      "views": 2419,
+      "views": 2427,
       "salvos": 6,
       "envios": 0,
       "tempo_s": 18.3,
@@ -341,8 +381,17 @@
       "hora": "07/11 08:01"
     },
     {
+      "id": "17977839348170181",
+      "views": 2215,
+      "salvos": 1,
+      "envios": 2,
+      "tempo_s": 17.0,
+      "titulo": "Seu celular tocou às três da manhã e era o seu próprio número.",
+      "hora": "11/11 22:33"
+    },
+    {
       "id": "18127340134927939",
-      "views": 1920,
+      "views": 1931,
       "salvos": 44,
       "envios": 24,
       "tempo_s": 11.8,
@@ -351,16 +400,16 @@
     },
     {
       "id": "18448140910131240",
-      "views": 1912,
+      "views": 1922,
       "salvos": 0,
       "envios": 0,
-      "tempo_s": 15.8,
+      "tempo_s": 15.9,
       "titulo": "Parte 2. A maioria votou CONTAR. A Bia confessou, mas a verdade por tr",
       "hora": "08/11 12:01"
     },
     {
       "id": "18413224864081335",
-      "views": 1863,
+      "views": 1868,
       "salvos": 56,
       "envios": 24,
       "tempo_s": 9.4,
@@ -369,7 +418,7 @@
     },
     {
       "id": "18128094488490921",
-      "views": 1547,
+      "views": 1557,
       "salvos": 1,
       "envios": 3,
       "tempo_s": 15.1,
@@ -378,21 +427,12 @@
     },
     {
       "id": "18095692625657436",
-      "views": 1519,
+      "views": 1526,
       "salvos": 2,
       "envios": 0,
       "tempo_s": 19.4,
       "titulo": "Em 1925, Victor Lustig se passou por funcionário do governo francês e ",
       "hora": "06/11 22:32"
-    },
-    {
-      "id": "18652054705039244",
-      "views": 1416,
-      "salvos": 2,
-      "envios": 1,
-      "tempo_s": 14.6,
-      "titulo": "Tem dia que a IA resolve o bug do jeito mais criativo possível.",
-      "hora": "08/11 22:33"
     }
   ]
 }
