@@ -47,7 +47,8 @@ BRASILIA = timezone(timedelta(hours=-3))
 # 10/11: entrou uma 5ª rodada porque o banco sobrava, e eu pus às 16:00 "porque a tarde estava vazia".
 # 11/11: medi por hora e a tarde é o fundo do poço deste perfil -- 14h fez 226, 15h fez 173 e 18h fez 126 views,
 # contra 1.2 a 1.3 mil da madrugada, do meio-dia e das 22h. A rodada da tarde virou 03:00 (mediana 1.368).
-RODADAS = [("00:30", "pixel2"), ("03:00", "pixel2"), ("08:00", "pixel2"), ("12:00", "pixel2"), ("22:30", "lista")]
+RODADAS = [("00:30", "pixel2"), ("03:00", "pixel2"), ("08:00", "pixel2"), ("12:00", "pixel2"),
+           ("15:00", "descarte"), ("22:30", "lista")]
 # 2026-10-29: a rodada das 20:00 era "loop" (vídeo do Google Flow, formato @pixosly) -- dependia do Davi
 # soltar um vídeo à mão em loops/fila/ toda vez, o que ele não sustentou ("mó preguiça"). Virou "pixel2"
 # (ferramenta/identidade, 100% automático, sem insumo manual) pra fechar as 3 rodadas do dia sem depender
@@ -86,9 +87,13 @@ PAUTAS_DO_DIA = {
 # Banco de vídeos: pautas prontas e aprovadas em pautas/viral/fila/. Cada rodada usa a próxima que ainda não saiu
 # (em ordem de nome); sem nada no banco, ver SO_VIDEOS_NOVOS.
 FILA = RAIZ / "pautas" / "viral" / "fila"
-FILA_RODADAS = ("00:30", "03:00", "08:00", "12:00", "22:30")  # 2026-11-04 (Davi): só vídeo novo, o banco abastece TODAS as rodadas
+FILA_RODADAS = ("00:30", "03:00", "08:00", "12:00", "15:00", "22:30")  # 2026-11-04 (Davi): só vídeo novo, o banco abastece TODAS as rodadas
 # Vídeos de venda feitos pela produtora no estilo novo; a rodada de venda (ter/sex 08:00) usa esta fila primeiro.
 FILA_VENDA = RAIZ / "pautas" / "viral" / "fila_venda"
+# Davi, 11/11, sobre os vídeos de ferramenta que sobraram no banco: "apagar também é muito forte, bota esses
+# pra tarde". É a jogada certa: a tarde é a pior faixa do perfil (14h fez 226, 15h fez 173, 18h fez 126 views),
+# então o vídeo que não merece horário bom sai às 15:00 em vez de queimar a rodada da madrugada ou do meio-dia.
+FILA_DESCARTE = RAIZ / "pautas" / "viral" / "fila_descarte"
 # Davi, 2026-11-04: "para mim já fazia só dos novos". Sem vídeo novo no banco, a rodada NÃO cai no formato antigo:
 # é pulada e o maestro pede uma produção nova para repor o banco.
 SO_VIDEOS_NOVOS = True
@@ -187,6 +192,8 @@ def escolher_da_fila(formato: str, usadas: list[str], antes_da_venda: bool = Fal
     Trava (Davi, 06/11): saíram GTA 6 e Ralph Fiennes (os dois em-alta) e, logo depois, o Pack Estúdio -- 3
     "Comenta ESTUDIO" seguidos, e ele ficou bravo. Agora nunca 2 seguidos com cara de venda: depois de um, a rodada
     pega um vídeo comum nem que seja fora de ordem. A venda do dia (ter/sex) tem prioridade sobre o em-alta."""
+    if formato == "descarte":  # rodada da tarde: só o que foi posto de lado, nunca material bom
+        return proxima_da_fila(usadas, FILA_DESCARTE)
     if (ultima_foi_venda(usadas) or antes_da_venda) and not (formato == "venda" and proxima_da_fila(usadas, FILA_VENDA)):
         comuns = [c for c in disponiveis(usadas) if not _tem_cara_de_venda(c)]
         return comuns[0] if comuns else None

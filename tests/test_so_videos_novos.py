@@ -213,3 +213,20 @@ def test_segmentado_da_uma_palavra_pra_cada_lado():
     frase = dict(produtora.FECHAMENTOS)["segmentado"].format(p="ESTUDIO")
     assert frase.lower().count("comenta") == 2, "um pedido para cada grupo"
     assert "ESTUDIO" in frase
+
+
+def test_rodada_da_tarde_so_pega_o_que_foi_posto_de_lado(tmp_path, monkeypatch):
+    """Davi, 11/11: 'apagar é muito forte, bota esses pra tarde'. A tarde é a pior faixa do perfil (15h fez 173
+    views), então é onde o vídeo reprovado sai sem queimar a rodada da madrugada ou do meio-dia."""
+    descarte = tmp_path / "descarte"
+    _pauta(descarte, "2026-11-11-0816-fraco.json")
+    comum = tmp_path / "fila"
+    _pauta(comum, "2026-11-11-0306-bom.json")
+    monkeypatch.setattr(maestro, "RAIZ", tmp_path)
+    monkeypatch.setattr(maestro, "FILA_DESCARTE", descarte)
+    monkeypatch.setattr(maestro, "FILA", comum)
+    assert dict(maestro.RODADAS)["15:00"] == "descarte"
+    escolhido = maestro.escolher_da_fila("descarte", [])
+    assert escolhido and "fraco" in escolhido, "a tarde puxa do descarte"
+    normal = maestro.escolher_da_fila("pixel2", [])
+    assert normal and "bom" in normal, "as outras rodadas nunca pegam do descarte"

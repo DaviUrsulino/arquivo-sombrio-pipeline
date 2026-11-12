@@ -16,3 +16,9 @@ Este é um projeto pessoal do Davi (estudante de Engenharia de Software, UnB Gam
 segundo cérebro dele em Obsidian — não misturar contexto dos dois.
 
 Instagram (@ursulino.ia): ler `docs/INSTAGRAM-ESTADO.md` antes de mexer no pipeline do Instagram.
+
+**Antes de escrever roteiro, escolher formato de vídeo ou mexer na grade de horários, leia
+`segredos/FORMATOS.md`.** É o catálogo do que já foi MEDIDO (views de 20 contas de referência, 6 transcrições
+com 11 milhões de views somados, horários do nosso perfil e os formatos que já morreram aqui). Davi, 11/11:
+"às vezes tu alucina, fala que esqueceu — e esquecer vai ter que fazer tudo de novo". Esse arquivo existe para
+isso não acontecer: não redescubra na unha o que já está medido lá, e atualize-o quando medir algo novo.
