@@ -91,7 +91,8 @@
   "cartoon-3d-short",
   "cartoon-3d-short",
   "cartoon-3d-short",
-  "hand-drawn-cartoon"
+  "hand-drawn-cartoon",
+  "midcentury-toon"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -823,6 +824,14 @@
    "estilo": "hand-drawn-cartoon",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-12-2105-porta-que-nao-abre-ep2-hand-drawn-cartoon",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-12T22:25",
+   "repo": "historia/wannacry-dominio-de-10-dolares",
+   "estilo": "midcentury-toon",
+   "ok": false,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-12-2225-wannacry-dominio-de-10-dolares-midcentury-toon",
    "em_alta": false
   }
  ]
