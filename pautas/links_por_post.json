@@ -408,5 +408,10 @@
     "palavra": "BUSCA",
     "mensagem": "Oi! Aqui está o LLocalSearch.\n\nEle faz pesquisas na internet e responde perguntas usando modelos de inteligência artificial rodando 100% no seu próprio computador, sem pagar APIs ou expor seus dados.\n\nComo começar:\n1. Clone o repositório executando git clone git@github.com:nilsherzig/LLocalSearch.git e entre na pasta com cd LLocalSearch\n2. Crie o arquivo de configurações locais executando o comando touch .env\n3. Inicie a ferramenta rodando docker-compose up -d\n\nPra testar hoje: Faça uma pergunta sobre um assunto recente para acompanhar os agentes pesquisando a web em tempo real no seu navegador.\n\nLink: https://github.com/nilsherzig/LLocalSearch\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
     "repo": "nilsherzig/LLocalSearch"
+  },
+  "18660176359027633": {
+    "palavra": "MODERNO",
+    "mensagem": "Oi! Aqui está o modern-web-guidance.\n\nEvita que agentes de IA gerem código desatualizado, ensinando as melhores práticas modernas da web.\n\nComo começar:\n1. Abra o terminal no seu projeto.\n2. Execute npx modern-web-guidance@latest install para rodar o assistente de instalação.\n3. Rode npx modern-web-guidance@latest legacy-scan . para escanear seu código em busca de padrões antigos.\n\nPra testar hoje: Rode npx modern-web-guidance@latest search \"animate a dialog modal backdrop\" no terminal para testar a busca de guias sem instalar.\n\nLink: https://github.com/GoogleChrome/modern-web-guidance\n\nToda semana eu posto uma ferramenta assim. Segue o @ursulino.ia pra não perder.",
+    "repo": "GoogleChrome/modern-web-guidance"
   }
 }
