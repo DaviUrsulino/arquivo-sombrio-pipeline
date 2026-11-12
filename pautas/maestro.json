@@ -5,9 +5,10 @@
     "08:00": "disparada 08:01",
     "03:00": "perdida",
     "12:00": "disparada 12:01",
-    "15:00": "perdida"
+    "15:00": "perdida",
+    "22:30": "disparada 22:31"
   },
-  "ultimo_disparo": "2026-11-11T12:01:12-03:00",
+  "ultimo_disparo": "2026-11-11T22:31:56-03:00",
   "fila_usadas": [
     "pautas/viral/fila/01-motion-skills.json",
     "pautas/viral/fila/01b-habblaud.json",
@@ -42,7 +43,8 @@
     "pautas/viral/fila/2026-11-10-2143-historia-xai-company-circuit-board.json",
     "pautas/viral/fila/2026-11-11-0306-historia-tamanho-do-vaticano-dataviz.json",
     "pautas/viral/fila/2026-11-10-2016-historia-porta-que-nao-abre-hand-drawn-cartoon.json",
-    "pautas/viral/fila/2026-11-10-1639-em-alta-xbox-one-microgame.json"
+    "pautas/viral/fila/2026-11-10-1639-em-alta-xbox-one-microgame.json",
+    "pautas/viral/fila/2026-11-11-1803-historia-mensagem-do-proprio-numero-cartoon-3d-short.json"
   ],
   "ultima_producao": "2026-11-11T21:47:23-03:00"
 }
