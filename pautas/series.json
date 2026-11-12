@@ -150,5 +150,9 @@
  "produzido:mensagem-do-proprio-numero-ep2": {
   "quando": "2026-11-12T20:25+00:00",
   "resultado": "ok"
+ },
+ "produzido:porta-que-nao-abre-ep2": {
+  "quando": "2026-11-12T21:31+00:00",
+  "resultado": "ok"
  }
 }

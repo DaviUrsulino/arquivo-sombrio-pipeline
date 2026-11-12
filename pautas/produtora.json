@@ -90,7 +90,8 @@
   "cartoon-3d-short",
   "cartoon-3d-short",
   "cartoon-3d-short",
-  "cartoon-3d-short"
+  "cartoon-3d-short",
+  "hand-drawn-cartoon"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -814,6 +815,14 @@
    "estilo": "cartoon-3d-short",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-12-1946-mensagem-do-proprio-numero-ep2-cartoon-3d-short",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-12T21:31",
+   "repo": "historia/porta-que-nao-abre-ep2",
+   "estilo": "hand-drawn-cartoon",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-12-2105-porta-que-nao-abre-ep2-hand-drawn-cartoon",
    "em_alta": false
   }
  ]
