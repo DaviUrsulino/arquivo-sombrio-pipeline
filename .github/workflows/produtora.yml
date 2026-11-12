@@ -11,10 +11,9 @@ on:
   schedule:
     # Davi, 04/11: produzir de madrugada, quando ele não está usando o Claude (o plano é o mesmo). 4 por noite,
     # uma atrás da outra (concurrency), cobrem as 3 rodadas do dia seguinte e sobra 1 no banco.
-    - cron: '17 3 * * *'   # 00:17 em Brasília
-    - cron: '17 5 * * *'   # 02:17
-    - cron: '17 7 * * *'   # 04:17
-    - cron: '17 9 * * *'   # 06:17
+    - cron: '27 5 * * *'   # 02:27 em Brasília
+    - cron: '57 5 * * *'   # 02:57
+    - cron: '27 6 * * *'   # 03:27 (12/11: nada depois de 03:30, a sessão do Davi renova às 08:30)
   workflow_dispatch:
     inputs:
       repo:

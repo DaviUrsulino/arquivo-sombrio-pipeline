@@ -209,7 +209,11 @@ def escolher_da_fila(formato: str, usadas: list[str], antes_da_venda: bool = Fal
 # Produção da madrugada (Davi, 04/11: produzir quando ele não usa o Claude). O cron do GitHub para a produtora pula ou
 # atrasa horas (00:17 de 05/11 nem entrou na fila), então o maestro, que está sempre rodando, garante: de 00h às 07h,
 # se o banco tem menos de BANCO_ALVO vídeos e não há produção rodando, dispara uma (no máximo 1 a cada 80 min).
-JANELA_PRODUCAO = (0, 7)
+# 12/11 (Davi): "tu pode estourar até 3h30 da manhã, depois disso não pode": a janela de 5 h abre na primeira
+# chamada, então produzir até 03:30 faz a sessão renovar às 08:30, quando ele precisa dela inteira. A produção
+# das 04:17 e 05:47 de ontem estourou a sessão às 05:50 e deixou o Davi sem Claude às 10h.
+JANELA_PRODUCAO = (2, 4)
+FIM_PRODUCAO = (3, 30)  # nenhuma produção nova dispara depois de 03:30
 BANCO_ALVO = 5  # uma rodada por post do dia (10/11: 5 rodadas)
 INTERVALO_PRODUCAO = timedelta(minutes=80)
 # Reforço (Davi, 05/11): a cota semanal do Claude renova 06/11 às 13h e sobrou; até lá a produtora enche o banco até
@@ -225,25 +229,31 @@ def banco_alvo(agora: datetime | None = None) -> int:
 
 
 def janela_producao(agora: datetime | None = None) -> tuple[int, int]:
-    return (REFORCO_DESDE_HORA, 11) if (agora or datetime.now(BRASILIA)) < REFORCO_ATE else JANELA_PRODUCAO
+    return (REFORCO_DESDE_HORA, 4) if (agora or datetime.now(BRASILIA)) < REFORCO_ATE else JANELA_PRODUCAO
+
+
+def antes_do_fim(agora: datetime) -> bool:
+    agora = agora.astimezone(BRASILIA)
+    return (agora.hour, agora.minute) < FIM_PRODUCAO
 
 
 def deve_produzir(agora: datetime, estado: dict, banco: int, rodando: bool, serie_pendente: bool = False) -> bool:
     agora = agora.astimezone(BRASILIA)
-    if serie_pendente and not rodando:  # parte 2 prometida pra "amanhã": produz a qualquer hora, sem esperar o banco
+    if serie_pendente and not rodando and antes_do_fim(agora) and agora.hour >= 2:  # parte 2 prometida: só na janela
         ultima = estado.get("ultima_producao")
         return not (ultima and agora - datetime.fromisoformat(ultima) < INTERVALO_PRODUCAO)
     ultima = estado.get("ultima_producao")
     recente = ultima and agora - datetime.fromisoformat(ultima) < INTERVALO_PRODUCAO
     inicio, fim = janela_producao(agora)
-    return inicio <= agora.hour < fim and banco < banco_alvo(agora) and not rodando and not recente
+    return (inicio <= agora.hour < fim and antes_do_fim(agora) and banco < banco_alvo(agora)
+            and not rodando and not recente)
 
 
 # 11/11: YouTube em animação (molde Zack). O cron da produtora_youtube.yml pula como o da produtora; de madrugada, se
 # a fila do YouTube tem menos de FILA_YOUTUBE_ALVO vídeos ainda não publicados nos dois canais, o maestro dispara uma.
 FILA_YOUTUBE = RAIZ / "pautas" / "youtube" / "fila"
 FILA_YOUTUBE_ALVO = 3
-JANELA_YOUTUBE = (2, 7)
+JANELA_YOUTUBE = (2, 4)
 
 
 def fila_youtube_pendente(pasta: Path | None = None) -> int:
@@ -263,7 +273,8 @@ def deve_produzir_youtube(agora: datetime, estado: dict, pendentes: int, rodando
     agora = agora.astimezone(BRASILIA)
     ultima = estado.get("ultima_producao_youtube")
     recente = ultima and agora - datetime.fromisoformat(ultima) < INTERVALO_PRODUCAO
-    return JANELA_YOUTUBE[0] <= agora.hour < JANELA_YOUTUBE[1] and pendentes < FILA_YOUTUBE_ALVO and not rodando and not recente
+    return (JANELA_YOUTUBE[0] <= agora.hour < JANELA_YOUTUBE[1] and antes_do_fim(agora)
+            and pendentes < FILA_YOUTUBE_ALVO and not rodando and not recente)
 
 
 def _produtora_rodando(workflow: str = "produtora.yml") -> bool:

@@ -274,18 +274,11 @@ FERRAMENTAS = ["Read", "Write", "Edit", "Glob", "Grep", "Skill",
                "Bash(mkdir:*)", "Bash(cp:*)", "Bash(mv:*)", "Bash(rm -rf ./tmp:*)", "Bash(python3:*)", "Bash(sh:*)"]
 
 
-# Davi, 11/11: gera vídeo com o Fable até a redefinição gratuita dele expirar (17/11 04:59 BRT, devolve ao limite
-# semanal o que o Fable usou); depois volta ao comportamento anterior (opus nas histórias, padrão no resto).
-FABLE_ATE = datetime.fromisoformat("2026-11-17T04:59:00-03:00")
-
-
 def modelo_do_video(historia: bool) -> str | None:
-    """PRODUTORA_MODELO força um modelo; senão Fable até FABLE_ATE; depois opus nas histórias e o padrão no resto."""
+    """PRODUTORA_MODELO força um modelo; senão opus nas histórias e o padrão no resto."""
     forcado = os.environ.get("PRODUTORA_MODELO")
     if forcado:
         return forcado
-    if datetime.now(FABLE_ATE.tzinfo) < FABLE_ATE:
-        return "claude-fable-5-1"
     return "opus" if historia else None
 
 
@@ -599,8 +592,11 @@ def main():
         from .. import zack
         proximo = zack.roteiro_youtube_pendente() or zack.gerar_se_preciso("youtube")
         if not proximo:
-            print("YouTube: nenhum roteiro novo no molde Zack agora (intervalo ou temas esgotados)")
-            return
+            # 12/11: o Gemini deu 429 e o Claude do runner devolveu vazio; o roteiro não saiu e o workflow ficou
+            # VERDE sem publicar nada por 12 h. Sem roteiro e sem fila em dia, falha visível.
+            print("YouTube: nenhum roteiro novo no molde Zack agora (intervalo, temas esgotados ou LLM fora do ar)")
+            from .. import maestro
+            raise SystemExit(0 if maestro.fila_youtube_pendente() >= maestro.FILA_YOUTUBE_ALVO else 1)
         a.historia = str(proximo)
     if a.auto and not a.repo and not a.venda and not a.wiki:
         # série "você decide" (06/11): episódio com voto vencido vem antes de tudo (a parte 2 foi prometida "amanhã")

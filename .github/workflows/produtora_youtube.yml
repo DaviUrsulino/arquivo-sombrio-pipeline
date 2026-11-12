@@ -3,13 +3,13 @@ name: Produtora YouTube - Shorts animados no molde Zack D. Films para os dois ca
 # 11/11 (Davi): "o YouTube pra mim é viralizar". Os dois canais (Arquivo Sombrio e Em Alta) deixam a foto e passam
 # a animação. O molde é o do canal que mais viraliza em Short animado (Zack D. Films, 14 a 50 mi por vídeo; ver
 # segredos/FORMATOS.md seções 8 e 9 e src/estudio_instagram/zack.py). Roda de madrugada (Davi: "de 2 às 5 da manhã é
-# o melhor horário pra ficar gerando vídeo"), 3 por noite; o pipeline_dark publica cada um nos DOIS canais.
+# o melhor horário pra ficar gerando vídeo"), 3 por noite entre 02:00 e 03:30 (12/11: a sessão do Davi tem que estar 100% às 08:30); o pipeline_dark publica cada um nos DOIS canais.
 
 on:
   schedule:
-    - cron: '47 5 * * *'   # 02:47 em Brasília
-    - cron: '17 7 * * *'   # 04:17
-    - cron: '47 8 * * *'   # 05:47
+    - cron: '12 5 * * *'   # 02:12 em Brasília
+    - cron: '42 5 * * *'   # 02:42
+    - cron: '12 6 * * *'   # 03:12 (nada depois de 03:30: a sessão do Davi renova às 08:30)
   workflow_dispatch:
     inputs:
       estilo:

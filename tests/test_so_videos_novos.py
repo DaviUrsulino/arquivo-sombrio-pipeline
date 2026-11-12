@@ -85,10 +85,13 @@ def test_maestro_produz_de_madrugada_so_quando_falta_video():
 
 def test_reforco_ate_a_cota_renovar_e_depois_volta_ao_normal():
     from datetime import datetime
-    manha = datetime(2026, 11, 11, 10, 0, tzinfo=maestro.BRASILIA)   # dentro do reforço
-    reforcado = maestro.banco_alvo(manha)
-    assert maestro.deve_produzir(manha, {}, banco=reforcado - 1, rodando=False)
-    assert not maestro.deve_produzir(manha, {}, banco=reforcado, rodando=False)
+    # 12/11 (Davi): a produção só pode rodar entre 02:00 e 03:30; às 10h, mesmo no reforço, não dispara mais
+    madrugada = datetime(2026, 11, 11, 3, 0, tzinfo=maestro.BRASILIA)  # dentro do reforço e da janela
+    reforcado = maestro.banco_alvo(madrugada)
+    assert maestro.deve_produzir(madrugada, {}, banco=reforcado - 1, rodando=False)
+    assert not maestro.deve_produzir(madrugada, {}, banco=reforcado, rodando=False)
+    assert not maestro.deve_produzir(datetime(2026, 11, 11, 10, 0, tzinfo=maestro.BRASILIA), {}, banco=0, rodando=False)
+    assert not maestro.deve_produzir(datetime(2026, 11, 11, 3, 45, tzinfo=maestro.BRASILIA), {}, banco=0, rodando=False)
     depois = maestro.REFORCO_ATE.replace(hour=13)                     # reforço acabou
     assert maestro.banco_alvo(depois) == maestro.BANCO_ALVO
     assert not maestro.deve_produzir(depois, {}, banco=0, rodando=False)
