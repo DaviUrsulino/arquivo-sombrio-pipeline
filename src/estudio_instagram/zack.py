@@ -70,6 +70,8 @@ TENTATIVAS_POR_RODADA = 3  # temas diferentes por rodada: um artigo ruim não po
 # O "boneco sempre igual" (regra 4 do Zack): um personagem genérico e constante, NOSSO, nunca o dele.
 PERSONAGEM = ("um homem comum de camiseta cinza lisa e calça jeans, careca, rosto simples e sempre o mesmo em todos os "
               "vídeos; sem logo, sem nome na roupa")
+# 13/11: os 5 vídeos do Zack escrevem "seis ferramentas", "dois" etc.; contar só algarismo reprovava o molde certo
+EXTENSO = r"(?:dois|duas|três|tres|quatro|cinco|seis|sete|oito|nove|dez|vinte|trinta|cem|mil|milhão|milhões|milhao|milhoes|bilhão|bilhões)"
 PROIBIDO_NO_INICIO = re.compile(r"^(você sabia|voce sabia|hoje|olha só|olha so|conheça|bem-vindo)", re.I)
 PEDIDO = re.compile(r"\b(comenta|comente|segue|me siga|curte|curta|link na bio|parte 2|inscreva)\b", re.I)
 
@@ -78,8 +80,8 @@ def problemas(r: dict) -> list[str]:
     """O que o molde exige e o previsor de nota não confere."""
     erros = []
     corpo = r.get("corpo")
-    if not isinstance(corpo, list) or not 6 <= len(corpo) <= 9:
-        return ["'corpo' precisa ter de 6 a 9 frases"]
+    if not isinstance(corpo, list) or not 5 <= len(corpo) <= 10:
+        return ["'corpo' precisa ter de 5 a 10 frases"]
     titulo = str(r.get("titulo", "")).strip()
     if not 10 <= len(titulo) <= 70:
         erros.append("'titulo' precisa ter de 10 a 70 caracteres")
@@ -87,8 +89,8 @@ def problemas(r: dict) -> list[str]:
         erros.append("'titulo' não pode ter emoji")
     for f in corpo:
         n = len(str(f).split())
-        if not 5 <= n <= 18:
-            erros.append(f"frase '{str(f)[:40]}' tem {n} palavras (use 5 a 18)")
+        if not 4 <= n <= 24:
+            erros.append(f"frase '{str(f)[:40]}' tem {n} palavras (use 5 a 20)")
         if PEDIDO.search(str(f)):
             erros.append(f"frase '{str(f)[:40]}' faz pedido; o molde não pede nada")
     if PROIBIDO_NO_INICIO.search(str(corpo[0]).strip()):
@@ -96,7 +98,7 @@ def problemas(r: dict) -> list[str]:
     segunda = sum(bool(re.search(r"\b(você|voce|seu|sua|seus|suas)\b", str(f), re.I)) for f in corpo)
     if segunda < 2:
         erros.append("faltou a segunda pessoa (você, sua pele, seu corpo) em pelo menos 2 frases")
-    if sum(bool(re.search(r"\d", str(f))) for f in corpo) < 2:
+    if sum(bool(re.search(rf"\d|\b{EXTENSO}\b", str(f), re.I)) for f in corpo) < 2:
         erros.append("faltou número concreto em pelo menos 2 frases")
     if not any(re.match(r"^(mas|só que|so que)\b", str(f).strip(), re.I) for f in corpo[1:]):
         erros.append("falta a frase de virada começando com 'Mas' ou 'Só que'")
