@@ -44,3 +44,4 @@ produto/*.zip
 produto/kit-claude-code/
 produto/kit-engenharia/
 produto/pack-estudio/
+.venv-yt/
