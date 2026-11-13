@@ -93,7 +93,8 @@
   "cartoon-3d-short",
   "hand-drawn-cartoon",
   "midcentury-toon",
-  "scifi-toon"
+  "scifi-toon",
+  "teardown"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -841,6 +842,14 @@
    "estilo": "scifi-toon",
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-13-0148-ossos-de-vidro-scifi-toon",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-13T05:02",
+   "repo": "historia/ossos-de-vidro",
+   "estilo": "teardown",
+   "ok": false,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-13-0502-ossos-de-vidro-teardown",
    "em_alta": false
   }
  ]
