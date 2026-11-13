@@ -97,7 +97,8 @@
   "teardown",
   "midcentury-toon",
   "hand-drawn-cartoon",
-  "white-model"
+  "white-model",
+  "data-physical"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -877,6 +878,14 @@
    "estilo": "white-model",
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-13-1308-barragem-de-gente-white-model",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-13T14:41",
+   "repo": "historia/barragem-de-gente",
+   "estilo": "data-physical",
+   "ok": false,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-13-1441-barragem-de-gente-data-physical",
    "em_alta": false
   }
  ]
