@@ -298,6 +298,19 @@ def rodar_agente(prompt: str, pasta: Path, timeout_s: int = 4500, modelo: str | 
     # em branco; forçando o SwiftShader o three.js renderiza por software (mais lento, mas funciona). Teste de 04/11.
     env = {**os.environ, "CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS": "0", "LEMO_ANGLE": os.environ.get("LEMO_ANGLE", "swiftshader")}
     r = subprocess.run(cmd, cwd=pasta, capture_output=True, text=True, timeout=timeout_s, env=env)
+    # 13/11: o roteiro (Sonnet) passava e o agente de animação (Opus) morria em 3 min com "You've hit your org's monthly
+    # spend limit": o limite de gasto da organização barra o modelo caro. Sem vídeo é pior que vídeo com Sonnet, então
+    # nesse erro a produção repete UMA vez com sonnet (o log guarda as duas tentativas).
+    if "spend limit" in (r.stdout or "") and modelo != "sonnet":
+        print(f"limite de gasto do modelo {modelo or 'padrão'} atingido; repito com sonnet", flush=True)
+        primeira = r.stdout
+        cmd2 = [c for c in cmd]
+        if "--model" in cmd2:
+            cmd2[cmd2.index("--model") + 1] = "sonnet"
+        else:
+            cmd2.insert(cmd2.index("--"), "--model"); cmd2.insert(cmd2.index("--"), "sonnet")
+        r = subprocess.run(cmd2, cwd=pasta, capture_output=True, text=True, timeout=timeout_s, env=env)
+        r.stdout = f"[1ª tentativa, {modelo}]: {primeira}\n[2ª tentativa, sonnet]:\n{r.stdout}"
     (pasta / "agente.log").write_text((r.stdout or "") + "\n--- stderr ---\n" + (r.stderr or "")[-4000:], encoding="utf-8")
     return r.stdout
 
