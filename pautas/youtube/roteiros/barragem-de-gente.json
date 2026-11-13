@@ -1,0 +1,32 @@
+{
+ "slug": "barragem-de-gente",
+ "serie": "barragem-de-gente",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "formato": "zack",
+ "molde": "e-se",
+ "plataforma": "youtube",
+ "titulo": "E se a maior barragem do mundo fosse feita de pessoas?",
+ "nota_previsor": 7.2,
+ "premissa": "absurda",
+ "fonte": "https://en.wikipedia.org/wiki/Three_Gorges_Dam",
+ "direcao": "MOLDE ZACK D. FILMS. A câmera entra onde nenhuma câmera entra (corte transversal, por dentro, raio-X). Personagem fixo: um homem comum de camiseta cinza lisa e calça jeans, careca, rosto simples e sempre o mesmo em todos os vídeos; sem logo, sem nome na roupa. A câmera faz uma visão em corte transversal da barragem, mostrando milhões de corpos 3D empilhados no lugar do concreto. Conforme a água sobe, a câmera aproxima na base esmagada sob pressão extrema até a estrutura colapsar em um maremoto.\nObjetos-herói: parede da barragem, corpos empilhados, coluna de água.",
+ "roteiro": {
+  "texto_tela": "BARRAGEM FEITA DE PESSOAS",
+  "ganchos": [
+   "Se você tenta trocar a parede da barragem por corpos humanos, a tragédia começa."
+  ],
+  "corpo": [
+   "Você precisa empilhar pessoas até alcançar 185 metros de altura.",
+   "Sua muralha viva tem que se estender por 2.335 metros de comprimento.",
+   "Essa multidão deve ocupar o lugar de 27,2 milhões de metros cúbicos de concreto.",
+   "Mesmo 1,4 milhão de pessoas deslocadas na obra não cobrem a sua necessidade.",
+   "Mas a água acumulada a 175 metros de altura esmaga os corpos na base.",
+   "A barreira de carne se rompe e uma onda gigante devora a paisagem."
+  ],
+  "cta": "",
+  "legenda": "Descubra o impacto físico e a escala colossal da Barragem das Três Gargantas se ela fosse feita de pessoas.",
+  "palavra": ""
+ }
+}

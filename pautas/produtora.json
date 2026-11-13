@@ -96,7 +96,8 @@
   "scifi-toon",
   "teardown",
   "midcentury-toon",
-  "hand-drawn-cartoon"
+  "hand-drawn-cartoon",
+  "white-model"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -868,6 +869,14 @@
    "estilo": "hand-drawn-cartoon",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-13-1143-ossos-de-vidro-hand-drawn-cartoon",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-13T13:33",
+   "repo": "historia/barragem-de-gente",
+   "estilo": "white-model",
+   "ok": false,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-13-1308-barragem-de-gente-white-model",
    "em_alta": false
   }
  ]

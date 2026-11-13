@@ -167,5 +167,10 @@
  "produzido:ossos-de-vidro": {
   "quando": "2026-11-13T11:58+00:00",
   "resultado": "ok"
+ },
+ "zack:barragem-de-gente": {
+  "quando": "2026-11-13T13:08+00:00",
+  "resultado": "barragem-de-gente",
+  "plataforma": "youtube"
  }
 }
