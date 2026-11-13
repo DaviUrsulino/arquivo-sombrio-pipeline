@@ -24,6 +24,17 @@ from . import series
 # Instagram (@ursulino.ia) só leva os temas com pé em tecnologia: Davi, 11/11, "pelo menos algo que tenha
 # minimamente a ver". YouTube leva todos.
 TEMAS = [
+    # premissas absurdas primeiro (Davi, 13/11): é o que prende
+    ("ossos-de-vidro", "Bone", "e-se",
+     "se todos os seus ossos virassem vidro por 10 minutos: o que quebra primeiro, o que aguenta, o que você sente", False),
+    ("barragem-de-gente", "Three Gorges Dam", "e-se",
+     "se a barragem fosse feita de pessoas em vez de concreto: quantas seriam precisas e o que aconteceria", False),
+    ("sem-lua-por-um-dia", "Moon", "e-se",
+     "se a Lua sumisse por um dia: as marés, a noite, os animais que dependem dela", False),
+    ("gravidade-desliga-um-segundo", "Gravity", "e-se",
+     "se a gravidade desligasse por um segundo: o que flutua, o que acontece com você e com o ar", False),
+    ("sangue-de-colibri", "Blood", "e-se",
+     "se o seu sangue fosse trocado por água: o que o sangue faz que a água não faz, quanto tempo você dura", False),
     ("mensagem-no-cabo-submarino", "Submarine communications cable", "dentro",
      "por onde passa a sua mensagem: dentro do cabo no fundo do mar, a fibra fina como um fio de cabelo, "
      "quantos quilômetros de cabo existem e o que acontece quando um rompe", True),
@@ -65,7 +76,10 @@ PREFIXO = "zack:"
 ROTEIROS_YOUTUBE = series.RAIZ / "pautas" / "youtube" / "roteiros"
 # 6,0 e não 7,0: o previsor foi feito para Reels que pedem follow no fim e descontava o Zack por "não ter motivo para
 # seguir no final" (nota 5,2 em 12/11), mas o molde fecha sem pedido DE PROPÓSITO (os 5 vídeos de 14 a 50 mi).
-NOTA_MINIMA = 6.0
+# 13/11 (Davi): "às vezes um roteiro ruim vai viralizar... se os ossos virassem vidro por 10 minutos, é um bagulho
+# assim que prende". O que segura nos 5 vídeos de 14 a 50 mi é a PREMISSA absurda, não a nota do previsor. Ele
+# continua rodando e registrando, mas só barra roteiro realmente quebrado (nota abaixo de 4).
+NOTA_MINIMA = 4.0
 TENTATIVAS_POR_RODADA = 3  # temas diferentes por rodada: um artigo ruim não pode travar a fila inteira
 # O "boneco sempre igual" (regra 4 do Zack): um personagem genérico e constante, NOSSO, nunca o dele.
 PERSONAGEM = ("um homem comum de camiseta cinza lisa e calça jeans, careca, rosto simples e sempre o mesmo em todos os "
