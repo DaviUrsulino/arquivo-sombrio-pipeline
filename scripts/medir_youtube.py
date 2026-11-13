@@ -20,7 +20,11 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "src"))
-from pipeline_completo import CREDENCIAIS_POR_CONTA  # noqa: E402
+# cópia mínima de pipeline_completo.CREDENCIAIS_POR_CONTA: importar o módulo inteiro puxa Cloudflare, dotenv e o resto
+CREDENCIAIS_POR_CONTA = {
+    "arquivo_sombrio": {"youtube_client_secret": "client_secret.json", "youtube_token": "token.json"},
+    "tendencias": {"youtube_client_secret": "client_secret_tendencias.json", "youtube_token": "token_tendencias.json"},
+}
 from publicar_youtube import autenticar  # noqa: E402
 
 FILA = RAIZ / "pautas" / "youtube" / "fila"
