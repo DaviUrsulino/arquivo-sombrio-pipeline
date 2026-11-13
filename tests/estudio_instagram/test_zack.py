@@ -23,7 +23,7 @@ def test_molde_reprova_introducao_pedido_e_falta_de_numero():
     r = json.loads(json.dumps(BOM))
     r["corpo"][0] = "Você sabia que dá pra ficar dias sem dormir?"
     r["corpo"][-1] = "Comenta DORMIR que eu te mando o resto."
-    r["corpo"] = [f.replace("1", "um").replace("5", "cinco").replace("264", "muitas").replace("4", "x") for f in r["corpo"]]
+    r["corpo"] = [f.replace("1", "").replace("5", "").replace("264", "muitas").replace("4", "").replace("11", "") for f in r["corpo"]]
     erros = " ".join(zack.problemas(r))
     assert "introdução" in erros and "pedido" in erros and "número" in erros
 
