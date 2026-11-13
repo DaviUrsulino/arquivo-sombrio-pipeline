@@ -1,0 +1,32 @@
+{
+ "slug": "ossos-de-vidro",
+ "serie": "ossos-de-vidro",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "formato": "zack",
+ "molde": "e-se",
+ "plataforma": "youtube",
+ "titulo": "E se todos os seus ossos virassem vidro?",
+ "nota_previsor": 6.1,
+ "premissa": "absurda",
+ "fonte": "https://en.wikipedia.org/wiki/Bone",
+ "direcao": "MOLDE ZACK D. FILMS. A câmera entra onde nenhuma câmera entra (corte transversal, por dentro, raio-X). Personagem fixo: um homem comum de camiseta cinza lisa e calça jeans, careca, rosto simples e sempre o mesmo em todos os vídeos; sem logo, sem nome na roupa. A câmera entra dentro da pele mostrando a transparência vítrea do esqueleto em corte transversal. Mostra a cavidade medular paralisada, a vibração quebrando o estribo no ouvido e a ruptura interna do tórax.\nHero-objetos: fêmur vítreo (frase 1 e 2), medula óssea (frase 3), matriz mineral (frase 4), ossículos do ouvido (frase 5), articulação do pé (frase 6), caixa torácica (frase 7).",
+ "roteiro": {
+  "texto_tela": "OSSOS VIRASSEM VIDRO",
+  "ganchos": [
+   "Se os 206 ossos do seu corpo virassem vidro, a sua estrutura mudaria instantaneamente."
+  ],
+  "corpo": [
+   "A sua perna sustentaria o peso inicial, mas o menor impacto trincaria o fêmur.",
+   "Dentro da medula, a produção diária de 2,5 bilhões de células sanguíneas pararia imediatamente.",
+   "Sem a flexibilidade das células que formam 15 por cento do osso, o impacto aumenta.",
+   "Os pequenos ossos do seu ouvido médio quebrariam com a simples vibração do som.",
+   "Só que o pior aconteceria se você tentasse dar um único passo na superfície.",
+   "Sua caixa torácica se despedaçaria por dentro, perfurando seus órgãos vitais em segundos."
+  ],
+  "cta": "",
+  "legenda": "Descubra o que aconteceria com a estrutura do seu corpo se o esqueleto perdesse a resistência mineral orgânica.",
+  "palavra": ""
+ }
+}
