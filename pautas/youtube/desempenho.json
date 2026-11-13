@@ -1,0 +1,1646 @@
+{
+ "medido_em": "2026-11-13T18:45+00:00",
+ "contas": {
+  "arquivo_sombrio": {
+   "canal": {
+    "inscritos": 204,
+    "videos": 285
+   },
+   "por_molde": {
+    "e-se/absurda": {
+     "n": 1,
+     "mediana": 458,
+     "maior": 458
+    },
+    "foto (antigo)": {
+     "n": 99,
+     "mediana": 11,
+     "maior": 941
+    }
+   },
+   "videos": [
+    {
+     "id": "fMqBCsE7QM8",
+     "titulo": "E se todos os seus ossos virassem vidro?",
+     "publicado": "2026-11-13T13:09:16Z",
+     "views": 458,
+     "likes": 15,
+     "comentarios": 0,
+     "molde": "e-se",
+     "premissa": "absurda",
+     "nota_previsor": 6.1,
+     "estilo": "hand-drawn-cartoon",
+     "slug": "ossos-de-vidro",
+     "conta": "arquivo_sombrio"
+    },
+    {
+     "id": "rwjMt0EZ7ts",
+     "titulo": "O mistério das três da manhã... #shorts",
+     "publicado": "2026-11-12T01:49:25Z",
+     "views": 1,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "FS71252LaRI",
+     "titulo": "O segredo do farol abandonado... #shorts",
+     "publicado": "2026-11-11T22:17:49Z",
+     "views": 11,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "uESuFwu95D4",
+     "titulo": "Não confie no reflexo... #shorts",
+     "publicado": "2026-11-11T17:55:07Z",
+     "views": 888,
+     "likes": 14,
+     "comentarios": 1
+    },
+    {
+     "id": "gR6QfFkRi24",
+     "titulo": "Nunca herde uma caixa trancada... #shorts",
+     "publicado": "2026-11-11T12:29:36Z",
+     "views": 870,
+     "likes": 18,
+     "comentarios": 0
+    },
+    {
+     "id": "xNofLd9slJ0",
+     "titulo": "O Segredo das Fotos Antigas... #shorts",
+     "publicado": "2026-11-11T03:56:10Z",
+     "views": 94,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "OF8xLr6_CUw",
+     "titulo": "O paciente que nunca existiu... #shorts",
+     "publicado": "2026-11-11T02:27:31Z",
+     "views": 375,
+     "likes": 4,
+     "comentarios": 0
+    },
+    {
+     "id": "ZNMYk0hSj7Y",
+     "titulo": "A chave nunca foi encontrada... #shorts",
+     "publicado": "2026-11-10T22:24:58Z",
+     "views": 27,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "jgOOPH8NXWU",
+     "titulo": "O mesmo objeto sempre volta... #shorts",
+     "publicado": "2026-11-10T21:47:53Z",
+     "views": 35,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "12_t6Wsv3cE",
+     "titulo": "O silêncio da estrada... #shorts",
+     "publicado": "2026-11-10T17:55:24Z",
+     "views": 18,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "92NUeneCWkE",
+     "titulo": "Não abra o diário da família... #shorts",
+     "publicado": "2026-11-10T16:31:47Z",
+     "views": 180,
+     "likes": 3,
+     "comentarios": 0
+    },
+    {
+     "id": "tISAO7zSEL8",
+     "titulo": "Não olhe para o vagão... #shorts",
+     "publicado": "2026-11-10T13:50:45Z",
+     "views": 49,
+     "likes": 2,
+     "comentarios": 0
+    },
+    {
+     "id": "JbP9oQkz1_s",
+     "titulo": "Não olhe para a última foto... #shorts",
+     "publicado": "2026-11-10T02:27:03Z",
+     "views": 0,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "aqXxlJIVuo8",
+     "titulo": "A internação nunca aconteceu.... #shorts",
+     "publicado": "2026-11-09T23:01:09Z",
+     "views": 11,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "L9ueUFsu5NA",
+     "titulo": "A voz que ligou... #shorts",
+     "publicado": "2026-11-09T18:22:40Z",
+     "views": 3,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "t1qMSEzyvfk",
+     "titulo": "O prédio que muda no escuro... #shorts",
+     "publicado": "2026-11-09T03:52:42Z",
+     "views": 26,
+     "likes": 3,
+     "comentarios": 0
+    },
+    {
+     "id": "WEMIaWpYp1c",
+     "titulo": "O Perseguidor da Rota Quarenta... #shorts",
+     "publicado": "2026-11-09T02:15:14Z",
+     "views": 941,
+     "likes": 24,
+     "comentarios": 1
+    },
+    {
+     "id": "Je3PseGn5JU",
+     "titulo": "Não Espere o Ônibus... #shorts",
+     "publicado": "2026-11-08T22:57:46Z",
+     "views": 21,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "ddenat7ngnU",
+     "titulo": "Nunca responda a essa voz... #shorts",
+     "publicado": "2026-11-08T21:22:22Z",
+     "views": 11,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "msCAAYjKx74",
+     "titulo": "Não olhe o fundo das fotos... #shorts",
+     "publicado": "2026-11-08T16:31:44Z",
+     "views": 11,
+     "likes": 2,
+     "comentarios": 0
+    },
+    {
+     "id": "QxQk6L41Hy8",
+     "titulo": "Nunca aceite este objeto antigo... #shorts",
+     "publicado": "2026-11-08T12:30:25Z",
+     "views": 2,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "EOQnVoJSjE0",
+     "titulo": "O silêncio deles nunca foi explicado... #shorts",
+     "publicado": "2026-11-08T03:25:03Z",
+     "views": 1,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "B3ZUDkQaG0c",
+     "titulo": "O segredo do mosteiro abandonado... #shorts",
+     "publicado": "2026-11-08T01:58:56Z",
+     "views": 11,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "WqTlQ4DPxYc",
+     "titulo": "Não leia a última página... #shorts",
+     "publicado": "2026-11-07T23:23:38Z",
+     "views": 0,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "VaKqdppwOw4",
+     "titulo": "O silêncio nunca foi vazio... #shorts",
+     "publicado": "2026-11-07T21:27:27Z",
+     "views": 0,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "Je55K4k0jBU",
+     "titulo": "A porta nunca ficou aberta... #shorts",
+     "publicado": "2026-11-07T18:11:59Z",
+     "views": 30,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "6s6kN6KkQ1o",
+     "titulo": "O Paciente Sem Registro... #shorts",
+     "publicado": "2026-11-07T16:19:05Z",
+     "views": 11,
+     "likes": 3,
+     "comentarios": 0
+    },
+    {
+     "id": "z5SZqKoOfmk",
+     "titulo": "O MISTÉRIO DAS TRÊS E QUINZE... #shorts",
+     "publicado": "2026-11-07T12:23:47Z",
+     "views": 12,
+     "likes": 2,
+     "comentarios": 0
+    },
+    {
+     "id": "Hx4Tt3-dnGY",
+     "titulo": "O segredo nas fotos antigas... #shorts",
+     "publicado": "2026-11-07T03:49:38Z",
+     "views": 8,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "599A_KI_aGE",
+     "titulo": "Nunca leia a última página... #shorts",
+     "publicado": "2026-11-07T01:46:25Z",
+     "views": 895,
+     "likes": 17,
+     "comentarios": 0
+    },
+    {
+     "id": "JhMZosgA5Ec",
+     "titulo": "Nunca Entre Nesta Casa À Noite... #shorts",
+     "publicado": "2026-11-06T23:04:37Z",
+     "views": 0,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "Q9Nv6pQBxk8",
+     "titulo": "Eles Nunca Mudam de Rosto... #shorts",
+     "publicado": "2026-11-06T20:44:09Z",
+     "views": 2,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "5kj5rFE-rLE",
+     "titulo": "O mistério do peão de madeira... #shorts",
+     "publicado": "2026-11-06T17:43:00Z",
+     "views": 8,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "QXf6R8BUDSA",
+     "titulo": "O mistério das fotos antigas... #shorts",
+     "publicado": "2026-11-06T12:59:09Z",
+     "views": 9,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "odO21fch7O0",
+     "titulo": "Nunca leia o diário abandonado... #shorts",
+     "publicado": "2026-11-06T02:35:54Z",
+     "views": 2,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "XrXuAdSw-EM",
+     "titulo": "Nunca responda ao seu nome... #shorts",
+     "publicado": "2026-11-05T23:08:25Z",
+     "views": 1,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "EG_06w-88P8",
+     "titulo": "Não olhe no espelho.... #shorts",
+     "publicado": "2026-11-05T21:41:23Z",
+     "views": 0,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "DWaLgTUUsHE",
+     "titulo": "Não abra a porta do monge... #shorts",
+     "publicado": "2026-11-05T20:48:55Z",
+     "views": 12,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "uSfDjIc0yfE",
+     "titulo": "Nunca mostre a fita inteira... #shorts",
+     "publicado": "2026-11-05T18:10:52Z",
+     "views": 0,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "iCx2rgtH5HE",
+     "titulo": "Não pare na estrada escura... #shorts",
+     "publicado": "2026-11-05T16:37:01Z",
+     "views": 1,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "gN5HmoOHXWY",
+     "titulo": "Não ouça a voz no porão... #shorts",
+     "publicado": "2026-11-05T13:13:16Z",
+     "views": 55,
+     "likes": 2,
+     "comentarios": 0
+    },
+    {
+     "id": "3ePP2QEYot0",
+     "titulo": "O silêncio da fazenda... #shorts",
+     "publicado": "2026-11-05T02:30:28Z",
+     "views": 28,
+     "likes": 2,
+     "comentarios": 0
+    },
+    {
+     "id": "aU0gSWR9VlE",
+     "titulo": "Não olhe no espelho errado... #shorts",
+     "publicado": "2026-11-04T23:06:32Z",
+     "views": 21,
+     "likes": 1,
+     "comentarios": 1
+    },
+    {
+     "id": "tDTIieF_Dys",
+     "titulo": "O tempo esqueceu você... #shorts",
+     "publicado": "2026-11-04T21:27:31Z",
+     "views": 3,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "p4eFOKZJriQ",
+     "titulo": "Não acenda a lanterna... #shorts",
+     "publicado": "2026-11-04T18:33:25Z",
+     "views": 1,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "JqHwifJp05U",
+     "titulo": "O lugar que mudava no escuro... #shorts",
+     "publicado": "2026-11-04T16:31:24Z",
+     "views": 0,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "HIfAX727SLI",
+     "titulo": "O tempo não voltou... #shorts",
+     "publicado": "2026-11-04T12:55:38Z",
+     "views": 6,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "uM7g2XM-GAQ",
+     "titulo": "Não olhe para trás... #shorts",
+     "publicado": "2026-11-04T04:28:57Z",
+     "views": 3,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "qxrWB-1O3r8",
+     "titulo": "Não Espere o Trem na Estação... #shorts",
+     "publicado": "2026-11-04T02:42:05Z",
+     "views": 1,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "TpROxelLhAU",
+     "titulo": "Nunca aceite as chaves... #shorts",
+     "publicado": "2026-11-03T22:36:56Z",
+     "views": 1,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "ZZ57nOaxXrk",
+     "titulo": "A fita que nunca deveria voltar... #shorts",
+     "publicado": "2026-11-03T21:12:00Z",
+     "views": 0,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "llidZqnAUSg",
+     "titulo": "Ele já sabe seu nome... #shorts",
+     "publicado": "2026-11-03T17:43:35Z",
+     "views": 481,
+     "likes": 9,
+     "comentarios": 0
+    },
+    {
+     "id": "_4ykYDIXT6s",
+     "titulo": "Não abra a porta do porão... #shorts",
+     "publicado": "2026-11-03T16:04:24Z",
+     "views": 21,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "MBNLelHEo2Y",
+     "titulo": "Nunca abra o diário antigo... #shorts",
+     "publicado": "2026-11-03T12:56:07Z",
+     "views": 2,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "6kIbHU9TZjA",
+     "titulo": "Ele se aproximava a cada noite... #shorts",
+     "publicado": "2026-11-03T02:12:27Z",
+     "views": 0,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "Sj6_zoJwfbc",
+     "titulo": "Não assista essa fita encontrada... #shorts",
+     "publicado": "2026-11-02T22:34:52Z",
+     "views": 103,
+     "likes": 3,
+     "comentarios": 0
+    },
+    {
+     "id": "QZRZZurU2rw",
+     "titulo": "Não espere o trem à noite... #shorts",
+     "publicado": "2026-11-02T18:14:15Z",
+     "views": 126,
+     "likes": 10,
+     "comentarios": 3
+    },
+    {
+     "id": "ecpIbl9203s",
+     "titulo": "O mistério do relógio parado... #shorts",
+     "publicado": "2026-11-02T13:38:18Z",
+     "views": 30,
+     "likes": 2,
+     "comentarios": 0
+    },
+    {
+     "id": "yGJJVvzvCfU",
+     "titulo": "Não olhe para a janela... #shorts",
+     "publicado": "2026-11-02T03:03:49Z",
+     "views": 23,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "qOd2O4aW5Gs",
+     "titulo": "Não Entre no Quarto Vinte e Três... #shorts",
+     "publicado": "2026-11-02T02:00:13Z",
+     "views": 9,
+     "likes": 2,
+     "comentarios": 0
+    },
+    {
+     "id": "bl-Qyb_pPeI",
+     "titulo": "Não desvie o olhar... #shorts",
+     "publicado": "2026-11-01T23:16:37Z",
+     "views": 123,
+     "likes": 5,
+     "comentarios": 1
+    },
+    {
+     "id": "lS1uqAmOmgU",
+     "titulo": "Nunca responda uma voz conhecida... #shorts",
+     "publicado": "2026-11-01T21:30:52Z",
+     "views": 2,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "f09FvQRue34",
+     "titulo": "O corredor muda quando ninguém olha... #shorts",
+     "publicado": "2026-11-01T17:00:22Z",
+     "views": 178,
+     "likes": 3,
+     "comentarios": 0
+    },
+    {
+     "id": "gUlMVDXUuD8",
+     "titulo": "As portas estavam trancadas por fora... #shorts",
+     "publicado": "2026-11-01T12:18:52Z",
+     "views": 2,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "YTqhMQLIu9A",
+     "titulo": "Não pare na esquina... #shorts",
+     "publicado": "2026-11-01T03:39:51Z",
+     "views": 6,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "R0O4BRuVqdc",
+     "titulo": "Não Entre Na Fazenda Às Três... #shorts",
+     "publicado": "2026-10-31T22:41:58Z",
+     "views": 28,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "xVy-kg_Wmlg",
+     "titulo": "O culto nunca o deixou sair... #shorts",
+     "publicado": "2026-10-31T21:10:06Z",
+     "views": 28,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "sg8mbKsAHN8",
+     "titulo": "O mistério da Rota Quarenta... #shorts",
+     "publicado": "2026-10-31T18:00:27Z",
+     "views": 7,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "q0DzlXS1n0Q",
+     "titulo": "Não suba ao andar de cima... #shorts",
+     "publicado": "2026-10-31T16:29:10Z",
+     "views": 2,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "9i9D3QBXqVs",
+     "titulo": "Nunca olhe este espelho antigo... #shorts",
+     "publicado": "2026-10-31T11:36:11Z",
+     "views": 4,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "5dAVBoY2VHs",
+     "titulo": "Nunca Herde Um Relógio... #shorts",
+     "publicado": "2026-10-31T03:18:18Z",
+     "views": 4,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "qFVDMMkRzKc",
+     "titulo": "Não espere o último trem... #shorts",
+     "publicado": "2026-10-31T01:35:54Z",
+     "views": 13,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "BBhRoMBQmIE",
+     "titulo": "O mistério dos sete minutos... #shorts",
+     "publicado": "2026-10-30T21:39:23Z",
+     "views": 17,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "iK6aez3eMVw",
+     "titulo": "Não leia as últimas linhas... #shorts",
+     "publicado": "2026-10-30T16:52:55Z",
+     "views": 10,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "-7eoM58iPuM",
+     "titulo": "Não abra a caixa velha... #shorts",
+     "publicado": "2026-10-30T11:51:33Z",
+     "views": 130,
+     "likes": 6,
+     "comentarios": 0
+    },
+    {
+     "id": "mPHko3Y6Ltw",
+     "titulo": "Nunca entre neste mosteiro antigo... #shorts",
+     "publicado": "2026-10-30T03:47:31Z",
+     "views": 930,
+     "likes": 6,
+     "comentarios": 0
+    },
+    {
+     "id": "AismzsBvNhI",
+     "titulo": "Não abra a caixa... #shorts",
+     "publicado": "2026-10-30T02:02:19Z",
+     "views": 35,
+     "likes": 4,
+     "comentarios": 0
+    },
+    {
+     "id": "qOlsVGik5-I",
+     "titulo": "O silêncio da casa escondia... #shorts",
+     "publicado": "2026-10-29T21:54:54Z",
+     "views": 2,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "ZxAfpYs91Ns",
+     "titulo": "O segredo das três da manhã... #shorts",
+     "publicado": "2026-10-29T17:07:49Z",
+     "views": 2,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "EmII9bljID0",
+     "titulo": "Nunca responda a essa voz... #shorts",
+     "publicado": "2026-10-29T12:01:13Z",
+     "views": 54,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "nw7G0r95kuI",
+     "titulo": "Não confie no silêncio... #shorts",
+     "publicado": "2026-10-29T03:21:12Z",
+     "views": 21,
+     "likes": 2,
+     "comentarios": 0
+    },
+    {
+     "id": "t5KpKytKYu0",
+     "titulo": "Nunca a mesma data... #shorts",
+     "publicado": "2026-10-29T02:13:23Z",
+     "views": 2,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "J6Oig0uszaA",
+     "titulo": "O Silêncio Não Deixa Passar... #shorts",
+     "publicado": "2026-10-28T21:55:43Z",
+     "views": 4,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "W_xTLYkLYe8",
+     "titulo": "Não vire as costas para ela... #shorts",
+     "publicado": "2026-10-28T16:51:59Z",
+     "views": 699,
+     "likes": 15,
+     "comentarios": 0
+    },
+    {
+     "id": "3Uo-bg1T2MA",
+     "titulo": "Nunca passe de vinte e oito dias... #shorts",
+     "publicado": "2026-10-28T11:34:03Z",
+     "views": 54,
+     "likes": 5,
+     "comentarios": 0
+    },
+    {
+     "id": "cKgtSI90GCE",
+     "titulo": "O mistério do telefone subterrâneo... #shorts",
+     "publicado": "2026-10-28T03:31:58Z",
+     "views": 1,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "cyfEh88-_rE",
+     "titulo": "Não pare naquela estrada... #shorts",
+     "publicado": "2026-10-27T21:40:30Z",
+     "views": 4,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "ZcTgSJ7me_g",
+     "titulo": "A imagem estava errada... #shorts",
+     "publicado": "2026-10-27T16:49:20Z",
+     "views": 210,
+     "likes": 7,
+     "comentarios": 0
+    },
+    {
+     "id": "fNF1w4lpl6I",
+     "titulo": "O Segredo que o Mar Escondeu... #shorts",
+     "publicado": "2026-10-27T02:50:01Z",
+     "views": 37,
+     "likes": 1,
+     "comentarios": 1
+    },
+    {
+     "id": "F5fx7M3wvhg",
+     "titulo": "O tempo nunca foi vazio... #shorts",
+     "publicado": "2026-10-26T21:55:11Z",
+     "views": 1,
+     "likes": 1,
+     "comentarios": 1
+    },
+    {
+     "id": "TYQfmEqtPrM",
+     "titulo": "Algo ligou antes da hora... #shorts",
+     "publicado": "2026-10-26T17:04:35Z",
+     "views": 6,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "2tT_0ln769g",
+     "titulo": "O brinqueto não esqueceu... #shorts",
+     "publicado": "2026-10-26T11:37:53Z",
+     "views": 6,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "bR0ljO0SKb8",
+     "titulo": "Nunca olhe para este reflexo... #shorts",
+     "publicado": "2026-10-26T09:09:28Z",
+     "views": 2,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "xQ6b7wXu6bg",
+     "titulo": "A porta não tinha tranca... #shorts",
+     "publicado": "2026-10-26T02:26:50Z",
+     "views": 292,
+     "likes": 11,
+     "comentarios": 0
+    },
+    {
+     "id": "T_YUTVNyowc",
+     "titulo": "O reflexo sempre te esperou.... #shorts",
+     "publicado": "2026-10-25T22:26:36Z",
+     "views": 102,
+     "likes": 7,
+     "comentarios": 1
+    },
+    {
+     "id": "-_GMx617Dts",
+     "titulo": "Ele sabia o que ninguém sabia... #shorts",
+     "publicado": "2026-10-25T18:48:50Z",
+     "views": 2,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "oaCqw815BYA",
+     "titulo": "Nunca olhe para os trilhos... #shorts",
+     "publicado": "2026-10-25T13:24:40Z",
+     "views": 176,
+     "likes": 6,
+     "comentarios": 0
+    },
+    {
+     "id": "nkKv7jzMZCc",
+     "titulo": "A ligação que nunca deveria tocar... #shorts",
+     "publicado": "2026-10-25T08:57:35Z",
+     "views": 90,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "ZTN-87xQOdc",
+     "titulo": "A porta ninguém abre.... #shorts",
+     "publicado": "2026-10-25T02:27:47Z",
+     "views": 111,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "pfbOC6aLSEc",
+     "titulo": "O silêncio não era real... #shorts",
+     "publicado": "2026-10-24T21:59:48Z",
+     "views": 3,
+     "likes": 1,
+     "comentarios": 0
+    }
+   ]
+  },
+  "tendencias": {
+   "canal": {
+    "inscritos": 147,
+    "videos": 217
+   },
+   "por_molde": {
+    "foto (antigo)": {
+     "n": 100,
+     "mediana": 44.0,
+     "maior": 1669
+    }
+   },
+   "videos": [
+    {
+     "id": "-jEHYuh9Rxk",
+     "titulo": "Quase ninguém notou sua gafe... #shorts",
+     "publicado": "2026-11-11T23:29:26Z",
+     "views": 0,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "CW9phuHqjP4",
+     "titulo": "Esse número parece erro, mas é real... #shorts",
+     "publicado": "2026-11-11T10:01:30Z",
+     "views": 52,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "SkdhuG58HHw",
+     "titulo": "O.K. era só um typo?... #shorts",
+     "publicado": "2026-11-11T00:15:45Z",
+     "views": 12,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "YdM_XUukaGY",
+     "titulo": "O acidente que virou regra boba... #shorts",
+     "publicado": "2026-11-10T11:36:20Z",
+     "views": 1,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "WqQod0i4JRQ",
+     "titulo": "Um artefato de 1500 a.C. prevê eclipses e colisões?... #shorts",
+     "publicado": "2026-11-10T05:12:45Z",
+     "views": 5,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "pVE60qXC1HY",
+     "titulo": "A lei bizarra que te obriga a sorrir na rua... #shorts",
+     "publicado": "2026-11-10T04:06:54Z",
+     "views": 18,
+     "likes": 2,
+     "comentarios": 0
+    },
+    {
+     "id": "InFYnoVwnkQ",
+     "titulo": "Seus dedos murchos na água NÃO são o que você pensa... #shorts",
+     "publicado": "2026-11-10T00:46:18Z",
+     "views": 171,
+     "likes": 2,
+     "comentarios": 0
+    },
+    {
+     "id": "l6YCLJV3YvM",
+     "titulo": "O homem que comeu um avião inteiro sozinho... #shorts",
+     "publicado": "2026-11-10T00:12:50Z",
+     "views": 25,
+     "likes": 2,
+     "comentarios": 0
+    },
+    {
+     "id": "r9bl1xqEnyI",
+     "titulo": "Por que a porta apaga sua memória?... #shorts",
+     "publicado": "2026-11-09T20:17:37Z",
+     "views": 413,
+     "likes": 13,
+     "comentarios": 0
+    },
+    {
+     "id": "pM9ZfVqI6wY",
+     "titulo": "Uma conta errada destruiu trezentos milhões de dólares... #shorts",
+     "publicado": "2026-11-09T13:41:08Z",
+     "views": 4,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "dJ3TZ1RKDo8",
+     "titulo": "Tubarão veio antes de árvore?... #shorts",
+     "publicado": "2026-11-09T10:34:16Z",
+     "views": 1669,
+     "likes": 65,
+     "comentarios": 0
+    },
+    {
+     "id": "kab3ityvzW4",
+     "titulo": "Por que janelas de avião nunca são quadradas... #shorts",
+     "publicado": "2026-11-08T19:16:40Z",
+     "views": 867,
+     "likes": 39,
+     "comentarios": 0
+    },
+    {
+     "id": "tjTPMBzZOek",
+     "titulo": "Uma estrela quase destruiu a Terra a 50 mil anos-luz... #shorts",
+     "publicado": "2026-11-08T18:40:52Z",
+     "views": 981,
+     "likes": 53,
+     "comentarios": 1
+    },
+    {
+     "id": "Hor5DKIkvWs",
+     "titulo": "Preso por esquecer o aniversário da esposa!... #shorts",
+     "publicado": "2026-11-08T15:21:40Z",
+     "views": 166,
+     "likes": 8,
+     "comentarios": 0
+    },
+    {
+     "id": "OJFn93s1jn0",
+     "titulo": "Esquecer o aniversário da esposa dá cadeia neste país... #shorts",
+     "publicado": "2026-11-08T10:26:27Z",
+     "views": 5,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "NK5pioSUeJ8",
+     "titulo": "A lei te pune por pular... #shorts",
+     "publicado": "2026-11-07T19:37:43Z",
+     "views": 7,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "BStbns_Mp6A",
+     "titulo": "O exército que foi pra guerra com 80 e voltou com 81... #shorts",
+     "publicado": "2026-11-07T14:38:56Z",
+     "views": 74,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "AeCdc2nuUIw",
+     "titulo": "O plástico bolha foi criado pra ser papel de parede!... #shorts",
+     "publicado": "2026-11-07T09:56:55Z",
+     "views": 554,
+     "likes": 6,
+     "comentarios": 0
+    },
+    {
+     "id": "2g1Ddlh6lWI",
+     "titulo": "Digitei de 1 a 1 milhão por extenso e entrei pro Guinness... #shorts",
+     "publicado": "2026-11-07T00:27:51Z",
+     "views": 73,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "FHlZm6pvQ_w",
+     "titulo": "Você usa OK todo dia, mas isso é fake... #shorts",
+     "publicado": "2026-11-06T20:13:37Z",
+     "views": 3,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "ped9KyQhELo",
+     "titulo": "O vulcão que cospe lava azul elétrica de verdade... #shorts",
+     "publicado": "2026-11-06T10:59:55Z",
+     "views": 53,
+     "likes": 2,
+     "comentarios": 0
+    },
+    {
+     "id": "BvSnSCbWbjs",
+     "titulo": "Bar com 23 pessoas: 50% de aniversário igual... #shorts",
+     "publicado": "2026-11-06T04:22:01Z",
+     "views": 1,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "omBcZ2uiUGA",
+     "titulo": "Eu quase vendi meu restaurante... #shorts",
+     "publicado": "2026-11-06T00:45:44Z",
+     "views": 0,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "eED0vs05eyc",
+     "titulo": "Errei o circuito e salvei 3 milhões de vidas... #shorts",
+     "publicado": "2026-11-05T10:41:59Z",
+     "views": 107,
+     "likes": 4,
+     "comentarios": 0
+    },
+    {
+     "id": "uQygU6sHk7g",
+     "titulo": "O dia em que o governo pagou para criarem cobras... #shorts",
+     "publicado": "2026-11-04T10:30:17Z",
+     "views": 194,
+     "likes": 7,
+     "comentarios": 0
+    },
+    {
+     "id": "MX7v7bdCBsg",
+     "titulo": "A cratera que queima há 50 anos... #shorts",
+     "publicado": "2026-11-04T00:45:57Z",
+     "views": 80,
+     "likes": 2,
+     "comentarios": 0
+    },
+    {
+     "id": "wwDE5ClA2Tk",
+     "titulo": "Morreu afogado em cerveja, não em água... #shorts",
+     "publicado": "2026-11-03T20:17:32Z",
+     "views": 253,
+     "likes": 6,
+     "comentarios": 0
+    },
+    {
+     "id": "tMFUNgaKYBQ",
+     "titulo": "A piada que matou 72 pessoas no ar... #shorts",
+     "publicado": "2026-11-03T10:21:39Z",
+     "views": 135,
+     "likes": 8,
+     "comentarios": 0
+    },
+    {
+     "id": "iuNm95Fd8D0",
+     "titulo": "Eles salvaram o Airbnb vendendo cereal de político... #shorts",
+     "publicado": "2026-11-03T04:39:45Z",
+     "views": 73,
+     "likes": 2,
+     "comentarios": 0
+    },
+    {
+     "id": "C8vJazxessQ",
+     "titulo": "Ter um porquinho-da-índia sozinho é crime na Suíça... #shorts",
+     "publicado": "2026-11-03T00:31:34Z",
+     "views": 6,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "G5HEWGvKAUA",
+     "titulo": "O animal que dispara tiros de plasma no oceano... #shorts",
+     "publicado": "2026-11-02T23:40:38Z",
+     "views": 2,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "N5Nn6aXYh-k",
+     "titulo": "O homem que comeu um avião inteiro no almoço... #shorts",
+     "publicado": "2026-11-02T10:33:07Z",
+     "views": 147,
+     "likes": 4,
+     "comentarios": 1
+    },
+    {
+     "id": "Ok-Q-iopj24",
+     "titulo": "Sonda de 125 milhões sumiu por um erro de medida... #shorts",
+     "publicado": "2026-11-01T19:49:56Z",
+     "views": 1,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "BWHs9arF1sA",
+     "titulo": "Tubarões são mais velhos que as árvores e anéis de Saturno... #shorts",
+     "publicado": "2026-11-01T18:17:36Z",
+     "views": 9,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "PJGkgd9bPr0",
+     "titulo": "O chocolate derretido que criou o micro-ondas... #shorts",
+     "publicado": "2026-11-01T15:21:09Z",
+     "views": 13,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "EVmsFqy60j0",
+     "titulo": "Você foi enganado a vida inteira por causa da 2ª Guerra... #shorts",
+     "publicado": "2026-11-01T09:52:33Z",
+     "views": 181,
+     "likes": 5,
+     "comentarios": 0
+    },
+    {
+     "id": "n7xnAnR9ums",
+     "titulo": "Eu comi um avião inteiro e virei recordista mundial... #shorts",
+     "publicado": "2026-11-01T00:57:27Z",
+     "views": 0,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "p_bNhzHZkGo",
+     "titulo": "Este computador grego tem 2 mil anos e saiu do fundo do mar... #shorts",
+     "publicado": "2026-10-31T19:20:01Z",
+     "views": 103,
+     "likes": 4,
+     "comentarios": 0
+    },
+    {
+     "id": "LZXBb0ENjOQ",
+     "titulo": "Meu pai morreu em uma obra. Eu também. Mesmo dia.... #shorts",
+     "publicado": "2026-10-31T14:14:52Z",
+     "views": 304,
+     "likes": 8,
+     "comentarios": 0
+    },
+    {
+     "id": "3tr1MAcycAo",
+     "titulo": "Por que todo navio carrega bote para todos?... #shorts",
+     "publicado": "2026-10-30T23:45:20Z",
+     "views": 1,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "ZlP9dSQC6SE",
+     "titulo": "Dez mil passos por dia é farsa... #shorts",
+     "publicado": "2026-10-30T19:37:13Z",
+     "views": 34,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "mLRb_z8ky8c",
+     "titulo": "Dois homens, mesma vida. Não eram irmãos... #shorts",
+     "publicado": "2026-10-30T18:28:46Z",
+     "views": 833,
+     "likes": 15,
+     "comentarios": 0
+    },
+    {
+     "id": "V0NiSJalkuI",
+     "titulo": "Derreteu o chocolate no bolso e inventou o micro-ondas... #shorts",
+     "publicado": "2026-10-30T15:00:31Z",
+     "views": 206,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "ZEFEiiM-ABA",
+     "titulo": "Errei uma conta e engoli um lago inteiro... #shorts",
+     "publicado": "2026-10-30T09:51:54Z",
+     "views": 488,
+     "likes": 12,
+     "comentarios": 0
+    },
+    {
+     "id": "cqxVZ880qNo",
+     "titulo": "Como criar ratos virou o negócio mais lucrativo de 1902... #shorts",
+     "publicado": "2026-10-29T23:41:04Z",
+     "views": 94,
+     "likes": 4,
+     "comentarios": 0
+    },
+    {
+     "id": "S1h4-iHWt-I",
+     "titulo": "Seu corpo é um bug?... #shorts",
+     "publicado": "2026-10-29T18:51:12Z",
+     "views": 0,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "X5iCS6df3kE",
+     "titulo": "E se uma coisa errada fosse certa?... #shorts",
+     "publicado": "2026-10-29T15:15:28Z",
+     "views": 99,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "gWKnaTX6NQk",
+     "titulo": "Por que o corpo humano tem esse erro mortal?... #shorts",
+     "publicado": "2026-10-29T09:34:26Z",
+     "views": 421,
+     "likes": 7,
+     "comentarios": 1
+    },
+    {
+     "id": "zOlg3xPLIlQ",
+     "titulo": "A velocidade máxima do planeta não está na savana... #shorts",
+     "publicado": "2026-10-28T23:22:47Z",
+     "views": 294,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "WuMfeFz8NOw",
+     "titulo": "Existe um rio de verdade correndo debaixo d'água... #shorts",
+     "publicado": "2026-10-28T19:16:08Z",
+     "views": 3,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "U6xP2YnbIkk",
+     "titulo": "O erro de matemática que custou 300 milhões pra NASA... #shorts",
+     "publicado": "2026-10-28T09:44:49Z",
+     "views": 17,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "oS3iQJDxmJ4",
+     "titulo": "Essa nave da NASA sumiu por um erro de cálculo... #shorts",
+     "publicado": "2026-10-28T01:28:39Z",
+     "views": 174,
+     "likes": 4,
+     "comentarios": 0
+    },
+    {
+     "id": "A_nPLnMJeV4",
+     "titulo": "O vulcão que cospe fogo azul neon no escuro... #shorts",
+     "publicado": "2026-10-27T23:28:53Z",
+     "views": 167,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "uUI9CcA3LYg",
+     "titulo": "A mentira sobre 'feito nas coxas' que a escola te contou... #shorts",
+     "publicado": "2026-10-27T20:18:53Z",
+     "views": 10,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "5vpZlCXQtC8",
+     "titulo": "Sua memória sumiu? A culpa é da porta!... #shorts",
+     "publicado": "2026-10-27T18:54:43Z",
+     "views": 901,
+     "likes": 17,
+     "comentarios": 0
+    },
+    {
+     "id": "l1UEOotOfDU",
+     "titulo": "Nice começou como um insulto antigo... #shorts",
+     "publicado": "2026-10-27T13:53:13Z",
+     "views": 4,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "BrQSO1atIOs",
+     "titulo": "O homem que a física tentou matar 7 vezes... #shorts",
+     "publicado": "2026-10-27T10:31:34Z",
+     "views": 92,
+     "likes": 6,
+     "comentarios": 0
+    },
+    {
+     "id": "bkyjP5_TN0I",
+     "titulo": "Uma guerra mundial começou por causa de um cão... #shorts",
+     "publicado": "2026-10-27T09:24:23Z",
+     "views": 321,
+     "likes": 10,
+     "comentarios": 0
+    },
+    {
+     "id": "8Wjvl2Q9TxE",
+     "titulo": "O rio da Amazônia que cozinha tudo vivo... #shorts",
+     "publicado": "2026-10-27T01:31:50Z",
+     "views": 24,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "Zu_0r3-zs30",
+     "titulo": "O maior mito sobre beber água que arruina seus rins... #shorts",
+     "publicado": "2026-10-26T23:54:36Z",
+     "views": 6,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "g3cDbS22M7w",
+     "titulo": "E se um pombinho pudesse salvar sua vida?... #shorts",
+     "publicado": "2026-10-26T20:43:19Z",
+     "views": 0,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "t1lrXm4jgrA",
+     "titulo": "O pneu nasceu para parar uma dor... #shorts",
+     "publicado": "2026-10-26T19:08:29Z",
+     "views": 0,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "a7ee9uMEUCQ",
+     "titulo": "A bandeira da Lua balançou?... #shorts",
+     "publicado": "2026-10-26T15:05:56Z",
+     "views": 1,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "nNNgQwLatzw",
+     "titulo": "Cem dias sem dormir?... #shorts",
+     "publicado": "2026-10-26T00:16:50Z",
+     "views": 3,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "ysYtxJb-zJM",
+     "titulo": "A Lua está fugindo e ninguém sente... #shorts",
+     "publicado": "2026-10-25T19:48:45Z",
+     "views": 1057,
+     "likes": 57,
+     "comentarios": 2
+    },
+    {
+     "id": "1DtaMQEBP3Q",
+     "titulo": "Seu apêndice é um defeito?... #shorts",
+     "publicado": "2026-10-25T14:43:49Z",
+     "views": 1122,
+     "likes": 21,
+     "comentarios": 0
+    },
+    {
+     "id": "SqFcdJEYB0M",
+     "titulo": "O chocolate que salvou o mundo... #shorts",
+     "publicado": "2026-10-25T10:02:28Z",
+     "views": 63,
+     "likes": 3,
+     "comentarios": 0
+    },
+    {
+     "id": "y0WTP56Nn_I",
+     "titulo": "A evolução trocou sua segurança pela fofoca... #shorts",
+     "publicado": "2026-10-25T00:02:46Z",
+     "views": 1097,
+     "likes": 28,
+     "comentarios": 0
+    },
+    {
+     "id": "V6fOAkwHOz4",
+     "titulo": "O cocô de wombat é um cubo. Sim. Um cubo.... #shorts",
+     "publicado": "2026-10-24T19:38:20Z",
+     "views": 7,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "XX1stdP4n0g",
+     "titulo": "Não foi vento. Não foi terra. Foi um erro.... #shorts",
+     "publicado": "2026-10-24T14:14:01Z",
+     "views": 1,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "lAS6gIILeyw",
+     "titulo": "O governo pagou para criarem cobras e o resultado foi insano... #shorts",
+     "publicado": "2026-10-24T10:04:28Z",
+     "views": 3,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "9Ff8J3u_VCI",
+     "titulo": "Erro salvou o mundo? Eu juro.... #shorts",
+     "publicado": "2026-10-24T00:46:11Z",
+     "views": 17,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "iBoimAjoMXs",
+     "titulo": "A NASA furou o espaço?... #shorts",
+     "publicado": "2026-10-23T19:22:32Z",
+     "views": 442,
+     "likes": 15,
+     "comentarios": 0
+    },
+    {
+     "id": "MakUCKmYn9c",
+     "titulo": "Eles Compraram o Mesmo Bilhete... #shorts",
+     "publicado": "2026-10-22T18:57:43Z",
+     "views": 0,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "b6dwnAhdn3c",
+     "titulo": "Por que ninguém inventou isso antes?... #shorts",
+     "publicado": "2026-10-22T13:58:39Z",
+     "views": 1,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "dWMIqIvst8c",
+     "titulo": "A NASA quase desistiu... #shorts",
+     "publicado": "2026-10-22T10:09:48Z",
+     "views": 343,
+     "likes": 6,
+     "comentarios": 0
+    },
+    {
+     "id": "uE4btmqKfdU",
+     "titulo": "Água todo dia é saudável? A resposta irrita... #shorts",
+     "publicado": "2026-10-22T01:22:22Z",
+     "views": 993,
+     "likes": 23,
+     "comentarios": 0
+    },
+    {
+     "id": "OOGbxPV3-78",
+     "titulo": "O cálculo que derrubou a ponte do Quebec... #shorts",
+     "publicado": "2026-10-21T19:12:53Z",
+     "views": 5,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "iI7MS0qFjmY",
+     "titulo": "Harrison Ford chegou atrasado e mudou tudo... #shorts",
+     "publicado": "2026-10-21T15:43:43Z",
+     "views": 4,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "vluTPV390bY",
+     "titulo": "O rival de Darwin virou parceiro... #shorts",
+     "publicado": "2026-10-21T10:30:32Z",
+     "views": 5,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "Lon-hAwg-Zg",
+     "titulo": "O camarão-pistola que acende um clarão no mar... #shorts",
+     "publicado": "2026-10-21T01:12:10Z",
+     "views": 14,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "OsCh1aWgjhE",
+     "titulo": "O primeiro bug documentado foi um defeito no telégrafo... #shorts",
+     "publicado": "2026-10-20T19:37:01Z",
+     "views": 2,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "vyMoGX_NnJI",
+     "titulo": "Napoleão é proibido em porcos — e em alguns pets... #shorts",
+     "publicado": "2026-10-20T14:57:00Z",
+     "views": 1003,
+     "likes": 24,
+     "comentarios": 1
+    },
+    {
+     "id": "6l5yDgx8-NY",
+     "titulo": "O erro de digitação de 1870 que você ainda come hoje... #shorts",
+     "publicado": "2026-10-20T10:43:47Z",
+     "views": 14,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "s8wct3yJrQs",
+     "titulo": "O computador grego que previa eclipses... #shorts",
+     "publicado": "2026-10-20T01:29:24Z",
+     "views": 374,
+     "likes": 16,
+     "comentarios": 0
+    },
+    {
+     "id": "DunU4gNoYTY",
+     "titulo": "Ele perdeu a pata e reconstruiu tudo sem cicatriz... #shorts",
+     "publicado": "2026-10-19T20:34:54Z",
+     "views": 5,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "otOLFQuiar8",
+     "titulo": "O erro estava na montanha, não na barragem... #shorts",
+     "publicado": "2026-10-19T19:42:16Z",
+     "views": 1,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "TasSNFQK8rM",
+     "titulo": "Ele pousou um Airbus sem motores no Hudson... #shorts",
+     "publicado": "2026-10-19T15:56:39Z",
+     "views": 29,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "RMP9zzRp-rU",
+     "titulo": "O dia em que a roleta saiu preto 26 vezes... #shorts",
+     "publicado": "2026-10-19T11:08:00Z",
+     "views": 277,
+     "likes": 21,
+     "comentarios": 0
+    },
+    {
+     "id": "H3rbnThE_ds",
+     "titulo": "O erro de matemática que te faz comer espinafre até hoje... #shorts",
+     "publicado": "2026-10-19T00:25:45Z",
+     "views": 570,
+     "likes": 19,
+     "comentarios": 0
+    },
+    {
+     "id": "iOe_s5x_pEw",
+     "titulo": "O computador grego de 2 mil anos que a história esqueceu... #shorts",
+     "publicado": "2026-10-18T20:05:21Z",
+     "views": 263,
+     "likes": 18,
+     "comentarios": 0
+    },
+    {
+     "id": "glVp-_OqjBM",
+     "titulo": "Tubarões já existiam antes das primeiras árvores do mundo... #shorts",
+     "publicado": "2026-10-18T14:20:13Z",
+     "views": 431,
+     "likes": 18,
+     "comentarios": 0
+    },
+    {
+     "id": "T8BqyXlMqZo",
+     "titulo": "Tubarões são mais antigos que as árvores e anéis de Saturno... #shorts",
+     "publicado": "2026-10-18T09:28:14Z",
+     "views": 964,
+     "likes": 22,
+     "comentarios": 0
+    },
+    {
+     "id": "XRjNurNmAB0",
+     "titulo": "A farsa de 'feito nas coxas' que a escola te ensinou... #shorts",
+     "publicado": "2026-10-17T19:38:32Z",
+     "views": 11,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "paxxw_aAU9I",
+     "titulo": "Um erro de mapa fez um lago inteiro descer pelo ralo... #shorts",
+     "publicado": "2026-10-17T09:20:22Z",
+     "views": 471,
+     "likes": 21,
+     "comentarios": 0
+    },
+    {
+     "id": "C9yPPwU5Q1I",
+     "titulo": "Derreti um chocolate no bolso e mudei o mundo... #shorts",
+     "publicado": "2026-10-17T00:27:29Z",
+     "views": 302,
+     "likes": 4,
+     "comentarios": 0
+    },
+    {
+     "id": "m5qsa1zYGdU",
+     "titulo": "Dez mil passos é mentira de marketing... #shorts",
+     "publicado": "2026-10-16T20:38:52Z",
+     "views": 3,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "wxIT83kmZVw",
+     "titulo": "Separados ao nascer, iguais em tudo... #shorts",
+     "publicado": "2026-10-16T19:02:05Z",
+     "views": 220,
+     "likes": 0,
+     "comentarios": 0
+    },
+    {
+     "id": "9mIHoK5c-j0",
+     "titulo": "Pedras que caminham sozinhas no deserto... #shorts",
+     "publicado": "2026-10-16T15:09:43Z",
+     "views": 36,
+     "likes": 1,
+     "comentarios": 0
+    },
+    {
+     "id": "4dZnn1U2CTI",
+     "titulo": "Por que sua mente não esquece o que ficou pela metade?... #shorts",
+     "publicado": "2026-10-15T19:02:56Z",
+     "views": 3,
+     "likes": 1,
+     "comentarios": 0
+    }
+   ]
+  }
+ }
+}
