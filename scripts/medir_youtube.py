@@ -52,6 +52,36 @@ def videos_da_conta(conta: str, maximo: int = 100) -> list[dict]:
                    "videos": int(canal["statistics"].get("videoCount", 0))}
 
 
+TOKENS_ANALYTICS = {"arquivo_sombrio": ("client_secret.json", "token_analytics.json"),
+                    "tendencias": ("client_secret_tendencias.json", "token_analytics_tendencias.json")}
+
+
+def retencao_da_conta(conta: str, dias: int = 30) -> dict[str, dict]:
+    """id do vídeo -> {pct_assistido, seg_medios, compartilhamentos, inscritos}, pela YouTube Analytics API.
+
+    Token separado do de publicação (scripts/autorizar_analytics.py). Sem token ou com a API desligada devolve {} e o
+    relatório segue só com views: nunca derruba a medição inteira."""
+    from datetime import date, timedelta
+    from google.oauth2.credentials import Credentials
+    from googleapiclient.discovery import build
+    _, arquivo = TOKENS_ANALYTICS[conta]
+    caminho = RAIZ / arquivo
+    if not caminho.exists():
+        return {}
+    try:
+        cred = Credentials.from_authorized_user_file(str(caminho))
+        yta = build("youtubeAnalytics", "v2", credentials=cred)
+        fim = date.today()
+        r = yta.reports().query(ids="channel==MINE", startDate=(fim - timedelta(days=dias)).isoformat(), endDate=fim.isoformat(),
+                                metrics="views,averageViewPercentage,averageViewDuration,shares,subscribersGained",
+                                dimensions="video", sort="-views", maxResults=200).execute()
+    except Exception as erro:
+        print(f"  (retenção de {conta} indisponível: {str(erro)[:120]})")
+        return {}
+    return {linha[0]: {"pct_assistido": linha[2], "seg_medios": linha[3], "compartilhamentos": linha[4], "inscritos": linha[5]}
+            for linha in r.get("rows", [])}
+
+
 def moldes_publicados() -> dict[str, dict]:
     """id do vídeo no YouTube -> {molde, estilo, slug} a partir das pautas da fila."""
     mapa = {}
@@ -84,8 +114,12 @@ def main():
     relatorio = {"medido_em": datetime.now(timezone.utc).isoformat(timespec="minutes"), "contas": {}}
     for conta in contas:
         videos, canal = videos_da_conta(conta)
+        ret = retencao_da_conta(conta)
         relatorio["contas"][conta] = {"canal": canal, "por_molde": resumo(videos, mapa),
-                                      "videos": [{**v, **mapa.get(v["id"], {})} for v in videos]}
+                                      "videos": [{**v, **mapa.get(v["id"], {}), **ret.get(v["id"], {})} for v in videos]}
+        if ret:
+            pcts = [r["pct_assistido"] for r in ret.values()]
+            print(f"  retenção: mediana de {statistics.median(pcts):.0f}% assistido em {len(pcts)} vídeos")
         print(f"== {conta}: {canal['inscritos']} inscritos, {len(videos)} vídeos lidos")
         for molde, r in sorted(relatorio["contas"][conta]["por_molde"].items(), key=lambda kv: -kv[1]["mediana"]):
             print(f"  {molde:22} n={r['n']:3}  mediana={r['mediana']:>8.0f}  maior={r['maior']:>8}")
