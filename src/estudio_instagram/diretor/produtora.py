@@ -409,7 +409,8 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
     final = pasta / "final.mp4"
     res = {"pasta": str(pasta), "repo": repo, "estilo": estilo["slug"], "palavra": rot["palavra"], "ok": False, "venda": venda,
            "em_alta": bool(momento), "historia": bool(historia), "plataforma": plataforma,
-           **({"molde": historia["molde"], "titulo": historia.get("titulo", "")} if historia and historia.get("molde") else {})}
+           **({"molde": historia["molde"], "titulo": historia.get("titulo", ""), "nota_previsor": historia.get("nota_previsor"),
+              "premissa": historia.get("premissa", "")} if historia and historia.get("molde") else {})}
     if final.exists():
         dur = portao._ffprobe_duracao(final)
         q = portao.qa(final, dur)  # duração conferida pelo próprio arquivo; o QA olha congelado, preto, volume e miolo vazio
@@ -526,7 +527,7 @@ def para_fila_youtube(res: dict) -> Path:
     legenda = (rot.get("legenda") or "").strip()
     pauta = {"titulo": res.get("titulo") or rot.get("texto_tela") or pasta.name, "descricao": legenda,
              "video_pronto_url": url, "molde": res.get("molde", ""), "estilo": res["estilo"], "slug": res["repo"].split("/")[-1],
-             "formato": "zack", "publicado": {}}
+             "formato": "zack", "nota_previsor": res.get("nota_previsor"), "premissa": res.get("premissa", ""), "publicado": {}}
     FILA_YOUTUBE.mkdir(parents=True, exist_ok=True)
     destino = FILA_YOUTUBE / f"{datetime.now():%Y-%m-%d-%H%M}-{res.get('molde', 'zack')}-{pasta.name.split('-', 4)[-1]}.json"
     destino.write_text(json.dumps(pauta, ensure_ascii=False, indent=1), encoding="utf-8")

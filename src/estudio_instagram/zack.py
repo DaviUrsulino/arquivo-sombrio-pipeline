@@ -67,6 +67,9 @@ TEMAS = [
     ("sua-foto-dentro-do-data-center", "Data center", "dentro",
      "onde a sua foto fica guardada de verdade: o prédio, o calor, a água usada para resfriar", True),
 ]
+PREMISSAS_ABSURDAS = {"ossos-de-vidro", "barragem-de-gente", "sem-lua-por-um-dia", "gravidade-desliga-um-segundo",
+                      "sangue-de-colibri", "onze-dias-sem-dormir", "cair-na-lava", "tunel-que-atravessa-a-terra",
+                      "engolido-por-uma-baleia"}
 MOLDES = {"e-se": "E se...", "por-que": "Por que X faz Y", "dentro": "a câmera entra onde nenhuma câmera entra",
           "caso-real": "caso real que parece mentira", "como-sobrevive": "como X sobrevive a Y"}
 INTERVALO = {"youtube": timedelta(hours=6), "instagram": timedelta(hours=20)}
@@ -177,6 +180,8 @@ def escrever(slug: str, titulo_wiki: str, molde: str, angulo: str, plataforma: s
     corpo = [str(f).strip() for f in r["corpo"]]
     return {"slug": slug, "serie": slug, "episodio": 1, "opcoes": None, "produzir": True,
             "formato": "zack", "molde": molde, "plataforma": plataforma, "titulo": r["titulo"].strip(),
+            # para cruzar na segunda com a retenção real: o previsor prevê o roteiro, a métrica diz se acertou
+            "nota_previsor": ultima_nota, "premissa": "absurda" if slug in PREMISSAS_ABSURDAS else "educativa",
             "fonte": f"https://en.wikipedia.org/wiki/{titulo_wiki.replace(' ', '_')}",
             "direcao": ("MOLDE ZACK D. FILMS. A câmera entra onde nenhuma câmera entra (corte transversal, por dentro, "
                         "raio-X). Personagem fixo: " + PERSONAGEM + ". " + (r.get("direcao") or "")),

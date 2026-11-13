@@ -60,14 +60,15 @@ def moldes_publicados() -> dict[str, dict]:
         for conta, pub in (p.get("publicado") or {}).items():
             vid = (pub.get("url") or "").rsplit("/", 1)[-1]
             if vid:
-                mapa[vid] = {"molde": p.get("molde", ""), "estilo": p.get("estilo", ""), "slug": p.get("slug", ""), "conta": conta}
+                mapa[vid] = {"molde": p.get("molde", ""), "premissa": p.get("premissa", ""), "nota_previsor": p.get("nota_previsor"), "estilo": p.get("estilo", ""), "slug": p.get("slug", ""), "conta": conta}
     return mapa
 
 
 def resumo(videos: list[dict], mapa: dict) -> dict:
     por_molde: dict[str, list[int]] = {}
     for v in videos:
-        chave = mapa.get(v["id"], {}).get("molde") or "foto (antigo)"
+        info = mapa.get(v["id"], {})
+        chave = (f"{info['molde']}/{info['premissa']}" if info.get("premissa") else info.get("molde")) or "foto (antigo)"
         por_molde.setdefault(chave, []).append(v["views"])
     return {m: {"n": len(vs), "mediana": statistics.median(vs), "maior": max(vs)} for m, vs in por_molde.items()}
 
