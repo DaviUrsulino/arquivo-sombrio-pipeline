@@ -75,6 +75,8 @@ def resumo(videos: list[dict], mapa: dict) -> dict:
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--conta", choices=list(CREDENCIAIS_POR_CONTA), default=None)
+    p.add_argument("--alerta-horas", type=float, default=0,
+                   help="sai com erro se alguma conta ficou mais que N horas sem publicar (o workflow diário usa 26)")
     a = p.parse_args()
     contas = [a.conta] if a.conta else list(CREDENCIAIS_POR_CONTA)
     mapa = moldes_publicados()
@@ -86,9 +88,19 @@ def main():
         print(f"== {conta}: {canal['inscritos']} inscritos, {len(videos)} vídeos lidos")
         for molde, r in sorted(relatorio["contas"][conta]["por_molde"].items(), key=lambda kv: -kv[1]["mediana"]):
             print(f"  {molde:22} n={r['n']:3}  mediana={r['mediana']:>8.0f}  maior={r['maior']:>8}")
+    silenciosas = []
+    if a.alerta_horas:
+        limite = datetime.now(timezone.utc).timestamp() - a.alerta_horas * 3600
+        for conta, dados in relatorio["contas"].items():
+            ultimo = max((datetime.fromisoformat(v["publicado"].replace("Z", "+00:00")).timestamp() for v in dados["videos"]), default=0)
+            if ultimo < limite:
+                silenciosas.append(conta)
     SAIDA.parent.mkdir(parents=True, exist_ok=True)
     SAIDA.write_text(json.dumps(relatorio, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"gravado em {SAIDA.relative_to(RAIZ)}")
+    if silenciosas:
+        print(f"ALERTA: sem publicar há mais de {a.alerta_horas:.0f} h: {', '.join(silenciosas)}")
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":
