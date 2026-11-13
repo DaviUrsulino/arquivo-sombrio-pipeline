@@ -94,7 +94,8 @@
   "hand-drawn-cartoon",
   "midcentury-toon",
   "scifi-toon",
-  "teardown"
+  "teardown",
+  "midcentury-toon"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -850,6 +851,14 @@
    "estilo": "teardown",
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-13-0502-ossos-de-vidro-teardown",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-13T06:35",
+   "repo": "historia/wannacry-dominio-de-10-dolares",
+   "estilo": "midcentury-toon",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-13-0603-wannacry-dominio-de-10-dolares-midcentury-toon",
    "em_alta": false
   }
  ]
