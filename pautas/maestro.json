@@ -1,7 +1,9 @@
 {
   "dia": "2026-11-13",
-  "feitos": {},
-  "ultimo_disparo": "2026-11-12T22:31:46-03:00",
+  "feitos": {
+    "00:30": "disparada 00:33"
+  },
+  "ultimo_disparo": "2026-11-13T00:33:20-03:00",
   "fila_usadas": [
     "pautas/viral/fila/01-motion-skills.json",
     "pautas/viral/fila/01b-habblaud.json",
@@ -42,7 +44,8 @@
     "pautas/viral/fila/2026-11-11-0656-produtora-llocalsearch-iso-infographic.json",
     "pautas/viral/fila/2026-11-11-1158-produtora-modern-web-guidance-esquete.json",
     "pautas/viral/fila_descarte/2026-11-11-0816-produtora-astryx-desktop-flythrough.json",
-    "pautas/viral/fila/2026-11-12-2131-historia-porta-que-nao-abre-ep2-hand-drawn-cartoon.json"
+    "pautas/viral/fila/2026-11-12-2131-historia-porta-que-nao-abre-ep2-hand-drawn-cartoon.json",
+    "pautas/viral/fila/2026-11-12-2025-historia-mensagem-do-proprio-numero-ep2-cartoon-3d-short.json"
   ],
   "ultima_producao": "2026-11-12T16:41:44-03:00",
   "ultima_producao_youtube": "2026-11-12T06:24:43-03:00"
