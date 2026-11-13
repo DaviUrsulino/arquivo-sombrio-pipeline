@@ -67,3 +67,25 @@ def test_intervalo_e_por_plataforma():
 def test_formato_zack_sem_hud_e_com_estilos_de_corte():
     assert estilo_formato.hud("zack") == {"tipo": "nenhum"}
     assert "teardown" in estilo_formato.recomendados("zack")
+
+
+def test_numeros_extrai_trechos_com_unidade():
+    achados = zack.numeros("The cable is 1.2 million km long. It was laid in 1858. Fibers carry 100 Tbps over 7,000 km.")
+    assert any("1.2 million" in a for a in achados) and any("7,000 km" in a for a in achados)
+
+
+def test_um_tema_ruim_nao_trava_a_rodada(monkeypatch):
+    chamados = []
+
+    def falso(slug, titulo, molde, angulo, plataforma, **k):
+        chamados.append(slug)
+        if len(chamados) < 3:
+            raise ValueError("fora do molde")
+        return {"slug": slug, "formato": "zack", "plataforma": plataforma}
+
+    monkeypatch.setattr(zack, "escrever", falso)
+    monkeypatch.setattr(zack.series, "_ler", lambda a: {})
+    monkeypatch.setattr(zack.series, "registrar", lambda *a, **k: None)
+    monkeypatch.setattr(zack, "ROTEIROS_YOUTUBE", __import__("pathlib").Path(__import__("tempfile").mkdtemp()))
+    destino = zack.gerar_se_preciso("youtube")
+    assert destino is not None and len(chamados) == 3

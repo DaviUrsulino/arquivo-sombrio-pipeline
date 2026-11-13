@@ -63,7 +63,10 @@ PREFIXO = "zack:"
 # Roteiro do YouTube mora à parte: `series.historia_para_produzir()` pega QUALQUER json de pautas/historias/ com
 # "produzir": true, e um Short do YouTube não pode sair no Instagram por engano (nem o contrário).
 ROTEIROS_YOUTUBE = series.RAIZ / "pautas" / "youtube" / "roteiros"
-NOTA_MINIMA = 7.0
+# 6,0 e não 7,0: o previsor foi feito para Reels que pedem follow no fim e descontava o Zack por "não ter motivo para
+# seguir no final" (nota 5,2 em 12/11), mas o molde fecha sem pedido DE PROPÓSITO (os 5 vídeos de 14 a 50 mi).
+NOTA_MINIMA = 6.0
+TENTATIVAS_POR_RODADA = 3  # temas diferentes por rodada: um artigo ruim não pode travar a fila inteira
 # O "boneco sempre igual" (regra 4 do Zack): um personagem genérico e constante, NOSSO, nunca o dele.
 PERSONAGEM = ("um homem comum de camiseta cinza lisa e calça jeans, careca, rosto simples e sempre o mesmo em todos os "
               "vídeos; sem logo, sem nome na roupa")
@@ -105,6 +108,18 @@ def problemas(r: dict) -> list[str]:
     return erros
 
 
+def numeros(fatos: str, limite: int = 14) -> list[str]:
+    """Trechos curtos dos FATOS que trazem número com unidade (km, anos, %, milhões): o roteirista escolhe entre eles."""
+    achados = re.findall(r"[^.\n]{0,60}\b\d[\d,.]*\s?(?:km|m|kg|anos?|years?|%|percent|million|billion|milh|bilh|mil|°C|hours?|horas?|days?|dias?)\b[^.\n]{0,40}", fatos)
+    vistos, saida = set(), []
+    for a in achados:
+        a = a.strip()
+        if a not in vistos:
+            vistos.add(a)
+            saida.append(a)
+    return saida[:limite]
+
+
 def escrever(slug: str, titulo_wiki: str, molde: str, angulo: str, plataforma: str = "youtube",
              llm=None, ler=None, corte: float = NOTA_MINIMA) -> dict:
     from . import segredos
@@ -114,9 +129,11 @@ def escrever(slug: str, titulo_wiki: str, molde: str, angulo: str, plataforma: s
     base = (ler or ler_fatos)(titulo_wiki)
     if len(base) < 1200:
         raise ValueError(f"artigo da Wikipédia curto demais ({len(base)} caracteres)")
-    pedido = {"FATOS": base, "MOLDE": f"{molde}: {MOLDES[molde]}", "ANGULO": angulo}
+    pedido = {"FATOS": base[:12000], "MOLDE": f"{molde}: {MOLDES[molde]}", "ANGULO": angulo,
+              # 12/11: o LLM escrevia sem número e o validador reprovava 3 vezes seguidas; achar os números ANTES resolve
+              "NUMEROS_DOS_FATOS": numeros(base)}
     r, ultima_nota = {}, None
-    for tentativa in range(3):
+    for tentativa in range(4):
         r = gerar(segredos.texto("zack"), json.dumps(pedido, ensure_ascii=False))
         erros = problemas(r)
         if erros:
@@ -177,14 +194,21 @@ def gerar_se_preciso(plataforma: str = "youtube", agora: datetime | None = None)
     estado = series._ler(series.ESTADO)
     if not precisa(estado, plataforma, agora):
         return None
-    tema = proximo_tema(estado, plataforma)
-    if not tema:
-        return None
-    slug, titulo_wiki, molde, angulo, _ig = tema
-    try:
-        h = escrever(slug, titulo_wiki, molde, angulo, plataforma)
-    except Exception as erro:
-        print(f"não consegui escrever o zack {slug} ({erro})")
+    h = None
+    tentados = set()
+    for _ in range(TENTATIVAS_POR_RODADA):
+        tema = next((t for t in TEMAS if f"{PREFIXO}{t[0]}" not in estado and t[0] not in tentados
+                     and (plataforma == "youtube" or t[4])), None)
+        if not tema:
+            return None
+        slug, titulo_wiki, molde, angulo, _ig = tema
+        tentados.add(slug)
+        try:
+            h = escrever(slug, titulo_wiki, molde, angulo, plataforma)
+            break
+        except Exception as erro:
+            print(f"não consegui escrever o zack {slug} ({erro}); tento outro tema")
+    if h is None:
         return None
     pasta = ROTEIROS_YOUTUBE if plataforma == "youtube" else series.HISTORIAS
     pasta.mkdir(parents=True, exist_ok=True)
