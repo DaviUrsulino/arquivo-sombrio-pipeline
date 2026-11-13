@@ -163,5 +163,9 @@
  "produzido:wannacry-dominio-de-10-dolares": {
   "quando": "2026-11-13T06:35+00:00",
   "resultado": "ok"
+ },
+ "produzido:ossos-de-vidro": {
+  "quando": "2026-11-13T11:58+00:00",
+  "resultado": "ok"
  }
 }
