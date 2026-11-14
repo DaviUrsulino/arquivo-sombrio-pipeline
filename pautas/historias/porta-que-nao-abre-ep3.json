@@ -1,0 +1,37 @@
+{
+ "estilo": "hand-drawn-cartoon",
+ "direcao": "HISTÓRIA DE COTIDIANO, público amplo, sem nada de tecnologia. ",
+ "slug": "porta-que-nao-abre-ep3",
+ "serie": "porta-que-nao-abre",
+ "episodio": 3,
+ "roteiro": {
+  "texto_tela": "O ARQUIVO DA DELEGACIA",
+  "ganchos": [
+   "Vocês escolheram POLÍCIA, e Marina entrou correndo na delegacia enquanto o perseguidor vinha logo atrás."
+  ],
+  "corpo": [
+   "Ela entrou desesperada na recepção do plantão e pediu ajuda ao investigador.",
+   "Marina explicou sobre o invasor usando a jaqueta e o chaveiro de seu falecido pai.",
+   "O policial puxou a ficha do caso do pai dela no sistema interno.",
+   "Ele revelou que o chaveiro era a peça central de um crime jamais resolvido.",
+   "O registro mostrava que aquela prova foi retirada do cofre da polícia ontem de manhã.",
+   "Quem assinou o termo de retirada usando a senha do pai foi a mãe de Marina.",
+   "Agora ela não sabe se confronta a mãe pelo telefone ou se inspeciona o antigo armário do pai ali mesmo."
+  ],
+  "cta": "Comenta MAE ou ARMARIO. A parte 4 sai amanhã com a escolha que ganhar. Me segue pra não perder.",
+  "legenda": "Parte 3.\nVocês escolheram POLÍCIA e uma verdade veio à tona.\nSegue o @ursulino.ia para acompanhar.\n#suspense #medo #vocedecide #misterio #historias\n\nComenta MAE ou ARMARIO. A mais votada vira a próxima parte.",
+  "palavra": ""
+ },
+ "opcoes": [
+  "MAE",
+  "ARMARIO"
+ ],
+ "fatos_continuacao": null,
+ "escolha_anterior": "POLICIA",
+ "votos_anteriores": {
+  "POLICIA": 1,
+  "CARRO": 0
+ },
+ "produzir": true,
+ "prioridade": true
+}

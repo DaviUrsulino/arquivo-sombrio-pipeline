@@ -98,7 +98,8 @@
   "midcentury-toon",
   "hand-drawn-cartoon",
   "white-model",
-  "data-physical"
+  "data-physical",
+  "hand-drawn-cartoon"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -886,6 +887,14 @@
    "estilo": "data-physical",
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-13-1441-barragem-de-gente-data-physical",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-14T01:33",
+   "repo": "historia/porta-que-nao-abre-ep3",
+   "estilo": "hand-drawn-cartoon",
+   "ok": false,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-14-0133-porta-que-nao-abre-ep3-hand-drawn-cartoon",
    "em_alta": false
   }
  ]
