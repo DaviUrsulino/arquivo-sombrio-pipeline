@@ -176,5 +176,13 @@
  "porta-que-nao-abre-ep2": {
   "quando": "2026-11-14T01:33+00:00",
   "resultado": "porta-que-nao-abre-ep3"
+ },
+ "mensagem-do-proprio-numero-ep2": {
+  "quando": "2026-11-14T03:34+00:00",
+  "resultado": "mensagem-do-proprio-numero-ep3"
+ },
+ "produzido:mensagem-do-proprio-numero-ep3": {
+  "quando": "2026-11-14T04:08+00:00",
+  "resultado": "ok"
  }
 }

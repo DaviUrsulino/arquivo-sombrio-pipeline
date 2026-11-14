@@ -1,0 +1,37 @@
+{
+ "estilo": "cartoon-3d-short",
+ "direcao": "HISTÓRIA DE COTIDIANO, público amplo, sem nada de tecnologia. ",
+ "slug": "mensagem-do-proprio-numero-ep3",
+ "serie": "mensagem-do-proprio-numero",
+ "episodio": 3,
+ "roteiro": {
+  "texto_tela": "ELE ERA SEU IRMÃO",
+  "ganchos": [
+   "Vocês escolheram a CHAVE, e ao pegar o objeto, o mascarado trancou a porta do quarto."
+  ],
+  "corpo": [
+   "O homem arrancou a máscara e revelou o rosto do seu irmão desaparecido.",
+   "Ele explicou que a chave abre um cofre no carro com provas contra seus pais.",
+   "A revelação chocante prova que sua família atual adotou você ilegalmente.",
+   "De repente, o celular dele toca no viva-voz com a voz da sua mãe.",
+   "Ela avisa chorando que o verdadeiro perseguidor acabou de arrombar a sala.",
+   "Passos pesados sobem a escada do corredor e o teto começa a estalar.",
+   "Seu irmão aponta para o sótão esquerdo e para a janela de fuga."
+  ],
+  "cta": "Comenta SOTAO ou JANELA. A parte 4 sai amanhã com a escolha que ganhar. Me segue pra não perder.",
+  "legenda": "Parte 3. A escolha vencedora foi CHAVE.\nSegue o @ursulino.ia pra acompanhar.\n#suspense #medo #terror #historias #vocedecide\n\nComenta SOTAO ou JANELA. A mais votada vira a próxima parte.",
+  "palavra": ""
+ },
+ "opcoes": [
+  "SOTAO",
+  "JANELA"
+ ],
+ "fatos_continuacao": null,
+ "escolha_anterior": "CHAVE",
+ "votos_anteriores": {
+  "CHAVE": 0,
+  "RUA": 0
+ },
+ "produzir": true,
+ "prioridade": true
+}
