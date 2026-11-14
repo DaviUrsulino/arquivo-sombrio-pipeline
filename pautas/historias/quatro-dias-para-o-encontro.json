@@ -1,0 +1,31 @@
+{
+ "slug": "quatro-dias-para-o-encontro",
+ "serie": "quatro-dias-para-o-encontro",
+ "episodio": 1,
+ "opcoes": [
+  "VIZINHO",
+  "SOZINHO"
+ ],
+ "produzir": true,
+ "estilo": "scifi-toon",
+ "direcao": "HISTÓRIA DE COTIDIANO, público amplo, sem nada de tecnologia. SITCOM, não trailer: cada frase é um ACONTECIMENTO com piada (algo dá errado, alguém reage), nunca descrição de ambiente; tem payoff dentro do episódio, não só o cliffhanger. Lucas é um jovem magro com óculos grandes e camiseta amarela. Seu Tonho é um idoso baixinho de regata, bigode e chinelo de dedo. O cenário é a sala bagunçada do vizinho cheia de objetos estranhos. A grande revelação mostra o vizinho segurando um porta-retratos com a foto da garota sorrindo.",
+ "roteiro": {
+  "texto_tela": "ENCONTRO COM A SOBRINHA DELE",
+  "ganchos": [
+   "Você conseguiu um encontro com a mulher dos seus sonhos, mas não sabe conversar."
+  ],
+  "corpo": [
+   "Lucas conseguiu marcar um jantar com uma garota incrível no fim de semana.",
+   "O problema é que ele é extremamente tímido e trava perto de qualquer pessoa.",
+   "Desesperado, ele pediu ajuda para o Seu Tonho, o vizinho mais esquisito do prédio.",
+   "No primeiro dia de treino, o velhinho ensinou truques de charme e Lucas acabou com um tique no olho.",
+   "No segundo dia, tentou treinar um elogio e acabou arrumando briga na padaria.",
+   "Para piorar tudo, Lucas acabou de descobrir que a garota do encontro é sobrinha do vizinho.",
+   "Faltam poucas horas para o jantar e o Seu Tonho quer fazer o último treino radical.",
+   "Ele aceita a aula do vizinho surtado ou vai sozinho encarar o encontro?"
+  ],
+  "cta": "Comenta VIZINHO ou SOZINHO. A parte 2 sai amanhã com a escolha que ganhar. Me segue pra não perder.",
+  "legenda": "Você conseguiu um encontro com a mulher dos seus sonhos, mas não sabe conversar.\nComenta VIZINHO ou SOZINHO. A mais votada vira a parte 2.\nSegue o @ursulino.ia pra ver o final.\n#encontro #comedia #vizinho #vergonha #humor",
+  "palavra": ""
+ }
+}

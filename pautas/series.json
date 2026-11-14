@@ -188,5 +188,9 @@
  "produzido:porta-que-nao-abre-ep3": {
   "quando": "2026-11-14T11:32+00:00",
   "resultado": "ok"
+ },
+ "cotidiano:quatro-dias-para-o-encontro": {
+  "quando": "2026-11-14T12:25+00:00",
+  "resultado": "quatro-dias-para-o-encontro"
  }
 }
