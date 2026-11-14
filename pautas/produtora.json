@@ -104,7 +104,8 @@
   "white-model",
   "hand-drawn-cartoon",
   "hand-drawn-cartoon",
-  "scifi-toon"
+  "scifi-toon",
+  "teardown"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -940,6 +941,14 @@
    "estilo": "scifi-toon",
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-14-1225-quatro-dias-para-o-encontro-scifi-toon",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-14T12:32",
+   "repo": "historia/barragem-de-gente",
+   "estilo": "teardown",
+   "ok": false,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-14-1232-barragem-de-gente-teardown",
    "em_alta": false
   }
  ]
