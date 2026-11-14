@@ -1,5 +1,5 @@
 {
- "medido_em": "2026-11-13T18:45+00:00",
+ "medido_em": "2026-11-14T17:18+00:00",
  "contas": {
   "arquivo_sombrio": {
    "canal": {
@@ -9,13 +9,13 @@
    "por_molde": {
     "e-se/absurda": {
      "n": 1,
-     "mediana": 458,
-     "maior": 458
+     "mediana": 1008,
+     "maior": 1008
     },
     "foto (antigo)": {
      "n": 99,
      "mediana": 11,
-     "maior": 941
+     "maior": 943
     }
    },
    "videos": [
@@ -23,7 +23,7 @@
      "id": "fMqBCsE7QM8",
      "titulo": "E se todos os seus ossos virassem vidro?",
      "publicado": "2026-11-13T13:09:16Z",
-     "views": 458,
+     "views": 1008,
      "likes": 15,
      "comentarios": 0,
      "molde": "e-se",
@@ -37,7 +37,7 @@
      "id": "rwjMt0EZ7ts",
      "titulo": "O mistério das três da manhã... #shorts",
      "publicado": "2026-11-12T01:49:25Z",
-     "views": 1,
+     "views": 2,
      "likes": 0,
      "comentarios": 0
     },
@@ -45,7 +45,7 @@
      "id": "FS71252LaRI",
      "titulo": "O segredo do farol abandonado... #shorts",
      "publicado": "2026-11-11T22:17:49Z",
-     "views": 11,
+     "views": 13,
      "likes": 0,
      "comentarios": 0
     },
@@ -61,7 +61,7 @@
      "id": "gR6QfFkRi24",
      "titulo": "Nunca herde uma caixa trancada... #shorts",
      "publicado": "2026-11-11T12:29:36Z",
-     "views": 870,
+     "views": 872,
      "likes": 18,
      "comentarios": 0
     },
@@ -69,7 +69,7 @@
      "id": "xNofLd9slJ0",
      "titulo": "O Segredo das Fotos Antigas... #shorts",
      "publicado": "2026-11-11T03:56:10Z",
-     "views": 94,
+     "views": 92,
      "likes": 0,
      "comentarios": 0
     },
@@ -77,7 +77,7 @@
      "id": "OF8xLr6_CUw",
      "titulo": "O paciente que nunca existiu... #shorts",
      "publicado": "2026-11-11T02:27:31Z",
-     "views": 375,
+     "views": 372,
      "likes": 4,
      "comentarios": 0
     },
@@ -157,7 +157,7 @@
      "id": "WEMIaWpYp1c",
      "titulo": "O Perseguidor da Rota Quarenta... #shorts",
      "publicado": "2026-11-09T02:15:14Z",
-     "views": 941,
+     "views": 943,
      "likes": 24,
      "comentarios": 1
     },
@@ -613,8 +613,8 @@
      "id": "iK6aez3eMVw",
      "titulo": "Não leia as últimas linhas... #shorts",
      "publicado": "2026-10-30T16:52:55Z",
-     "views": 10,
-     "likes": 0,
+     "views": 11,
+     "likes": 1,
      "comentarios": 0
     },
     {
@@ -661,7 +661,7 @@
      "id": "EmII9bljID0",
      "titulo": "Nunca responda a essa voz... #shorts",
      "publicado": "2026-10-29T12:01:13Z",
-     "views": 54,
+     "views": 57,
      "likes": 1,
      "comentarios": 0
     },
@@ -829,17 +829,36 @@
   },
   "tendencias": {
    "canal": {
-    "inscritos": 147,
-    "videos": 217
+    "inscritos": 148,
+    "videos": 218
    },
    "por_molde": {
+    "e-se/absurda": {
+     "n": 1,
+     "mediana": 1055,
+     "maior": 1055
+    },
     "foto (antigo)": {
-     "n": 100,
-     "mediana": 44.0,
-     "maior": 1669
+     "n": 99,
+     "mediana": 52,
+     "maior": 1657
     }
    },
    "videos": [
+    {
+     "id": "oRA8o8AUQA4",
+     "titulo": "E se todos os seus ossos virassem vidro?",
+     "publicado": "2026-11-13T20:05:56Z",
+     "views": 1055,
+     "likes": 10,
+     "comentarios": 0,
+     "molde": "e-se",
+     "premissa": "absurda",
+     "nota_previsor": 6.1,
+     "estilo": "hand-drawn-cartoon",
+     "slug": "ossos-de-vidro",
+     "conta": "tendencias"
+    },
     {
      "id": "-jEHYuh9Rxk",
      "titulo": "Quase ninguém notou sua gafe... #shorts",
@@ -884,7 +903,7 @@
      "id": "pVE60qXC1HY",
      "titulo": "A lei bizarra que te obriga a sorrir na rua... #shorts",
      "publicado": "2026-11-10T04:06:54Z",
-     "views": 18,
+     "views": 20,
      "likes": 2,
      "comentarios": 0
     },
@@ -892,7 +911,7 @@
      "id": "InFYnoVwnkQ",
      "titulo": "Seus dedos murchos na água NÃO são o que você pensa... #shorts",
      "publicado": "2026-11-10T00:46:18Z",
-     "views": 171,
+     "views": 170,
      "likes": 2,
      "comentarios": 0
     },
@@ -924,7 +943,7 @@
      "id": "dJ3TZ1RKDo8",
      "titulo": "Tubarão veio antes de árvore?... #shorts",
      "publicado": "2026-11-09T10:34:16Z",
-     "views": 1669,
+     "views": 1657,
      "likes": 65,
      "comentarios": 0
     },
@@ -1004,7 +1023,7 @@
      "id": "ped9KyQhELo",
      "titulo": "O vulcão que cospe lava azul elétrica de verdade... #shorts",
      "publicado": "2026-11-06T10:59:55Z",
-     "views": 53,
+     "views": 54,
      "likes": 2,
      "comentarios": 0
     },
@@ -1052,7 +1071,7 @@
      "id": "wwDE5ClA2Tk",
      "titulo": "Morreu afogado em cerveja, não em água... #shorts",
      "publicado": "2026-11-03T20:17:32Z",
-     "views": 253,
+     "views": 255,
      "likes": 6,
      "comentarios": 0
     },
@@ -1196,7 +1215,7 @@
      "id": "cqxVZ880qNo",
      "titulo": "Como criar ratos virou o negócio mais lucrativo de 1902... #shorts",
      "publicado": "2026-10-29T23:41:04Z",
-     "views": 94,
+     "views": 95,
      "likes": 4,
      "comentarios": 0
     },
@@ -1484,7 +1503,7 @@
      "id": "Lon-hAwg-Zg",
      "titulo": "O camarão-pistola que acende um clarão no mar... #shorts",
      "publicado": "2026-10-21T01:12:10Z",
-     "views": 14,
+     "views": 15,
      "likes": 1,
      "comentarios": 0
     },
@@ -1596,7 +1615,7 @@
      "id": "paxxw_aAU9I",
      "titulo": "Um erro de mapa fez um lago inteiro descer pelo ralo... #shorts",
      "publicado": "2026-10-17T09:20:22Z",
-     "views": 471,
+     "views": 473,
      "likes": 21,
      "comentarios": 0
     },
@@ -1604,7 +1623,7 @@
      "id": "C9yPPwU5Q1I",
      "titulo": "Derreti um chocolate no bolso e mudei o mundo... #shorts",
      "publicado": "2026-10-17T00:27:29Z",
-     "views": 302,
+     "views": 304,
      "likes": 4,
      "comentarios": 0
     },
@@ -1620,7 +1639,7 @@
      "id": "wxIT83kmZVw",
      "titulo": "Separados ao nascer, iguais em tudo... #shorts",
      "publicado": "2026-10-16T19:02:05Z",
-     "views": 220,
+     "views": 221,
      "likes": 0,
      "comentarios": 0
     },
@@ -1629,14 +1648,6 @@
      "titulo": "Pedras que caminham sozinhas no deserto... #shorts",
      "publicado": "2026-10-16T15:09:43Z",
      "views": 36,
-     "likes": 1,
-     "comentarios": 0
-    },
-    {
-     "id": "4dZnn1U2CTI",
-     "titulo": "Por que sua mente não esquece o que ficou pela metade?... #shorts",
-     "publicado": "2026-10-15T19:02:56Z",
-     "views": 3,
      "likes": 1,
      "comentarios": 0
     }
