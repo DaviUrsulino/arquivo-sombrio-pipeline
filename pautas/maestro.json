@@ -1,9 +1,10 @@
 {
   "dia": "2026-11-14",
   "feitos": {
-    "00:30": "pulada: banco vazio"
+    "00:30": "pulada: banco vazio",
+    "03:00": "disparada 03:00"
   },
-  "ultimo_disparo": "2026-11-13T15:01:27-03:00",
+  "ultimo_disparo": "2026-11-14T03:00:03-03:00",
   "fila_usadas": [
     "pautas/viral/fila/01-motion-skills.json",
     "pautas/viral/fila/01b-habblaud.json",
@@ -47,7 +48,8 @@
     "pautas/viral/fila/2026-11-12-2131-historia-porta-que-nao-abre-ep2-hand-drawn-cartoon.json",
     "pautas/viral/fila/2026-11-12-2025-historia-mensagem-do-proprio-numero-ep2-cartoon-3d-short.json",
     "pautas/viral/fila/2026-11-13-0635-historia-wannacry-dominio-de-10-dolares-midcentury-toon.json",
-    "pautas/viral/fila_descarte/2026-11-11-0923-produtora-gemini-files-blueprint.json"
+    "pautas/viral/fila_descarte/2026-11-11-0923-produtora-gemini-files-blueprint.json",
+    "pautas/viral/fila/2026-11-14-0408-historia-mensagem-do-proprio-numero-ep3-cartoon-3d-short.json"
   ],
   "ultima_producao": "2026-11-14T02:01:25-03:00",
   "ultima_producao_youtube": "2026-11-14T02:01:30-03:00"
