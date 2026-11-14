@@ -107,7 +107,8 @@
   "scifi-toon",
   "teardown",
   "scifi-toon",
-  "data-physical"
+  "data-physical",
+  "scifi-toon"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -967,6 +968,14 @@
    "estilo": "data-physical",
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-14-1329-barragem-de-gente-data-physical",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-14T13:46",
+   "repo": "historia/quatro-dias-para-o-encontro",
+   "estilo": "scifi-toon",
+   "ok": false,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-14-1346-quatro-dias-para-o-encontro-scifi-toon",
    "em_alta": false
   }
  ]
