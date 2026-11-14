@@ -102,6 +102,7 @@
   "hand-drawn-cartoon",
   "cartoon-3d-short",
   "white-model",
+  "hand-drawn-cartoon",
   "hand-drawn-cartoon"
  ],
  "repos_usados": [
@@ -922,6 +923,14 @@
    "estilo": "hand-drawn-cartoon",
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-14-0624-porta-que-nao-abre-ep3-hand-drawn-cartoon",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-14T11:32",
+   "repo": "historia/porta-que-nao-abre-ep3",
+   "estilo": "hand-drawn-cartoon",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-14-1102-porta-que-nao-abre-ep3-hand-drawn-cartoon",
    "em_alta": false
   }
  ]
