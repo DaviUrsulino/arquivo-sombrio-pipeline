@@ -192,5 +192,9 @@
  "cotidiano:quatro-dias-para-o-encontro": {
   "quando": "2026-11-14T12:25+00:00",
   "resultado": "quatro-dias-para-o-encontro"
+ },
+ "mensagem-do-proprio-numero-ep3": {
+  "quando": "2026-11-14T18:04+00:00",
+  "resultado": "mensagem-do-proprio-numero-ep4"
  }
 }

@@ -108,7 +108,8 @@
   "teardown",
   "scifi-toon",
   "data-physical",
-  "scifi-toon"
+  "scifi-toon",
+  "cartoon-3d-short"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -976,6 +977,14 @@
    "estilo": "scifi-toon",
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-14-1346-quatro-dias-para-o-encontro-scifi-toon",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-14T18:20",
+   "repo": "historia/mensagem-do-proprio-numero-ep4",
+   "estilo": "cartoon-3d-short",
+   "ok": false,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-14-1804-mensagem-do-proprio-numero-ep4-cartoon-3d-short",
    "em_alta": false
   }
  ]

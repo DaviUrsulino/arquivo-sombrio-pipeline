@@ -1,0 +1,37 @@
+{
+ "estilo": "cartoon-3d-short",
+ "direcao": "HISTÓRIA DE COTIDIANO, público amplo, sem nada de tecnologia. ",
+ "slug": "mensagem-do-proprio-numero-ep4",
+ "serie": "mensagem-do-proprio-numero",
+ "episodio": 4,
+ "roteiro": {
+  "texto_tela": "ELE MENTIU PRA VOCÊ",
+  "ganchos": [
+   "Vocês escolheram SOTAO, e assim que subimos, a porta lá embaixo foi destruída a pontapés."
+  ],
+  "corpo": [
+   "Nós nos encolhemos no escuro do sótão enquanto o invasor revirava o quarto.",
+   "Pelas frestas da madeira, vimos o homem vestindo um terno e portando uma arma de serviço.",
+   "Ele não buscava o cofre, mas chamava reforços pelo rádio da polícia dizendo um nome estranho.",
+   "No chão ao meu lado, encontrei o distintivo caído do cara que dizia ser meu irmão.",
+   "O documento revela que ele é um fugitivo da prisão e que meus pais são os policiais que o prenderam.",
+   "Ele percebe que descobri a verdade e avança para me prender o pescoço.",
+   "Tenho poucos segundos para tentar gritar socorro para o policial ou empurrar a escada de madeira."
+  ],
+  "cta": "Comenta GRITAR ou EMPURRAR. A parte 5 sai amanhã com a escolha que ganhar. Me segue pra não perder.",
+  "legenda": "Parte 4. A escolha vencedora foi SOTAO.\nSegue o @ursulino.ia pra acompanhar.\n#suspense #medo #terror #vocedecide\n\nComenta GRITAR ou EMPURRAR. A mais votada vira a próxima parte.",
+  "palavra": ""
+ },
+ "opcoes": [
+  "GRITAR",
+  "EMPURRAR"
+ ],
+ "fatos_continuacao": null,
+ "escolha_anterior": "SOTAO",
+ "votos_anteriores": {
+  "SOTAO": 5,
+  "JANELA": 2
+ },
+ "produzir": true,
+ "prioridade": true
+}
