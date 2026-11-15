@@ -236,5 +236,9 @@
  "produzido:newton-na-quarentena": {
   "quando": "2026-11-15T18:20+00:00",
   "resultado": "ok"
+ },
+ "assunto-ferramenta:cortes-de-gameplay": {
+  "quando": "2026-11-15T23:51+00:00",
+  "resultado": "cortes-de-gameplay"
  }
 }
