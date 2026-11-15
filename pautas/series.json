@@ -200,5 +200,13 @@
  "produzido:mensagem-do-proprio-numero-ep4": {
   "quando": "2026-11-15T02:28+00:00",
   "resultado": "ok"
+ },
+ "porta-que-nao-abre-ep3": {
+  "quando": "2026-11-15T06:03+00:00",
+  "resultado": "porta-que-nao-abre-ep4"
+ },
+ "produzido:porta-que-nao-abre-ep4": {
+  "quando": "2026-11-15T06:24+00:00",
+  "resultado": "ok"
  }
 }

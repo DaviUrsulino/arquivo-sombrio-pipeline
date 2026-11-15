@@ -1,0 +1,37 @@
+{
+ "estilo": "hand-drawn-cartoon",
+ "direcao": "HISTÓRIA DE COTIDIANO, público amplo, sem nada de tecnologia. ",
+ "slug": "porta-que-nao-abre-ep4",
+ "serie": "porta-que-nao-abre",
+ "episodio": 4,
+ "roteiro": {
+  "texto_tela": "A DELEGACIA ERA UMA ARMADILHA",
+  "ganchos": [
+   "Vocês escolheram MÃE, e a voz dela no telefone avisou que a delegacia era uma armadilha."
+  ],
+  "corpo": [
+   "Marina discou escondida enquanto o investigador fingia buscar outros papéis na sala ao lado.",
+   "A mãe atendeu aos prantos e implorou para a filha não confiar em ninguém daquele plantão.",
+   "Ela confessou que retirou o chaveiro do cofre sob ameaça direta do chefe daquela delegacia.",
+   "O chaveiro esconde um código que incrimina a própria polícia pela morte misteriosa do pai de Marina.",
+   "O homem da jaqueta era o antigo parceiro do pai, tentando recuperar a prova antes dos policiais corruptos.",
+   "Pelo reflexo do vidro, Marina viu o investigador sacar a arma e bloquear a porta da saída.",
+   "Com as cortinas fechadas pelo guarda, a recepção virou uma jaula sem testemunhas."
+  ],
+  "cta": "Comenta JANELA ou FINGIR. A parte 5 sai amanhã com a escolha que ganhar. Me segue pra não perder.",
+  "legenda": "Parte 4.\nVocês escolheram MÃE e uma farsa perigosa foi revelada.\nSegue o @ursulino.ia para acompanhar.\n#suspense #vocedecide #misterio #historia #perigo\n\nComenta JANELA ou FINGIR. A mais votada vira a próxima parte.",
+  "palavra": ""
+ },
+ "opcoes": [
+  "JANELA",
+  "FINGIR"
+ ],
+ "fatos_continuacao": null,
+ "escolha_anterior": "MAE",
+ "votos_anteriores": {
+  "MAE": 1,
+  "ARMARIO": 1
+ },
+ "produzir": true,
+ "prioridade": true
+}

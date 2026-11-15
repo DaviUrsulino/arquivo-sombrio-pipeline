@@ -111,7 +111,8 @@
   "scifi-toon",
   "cartoon-3d-short",
   "cartoon-3d-short",
-  "white-model"
+  "white-model",
+  "hand-drawn-cartoon"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -1003,6 +1004,14 @@
    "estilo": "white-model",
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-15-0503-barragem-de-gente-white-model",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-15T06:24",
+   "repo": "historia/porta-que-nao-abre-ep4",
+   "estilo": "hand-drawn-cartoon",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-15-0603-porta-que-nao-abre-ep4-hand-drawn-cartoon",
    "em_alta": false
   }
  ]
