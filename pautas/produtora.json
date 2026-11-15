@@ -110,7 +110,8 @@
   "data-physical",
   "scifi-toon",
   "cartoon-3d-short",
-  "cartoon-3d-short"
+  "cartoon-3d-short",
+  "white-model"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -994,6 +995,14 @@
    "estilo": "cartoon-3d-short",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-15-0133-mensagem-do-proprio-numero-ep4-cartoon-3d-short",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-15T05:03",
+   "repo": "historia/barragem-de-gente",
+   "estilo": "white-model",
+   "ok": false,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-15-0503-barragem-de-gente-white-model",
    "em_alta": false
   }
  ]
