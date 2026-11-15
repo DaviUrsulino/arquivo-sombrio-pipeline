@@ -256,6 +256,9 @@ FILA_YOUTUBE_ALVO = 3
 JANELA_YOUTUBE = (2, 4)
 
 
+YOUTUBE_ATIVO = False
+
+
 def fila_youtube_pendente(pasta: Path | None = None) -> int:
     pasta = pasta or FILA_YOUTUBE
     n = 0
@@ -393,7 +396,8 @@ def main():
                 print(f"não consegui disparar a produção ({erro}); tento na próxima olhada", flush=True)
             try:
                 pendentes = fila_youtube_pendente()
-                if deve_produzir_youtube(datetime.now(BRASILIA), novo, pendentes, _produtora_rodando("produtora_youtube.yml")):
+                # 15/11 (Davi): "vamos parar de postar no YouTube, foco total no Instagram" (monetização difícil lá)
+                if YOUTUBE_ATIVO and deve_produzir_youtube(datetime.now(BRASILIA), novo, pendentes, _produtora_rodando("produtora_youtube.yml")):
                     subprocess.run(["gh", "workflow", "run", "produtora_youtube.yml", "--ref", "master"], cwd=RAIZ, check=True)
                     novo["ultima_producao_youtube"] = datetime.now(BRASILIA).isoformat(timespec="seconds")
                     _gravar(novo, args.commit)
