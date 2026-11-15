@@ -208,5 +208,9 @@
  "produzido:porta-que-nao-abre-ep4": {
   "quando": "2026-11-15T06:24+00:00",
   "resultado": "ok"
+ },
+ "produzido:quatro-dias-para-o-encontro": {
+  "quando": "2026-11-15T07:10+00:00",
+  "resultado": "ok"
  }
 }
