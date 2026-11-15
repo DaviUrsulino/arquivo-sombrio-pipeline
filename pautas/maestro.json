@@ -4,7 +4,8 @@
     "00:30": "disparada 00:30",
     "03:00": "pulada: banco vazio",
     "08:00": "disparada 08:00",
-    "12:00": "disparada 12:00"
+    "12:00": "disparada 12:00",
+    "15:00": "pulada: banco vazio"
   },
   "ultimo_disparo": "2026-11-15T12:00:55-03:00",
   "fila_usadas": [
