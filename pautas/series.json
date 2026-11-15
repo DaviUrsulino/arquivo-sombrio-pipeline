@@ -212,5 +212,13 @@
  "produzido:quatro-dias-para-o-encontro": {
   "quando": "2026-11-15T07:10+00:00",
   "resultado": "ok"
+ },
+ "cotidiano:sogra-chega-no-domingo": {
+  "quando": "2026-11-15T12:55+00:00",
+  "resultado": "sogra-chega-no-domingo"
+ },
+ "produzido:sogra-chega-no-domingo": {
+  "quando": "2026-11-15T13:19+00:00",
+  "resultado": "ok"
  }
 }

@@ -113,7 +113,8 @@
   "cartoon-3d-short",
   "white-model",
   "hand-drawn-cartoon",
-  "scifi-toon"
+  "scifi-toon",
+  "midcentury-toon"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -1021,6 +1022,14 @@
    "estilo": "scifi-toon",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-15-0633-quatro-dias-para-o-encontro-scifi-toon",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-15T13:19",
+   "repo": "historia/sogra-chega-no-domingo",
+   "estilo": "midcentury-toon",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-15-1255-sogra-chega-no-domingo-midcentury-toon",
    "em_alta": false
   }
  ]

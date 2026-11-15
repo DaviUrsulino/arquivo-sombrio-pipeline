@@ -1,0 +1,30 @@
+{
+ "slug": "sogra-chega-no-domingo",
+ "serie": "sogra-chega-no-domingo",
+ "episodio": 1,
+ "opcoes": [
+  "PEDIR",
+  "ASSAR"
+ ],
+ "produzir": true,
+ "estilo": "midcentury-toon",
+ "direcao": "HISTÓRIA DE COTIDIANO, público amplo, sem nada de tecnologia. SITCOM, não trailer: cada frase é um ACONTECIMENTO com piada (algo dá errado, alguém reage), nunca descrição de ambiente; tem payoff dentro do episódio, não só o cliffhanger. Clara tem cabelo cacheado ruivo volumoso, usa avental amarelo florido e tem expressão de desespero cômico. A cozinha é pequena e está infestada por uma nuvem cinza de fumaça. A iluminação é dramática e quente. A imagem da revelação mostra a porta do forno aberta com o interior todo queimado e torto, enquanto o namorado ao fundo segura um pano chamuscado com cara de culpa.",
+ "roteiro": {
+  "texto_tela": "MENTIU PRA SOGRA E AGORA?",
+  "ganchos": [
+   "Você mentiu pra sua sogra que é cozinheira e ela chega no domingo."
+  ],
+  "corpo": [
+   "Clara nunca fritou nem um ovo na vida.",
+   "Para impressionar a sogra exigente, ela prometeu servir um assado impecável no domingo.",
+   "No primeiro treino, o namorado desastrado jogou água na gordura e quase incendiou a cozinha.",
+   "Limpando a fumaça, Clara olhou de perto e descobriu que o forno derreteu por dentro.",
+   "Com o domingo batendo na porta, não dá tempo de consertar nem de comprar outro.",
+   "Agora ela precisa salvar o almoço sem confessar a mentira.",
+   "Ela esconde a tragédia e pede entrega de restaurante ou tenta assar na grelha improvisada da varanda?"
+  ],
+  "cta": "Comenta PEDIR ou ASSAR. A parte 2 sai amanhã com a escolha que ganhar. Me segue pra não perder.",
+  "legenda": "Você mentiu pra sua sogra que é cozinheira e ela chega no domingo.\nComenta PEDIR ou ASSAR. A mais votada vira a parte 2.\nSegue o @ursulino.ia pra ver o final.\n#almoço #sogra #comedia #perrengue #relacionamento",
+  "palavra": ""
+ }
+}
