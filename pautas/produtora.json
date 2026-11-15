@@ -114,7 +114,8 @@
   "white-model",
   "hand-drawn-cartoon",
   "scifi-toon",
-  "midcentury-toon"
+  "midcentury-toon",
+  "teardown"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -1030,6 +1031,14 @@
    "estilo": "midcentury-toon",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-15-1255-sogra-chega-no-domingo-midcentury-toon",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-15T13:58",
+   "repo": "historia/barragem-de-gente",
+   "estilo": "teardown",
+   "ok": false,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-15-1358-barragem-de-gente-teardown",
    "em_alta": false
   }
  ]
