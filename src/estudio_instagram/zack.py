@@ -24,6 +24,25 @@ from . import series
 # Instagram (@ursulino.ia) só leva os temas com pé em tecnologia: Davi, 11/11, "pelo menos algo que tenha
 # minimamente a ver". YouTube leva todos.
 TEMAS = [
+    # 15/11, medição ao vivo: @desmontandoomundo (757 mil seg.) faz 11 a 19 MILHÕES com animação "como X funciona por dentro"
+    # de coisas de casa e de obra (telhado, prédio de pé, muro de arrimo). Aqui o mesmo gênero, no molde curto do Zack,
+    # com objetos que todo brasileiro usa todo dia. Instagram leva todos (a coluna final é True).
+    ("dentro-do-chuveiro-eletrico", "Electric water heater", "como-funciona",
+     "o que esquenta a água do chuveiro na hora: a resistência, o fio, por que a água não dá choque e por que o inverno gasta mais", True),
+    ("dentro-da-geladeira", "Refrigerator", "como-funciona",
+     "como a geladeira esfria sem ter nada gelado dentro: o gás, o motor, a serpentina atrás, e por que ela esquenta por fora", True),
+    ("dentro-do-disjuntor", "Circuit breaker", "como-funciona",
+     "o que faz o disjuntor desarmar antes da casa pegar fogo: a lâmina que entorta com o calor, o ímã, em quantos milésimos de segundo", True),
+    ("dentro-da-descarga", "Flushing toilet", "como-funciona",
+     "como a descarga leva tudo embora sem bomba nenhuma: o sifão, a gravidade, o truque da água que sobe e desce", True),
+    ("dentro-do-elevador", "Elevator", "como-funciona",
+     "o que segura o elevador no prédio: os cabos, o contrapeso, o freio de segurança que trava se o cabo arrebentar", True),
+    ("dentro-da-caixa-dagua", "Water tower", "como-funciona",
+     "por que a água chega no chuveiro do último andar sem bomba: a altura, a pressão, o que acontece quando a caixa seca", True),
+    ("dentro-do-micro-ondas", "Microwave oven", "como-funciona",
+     "como o micro-ondas esquenta a comida por dentro: as ondas, as moléculas de água girando, por que a grade da porta é segura", True),
+    ("dentro-da-maquina-de-lavar", "Washing machine", "como-funciona",
+     "o que a máquina faz com a roupa em cada fase: o giro, a água, o motor, por que a roupa fica mais leve depois de centrifugar", True),
     # premissas absurdas primeiro (Davi, 13/11): é o que prende
     ("ossos-de-vidro", "Bone", "e-se",
      "se todos os seus ossos virassem vidro por 10 minutos: o que quebra primeiro, o que aguenta, o que você sente", False),
@@ -70,7 +89,7 @@ TEMAS = [
 PREMISSAS_ABSURDAS = {"ossos-de-vidro", "barragem-de-gente", "sem-lua-por-um-dia", "gravidade-desliga-um-segundo",
                       "sangue-de-colibri", "onze-dias-sem-dormir", "cair-na-lava", "tunel-que-atravessa-a-terra",
                       "engolido-por-uma-baleia"}
-MOLDES = {"e-se": "E se...", "por-que": "Por que X faz Y", "dentro": "a câmera entra onde nenhuma câmera entra",
+MOLDES = {"como-funciona": "Como X funciona por dentro (objeto do dia a dia, a câmera entra nele e mostra peça por peça)", "e-se": "E se...", "por-que": "Por que X faz Y", "dentro": "a câmera entra onde nenhuma câmera entra",
           "caso-real": "caso real que parece mentira", "como-sobrevive": "como X sobrevive a Y"}
 INTERVALO = {"youtube": timedelta(hours=6), "instagram": timedelta(hours=20)}
 PREFIXO = "zack:"

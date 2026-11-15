@@ -18,7 +18,7 @@ HISTORIAS = RAIZ / "pautas" / "historias"
 ESTADO = RAIZ / "pautas" / "series.json"
 POSTS = RAIZ / "pautas" / "pauta_por_post.json"
 ESPERA_VOTOS = timedelta(hours=12)  # 22:30 -> pronto pra rodada das 22:30 do dia seguinte ("a parte 2 sai amanhã")
-MAX_EPISODIOS = 6  # depois disso a série fecha (ou o Davi decide continuar)
+MAX_EPISODIOS = 10  # 15/11: série com protagonista e meta não decai (escolhas.app, ocaradafotoclt); a de plot decai em 6
 # 15/11: as séries escritas antes do prompt novo (resumo narrado, sem número nem fala, 3 votos por episódio) foram
 # encerradas: continuar o ep5 de "sequestrado quando era bebê" gasta a franquia do plano com público que não existe.
 ENCERRADAS = {"mensagem-do-proprio-numero", "porta-que-nao-abre", "preso-no-shopping", "estagiaria-apagou-producao",

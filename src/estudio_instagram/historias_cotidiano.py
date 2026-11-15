@@ -22,18 +22,20 @@ from . import series
 # Situações de cotidiano que qualquer pessoa entende, sem tecnologia. Cada uma vira uma série nova.
 # Ordem = ordem de uso. A marca do perfil continua sendo o visual; o assunto é que abre o alcance.
 SITUACOES = [
-    # 15/11 (Davi): "as novelinhas deles parecem muito mais interessantes que a nossa". Comparado frase a frase com
-    # @nessemundo_br (1,7 mi), @gabriel.cta (990 mil) e @escolhas.app (1,9 mi): eles abrem com a REGRA DO MUNDO ou um
-    # PRAZO COM DINHEIRO, e o resto é cena com número, nome, objeto, fala e refrão. As premissas abaixo seguem isso;
-    # as antigas (situação genérica de "a chave não gira") ficaram em 1.200 views e saíram.
-    ("nesse-mundo-bilhete-do-amor", "Nesse mundo, no aniversário de 29 anos todo mundo recebe um bilhete que diz quantos dias faltam pra pessoa da vida dele aparecer. O Caio recebeu o dele: faltam 11 dias. Comédia romântica: ele passa os 11 dias tratando bem demais todo mundo que encontra, e a pessoa pode ser qualquer uma."),
-    ("trinta-dias-pro-aluguel", "A Dani tem 30 dias e R$ 2.400 pra pagar o aluguel, e só ganha dinheiro fazendo favor pros vizinhos do prédio, cada um com um preço e uma exigência esquisita. Série com placar fixo (R$ 0 / 2.400 e dia 1 / 30): cada vizinho é um nível, com uma pequena vitória ou derrota."),
-    ("nesse-mundo-mentira-que-funciona", "Nesse mundo, todo mundo nasce com UMA mentira que sempre cola, e só descobre qual é quando usa. A Bia, 16 anos, gastou a dela pra faltar na prova de matemática e agora não pode mentir mais sobre nada de importante, justo na semana em que o pai vai perguntar quem quebrou a janela."),
-    ("a-fila-do-cartorio", "O Seu Osvaldo, 71 anos, pega a senha 187 num cartório que está atendendo a senha 12 e jura que não vai embora sem a certidão da esposa. Comédia de espera com 8 horas de fila, o refrão 'senha 187' e cada pessoa da fila com um segredo; a certidão tem uma surpresa no fim."),
-    ("nesse-mundo-cada-um-tem-um-relogio", "Nesse mundo, todo mundo tem um relógio no pulso que conta quantas vezes ainda vai ouvir 'eu te amo' na vida. O do Tomás marca 3. A mãe dele tem o dela em 4 mil. Série emocional: ele decide gastar os 3 com cuidado, e o refrão é a mãe dizendo 'depois você me liga'."),
-    ("o-primeiro-dia-do-estagiario-fantasma", "A Marta trabalha há 6 meses numa empresa onde todo mundo trata o Heitor, que ela nunca viu, como se ele existisse: cumprimentam a cadeira vazia da mesa 14 e guardam café pra ele. Comédia: ela descobre que nunca perguntou nada porque tinha vergonha, e o crachá dele está no nome dela."),
-    ("duzentos-reais-numa-rifa", "O Léo, 12 anos, vendeu 200 rifas de R$ 1 pra pagar a bicicleta do irmão e esqueceu de pôr o prêmio. O sorteio é sábado às 16h na praça. Comédia de enrolação com placar 'rifas vendidas' e um prêmio que ele precisa inventar em 3 dias, e o refrão 'é surpresa'."),
-    ("nesse-mundo-o-cachorro-escolhe", "Nesse mundo, todo cachorro escolhe uma pessoa pra proteger no primeiro dia de vida e nunca troca. A Lorena, 34 anos, é escolhida por um vira-lata que a segue de longe há 9 meses sem deixar ela chegar perto. Série emocional: ela descobre quem o cachorro está protegendo dela."),
+    # 15/11, medição ao vivo (segredos/estudos/2026-11-15/): série de PLOT (sequestro, irmão perdido) decai em 6 episódios
+    # (miniverse 1,1 mi -> 7,8 mil; biel 330 mil -> 55 mil), e série de UM PROTAGONISTA COM META E PRAZO, com o público
+    # decidindo o próximo passo e um placar fixo, não decai (@escolhas.app 450 mil a 3,2 mi em todo episódio;
+    # @ocaradafotoclt 0,7 a 1,7 mi em todo episódio, "30 dias pra virar esse cara"). Por isso as séries abaixo são todas
+    # "uma pessoa, uma meta numérica, um prazo". As de mundo ("Nesse mundo...", @nessemundo_br) ficam no fim: funcionam
+    # como história solta, não como série.
+    ("trinta-dias-pro-aluguel", "A Dani tem 30 dias e R$ 2.400 pra pagar o aluguel, e só ganha dinheiro fazendo favor pros vizinhos do prédio, cada um com um preço e uma exigência esquisita. Placar fixo: R$ 0 / 2.400 e dia 1 / 30. Cada vizinho é um nível, com uma pequena vitória ou derrota."),
+    ("quatro-dias-pro-encontro-as-cegas", "O Caio tem 4 dias pra deixar de ser o cara que ninguém quer ter um encontro com, antes de um encontro às cegas marcado pela irmã. Placar fixo: GLOW-UP 20% e dias restantes 4. O público escolhe o que ele tenta a cada dia (cabelo, roupa, papo); cada tentativa dá uma nota de 0 a 10."),
+    ("de-zero-a-dez-mil-vendendo-a-casa", "O Rui, 26 anos, tem 30 dias pra juntar R$ 10.000 vendendo as coisas que tem em casa, começando por uma bicicleta quebrada. Placar fixo: R$ 0 / 10.000 e dia 1 / 30. Cada comprador é uma cena com uma pechincha diferente, e o público escolhe o que ele vende primeiro."),
+    ("trinta-dias-pra-virar-cozinheiro", "A Lia, 31 anos, nunca cozinhou e tem 30 dias pra fazer o jantar de 12 pessoas do aniversário da avó. Placar fixo: PRATOS QUE DERAM CERTO 0 / 12 e dia 1 / 30. O público escolhe o prato que ela tenta a cada dia, e cada um dá errado de um jeito."),
+    ("o-cara-que-pagou-a-rifa-errada", "O Léo, 12 anos, vendeu 200 rifas de R$ 1 pra pagar a bicicleta do irmão e esqueceu de pôr o prêmio. O sorteio é sábado às 16h na praça, em 3 dias. Placar fixo: RIFAS VENDIDAS 200 e horas restantes 72. O público escolhe qual prêmio ele inventa; refrão 'é surpresa'."),
+    ("a-fila-do-cartorio", "O Seu Osvaldo, 71 anos, pega a senha 187 num cartório que está atendendo a senha 12 e jura que não vai embora sem a certidão da esposa. Placar fixo: SENHA 12 / 187 e horas na fila. Cada pessoa da fila tem um segredo, e a certidão tem uma surpresa no fim."),
+    ("nesse-mundo-bilhete-do-amor", "Nesse mundo, no aniversário de 29 anos todo mundo recebe um bilhete que diz quantos dias faltam pra pessoa da vida dele aparecer. O Caio recebeu o dele: faltam 11 dias. Placar fixo: DIAS 11. Comédia romântica: ele passa os 11 dias tratando bem demais todo mundo que encontra."),
+    ("nesse-mundo-cada-um-tem-um-relogio", "Nesse mundo, todo mundo tem um relógio no pulso que conta quantas vezes ainda vai ouvir 'eu te amo' na vida. O do Tomás marca 3. A mãe dele tem o dela em 4 mil. Placar fixo: TOMÁS 3. Série emocional: ele decide gastar os 3 com cuidado, e o refrão é a mãe dizendo 'depois você me liga'."),
 ]
 # Estilos que seguram mais tempo de tela nos nossos números (tempo médio assistido de 15 a 20 s).
 ESTILOS = ["hand-drawn-cartoon", "cartoon-3d-short", "scifi-toon", "midcentury-toon", "cel-anime-80s"]
