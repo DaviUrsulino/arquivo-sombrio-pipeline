@@ -185,7 +185,11 @@ def briefing(frases: list[str], estilo: dict, pasta: Path, palavra: str, extra: 
         como = ("FORMATO: esquete cômica em diálogo entre o criador \"Davi\" (jovem, moletom) e o robô assistente (mascote do perfil: "
                 "corpo arredondado coral, cabeça creme que é uma tela escura com olhos verde-menta brilhando, antena com luz vermelha). "
                 "Use a skill hand-drawn-cartoon (~/.agents/skills/hand-drawn-cartoon/SKILL.md). Reescreva as frases como diálogo curto e "
-                "engraçado entre os dois SEM mudar os fatos nem a última frase. Duas vozes: Davi = Puck, robô = Orus.")
+                "engraçado entre os dois SEM mudar os fatos nem a última frase. Duas vozes: Davi = Puck, robô = Orus. "
+                "Quando o roteiro ensina um passo (uma busca, um comando, um botão), mostre na tela o TEXTO EXATO que a pessoa digita ou "
+                "clica, num cartão de interface legível por cima da cena (como a busca site:... no Google do Reels de 307 mil do "
+                "@guics.dev e os termômetros do @aprendisemquere): quem assiste tem que conseguir copiar. Personagens com expressão "
+                "exagerada a cada fala e o mesmo cenário o vídeo inteiro.")
     elif estilo["slug"] in EXTRAS:
         como = (f"ESTILO: {EXTRAS[estilo['slug']]}. Leia e siga ~/.agents/skills/{estilo['slug']}/SKILL.md (HyperFrames). "
                 + ("" if historia else "Personagem, quando houver, é o robô do perfil: corpo arredondado coral, cabeça creme que é "
@@ -249,7 +253,7 @@ REGRAS DO VÍDEO (estudo de 108 Reels virais):
 - 1080x1920, 30 fps, com áudio, duração igual à da narração (25 a 60 s). Cada frase é UMA cena com uma ação visual concreta ligada ao que a frase diz;
   algo novo na tela a cada 1 a 3 s; nunca um slide de texto parado.
 {"" if zack else '- Um estado na tela que avança (contador, barra, "prova 3/7", nível) do começo ao fim.'}
-- Legenda curta sincronizada com a voz por volta de y=1300; nada importante nos 560 px de baixo nem colado na borda direita.
+- Legenda de 1 a 2 PALAVRAS por vez, fonte grande e grossa com contorno, sincronizada com a voz, a palavra-chave em amarelo (padrão medido em @gabriel.cta, @nessemundo_br e @escolhas.app; frase inteira em pílula pequena some e ninguém lê), por volta de y=1300; nada importante nos 560 px de baixo nem colado na borda direita.
 {personagem}
 {fecho}
 - Sem emoji. Textos na tela em português do Brasil.
