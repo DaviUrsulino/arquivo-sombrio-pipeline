@@ -7,7 +7,7 @@ import pytest
 from src.estudio_instagram import historias_cotidiano as hc
 
 BOM = {"texto_tela": "A CHAVE NAO GIRA", "ganchos": ["Você chega em casa e a chave não gira."],
-       "corpo": ["c1", "c2", "c3", "c4", "c5", "c6"], "cta": "Comenta ENTRAR ou FUGIR. A parte 2 sai amanhã.",
+       "corpo": ["Ele tem 3 dias.", '"Já volto", disse.', '"Tá bom", ela falou.', '"Nota 2", disse o juiz.'] + ["c%d" % i for i in range(5, 13)], "cta": "Comenta ENTRAR ou FUGIR. A parte 2 sai amanhã.",
        "legenda": "A chave não girou.\nComenta ENTRAR ou FUGIR. A mais votada vira a parte 2.",
        "opcoes": ["ENTRAR", "FUGIR"], "direcao": "D"}
 
@@ -33,7 +33,7 @@ def test_nao_confunde_com_as_historias_de_tecnologia():
     ({"opcoes": ["entrar", "fugir"]}, "2 palavras"),
     ({"legenda": "A chave não girou. Segue o @ursulino.ia pra ver o final."}, "legenda precisa citar"),
     ({"cta": "Me segue que amanhã tem a parte 2."}, "cta precisa pedir o voto"),
-    ({"corpo": ["c1", "c2"]}, "6 a 8 frases"),
+    ({"corpo": ["c1", "c2"]}, "12 a 18 frases"),
 ])
 def test_episodio_sem_dilema_valido_e_recusado(muda, erro_esperado):
     erros = hc.problemas({**BOM, **muda})

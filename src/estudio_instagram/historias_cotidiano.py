@@ -14,6 +14,7 @@ frente o `series.py` cuida sozinho.
 from __future__ import annotations
 
 import json
+import re
 from datetime import datetime, timedelta, timezone
 
 from . import series
@@ -21,23 +22,18 @@ from . import series
 # Situações de cotidiano que qualquer pessoa entende, sem tecnologia. Cada uma vira uma série nova.
 # Ordem = ordem de uso. A marca do perfil continua sendo o visual; o assunto é que abre o alcance.
 SITUACOES = [
-    # 11/11 (comparação frase a frase com o Reels de 1,9 mi do @escolhas.app, segredos/FORMATOS.md seção 10): o
-    # deles é SITCOM (peruca, 17ª tentativa, capa presa na porta) e o nosso era trailer de suspense. As situações de
-    # comédia entram na frente; o suspense fica para depois.
-    ("quatro-dias-para-o-encontro", "Ele tem 4 dias até um encontro com alguém que nunca viu, e a única pessoa que pode treiná-lo é o vizinho esquisito. Comédia: cada tentativa dá errado de um jeito novo."),
-    ("sogra-chega-no-domingo", "A sogra chega no domingo e ela prometeu que sabe cozinhar. Tem 3 dias para aprender um prato, com o namorado atrapalhando. Comédia."),
-    ("presente-de-dois-mil", "Ele comprou um presente de 2 mil reais no cartão da namorada sem querer, e tem 5 dias para resolver antes da fatura. Comédia de enrolação."),
-    ("primeiro-dia-na-cadeira-do-chefe", "No primeiro dia de trabalho ele senta sem saber na cadeira do chefe e todo mundo passa a tratá-lo como chefe. Comédia: até onde ele leva."),
-    ("porta-que-nao-abre", "A pessoa volta para casa de madrugada e a chave não gira na fechadura. A luz da sala está acesa, e ela mora sozinha."),
-    ("mensagem-do-proprio-numero", "O celular toca às 3 da manhã e quem está ligando é o próprio número dela."),
-    ("elevador-que-passou-do-andar", "O elevador do prédio passa direto pelo andar dela e continua subindo, e o prédio só tem 12 andares."),
-    ("vizinho-que-devolveu-a-chave", "Um vizinho bate na porta e devolve uma cópia da chave do apartamento dela, dizendo que achou na portaria."),
-    ("foto-antiga-no-celular-novo", "Ela compra um celular novo e, na galeria, já existe uma foto da sala da casa dela."),
-    ("onibus-que-nao-para", "O último ônibus da noite não para no ponto, e o motorista olha fixo para ela ao passar."),
-    ("encomenda-que-ela-nao-pediu", "Chega uma encomenda no nome dela, com o endereço certo, e dentro tem uma coisa que ela perdeu há anos."),
-    ("barulho-no-apartamento-de-cima", "O apartamento de cima faz barulho de móvel arrastando toda madrugada, mas está vazio há meses."),
-    ("amiga-que-ninguem-lembra", "No aniversário dela, ninguém do grupo lembra da amiga que aparece em todas as fotos da festa do ano passado."),
-    ("carro-que-segue-de-longe", "Voltando do trabalho a pé, ela percebe o mesmo carro parado em três esquinas diferentes."),
+    # 15/11 (Davi): "as novelinhas deles parecem muito mais interessantes que a nossa". Comparado frase a frase com
+    # @nessemundo_br (1,7 mi), @gabriel.cta (990 mil) e @escolhas.app (1,9 mi): eles abrem com a REGRA DO MUNDO ou um
+    # PRAZO COM DINHEIRO, e o resto é cena com número, nome, objeto, fala e refrão. As premissas abaixo seguem isso;
+    # as antigas (situação genérica de "a chave não gira") ficaram em 1.200 views e saíram.
+    ("nesse-mundo-bilhete-do-amor", "Nesse mundo, no aniversário de 29 anos todo mundo recebe um bilhete que diz quantos dias faltam pra pessoa da vida dele aparecer. O Caio recebeu o dele: faltam 11 dias. Comédia romântica: ele passa os 11 dias tratando bem demais todo mundo que encontra, e a pessoa pode ser qualquer uma."),
+    ("trinta-dias-pro-aluguel", "A Dani tem 30 dias e R$ 2.400 pra pagar o aluguel, e só ganha dinheiro fazendo favor pros vizinhos do prédio, cada um com um preço e uma exigência esquisita. Série com placar fixo (R$ 0 / 2.400 e dia 1 / 30): cada vizinho é um nível, com uma pequena vitória ou derrota."),
+    ("nesse-mundo-mentira-que-funciona", "Nesse mundo, todo mundo nasce com UMA mentira que sempre cola, e só descobre qual é quando usa. A Bia, 16 anos, gastou a dela pra faltar na prova de matemática e agora não pode mentir mais sobre nada de importante, justo na semana em que o pai vai perguntar quem quebrou a janela."),
+    ("a-fila-do-cartorio", "O Seu Osvaldo, 71 anos, pega a senha 187 num cartório que está atendendo a senha 12 e jura que não vai embora sem a certidão da esposa. Comédia de espera com 8 horas de fila, o refrão 'senha 187' e cada pessoa da fila com um segredo; a certidão tem uma surpresa no fim."),
+    ("nesse-mundo-cada-um-tem-um-relogio", "Nesse mundo, todo mundo tem um relógio no pulso que conta quantas vezes ainda vai ouvir 'eu te amo' na vida. O do Tomás marca 3. A mãe dele tem o dela em 4 mil. Série emocional: ele decide gastar os 3 com cuidado, e o refrão é a mãe dizendo 'depois você me liga'."),
+    ("o-primeiro-dia-do-estagiario-fantasma", "A Marta trabalha há 6 meses numa empresa onde todo mundo trata o Heitor, que ela nunca viu, como se ele existisse: cumprimentam a cadeira vazia da mesa 14 e guardam café pra ele. Comédia: ela descobre que nunca perguntou nada porque tinha vergonha, e o crachá dele está no nome dela."),
+    ("duzentos-reais-numa-rifa", "O Léo, 12 anos, vendeu 200 rifas de R$ 1 pra pagar a bicicleta do irmão e esqueceu de pôr o prêmio. O sorteio é sábado às 16h na praça. Comédia de enrolação com placar 'rifas vendidas' e um prêmio que ele precisa inventar em 3 dias, e o refrão 'é surpresa'."),
+    ("nesse-mundo-o-cachorro-escolhe", "Nesse mundo, todo cachorro escolhe uma pessoa pra proteger no primeiro dia de vida e nunca troca. A Lorena, 34 anos, é escolhida por um vira-lata que a segue de longe há 9 meses sem deixar ela chegar perto. Série emocional: ela descobre quem o cachorro está protegendo dela."),
 ]
 # Estilos que seguram mais tempo de tela nos nossos números (tempo médio assistido de 15 a 20 s).
 ESTILOS = ["hand-drawn-cartoon", "cartoon-3d-short", "scifi-toon", "midcentury-toon", "cel-anime-80s"]
@@ -69,8 +65,14 @@ def problemas(r: dict) -> list[str]:
         erros.append(f"a legenda precisa citar as duas opções ({opcoes[0]} e {opcoes[1]}), senão ninguém comenta")
     if not all(o in (r.get("cta") or "") for o in opcoes):
         erros.append("o cta precisa pedir o voto citando as duas opções")
-    if not 6 <= len(r.get("corpo") or []) <= 8:
-        erros.append("o corpo precisa de 6 a 8 frases")
+    corpo = r.get("corpo") or []
+    if not 12 <= len(corpo) <= 18:
+        erros.append("o corpo precisa de 12 a 18 frases")
+    elif sum(bool(re.search(r"[\"“”]", str(f))) for f in corpo) < 3:
+        erros.append("faltam falas entre aspas: pelo menos 3 frases com diálogo")
+    elif sum(bool(re.search(r"\d|\b(dois|duas|três|quatro|cinco|seis|sete|oito|nove|dez|vinte|trinta|cem|mil)\b", str(f), re.I))
+             for f in corpo) < 3:
+        erros.append("faltam números concretos (dinheiro, dias, idade): pelo menos 3 frases")
     return erros
 
 

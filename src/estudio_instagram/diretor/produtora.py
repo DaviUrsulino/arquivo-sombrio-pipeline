@@ -615,7 +615,7 @@ def main():
     if a.auto and not a.repo and not a.venda and not a.wiki:
         # série "você decide" (06/11): episódio com voto vencido vem antes de tudo (a parte 2 foi prometida "amanhã")
         from .. import series
-        from .. import curiosidades, historias_tech, zack
+        from .. import curiosidades, historias_cotidiano, historias_tech, zack
         # ordem por alcance medido (10/11, segredos/estudos/2026-11-10/): cotidiano e curiosidade são as frentes de
         # público amplo (mediana de 87 mil a 1,2 milhão nas referências) e vêm antes da história de tecnologia,
         # que é de nicho. Cada frente tem o seu intervalo de 20 h, então na prática se revezam uma por dia.
@@ -624,8 +624,9 @@ def main():
         # 15/11 (Davi): "a gente tá um tempão nessa novelinha e só pega 2.000 views". Medido: sitcom/suspense do
         # perfil fica em ~1.200 e não salva nem manda (0,2 salvos por 100); dica de utilidade e tecnologia com
         # promessa de desejo é o que as referências estouram (guics.dev 307 mil, aighostlab 558 mil) e o nosso
-        # único 55 mil. Por isso a dica vem ANTES das histórias, e a série de cotidiano saiu do rodízio
-        # (o episódio já prometido ao público ainda fecha, via series.*).
+        # único 55 mil. Por isso a dica vem ANTES das histórias. A série de cotidiano continua (Davi: "não é que
+        # novelinha não dê certo, é que a deles é mais interessante"), mas reescrita pelas regras medidas nas
+        # referências (segredos/prompts/historia_cotidiano.txt) e na vez depois da dica.
         from .. import assunto_ferramenta, utilidade
         proximo = series.preparar_proximo() or series.historia_para_produzir()
         estado_u = series._ler(series.ESTADO)
@@ -638,8 +639,8 @@ def main():
             a.utilidade_slug, a.repo_utilidade, a.promessa = escolha
             a.estilo = a.estilo or "esquete"  # dica em diálogo de duas vozes, como o Reels de 307 mil do @guics.dev
         elif not proximo:
-            proximo = (curiosidades.gerar_se_preciso() or zack.gerar_se_preciso("instagram")
-                       or historias_tech.gerar_se_preciso())
+            proximo = (historias_cotidiano.gerar_se_preciso() or curiosidades.gerar_se_preciso()
+                       or zack.gerar_se_preciso("instagram") or historias_tech.gerar_se_preciso())
         if proximo:
             a.historia = str(proximo)
     if a.fatos:
