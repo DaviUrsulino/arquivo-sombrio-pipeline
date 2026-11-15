@@ -109,6 +109,7 @@
   "scifi-toon",
   "data-physical",
   "scifi-toon",
+  "cartoon-3d-short",
   "cartoon-3d-short"
  ],
  "repos_usados": [
@@ -985,6 +986,14 @@
    "estilo": "cartoon-3d-short",
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-14-1804-mensagem-do-proprio-numero-ep4-cartoon-3d-short",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-15T02:28",
+   "repo": "historia/mensagem-do-proprio-numero-ep4",
+   "estilo": "cartoon-3d-short",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-15-0133-mensagem-do-proprio-numero-ep4-cartoon-3d-short",
    "em_alta": false
   }
  ]

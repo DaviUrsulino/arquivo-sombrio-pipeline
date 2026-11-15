@@ -196,5 +196,9 @@
  "mensagem-do-proprio-numero-ep3": {
   "quando": "2026-11-14T18:04+00:00",
   "resultado": "mensagem-do-proprio-numero-ep4"
+ },
+ "produzido:mensagem-do-proprio-numero-ep4": {
+  "quando": "2026-11-15T02:28+00:00",
+  "resultado": "ok"
  }
 }
