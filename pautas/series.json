@@ -220,5 +220,9 @@
  "produzido:sogra-chega-no-domingo": {
   "quando": "2026-11-15T13:19+00:00",
   "resultado": "ok"
+ },
+ "curiosidade:newton-na-quarentena": {
+  "quando": "2026-11-15T14:15+00:00",
+  "resultado": "newton-na-quarentena"
  }
 }

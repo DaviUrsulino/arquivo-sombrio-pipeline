@@ -1,0 +1,31 @@
+{
+ "slug": "newton-na-quarentena",
+ "serie": "newton-na-quarentena",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "formato": "numero",
+ "fonte": "https://en.wikipedia.org/wiki/Isaac_Newton",
+ "direcao": "CURIOSIDADE COM NÚMERO. Sem mascote, sem personagem falando. Um portão clássico de universidade se fecha enquanto o texto 2 ANOS TRANCADO EM CASA surge em caixa alta na tela. Animação de páginas de um calendário voando rapidamente do ano de 1665 até 1667. Desenhos de prismas separando a luz e equações matemáticas aparecem ao redor de uma casa de fazenda simplificada. O número 26 sobe gigante na tela no momento em que ele se torna professor em Cambridge.",
+ "roteiro": {
+  "texto_tela": "2 ANOS TRANCADO EM CASA",
+  "ganchos": [
+   "O que você faria se a faculdade fechasse por dois anos por causa duma peste?",
+   "Em mil seiscentos e sessenta e cinco, a peste fechou Cambridge e mandou Newton pra casa.",
+   "Isaac Newton passou dois anos trancado na fazenda e criou a física moderna sozinho."
+  ],
+  "corpo": [
+   "Em mil seiscentos e sessenta e cinco, a grande peste fechou a Universidade de Cambridge.",
+   "Isaac Newton tinha acabado de se formar e precisou voltar pra casa em Woolsthorpe.",
+   "Sem aula e totalmente sozinho, ele passou dois anos estudando na fazenda.",
+   "Nesse período isolado, ele desenvolveu o cálculo matemático do zero.",
+   "No mesmo lugar, criou a teoria da ótica e a lei da gravitação universal.",
+   "Antes disso, ele limpava quartos de outros alunos pra conseguir pagar a faculdade.",
+   "Com vinte e seis anos, ele assumiu como professor de matemática em Cambridge.",
+   "Esses dois anos isolado são considerados os mais produtivos da história da ciência."
+  ],
+  "cta": "Manda pro amigo que não vai acreditar. E me segue: todo dia uma dessas aqui.",
+  "legenda": "Em 1665, a peste fechou a Universidade de Cambridge e mandou Isaac Newton de volta pra casa.\nNos 2 anos em que ficou isolado, ele desenvolveu o cálculo, a ótica e a gravitação universal.\nFonte: Wikipédia\nManda pro amigo que não vai acreditar.\nSegue o @ursulino.ia\n#isaacnewton #ciência #historia #curiosidades #física",
+  "palavra": ""
+ }
+}

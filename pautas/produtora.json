@@ -115,7 +115,8 @@
   "hand-drawn-cartoon",
   "scifi-toon",
   "midcentury-toon",
-  "teardown"
+  "teardown",
+  "dataviz"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -1039,6 +1040,14 @@
    "estilo": "teardown",
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-15-1358-barragem-de-gente-teardown",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-15T14:15",
+   "repo": "historia/newton-na-quarentena",
+   "estilo": "dataviz",
+   "ok": false,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-15-1415-newton-na-quarentena-dataviz",
    "em_alta": false
   }
  ]
