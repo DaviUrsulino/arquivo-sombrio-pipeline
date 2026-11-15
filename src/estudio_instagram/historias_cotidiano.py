@@ -22,6 +22,12 @@ from . import series
 # Situações de cotidiano que qualquer pessoa entende, sem tecnologia. Cada uma vira uma série nova.
 # Ordem = ordem de uso. A marca do perfil continua sendo o visual; o assunto é que abre o alcance.
 SITUACOES = [
+    # 15/11, @contosderisco (21,9 mil seg.): 12 de 12 Reels acima de 48 mil, mediana ~470 mil, picos de 4,4 e 4,5 mi, 70 a 80 s.
+    # Formato: "E se todo mundo ficasse cego... menos você? Regra número 1: não conte pra ninguém.", episódio numerado
+    # ("E SE · Ep. 1"), A ou B nos comentários OU "inventa a C: a melhor entra na próxima parte", fecho "Manda pra única
+    # pessoa que você contaria". É premissa hipotética com REGRA, e VOCÊ é o protagonista, não plot de thriller.
+    ("e-se-so-voce-fica-acordado", "E se todo mundo na sua cidade dormisse às 21h e só você ficasse acordado? Regra número 1: não acorde ninguém. Você é o protagonista (segunda pessoa). Placar fixo: HORAS ATÉ AMANHECER 9 e PESSOAS QUE ACORDARAM 0. A cada escolha do público uma coisa muda na cidade parada."),
+    ("e-se-todo-mundo-esquecesse-seu-nome", "E se, de manhã, todo mundo esquecesse o seu nome, menos uma pessoa? Regra número 1: você tem 24 horas pra descobrir quem. Você é o protagonista. Placar fixo: PESSOAS TESTADAS 0 / 10 e HORAS 24. O público escolhe quem você testa."),
     # 15/11, medição ao vivo (segredos/estudos/2026-11-15/): série de PLOT (sequestro, irmão perdido) decai em 6 episódios
     # (miniverse 1,1 mi -> 7,8 mil; biel 330 mil -> 55 mil), e série de UM PROTAGONISTA COM META E PRAZO, com o público
     # decidindo o próximo passo e um placar fixo, não decai (@escolhas.app 450 mil a 3,2 mi em todo episódio;
