@@ -1,0 +1,38 @@
+{
+ "estilo": "cartoon-3d-short",
+ "direcao": "HISTÓRIA DE COTIDIANO, público amplo, sem nada de tecnologia. ",
+ "slug": "mensagem-do-proprio-numero-ep5",
+ "serie": "mensagem-do-proprio-numero",
+ "episodio": 5,
+ "roteiro": {
+  "texto_tela": "FUI SEQUESTRADO QUANDO ERA BEBÊ",
+  "ganchos": [
+   "Vocês escolheram GRITAR, e meu berro fez o policial armado invadir o sótão na hora."
+  ],
+  "corpo": [
+   "O policial disparou o taser e derrubou o cara no chão.",
+   "Com o homem desacordado, o agente iluminou meu rosto e puxou o rádio.",
+   "Ele confirmou na escuta que tinha localizado a vítima do sequestro antigo.",
+   "O homem me mostrou uma pasta com a minha certidão de nascimento verdadeira.",
+   "Meus supostos pais me sequestraram de um hospital quando eu era bebê.",
+   "O homem no chão não era um invasor, mas meu irmão biológico tentando me salvar.",
+   "As trancas de aço do sótão se fecham de repente e o alarme começa a tocar.",
+   "Preciso decidir entre fugir pela janela com o agente ou ajudar meu irmão."
+  ],
+  "cta": "Comenta FUGIR ou AJUDAR. A parte 6 sai amanhã com a escolha que ganhar. Me segue pra não perder.",
+  "legenda": "Parte 5. A escolha vencedora foi GRITAR.\nSegue o @ursulino.ia pra acompanhar.\n#suspense #medo #terror #vocedecide\n\nComenta FUGIR ou AJUDAR. A mais votada vira a próxima parte.",
+  "palavra": ""
+ },
+ "opcoes": [
+  "FUGIR",
+  "AJUDAR"
+ ],
+ "fatos_continuacao": null,
+ "escolha_anterior": "GRITAR",
+ "votos_anteriores": {
+  "GRITAR": 1,
+  "EMPURRAR": 0
+ },
+ "produzir": true,
+ "prioridade": true
+}

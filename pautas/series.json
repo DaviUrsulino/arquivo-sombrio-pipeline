@@ -224,5 +224,13 @@
  "curiosidade:newton-na-quarentena": {
   "quando": "2026-11-15T14:15+00:00",
   "resultado": "newton-na-quarentena"
+ },
+ "mensagem-do-proprio-numero-ep4": {
+  "quando": "2026-11-15T16:18+00:00",
+  "resultado": "mensagem-do-proprio-numero-ep5"
+ },
+ "produzido:mensagem-do-proprio-numero-ep5": {
+  "quando": "2026-11-15T17:18+00:00",
+  "resultado": "ok"
  }
 }
