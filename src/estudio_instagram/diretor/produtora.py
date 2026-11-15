@@ -171,10 +171,12 @@ PLACAR_GENERICO = 'um contador que sobe a cada cena, com rótulo curto ligado ao
 
 
 def briefing(frases: list[str], estilo: dict, pasta: Path, palavra: str, extra: str = "", tela: str = "",
-             historia: bool = False, formato: str | None = None, plataforma: str = "instagram") -> str:
+             historia: bool = False, formato: str | None = None, plataforma: str = "instagram",
+             placar: str = "") -> str:
     """O que o Claude Code recebe. Só texto nosso + as frases do roteiro (sem nada vindo da internet)."""
     lista = json.dumps(frases, ensure_ascii=False, indent=1)
-    hud = PLACAR.get(formato or "", PLACAR_GENERICO)
+    # 15/11: o 'TENSÃO 38%' era genérico; nas referências o placar É a história (DIAS RESTANTES 4, R$ 1.800, NOTA 2/10)
+    hud = placar or PLACAR.get(formato or "", PLACAR_GENERICO)
     zack = formato == "zack"
     youtube = plataforma == "youtube"
     perfil = ("do canal brasileiro de curiosidades no YouTube Shorts (público amplo, qualquer idade)" if youtube
@@ -417,7 +419,8 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
     print(f"produzindo {repo} no estilo {estilo['nome']} -> {pasta}", flush=True)
     plataforma = (historia or {}).get("plataforma") or "instagram"
     resposta = rodar_agente(briefing(frases, estilo, pasta, rot["palavra"], extra_video, rot.get("texto_tela", ""),
-                                     historia=bool(historia), formato=formato_video, plataforma=plataforma), pasta,
+                                     historia=bool(historia), formato=formato_video, plataforma=plataforma,
+                                     placar=str((historia or {}).get("placar") or "")), pasta,
                             timeout_s=7200 if historia else 4500, modelo=modelo_do_video(bool(historia)))
     final = pasta / "final.mp4"
     res = {"pasta": str(pasta), "repo": repo, "estilo": estilo["slug"], "palavra": rot["palavra"], "ok": False, "venda": venda,

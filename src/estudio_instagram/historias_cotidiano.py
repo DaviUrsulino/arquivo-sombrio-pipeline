@@ -106,6 +106,7 @@ def escrever(slug: str, situacao: str, n: int, llm=None) -> dict:
             "direcao": ("HISTÓRIA DE COTIDIANO, público amplo, sem nada de tecnologia. SITCOM, não trailer: cada frase é um "
                         "ACONTECIMENTO com piada (algo dá errado, alguém reage), nunca descrição de ambiente; tem payoff "
                         "dentro do episódio, não só o cliffhanger. " + (r.get("direcao") or "")),
+            "placar": str(r.get("placar") or "").strip(),
             "roteiro": {"texto_tela": r["texto_tela"], "ganchos": r["ganchos"][:1], "corpo": r["corpo"],
                         "cta": r["cta"], "legenda": r["legenda"], "palavra": ""}}
 
