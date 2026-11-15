@@ -90,6 +90,7 @@ PERSONAGEM = ("um homem comum de camiseta cinza lisa e calça jeans, careca, ros
 # 13/11: os 5 vídeos do Zack escrevem "seis ferramentas", "dois" etc.; contar só algarismo reprovava o molde certo
 EXTENSO = r"(?:dois|duas|três|tres|quatro|cinco|seis|sete|oito|nove|dez|vinte|trinta|cem|mil|milhão|milhões|milhao|milhoes|bilhão|bilhões)"
 PROIBIDO_NO_INICIO = re.compile(r"^(você sabia|voce sabia|hoje|olha só|olha so|conheça|bem-vindo)", re.I)
+PALAVRA_DE_LIVRO = re.compile(r"\b(instantaneamente|imediatamente|rapidamente|substancialmente|vitais|simplesmente|consequentemente|progressivamente|caixa tor[aá]cica)\b", re.I)
 PEDIDO = re.compile(r"\b(comenta|comente|segue|me siga|curte|curta|link na bio|parte 2|inscreva)\b", re.I)
 
 
@@ -110,6 +111,9 @@ def problemas(r: dict) -> list[str]:
             erros.append(f"frase '{str(f)[:40]}' tem {n} palavras (use 5 a 20)")
         if PEDIDO.search(str(f)):
             erros.append(f"frase '{str(f)[:40]}' faz pedido; o molde não pede nada")
+        livro = PALAVRA_DE_LIVRO.search(str(f))
+        if livro:
+            erros.append(f"palavra de livro '{livro.group(0)}' em '{str(f)[:40]}': fale como numa mesa de bar")
     if PROIBIDO_NO_INICIO.search(str(corpo[0]).strip()):
         erros.append("a primeira frase tem que ser o mecanismo, não introdução")
     segunda = sum(bool(re.search(r"\b(você|voce|seu|sua|seus|suas)\b", str(f), re.I)) for f in corpo)
