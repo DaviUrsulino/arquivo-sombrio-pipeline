@@ -14,7 +14,8 @@ def test_conta_votos_ignora_acento_caixa_e_comentario_com_as_duas():
     assert series.contar_votos([{"midia_id": "m", "text": "vídeo"}], "m", ["VIDEO", "SITE"]) == {"VIDEO": 1, "SITE": 0}
 
 
-def test_pendente_so_depois_de_12h_e_so_uma_vez():
+def test_pendente_so_depois_de_12h_e_so_uma_vez(monkeypatch):
+    monkeypatch.setattr(series, "ENCERRADAS", set())
     posts = {"m1": {"pauta": "pautas/viral/fila/2026-11-06-1843-historia-preso-no-shopping-cartoon-3d-short.json",
                     "publicado_em": "2026-11-07T01:30:00+00:00"}}
     cedo = datetime(2026, 11, 7, 10, 0, tzinfo=timezone.utc)
@@ -62,3 +63,10 @@ def test_episodio_de_serie_vem_antes_dos_roteiros_novos(tmp_path, monkeypatch):
     (tmp_path / "a-novo.json").write_text(json.dumps({"produzir": True}))
     (tmp_path / "z-ep2.json").write_text(json.dumps({"produzir": True, "prioridade": True}))
     assert series.historia_para_produzir({}).name == "z-ep2.json"
+
+
+def test_serie_encerrada_nao_pede_continuacao():
+    posts = {"m1": {"pauta": "pautas/viral/fila/2026-11-06-1843-historia-preso-no-shopping-cartoon-3d-short.json",
+                    "publicado_em": "2026-11-07T01:30:00+00:00"}}
+    tarde = datetime(2026, 11, 8, 10, 0, tzinfo=timezone.utc)
+    assert series.pendente(tarde, posts, {}) is None
