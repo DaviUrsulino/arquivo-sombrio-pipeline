@@ -615,31 +615,33 @@ def main():
     if a.auto and not a.repo and not a.venda and not a.wiki:
         # série "você decide" (06/11): episódio com voto vencido vem antes de tudo (a parte 2 foi prometida "amanhã")
         from .. import series
-        from .. import curiosidades, historias_cotidiano, historias_tech, zack
+        from .. import curiosidades, historias_tech, zack
         # ordem por alcance medido (10/11, segredos/estudos/2026-11-10/): cotidiano e curiosidade são as frentes de
         # público amplo (mediana de 87 mil a 1,2 milhão nas referências) e vêm antes da história de tecnologia,
         # que é de nicho. Cada frente tem o seu intervalo de 20 h, então na prática se revezam uma por dia.
         # 11/11: o molde Zack com pé em tecnologia (cabo submarino, chip, bateria) entra no ciclo do Instagram
         # uma vez por dia, antes da história de tecnologia
-        proximo = (series.preparar_proximo() or series.historia_para_produzir()
-                   or historias_cotidiano.gerar_se_preciso() or curiosidades.gerar_se_preciso()
-                   or zack.gerar_se_preciso("instagram") or historias_tech.gerar_se_preciso())
+        # 15/11 (Davi): "a gente tá um tempão nessa novelinha e só pega 2.000 views". Medido: sitcom/suspense do
+        # perfil fica em ~1.200 e não salva nem manda (0,2 salvos por 100); dica de utilidade e tecnologia com
+        # promessa de desejo é o que as referências estouram (guics.dev 307 mil, aighostlab 558 mil) e o nosso
+        # único 55 mil. Por isso a dica vem ANTES das histórias, e a série de cotidiano saiu do rodízio
+        # (o episódio já prometido ao público ainda fecha, via series.*).
+        from .. import assunto_ferramenta, utilidade
+        proximo = series.preparar_proximo() or series.historia_para_produzir()
+        estado_u = series._ler(series.ESTADO)
+        # assunto gigante vem antes da utilidade pura: é a fórmula do Reels de 558 mil (10/11)
+        par = assunto_ferramenta.proximo(estado_u) if (not proximo and assunto_ferramenta.precisa(estado_u)) else None
+        escolha = utilidade.proxima(estado_u) if (not proximo and not par and utilidade.precisa(estado_u)) else None
+        if par:
+            a.par_assunto, a.repo_utilidade = par, par[2]
+        elif escolha:
+            a.utilidade_slug, a.repo_utilidade, a.promessa = escolha
+            a.estilo = a.estilo or "esquete"  # dica em diálogo de duas vozes, como o Reels de 307 mil do @guics.dev
+        elif not proximo:
+            proximo = (curiosidades.gerar_se_preciso() or zack.gerar_se_preciso("instagram")
+                       or historias_tech.gerar_se_preciso())
         if proximo:
             a.historia = str(proximo)
-        else:
-            # sem história na vez: o vídeo de ferramenta sai com promessa de utilidade (10/11), que é o que
-            # separa 307 mil views de 3 mil nas contas medidas. Sem utilidade nova na fila, segue o normal.
-            # Guardado à parte de `a.repo` de propósito: o limite de banco cheio continua valendo para ele.
-            from .. import assunto_ferramenta, utilidade
-            estado_u = series._ler(series.ESTADO)
-            # assunto gigante vem antes da utilidade pura: é a fórmula do Reels de 558 mil (10/11)
-            par = assunto_ferramenta.proximo(estado_u) if assunto_ferramenta.precisa(estado_u) else None
-            if par:
-                a.par_assunto, a.repo_utilidade = par, par[2]
-            else:
-                escolha = utilidade.proxima(estado_u) if utilidade.precisa(estado_u) else None
-                if escolha:
-                    a.utilidade_slug, a.repo_utilidade, a.promessa = escolha
     if a.fatos:
         res = produzir(f"site/{a.assunto}", a.estilo, fatos=Path(a.fatos).read_text(encoding="utf-8"), palavra=a.palavra)
         if a.fila and res.get("ok"):

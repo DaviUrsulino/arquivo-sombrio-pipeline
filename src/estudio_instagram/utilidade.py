@@ -35,8 +35,31 @@ UTILIDADES = [
      "enxergar para onde o seu salário foi no mês, sem planilha e sem mensalidade"),
     ("assistente-no-computador", "open-webui/open-webui",
      "ter um assistente tipo Jarvis rodando no seu próprio computador, de graça"),
+    # 15/11: banco ampliado com desejos de público amplo (dinheiro, tempo, de graça, celular, família)
+    ("chatgpt-sem-internet", "ollama/ollama",
+     "ter um ChatGPT que roda no seu computador, sem internet e sem pagar mensalidade"),
+    ("backup-de-fotos-gratis", "immich-app/immich",
+     "guardar todas as fotos do seu celular sem pagar armazenamento do Google"),
+    ("editar-pdf-gratis", "Stirling-Tools/Stirling-PDF",
+     "juntar, dividir, assinar e comprimir PDF sem pagar nem mandar o arquivo pra site estranho"),
+    ("pdf-escaneado-vira-texto", "ocrmypdf/OCRmyPDF",
+     "transformar PDF escaneado em texto que dá pra pesquisar e copiar"),
+    ("sua-propria-netflix", "jellyfin/jellyfin",
+     "montar a sua própria Netflix com os filmes e séries que você já tem, de graça"),
+    ("guardar-senhas-sem-mensalidade", "keepassxreboot/keepassxc",
+     "guardar todas as suas senhas num lugar só, sem pagar mensalidade e sem ninguém ver"),
+    ("papelada-da-casa-em-segundos", "paperless-ngx/paperless-ngx",
+     "achar qualquer conta, nota fiscal ou documento da casa em segundos, em vez de revirar gaveta"),
+    ("baixar-video-de-qualquer-site", "yt-dlp/yt-dlp",
+     "baixar um vídeo de praticamente qualquer site pra ver depois, sem aplicativo"),
+    ("imagem-por-ia-gratis", "AUTOMATIC1111/stable-diffusion-webui",
+     "gerar imagem por IA no seu computador, sem limite e sem pagar por imagem"),
+    ("gravar-tela-gratis", "obsproject/obs-studio",
+     "gravar a tela e transmitir ao vivo de graça, sem marca d'água"),
+    ("video-com-ia-escrevendo-html", "heygen-com/hyperframes",
+     "criar vídeo com IA só escrevendo texto, de graça e open source"),
 ]
-INTERVALO = timedelta(hours=20)  # no máximo um por dia
+INTERVALO = timedelta(hours=10)  # 15/11: dica é o formato que o Davi quer; até dois por dia
 PREFIXO = "utilidade:"
 
 
