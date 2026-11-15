@@ -19,6 +19,10 @@ ESTADO = RAIZ / "pautas" / "series.json"
 POSTS = RAIZ / "pautas" / "pauta_por_post.json"
 ESPERA_VOTOS = timedelta(hours=12)  # 22:30 -> pronto pra rodada das 22:30 do dia seguinte ("a parte 2 sai amanhã")
 MAX_EPISODIOS = 6  # depois disso a série fecha (ou o Davi decide continuar)
+# 15/11: as séries escritas antes do prompt novo (resumo narrado, sem número nem fala, 3 votos por episódio) foram
+# encerradas: continuar o ep5 de "sequestrado quando era bebê" gasta a franquia do plano com público que não existe.
+ENCERRADAS = {"mensagem-do-proprio-numero", "porta-que-nao-abre", "preso-no-shopping", "estagiaria-apagou-producao",
+              "quatro-dias-para-o-encontro", "sogra-chega-no-domingo", "mensagem-do-seu-numero"}
 
 
 def _ler(arquivo: Path) -> dict:
@@ -51,7 +55,7 @@ def pendente(agora: datetime | None = None, posts: dict | None = None, estado: d
     estado = _ler(ESTADO) if estado is None else estado
     for media_id, info in sorted(posts.items(), key=lambda kv: kv[1].get("publicado_em", "")):
         slug = slug_do_post(info)
-        if not slug or slug in estado:
+        if not slug or slug in estado or any(slug == e or slug.startswith(e + "-ep") for e in ENCERRADAS):
             continue
         ep = _ler(HISTORIAS / f"{slug}.json")
         if not (ep.get("opcoes") or ep.get("fatos_continuacao")) or ep.get("episodio", 1) >= MAX_EPISODIOS:
