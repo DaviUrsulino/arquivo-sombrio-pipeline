@@ -106,6 +106,13 @@ FECHAMENTOS = [
 ]
 
 
+CTA_ZACK = [
+    "Gostou? Me segue, curte e manda pra um amigo.",
+    "Me segue pra ver mais coisas assim, e compartilha esse vídeo.",
+    "Curte, compartilha e me segue. Amanhã tem outra.",
+]
+
+
 def fechamento(n: int, palavra: str) -> tuple[str, str]:
     """(tipo do pedido, frase final). Um em cada quatro vídeos fecha sem pedido nenhum, de propósito."""
     tipo, texto = FECHAMENTOS[n % len(FECHAMENTOS)]
@@ -221,14 +228,16 @@ MOLDE ZACK D. FILMS (medido em 5 vídeos de 14 a 50 milhões de views):
 QUALIDADE MÁXIMA (Davi: "quero que esses vídeos sejam virais"). Este vídeo concorre com séries de 1 a 3 milhões de views:
 - Antes de animar, escreva {pasta}/storyboard.md: cada frase vira uma cena com enquadramento (plano geral, médio,
   close), movimento de câmera e a AÇÃO do personagem. Varie: nunca duas cenas seguidas com o mesmo enquadramento.
+- MÃOS: o personagem tem exatamente 2 mãos com 5 dedos cada, uma em cada braço, sem dedo extra, sem mão trocada ou fundida. Na folha de contato, dê zoom nas mãos de cada cena; se alguma estiver torta, REFAÇA a cena. Prefira poses em que a mão fica simples (apontando, segurando um objeto, no bolso).
 - Atuação: o personagem pisca, respira, reage com o rosto e o corpo (antecipação, squash and stretch, olhar).
   Nada de boneco parado com a boca mexendo.
 - Ritmo: corte ou movimento novo a cada 1 a 2 s; impacto visual nas viradas (zoom rápido, tremida, flash, carimbo).
 - Som: efeitos sonoros nas ações (passos, vibração, chave, porta, clarão) e trilha baixa que cresce na tensão.
 - Confira: gere a folha de contato, olhe cena por cena e REFAÇA qualquer cena feia, vazia ou parada antes do final.
 """
-    fecho = ("- Fechamento: NENHUM pedido, nenhum botão, nenhuma caixa de comentário. O vídeo termina na última frase, na "
-             "imagem mais forte, e corta." if zack else
+    fecho = ("- Fechamento: a última frase é o pedido falado (me segue, curte, compartilha). Mostre na tela, nos últimos "
+             "segundos, o botão SEGUIR @ursulino.ia pulsando, um coração de curtir e um ícone de compartilhar. O vídeo NÃO "
+             "pode terminar seco na última frase do conteúdo." if zack else
              "- Fechamento: a última frase pede o follow. Mostre as opções de voto (se houver) como dois botões grandes na tela "
              "e o botão SEGUIR @ursulino.ia pulsando no fim." if historia else
              f"- Fechamento: caixa de comentário digitando {palavra} + botão seguir @ursulino.ia.")
@@ -406,7 +415,10 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
         repo = f"historia/{historia['slug']}"
         rot = json.loads(json.dumps(historia["roteiro"]))
         # molde Zack (11/11): zero pedido no fim, em todos os 5 vídeos de 14 a 50 mi transcritos
-        rot["cta_tipo"] = "nenhum" if historia.get("formato") == "zack" else "segue"
+        # 16/11: o Zack sem pedido nenhum deu 2.500 views, 0 seguidores e 0 comentários (buraco negro). Fecha pedindo follow.
+        rot["cta_tipo"] = "segue"
+        if historia.get("formato") == "zack" and not rot.get("cta"):
+            rot["cta"] = CTA_ZACK[len(estado.get("producoes", [])) % len(CTA_ZACK)]
         extra_video = historia.get("direcao", "")
     elif momento:
         repo = f"em-alta/{re.sub(r'[^a-z0-9]+', '-', momento['chave'].lower()).strip('-')}"
