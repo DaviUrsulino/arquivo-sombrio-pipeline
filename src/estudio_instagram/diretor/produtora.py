@@ -263,7 +263,7 @@ REGRAS DO VÍDEO (estudo de 108 Reels virais):
 - 1080x1920, 30 fps, com áudio, duração igual à da narração (25 a 60 s). Cada frase é UMA cena com uma ação visual concreta ligada ao que a frase diz;
   algo novo na tela a cada 1 a 3 s; nunca um slide de texto parado.
 {"" if zack else '- Um estado na tela que avança (contador, barra, "prova 3/7", nível) do começo ao fim.'}
-- Legenda de 1 a 2 PALAVRAS por vez, fonte grande e grossa com contorno, sincronizada com a voz, a palavra-chave em amarelo (padrão medido em @gabriel.cta, @nessemundo_br e @escolhas.app; frase inteira em pílula pequena some e ninguém lê), por volta de y=1300; nada importante nos 560 px de baixo nem colado na borda direita.
+- Legenda de 1 a 2 PALAVRAS por vez, fonte grande e grossa com contorno, sincronizada com a voz, a palavra-chave em amarelo (padrão medido em @gabriel.cta, @nessemundo_br e @escolhas.app; frase inteira em pílula pequena some e ninguém lê), por volta de y=1300; a cena ocupa a tela INTEIRA (nunca deixe o terço de baixo vazio); só evite texto importante nos 300 px de baixo e colado na borda direita.
 {personagem}
 {fecho}
 - Sem emoji. Textos na tela em português do Brasil.
@@ -506,6 +506,9 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
 
 FILA = RAIZ / "pautas" / "viral" / "fila"
 FILA_VENDA = RAIZ / "pautas" / "viral" / "fila_venda"
+# 16/11: vídeo ruim foi ao ar sem ninguém olhar (Davi apagou). Agora a produtora NUNCA põe na fila do maestro: o vídeo
+# espera em REVISAO até alguém assistir (folha de contato + roteiro) e rodar scripts/liberar.py.
+REVISAO = RAIZ / "pautas" / "viral" / "revisao"
 
 
 BANCO_MAXIMO = 4  # 4 rodadas por dia (06/11); vídeos comuns esperando no banco (3 rodadas por dia); mais que isso envelhece e perde o assunto
@@ -513,7 +516,8 @@ BANCO_MAXIMO = 4  # 4 rodadas por dia (06/11); vídeos comuns esperando no banco
 
 def banco_cheio() -> bool:
     from .. import maestro
-    return len(maestro.disponiveis(maestro._ler().get("fila_usadas", []))) >= max(BANCO_MAXIMO, maestro.banco_alvo())
+    esperando = len(list(REVISAO.glob("*.json"))) if REVISAO.exists() else 0
+    return len(maestro.disponiveis(maestro._ler().get("fila_usadas", []))) + esperando >= max(BANCO_MAXIMO, maestro.banco_alvo())
 
 
 EM_ALTA_POR_DIA = 1  # 05/11: na 1ª madrugada saíram 4 de esporte/celebridade seguidos; o perfil perde o nicho
@@ -576,7 +580,7 @@ def para_fila(res: dict) -> Path:
              **({"tipo": "em-alta"} if res.get("em_alta") else {})}
     if res.get("historia"):
         pauta["itens"], pauta["tipo"] = [], "historia"
-    fila = FILA_VENDA if venda else FILA
+    fila = FILA_VENDA if venda else REVISAO
     fila.mkdir(parents=True, exist_ok=True)
     marca = "em-alta" if res.get("em_alta") else ("historia" if res.get("historia") else "produtora")
     destino = fila / f"{datetime.now():%Y-%m-%d-%H%M}-{marca}-{pasta.name.split('-', 4)[-1]}.json"
