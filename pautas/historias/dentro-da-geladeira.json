@@ -1,0 +1,33 @@
+{
+ "slug": "dentro-da-geladeira",
+ "serie": "dentro-da-geladeira",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "formato": "zack",
+ "molde": "como-funciona",
+ "plataforma": "instagram",
+ "titulo": "Como a geladeira esquenta por fora para esfriar por dentro?",
+ "nota_previsor": 4.8,
+ "premissa": "educativa",
+ "fonte": "https://en.wikipedia.org/wiki/Refrigerator",
+ "direcao": "MOLDE ZACK D. FILMS. A câmera entra onde nenhuma câmera entra (corte transversal, por dentro, raio-X). Personagem fixo: um homem comum de camiseta cinza lisa e calça jeans, careca, rosto simples e sempre o mesmo em todos os vídeos; sem logo, sem nome na roupa. A câmera entra em raio-X no compressor esmagando o gás vermelho de calor, segue o tubo até as grades traseiras emitindo ondas quentes, passa pela válvula fina onde o tubo fica azul de gelo, e mostra o calor saindo da comida direto para o gás.",
+ "roteiro": {
+  "texto_tela": "COMO A GELADEIRA ESFRIA",
+  "ganchos": [
+   "Quando você fecha a geladeira, um motor no fundo esmaga um gás especial."
+  ],
+  "corpo": [
+   "Essa pressão faz o gás esquentar muito e correr pelas grades de trás.",
+   "Ali, ele solta todo o calor dentro da sua própria cozinha.",
+   "Ao passar por um tubo estreito, ele expande e despenca para menos 18 graus.",
+   "Esse vapor supergelado puxa o calor da comida e mantém tudo a 4 graus.",
+   "Sistemas desse tipo funcionavam em comércios 40 anos antes de irem pra sua casa.",
+   "Só que a geladeira não cria frio, ela apenas rouba o calor de dentro.",
+   "No fim, ela joga o calor do seu alimento direto na sua cara."
+  ],
+  "cta": "",
+  "legenda": "Descubra como o compressor e o gás interno removem o calor da comida para manter a geladeira fria.",
+  "palavra": ""
+ }
+}

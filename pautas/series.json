@@ -240,5 +240,14 @@
  "assunto-ferramenta:cortes-de-gameplay": {
   "quando": "2026-11-15T23:51+00:00",
   "resultado": "cortes-de-gameplay"
+ },
+ "zack:dentro-da-geladeira": {
+  "quando": "2026-11-16T00:09+00:00",
+  "resultado": "dentro-da-geladeira",
+  "plataforma": "instagram"
+ },
+ "produzido:dentro-da-geladeira": {
+  "quando": "2026-11-16T00:41+00:00",
+  "resultado": "ok"
  }
 }
