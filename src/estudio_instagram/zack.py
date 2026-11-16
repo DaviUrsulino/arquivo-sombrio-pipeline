@@ -44,6 +44,14 @@ TEMAS = [
     ("dentro-da-maquina-de-lavar", "Washing machine", "como-funciona",
      "o que a máquina faz com a roupa em cada fase: o giro, a água, o motor, por que a roupa fica mais leve depois de centrifugar", True),
     # premissas absurdas primeiro (Davi, 13/11): é o que prende
+    ("cair-num-buraco-negro", "Spaghettification", "e-se",
+     "se você caísse de pés num buraco negro: o que acontece com os pés antes da cabeça, por que você estica como espaguete, o que um observador de fora vê", True),
+    ("sol-apaga-por-um-dia", "Sun", "e-se",
+     "se o Sol se apagasse por um dia: quanto tempo a luz ainda chega, a temperatura da Terra, as plantas, o que ainda funciona", True),
+    ("espaco-sem-traje", "Explosive decompression", "e-se",
+     "se você saísse no espaço sem traje por 30 segundos: o ar nos pulmões, a língua, o que é mito de filme e o que é verdade", True),
+    ("dentro-do-vulcao", "Volcano", "dentro",
+     "a câmera desce por dentro de um vulcão: a câmara de magma, o gás preso, o que faz ele explodir", True),
     ("ossos-de-vidro", "Bone", "e-se",
      "se todos os seus ossos virassem vidro por 10 minutos: o que quebra primeiro, o que aguenta, o que você sente", False),
     ("barragem-de-gente", "Three Gorges Dam", "e-se",
@@ -86,7 +94,7 @@ TEMAS = [
     ("sua-foto-dentro-do-data-center", "Data center", "dentro",
      "onde a sua foto fica guardada de verdade: o prédio, o calor, a água usada para resfriar", True),
 ]
-PREMISSAS_ABSURDAS = {"ossos-de-vidro", "barragem-de-gente", "sem-lua-por-um-dia", "gravidade-desliga-um-segundo",
+PREMISSAS_ABSURDAS = {"cair-num-buraco-negro", "sol-apaga-por-um-dia", "espaco-sem-traje", "ossos-de-vidro", "barragem-de-gente", "sem-lua-por-um-dia", "gravidade-desliga-um-segundo",
                       "sangue-de-colibri", "onze-dias-sem-dormir", "cair-na-lava", "tunel-que-atravessa-a-terra",
                       "engolido-por-uma-baleia"}
 MOLDES = {"como-funciona": "Como X funciona por dentro (objeto do dia a dia, a câmera entra nele e mostra peça por peça)", "e-se": "E se...", "por-que": "Por que X faz Y", "dentro": "a câmera entra onde nenhuma câmera entra",
@@ -213,8 +221,8 @@ def escrever(slug: str, titulo_wiki: str, molde: str, angulo: str, plataforma: s
                         "legenda": r.get("legenda", ""), "palavra": ""}}
 
 
-def proximo_tema(estado: dict, plataforma: str) -> tuple | None:
-    return next((t for t in TEMAS if f"{PREFIXO}{t[0]}" not in estado and (plataforma == "youtube" or t[4])), None)
+def proximo_tema(estado: dict, plataforma: str, moldes: set | None = None) -> tuple | None:
+    return next((t for t in TEMAS if f"{PREFIXO}{t[0]}" not in estado and (moldes is None or t[2] in moldes)), None)
 
 
 def roteiro_youtube_pendente(estado: dict | None = None):
@@ -228,12 +236,14 @@ def roteiro_youtube_pendente(estado: dict | None = None):
 
 def precisa(estado: dict, plataforma: str = "youtube", agora: datetime | None = None) -> bool:
     agora = agora or datetime.now(timezone.utc)
+    if plataforma == "instagram":  # 15/11: o rodízio de frentes da produtora é que dita o ritmo, não um relógio por frente
+        return True
     feitas = [datetime.fromisoformat(v["quando"]) for k, v in estado.items()
               if k.startswith(PREFIXO) and (v.get("plataforma") or "youtube") == plataforma]
     return not feitas or agora - max(feitas) >= INTERVALO[plataforma]
 
 
-def gerar_se_preciso(plataforma: str = "youtube", agora: datetime | None = None):
+def gerar_se_preciso(plataforma: str = "youtube", agora: datetime | None = None, moldes: set | None = None):
     """Escreve o próximo roteiro do molde se já passou o intervalo. Caminho do JSON em pautas/historias/, ou None."""
     estado = series._ler(series.ESTADO)
     if not precisa(estado, plataforma, agora):
@@ -242,7 +252,7 @@ def gerar_se_preciso(plataforma: str = "youtube", agora: datetime | None = None)
     tentados = set()
     for _ in range(TENTATIVAS_POR_RODADA):
         tema = next((t for t in TEMAS if f"{PREFIXO}{t[0]}" not in estado and t[0] not in tentados
-                     and (plataforma == "youtube" or t[4])), None)
+                     and (moldes is None or t[2] in moldes)), None)
         if not tema:
             return None
         slug, titulo_wiki, molde, angulo, _ig = tema
