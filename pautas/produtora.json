@@ -121,7 +121,8 @@
   "data-story-charts",
   "living-screencast",
   "data-physical",
-  "hand-drawn-cartoon"
+  "hand-drawn-cartoon",
+  "cel-anime-80s"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -1096,6 +1097,17 @@
    "estilo": "hand-drawn-cartoon",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-16-0506-cair-num-buraco-negro-hand-drawn-cartoon",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-16T07:03",
+   "quando_utc": "2026-11-16T07:03:45+00:00",
+   "minutos": 39.4,
+   "limite": false,
+   "repo": "historia/e-se-so-voce-fica-acordado",
+   "estilo": "cel-anime-80s",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-16-0624-e-se-so-voce-fica-acordado-cel-anime-80s",
    "em_alta": false
   }
  ]

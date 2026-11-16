@@ -262,5 +262,17 @@
  "produzido:cair-num-buraco-negro": {
   "quando": "2026-11-16T05:21+00:00",
   "resultado": "ok"
+ },
+ "cotidiano:e-se-so-voce-fica-acordado": {
+  "quando": "2026-11-16T06:24+00:00",
+  "resultado": "e-se-so-voce-fica-acordado"
+ },
+ "rotacao:1": {
+  "quando": "2026-11-16T06:24+00:00",
+  "resultado": "serie-protagonista-e-se"
+ },
+ "produzido:e-se-so-voce-fica-acordado": {
+  "quando": "2026-11-16T07:03+00:00",
+  "resultado": "ok"
  }
 }

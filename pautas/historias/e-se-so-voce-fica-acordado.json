@@ -1,0 +1,41 @@
+{
+ "slug": "e-se-so-voce-fica-acordado",
+ "serie": "e-se-so-voce-fica-acordado",
+ "episodio": 1,
+ "opcoes": [
+  "ENTRAR",
+  "FUGIR"
+ ],
+ "produzir": true,
+ "estilo": "cel-anime-80s",
+ "direcao": "HISTÓRIA DE COTIDIANO, público amplo, sem nada de tecnologia. SITCOM, não trailer: cada frase é um ACONTECIMENTO com piada (algo dá errado, alguém reage), nunca descrição de ambiente; tem payoff dentro do episódio, não só o cliffhanger. Protagonista jovem de moletom azul e tênis branco em uma cidade congelada no tempo. Iluminação noturna azulada com postes acesos e luz amarela vinda das portas abertas. Objetos em destaque: o ônibus parado, a bicicleta amarela, a bandeja de inox com coxinhas e a lanterna acesa da garota. O placar muda no topo no momento exato em que a garota surge. Enquadramento final focado na porta entreaberta da prefeitura e no bilhete amassado.",
+ "placar": "Indicador fixo no topo da tela: \"HORAS ATÉ AMANHECER: 9\" e \"PESSOAS ACORDADAS: 0\" (que muda para 1 no momento em que a menina de casaco vermelho aparece).",
+ "roteiro": {
+  "texto_tela": "CIDADE DORMIU AS 21H",
+  "ganchos": [
+   "E se às nove da noite toda a cidade dormisse de repente e só você ficasse acordado?"
+  ],
+  "corpo": [
+   "E se às nove da noite toda a cidade dormisse de repente e só você ficasse acordado?",
+   "Com os trinta mil moradores jogados nos sofás da Avenida Central, a noite é sua.",
+   "O relógio da Matriz bateu vinte e uma horas e o motorista do ônibus encostou no meio do cruzamento.",
+   "O cobrador Seu Benício roncava alto com a roleta travada na mão esquerda.",
+   "Você pegou a bicicleta amarela encostada na calçada do Banco do Brasil pra testar a rua vazia.",
+   "Na Padaria Estrela, a porta automática estava escancarada com o balcão cheio de pães quentes.",
+   "A dona Marta dormia em pé segurando uma bandeja de inox com seis coxinhas.",
+   "O ar frio da noite faz o som viajar três vezes mais longe por causa da inversão térmica.",
+   "Você pegou uma nota de vinte reais da gaveta aberta e deixou cem reais no lugar.",
+   "Na calçada, você deu uma mordida na coxinha e falou alto: \"Esse restaurante é meu!\"",
+   "De barriga cheia no meio da Praça Sete, você olhou pro céu escuro e lembrou: a noite é sua.",
+   "O placar da sua vida mostrava nove horas restantes e nenhuma pessoa acordada na cidade inteira.",
+   "Perto do chafariz, você ouviu o barulho de passos lentos pisando em folhas secas.",
+   "Uma menina de casaco vermelho segurava uma lanterna acesa e disse: \"Você também tá acordado?\"",
+   "Ela mostrou um bilhete amassado achado no bolso do prefeito adormecido.",
+   "No papel rasgado com tinta preta estava escrito bem grande: a noite é sua.",
+   "A garota apontou pra porta da prefeitura e perguntou: \"Entrar ou fugir?\""
+  ],
+  "cta": "Comenta ENTRAR ou FUGIR. A mais votada vira a parte 2.",
+  "legenda": "E se às nove da noite toda a cidade dormisse de repente e só você ficasse acordado?\n\nVocê prefere ENTRAR ou FUGIR?\n\n#ese #animacao #historias #novelinha #ursulino",
+  "palavra": ""
+ }
+}
