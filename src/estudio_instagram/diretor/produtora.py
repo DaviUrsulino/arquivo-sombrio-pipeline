@@ -636,18 +636,24 @@ def main():
         # referências (segredos/prompts/historia_cotidiano.txt) e na vez depois da dica.
         from .. import assunto_ferramenta, utilidade
         proximo = series.preparar_proximo() or series.historia_para_produzir()
-        estado_u = series._ler(series.ESTADO)
-        # assunto gigante vem antes da utilidade pura: é a fórmula do Reels de 558 mil (10/11)
-        par = assunto_ferramenta.proximo(estado_u) if (not proximo and assunto_ferramenta.precisa(estado_u)) else None
-        escolha = utilidade.proxima(estado_u) if (not proximo and not par and utilidade.precisa(estado_u)) else None
+        # 15/11 (medição ao vivo de 30 contas, segredos/FORMATOS.md seção 11): o teto está em apelo amplo, não em dica de
+        # tech (2 a 9 mil de mediana em PT-BR). Ordem: série de protagonista/"E se" > "como funciona por dentro" > dica de
+        # tech (hit raro, mas é o nosso nicho e vende) > curiosidade > história de tecnologia.
+        if not proximo:
+            proximo = historias_cotidiano.gerar_se_preciso() or zack.gerar_se_preciso("instagram")
+        par = escolha = None
+        if not proximo:
+            estado_u = series._ler(series.ESTADO)
+            # assunto gigante vem antes da utilidade pura: é a fórmula do Reels de 558 mil (10/11)
+            par = assunto_ferramenta.proximo(estado_u) if assunto_ferramenta.precisa(estado_u) else None
+            escolha = utilidade.proxima(estado_u) if (not par and utilidade.precisa(estado_u)) else None
         if par:
             a.par_assunto, a.repo_utilidade = par, par[2]
         elif escolha:
             a.utilidade_slug, a.repo_utilidade, a.promessa = escolha
             a.estilo = a.estilo or "esquete"  # dica em diálogo de duas vozes, como o Reels de 307 mil do @guics.dev
         elif not proximo:
-            proximo = (historias_cotidiano.gerar_se_preciso() or curiosidades.gerar_se_preciso()
-                       or zack.gerar_se_preciso("instagram") or historias_tech.gerar_se_preciso())
+            proximo = curiosidades.gerar_se_preciso() or historias_tech.gerar_se_preciso()
         if proximo:
             a.historia = str(proximo)
     if a.fatos:

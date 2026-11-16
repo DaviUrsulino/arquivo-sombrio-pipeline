@@ -91,7 +91,7 @@ PREMISSAS_ABSURDAS = {"ossos-de-vidro", "barragem-de-gente", "sem-lua-por-um-dia
                       "engolido-por-uma-baleia"}
 MOLDES = {"como-funciona": "Como X funciona por dentro (objeto do dia a dia, a câmera entra nele e mostra peça por peça)", "e-se": "E se...", "por-que": "Por que X faz Y", "dentro": "a câmera entra onde nenhuma câmera entra",
           "caso-real": "caso real que parece mentira", "como-sobrevive": "como X sobrevive a Y"}
-INTERVALO = {"youtube": timedelta(hours=6), "instagram": timedelta(hours=20)}
+INTERVALO = {"youtube": timedelta(hours=6), "instagram": timedelta(hours=12)}
 PREFIXO = "zack:"
 # Roteiro do YouTube mora à parte: `series.historia_para_produzir()` pega QUALQUER json de pautas/historias/ com
 # "produzir": true, e um Short do YouTube não pode sair no Instagram por engano (nem o contrário).

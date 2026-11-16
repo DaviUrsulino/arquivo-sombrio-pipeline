@@ -45,7 +45,7 @@ SITUACOES = [
 ]
 # Estilos que seguram mais tempo de tela nos nossos números (tempo médio assistido de 15 a 20 s).
 ESTILOS = ["hand-drawn-cartoon", "cartoon-3d-short", "scifi-toon", "midcentury-toon", "cel-anime-80s"]
-INTERVALO = timedelta(hours=20)  # no máximo uma série nova por dia
+INTERVALO = timedelta(hours=12)  # 15/11: até duas séries novas por dia
 NOTA_MINIMA = 7.5
 PREFIXO = "cotidiano:"
 
