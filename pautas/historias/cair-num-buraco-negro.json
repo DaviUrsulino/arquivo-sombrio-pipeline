@@ -1,0 +1,32 @@
+{
+ "slug": "cair-num-buraco-negro",
+ "serie": "cair-num-buraco-negro",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "formato": "zack",
+ "molde": "e-se",
+ "plataforma": "instagram",
+ "titulo": "E se você caísse de pés num buraco negro?",
+ "nota_previsor": 6.1,
+ "premissa": "absurda",
+ "fonte": "https://en.wikipedia.org/wiki/Spaghettification",
+ "direcao": "MOLDE ZACK D. FILMS. A câmera entra onde nenhuma câmera entra (corte transversal, por dentro, raio-X). Personagem fixo: um homem comum de camiseta cinza lisa e calça jeans, careca, rosto simples e sempre o mesmo em todos os vídeos; sem logo, sem nome na roupa. A câmera acompanha um astronauta de pés caindo em direção ao buraco negro. Mostra o vetor de força puxando as botas mais forte que o capacete, enquanto as laterais são prensadas. Em seguida, mostra 4 esferas em formato de losango se esticando em linha reta, corte interno dos tecidos se rasgando e a silhueta virando um fio fino de espaguete antes do horizonte de eventos. Objeto-herói: o astronauta sendo esticado.",
+ "roteiro": {
+  "texto_tela": "CAÍSSE NUM BURACO NEGRO",
+  "ganchos": [
+   "Se você caísse de pés num buraco negro, a gravidade puxaria seus pés com mais força."
+  ],
+  "corpo": [
+   "Ao mesmo tempo, seus dois lados, o direito e o esquerdo, se esmagam no meio.",
+   "Pense em quatro objetos no espaço: o de baixo cai mais rápido e estica o grupo.",
+   "Os dois objetos das pontas são empurrados para dentro, virando uma linha reta.",
+   "O seu corpo tenta segurar o tranco, mas se rasga em vários pedaços finos.",
+   "Só que num buraco negro pequeno, esse estrago acontece antes de você entrar.",
+   "Você vira um fio longo e fino no espaço como se fosse um macarrão."
+  ],
+  "cta": "",
+  "legenda": "Veja o que acontece com o seu corpo se você cair de pés em um buraco negro no espaço.",
+  "palavra": ""
+ }
+}

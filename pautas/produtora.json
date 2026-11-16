@@ -120,7 +120,8 @@
   "cartoon-3d-short",
   "data-story-charts",
   "living-screencast",
-  "data-physical"
+  "data-physical",
+  "hand-drawn-cartoon"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -1084,6 +1085,17 @@
    "estilo": "data-physical",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-16-0012-dentro-da-geladeira-data-physical",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-16T05:21",
+   "quando_utc": "2026-11-16T05:21:08+00:00",
+   "minutos": 14.6,
+   "limite": false,
+   "repo": "historia/cair-num-buraco-negro",
+   "estilo": "hand-drawn-cartoon",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-16-0506-cair-num-buraco-negro-hand-drawn-cartoon",
    "em_alta": false
   }
  ]

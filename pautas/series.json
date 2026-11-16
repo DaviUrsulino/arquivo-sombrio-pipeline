@@ -249,5 +249,18 @@
  "produzido:dentro-da-geladeira": {
   "quando": "2026-11-16T00:41+00:00",
   "resultado": "ok"
+ },
+ "zack:cair-num-buraco-negro": {
+  "quando": "2026-11-16T05:05+00:00",
+  "resultado": "cair-num-buraco-negro",
+  "plataforma": "instagram"
+ },
+ "rotacao:0": {
+  "quando": "2026-11-16T05:05+00:00",
+  "resultado": "absurdo"
+ },
+ "produzido:cair-num-buraco-negro": {
+  "quando": "2026-11-16T05:21+00:00",
+  "resultado": "ok"
  }
 }
