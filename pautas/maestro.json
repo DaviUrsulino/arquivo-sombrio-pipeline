@@ -2,9 +2,10 @@
   "dia": "2026-11-16",
   "feitos": {
     "00:30": "disparada 00:31",
-    "03:00": "disparada 03:01"
+    "03:00": "disparada 03:01",
+    "08:00": "disparada 08:01"
   },
-  "ultimo_disparo": "2026-11-16T03:01:54-03:00",
+  "ultimo_disparo": "2026-11-16T08:01:52-03:00",
   "fila_usadas": [
     "pautas/viral/fila/01-motion-skills.json",
     "pautas/viral/fila/01b-habblaud.json",
@@ -56,7 +57,8 @@
     "pautas/viral/fila/2026-11-15-1319-historia-sogra-chega-no-domingo-midcentury-toon.json",
     "pautas/viral/fila/2026-11-16-0041-historia-dentro-da-geladeira-data-physical.json",
     "pautas/viral/fila/2026-11-15-1500-curiosidade-ossos-de-vidro-hand-drawn-cartoon.json",
-    "pautas/viral/fila/2026-11-16-0521-historia-cair-num-buraco-negro-hand-drawn-cartoon.json"
+    "pautas/viral/fila/2026-11-16-0521-historia-cair-num-buraco-negro-hand-drawn-cartoon.json",
+    "pautas/viral/fila/2026-11-16-0703-historia-e-se-so-voce-fica-acordado-cel-anime-80s.json"
   ],
   "ultima_producao": "2026-11-16T03:22:05-03:00",
   "ultima_producao_youtube": "2026-11-15T03:22:43-03:00"
