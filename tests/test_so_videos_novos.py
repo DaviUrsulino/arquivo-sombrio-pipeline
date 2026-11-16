@@ -113,7 +113,7 @@ def test_legenda_usa_so_a_palavra_final(tmp_path, monkeypatch):
     pasta.mkdir()
     (pasta / "pauta.json").write_text(_json.dumps({"roteiro": {"palavra": "ESTUDIO",
                                                                "legenda": "Dias de duas horas. Comenta GAME e me segue."}}))
-    monkeypatch.setattr(produtora, "FILA", tmp_path / "fila")
+    monkeypatch.setattr(produtora, "REVISAO", tmp_path / "fila")
     from src.estudio_instagram import hospedagem
     monkeypatch.setattr(hospedagem, "publicar", lambda *a, **k: "https://x/v.mp4")
     destino = produtora.para_fila({"pasta": str(pasta), "repo": "em-alta/gta-6", "estilo": "esquete", "em_alta": True})
@@ -131,6 +131,7 @@ def test_legenda_com_duas_chamadas_vira_uma_so(tmp_path, monkeypatch):
     (pasta / "pauta.json").write_text(_json.dumps({"roteiro": {"palavra": "ESTUDIO",
         "legenda": "Tenha seu sistema de vídeos sem mensalidade.\nComente MAQUINA para receber o link no direct."}}))
     monkeypatch.setattr(produtora, "FILA_VENDA", tmp_path / "fila_venda")
+    monkeypatch.setattr(produtora, "REVISAO", tmp_path / "revisao")
     from src.estudio_instagram import hospedagem
     monkeypatch.setattr(hospedagem, "publicar", lambda *a, **k: "https://x/v.mp4")
     destino = produtora.para_fila({"pasta": str(pasta), "repo": "venda/pack-estudio", "estilo": "dark-keynote", "venda": True})
