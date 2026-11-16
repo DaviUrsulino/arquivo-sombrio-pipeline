@@ -14,6 +14,7 @@ import urllib.parse
 import urllib.request
 from datetime import datetime, timedelta, timezone
 
+from . import estilo_formato
 from . import series
 
 # Casos famosos e bem documentados, sem morte nem tragédia. (slug, artigo da Wikipédia em inglês)
@@ -79,7 +80,7 @@ def escrever(slug: str, titulo: str, n: int, llm=None, ler=fatos) -> dict:
                        "roteiro_rejeitado": {k: r.get(k) for k in ("texto_tela", "ganchos", "corpo", "cta")}})
         r = gerar(segredos.texto("historia_tech"), json.dumps(pedido, ensure_ascii=False))
     return {"slug": slug, "serie": slug, "episodio": 1, "opcoes": None, "produzir": True,
-            "estilo": ESTILOS[n % len(ESTILOS)], "fonte": f"https://en.wikipedia.org/wiki/{titulo.replace(' ', '_')}",
+            "estilo": estilo_formato.menos_usado("historia_personagem") or ESTILOS[n % len(ESTILOS)], "fonte": f"https://en.wikipedia.org/wiki/{titulo.replace(' ', '_')}",
             "direcao": "HISTÓRIA REAL DA TECNOLOGIA. " + r.get("direcao", ""),
             "roteiro": {"texto_tela": r["texto_tela"], "ganchos": r["ganchos"][:1], "corpo": r["corpo"], "cta": r["cta"],
                         "legenda": r["legenda"], "palavra": ""}}

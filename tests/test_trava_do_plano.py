@@ -1,9 +1,23 @@
 """Davi, 15/11: a produtora gasta o mesmo plano Pro que ele usa de dia; só pode rodar de madrugada, até 03:30."""
+import pytest
 from datetime import datetime, timedelta, timezone
 
 from src.estudio_instagram.diretor import produtora as pr
 
 BR = timezone(timedelta(hours=-3))
+
+
+@pytest.fixture(autouse=True)
+def sem_pausa(monkeypatch):
+    monkeypatch.setattr(pr, "PAUSA_ATE", (2026, 1, 1))
+
+
+def test_pausa_pedida_pelo_davi(monkeypatch):
+    monkeypatch.delenv("PRODUTORA_FORCAR", raising=False)
+    monkeypatch.setattr(pr, "PAUSA_ATE", (2026, 11, 18))
+    assert "pausa" in pr.trava_do_plano(t(2, 30, dia=17), {"producoes": []})
+    assert "pausa" in pr.trava_do_plano(t(2, 30, dia=18), {"producoes": []})
+    assert pr.trava_do_plano(t(2, 30, dia=19), {"producoes": []}) is None
 
 
 def t(h, m=0, dia=16):

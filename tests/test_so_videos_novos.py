@@ -66,7 +66,10 @@ def test_estilo_combina_com_o_assunto_e_varia():
     escolhe = lambda *_: {"estilos": ["pixel-rpg", "neon"]}
     assert produtora.estilo_para("GTA 6", {"estilos_usados": []}, todos, llm=escolhe, fracos=set())["slug"] == "pixel-rpg"
     assert produtora.estilo_para("GTA 6", {"estilos_usados": ["pixel-rpg"]}, todos, llm=escolhe, fracos=set())["slug"] == "neon"
-    assert produtora.estilo_para("GTA 6", {"estilos_usados": ["neon", "pixel-rpg"]}, todos, llm=escolhe, fracos=set())["slug"] == "pixel-rpg"
+    # 16/11: exploração: com os 2 escolhidos usados recentemente, sai um estilo ainda não produzido
+    assert produtora.estilo_para("GTA 6", {"estilos_usados": ["neon", "pixel-rpg"]}, todos, llm=escolhe, fracos=set())["slug"] in {"archive-lighttable", "dossie"}
+    usados = {"producoes": [{"estilo": "pixel-rpg"}] * 3 + [{"estilo": "neon"}] * 2 + [{"estilo": "dossie"}]}
+    assert produtora.estilo_para("GTA 6", usados, todos, llm=escolhe, fracos=set())["slug"] == "archive-lighttable"
 
 
 def test_maestro_produz_de_madrugada_so_quando_falta_video():
@@ -157,9 +160,8 @@ def test_estilo_que_flopou_sai_da_escolha():
     todos = [{"slug": s, "nome": s, "categoria": "x"} for s in ("dossie", "esquete")]
     escolhe = lambda *_: {"estilos": ["dossie", "esquete"]}
     assert produtora.estilo_para("caso", {}, todos, llm=escolhe, fracos={"dossie"})["slug"] == "esquete"
-    # se só sobrar estilo fraco, ainda produz (não trava a madrugada)
-    so_dossie = lambda *_: {"estilos": ["dossie"]}
-    assert produtora.estilo_para("caso", {}, todos, llm=so_dossie, fracos={"dossie"})["slug"] == "dossie"
+    # se todos forem fracos, ainda produz (não trava a madrugada)
+    assert produtora.estilo_para("caso", {}, todos, llm=escolhe, fracos={"dossie", "esquete"})["slug"] in {"dossie", "esquete"}
 
 
 def test_nunca_dois_videos_de_venda_seguidos(tmp_path, monkeypatch):

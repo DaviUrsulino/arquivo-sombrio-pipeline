@@ -19,13 +19,18 @@ from __future__ import annotations
 FORMATOS: dict[str, tuple[list[str], str]] = {
     "documentario": (
         ["satellite-briefing", "teardown", "data-physical", "visual-investigation", "briefing-board",
-         "lidar-survey", "archive-lighttable", "news-package", "dark-keynote", "circuit-board", "white-model"],
+         "lidar-survey", "archive-lighttable", "news-package", "dark-keynote", "circuit-board", "white-model",
+         "dark-documentary", "newsreel", "map-explainer", "halftone-dossier", "spy-titles", "caption-news", "kino-montage"],
         "fato de empresa, figura ou acontecimento grande: um objeto-herói por cena, câmera lenta, sem mascote "
         "(padrão do @marcondes.ai e do @voceconstruiu, que mostram a coisa funcionando em vez de alguém explicando)",
     ),
     "historia_personagem": (
         ["hand-drawn-cartoon", "cartoon-3d-short", "scifi-toon", "midcentury-toon", "cel-anime-80s",
-         "rubber-hose", "esquete", "3d-toy-character"],
+         "rubber-hose", "esquete", "3d-toy-character",
+         # 16/11: Davi viu só ~8 estilos em uso; entram os que também têm personagem que atua (a testar até 20/11)
+         "stick-explainer", "paper-popup", "papercut-red", "crayon-world", "brick-toy", "shadow-puppet", "pixel-rpg",
+         "colored-pencil", "memphis-diorama", "lowpoly-island", "microgame", "manga-panels", "marker-paper",
+         "watercolor", "ipad-sketch", "hd-2d", "pop-art", "silent-film", "ukiyoe", "crayon-book"],
         "série, cotidiano, humor ou qualquer coisa com alguém vivendo a situação: precisa de personagem que ATUA, "
         "com expressão exagerada (padrão do @escolhas.app, @bieldozero, @crafty_animations e @canwebuildthis)",
     ),
@@ -41,7 +46,10 @@ FORMATOS: dict[str, tuple[list[str], str]] = {
     ),
     "zack": (
         ["3d-toy-character", "cartoon-3d-short", "teardown", "white-model", "data-physical", "scifi-toon",
-         "hand-drawn-cartoon"],
+         "hand-drawn-cartoon",
+         "microscope", "thermal-camera", "security-xray", "hologram-hud", "lidar-survey", "precise-mechanism", "tilt-shift",
+         "flat-space-explainer", "assembly-line-diagram", "pip-simulation", "instruction-manual", "brick-toy",
+         "lowpoly-island", "blueprint", "hardcore-info", "double-exposure"],
         "molde Zack D. Films (11/11, 14 a 50 mi por vídeo): a câmera entra onde nenhuma câmera entra (corte "
         "transversal, por dentro do corpo ou da máquina) e um personagem genérico sempre igual; 3D simples serve, "
         "capricho não é o fator",
@@ -84,3 +92,18 @@ def filtrar(todos: list[dict], formato: str | None) -> list[dict]:
     por_slug = {e["slug"]: e for e in todos}
     escolhidos = [por_slug[s] for s in recomendados(formato) if s in por_slug]
     return escolhidos or todos
+
+
+def menos_usado(formato: str, usos: list[str] | None = None, fracos: set[str] | None = None) -> str | None:
+    """Estilo do formato que mais raramente foi produzido (empate: ordem de preferência). 16/11: o Davi reparou que só
+    uns 8 estilos eram usados (hand-drawn 27x, cartoon-3d 18x); o rodízio agora explora o catálogo todo do formato."""
+    if usos is None:
+        import json
+        from pathlib import Path
+        arq = Path(__file__).resolve().parents[2] / "pautas" / "produtora.json"
+        try:
+            usos = [x.get("estilo") for x in json.loads(arq.read_text(encoding="utf-8")).get("producoes", [])]
+        except (OSError, ValueError):
+            usos = []
+    lista = [e for e in recomendados(formato) if e not in (fracos or set())]
+    return min(lista, key=lambda e: (usos.count(e), lista.index(e)), default=None)

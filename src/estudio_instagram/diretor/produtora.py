@@ -153,8 +153,14 @@ def estilo_para(assunto: str, estado: dict, todos: list[dict], llm=None, fracos:
     bons = [e for e in bons if e["slug"] not in fracos] or bons
     if not bons:
         return proximo_estilo(estado, todos)
-    recentes = estado.get("estilos_usados", [])[-8:]
-    return next((e for e in bons if e["slug"] not in recentes), bons[0])  # o que mais combina, se não saiu há pouco
+    # 16/11: exploração. Só a escolha do LLM repetia sempre os mesmos ~8 estilos; agora, entre TODOS os do formato, sai o
+    # menos produzido (o que o LLM achou que combina só desempata).
+    usos = [x.get("estilo") for x in estado.get("producoes", [])]
+    ordem = {e["slug"]: i for i, e in enumerate(bons)}
+    pool = [e for e in todos if e["slug"] not in fracos] or todos
+    recentes = estado.get("estilos_usados", [])[-3:]
+    pool = [e for e in pool if e["slug"] not in recentes] or pool
+    return min(pool, key=lambda e: (usos.count(e["slug"]), ordem.get(e["slug"], 99)))
 
 
 def proximo_estilo(estado: dict, todos: list[dict]) -> dict:
@@ -300,11 +306,17 @@ MAX_POR_NOITE = 3
 ORCAMENTO_SEMANAL_MIN = 420  # minutos de agente em 7 dias (~35 min por vídeo = uns 12 vídeos por semana)
 
 
+# Davi, 16/11: limite do Claude quase no fim; sem vídeo na madrugada de 17/11 nem na de 18/11. Volta em 19/11.
+PAUSA_ATE = (2026, 11, 18)
+
+
 def trava_do_plano(agora: datetime | None = None, estado: dict | None = None) -> str | None:
     """Motivo para NÃO produzir agora (proteger a franquia do plano do Davi), ou None se pode."""
     if os.environ.get("PRODUTORA_FORCAR") == "1":
         return None
     agora = (agora or datetime.now(BRASILIA)).astimezone(BRASILIA)
+    if (agora.year, agora.month, agora.day) <= PAUSA_ATE:
+        return f"pausa pedida pelo Davi até {PAUSA_ATE[2]:02d}/{PAUSA_ATE[1]:02d} (limite do Claude acabando)"
     if not (JANELA_INICIO <= (agora.hour, agora.minute) < JANELA_FIM):
         return f"fora da janela {JANELA_INICIO[0]:02d}:{JANELA_INICIO[1]:02d} a {JANELA_FIM[0]:02d}:{JANELA_FIM[1]:02d} (agora {agora:%H:%M})"
     estado = _estado() if estado is None else estado

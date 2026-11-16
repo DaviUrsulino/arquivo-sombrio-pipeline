@@ -17,6 +17,7 @@ import json
 import re
 from datetime import datetime, timedelta, timezone
 
+from . import estilo_formato
 from . import series
 
 # Situações de cotidiano que qualquer pessoa entende, sem tecnologia. Cada uma vira uma série nova.
@@ -110,7 +111,7 @@ def escrever(slug: str, situacao: str, n: int, llm=None) -> dict:
     if problemas(r):
         raise ValueError("episódio sem dilema válido: " + "; ".join(problemas(r)))
     return {"slug": slug, "serie": slug, "episodio": 1, "opcoes": r["opcoes"], "produzir": True,
-            "estilo": ESTILOS[n % len(ESTILOS)],
+            "estilo": estilo_formato.menos_usado("historia_personagem") or ESTILOS[n % len(ESTILOS)],
             "direcao": ("HISTÓRIA DE COTIDIANO, público amplo, sem nada de tecnologia. SITCOM, não trailer: cada frase é um "
                         "ACONTECIMENTO com piada (algo dá errado, alguém reage), nunca descrição de ambiente; tem payoff "
                         "dentro do episódio, não só o cliffhanger. " + (r.get("direcao") or "")),

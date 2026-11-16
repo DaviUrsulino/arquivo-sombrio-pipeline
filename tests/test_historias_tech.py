@@ -21,4 +21,4 @@ def test_sem_fatos_nao_escreve():
 def test_roteiro_vira_historia_pra_produzir():
     r = {"texto_tela": "T", "ganchos": ["g"], "corpo": ["c"], "cta": "k", "legenda": "L", "direcao": "D", "nota": 9}
     h = ht.escrever("x", "X", 1, llm=lambda *_: r, ler=lambda t: "f" * 2000)
-    assert h["produzir"] and h["opcoes"] is None and h["estilo"] == ht.ESTILOS[1] and h["roteiro"]["palavra"] == ""
+    assert h["produzir"] and h["opcoes"] is None and h["estilo"] and h["roteiro"]["palavra"] == ""

@@ -43,7 +43,7 @@ def test_episodio_sem_dilema_valido_e_recusado(muda, erro_esperado):
 def test_roteiro_bom_vira_episodio_1_pra_produzir():
     h = hc.escrever("porta-que-nao-abre", "situação", 1, llm=lambda *_: {**BOM, "nota": 9})
     assert h["produzir"] and h["episodio"] == 1 and h["opcoes"] == ["ENTRAR", "FUGIR"]
-    assert h["estilo"] == hc.ESTILOS[1] and h["roteiro"]["palavra"] == ""
+    assert h["estilo"] and h["roteiro"]["palavra"] == ""
     assert "sem nada de tecnologia" in h["direcao"]
 
 
