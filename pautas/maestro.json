@@ -1,7 +1,9 @@
 {
   "dia": "2026-11-16",
-  "feitos": {},
-  "ultimo_disparo": "2026-11-15T22:30:28-03:00",
+  "feitos": {
+    "00:30": "disparada 00:31"
+  },
+  "ultimo_disparo": "2026-11-16T00:31:05-03:00",
   "fila_usadas": [
     "pautas/viral/fila/01-motion-skills.json",
     "pautas/viral/fila/01b-habblaud.json",
@@ -51,7 +53,8 @@
     "pautas/viral/fila/2026-11-15-0228-historia-mensagem-do-proprio-numero-ep4-cartoon-3d-short.json",
     "pautas/viral/fila/2026-11-15-0710-historia-quatro-dias-para-o-encontro-scifi-toon.json",
     "pautas/viral/fila/2026-11-15-1319-historia-sogra-chega-no-domingo-midcentury-toon.json",
-    "pautas/viral/fila/2026-11-16-0041-historia-dentro-da-geladeira-data-physical.json"
+    "pautas/viral/fila/2026-11-16-0041-historia-dentro-da-geladeira-data-physical.json",
+    "pautas/viral/fila/2026-11-15-1500-curiosidade-ossos-de-vidro-hand-drawn-cartoon.json"
   ],
   "ultima_producao": "2026-11-15T03:26:50-03:00",
   "ultima_producao_youtube": "2026-11-15T03:22:43-03:00"
