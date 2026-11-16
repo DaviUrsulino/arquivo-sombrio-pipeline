@@ -24,7 +24,8 @@ import re
 import shutil
 import subprocess
 import sys
-from datetime import datetime, timedelta
+import time
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from . import portao, roteiro
@@ -280,6 +281,40 @@ FERRAMENTAS = ["Read", "Write", "Edit", "Glob", "Grep", "Skill",
                "Bash(mkdir:*)", "Bash(cp:*)", "Bash(mv:*)", "Bash(rm -rf ./tmp:*)", "Bash(python3:*)", "Bash(sh:*)"]
 
 
+# 15/11 (Davi): "8 da manhã eu quero que você não mexa mais; só de madrugada, até 3h, porque a sessão de 5 h renova às 8h30. Tem
+# dia que eu chego e já está estourado, ou estoura do nada: deve ter rodado alguma coisa. Se estiver gastando muito, roda
+# pouco". Esta trava vale pra QUALQUER disparo (cron, maestro ou manual), porque o plano Pro é o mesmo do Davi.
+BRASILIA = timezone(timedelta(hours=-3))
+JANELA_INICIO = (2, 0)
+JANELA_FIM = (3, 30)  # a sessão de 5 h abre na 1ª chamada: começar até 03:30 faz ela renovar até 08:30
+MAX_POR_NOITE = 3
+ORCAMENTO_SEMANAL_MIN = 420  # minutos de agente em 7 dias (~35 min por vídeo = uns 12 vídeos por semana)
+
+
+def trava_do_plano(agora: datetime | None = None, estado: dict | None = None) -> str | None:
+    """Motivo para NÃO produzir agora (proteger a franquia do plano do Davi), ou None se pode."""
+    if os.environ.get("PRODUTORA_FORCAR") == "1":
+        return None
+    agora = (agora or datetime.now(BRASILIA)).astimezone(BRASILIA)
+    if not (JANELA_INICIO <= (agora.hour, agora.minute) < JANELA_FIM):
+        return f"fora da janela {JANELA_INICIO[0]:02d}:{JANELA_INICIO[1]:02d} a {JANELA_FIM[0]:02d}:{JANELA_FIM[1]:02d} (agora {agora:%H:%M})"
+    estado = _estado() if estado is None else estado
+    meia_noite = agora.replace(hour=0, minute=0, second=0, microsecond=0)
+    registros = []
+    for x in estado.get("producoes", []):
+        if x.get("quando_utc"):
+            registros.append((datetime.fromisoformat(x["quando_utc"]).astimezone(BRASILIA), x))
+    desta_noite = [x for t, x in registros if t >= meia_noite]
+    if len(desta_noite) >= MAX_POR_NOITE:
+        return f"já produziu {len(desta_noite)} vídeos nesta noite (máximo {MAX_POR_NOITE})"
+    if any(x.get("limite") for x in desta_noite):
+        return "o Claude acusou limite de uso nesta noite; não insisto"
+    semana = sum(x.get("minutos", 0) for t, x in registros if agora - t <= timedelta(days=7))
+    if semana >= ORCAMENTO_SEMANAL_MIN:
+        return f"orçamento da semana gasto ({semana:.0f} de {ORCAMENTO_SEMANAL_MIN} min de agente)"
+    return None
+
+
 def modelo_do_video(historia: bool) -> str | None:
     """PRODUTORA_MODELO força um modelo; senão sonnet (Davi, 15/11: só o plano Pro, sem créditos extras; opus/fable gastam muito mais franquia)."""
     forcado = os.environ.get("PRODUTORA_MODELO")
@@ -422,10 +457,13 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
     (pasta / "legenda.txt").write_text(rot.get("legenda", ""), encoding="utf-8")
     print(f"produzindo {repo} no estilo {estilo['nome']} -> {pasta}", flush=True)
     plataforma = (historia or {}).get("plataforma") or "instagram"
+    _t0 = time.monotonic()
     resposta = rodar_agente(briefing(frases, estilo, pasta, rot["palavra"], extra_video, rot.get("texto_tela", ""),
                                      historia=bool(historia), formato=formato_video, plataforma=plataforma,
                                      placar=str((historia or {}).get("placar") or "")), pasta,
                             timeout_s=7200 if historia else 4500, modelo=modelo_do_video(bool(historia)))
+    _minutos = round((time.monotonic() - _t0) / 60, 1)
+    _limite = any(m in (resposta or "").lower() for m in ("spend limit", "usage limit", "limit reached", "5-hour limit"))
     final = pasta / "final.mp4"
     res = {"pasta": str(pasta), "repo": repo, "estilo": estilo["slug"], "palavra": rot["palavra"], "ok": False, "venda": venda,
            "em_alta": bool(momento), "historia": bool(historia), "plataforma": plataforma,
@@ -446,7 +484,10 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
     estado.setdefault("estilos_usados", []).append(estilo["slug"])
     if not venda and not momento and not historia:
         estado.setdefault("repos_usados", []).append(repo)
-    estado.setdefault("producoes", []).append({"quando": datetime.now().isoformat(timespec="minutes"), **{k: res[k] for k in ("repo", "estilo", "ok", "pasta", "em_alta")}})
+    estado.setdefault("producoes", []).append({"quando": datetime.now().isoformat(timespec="minutes"),
+                                               "quando_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                                               "minutos": _minutos, "limite": _limite,
+                                               **{k: res[k] for k in ("repo", "estilo", "ok", "pasta", "em_alta")}})
     ESTADO.write_text(json.dumps(estado, ensure_ascii=False, indent=1), encoding="utf-8")
     return res
 
@@ -586,6 +627,10 @@ def main():
     p.add_argument("--promessa", help="ângulo de utilidade prática: o que QUEM ASSISTE ganha, em linguagem de leigo "
                                       "(ver utilidade.py). Use com --repo. Ex.: 'tirar o fundo de qualquer foto de graça'")
     a = p.parse_args()
+    motivo = trava_do_plano()
+    if motivo:
+        print(f"produtora parada para proteger o plano do Davi: {motivo}", flush=True)
+        raise SystemExit(0)
     a.repo_utilidade = a.utilidade_slug = a.par_assunto = None  # preenchidos pelo rodízio automático (ver abaixo)
     if a.listar:
         for e in estilos():
