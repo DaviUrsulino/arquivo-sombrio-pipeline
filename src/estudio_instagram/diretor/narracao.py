@@ -29,6 +29,15 @@ def voz_padrao(nome: str = "Orus"):
                     Gradium(), EdgeTTS())
 
 
+def _ritmo(pcm, fator: float):
+    """Acelera/desacelera a frase sem mudar o tom (ffmpeg atempo)."""
+    import numpy as np
+    bruto = subprocess.run(["ffmpeg", "-v", "error", "-f", "f32le", "-ar", str(TAXA_AMOSTRA), "-ac", "1", "-i", "-",
+                            "-af", f"atempo={fator:.4f}", "-f", "f32le", "-"], input=pcm.astype(np.float32).tobytes(),
+                           capture_output=True, check=True).stdout
+    return np.frombuffer(bruto, dtype=np.float32)
+
+
 def narrar_frases(frases: list[str], voz, destino: Path) -> dict:
     """Grava `destino` (wav mono) e devolve {falas: [{texto, t, d, palavras: [{p, t}]}], duracao}."""
     import numpy as np
@@ -36,15 +45,22 @@ def narrar_frases(frases: list[str], voz, destino: Path) -> dict:
     if hasattr(voz, "preparar"):
         voz.preparar(textos)
     falas, trechos, t = [], [], INICIO_S
-    for original, texto in zip(frases, textos):
-        narr = voz.sintetizar(texto)
+    sinteses = [voz.sintetizar(texto) for texto in textos]
+    # 16/11: "aceleradão, do nada lentão": cada frase sai do TTS com uma velocidade. Nivela todas na mediana do vídeo.
+    cps = [len(f) / max(0.3, len(n.audio_pcm) / 2 / TAXA_AMOSTRA) for f, n in zip(frases, sinteses)]
+    alvo = float(np.median(cps))
+    for original, texto, narr, v in zip(frases, textos, sinteses, cps):
+        fator = min(1.25, max(0.85, alvo / v))
         pcm = np.frombuffer(narr.audio_pcm, dtype=np.int16).astype(np.float32) / 32768
         nz = np.flatnonzero(np.abs(pcm) > 0.01)
         corte = max(0, nz[0] - 240) if len(nz) else 0
         pcm = pcm[corte: nz[-1] + 480] if len(nz) else pcm
+        if abs(fator - 1) > 0.08:
+            pcm = _ritmo(pcm, fator)
         d = len(pcm) / TAXA_AMOSTRA
         palavras_orig = original.split()
-        tempos = [max(0.0, p.t - corte / TAXA_AMOSTRA) for p in narr.palavras]
+        ajuste = fator if abs(fator - 1) > 0.08 else 1.0
+        tempos = [max(0.0, p.t - corte / TAXA_AMOSTRA) / ajuste for p in narr.palavras]
         if len(tempos) != len(palavras_orig):  # o alinhador pode juntar/separar palavras: distribui pelo tempo
             tempos = [d * k / max(1, len(palavras_orig)) for k in range(len(palavras_orig))]
         falas.append({"texto": original, "t": round(t, 3), "d": round(d, 3),

@@ -254,7 +254,9 @@ class GeminiTTS:
     # passa pro próximo na hora, sem esperar. Só cai na voz reserva (Edge) se os 4 esgotarem no dia.
     MODELOS = ("gemini-2.5-flash-preview-tts", "gemini-3.8-flash-tts", "gemini-3.1-flash-tts-preview", "gemini-3.8-flash-lite-tts")
     MODELO = MODELOS[0]
-    INSTRUCAO = "Fale em português do Brasil, de forma natural e animada, como uma pessoa contando uma descoberta para um amigo: "
+    # 16/11: o modelo lia a instrução em voz alta ("Fale em português do Brasil, de forma natural...") no começo do vídeo
+    # que foi ao ar. Instrução de estilo dentro do texto do TTS é lida; sem prefixo, a voz já fala português pelo texto.
+    INSTRUCAO = ""
     ESPERAS_S = (12, 25, 45, 60)
 
     def __init__(self, voz: str = "Orus", pasta_cache: Path | None = None, chave: str | None = None,
@@ -275,7 +277,7 @@ class GeminiTTS:
     def _arquivo_cache(self, texto: str) -> Path | None:
         if not self.pasta_cache:
             return None
-        chave = hashlib.sha1(f"{self.voz}|{texto}".encode()).hexdigest()[:16]
+        chave = hashlib.sha1(f"v2|{self.voz}|{texto}".encode()).hexdigest()[:16]
         return self.pasta_cache / f"gemini-{chave}.pcm"
 
     def _pedir_pcm(self, texto: str) -> bytes:
@@ -331,6 +333,9 @@ class GeminiTTS:
         if arquivo and arquivo.exists():
             return arquivo.read_bytes()
         pcm = self._pedir_pcm(texto)
+        segundos = len(pcm) / 2 / TAXA_AMOSTRA
+        if segundos > 2 and len(texto) / segundos < 7:  # fala lenta demais: o modelo leu algo além do texto
+            raise RuntimeError(f"Gemini TTS devolveu {segundos:.1f}s para {len(texto)} letras (leu texto extra?)")
         if arquivo:
             arquivo.parent.mkdir(parents=True, exist_ok=True)
             arquivo.write_bytes(pcm)
