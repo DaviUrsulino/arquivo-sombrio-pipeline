@@ -306,8 +306,8 @@ MAX_POR_NOITE = 3
 ORCAMENTO_SEMANAL_MIN = 420  # minutos de agente em 7 dias (~35 min por vídeo = uns 12 vídeos por semana)
 
 
-# Davi, 16/11: limite do Claude quase no fim; sem vídeo na madrugada de 17/11 nem na de 18/11. Volta em 19/11.
-PAUSA_ATE = (2026, 11, 18)
+# Davi, 17/11: conta nova do Claude, liberou a madrugada de 18/11 em diante (a pausa de 16/11 acabou).
+PAUSA_ATE = (2026, 11, 17)
 
 
 def trava_do_plano(agora: datetime | None = None, estado: dict | None = None) -> str | None:
