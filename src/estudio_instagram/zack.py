@@ -24,6 +24,19 @@ from . import series
 # Instagram (@ursulino.ia) só leva os temas com pé em tecnologia: Davi, 11/11, "pelo menos algo que tenha
 # minimamente a ver". YouTube leva todos.
 TEMAS = [
+    # 16/11, @canwebuildthis (2,4 mi, 89 mil curtidas): "explique como se eu tivesse 5 anos, parte 1: o que é uma API? Sem palavra
+    # técnica. O Claude achou um garçom." Cena de café em 3D, quadro com bonecos VOCÊ -> GARÇOM -> COZINHA, legenda de frase
+    # inteira. Tecnologia explicada por UMA analogia do dia a dia, em série numerada, e pergunta qual palavra explicar depois.
+    ("api-e-um-garcom", "API", "como-funciona",
+     "o que é uma API sem nenhuma palavra técnica: você é o cliente na mesa, a cozinha é o sistema, a API é o garçom que leva o pedido e traz o prato; você não entra na cozinha. Mostre um pedido dando errado", True),
+    ("nuvem-e-o-computador-dos-outros", "Cloud computing", "como-funciona",
+     "o que é a nuvem sem palavra técnica: guardar a foto é emprestar um armário no galpão de outra pessoa, ligado o dia todo; o que acontece quando o galpão pega fogo ou quando você para de pagar o aluguel", True),
+    ("senha-e-uma-fechadura", "Password", "como-funciona",
+     "por que a senha 123456 é fácil: um ladrão testando 1 bilhão de chaves por segundo contra uma fechadura; quanto tempo leva com 6 letras e com 16; a conta na tela", True),
+    ("wifi-e-um-rio-de-ondas", "Wi-Fi", "como-funciona",
+     "como o wi-fi chega no celular sem fio: o roteador é uma lanterna invisível, a parede come o sinal, por que o banheiro fica sem sinal; quantos aparelhos dividem a mesma lanterna", True),
+    ("inteligencia-artificial-e-um-papagaio", "Large language model", "como-funciona",
+     "como o ChatGPT responde sem entender: um papagaio que leu a internet inteira e adivinha a próxima palavra; por que ele erra com confiança; o que muda quando você pergunta de outro jeito", True),
     # 15/11, medição ao vivo: @desmontandoomundo (757 mil seg.) faz 11 a 19 MILHÕES com animação "como X funciona por dentro"
     # de coisas de casa e de obra (telhado, prédio de pé, muro de arrimo). Aqui o mesmo gênero, no molde curto do Zack,
     # com objetos que todo brasileiro usa todo dia. Instagram leva todos (a coluna final é True).
