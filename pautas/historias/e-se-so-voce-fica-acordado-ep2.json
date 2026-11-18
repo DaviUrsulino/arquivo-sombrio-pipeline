@@ -1,0 +1,45 @@
+{
+ "estilo": "cel-anime-80s",
+ "direcao": "HISTÓRIA DE COTIDIANO, público amplo, sem nada de tecnologia. SITCOM, não trailer: cada frase é um ACONTECIMENTO com piada (algo dá errado, alguém reage), nunca descrição de ambiente; tem payoff dentro do episódio, não só o cliffhanger. Protagonista jovem de moletom azul e tênis branco em uma cidade congelada no tempo. Iluminação noturna azulada com postes acesos e luz amarela vinda das portas abertas. Objetos em destaque: o ônibus parado, a bicicleta amarela, a bandeja de inox com coxinhas e a lanterna acesa da garota. O placar muda no topo no momento exato em que a garota surge. Enquadramento final focado na porta entreaberta da prefeitura e no bilhete amassado.",
+ "slug": "e-se-so-voce-fica-acordado-ep2",
+ "serie": "e-se-so-voce-fica-acordado",
+ "episodio": 2,
+ "roteiro": {
+  "texto_tela": "O PLANO POR TRÁS DO SONO",
+  "ganchos": [
+   "Vocês escolheram ENTRAR, e a porta pesada da prefeitura trancou no mesmo instante."
+  ],
+  "corpo": [
+   "A garota de casaco vermelho correu pelo corredor escuro até a sala trinta e dois.",
+   "Em cima da mesa de madeira, um gravador tocava uma fita com o som de uma sirene grave.",
+   "A garota apertou o botão de parar e tirou um crachá de chumbo do bolso.",
+   "\"Eu me chamo Julia e sou a química que criou o gás do sono\", disse ela.",
+   "Julia abriu a gaveta do gabinete e pegou uma pasta de plástico azul com quinhentas páginas.",
+   "O prefeito Marcos pagou dois milhões de reais pra apagar a cidade por doze horas.",
+   "Ele usou a calada da noite pra esvaziar o cofre central da prefeitura.",
+   "Julia apontou a lanterna pro chão e mostrou duas malas pretas cheias de notas de cem.",
+   "Ela me encarou séria e falou: \"Aquele bilhete era uma armadilha pra mim.\"",
+   "Julia olhou pro relógio digital da parede que marcava vinte e uma horas e vinte minutos.",
+   "Ela disse com a voz baixa: \"A noite é sua, porque o prefeito vai culpar você.\"",
+   "O alarme da parede começou a apitar e acendeu uma luz vermelha no teto.",
+   "Uma grade de aço desceu na porta e bloqueou a saída do corredor.",
+   "Julia achou um machado de emergência no armário de vidro e apontou pra parede de gesso.",
+   "Do outro lado da sala, um painel elétrico com doze fios amarelos piscava perto do cofre."
+  ],
+  "cta": "Comenta MACHADO ou PAINEL. A parte 3 sai amanhã com a escolha que ganhar. Me segue pra não perder.",
+  "legenda": "Parte 2. Vocês escolheram ENTRAR.\n\nDescobrimos a verdade por trás do sono da cidade.\n\nSegue o @ursulino.ia pra acompanhar.\n\n#ese #animacao #historias #novelinha #ursulino\n\nComenta MACHADO ou PAINEL. A mais votada vira a próxima parte.",
+  "palavra": ""
+ },
+ "opcoes": [
+  "MACHADO",
+  "PAINEL"
+ ],
+ "fatos_continuacao": null,
+ "escolha_anterior": "ENTRAR",
+ "votos_anteriores": {
+  "ENTRAR": 0,
+  "FUGIR": 0
+ },
+ "produzir": true,
+ "prioridade": true
+}

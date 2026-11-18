@@ -274,5 +274,9 @@
  "produzido:e-se-so-voce-fica-acordado": {
   "quando": "2026-11-16T07:03+00:00",
   "resultado": "ok"
+ },
+ "e-se-so-voce-fica-acordado": {
+  "quando": "2026-11-18T05:04+00:00",
+  "resultado": "e-se-so-voce-fica-acordado-ep2"
  }
 }
