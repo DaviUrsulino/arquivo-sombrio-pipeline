@@ -21,7 +21,7 @@ ESPERA_VOTOS = timedelta(hours=12)  # 22:30 -> pronto pra rodada das 22:30 do di
 MAX_EPISODIOS = 10  # 15/11: série com protagonista e meta não decai (escolhas.app, ocaradafotoclt); a de plot decai em 6
 # 15/11: as séries escritas antes do prompt novo (resumo narrado, sem número nem fala, 3 votos por episódio) foram
 # encerradas: continuar o ep5 de "sequestrado quando era bebê" gasta a franquia do plano com público que não existe.
-ENCERRADAS = {"mensagem-do-proprio-numero", "porta-que-nao-abre", "preso-no-shopping", "estagiaria-apagou-producao",
+ENCERRADAS = {"e-se-so-voce-fica-acordado", "mensagem-do-proprio-numero", "porta-que-nao-abre", "preso-no-shopping", "estagiaria-apagou-producao",
               "quatro-dias-para-o-encontro", "sogra-chega-no-domingo", "mensagem-do-seu-numero"}
 
 
