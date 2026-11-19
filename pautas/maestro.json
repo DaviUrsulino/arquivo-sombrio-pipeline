@@ -1,6 +1,8 @@
 {
   "dia": "2026-11-19",
-  "feitos": {},
+  "feitos": {
+    "00:30": "pulada: banco vazio"
+  },
   "ultimo_disparo": "2026-11-18T12:01:26-03:00",
   "fila_usadas": [
     "pautas/viral/fila/01-motion-skills.json",
