@@ -110,7 +110,16 @@ jobs:
           elif [ -n "$ENTRADA_REPO" ]; then set -- "$@" --repo "$ENTRADA_REPO"; else set -- "$@" --auto; fi
           if [ "$ENTRADA_VENDA" = "true" ]; then set -- "$@" --venda; fi
           if [ -n "$ENTRADA_ESTILO" ]; then set -- "$@" --estilo "$ENTRADA_ESTILO"; fi
-          python -m src.estudio_instagram.diretor.produtora "$@"
+          # 18/11 (Davi: "de madrugada e pela nuvem"): roteiro escrito à mão em pautas/roteiros_prontos/ tem prioridade
+          # na rodada automática (sem repo, wiki nem estilo informados). O estilo vem da chave "estilo" do arquivo.
+          # O vídeo vai para a REVISÃO (nunca direto na fila) e o roteiro usado vai para roteiros_prontos/feitos/.
+          PRONTO=$(ls pautas/roteiros_prontos/*.json 2>/dev/null | head -1)
+          if [ -z "$ENTRADA_REPO$ENTRADA_WIKI$ENTRADA_ESTILO" ] && [ -n "$PRONTO" ]; then
+            python -m src.estudio_instagram.diretor.produtora --fila --historia "$PRONTO"
+            mkdir -p pautas/roteiros_prontos/feitos && mv "$PRONTO" pautas/roteiros_prontos/feitos/
+          else
+            python -m src.estudio_instagram.diretor.produtora "$@"
+          fi
 
       - name: Guarda folha de quadros e log do agente (para conferir depois)
         if: always()
@@ -131,7 +140,7 @@ jobs:
         run: |
           git config user.name "estudio-automatico"
           git config user.email "actions@users.noreply.github.com"
-          for f in pautas/produtora.json pautas/em_alta_usados.json pautas/viral/fila pautas/viral/fila_venda pautas/historias pautas/series.json; do if [ -e "$f" ]; then git add "$f"; fi; done
+          for f in pautas/produtora.json pautas/em_alta_usados.json pautas/viral/fila pautas/viral/fila_venda pautas/viral/revisao pautas/roteiros_prontos pautas/historias pautas/series.json; do if [ -e "$f" ]; then git add "$f"; fi; done
           if ! git diff --cached --quiet; then
             git commit -m "chore: produtora registra vídeo do dia [skip ci]"
             git pull --rebase --autostash -q && git push -q

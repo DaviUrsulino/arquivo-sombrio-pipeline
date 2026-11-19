@@ -1,0 +1,40 @@
+{
+ "slug": "e-se-so-verdade-24h",
+ "serie": "e-se-so-verdade-24h",
+ "episodio": 1,
+ "opcoes": [
+  "SOGRA",
+  "CHEFE"
+ ],
+ "produzir": true,
+ "formato": "historia_personagem",
+ "plataforma": "instagram",
+ "titulo": "E se você só pudesse dizer a verdade por 24 horas?",
+ "placar": "Topo fixo o vídeo inteiro: VERDADES 0 -> 5 (sobe a cada verdade dita, pisca vermelho ao chegar em 4) e relógio 07:00 -> 20:00.",
+ "direcao": "Sitcom de ficção científica colorida. Personagem do VOCÊ em POV, mãos do espectador. Cor fixa por personagem: Bia (esposa, blusa amarela), Sogra Dona Lúcia (vestido roxo, bolsa grande), Chefe Paulo (camisa azul, crachá). Objetos legíveis: contador VERDADES no topo, a torta de limão da sogra, o envelope da oferta de emprego. Legenda CAIXA ALTA de 1 a 3 palavras com destaque amarelo. Voz com ritmo CONSTANTE. Custos: SOGRA e a Dona Lúcia sai chorando do jantar; CHEFE e o Paulo descobre que você tem outra proposta.",
+ "roteiro": {
+  "texto_tela": "24H SÓ VERDADE",
+  "ganchos": [
+   "Hoje você acorda sem conseguir mentir, nem a mentira educada, por 24 horas."
+  ],
+  "corpo": [
+   "Hoje você acorda sem conseguir mentir, nem a mentira educada, por 24 horas.",
+   "Sete da manhã, a Bia pergunta: \"Gostou do meu cabelo novo?\" Você responde: \"Não.\" Verdades: 1.",
+   "No café, o Léo pergunta se você vai ao aniversário dele, e você diz a verdade: \"Não quero ir.\" Verdades: 2.",
+   "Às 9h o Chefe Paulo pergunta se o relatório está pronto. Você diz: \"Não comecei.\" Verdades: 3.",
+   "O Paulo sorri sem graça, e a sala inteira ouviu.",
+   "Meio-dia, a Bia manda mensagem: \"Tá bravo comigo?\" Você escreve que sim, e ela fica uma hora sem responder.",
+   "Às 15h o Paulo te chama: \"Você tem outra proposta de emprego?\" Você tem, e o envelope está na gaveta.",
+   "Você respira e responde só: \"Preciso pensar.\" Isso ainda é verdade. Verdades: 4.",
+   "Às 19h você chega no jantar da Dona Lúcia, sua sogra, com a torta de limão dela na mesa.",
+   "Ela corta a primeira fatia e pergunta: \"Gostou da minha torta?\"",
+   "Se você diz a verdade, a sogra sai chorando do jantar, porque a torta está seca.",
+   "Se você foge da pergunta, o Paulo está do outro lado do telefone, e a próxima pergunta dele é sobre o envelope.",
+   "Às 20h o garfo está na sua mão, o contador marca 4, e a boca já abriu."
+  ],
+  "cta": "Comenta SOGRA ou CHEFE. A mais votada vira a parte 2.",
+  "legenda": "E se você só pudesse dizer a verdade por 24 horas? Regra número 1: nem a mentira educada vale. Comenta SOGRA ou CHEFE: você responde a verdade sobre a torta da sogra ou atende o chefe que quer saber do envelope? Manda pra quem diz que \"só fala a verdade\".",
+  "palavra": "SOGRA"
+ },
+ "estilo": "scifi-toon"
+}

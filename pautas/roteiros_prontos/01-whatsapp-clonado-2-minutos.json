@@ -1,0 +1,36 @@
+{
+ "slug": "whatsapp-clonado-2-minutos",
+ "serie": "whatsapp-clonado-2-minutos",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "formato": "zack",
+ "molde": "como-funciona",
+ "plataforma": "instagram",
+ "titulo": "Como clonam o seu WhatsApp em 2 minutos",
+ "direcao": "Quadro de investigação: celular do golpista de um lado, o seu do outro, fios vermelhos ligando os dois. Mensagem de SMS com código de 6 dígitos em destaque. Relógio de 2 minutos no topo contando. Fila de contatos recebendo 'me empresta R$ 500'. Trava do PIN de 6 dígitos fechando o fio. Etiquetas pequenas (NÚMERO, CÓDIGO, PIN). Legenda de UMA palavra por vez. Fala em ritmo CONSTANTE, sem acelerar nem desacelerar.",
+ "roteiro": {
+  "texto_tela": "CLONARAM SEU WHATSAPP?",
+  "ganchos": [
+   "Em 2 minutos, um golpista pode ficar com o seu WhatsApp sem saber a sua senha, porque o WhatsApp não tem senha."
+  ],
+  "corpo": [
+   "Em 2 minutos, um golpista pode ficar com o seu WhatsApp sem saber a sua senha, porque o WhatsApp não tem senha.",
+   "Ele só precisa do seu número, e o seu número está no grupo da escola, no anúncio e no cartão de visita.",
+   "Ele instala o WhatsApp no celular dele e digita o seu número como se fosse dele.",
+   "Então o WhatsApp manda um código de 6 dígitos por SMS, e o SMS chega no seu celular, não no dele.",
+   "Mas ele precisa desse código, então manda mensagem de alguém que você conhece: \"Mandei um código sem querer, me passa?\"",
+   "Você passa o código, e em 2 minutos o seu WhatsApp está no celular dele e fora do seu.",
+   "Aí ele escreve pros seus contatos com a sua foto: \"Me empresta R$ 500? Faz um Pix.\"",
+   "Mas o WhatsApp tem uma trava, a verificação em duas etapas, um PIN de 6 dígitos que só você sabe.",
+   "Com o PIN ligado, o código sozinho não abre a conta, e o golpista trava na tela do PIN.",
+   "Só que o golpista tenta de novo, com outro pedido, e por isso você nunca passa código pra ninguém.",
+   "É por isso que o WhatsApp pede esse PIN de vez em quando, e ele é a única barreira que sobra.",
+   "Ligue agora: Configurações, Conta, Verificação em duas etapas, e crie o seu PIN."
+  ],
+  "cta": "Comenta PIN que eu mando o passo a passo pra proteger os seus pais.",
+  "legenda": "Em 2 minutos o golpista clona o seu WhatsApp sem saber a sua senha, porque ele só precisa do código que chega no seu SMS. A trava é a verificação em duas etapas. Você já ligou a sua?",
+  "palavra": "PIN"
+ },
+ "estilo": "visual-investigation"
+}
