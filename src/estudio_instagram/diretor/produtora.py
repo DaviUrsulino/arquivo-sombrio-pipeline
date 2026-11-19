@@ -504,6 +504,8 @@ def produzir(repo: str, estilo_slug: str | None = None, gancho: int = 0, venda: 
         res.update({"ok": not problemas, "duracao": round(dur, 1), "problemas": problemas, "resumo_agente": resposta[-800:]})
     else:
         res["problemas"] = ["o agente não entregou final.mp4 (ver agente.log)"]
+        # 19/11: duas noites seguidas acusaram "limite" sem a mensagem no log; guarda o fim da resposta pra saber a causa real
+        res["resposta_agente"] = (resposta or "")[-500:]
     (pasta / "producao.json").write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
     estado.setdefault("estilos_usados", []).append(estilo["slug"])
     if not venda and not momento and not historia:
