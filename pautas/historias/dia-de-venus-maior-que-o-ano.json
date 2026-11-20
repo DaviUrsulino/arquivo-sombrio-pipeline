@@ -1,0 +1,31 @@
+{
+ "slug": "dia-de-venus-maior-que-o-ano",
+ "serie": "dia-de-venus-maior-que-o-ano",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "formato": "zack",
+ "molde": "curiosidade-numero",
+ "plataforma": "instagram",
+ "titulo": "Por que em Vênus o dia é maior que o ano?",
+ "nota_previsor": null,
+ "premissa": "educativa",
+ "fonte": "https://pt.wikipedia.org/wiki/V%C3%AAnus",
+ "direcao": "CURIOSIDADE COM NÚMERO comparado em TEMPO. Mesmo personagem fixo: homem comum careca de camiseta cinza lisa e calça jeans, sem logo. Ele está de pé num planeta amarelado de nuvens densas, com dois relógios gigantes no céu: um gira devagar (o dia, 243 dias) e outro corre em volta do Sol (o ano, 225 dias). Câmera de cima mostra o planeta girando devagar enquanto dá a volta no Sol, e o ano termina antes do dia. Contador de dias fixo no topo do primeiro ao último quadro.",
+ "roteiro": {
+  "texto_tela": "O DIA É MAIOR QUE O ANO",
+  "ganchos": [
+   "Em Vênus, um dia dura mais que um ano inteiro."
+  ],
+  "corpo": [
+   "Vênus gira tão devagar que uma volta completa em si mesmo leva 243 dias da Terra.",
+   "Já a volta em torno do Sol leva só 225 dias.",
+   "Ou seja, o ano termina antes do dia.",
+   "E ainda por cima ele gira ao contrário dos outros planetas, então o Sol nasce no oeste.",
+   "Se você nascesse lá, faria aniversário antes de ver o dia terminar."
+  ],
+  "cta": "Você moraria em Vênus? Comenta SIM ou NÃO, e segue o @ursulino.ia.",
+  "legenda": "Em Vênus o dia dura 243 dias. O ano, só 225.\n\nVocê moraria lá? Comenta SIM ou NÃO.\n\nSegue o @ursulino.ia pra ver mais curiosidade com número.\n\n#curiosidades #venus #espaco #ciencia #ursulino",
+  "palavra": ""
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "slug": "contar-ate-um-bilhao",
+ "serie": "contar-ate-um-bilhao",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "formato": "zack",
+ "molde": "curiosidade-numero",
+ "plataforma": "instagram",
+ "titulo": "Quanto tempo leva pra contar até 1 bilhão?",
+ "nota_previsor": null,
+ "premissa": "educativa",
+ "fonte": "https://pt.wikipedia.org/wiki/Bilh%C3%A3o",
+ "direcao": "CURIOSIDADE COM NÚMERO comparado em TEMPO. Mesmo personagem fixo: homem comum careca de camiseta cinza lisa e calça jeans, sem logo. Ele conta em voz alta numa sala vazia, com um contador gigante na parede que sobe e um calendário que arranca folhas sem parar; a barba cresce e o cabelo fica grisalho conforme o tempo passa. Contador de anos fixo no topo do primeiro ao último quadro.",
+ "roteiro": {
+  "texto_tela": "CONTAR ATÉ 1 BILHÃO",
+  "ganchos": [
+   "Se você contasse um número por segundo, sem parar, até 1 bilhão, levaria 31 anos."
+  ],
+  "corpo": [
+   "Até 1 milhão você chega em 11 dias.",
+   "Mas 1 bilhão não é mil vezes mais difícil, é mil vezes mais longo.",
+   "São 31 anos sem dormir, sem comer, sem pausa.",
+   "Um bilhão de segundos atrás era o ano de 1994.",
+   "Por isso bilionário é uma ordem de grandeza que o cérebro não entende."
+  ],
+  "cta": "Você aguentaria contar? Comenta SIM ou NÃO, e segue o @ursulino.ia.",
+  "legenda": "31 anos pra contar até 1 bilhão. Até 1 milhão são só 11 dias.\n\nVocê aguentaria? Comenta SIM ou NÃO.\n\nSegue o @ursulino.ia pra ver mais curiosidade com número.\n\n#curiosidades #matematica #bilhao #ciencia #ursulino",
+  "palavra": ""
+ }
+}
