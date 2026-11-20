@@ -1,0 +1,31 @@
+{
+ "slug": "estrada-ate-o-sol",
+ "serie": "estrada-ate-o-sol",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "formato": "zack",
+ "molde": "curiosidade-numero",
+ "plataforma": "instagram",
+ "titulo": "Quanto tempo leva de carro até o Sol?",
+ "nota_previsor": null,
+ "premissa": "educativa",
+ "fonte": "https://pt.wikipedia.org/wiki/Unidade_astronômica",
+ "direcao": "CURIOSIDADE COM NÚMERO comparado em TEMPO. Mesmo personagem fixo: homem comum careca de camiseta cinza lisa e calça jeans, sem logo. Ele dirige um carro numa estrada reta que sobe e sai da Terra rumo ao Sol, com um relógio gigante e um contador de anos no topo da tela que só sobe. Câmera acompanha o carro por fora, depois mostra o Sol ao fundo quase do mesmo tamanho, sem nunca chegar. Contador fixo de anos do primeiro ao último quadro. Fundo espacial simples, sem texto pequeno.",
+ "roteiro": {
+  "texto_tela": "DE CARRO ATÉ O SOL",
+  "ganchos": [
+   "Se existisse uma estrada até o Sol, você levaria 170 anos de carro pra chegar."
+  ],
+  "corpo": [
+   "O Sol está a quase 150 milhões de quilômetros daqui.",
+   "A 100 quilômetros por hora, direto, sem parar nem pra abastecer, são 170 anos.",
+   "De avião a jato, a uns 900 quilômetros por hora, ainda são 19 anos.",
+   "A luz faz esse mesmo caminho em 8 minutos e 20 segundos.",
+   "Então o Sol que você vê agora, na verdade, já aconteceu há 8 minutos."
+  ],
+  "cta": "Você aguentaria dirigir essa estrada? Comenta SIM ou NÃO, e segue o @ursulino.ia.",
+  "legenda": "170 anos de carro até o Sol. A luz faz em 8 minutos.\n\nVocê aguentaria a viagem? Comenta SIM ou NÃO.\n\nSegue o @ursulino.ia pra ver mais curiosidade com número.\n\n#curiosidades #sol #espaco #ciencia #ursulino",
+  "palavra": ""
+ }
+}
