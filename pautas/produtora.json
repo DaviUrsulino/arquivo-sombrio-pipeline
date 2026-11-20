@@ -124,6 +124,7 @@
   "hand-drawn-cartoon",
   "cel-anime-80s",
   "cel-anime-80s",
+  "cel-anime-80s",
   "cel-anime-80s"
  ],
  "repos_usados": [
@@ -1132,6 +1133,17 @@
    "estilo": "cel-anime-80s",
    "ok": false,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-19-0505-e-se-so-voce-fica-acordado-ep2-cel-anime-80s",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-20T05:38",
+   "quando_utc": "2026-11-20T05:38:27+00:00",
+   "minutos": 34.5,
+   "limite": false,
+   "repo": "historia/e-se-so-voce-fica-acordado-ep2",
+   "estilo": "cel-anime-80s",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-20-0503-e-se-so-voce-fica-acordado-ep2-cel-anime-80s",
    "em_alta": false
   }
  ]
