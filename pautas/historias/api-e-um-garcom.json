@@ -1,0 +1,32 @@
+{
+ "slug": "api-e-um-garcom",
+ "serie": "api-e-um-garcom",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "formato": "zack",
+ "molde": "como-funciona",
+ "plataforma": "instagram",
+ "titulo": "Como um aplicativo conversa com outro sem você ver?",
+ "nota_previsor": 4.7,
+ "premissa": "educativa",
+ "fonte": "https://en.wikipedia.org/wiki/API",
+ "direcao": "MOLDE ZACK D. FILMS. A câmera entra onde nenhuma câmera entra (corte transversal, por dentro, raio-X). Personagem fixo: um homem comum de camiseta cinza lisa e calça jeans, careca, rosto simples e sempre o mesmo em todos os vídeos; sem logo, sem nome na roupa. A câmera atravessa a tela do smartphone e mostra um personagem garçom correndo por dutos de dados transparentes até uma porta de aço trancada que representa o servidor. Objeto-herói: o garçom digital carregando uma bandeja com o pedido do usuário.",
+ "roteiro": {
+  "texto_tela": "COMO A API FUNCIONA",
+  "ganchos": [
+   "Quando você faz um pedido no aplicativo, 2 sistemas distantes precisam conversar de uma vez."
+  ],
+  "corpo": [
+   "Você senta na mesa e o seu celular envia um garçom invisível direto para a cozinha.",
+   "Esse garçom corre por trás das paredes e entrega a sua mensagem na porta trancada.",
+   "A cozinha prepara o prato escondida e devolve apenas 1 resposta para a sua tela.",
+   "Só que, se você pede um dado que não existe, o garçom trava na hora.",
+   "Ele volta sem nada e joga 1 aviso de erro vermelho na frente dos seus olhos.",
+   "A cozinha continua trancada e nenhum segredo do sistema vaza para fora."
+  ],
+  "cta": "",
+  "legenda": "Entenda o que é uma API e como ela conecta dois sistemas diferentes sem expor o código interno.",
+  "palavra": ""
+ }
+}

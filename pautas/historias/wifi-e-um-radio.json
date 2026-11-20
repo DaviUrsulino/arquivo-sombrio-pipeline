@@ -1,0 +1,31 @@
+{
+ "slug": "wifi-e-um-radio",
+ "serie": "wifi-e-um-radio",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "formato": "zack",
+ "molde": "como-funciona",
+ "plataforma": "instagram",
+ "titulo": "Por que o micro-ondas derruba o seu Wi-Fi?",
+ "nota_previsor": null,
+ "premissa": "educativa",
+ "fonte": "https://en.wikipedia.org/wiki/Wi-Fi",
+ "direcao": "MOLDE ZACK D. FILMS, UMA analogia do dia a dia do começo ao fim, cena contínua, tela cheia, objetos grandes e bem desenhados, mãos simples e certas. Personagem fixo: um homem comum de camiseta cinza lisa e calça jeans, careca, rosto simples e sempre o mesmo em todos os vídeos; sem logo, sem nome na roupa. Cena única numa casa em corte transversal: o roteador no corredor solta ondas coloridas em anéis; o micro-ondas na cozinha liga e solta ondas vermelhas que embaralham as ondas do roteador; o homem careca no sofá olha o celular com o ícone de Wi-Fi caindo; parede grossa e espelho enfraquecem as ondas; no fim o roteador sobe pra uma prateleira no meio da casa e o sinal volta cheio.",
+ "roteiro": {
+  "texto_tela": "O MICRO-ONDAS DERRUBA O WI-FI",
+  "ganchos": [
+   "Esquentar a comida no micro-ondas pode derrubar a internet da sua casa."
+  ],
+  "corpo": [
+   "O roteador transforma a internet em ondas de rádio e joga essas ondas pela casa.",
+   "A rede mais comum usa a faixa de 2,4 gigahertz, a mesma faixa do micro-ondas.",
+   "Quando o micro-ondas liga, o barulho dele atrapalha as ondas do Wi-Fi.",
+   "Parede grossa e espelho também enfraquecem o sinal, e a faixa de 5 gigahertz é mais rápida, mas chega menos longe.",
+   "O melhor lugar pro roteador é no meio da casa, no alto e longe do micro-ondas."
+  ],
+  "cta": "",
+  "legenda": "O micro-ondas e o Wi-Fi usam a mesma faixa de onda. Salva pra lembrar onde pôr o roteador.\n\nSegue o @ursulino.ia pra entender tecnologia sem enrolação.\n\n#wifi #roteador #tecnologia #curiosidades #ursulino",
+  "palavra": ""
+ }
+}

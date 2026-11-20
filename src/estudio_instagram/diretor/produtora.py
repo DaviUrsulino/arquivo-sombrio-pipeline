@@ -291,7 +291,7 @@ cortado ou com cara de slide (pelo menos uma rodada). Confira com ffprobe. Apagu
 # Ferramentas liberadas para o agente: só leitura/escrita de arquivos e os comandos de vídeo que o fluxo usa.
 # Qualquer outra coisa (rede arbitrária, git, apagar fora da pasta...) não é permitida e falha sem travar.
 FERRAMENTAS = ["Read", "Write", "Edit", "Glob", "Grep", "Skill",
-               "Bash(ffmpeg:*)", "Bash(ffprobe:*)", "Bash(node:*)", "Bash(npx hyperframes:*)", "Bash(npm run:*)",
+               "Bash(ffmpeg:*)", "Bash(ffprobe:*)", "Bash(node:*)", "Bash(npx hyperframes:*)", "Bash(npx --yes hyperframes:*)", "Bash(npx -y hyperframes:*)", "Bash(npx hyperframes@latest:*)", "Bash(npm run:*)",
                f"Bash({sys.executable} -m src.estudio_instagram.diretor.narracao:*)", f"Bash(cd {RAIZ} && {sys.executable} -m src.estudio_instagram.diretor.narracao:*)", "Bash(cd:*)", "Bash(ls:*)",
                "Bash(mkdir:*)", "Bash(cp:*)", "Bash(mv:*)", "Bash(rm -rf ./tmp:*)", "Bash(python3:*)", "Bash(sh:*)"]
 

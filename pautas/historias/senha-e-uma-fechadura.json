@@ -1,0 +1,31 @@
+{
+ "slug": "senha-e-uma-fechadura",
+ "serie": "senha-e-uma-fechadura",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "formato": "zack",
+ "molde": "como-funciona",
+ "plataforma": "instagram",
+ "titulo": "Por que uma senha curta cai tão fácil?",
+ "nota_previsor": 4.7,
+ "premissa": "educativa",
+ "fonte": "https://en.wikipedia.org/wiki/Password",
+ "direcao": "MOLDE ZACK D. FILMS. A câmera entra onde nenhuma câmera entra (corte transversal, por dentro, raio-X). Personagem fixo: um homem comum de camiseta cinza lisa e calça jeans, careca, rosto simples e sempre o mesmo em todos os vídeos; sem logo, sem nome na roupa. A câmera mergulha dentro do teclado, mostrando os caracteres se transformando em esferas pretas. Em seguida, entra nos circuitos do processador, onde uma batedeira mecânica tritura e embaralha o texto 25 vezes. Depois, mostra um chaveiro gigante com 100 chaves de metal, mudando para uma fechadura digital pesada levando marretadas de robôs até a engrenagem rachar ao meio. Objeto-herói: a fechadura digital mecânica.",
+ "roteiro": {
+  "texto_tela": "COMO A SENHA TRAVA",
+  "ganchos": [
+   "Uma letra a mais na sua senha deixa ela 128 vezes mais difícil de quebrar."
+  ],
+  "corpo": [
+   "Quando você digita, o computador troca o texto por pontos pretos e embaralha o código 25 vezes.",
+   "Uma pessoa normal acumula quase 100 senhas diferentes para usar todo dia.",
+   "Só que robôs de invasores empurram milhares de chaves falsas na sua fechadura digital.",
+   "Com senha curta, a engrenagem quebra e o cofre abre na hora.",
+   "Com uma letra a mais, a mesma fechadura aguenta 128 vezes mais marretadas."
+  ],
+  "cta": "",
+  "legenda": "Uma letra a mais na senha muda tudo. Salva esse vídeo e confere a sua.\n\nSegue o @ursulino.ia pra entender tecnologia sem enrolação.\n\n#senha #seguranca #tecnologia #curiosidades #ursulino",
+  "palavra": ""
+ }
+}
