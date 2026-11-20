@@ -1,0 +1,31 @@
+{
+ "slug": "celular-esquenta-no-carregador",
+ "serie": "celular-esquenta-no-carregador",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "formato": "zack",
+ "molde": "como-funciona",
+ "plataforma": "instagram",
+ "titulo": "Por que o celular esquenta no carregador?",
+ "nota_previsor": 4.7,
+ "premissa": "educativa",
+ "fonte": "https://en.wikipedia.org/wiki/Lithium-ion_battery",
+ "direcao": "MOLDE ZACK D. FILMS. A câmera entra onde nenhuma câmera entra (corte transversal, por dentro, raio-X). Personagem fixo: um homem comum de camiseta cinza lisa e calça jeans, careca, rosto simples e sempre o mesmo em todos os vídeos; sem logo, sem nome na roupa. A câmera atravessa a tela do smartphone e mostra um personagem garçom correndo por dutos de dados transparentes até uma porta de aço trancada que representa o servidor. Objeto-herói: o garçom digital carregando uma bandeja com o pedido do usuário.Cena única contínua: um celular gigante cortado ao meio mostrando a bateria e o chip. Energia entra pelo cabo como água azul; no chip, parte vira trabalho (ícones de apps) e parte vira fumaça laranja de calor; na bateria o calor se soma; o homem careca encosta a mão no celular e tira a mão assustado; no fim ele tira a capinha e põe o celular na sombra e o calor some.",
+ "roteiro": {
+  "texto_tela": "POR QUE ESQUENTA",
+  "ganchos": [
+   "O seu celular esquenta no carregador por um motivo que quase ninguém te explica."
+  ],
+  "corpo": [
+   "Todo chip transforma energia em trabalho, e uma parte sempre vira calor.",
+   "Carregando, a bateria recebe energia rápido e esquenta junto com o chip.",
+   "Se você usa o celular carregando, os dois calores se somam.",
+   "Calor demais gasta a bateria mais rápido, por isso ela dura menos com o tempo.",
+   "Tira a capinha grossa pra carregar e não deixa o celular no sol."
+  ],
+  "cta": "",
+  "legenda": "O calor é o desperdício de energia do chip e da bateria. Salva essa dica pra bateria durar mais.\n\nSegue o @ursulino.ia pra entender tecnologia sem enrolação.\n\n#celular #bateria #tecnologia #dicas #ursulino",
+  "palavra": ""
+ }
+}

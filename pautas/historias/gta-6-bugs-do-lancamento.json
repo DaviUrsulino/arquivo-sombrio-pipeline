@@ -1,0 +1,31 @@
+{
+ "slug": "gta-6-bugs-do-lancamento",
+ "serie": "gta-6-bugs-do-lancamento",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "formato": "zack",
+ "molde": "em-alta",
+ "plataforma": "instagram",
+ "titulo": "Os bugs que os jogadores já acharam no GTA 6",
+ "nota_previsor": 4.7,
+ "premissa": "educativa",
+ "fonte": "https://beebom.com/gta-6-bugs-tracker/",
+ "direcao": "HISTÓRIA DE ASSUNTO EM ALTA, um bug por cena, tela cheia, mãos simples e certas. Personagens genéricos de desenho (NÃO usar personagem, logo ou arte do jogo): um homem careca de camiseta cinza como narrador-jogador com controle na mão, mais bonecos genéricos de cidade tropical. Cenas: 1) um carrinho bate num arbusto e voa em arco pelo mapa; 2) uma personagem leva choque de taser e cai atravessando o chão do mapa para um vazio quadriculado; 3) um boneco salta de um avião sem paraquedas, levanta ileso enquanto o avião explode atrás; 4) uma lancha bate num barco cheio de gente que continua parada, sem reagir; 5) um boneco usa o celular entre um carro e uma cerca e afunda no vazio. Cada cena com um carimbo grande 'BUG 1', 'BUG 2'... e o final com o cartão de voto.",
+ "roteiro": {
+  "texto_tela": "OS BUGS DO GTA 6",
+  "ganchos": [
+   "O GTA 6 saiu e os jogadores já acharam o carro que voa pelo mapa inteiro se bater num arbusto."
+  ],
+  "corpo": [
+   "Bug um: bater numa árvore ou num arbusto com o carro lança ele pelo mapa e acaba com ele.",
+   "Bug dois: a Lucia leva um taser ao roubar uma scooter e cai direto pra fora do mapa.",
+   "Bug três: um streamer pulou do avião sem paraquedas, o Jason sobreviveu e só o avião caiu.",
+   "Bug quatro: a lancha bate num barco cheio de gente e ninguém reage.",
+   "Bug cinco: usar o celular entre um carro e uma cerca jogou o Jason no vazio."
+  ],
+  "cta": "Qual bug é o melhor? Comenta CARRO, AVIÃO ou MAPA. Me segue, curte e manda pra um amigo que joga GTA.",
+  "legenda": "Os bugs que os jogadores relataram no lançamento do GTA 6. Qual é o melhor?\n\nComenta CARRO, AVIÃO ou MAPA.\n\nSegue o @ursulino.ia pra ver o que a galera acha nos jogos.\n\n#gta6 #gta #games #bugs #ursulino",
+  "palavra": ""
+ }
+}
