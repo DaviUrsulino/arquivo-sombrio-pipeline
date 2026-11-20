@@ -1,0 +1,32 @@
+{
+ "slug": "nuvem-e-o-computador-dos-outros",
+ "serie": "nuvem-e-o-computador-dos-outros",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "formato": "zack",
+ "molde": "como-funciona",
+ "plataforma": "instagram",
+ "titulo": "Para onde vai a sua foto quando entra na nuvem?",
+ "nota_previsor": 4.7,
+ "premissa": "educativa",
+ "fonte": "https://en.wikipedia.org/wiki/Cloud_computing",
+ "direcao": "MOLDE ZACK D. FILMS. A câmera entra onde nenhuma câmera entra (corte transversal, por dentro, raio-X). Personagem fixo: um homem comum de camiseta cinza lisa e calça jeans, careca, rosto simples e sempre o mesmo em todos os vídeos; sem logo, sem nome na roupa. A câmera atravessa a tela do celular e segue o sinal digital entrando por um cabo submarino até um galpão escuro cheio de servidores ligados. Vemos o disco rígido abrindo uma gaveta metálica onde a foto do usuário é gravada ao lado de outros arquivos. A imagem muda para 5 pilares iluminados e depois mostra um incêndio queimando os circuitos dos computadores.",
+ "roteiro": {
+  "texto_tela": "ONDE FICA A NUVEM?",
+  "ganchos": [
+   "Quando você envia uma foto, o seu celular guarda o arquivo no computador de outra pessoa."
+  ],
+  "corpo": [
+   "Desde 1994, essa rede junta 5 características essenciais para dividir esses computadores.",
+   "O seu disco divide o mesmo espaço físico com os arquivos de muitos estranhos.",
+   "Em 2006, as empresas passaram a espalhar cópias da sua foto em vários prédios.",
+   "Só que a sua foto não flutua em uma nuvem de verdade no céu.",
+   "Se esse galpão pegar fogo ou você parar de pagar, o dono tranca a porta.",
+   "E os seus dados viram fumaça no computador dos outros sem você recuperar nada."
+  ],
+  "cta": "",
+  "legenda": "Entenda como a nuvem funciona na prática e para onde vão os seus arquivos digitais.",
+  "palavra": ""
+ }
+}

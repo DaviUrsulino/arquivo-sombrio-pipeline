@@ -125,7 +125,8 @@
   "cel-anime-80s",
   "cel-anime-80s",
   "cel-anime-80s",
-  "cel-anime-80s"
+  "cel-anime-80s",
+  "assembly-line-diagram"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -1144,6 +1145,17 @@
    "estilo": "cel-anime-80s",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-20-0503-e-se-so-voce-fica-acordado-ep2-cel-anime-80s",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-20T06:28",
+   "quando_utc": "2026-11-20T06:28:06+00:00",
+   "minutos": 18.4,
+   "limite": false,
+   "repo": "historia/nuvem-e-o-computador-dos-outros",
+   "estilo": "assembly-line-diagram",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-20-0609-nuvem-e-o-computador-dos-outros-assembly-line-diagram",
    "em_alta": false
   }
  ]

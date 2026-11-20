@@ -282,5 +282,18 @@
  "produzido:e-se-so-voce-fica-acordado-ep2": {
   "quando": "2026-11-20T05:38+00:00",
   "resultado": "ok"
+ },
+ "zack:nuvem-e-o-computador-dos-outros": {
+  "quando": "2026-11-20T06:09+00:00",
+  "resultado": "nuvem-e-o-computador-dos-outros",
+  "plataforma": "instagram"
+ },
+ "rotacao:2": {
+  "quando": "2026-11-20T06:09+00:00",
+  "resultado": "como-funciona"
+ },
+ "produzido:nuvem-e-o-computador-dos-outros": {
+  "quando": "2026-11-20T06:28+00:00",
+  "resultado": "ok"
  }
 }
