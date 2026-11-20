@@ -1,0 +1,31 @@
+{
+ "slug": "gps-so-escuta-satelites",
+ "serie": "gps-so-escuta-satelites",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "formato": "zack",
+ "molde": "como-funciona",
+ "plataforma": "instagram",
+ "titulo": "Como o GPS sabe onde você está?",
+ "nota_previsor": null,
+ "premissa": "educativa",
+ "fonte": "https://en.wikipedia.org/wiki/Global_Positioning_System",
+ "direcao": "MOLDE ZACK D. FILMS. A câmera entra onde nenhuma câmera entra (corte transversal, por dentro, raio-X). Personagem fixo: um homem comum de camiseta cinza lisa e calça jeans, careca, rosto simples e sempre o mesmo em todos os vídeos; sem logo, sem nome na roupa. A câmera atravessa a tela do smartphone e mostra um personagem garçom correndo por dutos de dados transparentes até uma porta de aço trancada que representa o servidor. Objeto-herói: o garçom digital carregando uma bandeja com o pedido do usuário.Cena única contínua: o homem careca no meio de uma estrada olhando o celular; no céu, quatro satélites soltam anéis de sinal azul com um relógio em cada um; cada anel chega ao celular com um ponto de atraso; os quatro anéis se cruzam num ponto azul no mapa; depois ele entra num túnel e os anéis ficam do lado de fora, o ponto azul some.",
+ "roteiro": {
+  "texto_tela": "GPS NÃO USA INTERNET",
+  "ganchos": [
+   "O GPS do seu celular descobre onde você está sem gastar nem um pouco de internet."
+  ],
+  "corpo": [
+   "O celular só escuta: satélites lá em cima mandam sinais com a hora exata.",
+   "Cada sinal chega com um atraso minúsculo, e o atraso diz a distância até o satélite.",
+   "Com quatro satélites, o celular calcula a sua posição e ainda acerta o relógio.",
+   "A internet só baixa o desenho do mapa, o ponto azul nasce do sinal dos satélites.",
+   "Por isso o GPS funciona no meio do nada, mas falha dentro de prédio e túnel."
+  ],
+  "cta": "",
+  "legenda": "O ponto azul do mapa vem de satélites, não da internet. Salva pra lembrar na próxima viagem.\n\nSegue o @ursulino.ia pra entender tecnologia sem enrolação.\n\n#gps #celular #tecnologia #curiosidades #ursulino",
+  "palavra": ""
+ }
+}

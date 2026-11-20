@@ -1,0 +1,31 @@
+{
+ "slug": "qr-code-e-so-um-link",
+ "serie": "qr-code-e-so-um-link",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "formato": "zack",
+ "molde": "como-funciona",
+ "plataforma": "instagram",
+ "titulo": "O que é um QR code?",
+ "nota_previsor": null,
+ "premissa": "educativa",
+ "fonte": "https://en.wikipedia.org/wiki/QR_code",
+ "direcao": "MOLDE ZACK D. FILMS. A câmera entra onde nenhuma câmera entra (corte transversal, por dentro, raio-X). Personagem fixo: um homem comum de camiseta cinza lisa e calça jeans, careca, rosto simples e sempre o mesmo em todos os vídeos; sem logo, sem nome na roupa. A câmera atravessa a tela do smartphone e mostra um personagem garçom correndo por dutos de dados transparentes até uma porta de aço trancada que representa o servidor. Objeto-herói: o garçom digital carregando uma bandeja com o pedido do usuário.Cena única: uma mesa de restaurante com um QR code gigante na tabuleta; a câmera do celular do homem careca escaneia e os quadradinhos viram letras de um endereço; três quadrados grandes nos cantos acendem; um pedaço do QR rasgado ainda funciona; uma mão encapuzada cola um adesivo de QR falso por cima e o endereço no celular muda para um site suspeito com alerta vermelho.",
+ "roteiro": {
+  "texto_tela": "O QR CODE É SÓ UM LINK",
+  "ganchos": [
+   "Esse quadradinho preto e branco é só um link escrito de um jeito que a câmera entende."
+  ],
+  "corpo": [
+   "Cada quadradinho é um zero ou um um, e juntos eles escrevem um endereço.",
+   "Os três quadrados grandes nos cantos avisam à câmera onde é o topo e como o código está virado.",
+   "Ele ainda funciona rasgado ou sujo, porque guarda cópias de segurança dos dados.",
+   "Golpista cola um QR code falso por cima do verdadeiro, e ele leva você pra um site falso.",
+   "Antes de abrir, olha o endereço que aparece no celular."
+  ],
+  "cta": "",
+  "legenda": "QR code é só um link em quadradinhos. Salva pra não cair em golpe.\n\nSegue o @ursulino.ia pra entender tecnologia sem enrolação.\n\n#qrcode #golpe #seguranca #tecnologia #ursulino",
+  "palavra": ""
+ }
+}
