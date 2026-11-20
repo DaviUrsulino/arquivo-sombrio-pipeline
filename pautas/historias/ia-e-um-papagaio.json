@@ -1,0 +1,31 @@
+{
+ "slug": "ia-e-um-papagaio",
+ "serie": "ia-e-um-papagaio",
+ "episodio": 1,
+ "opcoes": null,
+ "produzir": true,
+ "formato": "zack",
+ "molde": "como-funciona",
+ "plataforma": "instagram",
+ "titulo": "A IA pensa de verdade?",
+ "nota_previsor": 4.7,
+ "premissa": "educativa",
+ "fonte": "https://en.wikipedia.org/wiki/Large_language_model",
+ "direcao": "MOLDE ZACK D. FILMS. A câmera entra onde nenhuma câmera entra (corte transversal, por dentro, raio-X). Personagem fixo: um homem comum de camiseta cinza lisa e calça jeans, careca, rosto simples e sempre o mesmo em todos os vídeos; sem logo, sem nome na roupa. A câmera atravessa a tela do smartphone e mostra um personagem garçom correndo por dutos de dados transparentes até uma porta de aço trancada que representa o servidor. Objeto-herói: o garçom digital carregando uma bandeja com o pedido do usuário.Cena única: uma biblioteca gigante. O homem careca olha um papagaio colorido num poleiro que ouviu milhões de livros e conversas (pilhas de livros e balões de fala atrás dele); o papagaio repete frases bonitas por um balão de fala; quando o homem pergunta um fato, o papagaio responde com um balão confiante mas com um erro riscado (alucinação); no fim o homem confere o fato num livro.",
+ "roteiro": {
+  "texto_tela": "A IA É UM PAPAGAIO",
+  "ganchos": [
+   "A inteligência artificial que você usa todo dia é um papagaio que leu a internet inteira."
+  ],
+  "corpo": [
+   "Ela foi treinada lendo uma quantidade enorme de texto da internet.",
+   "Ela não pensa: ela adivinha qual é a próxima palavra mais provável.",
+   "Igual um papagaio que repete o que ouviu, só que de milhões de conversas.",
+   "Por isso ela fala bonito, mas pode inventar um fato com a maior confiança. Isso se chama alucinação.",
+   "Use a IA como assistente, e sempre confira o que ela disser."
+  ],
+  "cta": "",
+  "legenda": "A IA não pensa, ela adivinha a próxima palavra. Salva pra lembrar de conferir o que ela fala.\n\nSegue o @ursulino.ia pra entender IA sem enrolação.\n\n#ia #inteligenciaartificial #chatgpt #tecnologia #ursulino",
+  "palavra": ""
+ }
+}
