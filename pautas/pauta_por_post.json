@@ -398,5 +398,13 @@
   "estilo": "produtora-newsreel",
   "repost_de": null,
   "publicado_em": "2026-11-21T01:32:25+00:00"
+ },
+ "18114526862125611": {
+  "pauta": "pautas/viral/fila/2026-11-20-1627-historia-qr-code-e-so-um-link-one-bit-dither.json",
+  "gancho": "A",
+  "formato": "pronto",
+  "estilo": "produtora-one-bit-dither",
+  "repost_de": null,
+  "publicado_em": "2026-11-21T03:33:11+00:00"
  }
 }
