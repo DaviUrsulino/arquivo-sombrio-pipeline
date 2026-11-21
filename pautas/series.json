@@ -295,5 +295,9 @@
  "produzido:nuvem-e-o-computador-dos-outros": {
   "quando": "2026-11-20T06:28+00:00",
   "resultado": "ok"
+ },
+ "produzido:api-e-um-garcom": {
+  "quando": "2026-11-21T05:15+00:00",
+  "resultado": "ok"
  }
 }

@@ -126,7 +126,8 @@
   "cel-anime-80s",
   "cel-anime-80s",
   "cel-anime-80s",
-  "assembly-line-diagram"
+  "assembly-line-diagram",
+  "precise-mechanism"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -1156,6 +1157,17 @@
    "estilo": "assembly-line-diagram",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-20-0609-nuvem-e-o-computador-dos-outros-assembly-line-diagram",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-21T05:15",
+   "quando_utc": "2026-11-21T05:15:54+00:00",
+   "minutos": 14.1,
+   "limite": false,
+   "repo": "historia/api-e-um-garcom",
+   "estilo": "precise-mechanism",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-21-0501-api-e-um-garcom-precise-mechanism",
    "em_alta": false
   }
  ]
