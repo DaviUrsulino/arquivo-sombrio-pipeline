@@ -2,9 +2,10 @@
   "dia": "2026-11-21",
   "feitos": {
     "00:30": "disparada 00:31",
-    "03:00": "disparada 03:00"
+    "03:00": "disparada 03:00",
+    "08:00": "disparada 08:00"
   },
-  "ultimo_disparo": "2026-11-21T03:00:30-03:00",
+  "ultimo_disparo": "2026-11-21T08:00:04-03:00",
   "fila_usadas": [
     "pautas/viral/fila/01-motion-skills.json",
     "pautas/viral/fila/01b-habblaud.json",
@@ -62,7 +63,8 @@
     "pautas/viral/fila/2026-11-20-1201-historia-api-e-um-garcom-assembly-line-diagram.json",
     "pautas/viral/fila/2026-11-20-1653-historia-contar-ate-um-bilhao-newsreel.json",
     "pautas/viral/fila/2026-11-20-1627-historia-qr-code-e-so-um-link-one-bit-dither.json",
-    "pautas/viral/fila/2026-11-20-1627-historia-gps-so-escuta-satelites-map-explainer.json"
+    "pautas/viral/fila/2026-11-20-1627-historia-gps-so-escuta-satelites-map-explainer.json",
+    "pautas/viral/fila/2026-11-20-1627-historia-estrada-ate-o-sol-watercolor.json"
   ],
   "ultima_producao": "2026-11-21T03:20:42-03:00",
   "ultima_producao_youtube": "2026-11-15T03:22:43-03:00"
