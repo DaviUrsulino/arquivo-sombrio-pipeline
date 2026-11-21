@@ -1,7 +1,9 @@
 {
   "dia": "2026-11-21",
-  "feitos": {},
-  "ultimo_disparo": "2026-11-20T22:31:00-03:00",
+  "feitos": {
+    "00:30": "disparada 00:31"
+  },
+  "ultimo_disparo": "2026-11-21T00:31:36-03:00",
   "fila_usadas": [
     "pautas/viral/fila/01-motion-skills.json",
     "pautas/viral/fila/01b-habblaud.json",
@@ -57,7 +59,8 @@
     "pautas/viral/fila/2026-11-16-0703-historia-e-se-so-voce-fica-acordado-cel-anime-80s.json",
     "pautas/viral/fila/2026-11-18-1015-historia-teste-wifi-do-cafe-3d-toy-character.json",
     "pautas/viral/fila/2026-11-20-1201-historia-api-e-um-garcom-assembly-line-diagram.json",
-    "pautas/viral/fila/2026-11-20-1653-historia-contar-ate-um-bilhao-newsreel.json"
+    "pautas/viral/fila/2026-11-20-1653-historia-contar-ate-um-bilhao-newsreel.json",
+    "pautas/viral/fila/2026-11-20-1627-historia-qr-code-e-so-um-link-one-bit-dither.json"
   ],
   "ultima_producao": "2026-11-20T03:30:00-03:00",
   "ultima_producao_youtube": "2026-11-15T03:22:43-03:00"
