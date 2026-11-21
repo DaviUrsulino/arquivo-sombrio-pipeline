@@ -127,7 +127,8 @@
   "cel-anime-80s",
   "cel-anime-80s",
   "assembly-line-diagram",
-  "precise-mechanism"
+  "precise-mechanism",
+  "thermal-camera"
  ],
  "repos_usados": [
   "vercel-labs/agent-desktop",
@@ -1168,6 +1169,17 @@
    "estilo": "precise-mechanism",
    "ok": true,
    "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-21-0501-api-e-um-garcom-precise-mechanism",
+   "em_alta": false
+  },
+  {
+   "quando": "2026-11-21T06:43",
+   "quando_utc": "2026-11-21T06:43:07+00:00",
+   "minutos": 18.5,
+   "limite": false,
+   "repo": "historia/celular-esquenta-no-carregador",
+   "estilo": "thermal-camera",
+   "ok": true,
+   "pasta": "/home/runner/work/arquivo-sombrio-pipeline/arquivo-sombrio-pipeline/videos_produzidos/2026-11-21-0624-celular-esquenta-no-carregador-thermal-camera",
    "em_alta": false
   }
  ]
